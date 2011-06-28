@@ -11,3 +11,5 @@ PREFADOROS
 Δημιουργήθηκε το project στο GoogleCode. Επελέγη το Mercurial ως VCS.
 
 Έγινε test στο αποθετήριο από τον Η/Υ της Καλαμαριάς.
+
+Δημιούργησα database "prefadoros" στον Η/Υ της Καλαμαριάς.
