@@ -5,8 +5,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="description" content="Διαδικτυακή πρέφα" />
 		<meta name="keywords" content="<?php print 'πρέφα, χαρτοπαίγνιο, ' .
-			'πρεφαδόρος, ατού, αγορά, μπάζα, μπάζες, σόλο, σολαρία, κάσα, ' .
-			'καπίκι, καπίκια'; ?>" />
+			'πρεφαδόρος, ατού, αγορά, μπάζα, μπάζες, σόλο, σολαρία, ' .
+			'κάσα, καπίκι, καπίκια'; ?>" />
 		<title>Πρεφαδόρος</title>
 	</head>
 	<body>
