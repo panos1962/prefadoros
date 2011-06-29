@@ -6,6 +6,9 @@ Page::head();
 <script type="text/javascript" src="lib/prefadoros.js"></script>
 <?php
 Page::body();
+Page::motd();
+Page::diafimisi();
+Page::toolbar();
 ?>
 Ok!
 <div id="info">

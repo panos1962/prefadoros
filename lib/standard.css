@@ -1,3 +1,37 @@
+.apokripsi {
+	width: 0.5cm;
+	vertical-align: top;
+	cursor: pointer;
+	margin-left: -0.5cm;
+}
+
+.diafimisiArea {
+	text-align: center;
+}
+
+.motdArea {
+	background-color: #006600;
+	padding: 0.1cm;
+}
+
+.motdInnerArea {
+	padding: 0.1cm;
+	border-style: solid;
+	border-width: 2px;
+	color: #FFFF99;
+	font-size: 0.50cm;
+	text-align: center;
+}
+
+.toolbarArea {
+	height: 1.0cm;
+	max-height: 1.0cm;
+	min-height: 1.0cm;
+	text-align: center;
+	border-style: solid;
+	border-width: 0 0 1px 0;
+}
+
 .sfalma {
 	border-style: double;
 	border-color: #990000;
