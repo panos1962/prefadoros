@@ -7,7 +7,6 @@ Page::head();
 <?php
 Page::body();
 ?>
-</div>
 Ok!
 <div id="info">
 </div>
