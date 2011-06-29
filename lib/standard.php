@@ -1,5 +1,8 @@
 <?php
 
+Session::init();
+global $globals;
+
 class Globals {
 	public $server;
 	public $db;
@@ -39,6 +42,11 @@ class Globals {
 		return(isset($this->kinisi));
 	}
 
+	public static function perastike($key) {
+		return(isset($_REQUEST) && is_array($_REQUEST) &&
+			array_key_exists($key, $_REQUEST));
+	}
+
 	public static function fatal($msg) {
 		print '<div style="width: 60%; min-width: 12cm; border-style: double; ' .
 			'boder-width: 3px; border-color: #990000; padding: 0.4cm; ' .
@@ -68,10 +76,13 @@ class Session {
 	}
 }
 
-Session::init();
-
 function set_globals($database = TRUE) {
 	global $globals;
+
+	if (isset($globals)) {
+		Globals::fatal('globals object redefinition');
+	}
+
 	$globals = new Globals();
 
 	if ((!isset($_SERVER)) || (!is_array($_SERVER))) {
@@ -148,15 +159,42 @@ function set_globals($database = TRUE) {
 */
 }
 
-global $globals;
-
 class Page {
-	public static function init() {
+	public static function head($titlos = 'Πρεφαδόρος') {
+		global $globals;
+
 		header('Content-Type: text/html; charset=UTF-8');
 		?>
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 				"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+		<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="<?php print $titlos; ?>" />
+		<title><?php print $titlos; ?></title>
+		<link rel="stylesheet" type="text/css" href="lib/standard.css" />
+		<script type="text/javascript">
+			//<![CDATA[
+			globals = {};
+			globals.server = '<?php print $globals->server; ?>';
+			globals.timeDif = <?php print time(); ?>;
+			//]]>
+		</script>
+		<script type="text/javascript" src="lib/standard.js"></script>
+		<?php
+	}
+
+	public static function body() {
+		?>
+		</head>
+		<body>
+		<?php
+	}
+
+	public static function close() {
+		?>
+		</body>
+		</html>
 		<?php
 	}
 }
