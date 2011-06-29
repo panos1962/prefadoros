@@ -191,10 +191,56 @@ class Page {
 		<?php
 	}
 
+	public static function diafimisi() {
+		global $globals;
+		?>
+		<div id="diafimisi" class="diafimisiArea">
+			<?php self::apokripsi('diafimisi'); ?>
+			Διαφήμιση<br />
+			Διαφήμιση<br />
+			Διαφήμιση<br />
+			Διαφήμιση<br />
+		</div>
+		<?php
+	}
+
+	public static function motd() {
+		?>
+		<div id="motd" class="motdArea">
+			<div class="motdInnerArea">
+				<?php self::apokripsi('motd'); ?>
+				Message of the day<br />
+				Message of the day<br />
+				Message of the day<br />
+				Message of the day<br />
+				Message of the day<br />
+			</div>
+		</div>
+		<?php
+	}
+
+	public static function toolbar() {
+		?>
+		<div class="toolBarArea">
+			Tool Bar
+		</div>
+		<?php
+	}
+
 	public static function close() {
 		?>
 		</body>
 		</html>
+		<?php
+	}
+
+	public static function apokripsi($id) {
+		global $globals;
+		?>
+		<div style="float: right;">
+			<img class="apokripsi" src="<?php print $globals->server; ?>images/Xgrey.png"
+				title="Close" onclick="sviseNode(getelid('<?php print $id; ?>'));" />
+		</div>
 		<?php
 	}
 }
