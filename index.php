@@ -2,16 +2,14 @@
 require_once 'lib/standard.php';
 set_globals();
 Page::head();
-?>
-<script type="text/javascript" src="lib/prefadoros.js"></script>
-<?php
+Page::javascript('lib/prefadoros');
 Page::body();
 Page::motd();
 Page::diafimisi();
 Page::toolbar();
 ?>
+<div class="prefadoros">
 Ok!
-<div id="info">
 </div>
 <?php
 Page::close();
