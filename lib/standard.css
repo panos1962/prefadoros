@@ -4,13 +4,6 @@ body {
 	font-size: 0.5cm;
 }
 
-.prefadoros {
-	height: 12.0cm;
-	max-height: 12.0cm;
-	min-height: 12.0cm;
-	y-overflow: scroll;
-}
-
 .data {
 	background-color: #FFFFFF;
 	background-color: red;

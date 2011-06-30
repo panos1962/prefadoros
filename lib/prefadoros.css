@@ -1,0 +1,33 @@
+.prefadoros {
+	height: 13.0cm;
+	max-height: 13.0cm;
+	min-height: 13.0cm;
+	y-overflow: scroll;
+}
+
+.PSSHeaderArea {
+}
+
+.PSSArea {
+	margin-bottom: 0.1cm;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #999966;
+	overflow-y: auto;
+	overflow-x: auto;
+	white-space: nowrap;
+	background-image: url('../images/PSS.jpg');
+	background-repeat: repeat;
+}
+
+.prosklisiArea {
+	height: 3.0cm;
+}
+
+.sxesiArea {
+	height: 4.0cm;
+}
+
+.sizitisiArea {
+	height: 4.0cm;
+}
