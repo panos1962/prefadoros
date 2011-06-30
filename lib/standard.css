@@ -1,3 +1,21 @@
+body {
+	background-image: url('../images/background.gif');
+	background-repeat: repeat;
+	font-size: 0.5cm;
+}
+
+.prefadoros {
+	height: 12.0cm;
+	max-height: 12.0cm;
+	min-height: 12.0cm;
+	y-overflow: scroll;
+}
+
+.data {
+	background-color: #FFFFFF;
+	background-color: red;
+}
+
 .apokripsi {
 	width: 0.5cm;
 	vertical-align: top;
@@ -24,12 +42,40 @@
 }
 
 .toolbarArea {
-	height: 1.0cm;
-	max-height: 1.0cm;
-	min-height: 1.0cm;
-	text-align: center;
 	border-style: solid;
 	border-width: 0 0 1px 0;
+}
+
+.toolbarLeft {
+	text-align: left;
+}
+
+.toolbarCenter {
+	text-align: center;
+	font-weight: bold;
+	padding-left: 0.2cm;
+	padding-right: 0.2cm;
+}
+
+.toolbarRight {
+	text-align: right;
+}
+
+.ribbonArea {
+	border-style: solid;
+	border-width: 1px 0 0 0;
+}
+
+.ribbonLeft {
+	text-align: left;
+}
+
+.ribbonCenter {
+	text-align: center;
+}
+
+.ribbonRight {
+	text-align: right;
 }
 
 .sfalma {
@@ -50,3 +96,10 @@
 	border-color: red;
 	cursor: pointer;
 }
+
+.tbldbg {
+	border-style: solid;
+	border-width: 1px;
+}
+/*
+*/

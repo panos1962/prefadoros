@@ -49,9 +49,9 @@ class Globals {
 
 	public static function fatal($msg) {
 		print '<div style="width: 60%; min-width: 12cm; border-style: double; ' .
-			'boder-width: 3px; border-color: #990000; padding: 0.4cm; ' .
-			'text-align: center; font-size: 0.4cm; margin-top: 2.0cm; ' .
-			'margin-left: 1.0cm;">' .
+			'boder-width: 3px; border-color: #FFFF66; padding: 0.4cm; ' .
+			'text-align: center; font-size: 0.5cm; margin-top: 2.0cm; ' .
+			'margin-left: 1.0cm; background-color: #336699; color: #FFFF00;">' .
 			$msg . '</div>';
 		die(1);
 	}
@@ -160,6 +160,22 @@ function set_globals($database = TRUE) {
 }
 
 class Page {
+	public static function stylesheet($css) {
+		global $globals;
+		?>
+		<link rel="stylesheet" type="text/css" href="<?php
+			print $globals->server . $css; ?>.css" />
+		<?php
+	}
+
+	public static function javascript($script) {
+		global $globals;
+		?>
+		<script type="text/javascript" src="<?php
+			print $globals->server . $script; ?>.js"></script>
+		<?php
+	}
+
 	public static function head($titlos = 'Πρεφαδόρος') {
 		global $globals;
 
@@ -172,7 +188,7 @@ class Page {
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="description" content="<?php print $titlos; ?>" />
 		<title><?php print $titlos; ?></title>
-		<link rel="stylesheet" type="text/css" href="lib/standard.css" />
+		<?php self::stylesheet('lib/standard'); ?>
 		<script type="text/javascript">
 			//<![CDATA[
 			globals = {};
@@ -180,7 +196,7 @@ class Page {
 			globals.timeDif = <?php print time(); ?>;
 			//]]>
 		</script>
-		<script type="text/javascript" src="lib/standard.js"></script>
+		<?php self::javascript('lib/standard'); ?>
 		<?php
 	}
 
@@ -221,13 +237,102 @@ class Page {
 
 	public static function toolbar() {
 		?>
-		<div class="toolBarArea">
-			Tool Bar
+		<div id="toolbar" class="toolbarArea">
+			<table class="tbldbg" style="width: 100%;"><tr>
+			<td class="tbldbg" style="width: 49%;">
+				<div class="toolbarLeft">
+					<?php self::leftTB(); ?>
+				</div>
+			</td>
+			<td class="tbldbg">
+				<div class="toolbarCenter">
+					<?php self::centerTB(); ?>
+				</div>
+			</td>
+			<td class="tbldbg" style="width: 49%;">
+				<div class="toolbarRight">
+					<?php self::rightTB(); ?>
+				</div>
+			</td>
+			</tr></table>
 		</div>
 		<?php
 	}
 
+	protected static function leftTB() {
+		?>
+		<span class="data">
+			LeftTB
+		</span>
+		<?php
+	}
+
+	protected static function centerTB() {
+		?>
+		<span class="data">
+			Πρεφαδόρος
+		</span>
+		<?php
+	}
+
+	protected static function rightTB() {
+		?>
+		<span class="data">
+			rightTB
+		</span>
+		<?php
+	}
+
+	public static function ribbon() {
+		?>
+		<div id="ribbon" class="ribbonArea">
+			<table class="tbldbg" style="width: 100%;"><tr>
+			<td class="tbldbg" style="width: 49%;">
+				<div class="ribbonLeft">
+					<?php self::leftRB(); ?>
+				</div>
+			</td>
+			<td class="tbldbg">
+				<div class="ribbonCenter">
+					<?php self::centerRB(); ?>
+				</div>
+			</td>
+			<td class="tbldbg" style="width: 49%;">
+				<div class="ribbonRight">
+					<?php self::rightRB(); ?>
+				</div>
+			</td>
+			</tr></table>
+		</div>
+		<?php
+	}
+
+	protected static function leftRB() {
+		?>
+		<span class="data">
+			LeftRB
+		</span>
+		<?php
+	}
+
+	protected static function centerRB() {
+		?>
+		<span class="data">
+			centerRB
+		</span>
+		<?php
+	}
+
+	protected static function rightRB() {
+		?>
+		<span class="data">
+			rightRB
+		</span>
+		<?php
+	}
+
 	public static function close() {
+		self::ribbon();
 		?>
 		</body>
 		</html>
@@ -242,6 +347,14 @@ class Page {
 				title="Close" onclick="sviseNode(getelid('<?php print $id; ?>'));" />
 		</div>
 		<?php
+	}
+
+	public static function json() {
+		header('Content-Type: application/json; charset=UTF-8');
+	}
+
+	public static function data() {
+		header('Content-type: text/plain; charset=utf-8');
 	}
 }
 
