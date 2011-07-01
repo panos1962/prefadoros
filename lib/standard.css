@@ -92,6 +92,15 @@ body {
 	cursor: pointer;
 }
 
+.administrator {
+	color: #990000;
+	font-weight: bold;
+}
+
+.nobr {
+	white-space: nowrap;
+}
+
 .tbldbg {
 	border-style: solid;
 	border-width: 1px;

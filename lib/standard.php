@@ -287,7 +287,7 @@ class Page {
 		?>
 		<div id="ribbon" class="ribbonArea">
 			<table class="tbldbg" style="width: 100%;"><tr>
-			<td class="tbldbg" style="width: 49%;">
+			<td class="tbldbg" style="width: 30%;">
 				<div class="ribbonLeft">
 					<?php self::leftRB(); ?>
 				</div>
@@ -297,7 +297,7 @@ class Page {
 					<?php self::centerRB(); ?>
 				</div>
 			</td>
-			<td class="tbldbg" style="width: 49%;">
+			<td class="tbldbg" style="width: 30%;">
 				<div class="ribbonRight">
 					<?php self::rightRB(); ?>
 				</div>
@@ -308,18 +308,50 @@ class Page {
 	}
 
 	protected static function leftRB() {
+		global $globals;
 		?>
-		<span class="data">
-			LeftRB
-		</span>
+		<a href="http://www.gnu.org/licenses/agpl.html" target="_blank"
+			title="GNU Affero General Public License"><img
+			src="<?php print $globals->server; ?>images/agplv3.png"
+			alt="GNU Affero General Public License" height="24" /></a>
+		<a href="http://validator.w3.org/check?uri=referer"
+			title="Validate XHTML for this page"><img
+			src="<?php print $globals->server; ?>images/valid-xhtml10.png"
+			alt="Valid XHTML 1.0!" height="24" /></a>
+		<a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3"
+			title="Validate CSS for this page"><img
+			src="<?php print $globals->server; ?>images/vcss.gif"
+			alt="Valid CSS!" height="24" /></a>
 		<?php
+		// self::statCounter();
 	}
 
 	protected static function centerRB() {
+		global $globals;
 		?>
-		<span class="data">
-			centerRB
-		</span>
+		[&nbsp;<a href="<?php print $globals->server;
+			?>copyright/index.php" class="data">Copyright</a>&nbsp;]
+		[&nbsp;<a href="<?php print $globals->server;
+			?>adia/index.php" class="data nobr">Άδεια&nbsp;χρήσης</a>&nbsp;]
+		<?php
+		if ($globals->is_administrator()) {
+			?>
+			[&nbsp;<a href="<?php print $globals->server; ?>administrator/index.php"
+				class="data administrator">Administrator</a>&nbsp;]
+			<?php
+		}
+		else {
+			?>
+			[&nbsp;<a href="<?php print $globals->server; ?>administrator/login.php"
+				class="data">Administrator</a>&nbsp;]
+			<?php
+		}
+		?>
+		<br />
+		[&nbsp;<a target="_blank" href="http://www.prefablog.wordpress.com"
+			class="data">Ιστολόγιο</a>&nbsp;]
+		[&nbsp;<a target="_blank" href="http://prefadoros.forumgreek.com"
+			class="data">Φόρουμ</a>&nbsp;]
 		<?php
 	}
 
