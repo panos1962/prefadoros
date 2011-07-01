@@ -259,6 +259,16 @@ class Page {
 		<?php
 	}
 
+	public static function epikefalida() {
+		?>
+		<div id="toolbar" class="toolbarArea">
+			<div class="toolbarCenter">
+				<?php self::centerTB(); ?>
+			</div>
+		</div>
+		<?php
+	}
+
 	protected static function leftTB() {
 		?>
 		<span class="data">
@@ -287,17 +297,17 @@ class Page {
 		?>
 		<div id="ribbon" class="ribbonArea">
 			<table class="tbldbg" style="width: 100%;"><tr>
-			<td class="tbldbg" style="width: 30%;">
+			<td class="tbldbg" style="width: 30%; vertical-align: top;">
 				<div class="ribbonLeft">
 					<?php self::leftRB(); ?>
 				</div>
 			</td>
-			<td class="tbldbg">
+			<td class="tbldbg" style="vertical-align: top;">
 				<div class="ribbonCenter">
 					<?php self::centerRB(); ?>
 				</div>
 			</td>
-			<td class="tbldbg" style="width: 30%;">
+			<td class="tbldbg" style="width: 30%; vertical-align: top;">
 				<div class="ribbonRight">
 					<?php self::rightRB(); ?>
 				</div>
@@ -329,9 +339,9 @@ class Page {
 	protected static function centerRB() {
 		global $globals;
 		?>
-		[&nbsp;<a href="<?php print $globals->server;
+		[&nbsp;<a target="_blank" href="<?php print $globals->server;
 			?>copyright/index.php" class="data">Copyright</a>&nbsp;]
-		[&nbsp;<a href="<?php print $globals->server;
+		[&nbsp;<a target="_blank" href="<?php print $globals->server;
 			?>adia/index.php" class="data nobr">Άδεια&nbsp;χρήσης</a>&nbsp;]
 		<?php
 		if ($globals->is_administrator()) {
@@ -356,9 +366,14 @@ class Page {
 	}
 
 	protected static function rightRB() {
+		global $globals;
 		?>
-		<span class="data">
-			rightRB
+		<span class="data" style="font-style: italic; white-space: nowrap;">
+			&copy; Panos I. Papadopoulos <span style="font-style: normal;">[<a
+				href="mailto:<?php print 'panos1962@gmail.com'; ?>"><img
+				src="<?php print $globals->server; ?>images/email.png"
+				style="width: 0.6cm; height: 0.5cm; margin-bottom: -0.15cm;"
+					alt="" /></a>]</span> 2011&ndash;
 		</span>
 		<?php
 	}
