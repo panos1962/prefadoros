@@ -23,6 +23,7 @@ else {
 Page::close();
 
 function prefadoros() {
+	global $globals;
 	?>
 	<table class="tldbg" width="100%">
 	<tbody>
@@ -38,6 +39,12 @@ function prefadoros() {
 	<td class="tbldbg" style="vertical-align: top;">
 		<div class="PSSHeaderArea">
 			Προσκλήσεις
+			<img src="<?php print $globals->server; ?>images/afxisiPerioxis.png"
+				class="PSSSizingIcon" title="Μείωση περιοχής προσκλήσεων"
+				onclick="PSS.prosklisi.afxisi();" >
+			<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
+				class="PSSSizingIcon" title="Αύξηση περιοχής προσκλήσεων"
+				onclick="PSS.prosklisi.miosi();">
 		</div>
 		<div class="PSSArea prosklisiArea">
 			Προσκλήσεις
