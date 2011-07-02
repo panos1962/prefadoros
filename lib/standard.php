@@ -26,6 +26,12 @@ class Globals {
 		return(isset($this->administrator));
 	}
 
+	public function check_administrator() {
+		if (!$this->is_administrator()) {
+			Globals::fatal('required administrator permission');
+		}
+	}
+
 	public function is_pektis() {
 		return(isset($this->pektis));
 	}
@@ -48,11 +54,7 @@ class Globals {
 	}
 
 	public static function fatal($msg) {
-		print '<div style="width: 60%; min-width: 12cm; border-style: double; ' .
-			'boder-width: 3px; border-color: #FFFF66; padding: 0.4cm; ' .
-			'text-align: center; font-size: 0.5cm; margin-top: 2.0cm; ' .
-			'margin-left: 1.0cm; background-color: #336699; color: #FFFF00;">' .
-			$msg . '</div>';
+		print 'ERROR: ' . $msg;
 		die(1);
 	}
 }
@@ -345,18 +347,18 @@ class Page {
 			?>adia/index.php" class="data nobr">Άδεια&nbsp;χρήσης</a>&nbsp;]
 		<?php
 		if ($globals->is_administrator()) {
-			?>
-			[&nbsp;<a href="<?php print $globals->server; ?>administrator/index.php"
-				class="data administrator">Administrator</a>&nbsp;]
-			<?php
+			$class .= 'data administrator';
+			$page = 'index';
 		}
 		else {
-			?>
-			[&nbsp;<a href="<?php print $globals->server; ?>administrator/login.php"
-				class="data">Administrator</a>&nbsp;]
-			<?php
+			$class = 'data';
+			$page = 'login';
 		}
 		?>
+		[&nbsp;<a target="_blank" href="<?php
+			print $globals->server; ?>administrator/<?php
+			print $page; ?>.php" class="<?php
+			print $class; ?>">Administrator</a>&nbsp;]
 		<br />
 		[&nbsp;<a target="_blank" href="http://www.prefablog.wordpress.com"
 			class="data">Ιστολόγιο</a>&nbsp;]
@@ -390,7 +392,8 @@ class Page {
 		global $globals;
 		?>
 		<div style="float: right;">
-			<img class="apokripsi" src="<?php print $globals->server; ?>images/Xgrey.png"
+			<img class="apokripsiIcon" src="<?php
+				print $globals->server; ?>images/Xgrey.png"
 				title="Close" onclick="sviseNode(getelid('<?php print $id; ?>'));" />
 		</div>
 		<?php

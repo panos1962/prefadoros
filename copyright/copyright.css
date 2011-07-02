@@ -1,11 +1,10 @@
 .copyrightArea {
-	margin-top: 1.0cm;
 	margin-left: 1.5cm;
 	max-width: 21cm;
-	min-height: 11.0cm;
 }
 
 .copyrightTitlos {
+	padding-top: 1.0cm;
 	background-color: #FFFFFF;
 	font-weight: bold;
 	font-size: 120%;

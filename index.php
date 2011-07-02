@@ -9,6 +9,7 @@ Page::motd();
 Page::diafimisi();
 Page::toolbar();
 ?>
+<div class="mainArea">
 <table class="tldbg" width="100%">
 <tbody>
 <tr>
@@ -46,6 +47,7 @@ xxx
 </tr>
 </tbody>
 </table>
+</div>
 <?php
 Page::close();
 ?>

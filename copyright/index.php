@@ -6,7 +6,7 @@ Page::stylesheet('copyright/copyright');
 Page::body();
 Page::epikefalida();
 ?>
-<div class="copyrightArea">
+<div class="mainArea copyrightArea">
 <div class="copyrightTitlos">
 	Copyright statement
 </div>

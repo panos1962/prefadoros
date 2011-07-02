@@ -6,7 +6,7 @@ Page::stylesheet('adia/adia');
 Page::body();
 Page::epikefalida();
 ?>
-<div class="adiaArea">
+<div class="mainArea adiaArea">
 <div class="adiaTitlos">
 	Δικαιώματα και άδεια χρήσης
 </div>

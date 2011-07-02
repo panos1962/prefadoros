@@ -6,3 +6,8 @@ motd
 ====
 Background: #006600 (πράσινο)
 Foregorund: #FFFF99 (κιτρινοζαχαρί)
+
+FYI
+===
+Background: #FFFF80 (κίτρινο)
+Foregorund: #003366 (μπλε)

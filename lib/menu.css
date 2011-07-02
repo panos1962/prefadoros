@@ -1,0 +1,17 @@
+.menu {
+	margin-top: 40px;
+	margin-left: 40px;
+}
+
+.menuHeader {
+	font-weight: bold;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.menuItem {
+	margin-top: 10px;
+	line-height: 2em;
+}
