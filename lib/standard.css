@@ -9,7 +9,9 @@ a img {
 }
 
 .mainArea {
-	min-height: 15.0cm;
+	height: 14.0cm;
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
 
 .diafimisiArea {
@@ -90,6 +92,15 @@ a img {
 .administrator {
 	color: #990000;
 	font-weight: bold;
+}
+
+.welcome {
+	background-color: #FFFFFF;
+	line-height: 150%;
+	max-width: 21cm;
+	text-align: justify;
+	margin-left: 1.5cm;
+	margin-bottom: 0.5cm;
 }
 
 .data {

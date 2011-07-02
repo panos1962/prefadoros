@@ -139,6 +139,7 @@ function set_globals($database = TRUE) {
 		$globals->administrator = TRUE;
 	}
 
+$globals->pektis = 'panos';
 /*
 	if (Session::is_set('ps_login')) {
 		$globals->pektis = new Pektis($_SESSION['ps_login']);
@@ -347,7 +348,7 @@ class Page {
 			?>adia/index.php" class="data nobr">Άδεια&nbsp;χρήσης</a>&nbsp;]
 		<?php
 		if ($globals->is_administrator()) {
-			$class .= 'data administrator';
+			$class = 'data administrator';
 			$page = 'index';
 		}
 		else {
@@ -405,6 +406,16 @@ class Page {
 
 	public static function data() {
 		header('Content-type: text/plain; charset=utf-8');
+	}
+
+	public static function check_administrator() {
+		global $globals;
+		if (!$globals->is_administrator()) {
+			?>
+			<meta http-equiv="refresh" content="0; url=<?php
+				print $globals->server; ?>administrator/login.php" />
+			<?php
+		}
 	}
 }
 
