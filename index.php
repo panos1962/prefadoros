@@ -133,7 +133,7 @@ function emoticons() {
 	?>
 	<div>
 		<img class="emoticonsIcon" src="<?php
-			print $globals->server; ?>images/emoticons/alien.png"
+			print $globals->server; ?>images/controlPanel/4Balls.png"
 			alt="" title="Εναλλαγή emoticons" onclick="emoticons.enalagi();" />
 		<div id="emoticons">
 		</div>
