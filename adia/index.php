@@ -6,9 +6,9 @@ Page::stylesheet('adia/adia');
 Page::body();
 Page::epikefalida();
 ?>
-<div class="mainArea adiaArea">
+<div class="adiaArea">
 <div class="adiaTitlos">
-	Δικαιώματα και άδεια χρήσης
+	<span class="data">Δικαιώματα και άδεια χρήσης</span>
 </div>
 <p class="adiaKimeno">
 	Το πρόγραμμα του διαδικτυακού καφενείου της πρέφας
