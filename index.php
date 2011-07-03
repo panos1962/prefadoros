@@ -4,6 +4,7 @@ set_globals();
 Page::head();
 Page::stylesheet('lib/prefadoros');
 Page::javascript('lib/prefadoros');
+Page::javascript('lib/soundmanager');
 Page::body();
 Page::motd();
 Page::diafimisi();
@@ -11,6 +12,7 @@ Page::toolbar();
 ?>
 <div class="mainArea">
 <?php
+Page::fyi();
 if ($globals->is_pektis()) {
 	prefadoros();
 }
@@ -37,28 +39,28 @@ function prefadoros() {
 		CP
 	</td>
 	<td class="tbldbg" style="vertical-align: top;">
-		<div class="PSSHeaderArea">
+		<div class="pssHeaderArea">
 			Προσκλήσεις
 			<img src="<?php print $globals->server; ?>images/afxisiPerioxis.png"
-				class="PSSSizingIcon" title="Μείωση περιοχής προσκλήσεων"
-				onclick="PSS.prosklisi.afxisi();" >
+				class="pssSizingIcon" title="Μείωση περιοχής προσκλήσεων"
+				onclick="pss.prosklisi.afxisi(this);" >
 			<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
-				class="PSSSizingIcon" title="Αύξηση περιοχής προσκλήσεων"
-				onclick="PSS.prosklisi.miosi();">
+				class="pssSizingIcon" title="Αύξηση περιοχής προσκλήσεων"
+				onclick="pss.prosklisi.miosi(this);">
 		</div>
-		<div class="PSSArea prosklisiArea">
+		<div class="pssArea prosklisiArea">
 			Προσκλήσεις
 		</div>
-		<div class="PSSHeaderArea">
+		<div class="pssHeaderArea">
 			Σχέσεις
 		</div>
-		<div class="PSSArea sxesiArea">
+		<div class="pssArea sxesiArea">
 			Σχέσεις
 		</div>
-		<div class="PSSHeaderArea">
+		<div class="pssHeaderArea">
 			Συζήτηση
 		</div>
-		<div class="PSSArea sizitisiArea">
+		<div class="pssArea sizitisiArea">
 			Συζήτηση
 		</div>
 	</td>

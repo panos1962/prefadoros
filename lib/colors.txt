@@ -1,4 +1,4 @@
-PSS
+pss
 ===
 Περίγραμμα: #999966 (γκριζοχακί, ουδέτερο)
 
@@ -7,7 +7,7 @@ motd
 Background: #006600 (πράσινο)
 Foregorund: #FFFF99 (κιτρινοζαχαρί)
 
-FYI
+fyi
 ===
 Background: #FFFF80 (κίτρινο)
 Foregorund: #003366 (μπλε)
