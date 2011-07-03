@@ -5,7 +5,17 @@
 	y-overflow: scroll;
 }
 
+.controlPanelColumn {
+	vertical-align: top;
+	width: 1.0cm;
+	border-style: solid;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
 .pssHeaderArea {
+	font-style: italic;
 }
 
 .pssArea {
@@ -29,13 +39,16 @@
 }
 
 .prosklisiArea {
-	height: 3.0cm;
+	height: 3cm;
+	max-height: 3cm;
 }
 
 .sxesiArea {
-	height: 4.0cm;
+	height: 4cm;
+	max-height: 4cm;
 }
 
 .sizitisiArea {
-	height: 4.0cm;
+	height: 4cm;
+	max-height: 4cm;
 }

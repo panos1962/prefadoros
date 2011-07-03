@@ -4,6 +4,7 @@ set_globals();
 Page::head();
 Page::stylesheet('lib/prefadoros');
 Page::javascript('lib/prefadoros');
+Page::javascript('lib/pss');
 Page::javascript('lib/soundmanager');
 Page::body();
 Page::motd();
@@ -35,34 +36,17 @@ function prefadoros() {
 			Τραπέζι
 		</div>
 	</td>
-	<td class="tbldbg" style="width: 1.0cm; vertical-align: top;">
-		CP
+	<td class="controlPanelColumn tbldbg">
+		<?php
+		control_panel();
+		?>
 	</td>
 	<td class="tbldbg" style="vertical-align: top;">
-		<div class="pssHeaderArea">
-			Προσκλήσεις
-			<img src="<?php print $globals->server; ?>images/afxisiPerioxis.png"
-				class="pssSizingIcon" title="Μείωση περιοχής προσκλήσεων"
-				onclick="pss.prosklisi.afxisi(this);" >
-			<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
-				class="pssSizingIcon" title="Αύξηση περιοχής προσκλήσεων"
-				onclick="pss.prosklisi.miosi(this);">
-		</div>
-		<div class="pssArea prosklisiArea">
-			Προσκλήσεις
-		</div>
-		<div class="pssHeaderArea">
-			Σχέσεις
-		</div>
-		<div class="pssArea sxesiArea">
-			Σχέσεις
-		</div>
-		<div class="pssHeaderArea">
-			Συζήτηση
-		</div>
-		<div class="pssArea sizitisiArea">
-			Συζήτηση
-		</div>
+		<?php
+		prosklisi_area();
+		sxesi_area();
+		sizitisi_area();
+		?>
 	</td>
 	<td class="tbldbg" style="width: 1.0cm; vertical-align: top;">
 	xxx
@@ -70,6 +54,69 @@ function prefadoros() {
 	</tr>
 	</tbody>
 	</table>
+	<?php
+}
+
+function control_panel() {
+	global $globals;
+	?>
+	<div id="controlPanel">
+		CP
+	</div>
+	<?php
+}
+
+function prosklisi_area() {
+	global $globals;
+	?>
+	<div class="pssHeaderArea">
+		<span class="data">Προσκλήσεις</span>
+		<img src="<?php print $globals->server; ?>images/afxisiPerioxis.png"
+			class="pssSizingIcon" title="Αύξηση περιοχής προσκλήσεων"
+			onclick="pss.prosklisi.afxisi(this);" >
+		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
+			class="pssSizingIcon" title="Μείωση περιοχής προσκλήσεων"
+			onclick="pss.prosklisi.miosi(this);">
+	</div>
+	<div id="prosklisiArea" class="pssArea prosklisiArea">
+		Προσκλήσεις
+	</div>
+	<?php
+}
+
+function sxesi_area() {
+	global $globals;
+	?>
+	<div class="pssHeaderArea">
+		<span class="data">Σχέσεις</span>
+		<img src="<?php print $globals->server; ?>images/afxisiPerioxis.png"
+			class="pssSizingIcon" title="Αύξηση περιοχής σχέσεων"
+			onclick="pss.sxesi.afxisi(this);" >
+		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
+			class="pssSizingIcon" title="Μείωση περιοχής σχέσεων"
+			onclick="pss.sxesi.miosi(this);">
+	</div>
+	<div id="sxesiArea" class="pssArea sxesiArea">
+		Σχέσεις
+	</div>
+	<?php
+}
+
+function sizitisi_area() {
+	global $globals;
+	?>
+	<div class="pssHeaderArea">
+		<span class="data">Συζήτηση</span>
+		<img src="<?php print $globals->server; ?>images/afxisiPerioxis.png"
+			class="pssSizingIcon" title="Αύξηση περιοχής συζήτησης"
+			onclick="pss.sizitisi.afxisi(this);" >
+		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
+			class="pssSizingIcon" title="Μείωση περιοχής συζήτησης"
+			onclick="pss.sizitisi.miosi(this);">
+	</div>
+	<div id="sizitisiArea" class="pssArea sizitisiArea">
+		Συζήτηση
+	</div>
 	<?php
 }
 
