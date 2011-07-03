@@ -50,7 +50,7 @@ function prefadoros() {
 		sizitisi_area();
 		?>
 	</td>
-	<td class="emoticonsColumn tbldbg">
+	<td id="emoticonsColumn" class="emoticonsColumn tbldbg">
 		<?php
 		emoticons();
 		?>
