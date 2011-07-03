@@ -14,6 +14,33 @@
 	-webkit-user-select: none;
 }
 
+.controlPanelIcon {
+	width: 0.80cm;
+	margin-bottom: 0.35cm;
+	cursor: pointer;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.emoticonsColumn {
+	vertical-align: top;
+	width: 1.0cm;
+	border-style: solid;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+.emoticonsIcon {
+	width: 0.80cm;
+	margin-bottom: 0.35cm;
+	cursor: pointer;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .pssHeaderArea {
 	font-style: italic;
 }
