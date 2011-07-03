@@ -296,6 +296,14 @@ class Page {
 		<?php
 	}
 
+	public static function fyi() {
+		?>
+		<div id="mainFyi" class="fyi mainFyi">
+			&nbsp;
+		</div>
+		<?php
+	}
+
 	public static function ribbon() {
 		?>
 		<div id="ribbon" class="ribbonArea">
