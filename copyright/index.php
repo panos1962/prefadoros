@@ -8,7 +8,7 @@ Page::epikefalida();
 ?>
 <div class="mainArea copyrightArea">
 <div class="copyrightTitlos">
-	Copyright statement
+	<span class="data">Copyright statement</span>
 </div>
 <p class="copyrightKimeno">
 	Το πρόγραμμα αναπτύχθηκε τον Μάρτιο του 2011 από τον Πάνο Παπαδόπουλο
