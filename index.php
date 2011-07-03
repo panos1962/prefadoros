@@ -4,7 +4,9 @@ set_globals();
 Page::head();
 Page::stylesheet('lib/prefadoros');
 Page::javascript('lib/prefadoros');
+Page::javascript('lib/controlPanel');
 Page::javascript('lib/pss');
+Page::javascript('lib/emoticons');
 Page::javascript('lib/soundmanager');
 Page::body();
 Page::motd();
@@ -48,8 +50,10 @@ function prefadoros() {
 		sizitisi_area();
 		?>
 	</td>
-	<td class="tbldbg" style="width: 1.0cm; vertical-align: top;">
-	xxx
+	<td class="emoticonsColumn tbldbg">
+		<?php
+		emoticons();
+		?>
 	</td>
 	</tr>
 	</tbody>
@@ -60,8 +64,12 @@ function prefadoros() {
 function control_panel() {
 	global $globals;
 	?>
-	<div id="controlPanel">
-		CP
+	<div>
+		<img class="controlPanelIcon" src="<?php
+			print $globals->server; ?>images/controlPanel/4Balls.png"
+			alt="" title="Εναλλαγή εργαλείων" onclick="controlPanel.enalagi();" />
+		<div id="controlPanel">
+		</div>
 	</div>
 	<?php
 }
@@ -116,6 +124,19 @@ function sizitisi_area() {
 	</div>
 	<div id="sizitisiArea" class="pssArea sizitisiArea">
 		Συζήτηση
+	</div>
+	<?php
+}
+
+function emoticons() {
+	global $globals;
+	?>
+	<div>
+		<img class="emoticonsIcon" src="<?php
+			print $globals->server; ?>images/emoticons/alien.png"
+			alt="" title="Εναλλαγή emoticons" onclick="emoticons.enalagi();" />
+		<div id="emoticons">
+		</div>
 	</div>
 	<?php
 }
