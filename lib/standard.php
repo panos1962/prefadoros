@@ -262,11 +262,11 @@ class Page {
 		<?php
 	}
 
-	public static function epikefalida() {
+	public static function epikefalida($titlos = 'Πρεφαδόρος') {
 		?>
 		<div id="toolbar" class="toolbarArea">
 			<div class="toolbarCenter">
-				<?php self::centerTB(); ?>
+				<?php self::centerTB($titlos); ?>
 			</div>
 		</div>
 		<?php
@@ -280,10 +280,10 @@ class Page {
 		<?php
 	}
 
-	protected static function centerTB() {
+	protected static function centerTB($titlos = 'Πρεφαδόρος') {
 		?>
 		<span class="data">
-			Πρεφαδόρος
+			<?php print $titlos; ?>
 		</span>
 		<?php
 	}
@@ -389,8 +389,10 @@ class Page {
 		<?php
 	}
 
-	public static function close() {
-		self::ribbon();
+	public static function close($ribbon = TRUE) {
+		if ($ribbon) {
+			self::ribbon();
+		}
 		?>
 		</body>
 		</html>
