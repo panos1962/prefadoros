@@ -43,7 +43,7 @@ function prefadoros() {
 		control_panel();
 		?>
 	</td>
-	<td class="tbldbg" style="vertical-align: top;">
+	<td class="pssColumn tbldbg">
 		<?php
 		prosklisi_area();
 		sxesi_area();
