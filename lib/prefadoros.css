@@ -46,6 +46,10 @@
 	margin-right: auto;
 }
 
+.pssColumn {
+	vertical-align: top;
+}
+
 .pssHeaderArea {
 	font-style: italic;
 }
