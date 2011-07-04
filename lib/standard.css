@@ -8,6 +8,10 @@ a img {
 	border: 0;
 }
 
+.mitra {
+	position: fixed;
+}
+
 .mainArea {
 	height: 14.0cm;
 	margin-top: 0px;
@@ -119,9 +123,9 @@ a img {
 	white-space: nowrap;
 }
 
+/*
 .tbldbg {
 	border-style: solid;
 	border-width: 1px;
 }
-/*
 */

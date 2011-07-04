@@ -282,6 +282,7 @@ class Page {
 
 	protected static function centerTB($titlos = 'Πρεφαδόρος') {
 		?>
+		<div class="mitra" id="mitra"></div>
 		<span class="data">
 			<?php print $titlos; ?>
 		</span>
