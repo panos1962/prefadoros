@@ -21,7 +21,6 @@ class Item {
 
 	public function show() {
 		global $globals;
-		$host = $globals->server . 'images/gallery/';
 		$host = 'http://www.pineza.info/prefa/images/gallery/';
 		$title = str_replace("'", "\\'", $this->title);
 		?>

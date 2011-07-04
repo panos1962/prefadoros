@@ -2,6 +2,7 @@ var funchat = {};
 
 window.onload = function() {
 	init();
+
 	funchat.checkAlive = function() {
 		var x = window.opener;
 		if (notSet(x) || notSet(x.document)) {
@@ -14,7 +15,21 @@ window.onload = function() {
 			return;
 		}
 
-		setTimeout(funchat.checkAlive, 1000);
+		setTimeout(funchat.checkAlive, 1500);
 	};
 	funchat.checkAlive();
+};
+
+window.onbeforeunload = function() {
+	var w = window.opener;
+	if (notSet(w) || notSet(w.document)) {
+		return;
+	}
+
+	var ico = w.document.getElementById('funchatIcon');
+	if (notSet(ico)) {
+		return;
+	}
+
+	w.controlPanel.funchatResetIcon(ico);
 };
