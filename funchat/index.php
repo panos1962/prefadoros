@@ -249,9 +249,10 @@ function print_panel() {
 	$item_list[] = new Item("fevgoPedia.gif", "Φεύγω παιδιά!");
 	$item_list[] = new Item("flag.gif", "Μοιράζω και φεύγω!");
 	$item_list[] = new Item("bye.gif");
-	$item_list[] = new Item("ouranosSfontili.gif", "Ωχ!", "", "gong");
+	$item_list[] = new Item("ouranosSfontili.gif", "Ωχ!", "", "doing");
 	$item_list[] = new Item("klania.gif", "Σόρι παιδιά…", "", "klania");
 
+/*
 	if ($globals->is_pektis() && ($globals->pektis->login == 'panos')) {
 		$item_list[] = new Item("panosPrefadoros.jpg", "Γειά χαρά!");
 		$item_list[] = new Item("panosAngry.jpg", "Θα μου κλάσεις τα @@!");
@@ -260,6 +261,7 @@ function print_panel() {
 		$item_list[] = new Item("vivlioEmoticon.gif", "Κάτσε να δω τι λέει ο Σαραντάκος " .
 			"γι αυτή την περίπτωση…");
 	}
+*/
 
 	?>
 	<?php
