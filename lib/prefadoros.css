@@ -8,7 +8,9 @@
 .controlPanelColumn {
 	vertical-align: top;
 	width: 1.0cm;
-	border-style: solid;
+	border-style: dotted;
+	border-width: 1px;
+	border-color: #E0E0D1;
 	user-select: none;
 	-moz-user-select: none;
 	-webkit-user-select: none;
@@ -26,7 +28,9 @@
 .emoticonsColumn {
 	vertical-align: top;
 	width: 1.0cm;
-	border-style: solid;
+	border-style: dotted;
+	border-width: 1px;
+	border-color: #E0E0D1;
 	user-select: none;
 	-moz-user-select: none;
 	-webkit-user-select: none;
@@ -79,4 +83,17 @@
 .sizitisiArea {
 	height: 4cm;
 	max-height: 4cm;
+}
+
+.kafedaki {
+	border-style: double;
+	border-width: 3px;
+	border-color: #999900;
+	padding: 0.2cm;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 0.5cm;
+	background-color: #FFFF99;
+	color: #333300;
+	z-index: 10;
 }
