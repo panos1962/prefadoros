@@ -1,3 +1,7 @@
+body {
+	max-width: none;
+}
+
 .funchat {
 	margin-top: 0.1cm;
 	margin-right: 0.1cm;
