@@ -404,9 +404,9 @@ class Page {
 		global $globals;
 		?>
 		<div style="float: right;">
-			<img class="apokripsiIcon" src="<?php
+			<img class="apokripsiIcon" title="Απόκρυψη" src="<?php
 				print $globals->server; ?>images/Xgrey.png"
-				title="Close" onclick="sviseNode(getelid('<?php print $id; ?>'));" />
+				onclick="sviseNode(getelid('<?php print $id; ?>'));" />
 		</div>
 		<?php
 	}
