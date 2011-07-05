@@ -139,7 +139,7 @@ function set_globals($database = TRUE) {
 		$globals->administrator = TRUE;
 	}
 
-$globals->pektis = 'panos';
+// $globals->pektis = 'panos';
 /*
 	if (Session::is_set('ps_login')) {
 		$globals->pektis = new Pektis($_SESSION['ps_login']);

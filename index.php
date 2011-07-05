@@ -2,15 +2,19 @@
 require_once 'lib/standard.php';
 set_globals();
 Page::head();
-Page::stylesheet('lib/prefadoros');
-Page::javascript('lib/prefadoros');
-Page::javascript('lib/controlPanel');
-Page::javascript('lib/pss');
-Page::javascript('lib/emoticons');
-Page::javascript('lib/soundmanager');
+if ($globals->is_pektis()) {
+	Page::stylesheet('lib/prefadoros');
+	Page::javascript('lib/prefadoros');
+	Page::javascript('lib/controlPanel');
+	Page::javascript('lib/pss');
+	Page::javascript('lib/emoticons');
+	Page::javascript('lib/soundmanager');
+}
 Page::body();
 Page::motd();
-Page::diafimisi();
+if ($globals->is_pektis()) {
+	Page::diafimisi();
+}
 Page::toolbar();
 ?>
 <div class="mainArea">
