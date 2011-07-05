@@ -290,10 +290,45 @@ class Page {
 	}
 
 	protected static function rightTB() {
+		global $globals;
 		?>
-		<span class="data">
-			rightTB
-		</span>
+		<span id="monitor"></span>
+		<?php
+		if ($globals->is_pektis()) {
+			?>
+			<a href="<?php print $globals->server; ?>account/signup.php?modify"
+				class="data login" title="Account settings"><?php
+					print $globals->pektis->login; ?></a>
+			<?php
+			self::logout_section();
+		}
+		else {
+			self::signup_section();
+			self::login_section();
+		}
+	}
+
+	protected static function signup_section() {
+		global $globals;
+		?>
+		[&nbsp;<a href="<?php print $globals->server;
+			?>account/signup.php" class="data">Εγγραφή</a>&nbsp;]
+		<?php
+	}
+
+	protected static function login_section() {
+		global $globals;
+		?>
+		[&nbsp;<a href="<?php print $globals->server;
+			?>account/login.php" class="data">Είσοδος</a>&nbsp;]
+		<?php
+	}
+
+	protected static function logout_section() {
+		global $globals;
+		?>
+		[&nbsp;<a href="<?php print $globals->server; ?>"
+			onclick="return logout();" class="data">Έξοδος</a>&nbsp;]
 		<?php
 	}
 
