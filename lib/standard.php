@@ -28,7 +28,7 @@ class Globals {
 
 	public function check_administrator() {
 		if (!$this->is_administrator()) {
-			Globals::fatal('required administrator permission');
+			self::fatal('required administrator permission');
 		}
 	}
 
@@ -53,6 +53,16 @@ class Globals {
 			array_key_exists($key, $_REQUEST));
 	}
 
+	public static function perastike_check($key, $msg = NULL) {
+		if (!self::perastike($key)) {
+			if (!isset($msg)) {
+				$msg = $key . ': δεν περάστηκε παράμετρος';
+				print $msg;
+				die(1);
+			}
+		}
+	}
+
 	public static function asfales($s) {
 		global $globals;
 
@@ -65,6 +75,18 @@ class Globals {
 		}
 
 		return($s);
+	}
+
+	public static function sql_query($query, $msg = 'SQL error') {
+		global $globals;
+
+		$result = @mysqli_query($globals->db, $query);
+		if ($result) {
+			return($result);
+		}
+
+		print $msg . ': ' . @mysqli_error($globals->db);
+		die(1);
 	}
 
 	public static function fatal($msg) {
@@ -277,13 +299,17 @@ class Page {
 
 	public static function diafimisi() {
 		global $globals;
+
+		$diafimisi = @file_get_contents($globals->server . 'diafimisi.html');
+		if (!$diafimisi) {
+			return;
+		}
 		?>
 		<div id="diafimisi" class="diafimisiArea">
-			<?php self::apokripsi('diafimisi'); ?>
-			Διαφήμιση<br />
-			Διαφήμιση<br />
-			Διαφήμιση<br />
-			Διαφήμιση<br />
+			<?php
+			self::apokripsi('diafimisi');
+			print $diafimisi;
+			?>
 		</div>
 		<?php
 	}
@@ -291,9 +317,9 @@ class Page {
 	public static function motd() {
 		global $globals;
 
-		$motd1 = @file_get_contents($globals->server . 'motd_all');
+		$motd1 = @file_get_contents($globals->server . 'motd_all.html');
 		if ($globals->is_pektis()) {
-			$motd2 = @file_get_contents($globals->server . 'motd');
+			$motd2 = @file_get_contents($globals->server . 'motd.html');
 		}
 		else {
 			$motd2 = FALSE;

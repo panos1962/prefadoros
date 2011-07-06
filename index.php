@@ -37,7 +37,7 @@ function prefadoros() {
 	<table class="tldbg" width="100%">
 	<tbody>
 	<tr>
-	<td class="tbldbg" style="width: 14.0cm;">
+	<td id="prefadorosColumn" class="tbldbg" style="width: 14.0cm;">
 		<div id="prefadoros" class="prefadoros">
 			Τραπέζι
 		</div>
