@@ -1,6 +1,5 @@
 <?php
-require_once('../lib/standard.php');
+require_once '../lib/standard.php';
 
 unset($_SESSION['ps_login']);
-die(AJAX_SEPARATOR);
 ?>

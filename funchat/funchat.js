@@ -11,10 +11,6 @@ window.onbeforeunload = function() {
 	}
 
 	if (isSet(w.controlPanel)) {
-		w.controlPanel.funchatWindow = null;
-		var ico = w.document.getElementById('funchatIcon');
-		if (isSet(ico)) {
-			w.controlPanel.funchatResetIcon(ico);
-		}
+		w.controlPanel.funchatClose();
 	}
 };
