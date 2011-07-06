@@ -289,15 +289,35 @@ class Page {
 	}
 
 	public static function motd() {
+		global $globals;
+
+		$motd1 = @file_get_contents($globals->server . 'motd_all');
+		if ($globals->is_pektis()) {
+			$motd2 = @file_get_contents($globals->server . 'motd');
+		}
+		else {
+			$motd2 = FALSE;
+		}
+
+		if (!($motd1 || $motd2)) {
+			return;
+		}
 		?>
 		<div id="motd" class="motdArea">
 			<div class="motdInnerArea">
-				<?php self::apokripsi('motd'); ?>
-				Message of the day<br />
-				Message of the day<br />
-				Message of the day<br />
-				Message of the day<br />
-				Message of the day<br />
+				<?php
+				self::apokripsi('motd');
+				if ($motd1) {
+					print $motd1;
+				}
+
+				if ($motd2) {
+					if ($motd1) {
+						print '<hr />';
+					}
+					print $motd2;
+				}
+				?>
 			</div>
 		</div>
 		<?php

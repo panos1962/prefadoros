@@ -2,22 +2,6 @@ var funchat = {};
 
 window.onload = function() {
 	init();
-
-	funchat.checkAlive = function() {
-		var x = window.opener;
-		if (notSet(x) || notSet(x.document)) {
-			window.close();
-			return;
-		}
-		x = x.document.getElementById('prefadoros');
-		if (notSet(x)) {
-			window.close();
-			return;
-		}
-
-		setTimeout(funchat.checkAlive, 1500);
-	};
-	funchat.checkAlive();
 };
 
 window.onbeforeunload = function() {
@@ -26,10 +10,11 @@ window.onbeforeunload = function() {
 		return;
 	}
 
-	var ico = w.document.getElementById('funchatIcon');
-	if (notSet(ico)) {
-		return;
+	if (isSet(w.controlPanel)) {
+		w.controlPanel.funchatWindow = null;
+		var ico = w.document.getElementById('funchatIcon');
+		if (isSet(ico)) {
+			w.controlPanel.funchatResetIcon(ico);
+		}
 	}
-
-	w.controlPanel.funchatResetIcon(ico);
 };

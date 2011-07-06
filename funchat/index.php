@@ -1,6 +1,6 @@
 <?php
-require_once('../lib/standard.php');
-set_globals(FALSE);
+require_once '../lib/standard.php';
+set_globals();
 Page::head();
 Page::stylesheet('funchat/funchat');
 Page::javascript('funchat/funchat');
