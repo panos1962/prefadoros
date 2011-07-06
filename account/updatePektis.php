@@ -1,52 +1,54 @@
 <?php
-require_once('../lib/standard.php');
+require_once '../lib/standard.php';
 set_globals();
 
-if (perastike('login')) {
-	$login = asfales($_REQUEST['login']);
+if (Globals::perastike('login')) {
+	if ($_REQUEST['login'] != $globals->pektis->login) {
+		Globals::fatal('Απόπειρα εισβολής από "' . $_REQUEST['login'] . '"');
+	}
+
+	$login = Globals::asfales($_REQUEST['login']);
 }
 else {
-	telos('Δεν δόθηκε login name');
+	Globals::fatal('Δεν δόθηκε login name');
 }
 
-if (perastike('onoma')) {
-	$onoma = asfales($_REQUEST['onoma']);
+if (Globals::perastike('onoma')) {
+	$onoma = Globals::asfales($_REQUEST['onoma']);
 }
 else {
-	telos('Δεν δόθηκε όνομα παίκτη');
+	Globals::fatal('Δεν δόθηκε όνομα παίκτη');
 }
 
-if (perastike('email')) {
-	$email = "'" . asfales($_REQUEST['email']) . "'";
+if (Globals::perastike('email')) {
+	$email = "'" . Globals::asfales($_REQUEST['email']) . "'";
 }
 else {
 	$email = 'NULL';
 }
 
-if (perastike('password')) {
-	$password = asfales($_REQUEST['password']);
+if (Globals::perastike('password')) {
+	$password = Globals::asfales($_REQUEST['password']);
 }
 else {
-	telos('Δεν δόθηκε κωδικός');
+	Globals::fatal('Δεν δόθηκε κωδικός');
 }
 
 $query = "UPDATE `παίκτης` SET `όνομα` = '" . $onoma .
 	"', `email` = " . $email;
-if (perastike('password1') && ($_REQUEST['password1'])) {
+if (Globals::perastike('password1') && ($_REQUEST['password1'])) {
 	$query .= ", `password` = '" .
-		sha1(asfales($_REQUEST['password1'])) . "'";
+		sha1(Globals::asfales($_REQUEST['password1'])) . "'";
 }
 $query .= " WHERE `login` LIKE '" . $login .
 	"' AND `password` LIKE '" . sha1($password) . "'";
 
 $result = @mysqli_query($globals->db, $query);
 if (!$result) {
-	telos(@mysqli_error($globals->db));
+	Globals::fatal(@mysqli_error($globals->db));
 }
 
 if (mysqli_affected_rows($globals->db) != 1) {
-	telos('Δεν έγιναν αλλαγές στα στοιχεία του λογαριασμού');
+	Globals::fatal('Δεν έγιναν αλλαγές στα στοιχεία του λογαριασμού');
 }
-
-telos();
 ?>
