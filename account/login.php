@@ -1,9 +1,15 @@
 <?php
-require_once('../lib/standard.php');
-set_globals(TRUE);
-include_javascript('account/standard.js');
-arxi_selidas();
+require_once '../lib/standard.php';
+set_globals();
+unset($_SESSION['ps_login']);
+Page::head();
+Page::stylesheet('lib/forma');
+Page::javascript('lib/forma');
+Page::javascript('account/account');
+Page::body();
+Page::epikefalida();
 ?>
+<div class="mainArea">
 <form class="forma" method="post" action="<?php print $globals->server; ?>index.php" >
 <table class="formaData tbldbg">
 <tr>
@@ -39,7 +45,7 @@ arxi_selidas();
 <tr>
 	<td class="tbldbg">
 		<input type="submit" value="Login" class="button formaButton"
-			onclick="return loginCheck(this.form);" />
+			onclick="return account.loginCheck(this.form);" />
 	</td>
 	<td class="tbldbg">
 		<input type="reset" value="Reset" class="button formaButton" />
@@ -51,6 +57,7 @@ arxi_selidas();
 </tr>
 </table>
 </form>
+</div>
 <?php
-telos_selidas();
+Page::close();
 ?>

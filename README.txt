@@ -34,3 +34,7 @@ prefadoros
 Κατά την έξοδο από το funchat window δεν ενημερώνεται το funchat icon
 στο control panel. Αυτό συμβαίνει στον Opera browser, καθώς δεν
 υποστηρίζει το onbeforeunload.
+
+Κατά το κλείσιμο του κεντρικού παραθύρου της εφαρμογής πρέπει να κλείνει
+αυτόματα και το funchat window, εφόσον αυτό είναι ανοικτό. Στον Opera
+browser δεν ισχύει αυτό, καθώς δεν υποστηρίζεται το onbeforeunload.
