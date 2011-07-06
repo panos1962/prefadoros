@@ -92,6 +92,58 @@ class Session {
 	}
 }
 
+class Pektis {
+	public $login;
+	public $onoma;
+	public $email;
+	public $kapikia;
+	public $poll;
+	public $error;
+
+	public function __construct($login, $password = NULL) {
+		global $globals;
+		$errmsg = 'Pektis::construct: ';
+
+		unset($this->login);
+		unset($this->onoma);
+		unset($this->email);
+		unset($this->kapikia);
+		unset($this->poll);
+		unset($this->error);
+
+		$query = "SELECT `login`, `όνομα`, `email`, `καπίκια`, " .
+			"(NOW() - `poll`) AS `poll` " .
+			"FROM `παίκτης` WHERE `login` LIKE '" . Globals::asfales($login) . "'";
+		if (isset($password)) {
+			$query .= " AND `password` LIKE '" . Globals::asfales($password) . "'";
+		}
+
+		$result = @mysqli_query($globals->db, $query);
+		if (!$result) {
+			$this->error = $errmsg . @mysqli_error($globals->db);
+			return;
+		}
+
+		$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
+		if ($row) {
+			@mysqli_free_result($result);
+			$this->login = $row['login'];
+			$this->onoma = $row['όνομα'];
+			$this->email = $row['email'];
+			$this->kapikia = $row['καπίκια'];
+			$this->poll = (int)($row['poll']);
+		}
+		else {
+			if (isset($password)) {
+				$this->error = 'Δεν έχετε πρόσβαση ως παίκτης "' . $login . '"';
+			}
+			else {
+				$this->error = 'Δεν βρέθηκε ο παίκτης "' . $login . '"';
+			}
+		}
+	}
+}
+
 function set_globals($database = TRUE) {
 	global $globals;
 
@@ -153,8 +205,6 @@ function set_globals($database = TRUE) {
 		$globals->administrator = TRUE;
 	}
 
-// $globals->pektis = 'panos';
-/*
 	if (Session::is_set('ps_login')) {
 		$globals->pektis = new Pektis($_SESSION['ps_login']);
 		if (!isset($globals->pektis->login)) {
@@ -163,6 +213,7 @@ function set_globals($database = TRUE) {
 		}
 	}
 
+/*
 	if ($globals->is_pektis()) {
 		$globals->trapezi = new Trapezi($globals->pektis->login);
 		if (isset($globals->trapezi->kodikos)) {
