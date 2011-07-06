@@ -9,7 +9,7 @@ CREATE TABLE `παίκτης` (
 	`εγγραφή`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Ημερομηνία εγγραφής',
 	PRIMARY KEY (
 		`login`
-	) USING HASH,
+	) USING BTREE,
 	KEY (
 		`όνομα`
 	) USING BTREE,

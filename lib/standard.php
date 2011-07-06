@@ -53,6 +53,20 @@ class Globals {
 			array_key_exists($key, $_REQUEST));
 	}
 
+	public static function asfales($s) {
+		global $globals;
+
+		if (get_magic_quotes_gpc()) {
+			$s = stripslashes($s);
+		}
+
+		if (isset($globals->db)) {
+			return(@mysqli_real_escape_string($globals->db, $s));
+		}
+
+		return($s);
+	}
+
 	public static function fatal($msg) {
 		print 'ERROR: ' . $msg;
 		die(1);
