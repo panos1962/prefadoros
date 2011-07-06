@@ -1,12 +1,6 @@
 <?php
 require_once '../lib/standard.php';
 set_globals();
-if ($globals->is_pektis()) {
-	$pektis = $globals->pektis->login;
-}
-else {
-	$pektis = NULL;
-}
 Page::head();
 Page::stylesheet('lib/forma');
 Page::javascript('lib/forma');
@@ -17,7 +11,7 @@ Page::javascript('account/account');
 <table class="formaData tbldbg">
 <tr>
 	<td class="formaHeader tbldbg" colspan="2">
-		<?php print (isset($pektis) ? 'Update' : 'Create'); ?> account
+		<?php print ($globals->is_pektis() ? 'Update' : 'Create'); ?> account
 	</td>
 </tr>
 <tr>
@@ -28,9 +22,9 @@ Page::javascript('account/account');
 		<input name="login" id="login" type="text" maxlength="32"
 			size="32" class="formaField"
 			<?php
-			if (isset($pektis)) {
+			if ($globals->is_pektis()) {
 				?>
-				value="<?php print $pektis; ?>" disabled
+				value="<?php print $globals->pektis->login; ?>" disabled
 				style="font-weight: bold;"
 				<?php
 			}
@@ -49,7 +43,7 @@ Page::javascript('account/account');
 	</td>
 	<td class="tbldbg">
 		<input id="onoma" name="onoma" type="text" maxlength="128" size="50" value="<?php
-			if (isset($pektis)) {
+			if ($globals->is_pektis()) {
 				print $globals->pektis->onoma;
 			}
 			?>" class="formaField" />
@@ -61,7 +55,7 @@ Page::javascript('account/account');
 	</td>
 	<td class="tbldbg">
 		<input name="email" type="text" maxlength="64" size="50" value="<?php
-			if (isset($pektis)) {
+			if ($globals->is_pektis()) {
 				print $globals->pektis->email;
 			}
 			?>" onkeydown="this.style.color=globals.color.ok;"
@@ -69,7 +63,7 @@ Page::javascript('account/account');
 	</td>
 </tr>
 <?php
-if ($pektis) {
+if ($globals->is_pektis()) {
 	?>
 	<tr>
 		<td class="formaPrompt tbldbg">
@@ -111,9 +105,10 @@ if ($pektis) {
 <tr>
 	<td class="tbldbg">
 		<input type="submit" value="<?php
-			print (isset($pektis) ? 'Update' : 'Create') ; ?> account"
-			class="button formaButton" onclick="return account.<?php
-				print (isset($pektis) ? 'update' : 'add' ); ?>Pektis(this.form);" />
+			print ($globals->is_pektis() ? 'Update' : 'Create') ; ?> account"
+			class="button formaButton"
+			onclick="return account.<?php print ($globals->is_pektis() ?
+				'update' : 'add' ); ?>Pektis(this.form);" />
 	</td>
 	<td class="tbldbg">
 		<input type="reset" value="Reset" class="button formaButton" />

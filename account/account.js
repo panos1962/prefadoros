@@ -4,8 +4,8 @@ account.onload = function() {
 	var CLOTimer = null;
 
 	this.checkLoginOnline = function(fld) {
-		if (notSet(CLOTimer)) {
-			clearTimeout(notSet(CLOTimer));
+		if (isSet(CLOTimer)) {
+			clearTimeout(CLOTimer);
 		}
 
 		CLOTimer = setTimeout(function() {
@@ -15,6 +15,7 @@ account.onload = function() {
 
 	this.loginAvailable = function(fld) {
 		if (!account.checkLoginValue(fld)) {
+			fld.style.color = globals.color.ok;
 			return;
 		}
 

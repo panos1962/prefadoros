@@ -1,25 +1,19 @@
 <?php
-require_once('../lib/standard.php');
+require_once '../lib/standard.php';
 set_globals();
-$errmsg = "account/douneLavin.php: ";
 
 if (!$globals->is_pektis()) {
-	telos('Ακαθόριστος παίκτης');
+	Globals::fatal('Ακαθόριστος παίκτης');
 }
 
-if (!perastike('emfanisi')) {
-	$emfanisi = 'YES';
+if (Globals::perastike('emfanisi')) {
+	$emfanisi = $_REQUEST['emfanisi'];
 }
 else {
-	$emfanisi = $_REQUEST['emfanisi'];
+	$emfanisi = 'YES';
 }
 
 $query = "UPDATE `παίκτης` SET `καπίκια` = '" . $emfanisi . "' " .
-	"WHERE `login` LIKE '" . asfales($globals->pektis->login) . "'";
-$result = @mysqli_query($globals->db, $query);
-if (!$result) {
-	sfalma_sql($errmsg);
-}
-
-telos();
+	"WHERE `login` LIKE '" . Globals::asfales($globals->pektis->login) . "'";
+$result = Globals::sql_query($query);
 ?>
