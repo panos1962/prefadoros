@@ -1,6 +1,6 @@
 <?php
 require_once '../lib/standard.php';
-set_globals(FALSE);
+set_globals();
 Page::head();
 Page::stylesheet('adia/adia');
 Page::body();
