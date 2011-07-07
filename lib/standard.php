@@ -296,11 +296,6 @@ class Page {
 				pektis.katastasi = '<?php print $globals->pektis->katastasi; ?>';
 				<?php
 			}
-			if (Session::is_set('ps_whlt')) {
-				?>
-				globals.funchatWhlt = '<?php print $_SESSION['ps_whlt']; ?>';
-				<?php
-			}
 			?>
 			//]]>
 		</script>
