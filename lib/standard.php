@@ -119,6 +119,7 @@ class Pektis {
 	public $onoma;
 	public $email;
 	public $kapikia;
+	public $katastasi;
 	public $poll;
 	public $error;
 
@@ -130,11 +131,12 @@ class Pektis {
 		unset($this->onoma);
 		unset($this->email);
 		unset($this->kapikia);
+		unset($this->katastasi);
 		unset($this->poll);
 		unset($this->error);
 
 		$query = "SELECT `login`, `όνομα`, `email`, `καπίκια`, " .
-			"(NOW() - `poll`) AS `poll` " .
+			"κατάσταση, (NOW() - `poll`) AS `poll` " .
 			"FROM `παίκτης` WHERE `login` LIKE '" . Globals::asfales($login) . "'";
 		if (isset($password)) {
 			$query .= " AND `password` LIKE '" . Globals::asfales($password) . "'";
@@ -153,6 +155,7 @@ class Pektis {
 			$this->onoma = $row['όνομα'];
 			$this->email = $row['email'];
 			$this->kapikia = $row['καπίκια'];
+			$this->katastasi = $row['κατάσταση'];
 			$this->poll = (int)($row['poll']);
 		}
 		else {
@@ -282,9 +285,17 @@ class Page {
 		<script type="text/javascript">
 			//<![CDATA[
 			globals = {};
+			pektis = null;
 			globals.server = '<?php print $globals->server; ?>';
 			globals.timeDif = <?php print time(); ?>;
 			<?php
+			if ($globals->is_pektis()) {
+				?>
+				var pektis = {};
+				pektis.login = '<?php print $globals->pektis->login; ?>';
+				pektis.katastasi = '<?php print $globals->pektis->katastasi; ?>';
+				<?php
+			}
 			if (Session::is_set('ps_whlt')) {
 				?>
 				globals.funchatWhlt = '<?php print $_SESSION['ps_whlt']; ?>';
