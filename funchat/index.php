@@ -4,7 +4,10 @@ set_globals();
 Page::head();
 Page::stylesheet('funchat/funchat');
 Page::javascript('funchat/funchat');
-Page::body();
+?>
+</head>
+<body onresize="funchat.resize();">
+<?php
 print_panel();
 Page::close(FALSE);
 
