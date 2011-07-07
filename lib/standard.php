@@ -284,6 +284,13 @@ class Page {
 			globals = {};
 			globals.server = '<?php print $globals->server; ?>';
 			globals.timeDif = <?php print time(); ?>;
+			<?php
+			if (Session::is_set('ps_whlt')) {
+				?>
+				globals.funchatWhlt = '<?php print $_SESSION['ps_whlt']; ?>';
+				<?php
+			}
+			?>
 			//]]>
 		</script>
 		<?php self::javascript('lib/standard'); ?>
