@@ -339,7 +339,7 @@ class Page {
 
 				if ($motd2) {
 					if ($motd1) {
-						print '<hr />';
+						print '<hr class="motdLine" />';
 					}
 					print $motd2;
 				}
