@@ -4,8 +4,8 @@ pss
 
 motd
 ====
-Background: #006600 (πράσινο)
-Foregorund: #FFFF99 (κιτρινοζαχαρί)
+Background: #305930 (πράσινο)
+Foregorund: #FFFF88 (κιτρινοζαχαρί)
 
 fyi
 ===
