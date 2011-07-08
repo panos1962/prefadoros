@@ -3,6 +3,10 @@ funchat = {};
 funchat.whltSaveTimer = null;
 
 funchat.whltSave = function() {
+	if (notSet(funchat.whltSaveUnblocked)) {
+		return;
+	}
+
 	var x = window.opener;
 	if (notSet(x)) {
 		return;
@@ -58,10 +62,10 @@ funchat.whltSave = function() {
 		req.send('whlt=' + x.globals.funchatWhlt);
 		var rsp = req.getResponse();
 		if (rsp) {
-			x.mainFyi('funcaht/whltSave.php: ' + rsp);
+			x.mainFyi('funchat/whltSave.php: ' + rsp);
 		}
 		else {
-			x.mainFyi('saved funcaht panel position &amp; size', 500);
+			x.mainFyi('saved funchat panel position &amp; size', 500);
 		}
 	}, 5000);
 }
