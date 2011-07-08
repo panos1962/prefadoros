@@ -36,6 +36,12 @@ class Globals {
 		return(isset($this->pektis));
 	}
 
+	public function pektis_check() {
+		if (!$this->is_pektis()) {
+			self::fatal('ακαθόριστος παίκτης');
+		}
+	}
+
 	public function is_trapezi() {
 		return(isset($this->trapezi));
 	}
@@ -55,11 +61,15 @@ class Globals {
 
 	public static function perastike_check($key, $msg = NULL) {
 		if (!self::perastike($key)) {
-			if (!isset($msg)) {
-				$msg = $key . ': δεν περάστηκε παράμετρος';
-				print $msg;
-				die(1);
-			}
+			print isset($msg) ? $msg : $key . ': δεν περάστηκε παράμετρος';
+			die(1);
+		}
+	}
+
+	public static function email_check($email, $msg = NULL) {
+		if (!@filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			print isset($msg) ? $msg : $email . ': invalid email address';
+			die(1);
 		}
 	}
 
@@ -89,7 +99,7 @@ class Globals {
 		die(1);
 	}
 
-	public static function fatal($msg) {
+	public static function fatal($msg = 'unknown') {
 		print 'ERROR: ' . $msg;
 		die(1);
 	}
@@ -169,7 +179,7 @@ class Pektis {
 	}
 }
 
-function set_globals($database = TRUE) {
+function set_globals() {
 	global $globals;
 
 	if (isset($globals)) {
@@ -192,19 +202,19 @@ function set_globals($database = TRUE) {
 		$dbpassword = '';
 		break;
 	case 'tessa.gen6dns.net':
-		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/~panos/';
+		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/~panos/new';
 		$dbname = 'panos_prefadoros';
 		$dbuser = 'panos_prefadoros';
 		$dbpassword = $dpass;
 		break;
 	case 'www.prefadoros.gr':
-		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/';
+		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/new';
 		$dbname = 'panos_prefadoros';
 		$dbuser = 'panos_prefadoros';
 		$dbpassword = $dpass;
 		break;
-	case 'www.perloc.info':
-		$globals->server = 'http://www.perloc.info/prefadoros/';
+	case 'www.pineza.info':
+		$globals->server = 'http://www.pineza.info/prefadoros/';
 		$dbname = 'panos62_prefadoros';
 		$dbuser = 'panos62_pineza';
 		$dbpassword = $dpass;
@@ -213,17 +223,15 @@ function set_globals($database = TRUE) {
 		Globals::fatal($_SERVER['SERVER_NAME'] . ': unknown server');	
 	}
 
-	if ($database) {
-		$globals->db = @mysqli_connect($dbhost, $dbuser, $dbpassword);
-		if (!$globals->db) {
-			Globals::fatal('database connection failed (' .
-				@mysqli_connect_error() . ')');
-		}
+	$globals->db = @mysqli_connect($dbhost, $dbuser, $dbpassword);
+	if (!$globals->db) {
+		Globals::fatal('database connection failed (' .
+			@mysqli_connect_error() . ')');
+	}
 
-		@mysqli_set_charset($globals->db, 'UTF8');
-		if (!@mysqli_select_db($globals->db, $dbname)) {
-			Globals::fatal('cannot open database (' . $dbname . ')');
-		}
+	@mysqli_set_charset($globals->db, 'UTF8');
+	if (!@mysqli_select_db($globals->db, $dbname)) {
+		Globals::fatal('cannot open database (' . $dbname . ')');
 	}
 
 	if (Session::is_set('ps_administrator')) {
