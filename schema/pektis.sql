@@ -3,7 +3,7 @@ CREATE TABLE `παίκτης` (
 	`όνομα`		VARCHAR(128) NOT NULL COMMENT 'Πλήρες όνομα παίκτη',
 	`email`		VARCHAR(64) NULL DEFAULT NULL COMMENT 'e-mail address',
 	`καπίκια`	ENUM('YES', 'NO') NOT NULL DEFAULT 'YES' COMMENT 'Προβολή καπικιών',
-	`κατάσταση`	ENUM('FREE', 'BUSY') NOT NULL DEFAULT 'FREE' COMMENT 'Κατάσταση παίκτη',
+	`κατάσταση`	ENUM('AVAILABLE', 'BUSY') NOT NULL DEFAULT 'AVAILABLE' COMMENT 'Κατάσταση παίκτη',
 	`poll`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Last poll time',
 	-- Το password αποθηκεύεται σε SHA1 κρυπτογραφημένη μορφή.
 	`password`	CHARACTER(40) NOT NULL COMMENT 'Password',

@@ -91,8 +91,8 @@
 }
 
 .kafedaki {
-	border-style: double;
-	border-width: 3px;
+	border-style: dotted;
+	border-width: 2px;
 	border-color: #999900;
 	padding: 0.2cm;
 	font-weight: bold;

@@ -6,8 +6,19 @@ Page::stylesheet('funchat/funchat');
 Page::javascript('funchat/funchat');
 ?>
 </head>
-<body onresize="funchat.resize();">
+<body onresize="funchat.whltSave();">
 <?php
+if (Session::is_set('ps_whlt')) {
+	if (preg_match('/^[0-9]+:[0-9]+:[0-9]+:[0-9]+$/', $_SESSION['ps_whlt'])) {
+		$whlt = explode(':', $_SESSION['ps_whlt']);
+		?>
+		<script type="text/javascript">
+			window.self.resizeTo(<?php print $whlt[0]; ?>, <?php print $whlt[1]; ?>);
+			window.self.moveTo(<?php print $whlt[2]; ?>, <?php print $whlt[3]; ?>);
+		</script>
+		<?php
+	}
+}
 print_panel();
 Page::close(FALSE);
 

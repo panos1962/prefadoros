@@ -292,7 +292,7 @@ class Page {
 		<?php self::stylesheet('lib/standard'); ?>
 		<script type="text/javascript">
 			//<![CDATA[
-			globals = {};
+			var globals = {};
 			pektis = null;
 			globals.server = '<?php print $globals->server; ?>';
 			globals.timeDif = <?php print time(); ?>;
@@ -303,6 +303,12 @@ class Page {
 				pektis.login = '<?php print $globals->pektis->login; ?>';
 				pektis.katastasi = '<?php print $globals->pektis->katastasi; ?>';
 				<?php
+			}
+			if (Session::is_set('ps_whlt') &&
+				preg_match('/^[0-9]+:[0-9]+:[0-9]+:[0-9]+$/', $_SESSION['ps_whlt'])) {
+					?>
+					globals.funchatWhlt = '<?php print $_SESSION['ps_whlt']; ?>';
+					<?php
 			}
 			?>
 			//]]>
