@@ -15,6 +15,9 @@ if (Session::is_set('ps_whlt')) {
 		<script type="text/javascript">
 			window.self.resizeTo(<?php print $whlt[0]; ?>, <?php print $whlt[1]; ?>);
 			window.self.moveTo(<?php print $whlt[2]; ?>, <?php print $whlt[3]; ?>);
+			setTimeout(function() {
+				funchat.whltSaveUnblocked = true;
+			}, 500);
 		</script>
 		<?php
 	}
