@@ -46,7 +46,7 @@ funchat.whltSave = function() {
 		var h = window.outerHeight;
 	}
 	else if (isSet(screen) && isSet(screen.availHeight)) {
-		h = screen.availHeight;
+		h = screen.availHeight - 50;
 	}
 	else {
 		return;
