@@ -52,7 +52,7 @@ Page::epikefalida();
 	</td>
 	<td class="tbldbg">
 		<input type="button" value="Cancel" class="button formaButton"
-			onclick="location.href='<?php print $globals->server; ?>/index.php'" />
+			onclick="location.href='<?php print $globals->server; ?>index.php'" />
 	</td>
 </tr>
 </table>

@@ -459,7 +459,7 @@ class Page {
 	protected static function logout_section() {
 		global $globals;
 		?>
-		[&nbsp;<a href="<?php print $globals->server; ?>"
+		[&nbsp;<a href="<?php print $globals->server; ?>/index.php"
 			onclick="return logout();" class="data">Έξοδος</a>&nbsp;]
 		<?php
 	}
