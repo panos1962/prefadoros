@@ -1,6 +1,8 @@
 <?php
 require_once '../lib/standard.php';
+Page::data();
 set_globals();
+
 Globals::perastike_check('login');
 $query = "SELECT * FROM `παίκτης` WHERE `login` LIKE '" .
 	Globals::asfales($_REQUEST['login']) . "'";

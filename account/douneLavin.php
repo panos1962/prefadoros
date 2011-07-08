@@ -1,19 +1,15 @@
 <?php
 require_once '../lib/standard.php';
+Page::data();
 set_globals();
+$globals->pektis_check();
 
-if (!$globals->is_pektis()) {
-	Globals::fatal('Ακαθόριστος παίκτης');
-}
+$login = Globals::asfales($globals->pektis->login);
 
-if (Globals::perastike('emfanisi')) {
-	$emfanisi = $_REQUEST['emfanisi'];
-}
-else {
-	$emfanisi = 'YES';
-}
+Globals::perastike_check('kapikia');
+$kapikia = Globals::asfales($_REQUEST['kapikia']);
 
-$query = "UPDATE `παίκτης` SET `καπίκια` = '" . $emfanisi . "' " .
-	"WHERE `login` LIKE '" . Globals::asfales($globals->pektis->login) . "'";
+$query = "UPDATE `παίκτης` SET `καπίκια` = '" . $kapikia . "' " .
+	"WHERE `login` LIKE '" . $login . "'";
 $result = Globals::sql_query($query);
 ?>
