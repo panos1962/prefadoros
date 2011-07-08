@@ -5,6 +5,8 @@ Page::head();
 Page::stylesheet('lib/forma');
 Page::javascript('lib/forma');
 Page::javascript('account/account');
+Page::body();
+Page::epikefalida();
 ?>
 <div class="mainArea">
 <form class="forma" method="post" action="<?php print $globals->server; ?>index.php">

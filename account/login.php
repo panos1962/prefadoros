@@ -1,7 +1,7 @@
 <?php
 require_once '../lib/standard.php';
-set_globals();
 unset($_SESSION['ps_login']);
+set_globals();
 Page::head();
 Page::stylesheet('lib/forma');
 Page::javascript('lib/forma');
