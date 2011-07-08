@@ -572,7 +572,7 @@ class Page {
 		?>
 		<div style="float: right;">
 			<img class="apokripsiIcon" title="Απόκρυψη" src="<?php
-				print $globals->server; ?>images/Xgrey.png"
+				print $globals->server; ?>images/Xgrey.png" alt=""
 				onclick="sviseNode(getelid('<?php print $id; ?>'));" />
 		</div>
 		<?php
