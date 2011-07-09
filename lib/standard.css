@@ -15,7 +15,7 @@ a img {
 }
 
 .mainArea {
-	height: 14.4cm;
+	min-height: 14.4cm;
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
