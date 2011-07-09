@@ -100,6 +100,14 @@ a img {
 	height: 1.1em;
 }
 
+.infoArea {
+	color: #003366;
+	height: 1.1em;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	text-align: right;
+}
+
 .button {
 	font-family: "Geneva", sans-serif;
 	font-size: 90%;
