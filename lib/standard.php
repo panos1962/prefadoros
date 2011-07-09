@@ -400,15 +400,22 @@ class Page {
 		<?php
 	}
 
-	public static function epikefalida($titlos = 'Πρεφαδόρος') {
+	public static function epikefalida($pedi = TRUE) {
+		global $globals;
 		?>
 		<div id="toolbar" class="toolbarArea">
 			<table class="tbldbg" style="width: 100%;"><tr>
 			<td class="tbldbg" style="width: 49%;">
 				<div class="toolbarLeft">
-					[&nbsp;<a href="#"
-						onclick="window.close(); return false"
-						class="data">Close</a>&nbsp;]
+					[&nbsp;<a class="data" href="<?php
+						print $globals->server; ?>index.php"
+						<?php
+						if ($pedi) {
+							?>
+							onclick="window.self.close(); return false"
+							<?php
+						}
+						?>>Close</a>&nbsp;]
 				</div>
 			</td>
 			<td class="tbldbg">
@@ -426,9 +433,13 @@ class Page {
 	protected static function leftTB() {
 		global $globals;
 
+		if ($globals->is_pektis()) {
+			?>
+			[&nbsp;<a href="<?php print $globals->server; ?>index.php"
+				class="data">Καφενείο</a>&nbsp;]
+			<?php
+		}
 		?>
-		[&nbsp;<a href="<?php print $globals->server; ?>index.php"
-			class="data">Καφενείο</a>&nbsp;]
 		[&nbsp;<a target="_blank" href="<?php print $globals->server; ?>help/index.php"
 			class="data">Οδηγίες</a>&nbsp;]
 		[&nbsp;<a target="_blank" href="<?php print $globals->server; ?>faq/index.php"

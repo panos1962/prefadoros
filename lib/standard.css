@@ -3,7 +3,7 @@ body {
 	background-repeat: repeat;
 	font-size: 0.5cm;
 	max-width: 32.0cm;
-	color: #010101;
+	color: #16130E;
 }
 
 a img {
@@ -123,8 +123,8 @@ a img {
 }
 
 .data {
-	background-color: #FFFFFF;
 	background-color: red;
+	background-color: #FFFFFF;
 }
 
 .apokripsiIcon {
