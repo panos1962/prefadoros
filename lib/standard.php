@@ -403,9 +403,22 @@ class Page {
 	public static function epikefalida($titlos = 'Πρεφαδόρος') {
 		?>
 		<div id="toolbar" class="toolbarArea">
-			<div class="toolbarCenter">
-				<?php self::centerTB($titlos); ?>
-			</div>
+			<table class="tbldbg" style="width: 100%;"><tr>
+			<td class="tbldbg" style="width: 49%;">
+				<div class="toolbarLeft">
+					[&nbsp;<a href="#"
+						onclick="window.close(); return false"
+						class="data">Close</a>&nbsp;]
+				</div>
+			</td>
+			<td class="tbldbg">
+				<div class="toolbarCenter">
+					<?php self::centerTB(); ?>
+				</div>
+			</td>
+			<td class="tbldbg" style="width: 49%;">
+			</td>
+			</tr></table>
 		</div>
 		<?php
 	}
