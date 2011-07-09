@@ -1,5 +1,6 @@
 <?php
 require_once 'lib/standard.php';
+require_once 'lib/trapoula.php';
 set_globals();
 Page::head();
 if ($globals->is_pektis()) {
@@ -33,20 +34,17 @@ Page::close();
 
 function prefadoros() {
 	global $globals;
+	$trapoula = new Trapoula;
+
 	?>
 	<table class="tldbg" width="100%">
 	<tbody>
 	<tr>
-	<td id="prefadorosColumn" class="tbldbg" style="width: 14.0cm;">
+	<td id="prefadorosColumn" class="prefadorosColumn tbldbg">
 		<div id="prefadoros" class="prefadoros">
-			<?php
-			if ($globals->is_trapezi()) {
-				print 'Τραπέζι';
-			}
-			else {
-				print 'Καφενείο';
-			}
-			?>
+			<div class="tsoxa">
+				<?php $trapoula->parousiasi(); ?>
+			</div>
 		</div>
 	</td>
 	<td class="controlPanelColumn tbldbg">
