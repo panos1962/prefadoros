@@ -564,6 +564,11 @@ class Page {
 	}
 
 	public static function close($ribbon = TRUE) {
+		?>
+		<div class="infoArea" onmouseover="infoStrip(this, true);"
+			onclick="infoStrip(this, false);">
+		</div>
+		<?php
 		if ($ribbon) {
 			self::ribbon();
 		}
