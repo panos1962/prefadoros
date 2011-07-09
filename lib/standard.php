@@ -411,11 +411,22 @@ class Page {
 	}
 
 	protected static function leftTB() {
+		global $globals;
+
 		?>
-		<span class="data">
-			LeftTB
-		</span>
+		[&nbsp;<a href="<?php print $globals->server; ?>index.php"
+			class="data">Καφενείο</a>&nbsp;]
+		[&nbsp;<a target="_blank" href="<?php print $globals->server; ?>help/index.php"
+			class="data">Οδηγίες</a>&nbsp;]
+		[&nbsp;<a target="_blank" href="<?php print $globals->server; ?>faq/index.php"
+			class="data">FAQ</a>&nbsp;]
 		<?php
+		if ($globals->is_pektis()) {
+			?>
+			[&nbsp;<a class="data" target="_blank" href="<?php
+				print $globals->server; ?>pm/index.php" >PM</a>&nbsp;]
+			<?php
+		}
 	}
 
 	protected static function centerTB($titlos = 'Πρεφαδόρος') {
@@ -434,7 +445,8 @@ class Page {
 		<?php
 		if ($globals->is_pektis()) {
 			?>
-			<a href="<?php print $globals->server; ?>account/signup.php?modify"
+			<a target="_blank" href="<?php
+				print $globals->server; ?>account/signup.php?modify"
 				class="data login" title="Account settings"><?php
 					print $globals->pektis->login; ?></a>
 			<?php
@@ -564,11 +576,6 @@ class Page {
 	}
 
 	public static function close($ribbon = TRUE) {
-		?>
-		<div class="infoArea" onmouseover="infoStrip(this, true);"
-			onclick="infoStrip(this, false);">
-		</div>
-		<?php
 		if ($ribbon) {
 			self::ribbon();
 		}
