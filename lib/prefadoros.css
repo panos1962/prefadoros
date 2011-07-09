@@ -102,3 +102,31 @@
 	color: #333300;
 	z-index: 10;
 }
+
+.infoArea {
+	color: #003366;
+	height: 1.1em;
+	margin-top: 0px;
+	margin-bottom: 0.1cm;
+	text-align: right;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	cursor: pointer;
+}
+
+.infoData {
+	background-color: #FFFF80;
+}
+
+.info0 {
+	color: #003366;
+	margin-right: 1.5em;
+	font-style: normal;
+}
+
+.info1 {
+	color: #FF1919;
+	margin-right: 1.5em;
+	font-style: italic;
+}
