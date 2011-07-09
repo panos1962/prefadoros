@@ -6,7 +6,7 @@ Page::stylesheet('lib/forma');
 Page::javascript('lib/forma');
 Page::javascript('account/account');
 Page::body();
-Page::epikefalida();
+Page::epikefalida($globals->is_pektis());
 ?>
 <div class="mainArea">
 <form class="forma" method="post" action="<?php print $globals->server; ?>index.php">

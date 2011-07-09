@@ -39,7 +39,14 @@ function prefadoros() {
 	<tr>
 	<td id="prefadorosColumn" class="tbldbg" style="width: 14.0cm;">
 		<div id="prefadoros" class="prefadoros">
-			Τραπέζι
+			<?php
+			if ($globals->is_trapezi()) {
+				print 'Τραπέζι';
+			}
+			else {
+				print 'Καφενείο';
+			}
+			?>
 		</div>
 	</td>
 	<td class="controlPanelColumn tbldbg">
