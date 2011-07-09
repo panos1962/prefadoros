@@ -415,7 +415,7 @@ class Page {
 							onclick="window.self.close(); return false"
 							<?php
 						}
-						?>>Close</a>&nbsp;]
+						?>>Κλείσιμο</a>&nbsp;]
 				</div>
 			</td>
 			<td class="tbldbg">
