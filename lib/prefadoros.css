@@ -1,8 +1,56 @@
+.prefadorosColumn {
+	width: 14.0cm;
+	min-width: 14.0cm;
+	max-width: 14.0cm;
+}
+
 .prefadoros {
+	width: 14.0cm;
+	min-width: 14.0cm;
+	max-width: 14.0cm;
 	height: 13.0cm;
 	max-height: 13.0cm;
 	min-height: 13.0cm;
-	y-overflow: scroll;
+	overflow-y: auto;
+}
+
+.tsoxa {
+	width: 13.7cm;
+	min-width: 13.7cm;
+	max-width: 13.7cm;
+	height: 12.6cm;
+	max-height: 12.6cm;
+	min-height: 12.6cm;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url('../images/tsoxa.jpg');
+	background-repeat: repeat;
+	border-style: dotted;
+	border-width: 0.13cm;
+	border-color: #4D944D;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+.kafenioTrapezi {
+	margin-top: 0.2cm;
+	width: 12.7cm;
+	min-width: 12.7cm;
+	max-width: 12.7cm;
+	height: 1.8cm;
+	max-height: 1.8cm;
+	min-height: 1.8cm;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url('../images/trapezi.jpg');
+	background-repeat: repeat;
+	border-style: dotted;
+	border-width: 0.085cm;
+	border-color: #4D944D;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
 }
 
 .controlPanelColumn {
@@ -129,4 +177,12 @@
 	color: #FF1919;
 	margin-right: 1.5em;
 	font-style: italic;
+}
+
+.trapoulaParousiasi {
+	text-align: center;
+}
+
+.trapoulaFilo {
+	width: 1.4cm;
 }
