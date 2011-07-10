@@ -18,31 +18,31 @@ CREATE TABLE `τραπέζι` (
 		'YES'
 	)		NOT NULL DEFAULT 'NO' COMMENT 'Αποδοχή όρων από τον τρίτο παίκτη',
 	`poll3`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Τελευταία επαφή τρίτου παίκτη',
-	`κάσα`		INTEGER(2) NOT NULL DEFAULT 50 COMMENT 'Ποσό κάσας',
+	`κάσα`		INTEGER(4) NOT NULL DEFAULT 50 COMMENT 'Ποσό κάσας',
 	`στήσιμο`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Πότε δημιουργήθηκε',
 	`τέλος`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Πότε τελείωσε',
 
 	PRIMARY KEY (
 		`κωδικός`
-	) USING HASH,
+	) USING BTREE,
 
 	FOREIGN KEY (
 		`παίκτης1`
 	) REFERENCES `παίκτης` (
 		`login`
-	) ON DELETE CASCADE,
+	) ON DELETE CASCADE ON UPDATE CASCADE,
 
 	FOREIGN KEY (
 		`παίκτης2`
 	) REFERENCES `παίκτης` (
 		`login`
-	) ON DELETE CASCADE,
+	) ON DELETE CASCADE ON UPDATE CASCADE,
 
 	FOREIGN KEY (
 		`παίκτης3`
 	) REFERENCES `παίκτης` (
 		`login`
-	) ON DELETE CASCADE,
+	) ON DELETE CASCADE ON UPDATE CASCADE,
 
 	KEY (
 		`τέλος`
