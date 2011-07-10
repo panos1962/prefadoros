@@ -89,6 +89,10 @@
 	height: 0.7cm;
 	max-height: 0.7cm;
 	min-height: 0.7cm;
+
+	border-style: dotted;
+	border-width: 0.08cm;
+	border-color: #8AA886;
 }
 
 .kafenioTrapeziLine {
