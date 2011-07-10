@@ -55,6 +55,7 @@ class Trapoula {
 	}
 
 	public static function dixe_ikona($img, $style = NULL) {
+		global $globals;
 		?>
 		<img class="trapoulaFilo" <?php
 			if (isset($style)) {

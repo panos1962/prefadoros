@@ -64,7 +64,7 @@ CREATE TABLE `διανομή` (
 
 	PRIMARY KEY (
 		`κωδικός`
-	) USING HASH,
+	) USING BTREE,
 
 	FOREIGN KEY (
 		`τραπέζι`
