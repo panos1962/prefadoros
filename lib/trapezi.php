@@ -47,7 +47,7 @@ class Trapezi {
 		// πρόσκληση για το τραπέζι, ώστε να μπορεί αργότερα να επανέλθει,
 		// εφόσον, φυσικά, το επιθυμεί.
 
-		$login = asfales($pektis);
+		$login = $globals->asfales($pektis);
 		$query = "SELECT `κωδικός`, " .
 			"`παίκτης1`, `αποδοχή1`, UNIX_TIMESTAMP(`poll1`) AS `poll1`, " .
 			"`παίκτης2`, `αποδοχή2`, UNIX_TIMESTAMP(`poll2`) AS `poll2`, " .

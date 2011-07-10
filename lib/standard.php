@@ -46,8 +46,20 @@ class Globals {
 		return(isset($this->trapezi));
 	}
 
+	public function trapezi_check() {
+		if (!$this->is_trapezi()) {
+			self::fatal('ακαθόριστο τραπέζι');
+		}
+	}
+
 	public function is_dianomi() {
 		return(isset($this->dianomi));
+	}
+
+	public function dianomi_check() {
+		if (!$this->is_dianomi()) {
+			self::fatal('ακαθόριστη διανομή');
+		}
 	}
 
 	public function is_kinisi() {
@@ -224,7 +236,6 @@ function set_globals($anonima = FALSE) {
 		}
 	}
 
-/*
 	if ($globals->is_pektis()) {
 		$globals->trapezi = new Trapezi($globals->pektis->login);
 		if (isset($globals->trapezi->kodikos)) {
@@ -235,7 +246,6 @@ function set_globals($anonima = FALSE) {
 			unset($globals->trapezi);
 		}
 	}
-*/
 }
 
 class Page {
