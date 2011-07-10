@@ -3,12 +3,14 @@ class Trapezi {
 	public $kodikos;
 	public $pektis1;
 	public $apodoxi1;
+	public $idle1;
 	public $pektis2;
 	public $apodoxi2;
+	public $idle2;
 	public $pektis3;
 	public $apodoxi3;
+	public $idle3;
 	public $kasa;
-	public $stisimo;
 	public $error;
 
 	public function __construct($pektis = NULL) {
@@ -18,12 +20,14 @@ class Trapezi {
 		unset($this->kodikos);
 		unset($this->pektis1);
 		unset($this->apodoxi1);
+		unset($this->idle1);
 		unset($this->pektis2);
 		unset($this->apodoxi2);
+		unset($this->idle2);
 		unset($this->pektis3);
 		unset($this->apodoxi3);
+		unset($this->idle3);
 		unset($this->kasa);
-		unset($this->stisimo);
 		unset($this->error);
 
 		if (!isset($pektis)) {
@@ -48,11 +52,11 @@ class Trapezi {
 			"`παίκτης1`, `αποδοχή1`, UNIX_TIMESTAMP(`poll1`) AS `poll1`, " .
 			"`παίκτης2`, `αποδοχή2`, UNIX_TIMESTAMP(`poll2`) AS `poll2`, " .
 			"`παίκτης3`, `αποδοχή3`, UNIX_TIMESTAMP(`poll3`) AS `poll3`, " .
-			"`κάσα`, `στήσιμο` FROM `τραπέζι` " .
+			"`κάσα` FROM `τραπέζι` " .
 			"WHERE ((`παίκτης1` LIKE '" . $login . "') " .
 			"OR (`παίκτης2` LIKE '" . $login . "') " .
 			"OR (`παίκτης3` LIKE '" . $login . "')) " .
-			"AND `διάλυση` IS NULL ORDER BY `κωδικός` DESC";
+			"AND `διάλυση` IS NULL ORDER BY `κωδικός` DESC LIMIT 1";
 		$result = @mysqli_query($globals->db, $query);
 		if (!$result) {
 			$this->error = $errmsg . 'SQL error (' .
@@ -72,15 +76,14 @@ class Trapezi {
 		$this->kodikos = $row['κωδικός'];
 		$this->pektis1 = $row['παίκτης1'];
 		$this->apodoxi1 = $row['αποδοχή1'];
-		$this->poll1 = (is_numeric($row['poll1']) ? $tora - $row['poll1'] : $tora);
+		$this->idle1 = (is_numeric($row['poll1']) ? $tora - $row['poll1'] : $tora);
 		$this->pektis2 = $row['παίκτης2'];
 		$this->apodoxi2 = $row['αποδοχή2'];
-		$this->poll2 = (is_numeric($row['poll2']) ? $tora - $row['poll2'] : $tora);
+		$this->idle2 = (is_numeric($row['poll2']) ? $tora - $row['poll2'] : $tora);
 		$this->pektis3 = $row['παίκτης3'];
 		$this->apodoxi3 = $row['αποδοχή3'];
-		$this->poll3 = (is_numeric($row['poll3']) ? $tora - $row['poll3'] : $tora);
+		$this->idle3 = (is_numeric($row['poll3']) ? $tora - $row['poll3'] : $tora);
 		$this->kasa = $row['κάσα'];
-		$this->stisimo = $row['στήσιμο'];
 	}
 
 	static public function dialisi_adio() {
