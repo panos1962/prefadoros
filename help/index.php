@@ -1,6 +1,6 @@
 <?php
 require_once '../lib/standard.php';
-set_globals();
+set_globals(TRUE);
 Page::head();
 Page::stylesheet('help/help');
 Page::body();

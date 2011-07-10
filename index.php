@@ -1,5 +1,7 @@
 <?php
 require_once 'lib/standard.php';
+require_once 'lib/pektis.php';
+require_once 'lib/trapezi.php';
 require_once 'lib/trapoula.php';
 set_globals();
 Page::head();
