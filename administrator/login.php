@@ -1,6 +1,6 @@
 <?php
 require_once('../lib/standard.php');
-set_globals(FALSE);
+set_globals(TRUE);
 Page::head();
 if ($globals->is_administrator()) {
 	?>
@@ -28,7 +28,7 @@ Page::epikefalida();
 		Login
 	</td>
 	<td class="tbldbg">
-		<input type="text" maxlength="30" size="20"
+		<input id="login" type="text" maxlength="30" size="20"
 			value="Administrator" disabled class="formaField"
 			style="font-weight: bold;" />
 	</td>

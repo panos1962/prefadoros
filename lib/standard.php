@@ -124,7 +124,7 @@ class Session {
 	}
 }
 
-function set_globals() {
+function set_globals($anonima = FALSE) {
 	global $globals;
 
 	if (isset($globals)) {
@@ -168,6 +168,14 @@ function set_globals() {
 		Globals::fatal($_SERVER['SERVER_NAME'] . ': unknown server');	
 	}
 
+	if (Session::is_set('ps_administrator')) {
+		$globals->administrator = TRUE;
+	}
+
+	if ($anonima) {
+		return;
+	}
+
 	$globals->db = @mysqli_connect($dbhost, $dbuser, $dbpassword);
 	if (!$globals->db) {
 		Globals::fatal('database connection failed (' .
@@ -177,10 +185,6 @@ function set_globals() {
 	@mysqli_set_charset($globals->db, 'UTF8');
 	if (!@mysqli_select_db($globals->db, $dbname)) {
 		Globals::fatal('cannot open database (' . $dbname . ')');
-	}
-
-	if (Session::is_set('ps_administrator')) {
-		$globals->administrator = TRUE;
 	}
 
 	if (Session::is_set('ps_login')) {
@@ -519,7 +523,7 @@ class Page {
 			$page = 'login';
 		}
 		?>
-		[&nbsp;<a target="_blank" href="<?php
+		[&nbsp;<a id="administratorLabel" target="_blank" href="<?php
 			print $globals->server; ?>administrator/<?php
 			print $page; ?>.php" class="<?php
 			print $class; ?>">Administrator</a>&nbsp;]

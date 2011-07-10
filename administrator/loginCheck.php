@@ -1,6 +1,6 @@
 <?php
 require_once('../lib/standard.php');
-set_globals(FALSE);
+set_globals(TRUE);
 
 if (!Globals::perastike('password')) {
 	Globals::fatal('password missing');
