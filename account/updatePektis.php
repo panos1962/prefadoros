@@ -1,13 +1,14 @@
 <?php
 require_once '../lib/standard.php';
+require_once '../lib/pektis.php';
 Page::data();
 set_globals();
 $globals->pektis_check();
 
-$login = Globals::asfales($globals->pektis->login);
+$login = $globals->asfales($globals->pektis->login);
 
 Globals::perastike_check('onoma');
-$onoma = Globals::asfales($_REQUEST['onoma']);
+$onoma = $globals->asfales($_REQUEST['onoma']);
 
 Globals::perastike_check('email');
 if ($_REQUEST['email'] == '') {
@@ -15,19 +16,19 @@ if ($_REQUEST['email'] == '') {
 }
 else {
 	Globals::email_check($_REQUEST['email']);
-	$email = "'" . Globals::asfales($_REQUEST['email']) . "'";
+	$email = "'" . $globals->asfales($_REQUEST['email']) . "'";
 }
 
 Globals::perastike_check('password');
-$password = Globals::asfales($_REQUEST['password']);
+$password = $globals->asfales($_REQUEST['password']);
 
 $query = "UPDATE `παίκτης` SET `όνομα` = '" . $onoma . "', `email` = " . $email;
 if (Globals::perastike('password1') && ($_REQUEST['password1'])) {
-	$query .= ", `password` = '" . sha1(Globals::asfales($_REQUEST['password1'])) . "'";
+	$query .= ", `password` = '" . sha1($globals->asfales($_REQUEST['password1'])) . "'";
 }
 $query .= " WHERE `login` LIKE '" . $login . "' AND `password` LIKE '" . sha1($password) . "'";
 
-$result = Globals::sql_query($query);
+$result = $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	print 'Δεν έγιναν αλλαγές στα στοιχεία του λογαριασμού';
 	die(1);
