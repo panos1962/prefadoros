@@ -197,6 +197,17 @@ account.onload = function() {
 
 		location.href = globals.server;
 	};
+
+	this.cancelSignup = function() {
+		var w = window.opener;
+		if (isSet(w)) {
+			window.close();
+		}
+		else {
+			location.href = globals.server + 'index.php';
+		}
+		return false;
+	};
 }
 
 window.onload = function() {

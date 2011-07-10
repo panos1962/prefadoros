@@ -118,7 +118,7 @@ if ($globals->is_pektis()) {
 	</td>
 	<td class="tbldbg">
 		<input type="button" value="Cancel" class="button formaButton"
-			onclick="location.href='<?php print $globals->server; ?>index.php'" />
+			onclick="return account.cancelSignup();" />
 	</td>
 </tr>
 </table>
