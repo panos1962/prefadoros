@@ -8,49 +8,118 @@
 	width: 14.0cm;
 	min-width: 14.0cm;
 	max-width: 14.0cm;
+
 	height: 13.0cm;
 	max-height: 13.0cm;
 	min-height: 13.0cm;
-	overflow-y: auto;
-}
 
-.tsoxa {
-	width: 13.7cm;
-	min-width: 13.7cm;
-	max-width: 13.7cm;
-	height: 12.6cm;
-	max-height: 12.6cm;
-	min-height: 12.6cm;
-	margin-left: auto;
-	margin-right: auto;
-	background-image: url('../images/tsoxa.jpg');
-	background-repeat: repeat;
-	border-style: dotted;
-	border-width: 0.13cm;
-	border-color: #4D944D;
+	overflow-y: auto;
 	user-select: none;
 	-moz-user-select: none;
 	-webkit-user-select: none;
+}
+
+.trapezi {
+	width: 13.7cm;
+	min-width: 13.7cm;
+	max-width: 13.7cm;
+
+	height: 12.6cm;
+	max-height: 12.6cm;
+	min-height: 12.6cm;
+
+	margin-left: auto;
+	margin-right: auto;
+
+	border-style: dotted;
+	border-width: 0.13cm;
+	border-color: #4D944D;
+
+	background-image: url('../images/tsoxa.jpg');
+	background-repeat: repeat;
+}
+
+.kafenio {
+	font-size: 0.5cm;
+	letter-spacing: 0.01cm;
+}
+
+.kafenioRebels {
+	width: 12.7cm;
+	min-width: 12.7cm;
+	max-width: 12.7cm;
+
+	margin-left: auto;
+	margin-right: auto;
+
+	margin-top: 0.2cm;
+}
+
+.kafenioPektis {
+	display: inline-block;
+	margin-top: 0.2cm;
+	margin-right: 0.2cm;
+	text-align: center;
+
+	width: 2.8cm;
+	min-width: 2.8cm;
+	max-width: 2.8cm;
+
+	height: 0.7cm;
+	max-height: 0.7cm;
+	min-height: 0.7cm;
+
+	border-style: solid;
+	border-width: 0.08cm;
+	border-color: #4D944D;
+
+	background-color: #8AA886;
+}
+
+.kafenioTrapeziInfo {
+	display: inline-block;
+	margin-top: 0.2cm;
+	margin-right: 0.2cm;
+	text-align: center;
+
+	width: 2.8cm;
+	min-width: 2.8cm;
+	max-width: 2.8cm;
+
+	height: 0.7cm;
+	max-height: 0.7cm;
+	min-height: 0.7cm;
+}
+
+.kafenioTrapeziLine {
+	margin-top: 0.2cm;
+	margin-bottom: 0px;
+
+	width: 12.7cm;
+	min-width: 12.7cm;
+	max-width: 12.7cm;
 }
 
 .kafenioTrapezi {
 	margin-top: 0.2cm;
+
 	width: 12.7cm;
 	min-width: 12.7cm;
 	max-width: 12.7cm;
-	height: 1.8cm;
-	max-height: 1.8cm;
-	min-height: 1.8cm;
+
+	height: 1.2cm;
+	max-height: 1.2cm;
+	min-height: 1.2cm;
+
 	margin-left: auto;
 	margin-right: auto;
-	background-image: url('../images/trapezi.jpg');
-	background-repeat: repeat;
+
 	border-style: dotted;
 	border-width: 0.085cm;
 	border-color: #4D944D;
-	user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
+
+	background-image: url('../images/trapezi.jpg');
+	background-repeat: repeat;
 }
 
 .controlPanelColumn {
