@@ -73,30 +73,59 @@ class Globals {
 		}
 	}
 
-	public static function asfales($s) {
-		global $globals;
-
+	public function asfales($s) {
 		if (get_magic_quotes_gpc()) {
 			$s = stripslashes($s);
 		}
 
-		if (isset($globals->db)) {
-			return(@mysqli_real_escape_string($globals->db, $s));
+		if (isset($this->db)) {
+			return(@mysqli_real_escape_string($this->db, $s));
 		}
 
 		return($s);
 	}
 
-	public static function sql_query($query, $msg = 'SQL error') {
-		global $globals;
-
-		$result = @mysqli_query($globals->db, $query);
+	public function sql_query($query, $msg = 'SQL error') {
+		$result = @mysqli_query($this->db, $query);
 		if ($result) {
 			return($result);
 		}
 
-		print $msg . ': ' . @mysqli_error($globals->db);
+		print $msg . ': ' . @mysqli_error($this->db);
 		die(1);
+	}
+
+	public function klidoma($tag, $timeout = 2) {
+		$query = "SELECT GET_LOCK('" . $this->asfales($tag) . "', " . $timeout . ")";
+		$result = @mysqli_query($this->db, $query);
+		if (!$result) {
+			return(FALSE);
+		}
+
+		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
+		if (!$row) {
+			return(FALSE);
+		}
+		@mysqli_free_result($result);
+
+		if ($row[0] != 1) {
+			return(FALSE);
+		}
+
+		@mysqli_autocommit($this->db, FALSE);
+		return(TRUE);
+	}
+
+	public function xeklidoma($tag, $ok) {
+		if ($ok) {
+			@mysqli_commit($this->db);
+		}
+		else {
+			@mysqli_rollback($this->db);
+		}
+
+		$query = "DO RELEASE_LOCK('" . $this->asfales($tag) . "')";
+		@mysqli_query($this->db, $query);
 	}
 
 	public static function fatal($msg = 'unknown') {

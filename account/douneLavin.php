@@ -1,5 +1,6 @@
 <?php
 require_once '../lib/standard.php';
+require_once '../lib/pektis.php';
 Page::data();
 set_globals();
 $globals->pektis_check();

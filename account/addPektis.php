@@ -5,10 +5,10 @@ Page::data();
 set_globals();
 
 Globals::perastike_check('login');
-$login = Globals::asfales($_REQUEST['login']);
+$login = $globals->asfales($_REQUEST['login']);
 
 Globals::perastike_check('onoma');
-$onoma = Globals::asfales($_REQUEST['onoma']);
+$onoma = $globals->asfales($_REQUEST['onoma']);
 
 Globals::perastike_check('email');
 if ($_REQUEST['email'] == '') {
@@ -16,15 +16,15 @@ if ($_REQUEST['email'] == '') {
 }
 else {
 	Globals::email_check($_REQUEST['email']);
-	$email = "'" . Globals::asfales($_REQUEST['email']) . "'";
+	$email = "'" . $globals->asfales($_REQUEST['email']) . "'";
 }
 
 Globals::perastike_check('password');
-$password = Globals::asfales($_REQUEST['password']);
+$password = $globals->asfales($_REQUEST['password']);
 
 $query = "INSERT INTO `παίκτης` (`login`, `όνομα`, `email`, `poll`, `password`) VALUES ('" .
 	$login . "', '" . $onoma . "', " . $email . ", NOW(), '" . sha1($password) . "')";
-$result = Globals::sql_query($query);
+$result = $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	print 'Δεν δημιουργήθηκε λογαριασμός (' . @mysqli_error($globals->db) . ')';
 	die(1);

@@ -44,12 +44,11 @@ class Pektis {
 			$this->idle = (int)($row['idle']);
 		}
 		else {
-			if (isset($password)) {
-				$this->error = 'Δεν έχετε πρόσβαση ως παίκτης "' . $login . '"';
-			}
-			else {
-				$this->error = 'Δεν βρέθηκε ο παίκτης "' . $login . '"';
-			}
+			$this->error = (isset($password) ?
+				'Δεν έχετε πρόσβαση ως παίκτης "' . $login . '"'
+			:
+				'Δεν βρέθηκε ο παίκτης "' . $login . '"'
+			);
 		}
 	}
 }

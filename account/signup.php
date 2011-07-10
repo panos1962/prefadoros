@@ -1,5 +1,6 @@
 <?php
 require_once '../lib/standard.php';
+require_once '../lib/pektis.php';
 set_globals();
 Page::head();
 Page::stylesheet('lib/forma');
