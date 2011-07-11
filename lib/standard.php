@@ -270,13 +270,13 @@ class Page {
 		<script type="text/javascript">
 			//<![CDATA[
 			var globals = {};
-			pektis = null;
+			var pektis = null;
 			globals.server = '<?php print $globals->server; ?>';
 			globals.timeDif = <?php print time(); ?>;
 			<?php
 			if ($globals->is_pektis()) {
 				?>
-				var pektis = {};
+				pektis = {};
 				pektis.login = '<?php print $globals->pektis->login; ?>';
 				pektis.katastasi = '<?php print $globals->pektis->katastasi; ?>';
 				<?php
