@@ -5,7 +5,7 @@ Page::head();
 Page::stylesheet('faq/faq');
 Page::javascript('faq/faq');
 Page::body();
-Page::epikefalida();
+Page::epikefalida(Globals::perastike('pedi'));
 ?>
 <div class="faqArea">
 

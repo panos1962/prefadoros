@@ -3,6 +3,7 @@ require_once 'lib/standard.php';
 require_once 'lib/pektis.php';
 require_once 'lib/trapezi.php';
 require_once 'lib/trapoula.php';
+require_once 'lib/prefadoros.php';
 set_globals();
 Page::head();
 if ($globals->is_pektis()) {
@@ -12,6 +13,7 @@ if ($globals->is_pektis()) {
 	Page::javascript('lib/pss');
 	Page::javascript('lib/emoticons');
 	Page::javascript('lib/soundmanager');
+	Prefadoros::set_trapezi();
 }
 Page::body();
 Page::motd();

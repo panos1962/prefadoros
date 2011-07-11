@@ -195,10 +195,11 @@ account.onload = function() {
 			return false;
 		}
 
-		location.href = globals.server;
+		account.exitSignup();
+		return false;
 	};
 
-	this.cancelSignup = function() {
+	this.exitSignup = function() {
 		var w = window.opener;
 		if (isSet(w)) {
 			window.close();

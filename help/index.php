@@ -4,7 +4,7 @@ set_globals(TRUE);
 Page::head();
 Page::stylesheet('help/help');
 Page::body();
-Page::epikefalida();
+Page::epikefalida(Globals::perastike('pedi'));
 ?>
 <div class="helpArea">
 

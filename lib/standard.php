@@ -235,17 +235,6 @@ function set_globals($anonima = FALSE) {
 			unset($globals->pektis);
 		}
 	}
-
-	if ($globals->is_pektis()) {
-		$globals->trapezi = new Trapezi($globals->pektis->login);
-		if (isset($globals->trapezi->kodikos)) {
-			$globals->trapezi->fetch_dianomi();
-			$globals->trapezi->fetch_kinisi();
-		}
-		else {
-			unset($globals->trapezi);
-		}
-	}
 }
 
 class Page {
@@ -388,22 +377,23 @@ class Page {
 		<?php
 	}
 
-	public static function epikefalida($pedi = TRUE) {
+	public static function epikefalida($pedi = FALSE) {
 		global $globals;
 		?>
 		<div id="toolbar" class="toolbarArea">
 			<table class="tbldbg" style="width: 100%;"><tr>
 			<td class="tbldbg" style="width: 49%;">
 				<div class="toolbarLeft">
-					[&nbsp;<a class="data" href="<?php
-						print $globals->server; ?>index.php"
-						<?php
-						if ($pedi) {
-							?>
+					<?php
+					if ($pedi) {
+						?>
+						[&nbsp;<a href="<?php
+							print $globals->server; ?>index.php"
 							onclick="window.self.close(); return false"
-							<?php
-						}
-						?>>Κλείσιμο</a>&nbsp;]
+							class="data">Κλείσιμο</a>&nbsp;]
+						<?php
+					}
+					?>
 				</div>
 			</td>
 			<td class="tbldbg">
@@ -428,15 +418,15 @@ class Page {
 			<?php
 		}
 		?>
-		[&nbsp;<a target="_blank" href="<?php print $globals->server; ?>help/index.php"
-			class="data">Οδηγίες</a>&nbsp;]
-		[&nbsp;<a target="_blank" href="<?php print $globals->server; ?>faq/index.php"
-			class="data">FAQ</a>&nbsp;]
+		[&nbsp;<a target="_blank" href="<?php print $globals->server;
+			?>help/index.php?pedi=yes" class="data">Οδηγίες</a>&nbsp;]
+		[&nbsp;<a target="_blank" href="<?php print $globals->server;
+			?>faq/index.php?pedi=yes" class="data">FAQ</a>&nbsp;]
 		<?php
 		if ($globals->is_pektis()) {
 			?>
 			[&nbsp;<a class="data" target="_blank" href="<?php
-				print $globals->server; ?>pm/index.php" >PM</a>&nbsp;]
+				print $globals->server; ?>pm/index.php?pedi=yes" >PM</a>&nbsp;]
 			<?php
 		}
 	}
@@ -549,9 +539,9 @@ class Page {
 		global $globals;
 		?>
 		[&nbsp;<a target="_blank" href="<?php print $globals->server;
-			?>copyright/index.php" class="data">Copyright</a>&nbsp;]
+			?>copyright/index.php?pedi=yes" class="data">Copyright</a>&nbsp;]
 		[&nbsp;<a target="_blank" href="<?php print $globals->server;
-			?>adia/index.php" class="data nobr">Άδεια&nbsp;χρήσης</a>&nbsp;]
+			?>adia/index.php?pedi=yes" class="data nobr">Άδεια&nbsp;χρήσης</a>&nbsp;]
 		<?php
 		if ($globals->is_administrator()) {
 			$class = 'data administrator';
