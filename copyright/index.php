@@ -4,7 +4,7 @@ set_globals(TRUE);
 Page::head();
 Page::stylesheet('copyright/copyright');
 Page::body();
-Page::epikefalida();
+Page::epikefalida(Globals::perastike('pedi'));
 ?>
 <div class="mainArea copyrightArea">
 <div class="copyrightTitlos">

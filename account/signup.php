@@ -1,7 +1,6 @@
 <?php
 require_once '../lib/standard.php';
 require_once '../lib/pektis.php';
-require_once '../lib/trapezi.php';
 set_globals();
 Page::head();
 Page::stylesheet('lib/forma');
@@ -119,7 +118,7 @@ if ($globals->is_pektis()) {
 	</td>
 	<td class="tbldbg">
 		<input type="button" value="Cancel" class="button formaButton"
-			onclick="return account.cancelSignup();" />
+			onclick="return account.exitSignup();" />
 	</td>
 </tr>
 </table>
