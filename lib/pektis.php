@@ -22,9 +22,9 @@ class Pektis {
 
 		$query = "SELECT `login`, `όνομα`, `email`, `καπίκια`, " .
 			"κατάσταση, (NOW() - `poll`) AS `idle` " .
-			"FROM `παίκτης` WHERE `login` LIKE '" . Globals::asfales($login) . "'";
+			"FROM `παίκτης` WHERE `login` LIKE '" . $globals->asfales($login) . "'";
 		if (isset($password)) {
-			$query .= " AND `password` LIKE '" . Globals::asfales($password) . "'";
+			$query .= " AND `password` LIKE '" . $globals->asfales($password) . "'";
 		}
 
 		$result = @mysqli_query($globals->db, $query);
