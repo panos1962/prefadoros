@@ -5,6 +5,7 @@ require_once 'lib/trapezi.php';
 require_once 'lib/trapoula.php';
 require_once 'lib/prefadoros.php';
 set_globals();
+$globals->set_pektis();
 Page::head();
 if ($globals->is_pektis()) {
 	Page::stylesheet('lib/prefadoros');
