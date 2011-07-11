@@ -2,6 +2,7 @@
 require_once '../lib/standard.php';
 require_once '../lib/pektis.php';
 set_globals();
+$globals->set_pektis();
 Page::head();
 Page::stylesheet('lib/forma');
 Page::javascript('lib/forma');

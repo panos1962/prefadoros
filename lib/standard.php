@@ -22,6 +22,20 @@ class Globals {
 		unset($this->kinisi);
 	}
 
+	public function set_pektis() {
+		if ($this->is_pektis()) {
+			self::fatal('επανακαθορισμός παίκτη');
+		}
+
+		if (Session::is_set('ps_login')) {
+			$this->pektis = new Pektis($_SESSION['ps_login']);
+			if (!isset($this->pektis->login)) {
+				unset($_SESSION['ps_login']);
+				unset($this->pektis);
+			}
+		}
+	}
+
 	public function is_administrator() {
 		return(isset($this->administrator));
 	}
@@ -38,7 +52,10 @@ class Globals {
 
 	public function pektis_check() {
 		if (!$this->is_pektis()) {
-			self::fatal('ακαθόριστος παίκτης');
+			$this->set_pektis();
+			if (!$this->is_pektis()) {
+				self::fatal('ακαθόριστος παίκτης');
+			}
 		}
 	}
 
@@ -227,14 +244,6 @@ function set_globals($anonima = FALSE) {
 	if (!@mysqli_select_db($globals->db, $dbname)) {
 		Globals::fatal('cannot open database (' . $dbname . ')');
 	}
-
-	if (Session::is_set('ps_login')) {
-		$globals->pektis = new Pektis($_SESSION['ps_login']);
-		if (!isset($globals->pektis->login)) {
-			unset($_SESSION['ps_login']);
-			unset($globals->pektis);
-		}
-	}
 }
 
 class Page {
@@ -273,12 +282,11 @@ class Page {
 			var pektis = null;
 			globals.server = '<?php print $globals->server; ?>';
 			globals.timeDif = <?php print time(); ?>;
+			pektis = {};
 			<?php
-			if ($globals->is_pektis()) {
+			if (Session::is_set('ps_login')) {
 				?>
-				pektis = {};
-				pektis.login = '<?php print $globals->pektis->login; ?>';
-				pektis.katastasi = '<?php print $globals->pektis->katastasi; ?>';
+				pektis.login = '<?php print $_SESSION['ps_login']; ?>';
 				<?php
 			}
 			if (Session::is_set('ps_whlt') &&
