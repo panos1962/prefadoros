@@ -501,6 +501,15 @@ Page::epikefalida(Globals::perastike('pedi'));
 		<td class="helpKimeno">
 			Κάνοντας κλικ στο εικονίδιο των smilies
 			εμφανίζεται πάνελ με smilies δεξιά από το χώρο συζήτησης.
+			Εκεί ο παίκτης μπορεί να επιλέξει από διάφορες σειρές smilies
+			κάνοντας κλικ στο σχετικό εικονίδιο εναλλαγής
+			<span class="nobr">(<img src="<?php print $globals->server;
+			?>images/controlPanel/4Balls.png" class="helpIconInline" alt = "" />).</span>
+			Ο χρήστης μποεί να κλείσει το πάνελ των smilies κάνοντα κλικ
+			στο σχετικό εικονίδιο <span class="nobr">απόκρυψης (<img src="<?php
+			print $globals->server; ?>images/emoticons/alien.png"
+			class="helpIconInline" alt = "" />)</span>
+			του control panel.
 		</td>
 		</tr>
 	</table>
@@ -510,7 +519,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
-			<img src="<?php print $globals->server; ?>images/emoticons/xara.png"
+			<img src="<?php print $globals->server; ?>images/emoticons/set1/xara.png"
 				class="helpIcon" alt="" />
 		</td>
 		<td class="helpKimeno">
@@ -523,6 +532,12 @@ Page::epikefalida(Globals::perastike('pedi'));
 			επικυρώστε την κίνησή σας και η εικόνα μαζί με το μήνυμα
 			που επιλέξατε θα εμφανιστούν στο χώρο της ανταλλαγής μηνυμάτων
 			του τραπεζιού.
+			Ο χρήστης μποεί να κλείσει το πάνελ των διασκεδαστικών
+			μηνυμάτων κάνοντα κλικ στο σχετικό εικονίδιο
+			<span class="nobr">απόκρυψης (<img src="<?php
+			print $globals->server; ?>images/emoticons/set1/glosa.png"
+			class="helpIconInline" alt = "" />)</span>
+			του control panel.
 		</td>
 		</tr>
 	</table>
