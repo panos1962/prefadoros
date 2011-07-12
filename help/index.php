@@ -495,7 +495,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
-			<img src="<?php print $globals->server; ?>images/emoticons/xamogelo.png"
+			<img src="<?php print $globals->server; ?>images/emoticons/set0/xamogelo.png"
 				class="helpIcon" alt="" />
 		</td>
 		<td class="helpKimeno">
@@ -507,7 +507,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 			?>images/controlPanel/4Balls.png" class="helpIconInline" alt = "" />).</span>
 			Ο χρήστης μποεί να κλείσει το πάνελ των smilies κάνοντα κλικ
 			στο σχετικό εικονίδιο <span class="nobr">απόκρυψης (<img src="<?php
-			print $globals->server; ?>images/emoticons/alien.png"
+			print $globals->server; ?>images/emoticons/set0/alien.png"
 			class="helpIconInline" alt = "" />)</span>
 			του control panel.
 		</td>
@@ -1175,7 +1175,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 	που εμφανίζεται εφόσον κάνετε κλικ
 	στο εικονίδιο εμφάνισης ή απόκρυψης της παλέτας
 	<span class="nobr">(<img src="<?php print $globals->server;
-		?>images/emoticons/alien.png"
+		?>images/emoticons/set0/alien.png"
 		class="helpIconInline" alt = "" />).</span>
 	Καθώς πληκτρολογείτε το μήνυμά σας, ή εισάγετε
 	emoticons, εμφανίζεται το μήνυμά σας στο κάτω μέρος
