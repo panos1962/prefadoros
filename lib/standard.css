@@ -12,6 +12,35 @@ a img {
 
 .dialogos {
 	position: fixed;
+	visibility: hidden;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+.dialogosBox {
+	text-align: left;
+	font-weight: normal;
+	padding: 0.2cm;
+	background-color: #FFFFCC;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #6B6B47;
+	width: 8.0cm;
+}
+
+.dialogosYesNo {
+	margin-top: 0.2cm;
+	padding-top: 0.07cm;
+	padding-bottom: 0.07cm;
+	padding-left: 0.2cm;
+	padding-right: 0.2cm;
+	display: inline-block;
+	margin-left: 0.4cm;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #999966;
+	cursor: pointer;
 }
 
 .mainArea {
