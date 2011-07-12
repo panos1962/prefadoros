@@ -13,9 +13,9 @@ class Trapezi {
 	public $kasa;
 	public $error;
 
-	public function __construct($pektis = NULL) {
+	public function __construct() {
 		global $globals;
-		$errmsg = "Trapezi(construct): ";
+		$errmsg = "Trapezi::construct(): ";
 
 		unset($this->kodikos);
 		unset($this->pektis1);
@@ -30,15 +30,7 @@ class Trapezi {
 		unset($this->kasa);
 		unset($this->error);
 
-		if (!isset($pektis)) {
-			if ($globals->is_pektis()) {
-				$pektis = $globals->pektis->login;
-			}
-			else {
-				$this->error = $errmsg . ': ακαθόριστος παίκτης';
-				return;
-			}
-		}
+		Prefadoros::pektis_check();
 
 		// Εντοπίζω το πιο "φρέσκο" ενεργό τραπέζι στο οποίο συμμετέχει
 		// ο παίκτης. Αν δεν είναι το τραπέζι που τον ενδιαφέρει, πρέπει
@@ -47,7 +39,7 @@ class Trapezi {
 		// πρόσκληση για το τραπέζι, ώστε να μπορεί αργότερα να επανέλθει,
 		// εφόσον, φυσικά, το επιθυμεί.
 
-		$login = $globals->asfales($pektis);
+		$login = $globals->asfales($globals->pektis->login);
 		$query = "SELECT `κωδικός`, " .
 			"`παίκτης1`, `αποδοχή1`, UNIX_TIMESTAMP(`poll1`) AS `poll1`, " .
 			"`παίκτης2`, `αποδοχή2`, UNIX_TIMESTAMP(`poll2`) AS `poll2`, " .
@@ -56,18 +48,12 @@ class Trapezi {
 			"WHERE ((`παίκτης1` LIKE '" . $login . "') " .
 			"OR (`παίκτης2` LIKE '" . $login . "') " .
 			"OR (`παίκτης3` LIKE '" . $login . "')) " .
-			"AND `διάλυση` IS NULL ORDER BY `κωδικός` DESC LIMIT 1";
-		$result = @mysqli_query($globals->db, $query);
-		if (!$result) {
-			$this->error = $errmsg . 'SQL error (' .
-				@mysqli_error($globals->db) . ')';
-			return;
-		}
-
+			"AND (`τέλος` IS NULL) ORDER BY `κωδικός` DESC LIMIT 1";
+		$result = $globals->sql_query($query);
 		$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
 		if (!$row) {
 			$this->error = $errmsg . 'δεν βρέθηκε τραπέζι για τον παίκτη "' .
-				$pektis . '"';
+				$globals->pektis->login . '"';
 			return;
 		}
 		@mysqli_free_result($result);

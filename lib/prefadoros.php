@@ -1,10 +1,43 @@
 <?php
 class Prefadoros {
-	public static function set_trapezi() {
+	public static $errmsg = 'Prefadoros::';
+
+	public static function set_pektis() {
 		global $globals;
 
 		if ($globals->is_pektis()) {
-			$globals->trapezi = new Trapezi($globals->pektis->login);
+			Globals::fatal(self::$errmsg . 'set_pektis(): επανακαθορισμός παίκτη');
+		}
+
+		if (Session::is_set('ps_login')) {
+			$globals->pektis = new Pektis($_SESSION['ps_login']);
+			if (!isset($globals->pektis->login)) {
+				unset($_SESSION['ps_login']);
+				unset($globals->pektis);
+			}
+		}
+	}
+
+	public static function pektis_check() {
+		global $globals;
+
+		if (!$globals->is_pektis()) {
+			self::set_pektis();
+			if (!$globals->is_pektis()) {
+				Globals::fatal(self::$errmsg . 'pektis_check(): ακαθόριστος παίκτης');
+			}
+		}
+	}
+
+	public static function set_trapezi() {
+		global $globals;
+
+		if ($globals->is_trapezi()) {
+			Globals::fatal(self::$errmsg . 'set_trapezi(): επανακαθορισμός τραπεζιού');
+		}
+
+		if ($globals->is_pektis()) {
+			$globals->trapezi = new Trapezi();
 			if (isset($globals->trapezi->kodikos)) {
 				$globals->trapezi->fetch_dianomi();
 				$globals->trapezi->fetch_kinisi();

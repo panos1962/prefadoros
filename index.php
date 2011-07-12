@@ -5,7 +5,7 @@ require_once 'lib/trapezi.php';
 require_once 'lib/trapoula.php';
 require_once 'lib/prefadoros.php';
 set_globals();
-$globals->set_pektis();
+Prefadoros::set_pektis();
 Page::head();
 if ($globals->is_pektis()) {
 	Page::stylesheet('lib/prefadoros');
@@ -19,6 +19,7 @@ if ($globals->is_pektis()) {
 Page::body();
 Page::motd();
 if ($globals->is_pektis()) {
+	Prefadoros::pektis_check();
 	Page::diafimisi();
 }
 Page::toolbar();
