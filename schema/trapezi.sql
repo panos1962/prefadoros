@@ -19,6 +19,10 @@ CREATE TABLE `τραπέζι` (
 	)		NOT NULL DEFAULT 'NO' COMMENT 'Αποδοχή όρων από τον τρίτο παίκτη',
 	`poll3`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Τελευταία επαφή τρίτου παίκτη',
 	`κάσα`		INTEGER(4) NOT NULL DEFAULT 50 COMMENT 'Ποσό κάσας',
+	`ιδωτικότητα`	ENUM(
+		'ΠΡΙΒΕ',
+		'ΔΗΜΟΣΙΟ'
+	)		NOT NULL DEFAULT 'ΠΡΙΒΕ' COMMENT 'Ιδιωτικότητα τραπεζιού',
 	`στήσιμο`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Πότε δημιουργήθηκε',
 	`τέλος`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Πότε τελείωσε',
 
