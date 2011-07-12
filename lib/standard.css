@@ -21,6 +21,7 @@ a img {
 .dialogosBox {
 	text-align: left;
 	font-weight: normal;
+	font-size: 0.45cm;
 	padding: 0.2cm;
 	background-color: #FFFFCC;
 	border-style: solid;
