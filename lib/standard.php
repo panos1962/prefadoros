@@ -61,10 +61,12 @@ class Globals {
 	}
 
 	public static function perastike_check($key, $msg = NULL) {
-		if (!self::perastike($key)) {
-			print isset($msg) ? $msg : $key . ': δεν περάστηκε παράμετρος';
-			die(1);
+		if (self::perastike($key)) {
+			return($_REQUEST[$key]);
 		}
+
+		print isset($msg) ? $msg : $key . ': δεν περάστηκε παράμετρος';
+		die(1);
 	}
 
 	public static function email_check($email, $msg = NULL) {

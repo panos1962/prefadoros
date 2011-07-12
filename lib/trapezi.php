@@ -11,6 +11,7 @@ class Trapezi {
 	public $apodoxi3;
 	public $idle3;
 	public $kasa;
+	public $idiotikotita;
 	public $error;
 
 	public function __construct() {
@@ -28,6 +29,7 @@ class Trapezi {
 		unset($this->apodoxi3);
 		unset($this->idle3);
 		unset($this->kasa);
+		unset($this->idiotikotita);
 		unset($this->error);
 
 		Prefadoros::pektis_check();
@@ -44,7 +46,7 @@ class Trapezi {
 			"`παίκτης1`, `αποδοχή1`, UNIX_TIMESTAMP(`poll1`) AS `poll1`, " .
 			"`παίκτης2`, `αποδοχή2`, UNIX_TIMESTAMP(`poll2`) AS `poll2`, " .
 			"`παίκτης3`, `αποδοχή3`, UNIX_TIMESTAMP(`poll3`) AS `poll3`, " .
-			"`κάσα` FROM `τραπέζι` " .
+			"`κάσα`, `ιδιωτικότητα` FROM `τραπέζι` " .
 			"WHERE ((`παίκτης1` LIKE '" . $login . "') " .
 			"OR (`παίκτης2` LIKE '" . $login . "') " .
 			"OR (`παίκτης3` LIKE '" . $login . "')) " .
@@ -70,6 +72,7 @@ class Trapezi {
 		$this->apodoxi3 = $row['αποδοχή3'];
 		$this->idle3 = (is_numeric($row['poll3']) ? $tora - $row['poll3'] : $tora);
 		$this->kasa = $row['κάσα'];
+		$this->idiotikotita = $row['ιδιωτικότητα'];
 	}
 
 	static public function dialisi_adio() {
