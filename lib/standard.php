@@ -2,6 +2,7 @@
 
 Session::init();
 global $globals;
+unset($globals);
 
 class Globals {
 	public $server;
@@ -10,7 +11,6 @@ class Globals {
 	public $pektis;
 	public $trapezi;
 	public $dianomi;
-	public $kinisi;
 
 	public function __construct() {
 		unset($this->server);
@@ -19,28 +19,13 @@ class Globals {
 		unset($this->pektis);
 		unset($this->trapezi);
 		unset($this->dianomi);
-		unset($this->kinisi);
-	}
-
-	public function set_pektis() {
-		if ($this->is_pektis()) {
-			self::fatal('επανακαθορισμός παίκτη');
-		}
-
-		if (Session::is_set('ps_login')) {
-			$this->pektis = new Pektis($_SESSION['ps_login']);
-			if (!isset($this->pektis->login)) {
-				unset($_SESSION['ps_login']);
-				unset($this->pektis);
-			}
-		}
 	}
 
 	public function is_administrator() {
 		return(isset($this->administrator));
 	}
 
-	public function check_administrator() {
+	public function administrator_check() {
 		if (!$this->is_administrator()) {
 			self::fatal('required administrator permission');
 		}
@@ -48,15 +33,6 @@ class Globals {
 
 	public function is_pektis() {
 		return(isset($this->pektis));
-	}
-
-	public function pektis_check() {
-		if (!$this->is_pektis()) {
-			$this->set_pektis();
-			if (!$this->is_pektis()) {
-				self::fatal('ακαθόριστος παίκτης');
-			}
-		}
 	}
 
 	public function is_trapezi() {
@@ -77,10 +53,6 @@ class Globals {
 		if (!$this->is_dianomi()) {
 			self::fatal('ακαθόριστη διανομή');
 		}
-	}
-
-	public function is_kinisi() {
-		return(isset($this->kinisi));
 	}
 
 	public static function perastike($key) {
@@ -614,7 +586,7 @@ class Page {
 		header('Content-type: text/plain; charset=utf-8');
 	}
 
-	public static function check_administrator() {
+	public static function administrator_check() {
 		global $globals;
 		if (!$globals->is_administrator()) {
 			?>

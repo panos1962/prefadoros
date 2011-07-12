@@ -2,7 +2,7 @@
 require_once('../lib/standard.php');
 set_globals(TRUE);
 Page::head();
-Page::check_administrator();
+Page::administrator_check();
 Page::stylesheet('lib/menu');
 Page::javascript('administrator/administrator');
 Page::body();
