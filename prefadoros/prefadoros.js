@@ -29,8 +29,8 @@ var kafenio = new function() {
 window.onload = function() {
 	init();
 	emoticons.display();
-	setTimeout(testConnect, 100);
-	setTimeout(neaDedomena, 1000);
+	setTimeout(testConnect, 10);
+	setTimeout(neaDedomena, 100);
 //setTimeout(showKafenio, 1000);
 }
 
@@ -81,8 +81,8 @@ function neaDedomenaCheck(req) {
 		return;
 	}
 
-mainFyi(dedomena.data.id);
-	setTimeout(neaDedomena, 2000);
+mainFyi(dedomena.data.id + '@@@@@@' + dedomena.data.pektis);
+	setTimeout(neaDedomena, 100);
 }
 
 function showKafenio() {
