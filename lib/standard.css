@@ -1,6 +1,7 @@
 body {
 	background-image: url('../images/background.gif');
 	background-repeat: repeat;
+	font-family: "Georgia", "Georgia", serif;
 	font-size: 0.5cm;
 	max-width: 32.0cm;
 	color: #16130E;
@@ -19,6 +20,8 @@ a img {
 .dialogos {
 	position: fixed;
 	visibility: hidden;
+	opacity: 1.0;
+	filter: alpha(opacity=100);
 }
 
 .dialogosBox {
