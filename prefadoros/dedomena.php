@@ -1,7 +1,30 @@
 <?php
+header('Content-type: application/json; charset=utf-8');
+global $no_session;
+$no_session = TRUE;
 require_once '../lib/standard.php';
-header('Content-type: text/plain; charset=utf-8');
-for ($i = 0; $i < 4; $i++) {
+require_once '../pektis/pektis.php';
+require_once '../prefadoros/prefadoros.php';
+set_globals();
+Prefadoros::pektis_check();
+
+for ($i = 0; $i < 10; $i++) {
 	sleep(1);
+	$x = file_get_contents('../lastData/' . $globals->pektis->login);
+	if (preg_match("/^panos/", $x)) {
+		break;
+	}
 }
+
+$id = mt_rand();
+print <<<DOC
+data: {
+	pektis:		'{$globals->pektis->login}',
+	id:		{$id}
+DOC;
+
+print <<<DOC
+}
+DOC;
+die('@OK');
 ?>

@@ -29,7 +29,60 @@ var kafenio = new function() {
 window.onload = function() {
 	init();
 	emoticons.display();
-setTimeout(showKafenio, 1000);
+	setTimeout(testConnect, 100);
+	setTimeout(neaDedomena, 1000);
+//setTimeout(showKafenio, 1000);
+}
+
+function testConnect() {
+	var req = new Request('prefadoros/testConnect');
+	req.xhr.onreadystatechange = function() {
+		testConnectCheck(req);
+	};
+
+	req.send();
+}
+
+function testConnectCheck(req) {
+	if (req.xhr.readyState != 4) {
+		return;
+	}
+
+	rsp = req.getResponse();
+	mainFyi(rsp);
+	setTimeout(testConnect, 1000);
+}
+
+function neaDedomena() {
+	var req = new Request('prefadoros/dedomena');
+	req.xhr.onreadystatechange = function() {
+		neaDedomenaCheck(req);
+	};
+
+	req.send('login=' + uri(pektis.login));
+}
+
+function neaDedomenaCheck(req) {
+	if (req.xhr.readyState != 4) {
+		return;
+	}
+
+	rsp = req.getResponse();
+	if (!rsp.match(/@OK$/)) {
+		alert('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
+		return;
+	}
+
+	rsp = rsp.replace(/@OK$/, '');
+	try {
+		var dedomena = eval('({' + rsp + '})');
+	} catch(e) {
+		mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
+		return;
+	}
+
+mainFyi(dedomena.data.id);
+	setTimeout(neaDedomena, 2000);
 }
 
 function showKafenio() {
@@ -83,28 +136,6 @@ window.onbeforeunload = function() {
 		controlPanel.funchatClose();
 	}
 };
-
-function neaDedomena() {
-	var req = new Request('lib/neaDedomena');
-	req.xhr.onreadystatechange = function() {
-		neaDedomenaCheck(req);
-	};
-
-	req.send();
-}
-
-function neaDedomenaCheck(req) {
-	if (req.xhr.readyState != 4) {
-		return;
-	}
-
-	rsp = req.setResponse();
-	if (rsp) {
-		alert(rsp);
-	}
-	getelid('info').innerHTML += '<br />@' + parseInt((new Date).getTime() / 1000) + '@';
-	setTimeout(neaDedomena, 100);
-}
 
 function infoStripShow(div) {
 	if (div.innerHTML != '') {
