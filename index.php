@@ -1,15 +1,15 @@
 <?php
 require_once 'lib/standard.php';
-require_once 'lib/pektis.php';
-require_once 'lib/trapezi.php';
+require_once 'pektis/pektis.php';
+require_once 'trapezi/trapezi.php';
 require_once 'lib/trapoula.php';
-require_once 'lib/prefadoros.php';
+require_once 'prefadoros/prefadoros.php';
 set_globals();
 Prefadoros::set_pektis();
 Page::head();
 if ($globals->is_pektis()) {
-	Page::stylesheet('lib/prefadoros');
-	Page::javascript('lib/prefadoros');
+	Page::stylesheet('prefadoros/prefadoros');
+	Page::javascript('prefadoros/prefadoros');
 	Page::javascript('lib/controlPanel');
 	Page::javascript('lib/pss');
 	Page::javascript('lib/emoticons');
