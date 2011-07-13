@@ -8,9 +8,9 @@ require_once '../prefadoros/prefadoros.php';
 set_globals();
 Prefadoros::pektis_check();
 
-for ($i = 0; $i < 10; $i++) {
+for ($i = 0; $i < 3; $i++) {
 	sleep(1);
-	$x = file_get_contents('../lastData/' . $globals->pektis->login);
+	$x = file_get_contents('../dedomena/' . $globals->pektis->login);
 	if (preg_match("/^panos/", $x)) {
 		break;
 	}
