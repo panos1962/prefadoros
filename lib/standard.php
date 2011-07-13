@@ -1,6 +1,11 @@
 <?php
-
-Session::init();
+if (isset($no_session)) {
+	$_SESSION = array();
+	$_SESSION['ps_login'] = $_REQUEST['login'];
+}
+else {
+	Session::init();
+}
 global $globals;
 unset($globals);
 
