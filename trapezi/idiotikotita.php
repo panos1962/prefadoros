@@ -1,10 +1,11 @@
 <?php
 require_once '../lib/standard.php';
-require_once '../lib/pektis.php';
+require_once '../pektis/pektis.php';
+require_once '../prefadoros/prefadoros.php';
 Page::data();
 set_globals();
 die(0);
-$globals->pektis_check();
+Prefadoros::pektis_check();
 
 $idiotikotita = $globals->asfales(Globals::perastike_check('idiotikotita'));
 
