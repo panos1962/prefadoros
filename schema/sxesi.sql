@@ -10,19 +10,19 @@ CREATE TABLE `σχέση` (
 
 	PRIMARY KEY (
 		`κωδικός`
-	) USING HASH,
+	) USING BTREE,
 
 	FOREIGN KEY (
 		`παίκτης`
 	) REFERENCES `παίκτης` (
 		`login`
-	) ON DELETE CASCADE,
+	) ON DELETE CASCADE ON UPDATE CASCADE,
 
 	FOREIGN KEY (
 		`σχετιζόμενος`
 	) REFERENCES `παίκτης` (
 		`login`
-	) ON DELETE CASCADE,
+	) ON DELETE CASCADE ON UPDATE CASCADE,
 
 	UNIQUE KEY (
 		`παίκτης`,
