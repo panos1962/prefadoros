@@ -14,9 +14,6 @@
 	min-height: 13.0cm;
 
 	overflow-y: auto;
-	user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
 }
 
 .trapezi {
@@ -132,9 +129,6 @@
 	border-style: dotted;
 	border-width: 1px;
 	border-color: #E0E0D1;
-	user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
 }
 
 .controlPanelIcon {
@@ -147,15 +141,12 @@
 }
 
 .emoticonsColumn {
+	display: none;
 	vertical-align: top;
 	width: 1.0cm;
 	border-style: dotted;
 	border-width: 1px;
 	border-color: #E0E0D1;
-	user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	display: none;
 }
 
 .emoticonsIcon {
@@ -230,9 +221,6 @@
 	margin-top: 0px;
 	margin-bottom: 0.1cm;
 	text-align: right;
-	user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
 	cursor: pointer;
 }
 

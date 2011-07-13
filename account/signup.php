@@ -1,8 +1,9 @@
 <?php
 require_once '../lib/standard.php';
-require_once '../lib/pektis.php';
+require_once '../pektis/pektis.php';
+require_once '../prefadoros/prefadoros.php';
 set_globals();
-$globals->set_pektis();
+Prefadoros::set_pektis();
 Page::head();
 Page::stylesheet('lib/forma');
 Page::javascript('lib/forma');

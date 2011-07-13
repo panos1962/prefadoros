@@ -1,4 +1,3 @@
-var prefadoros = {};
 var trapezi = null;	// το τραπέζι στο οποίο συμμετέχει ο παίκτης
 var dianomi = null;	// οι διανομές του τραπεζιού
 var kinisi = null;	// οι κινήσεις της διανομής
@@ -7,16 +6,7 @@ var trapezia = null;	// τα ενεργά τραπέζια
 var rebels = null;	// περιφερόμενοι παίκτες
 var forum = null;	// η δημόσια συζήτηση
 
-window.onload = function() {
-	init();
-	controlPanel.onload();
-	pss.onload();
-	emoticons.onload();
-	kafenioTools = new KafenioTools();
-setTimeout(showKafenio, 1000);
-}
-
-function KafenioTools() {
+var kafenio = new function() {
 	this.trapeziHTML = function(t) {
 		var html = '<hr class="kafenioTrapeziLine" />';
 		html += '<div class="kafenioTrapezi">';
@@ -34,6 +24,12 @@ function KafenioTools() {
 		html += '</div>';
 		return html;
 	};
+}
+
+window.onload = function() {
+	init();
+	emoticons.display();
+setTimeout(showKafenio, 1000);
 }
 
 function showKafenio() {
@@ -69,13 +65,13 @@ function showKafenio() {
 	if (isSet(pektes) && (pektes.length > 0)) {
 		html += '<div class="kafenioRebels">';
 		for (var i = 0; i < pektes.length; i++) {
-			html += kafenioTools.rebelHTML(pektes[i]);
+			html += kafenio.rebelHTML(pektes[i]);
 		}
 		html += '</div>';
 	}
 
 	for (var i = 0; i < trapezia.length; i++) {
-		html += kafenioTools.trapeziHTML(trapezia[i]);
+		html += kafenio.trapeziHTML(trapezia[i]);
 	}
 
 	html += '</div>';
