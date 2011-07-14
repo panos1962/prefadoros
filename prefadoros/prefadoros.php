@@ -1,4 +1,8 @@
 <?php
+define('XRONOS_DEDOMENA_MAX', 3000000);
+define('XRONOS_DEDOMENA_TIC', 700000);
+define('XRONOS_PEKTIS_IDLE_MAX', 60);
+
 class Prefadoros {
 	public static $errmsg = 'Prefadoros::';
 
@@ -77,6 +81,19 @@ class Prefadoros {
 
 	public static function xeklidose_pekti($pektis, $ok) {
 		xeklidoma('pektis:' . $pektis, $ok);
+	}
+
+	public static function set_params() {
+		?>
+		<script type="text/javascript">
+			var xronos = {
+				dedomena: {
+					max:		<?php print XRONOS_DEDOMENA_MAX; ?>,
+					tic:		<?php print XRONOS_DEDOMENA_TIC; ?>
+				}
+			};
+		</script>
+		<?php
 	}
 }
 ?>

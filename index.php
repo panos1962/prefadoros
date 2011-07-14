@@ -15,6 +15,7 @@ if ($globals->is_pektis()) {
 	Page::javascript('lib/emoticons');
 	Page::javascript('lib/soundmanager');
 	Prefadoros::set_trapezi();
+	Prefadoros::set_params();
 }
 Page::body();
 Page::motd();

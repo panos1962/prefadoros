@@ -51,5 +51,13 @@ class Pektis {
 			);
 		}
 	}
+
+	public function poll_update() {
+		global $globals;
+
+		$query = "UPDATE `παίκτης` SET `poll` = NOW() WHERE `login` LIKE " .
+			"'" . $globals->asfales($globals->pektis->login) . "'";
+		$globals->sql_query($query);
+	}
 }
 ?>
