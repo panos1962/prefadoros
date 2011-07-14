@@ -1,10 +1,22 @@
-var trapezi = null;	// το τραπέζι στο οποίο συμμετέχει ο παίκτης
-var dianomi = null;	// οι διανομές του τραπεζιού
-var kinisi = null;	// οι κινήσεις της διανομής
-var sizitisi = null;	// τα σχόλια του τραπεζιού
-var trapezia = null;	// τα ενεργά τραπέζια
-var rebels = null;	// περιφερόμενοι παίκτες
-var forum = null;	// η δημόσια συζήτηση
+var apopio = {		// κωδικοί τελευταίας λήψης
+	prosklisi:	0,
+	sxesi:		0,
+	permes:		0,
+	dianomi:	0,
+	kinisi:		0,
+	sizitisi:	0,
+	trapezi:	0,
+};
+var prosklisi = [];	// οι προσκλήσεις που αφορούν στον χρήστη
+var sxesi = [];		// οι σχετιζόμενοι και οι αναζητούμενοι
+var permes = [];	// τα PMs του χρήστη
+var partida = {};	// το τραπέζι στο οποίο συμμετέχει ο παίκτης
+var dianomi = [];	// οι διανομές του τραπεζιού
+var kinisi = [];	// οι κινήσεις της διανομής
+var sizitisi = [];	// τα σχόλια του τραπεζιού
+var trapezi = [];	// τα ενεργά τραπέζια
+var rebelos = [];	// περιφερόμενοι παίκτες
+var forum = [];		// η δημόσια συζήτηση
 
 var kafenio = new function() {
 	this.trapeziHTML = function(t) {
@@ -18,7 +30,7 @@ var kafenio = new function() {
 		return html;
 	};
 
-	this.rebelHTML = function(t) {
+	this.rebelosHTML = function(t) {
 		var html = '<div class="kafenioPektis">';
 		html += t;
 		html += '</div>';
@@ -59,7 +71,12 @@ function neaDedomena() {
 		neaDedomenaCheck(req);
 	};
 
-	req.send('login=' + uri(pektis.login));
+	var params = 'login=' + uri(pektis.login);
+	for (var i in apopio) {
+		params += '&' + i + '=' + apopio[i];
+	}
+
+	req.send(params);
 }
 
 function neaDedomenaCheck(req) {
@@ -81,7 +98,8 @@ function neaDedomenaCheck(req) {
 		return;
 	}
 
-mainFyi(dedomena.data.id + '@@@@@@' + dedomena.data.pektis);
+mainFyi(dedomena.data.prosklisi + '@@@@@@' + dedomena.data.pektis);
+apopio.prosklisi++;
 	setTimeout(neaDedomena, 100);
 }
 
@@ -118,7 +136,7 @@ function showKafenio() {
 	if (isSet(pektes) && (pektes.length > 0)) {
 		html += '<div class="kafenioRebels">';
 		for (var i = 0; i < pektes.length; i++) {
-			html += kafenio.rebelHTML(pektes[i]);
+			html += kafenio.rebelosHTML(pektes[i]);
 		}
 		html += '</div>';
 	}
