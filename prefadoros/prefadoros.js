@@ -1,8 +1,8 @@
 var data = {
 	sxesi:		{		// χαρακτηριστικά αναζήτησης παικτών
-		pattern:	'',
-		katastasi:	'',
-		sxetikos:	true
+		spat:	'',		// pattern αναζήτησης παικτών
+		skat:	'',		// κατάσταση (online, available)
+		sxet:	true		// μόνο σχετιζόμενοι παίκτες
 	},
 	apopio:		{		// κωδικοί τελευταίας λήψης
 		prosklisi:	0,
@@ -83,18 +83,17 @@ function neaDedomena() {
 		params += '&' + i + '=' + data.apopio[i];
 	}
 
-	if (data.sxesi.pattern != '') {
+	if (data.sxesi.spat != '') {
 		params += '&spat=' + uri(data.sxesi.pattern);
 	}
 
-	if (data.sxesi.katastasi != '') {
+	if (data.sxesi.skat != '') {
 		params += '&skat=' + data.sxesi.katastasi;
 	}
 
-	if (data.sxesi.sxetikos) {
-		params += '&sall=0';
+	if (data.sxesi.sxet) {
+		params += '&sxet=yes';
 	}
-	
 
 	req.send(params);
 }
