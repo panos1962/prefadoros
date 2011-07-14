@@ -434,6 +434,7 @@ class Page {
 		<?php
 		if ($globals->is_pektis()) {
 			?>
+			<div id="dedomenaMonitor"></div>
 			<a target="_blank" href="<?php
 				print $globals->server; ?>account/signup.php?modify"
 				class="data login" title="Account settings"><?php

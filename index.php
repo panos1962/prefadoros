@@ -82,9 +82,9 @@ function control_panel() {
 	global $globals;
 	?>
 	<div>
-		<img class="controlPanelIcon" src="<?php
+		<img class="controlPanelIcon" alt="" src="<?php
 			print $globals->server; ?>images/controlPanel/4Balls.png"
-			alt="" title="Εναλλαγή εργαλείων" onclick="controlPanel.enalagi();" />
+			title="Εναλλαγή εργαλείων" onclick="controlPanel.enalagi();" />
 		<div id="controlPanel">
 		</div>
 	</div>
@@ -96,15 +96,16 @@ function prosklisi_area() {
 	?>
 	<div class="pssHeaderArea">
 		<span class="data">Προσκλήσεις</span>
-		<img src="<?php print $globals->server; ?>images/afxisiPerioxis.png"
-			class="pssSizingIcon" title="Αύξηση περιοχής προσκλήσεων"
-			onclick="pss.prosklisi.afxisi(this);" >
+		<div class="pssSizing">
 		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
 			class="pssSizingIcon" title="Μείωση περιοχής προσκλήσεων"
-			onclick="pss.prosklisi.miosi(this);">
+			onclick="pss.prosklisi.miosi(this);" alt="" />
+		<img src="<?php print $globals->server; ?>images/afxisiPerioxis.png"
+			class="pssSizingIcon" title="Αύξηση περιοχής προσκλήσεων"
+			onclick="pss.prosklisi.afxisi(this);" alt="" />
+		</div>
 	</div>
 	<div id="prosklisiArea" class="pssArea prosklisiArea">
-		Προσκλήσεις
 	</div>
 	<?php
 }
@@ -113,16 +114,22 @@ function sxesi_area() {
 	global $globals;
 	?>
 	<div class="pssHeaderArea">
-		<span class="data">Σχέσεις</span>
-		<img src="<?php print $globals->server; ?>images/afxisiPerioxis.png"
-			class="pssSizingIcon" title="Αύξηση περιοχής σχέσεων"
-			onclick="pss.sxesi.afxisi(this);" >
+		<input id="spat" class="pssInput" type="text" value="" maxlength="256"
+			size="20" />
+		<img src="<?php print $globals->server; ?>images/sxetikos.png"
+			class="pssIcon" title="Σχετιζόμενοι" alt="" />
+		<img src="<?php print $globals->server; ?>images/greenBall.png"
+			class="pssIcon" title="Online παίκτες" alt="" />
+		<div class="pssSizing">
 		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
 			class="pssSizingIcon" title="Μείωση περιοχής σχέσεων"
-			onclick="pss.sxesi.miosi(this);">
+			onclick="pss.sxesi.miosi(this);" alt="" />
+		<img src="<?php print $globals->server; ?>images/afxisiPerioxis.png"
+			class="pssSizingIcon" title="Αύξηση περιοχής σχέσεων"
+			onclick="pss.sxesi.afxisi(this);" alt="" />
+		</div>
 	</div>
 	<div id="sxesiArea" class="pssArea sxesiArea">
-		Σχέσεις
 	</div>
 	<?php
 }
@@ -131,16 +138,18 @@ function sizitisi_area() {
 	global $globals;
 	?>
 	<div class="pssHeaderArea">
-		<span class="data">Συζήτηση</span>
-		<img src="<?php print $globals->server; ?>images/afxisiPerioxis.png"
-			class="pssSizingIcon" title="Αύξηση περιοχής συζήτησης"
-			onclick="pss.sizitisi.afxisi(this);" >
+		<input id="mesg" class="pssInput" type="text" value="" maxlength="4096"
+			size="30" />
+		<div class="pssSizing">
 		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
 			class="pssSizingIcon" title="Μείωση περιοχής συζήτησης"
-			onclick="pss.sizitisi.miosi(this);">
+			onclick="pss.sizitisi.miosi(this);" alt="" />
+		<img src="<?php print $globals->server; ?>images/afxisiPerioxis.png"
+			class="pssSizingIcon" title="Αύξηση περιοχής συζήτησης"
+			onclick="pss.sizitisi.afxisi(this);" alt="" />
+		</div>
 	</div>
 	<div id="sizitisiArea" class="pssArea sizitisiArea">
-		Συζήτηση
 	</div>
 	<?php
 }
@@ -149,9 +158,9 @@ function emoticons() {
 	global $globals;
 	?>
 	<div>
-		<img class="emoticonsIcon" src="<?php
+		<img class="emoticonsIcon" alt="" src="<?php
 			print $globals->server; ?>images/controlPanel/4Balls.png"
-			alt="" title="Εναλλαγή emoticons" onclick="emoticons.enalagi();" />
+			title="Εναλλαγή emoticons" onclick="emoticons.enalagi();" />
 		<div id="emoticons">
 		</div>
 	</div>
