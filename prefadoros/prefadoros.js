@@ -1,4 +1,5 @@
 var data = {
+	id:	0	// id ενημέρωσης
 	sxesi:		{		// χαρακτηριστικά αναζήτησης παικτών
 		spat:	'',		// pattern αναζήτησης παικτών
 		skat:	'',		// κατάσταση (online, available)
@@ -78,7 +79,8 @@ function neaDedomena() {
 		neaDedomenaCheck(req);
 	};
 
-	var params = 'login=' + uri(pektis.login);
+	data.id++;
+	var params = 'login=' + uri(pektis.login) + '&id=' + data.id;
 	for (var i in data.apopio) {
 		params += '&' + i + '=' + data.apopio[i];
 	}
