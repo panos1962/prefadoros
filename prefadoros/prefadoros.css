@@ -160,11 +160,12 @@
 
 .pssColumn {
 	vertical-align: top;
-	min-width: 10.0cm;
+	min-width: 9.0cm;
 }
 
 .pssHeaderArea {
 	font-style: italic;
+	height: 0.7cm;
 }
 
 .pssArea {
