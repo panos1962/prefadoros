@@ -48,7 +48,7 @@ function prefadoros() {
 	<tr>
 	<td id="prefadorosColumn" class="prefadorosColumn tbldbg">
 		<div id="prefadoros" class="prefadoros">
-			<div class="trapezi">
+			<div class="partida">
 				<?php $trapoula->parousiasi(); ?>
 			</div>
 		</div>

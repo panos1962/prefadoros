@@ -16,7 +16,7 @@
 	overflow-y: auto;
 }
 
-.trapezi {
+.partida {
 	width: 13.7cm;
 	min-width: 13.7cm;
 	max-width: 13.7cm;
@@ -32,7 +32,7 @@
 	border-width: 0.13cm;
 	border-color: #4D944D;
 
-	background-image: url('../images/tsoxa.jpg');
+	background-image: url('../images/partida.jpg');
 	background-repeat: repeat;
 }
 

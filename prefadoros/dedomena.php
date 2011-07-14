@@ -6,6 +6,7 @@ require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
 require_once '../prefadoros/prefadoros.php';
 set_globals();
+$prosklisi = Globals::perastike_check('prosklisi');
 Prefadoros::pektis_check();
 
 for ($i = 0; $i < 3; $i++) {
@@ -20,6 +21,7 @@ $id = mt_rand();
 print <<<DOC
 data: {
 	pektis:		'{$globals->pektis->login}',
+	prosklisi:	{$prosklisi},
 	id:		{$id}
 DOC;
 
