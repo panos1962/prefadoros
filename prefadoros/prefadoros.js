@@ -1,11 +1,18 @@
-var apopio = {		// κωδικοί τελευταίας λήψης
-	prosklisi:	0,
-	sxesi:		0,
-	permes:		0,
-	dianomi:	0,
-	kinisi:		0,
-	sizitisi:	0,
-	trapezi:	0,
+var data = {
+	sxesi:		{		// χαρακτηριστικά αναζήτησης παικτών
+		pattern:	'',
+		katastasi:	'',
+		sxetikos:	true
+	},
+	apopio:		{		// κωδικοί τελευταίας λήψης
+		prosklisi:	0,
+		sxesi:		0,
+		permes:		0,
+		dianomi:	0,
+		kinisi:		0,
+		sizitisi:	0,
+		trapezi:	0
+	}
 };
 var prosklisi = [];	// οι προσκλήσεις που αφορούν στον χρήστη
 var sxesi = [];		// οι σχετιζόμενοι και οι αναζητούμενοι
@@ -72,9 +79,22 @@ function neaDedomena() {
 	};
 
 	var params = 'login=' + uri(pektis.login);
-	for (var i in apopio) {
-		params += '&' + i + '=' + apopio[i];
+	for (var i in data.apopio) {
+		params += '&' + i + '=' + data.apopio[i];
 	}
+
+	if (data.sxesi.pattern != '') {
+		params += '&spat=' + uri(data.sxesi.pattern);
+	}
+
+	if (data.sxesi.katastasi != '') {
+		params += '&skat=' + data.sxesi.katastasi;
+	}
+
+	if (data.sxesi.sxetikos) {
+		params += '&sall=0';
+	}
+	
 
 	req.send(params);
 }
@@ -99,7 +119,7 @@ function neaDedomenaCheck(req) {
 	}
 
 mainFyi(dedomena.data.prosklisi + '@@@@@@' + dedomena.data.pektis);
-apopio.prosklisi++;
+data.apopio.prosklisi++;
 	setTimeout(neaDedomena, 100);
 }
 
