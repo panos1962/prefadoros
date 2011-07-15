@@ -113,8 +113,11 @@ function neaDedomenaCheck(req) {
 		return;
 	}
 
-mainFyi(dedomena.enimerosi.prosklisi + '@@@@@@' + dedomena.enimerosi.pektis);
-enimerosi.apopio.prosklisi++;
+	if (dedomena.data.id < enimerosi.id) {
+		return;
+	}
+
+mainFyi('@@@@@@' + dedomena.data.id);
 	setTimeout(neaDedomena, 100);
 }
 
