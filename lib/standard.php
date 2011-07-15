@@ -1,4 +1,13 @@
 <?php
+// μέγιστος χρόνος ανίχνευσης νέων δεδομένων σε seconds
+define('XRONOS_DEDOMENA_MAX', 3);
+
+// νεκρός χρόνος μεταξύ διαδοχικών ανιχνεύσεων σε microseconds
+define('XRONOS_DEDOMENA_TIC', 700000);
+
+// μέγιστο διάστημα polling μέχρι να θεωρηθεί ο παίκτης offline.
+define('XRONOS_PEKTIS_IDLE_MAX', (XRONOS_DEDOMENA_MAX * 1.5));
+
 if (isset($no_session)) {
 	$_SESSION = array();
 	$_SESSION['ps_login'] = $_REQUEST['login'];
