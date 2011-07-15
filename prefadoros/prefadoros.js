@@ -1,9 +1,8 @@
-var data = {
-	id:	0	// id ενημέρωσης
+var enimerosi = {
+	id:	0,	// id ενημέρωσης
 	sxesi:		{		// χαρακτηριστικά αναζήτησης παικτών
 		spat:	'',		// pattern αναζήτησης παικτών
-		skat:	'',		// κατάσταση (online, available)
-		sxet:	true		// μόνο σχετιζόμενοι παίκτες
+		skat:	'',		// κατάσταση (all, online, available)
 	},
 	apopio:		{		// κωδικοί τελευταίας λήψης
 		prosklisi:	0,
@@ -79,22 +78,17 @@ function neaDedomena() {
 		neaDedomenaCheck(req);
 	};
 
-	data.id++;
-	var params = 'login=' + uri(pektis.login) + '&id=' + data.id;
-	for (var i in data.apopio) {
-		params += '&' + i + '=' + data.apopio[i];
+	enimerosi.id++;
+	var params = 'login=' + uri(pektis.login) + '&id=' + enimerosi.id;
+	for (var i in enimerosi.apopio) {
+		params += '&' + i + '=' + enimerosi.apopio[i];
 	}
 
-	if (data.sxesi.spat != '') {
-		params += '&spat=' + uri(data.sxesi.pattern);
+	if (enimerosi.sxesi.spat != '') {
+		params += '&spat=' + uri(enimerosi.sxesi.pattern);
 	}
-
-	if (data.sxesi.skat != '') {
-		params += '&skat=' + data.sxesi.katastasi;
-	}
-
-	if (data.sxesi.sxet) {
-		params += '&sxet=yes';
+	if (enimerosi.sxesi.skat != '') {
+		params += '&skat=' + enimerosi.sxesi.katastasi;
 	}
 
 	req.send(params);
@@ -119,8 +113,8 @@ function neaDedomenaCheck(req) {
 		return;
 	}
 
-mainFyi(dedomena.data.prosklisi + '@@@@@@' + dedomena.data.pektis);
-data.apopio.prosklisi++;
+mainFyi(dedomena.enimerosi.prosklisi + '@@@@@@' + dedomena.enimerosi.pektis);
+enimerosi.apopio.prosklisi++;
 	setTimeout(neaDedomena, 100);
 }
 

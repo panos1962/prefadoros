@@ -92,7 +92,10 @@ function process_sxesi() {
 		$sxesi[] = $s;
 	}
 
-	if (!Globals::perastike('sxet')) {
+	// Αν έχει δοθεί name pattern ή κατάσταση online/available, τότε επιλέγω και
+	// μη σχετιζόμενους παίκτες.
+
+	if (Globals::perastike('spat') || Globals::perastike('skat')) {
 		$query = $query1 . "AND (`login` NOT IN (SELECT `σχετιζόμενος` FROM `σχέση` WHERE " .
 			"(`παίκτης` LIKE " . $slogin . ")))" . $query2;
 		$result = $globals->sql_query($query);

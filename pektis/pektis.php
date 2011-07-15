@@ -59,5 +59,9 @@ class Pektis {
 			"'" . $globals->asfales($globals->pektis->login) . "'";
 		$globals->sql_query($query);
 	}
+
+	public function is_online() {
+		return($this->idle < XRONOS_IDLE_MAX);
+	}
 }
 ?>
