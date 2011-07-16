@@ -25,6 +25,19 @@ var trapezi = [];	// τα ενεργά τραπέζια
 var rebelos = [];	// περιφερόμενοι παίκτες
 var forum = [];		// η δημόσια συζήτηση
 
+var Sxesi = new function() {
+	this.updateHTML = function(sxesi) {
+		var x = getelid('sxesiArea');
+		if (notSet(x)) { return; }
+
+		var html = '';
+		for (var i = 0; i < sxesi.length; i++) {
+			html += '<div>' + sxesi[i].l + '</div>';
+		}
+		x.innerHTML = html;
+	};
+}
+
 var monitor = new function() {
 	this.count = 0;
 	this.errorCount = 0;
@@ -184,6 +197,7 @@ function neaDedomenaCheck(req) {
 	} catch(e) {
 		monitor.lathos();
 		mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
+alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 		setTimeout(function() { neaDedomena(); }, 100);
 		return;
 	}
@@ -200,6 +214,17 @@ function neaDedomenaCheck(req) {
 		monitor.freska();
 	}
 mainFyi('@@@@@@' + dedomena.data.id);
+
+	if (dedomena.sxesi !== 'same') {
+		Sxesi.updateHTML(dedomena.sxesi);
+	}
+
+/*
+	if (dedomena.trapezi !== 'same') {
+		Trapezi.updateHTML(dedomena.sxesi);
+	}
+*/
+
 	setTimeout(function() { neaDedomena(); }, 100);
 }
 
