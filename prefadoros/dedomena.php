@@ -6,14 +6,20 @@ require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
 require_once '../prefadoros/prefadoros.php';
 set_globals();
-Prefadoros::pektis_check();
-$globals->pektis->poll_update();
 
 global $id;
 $id = Globals::perastike_check('id');
 
+Prefadoros::pektis_check();
+$globals->pektis->poll_update($id);
+
 global $slogin;
 $slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
+
+if (Globals::perastike('freska')) {
+	freska_dedomena(torina_dedomena());
+	telos_ok();
+}
 
 $prev = new Dedomena();
 if (!$prev->diavase()) {
@@ -23,16 +29,46 @@ if (!$prev->diavase()) {
 
 $ekinisi = time();
 do {
+	check_neotero_id();
 	$curr = torina_dedomena();
 	if ($curr != $prev) {
 		diaforetika_dedomena($curr, $prev);
-		die(0);
+		telos_ok();
 	}
 	usleep(XRONOS_DEDOMENA_TIC);
 } while ((time() - $ekinisi) < XRONOS_DEDOMENA_MAX);
 
+header('Content-type: application/json; charset=utf-8');
+print_epikefalida();
+print ",same:true}";
+telos_ok();
+
 function telos_ok() {
 	die('@OK');
+}
+
+function check_neotero_id() {
+	global $globals;
+	global $slogin;
+	global $id;
+
+	$query = "SELECT `ενημέρωση` FROM `παίκτης` " .
+		"WHERE `login` LIKE " . $slogin;
+	$result = $globals->sql_query($query);
+	$row = mysqli_fetch_array($result, MYSQLI_NUM);
+	if (!$row) {
+		Globals::fatal('ακαθόριστος παίκτης');
+	}
+
+	mysqli_free_result($result);
+	if ($row[0] === $id) {
+		return;
+	}
+
+	header('Content-type: application/json; charset=utf-8');
+	print_epikefalida();
+	print ",akiro:true}";
+	telos_ok();
 }
 
 function torina_dedomena() {
@@ -46,29 +82,22 @@ function freska_dedomena($x) {
 	$x->grapse();
 	header('Content-type: application/json; charset=utf-8');
 	print_epikefalida();
-	print ",freska:true";
-	print "}";
+	print ",freska:true}";
 	$x->print_json_data();
+}
+
+function diaforetika_dedomena($curr, $prev) {
+	$curr->grapse();
+	header('Content-type: application/json; charset=utf-8');
+	print_epikefalida();
+	print "}";
+	$curr->print_json_data();
 }
 
 function print_epikefalida() {
 	global $id;
 	print "data:{id:{$id}";
 }
-
-if ($same) {
-	print <<<DOC
-	same: true
-}
-DOC;
-	die('@OK');
-}
-
-print <<<DOC
-	sxesi: [],
-	trapezi: []
-}
-DOC;
 
 class Sxesi {
 	public $login;
@@ -112,8 +141,8 @@ class Sxesi {
 	}
 
 	public function print_raw_data($fh) {
-		fwrite($fh, $this->login . "\t" . $this->onoma . "\t" .
-			($this->online ? 1 : 0) . "\t" . $this->status . "\n");
+		Globals::put_line($fh, $this->login . "\t" . $this->onoma . "\t" .
+			($this->online ? 1 : 0) . "\t" . "0" . "\t" . $this->status);
 	}
 
 	public function print_json_data() {
@@ -150,7 +179,11 @@ class Dedomena {
 
 	public function diavase() {
 		$fh = self::open_file('r');
-		while ($line = fgets($fh)) {
+		if (!$fh) {
+			return(FALSE);
+		}
+
+		while ($line = Globals::get_line($fh)) {
 			switch ($line) {
 			case '@SXESI@':
 				$this->diavase_sxesi($fh);
@@ -161,26 +194,27 @@ class Dedomena {
 			}
 		}
 		fclose($fh);
+		return(TRUE);
 	}
 
 	private function diavase_sxesi($fh) {
-		while ($line = fgets($fh)) {
+		while ($line = Globals::get_line($fh)) {
 			if ($line === '@END@') {
 				return;
 			}
 
 			$s = new Sxesi();
 			if ($s->set_from_file($line)) {
-				unset($s);
+				$this->sxesi[] = $s;
 			}
 			else {
-				$this->sxesi[] = $s;
+				unset($s);
 			}
 		}
 	}
 
 	private function diavase_trapezi($fh) {
-		while ($line = fgets($fh)) {
+		while ($line = Globals::get_line($fh)) {
 			if ($line === '@END@') {
 				return;
 			}
@@ -189,35 +223,38 @@ class Dedomena {
 
 	public function grapse() {
 		$fh = self::open_file('w');
+		if (!$fh) {
+			Globals::fatal('cannot write data file');
+		}
+
 		$this->grapse_sxesi($fh);
 		$this->grapse_trapezi($fh);
 		fclose($fh);
 	}
 
 	private function grapse_sxesi($fh) {
-		fwrite($fh, "@SXESI@\n");
+		Globals::put_line($fh, "@SXESI@");
 		$n = count($this->sxesi);
 		for ($i = 0; $i < $n; $i++) {
 			$this->sxesi[$i]->print_raw_data($fh);
 		}
+		Globals::put_line($fh, "@END@");
 	}
 
 	private function grapse_trapezi($fh) {
-		fwrite($fh, "@TRAPEZI@\n");
+		Globals::put_line($fh, "@TRAPEZI@");
 		$n = count($this->trapezi);
 		for ($i = 0; $i < $n; $i++) {
 			$this->trapezi[$i]->print_raw_data($fh);
 		}
+		Globals::put_line($fh, "@END@");
 	}
 
 	private static function open_file($rw) {
 		global $globals;
 
 		$fname = '../dedomena/' . $globals->pektis->login;
-		$fh = fopen($fname, $rw);
-		if (!isset($fh)) {
-			Gobals::fatal($fname . ': cannot open file');
-		}
+		$fh = @fopen($fname, $rw);
 		return($fh);
 	}
 
