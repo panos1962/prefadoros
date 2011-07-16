@@ -14,10 +14,11 @@ if (Session::is_set('ps_whlt')) {
 		$whlt = explode(':', $_SESSION['ps_whlt']);
 		?>
 		<script type="text/javascript">
+			funchat.whltSaveBlocked = true;
 			window.self.resizeTo(<?php print $whlt[0]; ?>, <?php print $whlt[1]; ?>);
 			window.self.moveTo(<?php print $whlt[2]; ?>, <?php print $whlt[3]; ?>);
 			setTimeout(function() {
-				funchat.whltSaveUnblocked = true;
+				funchat.whltSaveBlocked = false;
 			}, 500);
 		</script>
 		<?php

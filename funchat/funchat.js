@@ -3,7 +3,7 @@ funchat = {};
 funchat.whltSaveTimer = null;
 
 funchat.whltSave = function() {
-	if (notSet(funchat.whltSaveUnblocked)) {
+	if (isSet(funchat.whltSaveBlocked) && funchat.whltBlocked) {
 		return;
 	}
 
