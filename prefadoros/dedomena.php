@@ -1,45 +1,61 @@
 <?php
-header('Content-type: application/json; charset=utf-8');
+header('Content-type: text/plain; charset=utf-8');
 global $no_session;
 $no_session = TRUE;
 require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
 require_once '../prefadoros/prefadoros.php';
-$id = Globals::perastike_check('id');
-
 set_globals();
 Prefadoros::pektis_check();
+$globals->pektis->poll_update();
+
+global $id;
+$id = Globals::perastike_check('id');
 
 global $slogin;
 $slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
-$globals->pektis->poll_update();
-
 $prev = new Dedomena();
-$prev->diavase();
+if (!$prev->diavase()) {
+	freska_dedomena(torina_dedomena());
+	telos_ok();
+}
 
-$curr = new Dedomena();
-
-$same = TRUE;
 $ekinisi = time();
 do {
-	$curr->sxesi = process_sxesi();
-	$curr->trapezi = process_trapezi();
-	if (sxesi_dif($curr->sxesi, $prev->sxesi)) {
-		$same = FALSE;
-		break;
-	}
-	if (trapezi_dif($curr->trapezi, $prev->trapezi)) {
-		$same = FALSE;
-		break;
+	$curr = torina_dedomena();
+	if ($curr != $prev) {
+		diaforetika_dedomena($curr, $prev);
+		die(0);
 	}
 	usleep(XRONOS_DEDOMENA_TIC);
 } while ((time() - $ekinisi) < XRONOS_DEDOMENA_MAX);
 
-print <<<DOC
-data: {
-	id: {$id},
-DOC;
+function telos_ok() {
+	die('@OK');
+}
+
+function torina_dedomena() {
+	$curr = new Dedomena();
+	$curr->sxesi = process_sxesi();
+	$curr->trapezi = process_trapezi();
+	return($curr);
+}
+
+function freska_dedomena($x) {
+	$x->grapse();
+	header('Content-type: application/json; charset=utf-8');
+	print_epikefalida();
+	print ",freska:true";
+	print "}";
+	$x->print_json_data();
+}
+
+function print_epikefalida() {
+	global $id;
+	print "data:{id:{$id}";
+}
+
 if ($same) {
 	print <<<DOC
 	same: true
@@ -95,9 +111,9 @@ class Sxesi {
 		return(TRUE);
 	}
 
-	public function print_raw_data() {
-		print $this->login . "\t" . $this->onoma . "\t" .
-			($this->online ? 1 : 0) . "\t" . $this->status;
+	public function print_raw_data($fh) {
+		fwrite($fh, $this->login . "\t" . $this->onoma . "\t" .
+			($this->online ? 1 : 0) . "\t" . $this->status);
 	}
 
 	public function print_json_data() {
@@ -133,28 +149,21 @@ class Dedomena {
 	}
 
 	public function diavase() {
-		global $globals;
-
-		$fname = '../dedomena/' . $globals->pektis->login;
-		$fh = fopen($fname, 'r');
-		if (!isset($fh)) {
-			return;
-		}
-
+		$fh = self::open_file('r');
 		while ($line = fgets($fh)) {
 			switch ($line) {
 			case '@SXESI@':
-				$this->diavase_sxesi();
+				$this->diavase_sxesi($fh);
 				break;
 			case '@TRAPEZIA@':
-				$this->diavase_trapezi();
+				$this->diavase_trapezi($fh);
 				break;
 			}
 		}
 		fclose($fh);
 	}
 
-	private function diavase_sxesi() {
+	private function diavase_sxesi($fh) {
 		while ($line = fgets($fh)) {
 			if ($line === '@END@') {
 				return;
@@ -170,12 +179,62 @@ class Dedomena {
 		}
 	}
 
-	private function diavase_trapezi() {
+	private function diavase_trapezi($fh) {
 		while ($line = fgets($fh)) {
 			if ($line === '@END@') {
 				return;
 			}
 		}
+	}
+
+	public function grapse() {
+		$fh = self::open_file('w');
+		$this->grapse_sxesi($fh);
+		$this->grapse_trapezi($fh);
+		fclose($fh);
+	}
+
+	private function grapse_sxesi($fh) {
+		fwrite($fh, "@SXESI@\n");
+		$n = count($this->sxesi);
+		for ($i = 0; $i < $n; $i++) {
+			$this->sxesi[$i]->print_raw_data($fh);
+		}
+	}
+
+	private function grapse_trapezi($fh) {
+		fwrite($fh, "@TRAPEZI@\n");
+		$n = count($this->trapezi);
+		for ($i = 0; $i < $n; $i++) {
+			$this->trapezi[$i]->print_raw_data($fh);
+		}
+	}
+
+	private static function open_file($rw) {
+		global $globals;
+
+		$fname = '../dedomena/' . $globals->pektis->login;
+		$fh = fopen($fname, $rw);
+		if (!isset($fh)) {
+			Gobals::fatal($fname . ': cannot open file');
+		}
+		return($fh);
+	}
+
+	public function print_json_data() {
+		$this->print_sxesi_json_data();
+	}
+
+	private function print_sxesi_json_data() {
+		print ',sxesi:[';
+		$n = count($this->sxesi);
+		for ($i = 0; $i < $n; $i++) {
+			if ($i > 0) {
+				print ',';
+			}
+			$this->sxesi[$i]->print_json_data();
+		}
+		print ']';
 	}
 }
 
