@@ -13,17 +13,23 @@ Prefadoros::pektis_check();
 global $slogin;
 $slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
-$same = TRUE;
 $globals->pektis->poll_update();
+
+$prev = new Dedomena();
+$prev->diavase();
+
+$curr = new Dedomena();
+
+$same = TRUE;
 $ekinisi = time();
 do {
-	$sxesi = process_sxesi();
-	$trapezi = process_trapezi();
-	if (sxesi_dif($sxesi)) {
+	$curr->sxesi = process_sxesi();
+	$curr->trapezi = process_trapezi();
+	if (sxesi_dif($curr->sxesi, $prev->sxesi)) {
 		$same = FALSE;
 		break;
 	}
-	if (trapezi_dif($trapezi)) {
+	if (trapezi_dif($curr->trapezi, $prev->trapezi)) {
 		$same = FALSE;
 		break;
 	}
@@ -44,7 +50,7 @@ DOC;
 
 print <<<DOC
 	sxesi: [],
-	trapezia: []
+	trapezi: []
 }
 DOC;
 
@@ -75,12 +81,18 @@ class Sxesi {
 		$this->status = $status;
 	}
 
-	public function set_from_file($login, $onoma, $idle, $diathesimos, $status = '') {
-		$this->login = $row['login'];
-		$this->onoma = $row['όνομα'];
-		$this->online = self::is_online($idle);
-		$this->diathesimos = $diathesimos;
-		$this->status = $status;
+	public function set_from_file($line) {
+		$cols = explode("\t", $line);
+		if (count($cols) != 5) {
+			return(FALSE);
+		}
+
+		$this->login = $cols[0];
+		$this->onoma = $cols[1];
+		$this->online = self::is_online($cols[2]);
+		$this->diathesimos = $cols[3];
+		$this->status = $cols[4];
+		return(TRUE);
 	}
 
 	public function print_raw_data() {
@@ -108,6 +120,62 @@ class Sxesi {
 		}
 
 		return($pektis);
+	}
+}
+
+class Dedomena {
+	public $sxesi;
+	public $trapezi;
+
+	public function __construct() {
+		$this->sxesi = array();
+		$this->trapezi = array();
+	}
+
+	public function diavase() {
+		global $globals;
+
+		$fname = '../dedomena/' . $globals->pektis->login;
+		$fh = fopen($fname, 'r');
+		if (!isset($fh)) {
+			return;
+		}
+
+		while ($line = fgets($fh)) {
+			switch ($line) {
+			case '@SXESI@':
+				$this->diavase_sxesi();
+				break;
+			case '@TRAPEZIA@':
+				$this->diavase_trapezi();
+				break;
+			}
+		}
+		fclose($fh);
+	}
+
+	private function diavase_sxesi() {
+		while ($line = fgets($fh)) {
+			if ($line === '@END@') {
+				return;
+			}
+
+			$s = new Sxesi();
+			if ($s->set_from_file($line)) {
+				unset($s);
+			}
+			else {
+				$this->sxesi[] = $s;
+			}
+		}
+	}
+
+	private function diavase_trapezi() {
+		while ($line = fgets($fh)) {
+			if ($line === '@END@') {
+				return;
+			}
+		}
 	}
 }
 
@@ -171,7 +239,7 @@ function process_sxesi() {
 	return $sxesi;
 }
 
-function sxesi_dif($db) {
+function sxesi_dif($curr, $prev) {
 	return(FALSE);
 }
 
@@ -180,7 +248,7 @@ function process_trapezi() {
 	return($trapezi);
 }
 
-function trapezi_dif($db) {
+function trapezi_dif($curr, $prev) {
 	return(FALSE);
 }
 ?>
