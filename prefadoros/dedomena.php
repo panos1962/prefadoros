@@ -113,7 +113,7 @@ class Sxesi {
 
 	public function print_raw_data($fh) {
 		fwrite($fh, $this->login . "\t" . $this->onoma . "\t" .
-			($this->online ? 1 : 0) . "\t" . $this->status);
+			($this->online ? 1 : 0) . "\t" . $this->status . "\n");
 	}
 
 	public function print_json_data() {
