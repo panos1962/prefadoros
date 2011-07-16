@@ -35,16 +35,22 @@ do {
 		diaforetika_dedomena($curr, $prev);
 		telos_ok();
 	}
-	usleep(XRONOS_DEDOMENA_TIC);
-} while ((time() - $ekinisi) < XRONOS_DEDOMENA_MAX);
 
-header('Content-type: application/json; charset=utf-8');
+	if ((time() - $ekinisi) > XRONOS_DEDOMENA_MAX) {
+		break;
+	}
+	usleep(XRONOS_DEDOMENA_TIC);
+} while (TRUE);
+
 print_epikefalida();
 print ",same:true}";
 telos_ok();
 
-function telos_ok() {
-	die('@OK');
+function torina_dedomena() {
+	$curr = new Dedomena();
+	$curr->sxesi = process_sxesi();
+	$curr->trapezi = process_trapezi();
+	return($curr);
 }
 
 function check_neotero_id() {
@@ -61,41 +67,44 @@ function check_neotero_id() {
 	}
 
 	mysqli_free_result($result);
-	if ($row[0] === $id) {
-		return;
+	if ($row[0] !== $id) {
+		print_epikefalida();
+		print ",akiro:true}";
+		telos_ok();
 	}
-
-	header('Content-type: application/json; charset=utf-8');
-	print_epikefalida();
-	print ",akiro:true}";
-	telos_ok();
 }
 
-function torina_dedomena() {
-	$curr = new Dedomena();
-	$curr->sxesi = process_sxesi();
-	$curr->trapezi = process_trapezi();
-	return($curr);
-}
-
-function freska_dedomena($x) {
-	$x->grapse();
-	header('Content-type: application/json; charset=utf-8');
+function freska_dedomena($curr) {
+	$curr->grapse();
 	print_epikefalida();
 	print ",freska:true}";
-	$x->print_json_data();
+	$curr->json_data();
 }
 
 function diaforetika_dedomena($curr, $prev) {
 	$curr->grapse();
-	header('Content-type: application/json; charset=utf-8');
 	print_epikefalida();
 	print "}";
-	$curr->print_json_data();
+
+	if ($curr->sxesi == $prev->sxesi) {
+		print ",sxesi:'same'";
+	}
+	else {
+		$curr->sxesi_json_data();
+	}
+
+	if ($curr->trapezi == $prev->trapezi) {
+		print ",trapezi:'same'";
+	}
+	else {
+		$curr->trapezi_json_data();
+	}
 }
 
 function print_epikefalida() {
 	global $id;
+
+	header('Content-type: application/json; charset=utf-8');
 	print "data:{id:{$id}";
 }
 
@@ -145,15 +154,17 @@ class Sxesi {
 			($this->online ? 1 : 0) . "\t" . "0" . "\t" . $this->status);
 	}
 
-	public function print_json_data() {
+	public function json_data() {
 		print "{l:'" . $this->login . "',n:'" . $this->onoma .
 			"',o:" . ($this->online ? 'true' : 'false') .
 			",s:'" . $this->status . "'}";
 	}
 
+	// Η παρακάτω (static) μέθοδος δημιουργεί λίστα όλων των παικτών
+	// που φαίνονται να συμμετέχουν ως παίκτες σε ενεργά τραπέζια.
+
 	public static function energos_pektis() {
 		global $globals;
-
 		$pektis = array();
 		$query = "SELECT `παίκτης1`, `παίκτης2`, `παίκτης3` " .
 			"FROM `τραπέζι` WHERE `τέλος` IS NULL";
@@ -258,28 +269,39 @@ class Dedomena {
 		return($fh);
 	}
 
-	public function print_json_data() {
-		$this->print_sxesi_json_data();
+	public function json_data() {
+		$this->sxesi_json_data();
+		$this->trapezi_json_data();
 	}
 
-	private function print_sxesi_json_data() {
-		print ',sxesi:[';
+	public function sxesi_json_data() {
+		print ",sxesi:[";
 		$n = count($this->sxesi);
 		for ($i = 0; $i < $n; $i++) {
 			if ($i > 0) {
-				print ',';
+				print ",";
 			}
-			$this->sxesi[$i]->print_json_data();
+			$this->sxesi[$i]->json_data();
 		}
-		print ']';
+		print "]";
+	}
+
+	public function trapezi_json_data() {
+		print ",trapezi:[";
+		$n = count($this->trapezi);
+		for ($i = 0; $i < $n; $i++) {
+			if ($i > 0) {
+				print ",";
+			}
+			$this->trapezi[$i]->json_data();
+		}
+		print "]";
 	}
 }
 
 function process_sxesi() {
 	global $globals;
 	global $slogin;
-
-	$sxesi = array();
 
 	$query1 = "SELECT `login`, `όνομα`, (`poll` - NOW()) AS `idle` " .
 		"FROM `παίκτης` WHERE 1 ";
@@ -296,8 +318,16 @@ function process_sxesi() {
 
 	$query2 = " ORDER BY `login`";
 
+	// Δημιουργούμε λίστα όλων των ενεργών παικτών, ώστε να μπορούμε
+	// να μαρκάκρουμε τους ενεργόυς παίκτες.
 	$energos = Sxesi::energos_pektis();
 
+	// Δημιουργούμε λίστα των παικτών που πρόκειται να επιστραφεί.
+	// Η λίστα θα "γεμίσει" με δεδομένα αμέσως μετά.
+	$sxesi = array();
+
+	// Πρώτα θα εμφανιστούν οι παίκτες που σχετίζονται ως "φίλοι" με
+	// τον παίκτη.
 	$query = $query1 . "AND (`login` IN (SELECT `σχετιζόμενος` FROM `σχέση` WHERE " .
 		"(`παίκτης` LIKE " . $slogin . ") AND " .
 		"(`status` LIKE 'ΦΙΛΟΣ')))" . $query2;
@@ -310,7 +340,6 @@ function process_sxesi() {
 
 	// Αν έχει δοθεί name pattern ή κατάσταση online/available, τότε επιλέγω και
 	// μη σχετιζόμενους παίκτες.
-
 	if (Globals::perastike('spat') || Globals::perastike('skat')) {
 		$query = $query1 . "AND (`login` NOT IN (SELECT `σχετιζόμενος` FROM `σχέση` WHERE " .
 			"(`παίκτης` LIKE " . $slogin . ")))" . $query2;
@@ -322,6 +351,7 @@ function process_sxesi() {
 		}
 	}
 
+	// Τέλος, εμφανίζονται οι παίκτες που έχουν "αποκλειστεί" από τον παίκτη.
 	$query = $query1 . "AND (`login` IN (SELECT `σχετιζόμενος` FROM `σχέση` WHERE " .
 		"(`παίκτης` LIKE " . $slogin . ") AND " .
 		"(`status` LIKE 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ')))" . $query2;
@@ -335,16 +365,12 @@ function process_sxesi() {
 	return $sxesi;
 }
 
-function sxesi_dif($curr, $prev) {
-	return(FALSE);
-}
-
 function process_trapezi() {
 	$trapezi = array();
 	return($trapezi);
 }
 
-function trapezi_dif($curr, $prev) {
-	return(FALSE);
+function telos_ok() {
+	die('@OK');
 }
 ?>
