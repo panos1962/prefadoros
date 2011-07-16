@@ -25,6 +25,69 @@ var trapezi = [];	// τα ενεργά τραπέζια
 var rebelos = [];	// περιφερόμενοι παίκτες
 var forum = [];		// η δημόσια συζήτηση
 
+var monitor = new function() {
+	this.count = 0;
+	this.errorCount = 0;
+	this.successiveErrors = 0;
+
+	this.updateCount = function() {
+		monitor.count++;
+		if ((monitor.count % 10) == 0) {
+			getelid('monitorDots').innerHTML = '';
+		}
+
+		var html = monitor.count;
+		if (monitor.errorCount) {
+			html += ' <span style="color: ' +
+				globals.color.error + ';">' +
+				monitor.errorCount + '</span>';
+		}
+
+		getelid('monitorCount').innerHTML = html;
+	};
+
+	this.ignore = function() {
+		monitor.successiveErrors = 0;
+		monitor.updateCount();
+		var x = getelid('monitorDots');
+		var html = '<span style="color: #FFA500;">&bull;</span>' + x.innerHTML;
+		x.innerHTML = html;
+	};
+
+	this.idia = function() {
+		monitor.successiveErrors = 0;
+		monitor.updateCount();
+		var x = getelid('monitorDots');
+		var html = '<span style="color: #85A366;">&bull;</span>' + x.innerHTML;
+		x.innerHTML = html;
+	};
+
+	this.freska = function() {
+		monitor.successiveErrors = 0;
+		monitor.updateCount();
+		var x = getelid('monitorDots');
+		var html = '&bull;' + x.innerHTML;
+		x.innerHTML = html;
+	};
+
+	this.lathos = function() {
+		monitor.errorCount++;
+		monitor.successiveErrors++;
+		monitor.updateCount();
+		var x = getelid('monitorDots');
+		var html = '<span style="color: ' + globals.color.error +
+			';">&bull;</span>' + x.innerHTML;
+		x.innerHTML = html;
+		if (monitor.successiveErrors > 3) {
+			monitor.successiveErrors = 0;
+			alert('too many successive errors');
+			location.href = globals.server + 'error.php?minima=' +
+				uri('Παρουσιάστηκαν πολλά διαδοχικά σφάλματα ενημέρωσης');
+			return;
+		}
+	};
+}
+
 var kafenio = new function() {
 	this.trapeziHTML = function(t) {
 		var html = '<hr class="kafenioTrapeziLine" />';
@@ -49,7 +112,7 @@ window.onload = function() {
 	init();
 	emoticons.display();
 	setTimeout(testConnect, 10);
-	setTimeout(neaDedomena, 100);
+	setTimeout(function() { neaDedomena(true); }, 100);
 //setTimeout(showKafenio, 1000);
 }
 
@@ -72,7 +135,11 @@ function testConnectCheck(req) {
 	setTimeout(testConnect, 1000);
 }
 
-function neaDedomena() {
+function neaDedomena(freska) {
+	if (notSet(freska)) {
+		freska = false;
+	}
+
 	var req = new Request('prefadoros/dedomena');
 	req.xhr.onreadystatechange = function() {
 		neaDedomenaCheck(req);
@@ -80,6 +147,10 @@ function neaDedomena() {
 
 	enimerosi.id++;
 	var params = 'login=' + uri(pektis.login) + '&id=' + enimerosi.id;
+	if (freska) {
+		params += '&freska=yes';
+	}
+
 	for (var i in enimerosi.apopio) {
 		params += '&' + i + '=' + enimerosi.apopio[i];
 	}
@@ -101,7 +172,9 @@ function neaDedomenaCheck(req) {
 
 	rsp = req.getResponse();
 	if (!rsp.match(/@OK$/)) {
-		alert('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
+		monitor.lathos();
+		mainFyi('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
+		setTimeout(function() { neaDedomena(); }, 100);
 		return;
 	}
 
@@ -109,16 +182,25 @@ function neaDedomenaCheck(req) {
 	try {
 		var dedomena = eval('({' + rsp + '})');
 	} catch(e) {
+		monitor.lathos();
 		mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
+		setTimeout(function() { neaDedomena(); }, 100);
 		return;
 	}
 
 	if (dedomena.data.id < enimerosi.id) {
+		monitor.ignore();
 		return;
 	}
 
+	if (isSet(dedomena.data.same)) {
+		monitor.idia();
+	}
+	else {
+		monitor.freska();
+	}
 mainFyi('@@@@@@' + dedomena.data.id);
-	setTimeout(neaDedomena, 100);
+	setTimeout(function() { neaDedomena(); }, 100);
 }
 
 function showKafenio() {

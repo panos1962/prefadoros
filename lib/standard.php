@@ -1,6 +1,6 @@
 <?php
 // μέγιστος χρόνος διαδικασίας διαδοχικών κύκλων ανίχνευσης νέων δεδομένων σε seconds
-define('XRONOS_DEDOMENA_MAX', 3);
+define('XRONOS_DEDOMENA_MAX', 40);
 
 // νεκρός χρόνος μεταξύ δύο διαδοχικών ανιχνεύσεων σε microseconds
 define('XRONOS_DEDOMENA_TIC', 700000);
@@ -148,6 +148,18 @@ class Globals {
 	public static function fatal($msg = 'unknown') {
 		print 'ERROR: ' . $msg;
 		die(1);
+	}
+
+	public static function get_line($fh) {
+		$line = fgets($fh);
+		if ($line) {
+			return(preg_replace("/[\r\n].*/", '', $line));
+		}
+		return(FALSE);
+	}
+
+	public static function put_line($fh, $s) {
+		return(fwrite($fh, $s . "\n"));
 	}
 }
 
@@ -443,7 +455,8 @@ class Page {
 		<?php
 		if ($globals->is_pektis()) {
 			?>
-			<div id="dedomenaMonitor"></div>
+			<div id="monitorDots"></div>
+			<div id="monitorCount"></div>
 			<a target="_blank" href="<?php
 				print $globals->server; ?>account/signup.php?modify"
 				class="data login" title="Account settings"><?php

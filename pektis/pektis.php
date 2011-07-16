@@ -6,6 +6,7 @@ class Pektis {
 	public $kapikia;
 	public $katastasi;
 	public $idle;
+	public $enimerosi;
 	public $error;
 
 	public function __construct($login, $password = NULL) {
@@ -21,7 +22,7 @@ class Pektis {
 		unset($this->error);
 
 		$query = "SELECT `login`, `όνομα`, `email`, `καπίκια`, " .
-			"κατάσταση, (NOW() - `poll`) AS `idle` " .
+			"κατάσταση, (NOW() - `poll`) AS `idle`, `ενημέρωση` " .
 			"FROM `παίκτης` WHERE `login` LIKE '" . $globals->asfales($login) . "'";
 		if (isset($password)) {
 			$query .= " AND `password` LIKE '" . $globals->asfales($password) . "'";
@@ -42,6 +43,7 @@ class Pektis {
 			$this->kapikia = $row['καπίκια'];
 			$this->katastasi = $row['κατάσταση'];
 			$this->idle = (int)($row['idle']);
+			$this->enimerosi = $row['ενημέρωση'];
 		}
 		else {
 			$this->error = (isset($password) ?
@@ -52,10 +54,11 @@ class Pektis {
 		}
 	}
 
-	public function poll_update() {
+	public function poll_update($id) {
 		global $globals;
 
-		$query = "UPDATE `παίκτης` SET `poll` = NOW() WHERE `login` LIKE " .
+		$query = "UPDATE `παίκτης` SET `poll` = NOW(), " .
+			"`ενημέρωση` = " . $id . " WHERE `login` LIKE " .
 			"'" . $globals->asfales($globals->pektis->login) . "'";
 		$globals->sql_query($query);
 	}
