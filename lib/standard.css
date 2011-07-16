@@ -170,6 +170,14 @@ a img {
 	filter: alpha(opacity=65);
 }
 
+.zebra0 {
+	background-color: #FFFFCC;
+}
+
+.zebra1 {
+	background-color: #FFFF99;
+}
+
 .nobr {
 	white-space: nowrap;
 }

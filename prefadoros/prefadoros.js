@@ -32,10 +32,25 @@ var Sxesi = new function() {
 
 		var html = '';
 		for (var i = 0; i < sxesi.length; i++) {
-			html += '<div>' + sxesi[i].l + '</div>';
+			html += Sxesi.HTML(sxesi, i);
 		}
 		x.innerHTML = html;
 	};
+
+	this.HTML = function(sxesi, i) {
+		html = '<div class="sxesiLine zebra' + (i % 2) + '"' +
+			emfanesAfanesHTML(this) + '>';
+		html += '<div class="sxesiData">' +
+			sxesi[i].n + '</div>&nbsp;[<div class="sxesiData sxesi';
+		switch (sxesi[i].s) {
+		case 'ΦΙΛΟΣ':		html += 'Filos'; break;
+		case 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ':	html += 'Apoklismenos'; break;
+		default:		html += 'Asxetos'; break;
+		}
+		html += '">' + sxesi[i].l + '</div>]</div>';
+		return html;
+	};
+
 }
 
 var monitor = new function() {
