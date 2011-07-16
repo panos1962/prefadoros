@@ -262,12 +262,12 @@ function infoStripShow(div) {
 		return;
 	}
 
-prefadoros.pmList = [
+permes = [
 	"asdasdasd",
 	"JGAJGAJSAGJSGAJ",
 	"asdasd asdasd"
 ];
-	if (notSet(prefadoros.pmList) || (prefadoros.pmList.length < 1)) {
+	if (notSet(permes) || (permes.length < 1)) {
 		mesg = 'Δεν υπάρχουν νέα μηνύματα';
 		var mrq1 = '';
 		var mrq2 = '';
@@ -277,9 +277,9 @@ prefadoros.pmList = [
 		mrq1 = '<marquee loop=10000 behavior=slide scrollamount=6>';
 		mrq2 = '</marquee>';
 		var mesg = '';
-		for (var i = 0; i < prefadoros.pmList.length; i++) {
+		for (var i = 0; i < permes.length; i++) {
 			mesg += '<span class="info' + (i % 2) + '">' +
-				prefadoros.pmList[i] + '</span>';
+				permes[i] + '</span>';
 		}
 	}
 
