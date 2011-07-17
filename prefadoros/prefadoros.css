@@ -222,18 +222,20 @@
 	height: 4cm;
 	max-height: 4cm;
 	font-size: 0.45cm;
+	white-space: nowrap;
 }
 
 .sxesiLine {
-	padding-top: 0.1cm;
-	padding-bottom: 0.2cm;
+	height: 0.8cm;
 	letter-spacing: 0px;
 	cursor: pointer;
 }
 
 .sxesiIcon {
 	height: 0.7cm;
-	margin-bottom: -0.3cm;
+	width: 0.66cm;
+	margin-right: 0.15cm;
+	margin-bottom: -0.2cm;
 }
 
 .sxesiData {
@@ -262,9 +264,6 @@
 .sxesiDiathesimotita {
 	opacity: 0.6;
 	filter: alpha(opacity=60);
-	width: 0.66cm;
-	float: right;
-	padding-top: 0.10cm;
 }
 
 .sizitisiArea {

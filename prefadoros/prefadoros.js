@@ -31,8 +31,10 @@ var Sxesi = new function() {
 		if (notSet(x)) { return; }
 
 		var html = '';
-		for (var i = 0; i < sxesi.length; i++) {
-			html += Sxesi.HTML(sxesi, i);
+		if (isSet(sxesi)) {
+			for (var i = 0; i < sxesi.length; i++) {
+				html += Sxesi.HTML(sxesi, i);
+			}
 		}
 		x.innerHTML = html;
 	};
@@ -40,14 +42,32 @@ var Sxesi = new function() {
 	this.HTML = function(sxesi, i) {
 		html = '<div class="sxesiLine zebra' + (i % 2) + '"' +
 			emfanesAfanesHTML(this) + '>';
-		html += '<div class="sxesiData">' +
-			sxesi[i].n + '</div>&nbsp;[<div class="sxesiData sxesi';
+
+		html += '<img alt="" class="sxesiIcon" src="' +
+				globals.server + 'images/addFriend.png" />';
+		html += '<img alt="" class="sxesiIcon" src="' +
+				globals.server + 'images/X.png" />';
+/*
+		switch (sxesi[i].o) {
+		case 1:		var ball = 'greenBall'; break;
+		case 2:		ball = 'orangeBall'; break;
+		default:	ball = false;
+		}
+		if (ball) {
+			html += '<img alt="" class="sxesiIcon sxesiDiathesimotita" src="' +
+				globals.server + 'images/' + ball + '.png" />';
+		}
+*/
+
+		html += '<div class="sxesiData sxesi';
 		switch (sxesi[i].s) {
-		case 'ΦΙΛΟΣ':		html += 'Filos'; break;
-		case 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ':	html += 'Apoklismenos'; break;
+		case 'F':		html += 'Filos'; break;
+		case 'B':		html += 'Apoklismenos'; break;
 		default:		html += 'Asxetos'; break;
 		}
-		html += '">' + sxesi[i].l + '</div>]</div>';
+		html += '">' + sxesi[i].l + '</div>&nbsp;[&nbsp<div class="sxesiData">' +
+			sxesi[i].n + '</div>&nbsp;]';
+		html += '</div>';
 		return html;
 	};
 
@@ -222,23 +242,16 @@ alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 		return;
 	}
 
+mainFyi('@@@@@@' + dedomena.data.id);
 	if (isSet(dedomena.data.same)) {
 		monitor.idia();
 	}
 	else {
 		monitor.freska();
+		if (dedomena.sxesi !== 'same') {
+			Sxesi.updateHTML(dedomena.sxesi);
+		}
 	}
-mainFyi('@@@@@@' + dedomena.data.id);
-
-	if (dedomena.sxesi !== 'same') {
-		Sxesi.updateHTML(dedomena.sxesi);
-	}
-
-/*
-	if (dedomena.trapezi !== 'same') {
-		Trapezi.updateHTML(dedomena.sxesi);
-	}
-*/
 
 	setTimeout(function() { neaDedomena(); }, 100);
 }
