@@ -226,8 +226,8 @@
 }
 
 .sxesiLine {
-	height: 0.7cm;
-	max-height: 0.7cm;
+	height: 0.8cm;
+	max-height: 0.8cm;
 }
 
 .sxesiData {
@@ -240,7 +240,7 @@
 	height: 0.7cm;
 	width: 0.66cm;
 	margin-right: 0.15cm;
-	margin-bottom: 0.9cm;
+	margin-bottom: -0.2cm;
 }
 
 .sxesiFilos {
@@ -261,11 +261,12 @@
 }
 
 .sxesiDiathesimotita {
-	display: inline-block;
+	float: right;
 	width: 0.6cm;
 	height: 0.6cm;
 	opacity: 0.6;
 	filter: alpha(opacity=60);
+	margin-top: 0.1cm;
 }
 
 .sizitisiArea {
