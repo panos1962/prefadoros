@@ -320,8 +320,8 @@ function process_sxesi() {
 
 	if (Globals::perastike('spat')) {
 		$pat = "'%" . $globals->asfales($_REQUEST['spat']) . "%'";
-		$query1 .= "AND ((`όνομα` LIKE " . $spat . ") OR " .
-			"(`login` LIKE " . $spat . ")) ";
+		$query1 .= "AND ((`όνομα` LIKE " . $pat . ") OR " .
+			"(`login` LIKE " . $pat . ")) ";
 	}
 
 	if (Globals::perastike('skat')) {
