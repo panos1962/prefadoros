@@ -36,11 +36,13 @@ var Sxesi = new function() {
 				html += Sxesi.HTML(sxesi, i);
 			}
 		}
+		html += '';
 		x.innerHTML = html;
 	};
 
 	this.HTML = function(sxesi, i) {
-		html = '<div class="sxesiLine zebra' + (i % 2) + '"' +
+		var html = '<table width="100%">';
+		html += '<tr class="sxesiLine zebra' + (i % 2) + '"' +
 			emfanesAfanesHTML(this) + '>';
 		switch (sxesi[i].o) {
 		case 1:		var ball = 'greenBall'; break;
@@ -48,11 +50,14 @@ var Sxesi = new function() {
 		default:	ball = false;
 		}
 		if (ball) {
-			html += '<img alt="" class="sxesiDiathesimotita" src="' +
-				globals.server + 'images/' + ball + '.png" />';
+			html += '<td style="width: 2.6cm;" ' +
+				'onmouseover="this.style.width=\'2.0cm\';" ' +
+				'onmouseout="this.style.width=\'0.6cm\';">' +
+				'<img alt="" class="sxesiDiathesimotita" src="' +
+				globals.server + 'images/' + ball + '.png" /></td>';
 		}
 
-		html += '<div class="sxesiData sxesi';
+		html += '<td><div style="overflow: hidden;"><div class="sxesiData sxesi';
 		switch (sxesi[i].s) {
 		case 'F':		html += 'Filos'; break;
 		case 'B':		html += 'Apoklismenos'; break;
@@ -60,7 +65,7 @@ var Sxesi = new function() {
 		}
 		html += '">' + sxesi[i].l + '</div>&nbsp;[&nbsp<div class="sxesiData">' +
 			sxesi[i].n + '</div>&nbsp;]';
-		html += '</div>';
+		html += '</div></td></tr></table>';
 		return html;
 	};
 
