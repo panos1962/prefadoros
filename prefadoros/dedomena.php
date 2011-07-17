@@ -151,13 +151,25 @@ class Sxesi {
 
 	public function print_raw_data($fh) {
 		Globals::put_line($fh, $this->login . "\t" . $this->onoma . "\t" .
-			($this->online ? 1 : 0) . "\t" . "0" . "\t" . $this->status);
+			($this->online ? 1 : 0) . "\t" .
+			($this->diathesimos ? 1 : 0) . "\t" . $this->status);
 	}
 
 	public function json_data() {
+		if ($this->online) {
+			if ($this->diathesimos) {
+				$ol = 2;
+			}
+			else {
+				$ol = 1;
+			}
+		}
+		else {
+			$ol = 0;
+		}
+
 		print "{l:'" . $this->login . "',n:'" . $this->onoma .
-			"',o:" . ($this->online ? 'true' : 'false') .
-			",s:'" . $this->status . "'}";
+			"',o:" . $ol . ",s:'" . $this->status . "'}";
 	}
 
 	// Η παρακάτω (static) μέθοδος δημιουργεί λίστα όλων των παικτών
@@ -334,7 +346,7 @@ function process_sxesi() {
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$s = new Sxesi;
-		$s->set_from_dbrow($row, $energos, 'ΦΙΛΟΣ');
+		$s->set_from_dbrow($row, $energos, 'F');
 		$sxesi[] = $s;
 	}
 
@@ -358,7 +370,7 @@ function process_sxesi() {
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$s = new Sxesi;
-		$s->set_from_dbrow($row, $energos, 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ');
+		$s->set_from_dbrow($row, $energos, 'B');
 		$sxesi[] = $s;
 	}
 
