@@ -236,11 +236,22 @@
 	color: #003366;
 }
 
+.sxesiDiathesimotita {
+	width: 0.6cm;
+	height: 0.6cm;
+	margin-right: 0.15cm;
+	margin-bottom: -0.2cm;
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+	cursor: default;
+}
+
 .sxesiIcon {
 	height: 0.7cm;
 	width: 0.66cm;
 	margin-right: 0.15cm;
 	margin-bottom: -0.2cm;
+	cursor: pointer;
 }
 
 .sxesiFilos {
@@ -258,15 +269,6 @@
 .sxesiOffline {
 	opacity: 0.6;
 	filter: alpha(opacity=60);
-}
-
-.sxesiDiathesimotita {
-	float: right;
-	width: 0.6cm;
-	height: 0.6cm;
-	opacity: 0.6;
-	filter: alpha(opacity=60);
-	margin-top: 0.1cm;
 }
 
 .sizitisiArea {
