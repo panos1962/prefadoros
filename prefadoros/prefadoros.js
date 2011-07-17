@@ -42,22 +42,15 @@ var Sxesi = new function() {
 	this.HTML = function(sxesi, i) {
 		html = '<div class="sxesiLine zebra' + (i % 2) + '"' +
 			emfanesAfanesHTML(this) + '>';
-
-		html += '<img alt="" class="sxesiIcon" src="' +
-				globals.server + 'images/addFriend.png" />';
-		html += '<img alt="" class="sxesiIcon" src="' +
-				globals.server + 'images/X.png" />';
-/*
 		switch (sxesi[i].o) {
 		case 1:		var ball = 'greenBall'; break;
 		case 2:		ball = 'orangeBall'; break;
 		default:	ball = false;
 		}
 		if (ball) {
-			html += '<img alt="" class="sxesiIcon sxesiDiathesimotita" src="' +
+			html += '<img alt="" class="sxesiDiathesimotita" src="' +
 				globals.server + 'images/' + ball + '.png" />';
 		}
-*/
 
 		html += '<div class="sxesiData sxesi';
 		switch (sxesi[i].s) {

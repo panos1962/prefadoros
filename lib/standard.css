@@ -52,7 +52,8 @@ a img {
 }
 
 .mainArea {
-	min-height: 14.4cm;
+	min-height: 14.8cm;
+	height: 14.8cm;
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
@@ -133,7 +134,7 @@ a img {
 .mainFyi {
 	text-align: right;
 	padding-right: 0.2em;
-	height: 1.1em;
+	height: 1.3em;
 }
 
 .button {
