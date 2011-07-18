@@ -49,6 +49,7 @@ telos_ok();
 function torina_dedomena() {
 	$curr = new Dedomena();
 	$curr->sxesi = process_sxesi();
+	$curr->permes = process_permes();
 	$curr->trapezi = process_trapezi();
 	return($curr);
 }
@@ -91,6 +92,13 @@ function diaforetika_dedomena($curr, $prev) {
 	}
 	else {
 		$curr->sxesi_json_data();
+	}
+
+	if ($curr->permes == $prev->permes) {
+		print ",permes:'same'";
+	}
+	else {
+		$curr->permes_json_data();
 	}
 
 	if ($curr->trapezi == $prev->trapezi) {
@@ -191,12 +199,59 @@ class Sxesi {
 	}
 }
 
+class Permes {
+	public $apostoleas;
+	public $minima;
+	public $katastasi;
+	public $dimiourgia;
+
+	public function __construct() {
+		$this->apostoleas = '';
+		$this->minima = '';
+		$this->katastasi = '';
+		$this->dimiourgia = '';
+	}
+
+	public function set_from_dbrow($row) {
+		$this->apostoleas = $row['αποστολέας'];
+		$this->minima = $row['μήνυμα'];
+		$this->katastasi = $row['κατάσταση'];
+		$this->dimiourgia = $row['δημιουργία'];
+	}
+
+	public function set_from_file($line) {
+		$cols = explode("\t", $line);
+		if (count($cols) != 4) {
+			return(FALSE);
+		}
+
+		$this->apostoleas = $cols[0];
+		$this->minima = $cols[1];
+		$this->katastasi = $cols[2];
+		$this->dimiourgia = $cols[3];
+		return(TRUE);
+	}
+
+	public function print_raw_data($fh) {
+		Globals::put_line($fh, $this->apostoleas . "\t" . $this->minima . "\t" .
+			$this->katastasi . "\t" . $this->dimiourgia);
+	}
+
+	public function json_data() {
+		$minima = preg_replace('/\\\/', '\\\\\\', $this->minima);
+		$minima = preg_replace("/'/", "\'", $minima);
+		print "{a:'" . $this->apostoleas . "',m:'" . $this->minima .
+			"',s:'" . $this->katastasi . "',d:" . $this->dimiourgia . "}";
+	}
+}
+
 class Dedomena {
 	public $sxesi;
 	public $trapezi;
 
 	public function __construct() {
 		$this->sxesi = array();
+		$this->permes = array();
 		$this->trapezi = array();
 	}
 
@@ -210,6 +265,9 @@ class Dedomena {
 			switch ($line) {
 			case '@SXESI@':
 				$this->diavase_sxesi($fh);
+				break;
+			case '@PERMES@':
+				$this->diavase_permes($fh);
 				break;
 			case '@TRAPEZIA@':
 				$this->diavase_trapezi($fh);
@@ -236,6 +294,22 @@ class Dedomena {
 		}
 	}
 
+	private function diavase_permes($fh) {
+		while ($line = Globals::get_line($fh)) {
+			if ($line === '@END@') {
+				return;
+			}
+
+			$p = new Permes();
+			if ($p->set_from_file($line)) {
+				$this->permes[] = $p;
+			}
+			else {
+				unset($p);
+			}
+		}
+	}
+
 	private function diavase_trapezi($fh) {
 		while ($line = Globals::get_line($fh)) {
 			if ($line === '@END@') {
@@ -251,6 +325,7 @@ class Dedomena {
 		}
 
 		$this->grapse_sxesi($fh);
+		$this->grapse_permes($fh);
 		$this->grapse_trapezi($fh);
 		fclose($fh);
 	}
@@ -260,6 +335,15 @@ class Dedomena {
 		$n = count($this->sxesi);
 		for ($i = 0; $i < $n; $i++) {
 			$this->sxesi[$i]->print_raw_data($fh);
+		}
+		Globals::put_line($fh, "@END@");
+	}
+
+	private function grapse_permes($fh) {
+		Globals::put_line($fh, "@PERMES@");
+		$n = count($this->permes);
+		for ($i = 0; $i < $n; $i++) {
+			$this->permes[$i]->print_raw_data($fh);
 		}
 		Globals::put_line($fh, "@END@");
 	}
@@ -283,6 +367,7 @@ class Dedomena {
 
 	public function json_data() {
 		$this->sxesi_json_data();
+		$this->permes_json_data();
 		$this->trapezi_json_data();
 	}
 
@@ -294,6 +379,18 @@ class Dedomena {
 				print ",";
 			}
 			$this->sxesi[$i]->json_data();
+		}
+		print "]";
+	}
+
+	public function permes_json_data() {
+		print ",permes:[";
+		$n = count($this->permes);
+		for ($i = 0; $i < $n; $i++) {
+			if ($i > 0) {
+				print ",";
+			}
+			$this->permes[$i]->json_data();
 		}
 		print "]";
 	}
@@ -375,6 +472,24 @@ function process_sxesi() {
 	}
 
 	return $sxesi;
+}
+
+function process_permes() {
+	global $globals;
+	global $slogin;
+
+	$query = "SELECT `αποστολέας`, `μήνυμα`, `κατάσταση`, " .
+		"UNIX_TIMESTAMP(`δημιουργία`) AS `δημιουργία` " .
+		"FROM `μήνυμα` WHERE (`παραλήπτης` LIKE " . $slogin .
+		") AND (`κατάσταση` LIKE 'ΝΕΟ') ORDER BY `κωδικός` DESC";
+	$result = $globals->sql_query($query);
+	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		$p = new Permes;
+		$p->set_from_dbrow($row);
+		$permes[] = $p;
+	}
+
+	return $permes;
 }
 
 function process_trapezi() {

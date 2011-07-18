@@ -195,18 +195,7 @@ account.onload = function() {
 			return false;
 		}
 
-		account.exitSignup();
-		return false;
-	};
-
-	this.exitSignup = function() {
-		var w = window.opener;
-		if (isSet(w)) {
-			window.close();
-		}
-		else {
-			location.href = globals.server + 'index.php';
-		}
+		exitChild();
 		return false;
 	};
 }

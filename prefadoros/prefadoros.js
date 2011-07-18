@@ -1,6 +1,6 @@
 var enimerosi = {
 	id:	0,	// id ενημέρωσης
-	sxesi:		{		// χαρακτηριστικά αναζήτησης παικτών
+	sxesi:	{			// χαρακτηριστικά αναζήτησης παικτών
 		spat:	'pan',		// pattern αναζήτησης παικτών
 		skat:	'',		// κατάσταση (all, online, available)
 	},
@@ -111,7 +111,7 @@ var kafenio = new function() {
 window.onload = function() {
 	init();
 	emoticons.display();
-	setTimeout(testConnect, 10);
+	//setTimeout(testConnect, 10);
 	setTimeout(function() { neaDedomena(true); }, 100);
 //setTimeout(showKafenio, 1000);
 }
@@ -173,6 +173,7 @@ function neaDedomenaCheck(req) {
 	rsp = req.getResponse();
 	if (!rsp.match(/@OK$/)) {
 		monitor.lathos();
+		alert('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
 		mainFyi('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
 		setTimeout(function() { neaDedomena(); }, 100);
 		return;
@@ -183,8 +184,8 @@ function neaDedomenaCheck(req) {
 		var dedomena = eval('({' + rsp + '})');
 	} catch(e) {
 		monitor.lathos();
+		alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 		mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
-alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 		setTimeout(function() { neaDedomena(); }, 100);
 		return;
 	}
@@ -202,6 +203,12 @@ mainFyi('@@@@@@' + dedomena.data.id);
 		monitor.freska();
 		if (dedomena.sxesi !== 'same') {
 			Sxesi.updateHTML(dedomena.sxesi);
+		}
+		if (dedomena.permes !== 'same') {
+			var x = getelid('permesLink');
+			if (isSet(x) && isSet(x.style)) {
+				x.style.color = '#990000';
+			}
 		}
 	}
 
@@ -267,12 +274,11 @@ function infoStripShow(div) {
 		return;
 	}
 
-permes = [
-	"asdasdasd",
-	"JGAJGAJSAGJSGAJ",
-	"asdasd asdasd"
-];
-	if (notSet(permes) || (permes.length < 1)) {
+	var x = getelid('permesLink');
+	if (isSet(x) && isSet(x.style)) {
+		x.style.color = '';
+	}
+	if (notSet(dedomena.permes) || (dedomena.permes.length < 1)) {
 		mesg = 'Δεν υπάρχουν νέα μηνύματα';
 		var mrq1 = '';
 		var mrq2 = '';
@@ -282,9 +288,9 @@ permes = [
 		mrq1 = '<marquee loop=10000 behavior=slide scrollamount=6>';
 		mrq2 = '</marquee>';
 		var mesg = '';
-		for (var i = 0; i < permes.length; i++) {
+		for (var i = 0; i < permes.permes.length; i++) {
 			mesg += '<span class="info' + (i % 2) + '">' +
-				permes[i] + '</span>';
+				permes.permes[i].m + '</span>';
 		}
 	}
 

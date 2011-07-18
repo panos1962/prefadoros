@@ -4,9 +4,11 @@ set_globals();
 Page::head();
 Page::stylesheet('permes/permes');
 Page::stylesheet('lib/forma');
+Page::javascript('lib/forma');
 Page::javascript('permes/permes');
 Page::body();
 Page::epikefalida(Globals::perastike('pedi'));
+Page::fyi();
 ?>
 <div class="mainArea permesArea">
 <?php
@@ -27,12 +29,22 @@ function minima_pros() {
 	<span class="data">Αποστολή προσωπικού μηνύματος προς <span class="pros"><?php
 		print $_REQUEST['pros']; ?></span></span>
 	</div>
+	<div style="width: 11.0cm;">
 	<textarea id="permesInput" rows="14" cols="60">
 	</textarea>
-	<div style="padding-top: 0.4cm;">
-	<input class="button formaButton" type="submit" value="Αποστολή" />
-	<input class="button formaButton" type="submit" value="Άκυρο" />
+	<div id="formaFyi" class="fyi formaFyi">&#xfeff;</div>
+	<input class="button formaButton" type="submit" value="Αποστολή"
+		onclick="return Permes.apostoli();" />
+	<input class="button formaButton" type="reset" value="Reset"
+		onclick="return Permes.reset();" />
+	<input class="button formaButton" type="submit" value="Άκυρο"
+		onclick="Permes.cancel(); return false;" />
 	</div>
+	<script type="text/javascript">
+	//<![CDATA[
+	Permes.paraliptis = '<?php print $_REQUEST['pros']; ?>';
+	//]]>
+	</script>
 	<?php
 }
 
