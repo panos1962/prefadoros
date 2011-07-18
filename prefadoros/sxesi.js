@@ -20,7 +20,8 @@ var Sxesi = new function() {
 		if (sxesi[i].o < 1) {
 			html += ' sxesiOffline';
 		}
-		html += '"' + emfanesAfanesHTML(this) + '>';
+		html += '" onmouseover="emfanesAfanes(this, true);" ';
+		html += 'onmouseout="emfanesAfanes(this, false);">';
 		switch (sxesi[i].o) {
 		case 1:
 			var ball = 'orangeBall';
@@ -36,7 +37,10 @@ var Sxesi = new function() {
 			break;
 		}
 		html += '<img alt="" class="sxesiDiathesimotita" src="' +
-			globals.server + 'images/' + ball + '.png" />';
+			globals.server + 'images/' + ball + '.png" ' +
+			'title="' + title + '. Κλικ για εργαλεία" ' +
+			'onclick="Sxesi.panel(\'' + sxesi[i].l + '\');" />';
+		html += '<div id="sx_' + sxesi[i].l + '" style="display: none;">';
 		switch (sxesi[i].s) {
 		case 'F':
 			html += Sxesi.apoklismosHTML(sxesi[i]);
@@ -52,6 +56,7 @@ var Sxesi = new function() {
 			break;
 		}
 		html += Sxesi.permesHTML(sxesi[i]);
+		html += '</div>';
 		html += '<div style="display: inline-block; cursor: pointer;" title="Πρόσκληση">';
 		html += '<div class="sxesiData">' + sxesi[i].n + '</div>';
 		html += '&nbsp;[&nbsp;<div class="sxesiData sxesi';
@@ -64,6 +69,25 @@ var Sxesi = new function() {
 		html += '</div>'
 
 		return html;
+	};
+
+	this.panel = function(login, attr) {
+		var x = getelid('sx_' + login);
+		if (isSet(x) && isSet(x.style) && isSet(x.style.display)) {
+			if (isSet(attr)) {
+				x.style.display = attr;
+			}
+			else {
+				switch (x.style.display) {
+				case 'inline-block':
+					x.style.display = 'none';
+					break;
+				default:
+					x.style.display = 'inline-block';
+					break;
+				}
+			}
+		}
 	};
 
 	this.addFilosHTML = function(s) {
