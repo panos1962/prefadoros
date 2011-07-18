@@ -120,7 +120,7 @@ if ($globals->is_pektis()) {
 	</td>
 	<td class="tbldbg">
 		<input type="button" value="Cancel" class="button formaButton"
-			onclick="return account.exitSignup();" />
+			onclick="return exitChild();" />
 	</td>
 </tr>
 </table>
