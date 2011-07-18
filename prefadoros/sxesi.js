@@ -111,7 +111,13 @@ var Sxesi = new function() {
 
 	this.permesHTML = function(s) {
 		var html = '<img alt="" title="Προσωπικό μήνυμα" class="sxesiIcon" src="' +
-			globals.server + 'images/permes.png" />';
+			globals.server + 'images/permes.png" ' +
+			'onclick="Sxesi.permesWindow(\'' + s.l + '\');" />';
 		return html;
-	}
+	};
+
+	this.permesWindow = function(login) {
+		var w = window.open(globals.server + 'permes/index.php?' +
+			'pedi=yes&pros=' + uri(login));
+	};
 }

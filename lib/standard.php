@@ -441,7 +441,6 @@ class Page {
 
 	protected static function centerTB($titlos = 'Πρεφαδόρος') {
 		?>
-		<div class="dialogos" id="dialogos"></div>
 		<span class="data">
 			<?php print $titlos; ?>
 		</span>
