@@ -237,8 +237,9 @@
 }
 
 .sxesiDiathesimotita {
-	width: 0.6cm;
-	height: 0.6cm;
+	height: 0.66cm;
+	width: 0.66cm;
+	padding-top: 0.07cm;
 	margin-right: 0.15cm;
 	margin-bottom: -0.2cm;
 	opacity: 0.6;
