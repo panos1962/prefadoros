@@ -216,6 +216,8 @@
 .prosklisiArea {
 	height: 3cm;
 	max-height: 3cm;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .sxesiArea {
@@ -223,6 +225,8 @@
 	max-height: 4cm;
 	font-size: 0.45cm;
 	white-space: nowrap;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .sxesiLine {
@@ -275,6 +279,8 @@
 .sizitisiArea {
 	height: 4cm;
 	max-height: 4cm;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .kafedaki {
