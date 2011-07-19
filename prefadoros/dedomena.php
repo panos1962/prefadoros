@@ -214,7 +214,7 @@ class Permes {
 
 	public function set_from_dbrow($row) {
 		$this->apostoleas = $row['αποστολέας'];
-		$this->minima = $row['μήνυμα'];
+		$this->minima = preg_replace("/\n/", "&#10;", $row['μήνυμα']);
 		$this->katastasi = $row['κατάσταση'];
 		$this->dimiourgia = $row['δημιουργία'];
 	}
@@ -239,6 +239,7 @@ class Permes {
 
 	public function json_data() {
 		$minima = preg_replace('/\\\/', '\\\\\\', $this->minima);
+		$minima = preg_replace("/'/", "\'", $minima);
 		$minima = preg_replace("/'/", "\'", $minima);
 		print "{a:'" . $this->apostoleas . "',m:'" . $this->minima .
 			"',s:'" . $this->katastasi . "',d:" . $this->dimiourgia . "}";

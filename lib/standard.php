@@ -434,7 +434,7 @@ class Page {
 		if ($globals->is_pektis()) {
 			?>
 			[&nbsp;<a id="permesLink" class="data" target="_blank" href="<?php
-				print $globals->server; ?>pm/index.php?pedi=yes" >PM</a>&nbsp;]
+				print $globals->server; ?>permes/index.php?pedi=yes" >PM</a>&nbsp;]
 			<?php
 		}
 	}

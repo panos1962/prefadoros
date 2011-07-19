@@ -75,8 +75,8 @@ function prefadoros() {
 	</tr>
 	</tbody>
 	</table>
-	<div class="infoArea" title="Χώρος εμφάνισης μηνυμάτων"
-		onclick="infoStripShow(this);"></div>
+	<div id="infoArea" class="infoArea" title="Χώρος εμφάνισης μηνυμάτων"
+		onclick="infoStripShow(this, false);"></div>
 	<?php
 }
 

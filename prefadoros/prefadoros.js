@@ -1,3 +1,4 @@
+var dedomena = {};
 var enimerosi = {
 	id:	0,	// id ενημέρωσης
 	sxesi:	{			// χαρακτηριστικά αναζήτησης παικτών
@@ -173,7 +174,7 @@ function neaDedomenaCheck(req) {
 	rsp = req.getResponse();
 	if (!rsp.match(/@OK$/)) {
 		monitor.lathos();
-		alert('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
+		//alert('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
 		mainFyi('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
 		setTimeout(function() { neaDedomena(); }, 100);
 		return;
@@ -181,10 +182,10 @@ function neaDedomenaCheck(req) {
 
 	rsp = rsp.replace(/@OK$/, '');
 	try {
-		var dedomena = eval('({' + rsp + '})');
+		dedomena = eval('({' + rsp + '})');
 	} catch(e) {
 		monitor.lathos();
-		alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
+		//alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 		mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 		setTimeout(function() { neaDedomena(); }, 100);
 		return;
@@ -208,6 +209,10 @@ mainFyi('@@@@@@' + dedomena.data.id);
 			var x = getelid('permesLink');
 			if (isSet(x) && isSet(x.style)) {
 				x.style.color = '#990000';
+			}
+			var x = getelid('infoArea');
+			if (isSet(x) && isSet(x.style)) {
+				infoStripShow(x, true);
 			}
 		}
 	}
@@ -267,18 +272,24 @@ window.onbeforeunload = function() {
 	}
 };
 
-function infoStripShow(div) {
-	if (div.innerHTML != '') {
-		div.innerHTML = '';
-		div.style.cursor = 'pointer';
-		return;
+function infoStripShow(div, auto) {
+	if (!auto) {
+		if (div.innerHTML != '') {
+			div.innerHTML = '';
+			div.style.cursor = 'pointer';
+			return;
+		}
+
+		var x = getelid('permesLink');
+		if (isSet(x) && isSet(x.style)) {
+			x.style.color = '';
+		}
 	}
 
-	var x = getelid('permesLink');
-	if (isSet(x) && isSet(x.style)) {
-		x.style.color = '';
-	}
 	if (notSet(dedomena.permes) || (dedomena.permes.length < 1)) {
+		if (auto) {
+			return;
+		}
 		mesg = 'Δεν υπάρχουν νέα μηνύματα';
 		var mrq1 = '';
 		var mrq2 = '';
@@ -288,9 +299,9 @@ function infoStripShow(div) {
 		mrq1 = '<marquee loop=10000 behavior=slide scrollamount=6>';
 		mrq2 = '</marquee>';
 		var mesg = '';
-		for (var i = 0; i < permes.permes.length; i++) {
+		for (var i = 0; i < dedomena.permes.length; i++) {
 			mesg += '<span class="info' + (i % 2) + '">' +
-				permes.permes[i].m + '</span>';
+				dedomena.permes[i].m + '</span>';
 		}
 	}
 
