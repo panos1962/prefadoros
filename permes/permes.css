@@ -1,6 +1,8 @@
 .permesArea {
 	margin-left: 1.5cm;
 	max-width: 21cm;
+	min-height: 14.0cm;
+	height: auto;
 }
 
 .pros {

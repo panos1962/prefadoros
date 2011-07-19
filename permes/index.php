@@ -1,5 +1,7 @@
 <?php
 require_once '../lib/standard.php';
+require_once '../prefadoros/prefadoros.php';
+require_once '../pektis/pektis.php';
 set_globals();
 Page::head();
 Page::stylesheet('permes/permes');
@@ -9,6 +11,7 @@ Page::javascript('permes/permes');
 Page::body();
 Page::epikefalida(Globals::perastike('pedi'));
 Page::fyi();
+Prefadoros::pektis_check();
 ?>
 <div class="mainArea permesArea">
 <?php
@@ -49,9 +52,15 @@ function minima_pros() {
 }
 
 function minimata() {
+	global $globals;
+	$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 	?>
-	<div>
-	Διαχείριση μηνυμάτων
+	<div style="margin-top: 0px;">
+	Εισερχόμενα <input id="iser" type="checkbox" checked="yes" onchange="Permes.refresh();" />
+	Εξερχόμενα <input id="exer" type="checkbox" onchange="Permes.refresh();" />
+	</div>
+	<div id="minimata" style="margin-top: 0px;">
+AAA
 	</div>
 	<?php
 }
