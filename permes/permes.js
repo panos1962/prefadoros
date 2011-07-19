@@ -72,6 +72,45 @@ var Permes = new function() {
 		}
 		return exitChild();
 	};
+
+	this.refresh = function() {
+		var x = getelid('minimata');
+		if (notSet(x)) { return; }
+
+		x.innerHTML = '<img src="' + globals.server + 'images/working.gif" ' +
+			'alt="" />';
+
+		var exer = getelid('exer');
+		if (notSet(exer)) { return; }
+
+		var iser = getelid('iser');
+		if (notSet(iser)) { return; }
+
+		if ((!exer.checked) && (!iser.checked)) {
+			iser.checked = true;
+		}
+
+		var params = 'dummy=yes';
+		if (exer.checked) { params += '&exer=yes'; }
+		if (iser.checked) { params += '&iser=yes'; }
+
+		var req = new Request('permes/refresh');
+		req.xhr.onreadystatechange = function() {
+			refreshCheck(req, x);
+		};
+
+		req.send(params);
+	};
+
+	function refreshCheck(req, x) {
+		if (req.xhr.readyState != 4) {
+			return;
+		}
+
+		rsp = req.getResponse();
+		x.innerHTML = rsp;
+		return false;
+	};
 };
 
 window.onload = function() {
@@ -80,5 +119,10 @@ window.onload = function() {
 	if (isSet(x)) {
 		x.value = '';
 		x.focus();
+	}
+
+	var x = getelid('minimata');
+	if (isSet(x)) {
+		Permes.refresh();
 	}
 };
