@@ -34,7 +34,7 @@ var Permes = new function() {
 			formaFyi('Απέτυχε η αποστολή του μηνύματος');
 		}
 		else {
-			formaFyi('Το μήνυμά σας έχει σταλεί');
+			formaFyi('Το μήνυμά σας έχει αποσταλεί');
 		}
 
 		msg.value = '';
@@ -49,8 +49,8 @@ var Permes = new function() {
 			x.focus();
 			return false;
 		}
-		if (!confirm('Το κείμενο που έχετε γράψει θα καθαριστεί. ' +
-			'Είστε σίγουρος ότι αυτό θέλετε να κάνετε;')) {
+		if (!confirm('Το μήνυμά σας δεν έχει αποσταλεί. ' +
+			'Θέλετε πράγματι να το διαγράψετε;')) {
 			x.focus();
 			return false;
 		}
@@ -64,9 +64,9 @@ var Permes = new function() {
 		if (notSet(x) || notSet(x.value) || (x.value.trim() == '')) {
 			return exitChild();
 		}
-		if (!confirm('Προτίθεστε να εξέλθετε από τη φόρμα αποστολής ' +
-			'προσωπικών μηνυμάτων. Είστε σίγουρος ότι αυτό θέλετε ' +
-			'να κάνετε;')) {
+		if (!confirm('Το μήνυμά σας δεν έχει αποσταλεί. Θέλετε ' +
+			'πράγμαται να εξέλθετε από τη φόρμα αποστολής ' +
+			'προσωπικών μηνυμάτων;')) {
 			x.focus();
 			return false;
 		}
@@ -78,6 +78,7 @@ window.onload = function() {
 	init();
 	var x = getelid('permesInput');
 	if (isSet(x)) {
+		x.value = '';
 		x.focus();
 	}
 };
