@@ -132,7 +132,7 @@ function neaDedomena(freska) {
 		freska = false;
 	}
 
-	var req = new Request('prefadoros/dedomena');
+	var req = new Request('prefadoros/neaDedomena');
 	req.xhr.onreadystatechange = function() {
 		neaDedomenaCheck(req);
 	};
@@ -217,7 +217,7 @@ mainFyi('@@@@@@' + dedomena.data.id);
 			}
 
 			var x = getelid('permesArea');
-			if (isSet(x)) { Permes.stripShow(x, true); }
+			if (isSet(x)) {Permes.stripShow(x, true); }
 			x = getelid('permesLink');
 			if (isSet(x) && isSet(x.style)) {
 				if (neaPermes) {
