@@ -11,6 +11,7 @@ if ($globals->is_pektis()) {
 	Page::stylesheet('prefadoros/prefadoros');
 	Page::javascript('prefadoros/prefadoros');
 	Page::javascript('prefadoros/sxesi');
+	Page::javascript('prefadoros/permes');
 	Page::javascript('lib/controlPanel');
 	Page::javascript('lib/pss');
 	Page::javascript('lib/emoticons');
@@ -75,8 +76,8 @@ function prefadoros() {
 	</tr>
 	</tbody>
 	</table>
-	<div id="infoArea" class="infoArea" title="Χώρος εμφάνισης μηνυμάτων"
-		onclick="infoStripShow(this, false);"></div>
+	<div id="permesArea" class="permesArea" title="Χώρος εμφάνισης μηνυμάτων"
+		onclick="Permes.stripShow(this, false);"></div>
 	<?php
 }
 

@@ -98,7 +98,7 @@ function diaforetika_dedomena($curr, $prev) {
 		print ",permes:'same'";
 	}
 	else {
-		$curr->permes_json_data();
+		$curr->permes_json_data($prev->permes);
 	}
 
 	if ($curr->trapezi == $prev->trapezi) {
@@ -206,6 +206,7 @@ class Permes {
 	public $dimiourgia;
 
 	public function __construct() {
+		$this->kodikos = 0;
 		$this->apostoleas = '';
 		$this->minima = '';
 		$this->katastasi = '';
@@ -213,6 +214,7 @@ class Permes {
 	}
 
 	public function set_from_dbrow($row) {
+		$this->kodikos = $row['κωδικός'];
 		$this->apostoleas = $row['αποστολέας'];
 		$this->minima = preg_replace("/\n/", "&#10;", $row['μήνυμα']);
 		$this->katastasi = $row['κατάσταση'];
@@ -221,27 +223,29 @@ class Permes {
 
 	public function set_from_file($line) {
 		$cols = explode("\t", $line);
-		if (count($cols) != 4) {
+		if (count($cols) != 5) {
 			return(FALSE);
 		}
 
-		$this->apostoleas = $cols[0];
-		$this->minima = $cols[1];
-		$this->katastasi = $cols[2];
-		$this->dimiourgia = $cols[3];
+		$this->kodikos = $cols[0];
+		$this->apostoleas = $cols[1];
+		$this->minima = $cols[2];
+		$this->katastasi = $cols[3];
+		$this->dimiourgia = $cols[4];
 		return(TRUE);
 	}
 
 	public function print_raw_data($fh) {
-		Globals::put_line($fh, $this->apostoleas . "\t" . $this->minima . "\t" .
+		Globals::put_line($fh, $this->kodikos . "\t" .
+			$this->apostoleas . "\t" . $this->minima . "\t" .
 			$this->katastasi . "\t" . $this->dimiourgia);
 	}
 
 	public function json_data() {
 		$minima = preg_replace('/\\\/', '\\\\\\', $this->minima);
 		$minima = preg_replace("/'/", "\'", $minima);
-		$minima = preg_replace("/'/", "\'", $minima);
-		print "{a:'" . $this->apostoleas . "',m:'" . $this->minima .
+		$minima = preg_replace('/"/', '\"', $minima);
+		print "{k:" . $this->kodikos . ",a:'" . $this->apostoleas . "',m:'" . $minima .
 			"',s:'" . $this->katastasi . "',d:" . $this->dimiourgia . "}";
 	}
 }
@@ -384,13 +388,41 @@ class Dedomena {
 		print "]";
 	}
 
-	public function permes_json_data() {
-		print ",permes:[";
-		$n = count($this->permes);
-		for ($i = 0; $i < $n; $i++) {
-			if ($i > 0) {
-				print ",";
+	public function permes_json_data($prev = FALSE) {
+		if (!$prev) {
+			$nprev = 0;
+		}
+		else {
+			$nprev = count($prev);
+		}
+		$ncurr = count($this->permes);
+		$koma = '';
+		$apopio = $nprev;
+
+		// Αν δεν έχουμε μηνύματα προηγούμενης ενημέρωσης ή αυτά
+		// ήσαν περισσότερα από τα τωρινά, τότε τα στέλνω όλα.
+		if ((!$prev) || ($ncurr < $nprev)) {
+			$apopio = 0;
+		}
+		else {
+			// Ελέγχω αν έχουν τροποποιηθεί μηνύματα της προηγούμενης
+			// ενημέρωσης. Αν αυτό είναι αλήθεια τα στέλνω όλα.
+			for ($i = 0; $i < $nprev; $i++) {
+				if ($this->permes[$i] != $prev[$i]) {
+					$apopio = 0;
+					break;
+				}
 			}
+		}
+
+		print ",permes";
+		if ($apopio > 0) {
+			print "New";
+		}
+		print ":[";
+		for ($i = $apopio; $i < $ncurr; $i++) {
+			print $koma;
+			$koma = ',';
 			$this->permes[$i]->json_data();
 		}
 		print "]";
@@ -479,10 +511,11 @@ function process_permes() {
 	global $globals;
 	global $slogin;
 
-	$query = "SELECT `αποστολέας`, `μήνυμα`, `κατάσταση`, " .
+	$permes = array();
+	$query = "SELECT `κωδικός`, `αποστολέας`, `μήνυμα`, `κατάσταση`, " .
 		"UNIX_TIMESTAMP(`δημιουργία`) AS `δημιουργία` " .
 		"FROM `μήνυμα` WHERE (`παραλήπτης` LIKE " . $slogin .
-		") AND (`κατάσταση` LIKE 'ΝΕΟ') ORDER BY `κωδικός` DESC";
+		") AND (`κατάσταση` LIKE 'ΝΕΟ') ORDER BY `κωδικός`";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$p = new Permes;
