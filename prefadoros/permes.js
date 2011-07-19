@@ -1,6 +1,14 @@
 var Permes = new function() {
 	this.stripShow = function(div, auto) {
-		if (!auto) {
+		if (auto) {
+			if (notSet(permes) || (permes.length < 1)) {
+				div.innerHTML = '';
+				div.style.cursor = 'pointer';
+				return;
+			}
+			playSound('minima', 20);
+		}
+		else {
 			if (div.style.cursor !== 'pointer') {
 				div.innerHTML = '';
 				div.style.cursor = 'pointer';
@@ -11,13 +19,6 @@ var Permes = new function() {
 			if (notSet(permes) || (permes.length < 1)) {
 				mesg = 'Δεν υπάρχουν νέα μηνύματα';
 				div.innerHTML = '<div class="permesData">' + mesg + '</div>';
-				return;
-			}
-		}
-		else {
-			if (notSet(permes) || (permes.length < 1)) {
-				div.innerHTML = '';
-				div.style.cursor = 'pointer';
 				return;
 			}
 		}
