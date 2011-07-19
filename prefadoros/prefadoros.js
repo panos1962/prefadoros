@@ -1,23 +1,14 @@
-var dedomena = {};
 var enimerosi = {
 	id:	0,	// id ενημέρωσης
 	sxesi:	{			// χαρακτηριστικά αναζήτησης παικτών
 		spat:	'pan',		// pattern αναζήτησης παικτών
 		skat:	'',		// κατάσταση (all, online, available)
-	},
-	apopio:		{		// κωδικοί τελευταίας λήψης
-		prosklisi:	0,
-		sxesi:		0,
-		permes:		0,
-		dianomi:	0,
-		kinisi:		0,
-		sizitisi:	0,
-		trapezi:	0
 	}
 };
-var prosklisi = [];	// οι προσκλήσεις που αφορούν στον χρήστη
+
 var sxesi = [];		// οι σχετιζόμενοι και οι αναζητούμενοι
 var permes = [];	// τα PMs του χρήστη
+var prosklisi = [];	// οι προσκλήσεις που αφορούν στον χρήστη
 var partida = {};	// το τραπέζι στο οποίο συμμετέχει ο παίκτης
 var dianomi = [];	// οι διανομές του τραπεζιού
 var kinisi = [];	// οι κινήσεις της διανομής
@@ -152,10 +143,6 @@ function neaDedomena(freska) {
 		params += '&freska=yes';
 	}
 
-	for (var i in enimerosi.apopio) {
-		params += '&' + i + '=' + enimerosi.apopio[i];
-	}
-
 	if (enimerosi.sxesi.spat != '') {
 		params += '&spat=' + uri(enimerosi.sxesi.spat);
 	}
@@ -174,18 +161,19 @@ function neaDedomenaCheck(req) {
 	rsp = req.getResponse();
 	if (!rsp.match(/@OK$/)) {
 		monitor.lathos();
-		//alert('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
+//alert('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
 		mainFyi('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
 		setTimeout(function() { neaDedomena(); }, 100);
 		return;
 	}
 
 	rsp = rsp.replace(/@OK$/, '');
+//alert(rsp);
 	try {
-		dedomena = eval('({' + rsp + '})');
+		var dedomena = eval('({' + rsp + '})');
 	} catch(e) {
 		monitor.lathos();
-		//alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
+//alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 		mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 		setTimeout(function() { neaDedomena(); }, 100);
 		return;
@@ -203,16 +191,41 @@ mainFyi('@@@@@@' + dedomena.data.id);
 	else {
 		monitor.freska();
 		if (dedomena.sxesi !== 'same') {
-			Sxesi.updateHTML(dedomena.sxesi);
+			sxesi = dedomena.sxesi;
+			Sxesi.updateHTML();
 		}
 		if (dedomena.permes !== 'same') {
-			var x = getelid('permesLink');
-			if (isSet(x) && isSet(x.style)) {
-				x.style.color = '#990000';
+			var neaPermes = false;
+			if (isSet(dedomena.permesNew)) {
+				neaPermes = true;
+				for (var i = 0; i < dedomena.permesNew.length; i++) {
+					permes[permes.length] = dedomena.permesNew[i];
+				}
 			}
-			var x = getelid('infoArea');
+			else {
+				if (permes.length <= 0) {
+					if (dedomena.permes.length > 0) {
+						neaPermes = true;
+					}
+				}
+				else if ((dedomena.permes.length > 0) &&
+					(dedomena.permes[dedomena.permes.length - 1].k >
+						permes[permes.length - 1].k)) {
+						neaPermes = true;
+				}
+				permes = dedomena.permes;
+			}
+
+			var x = getelid('permesArea');
+			if (isSet(x)) { Permes.stripShow(x, true); }
+			x = getelid('permesLink');
 			if (isSet(x) && isSet(x.style)) {
-				infoStripShow(x, true);
+				if (neaPermes) {
+					x.style.color = '#990000';
+				}
+				else if (permes.length <= 0) {
+					x.style.color = '';
+				}
 			}
 		}
 	}
@@ -271,39 +284,3 @@ window.onbeforeunload = function() {
 		controlPanel.funchatClose();
 	}
 };
-
-function infoStripShow(div, auto) {
-	if (!auto) {
-		if (div.innerHTML != '') {
-			div.innerHTML = '';
-			div.style.cursor = 'pointer';
-			return;
-		}
-
-		var x = getelid('permesLink');
-		if (isSet(x) && isSet(x.style)) {
-			x.style.color = '';
-		}
-	}
-
-	if (notSet(dedomena.permes) || (dedomena.permes.length < 1)) {
-		if (auto) {
-			return;
-		}
-		mesg = 'Δεν υπάρχουν νέα μηνύματα';
-		var mrq1 = '';
-		var mrq2 = '';
-	}
-	else {
-		div.style.cursor = 'crosshair';
-		mrq1 = '<marquee loop=10000 behavior=slide scrollamount=6>';
-		mrq2 = '</marquee>';
-		var mesg = '';
-		for (var i = 0; i < dedomena.permes.length; i++) {
-			mesg += '<span class="info' + (i % 2) + '">' +
-				dedomena.permes[i].m + '</span>';
-		}
-	}
-
-	div.innerHTML = '<div class="infoData">' + mrq1 + mesg + mrq2 + '</div>';
-}

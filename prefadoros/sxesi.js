@@ -1,19 +1,19 @@
 var Sxesi = new function() {
-	this.updateHTML = function(sxesi) {
+	this.updateHTML = function() {
 		var x = getelid('sxesiArea');
 		if (notSet(x)) { return; }
 
 		var html = '';
 		if (isSet(sxesi)) {
 			for (var i = 0; i < sxesi.length; i++) {
-				html += Sxesi.HTML(sxesi, i);
+				html += Sxesi.HTML(i);
 			}
 		}
 		html += '';
 		x.innerHTML = html;
 	};
 
-	this.HTML = function(sxesi, i) {
+	this.HTML = function(i) {
 		var html = '';
 		html += '<div class="sxesiLine zebra' + (i % 2);
 		sxesi[i].o  = 0;
@@ -120,4 +120,4 @@ var Sxesi = new function() {
 		var w = window.open(globals.server + 'permes/index.php?' +
 			'pedi=yes&pros=' + uri(login));
 	};
-}
+};
