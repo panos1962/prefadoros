@@ -16,8 +16,8 @@ $minima = $globals->asfales($_REQUEST['minima']);
 
 $query = "INSERT INTO `μήνυμα` (`αποστολέας`, `παραλήπτης`, `μήνυμα`) " .
 	"VALUES ('" . $login . "', '" . $pros . "', '" . $minima . "')";
-$result = $globals->sql_query($query);
-if (mysqli_affected_rows($globals->db) != 1) {
-	Globals::fatal('Απέτυχε η αποστολή του μηνύματος');
+$result = @mysqli_query($globals->db, $query);
+if ((!$result) || (mysqli_affected_rows($globals->db) != 1)) {
+	die('Απέτυχε η αποστολή του μηνύματος');
 }
 ?>
