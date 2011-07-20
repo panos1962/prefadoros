@@ -49,7 +49,7 @@ function minima_pros($pros = '', $fixed = FALSE) {
 	</textarea>
 	<div id="formaFyi" class="fyi formaFyi">&#xfeff;</div>
 	<input class="button formaButton" type="submit" value="Αποστολή"
-		onclick="return Permes.apostoli();" />
+		onclick="return Permes.apostoli(<?php if ($fixed) print 'true'; ?>);" />
 	<input class="button formaButton" type="reset" value="Reset"
 		onclick="return Permes.reset();" />
 	<input class="button formaButton" type="submit" value="Άκυρο"
