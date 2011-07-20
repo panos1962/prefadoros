@@ -1,5 +1,6 @@
 var Permes = new function() {
 	this.apostoli = function(fixed) {
+		if (notSet(fixed)) { fixed = false; }
 		var msg = getelid('permesInput');
 		if (notSet(msg) || notSet(msg.value) || ((msg.value = msg.value.trim()) == '')) {
 			alert('Δεν υπάρχει μήνυμα για αποστολή');
@@ -7,6 +8,7 @@ var Permes = new function() {
 			msg.focus();
 			return false;
 		}
+
 		var pros = getelid('paraliptis');
 		if (notSet(pros) || notSet(pros.value) || ((pros.value = pros.value.trim()) == '')) {
 			alert('Ακαθόριστος παραλήπτης');
@@ -16,14 +18,14 @@ var Permes = new function() {
 
 		var req = new Request('permes/apostoli');
 		req.xhr.onreadystatechange = function() {
-			apostoliCheck(req, msg, pros);
+			apostoliCheck(req, msg, pros, fixed);
 		};
 
 		var params = 'pros=' + uri(pros.value) + '&minima=' + uri(msg.value);
 		req.send(params);
 	};
 
-	function apostoliCheck(req, msg, pros) {
+	function apostoliCheck(req, msg, pros, fixed) {
 		if (req.xhr.readyState != 4) {
 			return;
 		}
@@ -35,7 +37,7 @@ var Permes = new function() {
 		else {
 			formaFyi('Το μήνυμά σας έχει αποσταλεί');
 			Permes.refresh();
-			pros.value = '';
+			if (!fixed) { pros.value = ''; }
 		}
 
 		pros.focus();
@@ -44,18 +46,10 @@ var Permes = new function() {
 
 	this.reset = function() {
 		var x = getelid('permesInput');
-		if (notSet(x) || notSet(x.value) || (x.value.trim() == '')) {
+		if (isSet(x)) {
 			x.value = '';
 			x.focus();
-			return false;
 		}
-		if (!confirm('Το μήνυμά σας δεν έχει αποσταλεί. ' +
-			'Θέλετε πράγματι να το διαγράψετε;')) {
-			x.focus();
-			return false;
-		}
-		x.value = '';
-		x.focus();
 		return false;
 	};
 
