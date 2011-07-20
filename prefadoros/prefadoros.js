@@ -153,12 +153,31 @@ function neaDedomena(freska) {
 	req.send(params);
 }
 
+var DUMPRSP = new function() {
+	var wdump = null;
+
+	this.dump = function(rsp) {
+		if (notSet(wdump)) {
+			wdump = window.open(globals.server +
+				'lib/dumprsp.php', "dumprsp",
+				'location=0,status=0,titlebar=0,menubar=0,scrollbars=1,' +
+				'resizable=1,width=600,height=500,left=200,top=100');
+			if (notSet(wdump)) {
+				mainFyi('DUMPRSP: cannot open window');
+				return;
+			}
+		}
+		wdump.document.writeln(rsp + '<hr />');
+	};
+};
+
 function neaDedomenaCheck(req) {
 	if (req.xhr.readyState != 4) {
 		return;
 	}
 
 	rsp = req.getResponse();
+DUMPRSP.dump(rsp);
 	if (!rsp.match(/@OK$/)) {
 		monitor.lathos();
 //alert('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
