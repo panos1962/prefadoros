@@ -216,7 +216,7 @@ window.onload = function() {
 	var x = getelid('permesInput');
 	if (isSet(x)) {
 		x.value = '';
-		x.focus();
+		try { x.focus(); } catch(e) {};
 	}
 
 	var x = getelid('minimata');
