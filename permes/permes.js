@@ -187,10 +187,10 @@ var Permes = new function() {
 			setTimeout(function() { img.src = img.prevSrc; }, 1000);
 		}
 		else {
-			var x = getelid('minima' + minima);
-			if (isSet(x)) {
+			var t = getelid('text' + minima);
+			if (isSet(t)) {
 				if (nea == 'ΝΕΟ') {
-					x.setAttribute('class', '');
+					t.setAttribute('class', '');
 					img.src = globals.server + 'images/important.png';
 					img.onclick = function() {
 						Permes.katastasi(img, minima, 'ΔΙΑΒΑΣΜΕΝΟ');
@@ -199,7 +199,7 @@ var Permes = new function() {
 
 				}
 				else {
-					x.setAttribute('class', 'permesDiavasmeno');
+					t.setAttribute('class', 'permesDiavasmeno');
 					img.src = globals.server + 'images/controlPanel/check.png';
 					img.onclick = function() {
 						Permes.katastasi(img, minima, 'ΝΕΟ');
