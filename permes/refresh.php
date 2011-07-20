@@ -33,11 +33,9 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 	if (($apostoleas == '') && ($paraliptis == '')) {
 		$apostoleas = $row['αποστολέας'];
 	}
+	$diavasmeno = $row['κατάσταση'] == 'ΔΙΑΒΑΣΜΕΝΟ' ? 'permesDiavasmeno' : '';
 	?>
-	<tr id="minima<?php print $row['κωδικός']; ?>" <?php
-		if ($row['κατάσταση'] == 'ΔΙΑΒΑΣΜΕΝΟ') {
-			print 'class="permesDiavasmeno"';
-		}?>>
+	<tr id="minima<?php print $row['κωδικός']; ?>">
 	<td class="permesApo" <?php
 		if ($apostoleas != '') {
 			?>
@@ -59,10 +57,12 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 		<?php print $paraliptis; ?>
 	</td>
 	<td class="zebra<?php print $i % 2; ?> permesMinima">
-	<?php
-	$minima = preg_replace("/\n/", "<br />", $row['μήνυμα']);
-	print $minima;
-	?>
+		<div id="text<?php print $row['κωδικός']; ?>" class="<?php print $diavasmeno; ?>">
+			<?php
+			$minima = preg_replace("/\n/", "<br />", $row['μήνυμα']);
+			print $minima;
+			?>
+		</div>
 	</td>
 	<td style="vertical-align: top;">
 	<img class="permesIcon" title="Διαγραφή" src="<?php
