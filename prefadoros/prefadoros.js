@@ -1,7 +1,7 @@
 var enimerosi = {
 	id:	0,	// id ενημέρωσης
 	sxesi:	{			// χαρακτηριστικά αναζήτησης παικτών
-		spat:	'pan',		// pattern αναζήτησης παικτών
+		spat:	'',		// pattern αναζήτησης παικτών
 		skat:	'',		// κατάσταση (all, online, available)
 	}
 };

@@ -205,14 +205,6 @@
 	font-size: 0.4cm;
 }
 
-#spat {
-	background-image: url('../images/sxesiPrompt.png');
-}
-
-#mesg {
-	background-image: url('../images/sizitisiPrompt.png');
-}
-
 .prosklisiArea {
 	height: 3cm;
 	max-height: 3cm;

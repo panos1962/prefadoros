@@ -6,6 +6,7 @@ CREATE TABLE `παίκτης` (
 	`κατάσταση`	ENUM('AVAILABLE', 'BUSY') NOT NULL DEFAULT 'AVAILABLE' COMMENT 'Κατάσταση παίκτη',
 	`poll`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Last poll time',
 	`ενημέρωση`	NUMERIC(10) NOT NULL DEFAULT(0) COMMENT 'Last poll id',
+	`κριτήρια`	VARCHAR(128) NOT NULL DEFAULT '~1~0' COMMENT 'Κριτήρια αναζήτησης παικτών',
 	-- Το password αποθηκεύεται σε SHA1 κρυπτογραφημένη μορφή.
 	`password`	CHARACTER(40) NOT NULL COMMENT 'Password',
 	`εγγραφή`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Ημερομηνία εγγραφής',

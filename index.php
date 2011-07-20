@@ -118,8 +118,10 @@ function sxesi_area() {
 	?>
 	<div class="pssHeaderArea">
 		<input id="spat" class="pssInput" type="text" value="" maxlength="256"
-			size="20" />
-		<img src="<?php print $globals->server; ?>images/sxetikos.png"
+			size="20" onkeyup="return Sxesi.patchange(event, this);"
+			style="background-image: url('<?php print $globals->server;
+				?>images/sxesiPrompt.png');" />
+		<img id="sxetikosIcon" src="<?php print $globals->server; ?>images/sxetikos.png"
 			class="pssIcon" title="Σχετιζόμενοι" alt="" />
 		<img src="<?php print $globals->server; ?>images/greenBall.png"
 			class="pssIcon" title="Online παίκτες" alt="" />
@@ -142,7 +144,8 @@ function sizitisi_area() {
 	?>
 	<div class="pssHeaderArea">
 		<input id="mesg" class="pssInput" type="text" value="" maxlength="4096"
-			size="30" />
+			size="30" style="background-image: url('<?php
+			print $globals->server; ?>images/sizitisiPrompt.png');" />
 		<div class="pssSizing">
 		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
 			class="pssSizingIcon" title="Μείωση περιοχής συζήτησης"
