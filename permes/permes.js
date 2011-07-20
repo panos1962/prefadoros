@@ -1,44 +1,44 @@
 var Permes = new function() {
-	this.apostoli = function(paraliptis) {
-		var x = getelid('permesInput');
-		if (notSet(x) || notSet(x.value) || ((x.value = x.value.trim()) == '')) {
+	this.apostoli = function(fixed) {
+		var msg = getelid('permesInput');
+		if (notSet(msg) || notSet(msg.value) || ((msg.value = msg.value.trim()) == '')) {
 			alert('Δεν υπάρχει μήνυμα για αποστολή');
-			x.value = '';
-			x.focus();
+			msg.value = '';
+			msg.focus();
 			return false;
 		}
-		if (notSet(Permes.paraliptis)) {
+		var pros = getelid('paraliptis');
+		if (notSet(pros) || notSet(pros.value) || ((pros.value = pros.value.trim()) == '')) {
 			alert('Ακαθόριστος παραλήπτης');
-			x.focus();
+			msg.focus();
 			return false;
 		}
 
 		var req = new Request('permes/apostoli');
 		req.xhr.onreadystatechange = function() {
-			apostoliCheck(req, x);
+			apostoliCheck(req, msg, pros);
 		};
 
-		var params = 'pros=' + uri(Permes.paraliptis) +
-			'&minima=' + uri(x.value);
+		var params = 'pros=' + uri(pros.value) + '&minima=' + uri(msg.value);
 		req.send(params);
 	};
 
-	function apostoliCheck(req, msg) {
+	function apostoliCheck(req, msg, pros) {
 		if (req.xhr.readyState != 4) {
 			return;
 		}
 
 		rsp = req.getResponse();
 		if (rsp) {
-			mainFyi(rsp);
 			formaFyi('Απέτυχε η αποστολή του μηνύματος');
 		}
 		else {
 			formaFyi('Το μήνυμά σας έχει αποσταλεί');
+			Permes.refresh();
+			pros.value = '';
 		}
 
-		msg.value = '';
-		msg.focus();
+		pros.focus();
 		return false;
 	};
 
@@ -59,18 +59,15 @@ var Permes = new function() {
 		return false;
 	};
 
-	this.cancel = function() {
-		var x = getelid('permesInput');
-		if (notSet(x) || notSet(x.value) || (x.value.trim() == '')) {
-			return exitChild();
+	this.cancel = function(fixed) {
+		if (notSet(fixed)) { fixed = false; }
+		if (fixed) { return exitChild(); }
+
+		var x = getelid('formaApostolis');
+		if (isSet(x) && isSet(x.style)) {
+			x.style.display = 'none';
 		}
-		if (!confirm('Το μήνυμά σας δεν έχει αποσταλεί. Θέλετε ' +
-			'πράγμαται να εξέλθετε από τη φόρμα αποστολής ' +
-			'προσωπικών μηνυμάτων;')) {
-			x.focus();
-			return false;
-		}
-		return exitChild();
+		return false;
 	};
 
 	this.refresh = function(ie) {
@@ -101,13 +98,13 @@ var Permes = new function() {
 
 		var req = new Request('permes/refresh');
 		req.xhr.onreadystatechange = function() {
-			refreshCheck(req, x);
+			Permes.refreshCheck(req, x);
 		};
 
 		req.send(params);
 	};
 
-	function refreshCheck(req, x) {
+	this.refreshCheck = function(req, x) {
 		if (req.xhr.readyState != 4) {
 			return;
 		}
@@ -115,6 +112,102 @@ var Permes = new function() {
 		rsp = req.getResponse();
 		x.innerHTML = rsp;
 		return false;
+	};
+
+	this.sinthesi = function(paraliptis) {
+		var x = getelid('formaApostolis');
+		if (isSet(x) && isSet(x.style)) {
+			x.style.display = 'block';
+		}
+
+		var p = getelid('paraliptis');
+		if (notSet(p)) { return false; }
+		var m = getelid('permesInput');
+		if (notSet(m)) { return false; }
+		if (isSet(paraliptis)) {
+			p.value = paraliptis;
+			m.focus();
+		}
+		else {
+			p.focus();
+		}
+	};
+
+	this.diagrafi = function(img, minima) {
+		img.prevSrc = img.src;
+		img.src = globals.server + 'images/working.gif';
+		var req = new Request('permes/diagrafi');
+		req.xhr.onreadystatechange = function() {
+			Permes.diagrafiCheck(req, img, minima);
+		};
+
+		req.send('minima=' + uri(minima));
+	};
+
+	this.diagrafiCheck = function(req, img, minima) {
+		if (req.xhr.readyState != 4) {
+			return;
+		}
+
+		rsp = req.getResponse();
+		if (rsp) {
+			mainFyi(rsp);
+			img.src = globals.server + 'images/X.png';
+			playSound('beep');
+			setTimeout(function() { img.src = img.prevSrc; }, 1000);
+		}
+		else {
+			var x = getelid('minima' + minima);
+			if (isSet(x)) { sviseNode(x); }
+			img.src = img.prevSrc;
+		}
+	};
+
+	this.katastasi = function(img, minima, nea) {
+		img.prevSrc = img.src;
+		img.src = globals.server + 'images/working.gif';
+		var req = new Request('permes/katastasi');
+		req.xhr.onreadystatechange = function() {
+			Permes.katastasiCheck(req, img, minima, nea);
+		};
+
+		req.send('minima=' + uri(minima) + '&katastasi=' + uri(nea));
+	};
+
+	this.katastasiCheck = function(req, img, minima, nea) {
+		if (req.xhr.readyState != 4) {
+			return;
+		}
+
+		rsp = req.getResponse();
+		if (rsp) {
+			mainFyi(rsp);
+			img.src = globals.server + 'images/X.png';
+			playSound('beep');
+			setTimeout(function() { img.src = img.prevSrc; }, 1000);
+		}
+		else {
+			var x = getelid('minima' + minima);
+			if (isSet(x)) {
+				if (nea == 'ΝΕΟ') {
+					x.setAttribute('class', '');
+					img.src = globals.server + 'images/important.png';
+					img.onclick = function() {
+						Permes.katastasi(img, minima, 'ΔΙΑΒΑΣΜΕΝΟ');
+					};
+					img.title = 'Νέο!';
+
+				}
+				else {
+					x.setAttribute('class', 'permesDiavasmeno');
+					img.src = globals.server + 'images/controlPanel/check.png';
+					img.onclick = function() {
+						Permes.katastasi(img, minima, 'ΝΕΟ');
+					};
+					img.title = 'Διαβάστηκε';
+				}
+			}
+		}
 	};
 };
 

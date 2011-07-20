@@ -8,6 +8,7 @@ Page::stylesheet('permes/permes');
 Page::stylesheet('lib/forma');
 Page::javascript('lib/forma');
 Page::javascript('permes/permes');
+Page::javascript('lib/soundmanager');
 Page::body();
 Page::epikefalida(Globals::perastike('pedi'));
 Page::fyi();
@@ -16,7 +17,7 @@ Prefadoros::pektis_check();
 <div class="mainArea permesArea">
 <?php
 if (Globals::perastike('pros')) {
-	minima_pros();
+	minima_pros($_REQUEST['pros'], TRUE);
 }
 else {
 	minimata();
@@ -26,14 +27,25 @@ else {
 <?php
 Page::close();
 
-function minima_pros() {
+function minima_pros($pros = '', $fixed = FALSE) {
 	?>
-	<div style="padding-top: 1.0cm; padding-bottom: 0.4cm;">
-	<span class="data">Αποστολή προσωπικού μηνύματος προς <span class="permesPros"><?php
-		print $_REQUEST['pros']; ?></span></span>
+	<div style="padding-top: 0.4cm; padding-bottom: 0.4cm;">
+	<span class="data">Αποστολή προσωπικού μηνύματος προς <?php
+		if ($fixed) {
+			?>
+			<span class="permesPros"><?php print $pros; ?></span>
+			<input id="paraliptis" type="hidden" value="<?php
+				print $pros; ?>" /><?php
+		}
+		else {
+			?>
+			<input id="paraliptis" type="text" value="<?php
+				print $pros; ?>" maxlength="32" size="20"
+				class="formaField" /><?php
+		}?></span>
 	</div>
 	<div style="width: 11.0cm;">
-	<textarea id="permesInput" rows="14" cols="60">
+	<textarea id="permesInput" rows="14" cols="<?php print $fixed ? 60 : 80; ?>">
 	</textarea>
 	<div id="formaFyi" class="fyi formaFyi">&#xfeff;</div>
 	<input class="button formaButton" type="submit" value="Αποστολή"
@@ -41,13 +53,8 @@ function minima_pros() {
 	<input class="button formaButton" type="reset" value="Reset"
 		onclick="return Permes.reset();" />
 	<input class="button formaButton" type="submit" value="Άκυρο"
-		onclick="Permes.cancel(); return false;" />
+		onclick="return Permes.cancel(<?php if ($fixed) print 'true'; ?>);" />
 	</div>
-	<script type="text/javascript">
-	//<![CDATA[
-	Permes.paraliptis = '<?php print $_REQUEST['pros']; ?>';
-	//]]>
-	</script>
 	<?php
 }
 
@@ -55,6 +62,11 @@ function minimata() {
 	global $globals;
 	$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 	?>
+	<div id="formaApostolis" style="display: none; margin-bottom: 1.0cm;">
+		<?php
+		minima_pros();
+		?>
+	</div>
 	<div style="margin-top: 0px;">
 	Εισερχόμενα <input id="iser" type="checkbox" checked="yes" onchange="Permes.refresh('iser');" />
 	Εξερχόμενα <input id="exer" type="checkbox" onchange="Permes.refresh('exer');" />

@@ -22,7 +22,7 @@ elseif (Globals::perastike('iser')) {
 else {
 	die(0);
 }
-$query .= " ORDER BY `κωδικός` LIMIT 30";
+$query .= " ORDER BY `κωδικός` DESC LIMIT 30";
 $result = $globals->sql_query($query);
 ?>
 <table width="100%" cellspacing="10 0 0 0">
@@ -31,10 +31,10 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 	$apostoleas = $row['αποστολέας'] == $globals->pektis->login ? '' : $row['αποστολέας'];
 	$paraliptis = $row['παραλήπτης'] == $globals->pektis->login ? '' : $row['παραλήπτης'];
 	if (($apostoleas == '') && ($paraliptis == '')) {
-		$paraliptis = $row['παραλήπτης'];
+		$apostoleas = $row['αποστολέας'];
 	}
 	?>
-	<tr id="item<?php print $row['κωδικός']; ?>" <?php
+	<tr id="minima<?php print $row['κωδικός']; ?>" <?php
 		if ($row['κατάσταση'] == 'ΔΙΑΒΑΣΜΕΝΟ') {
 			print 'class="permesDiavasmeno"';
 		}?>>
@@ -66,22 +66,25 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 	</td>
 	<td style="vertical-align: top;">
 	<img class="permesIcon" title="Διαγραφή" src="<?php
-		print $globals->server; ?>images/Xred.png" alt="" />
+		print $globals->server; ?>images/Xred.png" alt=""
+		onclick="Permes.diagrafi(this, <?php print $row['κωδικός']; ?>);" />
 	</td>
 	<td style="vertical-align: top;">
 		<?php
 		if ($row['κατάσταση'] == 'ΝΕΟ') {
 			?>
-			<img class="permesIcon" title="Διαβάστηκε" src="<?php
-				print $globals->server; ?>images/controlPanel/check.png"
-				alt="" />
+			<img class="permesIcon" title="Νέο!" src="<?php
+				print $globals->server; ?>images/important.png"
+				onclick="Permes.katastasi(this, <?php
+					print $row['κωδικός']; ?>, 'ΔΙΑΒΑΣΜΕΝΟ');" alt="" />
 			<?php
 		}
 		else {
 			?>
-			<img class="permesIcon" title="Σημαντικό" src="<?php
-				print $globals->server; ?>images/important.png"
-				alt="" />
+			<img class="permesIcon" title="Διαβάστηκε" src="<?php
+				print $globals->server; ?>images/controlPanel/check.png"
+				onclick="Permes.katastasi(this, <?php
+					print $row['κωδικός']; ?>, 'ΝΕΟ');" alt="" />
 			<?php
 		}
 		?>
