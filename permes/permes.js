@@ -73,7 +73,7 @@ var Permes = new function() {
 		return exitChild();
 	};
 
-	this.refresh = function() {
+	this.refresh = function(ie) {
 		var x = getelid('minimata');
 		if (notSet(x)) { return; }
 
@@ -87,7 +87,12 @@ var Permes = new function() {
 		if (notSet(iser)) { return; }
 
 		if ((!exer.checked) && (!iser.checked)) {
-			iser.checked = true;
+			if (ie == 'iser') {
+				exer.checked = true;
+			}
+			else {
+				iser.checked = true;
+			}
 		}
 
 		var params = 'dummy=yes';
