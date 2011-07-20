@@ -29,7 +29,7 @@ Page::close();
 function minima_pros() {
 	?>
 	<div style="padding-top: 1.0cm; padding-bottom: 0.4cm;">
-	<span class="data">Αποστολή προσωπικού μηνύματος προς <span class="pros"><?php
+	<span class="data">Αποστολή προσωπικού μηνύματος προς <span class="permesPros"><?php
 		print $_REQUEST['pros']; ?></span></span>
 	</div>
 	<div style="width: 11.0cm;">
@@ -56,11 +56,12 @@ function minimata() {
 	$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 	?>
 	<div style="margin-top: 0px;">
-	Εισερχόμενα <input id="iser" type="checkbox" checked="yes" onchange="Permes.refresh();" />
-	Εξερχόμενα <input id="exer" type="checkbox" onchange="Permes.refresh();" />
+	Εισερχόμενα <input id="iser" type="checkbox" checked="yes" onchange="Permes.refresh('iser');" />
+	Εξερχόμενα <input id="exer" type="checkbox" onchange="Permes.refresh('exer');" />
+	<input class="button formaButton" type="submit" value="Σύνθεση"
+		onclick="return Permes.sinthesi();" style="margin-left: 4.0cm;" />
 	</div>
 	<div id="minimata" style="margin-top: 0px;">
-AAA
 	</div>
 	<?php
 }

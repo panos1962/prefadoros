@@ -25,22 +25,66 @@ else {
 $query .= " ORDER BY `κωδικός` LIMIT 30";
 $result = $globals->sql_query($query);
 ?>
-<table>
+<table width="100%" cellspacing="10 0 0 0">
 <?php
-while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
+	$apostoleas = $row['αποστολέας'] == $globals->pektis->login ? '' : $row['αποστολέας'];
+	$paraliptis = $row['παραλήπτης'] == $globals->pektis->login ? '' : $row['παραλήπτης'];
+	if (($apostoleas == '') && ($paraliptis == '')) {
+		$paraliptis = $row['παραλήπτης'];
+	}
 	?>
-	<tr>
-	<td>
-	<?php print $row['αποστολέας']; ?>
+	<tr id="item<?php print $row['κωδικός']; ?>" <?php
+		if ($row['κατάσταση'] == 'ΔΙΑΒΑΣΜΕΝΟ') {
+			print 'class="permesDiavasmeno"';
+		}?>>
+	<td class="permesApo" <?php
+		if ($apostoleas != '') {
+			?>
+			onclick="Permes.sinthesi('<?php print $apostoleas; ?>');"
+			title="Απάντηση" style="cursor: pointer;"
+			<?php
+		}
+		?>>
+		<?php print $apostoleas; ?>
 	</td>
-	<td>
-	<?php print $row['παραλήπτης']; ?>
+	<td class="permesPros" <?php
+		if ($paraliptis != '') {
+			?>
+			onclick="Permes.sinthesi('<?php print $paraliptis; ?>');"
+			title="Νέο μήνυμα" style="cursor: pointer;"
+			<?php
+		}
+		?>>
+		<?php print $paraliptis; ?>
 	</td>
-	<td>
+	<td class="zebra<?php print $i % 2; ?> permesMinima">
 	<?php
 	$minima = preg_replace("/\n/", "<br />", $row['μήνυμα']);
 	print $minima;
 	?>
+	</td>
+	<td style="vertical-align: top;">
+	<img class="permesIcon" title="Διαγραφή" src="<?php
+		print $globals->server; ?>images/Xred.png" alt="" />
+	</td>
+	<td style="vertical-align: top;">
+		<?php
+		if ($row['κατάσταση'] == 'ΝΕΟ') {
+			?>
+			<img class="permesIcon" title="Διαβάστηκε" src="<?php
+				print $globals->server; ?>images/controlPanel/check.png"
+				alt="" />
+			<?php
+		}
+		else {
+			?>
+			<img class="permesIcon" title="Σημαντικό" src="<?php
+				print $globals->server; ?>images/important.png"
+				alt="" />
+			<?php
+		}
+		?>
 	</td>
 	</tr>
 	<?php
