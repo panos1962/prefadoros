@@ -71,21 +71,8 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 	</td>
 	<td style="vertical-align: top;">
 		<?php
-		if ($row['κατάσταση'] == 'ΝΕΟ') {
-			?>
-			<img class="permesIcon" title="Νέο!" src="<?php
-				print $globals->server; ?>images/important.png"
-				onclick="Permes.katastasi(this, <?php
-					print $row['κωδικός']; ?>, 'ΔΙΑΒΑΣΜΕΝΟ');" alt="" />
-			<?php
-		}
-		else {
-			?>
-			<img class="permesIcon" title="Διαβάστηκε" src="<?php
-				print $globals->server; ?>images/controlPanel/check.png"
-				onclick="Permes.katastasi(this, <?php
-					print $row['κωδικός']; ?>, 'ΝΕΟ');" alt="" />
-			<?php
+		if ($row['παραλήπτης'] == $globals->pektis->login) {
+			katastasi_panel($row['κωδικός'], $row['κατάσταση']);
 		}
 		?>
 	</td>
@@ -94,3 +81,26 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 }
 ?>
 </table>
+<?php
+
+function katastasi_panel($minima, $katastasi) {
+	global $globals;
+
+	if ($katastasi == 'ΝΕΟ') {
+		?>
+		<img class="permesIcon" title="Νέο!" src="<?php
+			print $globals->server; ?>images/important.png"
+			onclick="Permes.katastasi(this, <?php
+				print $minima; ?>, 'ΔΙΑΒΑΣΜΕΝΟ');" alt="" />
+		<?php
+	}
+	else {
+		?>
+		<img class="permesIcon" title="Διαβάστηκε" src="<?php
+			print $globals->server; ?>images/controlPanel/check.png"
+			onclick="Permes.katastasi(this, <?php
+				print $minima; ?>, 'ΝΕΟ');" alt="" />
+		<?php
+	}
+}
+?>
