@@ -11,13 +11,14 @@ require_once '../prefadoros/dedomena.php';
 require_once '../prefadoros/prefadoros.php';
 set_globals();
 
+global $sinedria;
+$sinedria = Globals::perastike_check('sinedria');
+
 global $id;
 $id = Globals::perastike_check('id');
 
-/*
 Prefadoros::pektis_check();
-$globals->pektis->poll_update($id);
-*/
+$globals->pektis->poll_update($sinedria, $id);
 
 if (Globals::perastike('freska')) {
 	freska_dedomena(torina_dedomena());
