@@ -72,10 +72,9 @@ account.onload = function() {
 			return false;
 		}
 
-		if ((!fld.value.match(/^[a-zA-Z][a-zA-Z0-9_@#.+-]*$/)) ||
-			(fld.value == 'README.txt')) {
+		if (!fld.value.match(/^[a-zA-Z][a-zA-Z0-9_]*$/)) {
 			fld.style.color = globals.color.error;
-			formaFyi('Το login name περιέχει παράξενους χαρακτήρες');
+			formaFyi('Το login name δεν είναι δεκτό');
 			return false;
 		}
 

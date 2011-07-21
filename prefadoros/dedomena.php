@@ -120,31 +120,128 @@ class Dedomena {
 	}
 
 	public function json_data() {
-		$this->sxesi_json_data();
-		$this->permes_json_data();
-		$this->trapezi_json_data();
+		self::sxesi_json_data($this->sxesi);
+		self::permes_json_data($this->permes);
+		self::trapezi_json_data($this->trapezi);
 	}
 
-	public function sxesi_json_data() {
-		print ",sxesi:[";
-		$n = count($this->sxesi);
-		for ($i = 0; $i < $n; $i++) {
-			if ($i > 0) {
-				print ",";
+	public static function sxesi_json_data($curr, $prev = FALSE) {
+		if (!$prev) {
+			self::sxesi_all_json_data($curr);
+			return;
+		}
+
+		if ($curr == $prev) {
+			print ",sxesi:'same'";
+			return;
+		}
+
+		// Κατασκευάζω τα arrays "cdata" και "pdata" που περιέχουν τα
+		// δεδομένα των παικτών δεικτοδοτημένα με τα login names.
+
+		$cdata = array();
+		$ncurr = count($curr);
+		for ($i = 0; $i < $ncurr; $i++) {
+			$cdata[$curr[$i]->login] = &$curr[$i];
+		}
+
+		$pdata = array();
+		$nprev = count($prev);
+		for ($i = 0; $i < $nprev; $i++) {
+			$pdata[$prev[$i]->login] = &$prev[$i];
+		}
+
+		// Διατρέχω τώρα παλαιά και νέα δεδομένα με σκοπό να ελέγξω
+		// τις διαφορές και να τις καταχωρήσω στα arrays "new", "mod"
+		// και "del".
+
+		$ndif = 0;
+		$new = array();
+		$mod = array();
+		foreach($cdata as $login => $data) {
+			if (!array_key_exists($login, $pdata)) {
+				$new[] = &$cdata[$login];
+				$ndif++;
 			}
-			$this->sxesi[$i]->json_data();
+			elseif ($cdata[$login] != $pdata[$login]) {
+				$mod[$login] = &$cdata[$login];
+				$ndif++;
+			}
+		}
+
+		$del = array();
+		foreach($pdata as $login => $data) {
+			if (!array_key_exists($login, $cdata)) {
+				$del[$login] = TRUE;
+				$ndif++;
+			}
+		}
+
+		// Αν οι διαφορές που προέκυψαν μεταξύ παλαιών και νέων δεδομένων
+		// είναι περισσότερες από τα ίδια τα δεδομένα, τότε επιστρέφω όλα
+		// τα δεδομένα.
+
+		if ($ndif >= $ncurr) {
+			self::sxesi_all_json_data($curr);
+			return;
+		}
+
+		if (($n = count($del)) > 0) {
+			print ",sxesiDel:{";
+			$koma = '';
+			foreach ($del as $i => $dummy) {
+				print $koma; $koma = ",";
+				print $i . ":1";
+			}
+			print "}";
+		}
+
+		if (($n = count($mod)) > 0) {
+			print ",sxesiMod:{";
+			$koma = '';
+			foreach ($mod as $i => $dummy) {
+				print $koma; $koma = ",";
+				print $i . ":";
+				$mod[$i]->json_data();
+			}
+			print "}";
+		}
+
+		if (($n = count($new)) > 0) {
+			print ",sxesiNew:[";
+			$koma = '';
+			for ($i = 0; $i < $n; $i++) {
+				print $koma; $koma = ",";
+				$new[$i]->json_data();
+			}
+			print "]";
+		}
+	}
+
+	private static function sxesi_all_json_data($sxesi) {
+		$koma = '';
+		$n = count($sxesi);
+		print ",sxesi:[";
+		for ($i = 0; $i < $n; $i++) {
+			print $koma; $koma = ",";
+			$sxesi[$i]->json_data();
 		}
 		print "]";
 	}
 
-	public function permes_json_data($prev = FALSE) {
+	public static function permes_json_data($curr, $prev = FALSE) {
 		if (!$prev) {
-			$nprev = 0;
+			self::permes_all_json_data($curr);
+			return;
 		}
-		else {
-			$nprev = count($prev);
+
+		if ($curr == $prev) {
+			print ",permes:'same'";
+			return;
 		}
-		$ncurr = count($this->permes);
+
+		$nprev = $prev ? count($prev) : 0;
+		$ncurr = count($curr);
 		$koma = '';
 		$apopio = $nprev;
 
@@ -157,7 +254,7 @@ class Dedomena {
 			// Ελέγχω αν έχουν τροποποιηθεί μηνύματα της προηγούμενης
 			// ενημέρωσης. Αν αυτό είναι αλήθεια τα στέλνω όλα.
 			for ($i = 0; $i < $nprev; $i++) {
-				if ($this->permes[$i] != $prev[$i]) {
+				if ($curr[$i] != $prev[$i]) {
 					$apopio = 0;
 					break;
 				}
@@ -165,37 +262,40 @@ class Dedomena {
 		}
 
 		// Θα στείλουμε είτε όλα τα μηνύματα, είτε αυτά που είναι νεότερα
-		// από το τελευταίο που είχαμε στείλει. Σε περίπτωση που στέλνουμε
-		// όλο το πακέτο, περιοριζόμαστε στα τελευταία 4 μηνύματα για λόγους
-		// οικονομίας.
+		// από το τελευταίο που είχαμε στείλει.
 
-		print ",permes";
-		if ($apopio > 0) {
-			print "New";
+		if ($apopio <= 0) {
+			self::permes_all_json_data($curr);
+			return;
 		}
-		elseif ($ncurr > 4) {
-			$apopio = $ncurr - 4;
-		}
-		else {
-			$apopio = 0;
-		}
-		print ":[";
+
+		$koma = '';
+		print ",permesNew:[";
 		for ($i = $apopio; $i < $ncurr; $i++) {
-			print $koma;
-			$koma = ',';
-			$this->permes[$i]->json_data();
+			print $koma; $koma = ",";
+			$curr[$i]->json_data();
 		}
 		print "]";
 	}
 
-	public function trapezi_json_data() {
-		print ",trapezi:[";
-		$n = count($this->trapezi);
+	private static function permes_all_json_data($permes) {
+		$koma = '';
+		$n = count($permes);
+		print ",permes:[";
 		for ($i = 0; $i < $n; $i++) {
-			if ($i > 0) {
-				print ",";
-			}
-			$this->trapezi[$i]->json_data();
+			print $koma; $koma = ',';
+			$permes[$i]->json_data();
+		}
+		print "]";
+	}
+
+	public static function trapezi_json_data($trapezi) {
+		print ",trapezi:[";
+		$koma = '';
+		$n = count($trapezi);
+		for ($i = 0; $i < $n; $i++) {
+			print $koma; $koma = ",";
+			$trapezi[$i]->json_data();
 		}
 		print "]";
 	}
@@ -221,25 +321,20 @@ function diaforetika_dedomena($curr, $prev) {
 	print_epikefalida();
 	print "}";
 
-	if ($curr->sxesi == $prev->sxesi) {
-		print ",sxesi:'same'";
-	}
-	else {
-		$curr->sxesi_json_data();
-	}
+	Dedomena::sxesi_json_data($curr->sxesi, $prev->sxesi);
 
 	if ($curr->permes == $prev->permes) {
 		print ",permes:'same'";
 	}
 	else {
-		$curr->permes_json_data($prev->permes);
+		Dedomena::permes_json_data($curr->permes, $prev->permes);
 	}
 
 	if ($curr->trapezi == $prev->trapezi) {
 		print ",trapezi:'same'";
 	}
 	else {
-		$curr->trapezi_json_data();
+		Dedomena::trapezi_json_data($curr->trapezi);
 	}
 }
 ?>
