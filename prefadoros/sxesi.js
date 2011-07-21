@@ -1,4 +1,65 @@
 var Sxesi = new function() {
+	// Η μέθοδος "processDedomena" καλείται κατά την επιστροφή δεδομένων
+	// και σκοπό έχει τον έλεγχο των παικτών/σχέσεων και την επαναδιαμόρφωση
+	// του σχετικού εδαφίου της οθόνης. Ως μοναδική παράμετρο δέχεται τα
+	// δεδομένα που επετράφησαν από τον server.
+
+	this.processDedomena = function(dedomena) {
+		if (isSet(dedomena.sxesi)) {
+			// Αν στο πεδίο "sxesi" έχουμε τιμή το string "same", τότε
+			// σημαίνει ότι δεν έχει αλλάξει κάτι.
+			if (dedomena.sxesi === 'same') {
+				return;
+			}
+
+			// Αλλιώς στο πεδίο "sxesi" έχει επιστραφεί το array των δεδομένων
+			// παικτών/σχέσεων, οπότε το βάζουμε στο σχετικό global array
+			// και επαναδιαμορφώνουμε το σχετικό εδάφιο της οθόνης.
+			sxesi = dedomena.sxesi;
+			Sxesi.updateHTML();
+			return;
+		}
+
+		// Δεν έχει επιστραφεί πεδίο "sxesi", οπότε πιθανόν να έχεουν επιστραφεί
+		// πεδία "sxesiNew", "sxesiMod" και "sxesiDel" που περιέχουν νέους
+		// παίκτες, τροποποιημένες εγγραφές και εγγραφές που πρέπει να
+		// διαγραφούν αντίστοιχα. Κατσκευάζω, λοιπόν, νέο local array,
+		// το αντιγράφω στο global array "sxesi" και επαναδιαμορφώνω το
+		// σχετικό εδάφιο της οθόνης.
+		var sxesi1 = [];
+
+		// Αν έχει επιστραφεί array "sxesiNew", τότε πρόκειται για νέες
+		// εγγραφές τις οποίες θα εμφανίσω πρώτες.
+		if (isSet(dedomena.sxesiNew)) {
+			for (var i = 0; i < dedomena.sxesiNew.length; i++) {
+				sxesi1[sxesi1.length] = dedomena.sxesiNew[i];
+			}
+		}
+
+		// Διατρέχω το παλιό array "sxesi" και ελέγχω αν κάποιες από τις
+		// εγγραφές του έχουν τροποποιηθεί ή διαγραφεί. Για τις εγγραφές
+		// που εμφανίζονται να έχουν τροποποιηθεί (array "sxesiMoid") περνάω
+		// στο νέο array τα νέα δεδομένα, ενώ τις εγγραφές που εμφανίζονται
+		// να έχουν διαγραφεί τις αγνοώ· τις υπόλοιπες εγγραφές απλώς τις
+		// αντιγράφω στο νέο array.
+		for (var i = 0; i < sxesi.length; i++) {
+			if (isSet(dedomena.sxesiDel) && (sxesi[i].l in dedomena.sxesiDel)) {
+				continue;
+			}
+
+			if (isSet(dedomena.sxesiMod) && (sxesi[i].l in dedomena.sxesiMod)) {
+				sxesi1[sxesi1.length] = dedomena.sxesiMod[sxesi[i].l];
+				continue;
+			}
+
+			sxesi1[sxesi1.length] = sxesi[i];
+		}
+
+		sxesi = sxesi1;
+		delete sxesi1;
+		Sxesi.updateHTML();
+	};
+
 	this.updateHTML = function() {
 		var x = getelid('sxesiArea');
 		if (notSet(x)) { return; }

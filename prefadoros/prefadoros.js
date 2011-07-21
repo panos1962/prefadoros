@@ -225,10 +225,8 @@ mainFyi('@@@@@@' + dedomena.data.id);
 	}
 	else {
 		monitor.freska();
-		if (dedomena.sxesi !== 'same') {
-			sxesi = dedomena.sxesi;
-			Sxesi.updateHTML();
-		}
+		Sxesi.processDedomena(dedomena);
+
 		if (dedomena.permes !== 'same') {
 			var neaPermes = false;
 			if (isSet(dedomena.permesNew)) {
