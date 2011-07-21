@@ -21,7 +21,7 @@ class Pektis {
 		unset($this->error);
 
 		$query = "SELECT `login`, `όνομα`, `email`, `καπίκια`, " .
-			"κατάσταση, (NOW() - `poll`) AS `idle`, `ενημέρωση` " .
+			"κατάσταση, (NOW() - `poll`) AS `idle` " .
 			"FROM `παίκτης` WHERE `login` LIKE '" . $globals->asfales($login) . "'";
 		if (isset($password)) {
 			$query .= " AND `password` LIKE '" . $globals->asfales($password) . "'";
