@@ -1,11 +1,4 @@
-var enimerosi = {
-	id:	0,	// id ενημέρωσης
-	sxesi:	{			// χαρακτηριστικά αναζήτησης παικτών
-		spat:	'',		// pattern αναζήτησης παικτών
-		skat:	'',		// κατάσταση (all, online, available)
-	}
-};
-
+var sinedria = {};	// η συνεδρία που αφορά στην επίσκεψη του παίκτη
 var sxesi = [];		// οι σχετιζόμενοι και οι αναζητούμενοι
 var permes = [];	// τα PMs του χρήστη
 var prosklisi = [];	// οι προσκλήσεις που αφορούν στον χρήστη
@@ -142,17 +135,9 @@ function neaDedomena(freska) {
 		neaDedomenaCheck(req);
 	};
 
-	enimerosi.id++;
-	var params = 'login=' + uri(pektis.login) + '&id=' + enimerosi.id;
+	var params = 'login=' + uri(pektis.login);
 	if (freska) {
 		params += '&freska=yes';
-	}
-
-	if (enimerosi.sxesi.spat != '') {
-		params += '&spat=' + uri(enimerosi.sxesi.spat);
-	}
-	if (enimerosi.sxesi.skat != '') {
-		params += '&skat=' + enimerosi.sxesi.katastasi;
 	}
 
 	req.send(params);
@@ -219,48 +204,13 @@ DUMPRSP.dump(rsp);
 		return;
 	}
 
-mainFyi('@@@@@@' + dedomena.data.id);
 	if (isSet(dedomena.data.same)) {
 		monitor.idia();
 	}
 	else {
 		monitor.freska();
 		Sxesi.processDedomena(dedomena);
-
-		if (dedomena.permes !== 'same') {
-			var neaPermes = false;
-			if (isSet(dedomena.permesNew)) {
-				neaPermes = true;
-				for (var i = 0; i < dedomena.permesNew.length; i++) {
-					permes[permes.length] = dedomena.permesNew[i];
-				}
-			}
-			else {
-				if (permes.length <= 0) {
-					if (dedomena.permes.length > 0) {
-						neaPermes = true;
-					}
-				}
-				else if ((dedomena.permes.length > 0) &&
-					(dedomena.permes[dedomena.permes.length - 1].k >
-						permes[permes.length - 1].k)) {
-						neaPermes = true;
-				}
-				permes = dedomena.permes;
-			}
-
-			var x = getelid('permesArea');
-			if (isSet(x)) {Permes.stripShow(x, true); }
-			x = getelid('permesLink');
-			if (isSet(x) && isSet(x.style)) {
-				if (neaPermes) {
-					x.style.color = '#990000';
-				}
-				else if (permes.length <= 0) {
-					x.style.color = '';
-				}
-			}
-		}
+		Permes.processDedomena(dedomena);
 	}
 
 	setTimeout(function() { neaDedomena(); }, 100);

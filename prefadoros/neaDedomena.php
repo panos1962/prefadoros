@@ -14,8 +14,10 @@ set_globals();
 global $id;
 $id = Globals::perastike_check('id');
 
+/*
 Prefadoros::pektis_check();
 $globals->pektis->poll_update($id);
+*/
 
 if (Globals::perastike('freska')) {
 	freska_dedomena(torina_dedomena());
