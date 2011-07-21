@@ -78,7 +78,7 @@ var monitor = new function() {
 			return;
 		}
 	};
-}
+};
 
 var kafenio = new function() {
 	this.trapeziHTML = function(t) {
@@ -98,7 +98,7 @@ var kafenio = new function() {
 		html += '</div>';
 		return html;
 	};
-}
+};
 
 window.onload = function() {
 	init();
@@ -106,7 +106,12 @@ window.onload = function() {
 	//setTimeout(testConnect, 10);
 	setTimeout(function() { neaDedomena(true); }, 100);
 //setTimeout(showKafenio, 1000);
-}
+};
+
+window.onunload = function() {
+	try { controlPanel.funchatClose(); } catch(e) {};
+	try { DUMPRSP.close(); } catch(e) {};
+};
 
 function testConnect() {
 	var req = new Request('prefadoros/testConnect');
@@ -167,7 +172,18 @@ var DUMPRSP = new function() {
 				return;
 			}
 		}
+
+		var d = new Date;
+		wdump.document.writeln(strTime(d, true) + ' [' + d.getMilliseconds() + ']<br />');
 		wdump.document.writeln(rsp + '<hr />');
+		scrollBottom(wdump.document.body);
+	};
+
+	this.close = function() {
+		if (isSet(wdump)) {
+			wdump.close();
+		}
+		wdump = null;
 	};
 };
 
@@ -297,9 +313,3 @@ function showKafenio() {
 	html += '</div>';
 	x.innerHTML = html;
 }
-
-window.onbeforeunload = function() {
-	if (isSet(controlPanel)) {
-		controlPanel.funchatClose();
-	}
-};
