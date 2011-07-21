@@ -1,4 +1,6 @@
-var sinedria = {};	// η συνεδρία που αφορά στην επίσκεψη του παίκτη
+var sinedria = {	// η συνεδρία που αφορά στην επίσκεψη του παίκτη
+	id: 0
+};
 var sxesi = [];		// οι σχετιζόμενοι και οι αναζητούμενοι
 var permes = [];	// τα PMs του χρήστη
 var prosklisi = [];	// οι προσκλήσεις που αφορούν στον χρήστη
@@ -135,7 +137,12 @@ function neaDedomena(freska) {
 		neaDedomenaCheck(req);
 	};
 
-	var params = 'login=' + uri(pektis.login);
+	var params = 'login=' + pektis.login;
+
+	sinedria.id++;
+	params += '&sinedria=' + sinedria.kodikos;
+	params += '&id=' + sinedria.id;
+
 	if (freska) {
 		params += '&freska=yes';
 	}

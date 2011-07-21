@@ -50,8 +50,7 @@ function prefadoros() {
 	?>
 	<script type="text/javascript">
 	//<![CDATA[
-	sinedria.id = <?php print mysqli_insert_id($globals->db); ?>;
-alert(sinedria.id);
+	sinedria.kodikos = <?php print mysqli_insert_id($globals->db); ?>;
 	//]]>
 	</script>
 	<table class="tldbg" width="100%">
