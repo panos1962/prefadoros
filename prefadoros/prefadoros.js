@@ -1,6 +1,4 @@
-var sinedria = {	// η συνεδρία που αφορά στην επίσκεψη του παίκτη
-	id: 0
-};
+var sinedria = {};	// η συνεδρία που αφορά στην επίσκεψη του παίκτη
 var sxesi = [];		// οι σχετιζόμενοι και οι αναζητούμενοι
 var permes = [];	// τα PMs του χρήστη
 var prosklisi = [];	// οι προσκλήσεις που αφορούν στον χρήστη
@@ -206,12 +204,12 @@ DUMPRSP.dump(rsp);
 		return;
 	}
 
-	if (dedomena.data.id < enimerosi.id) {
+	if ((dedomena.sinedria.k < sinedria.kodikos) || (dedomena.sinedria.i < sinedria.id)) {
 		monitor.ignore();
 		return;
 	}
 
-	if (isSet(dedomena.data.same)) {
+	if (isSet(dedomena.sinedria.same)) {
 		monitor.idia();
 	}
 	else {
