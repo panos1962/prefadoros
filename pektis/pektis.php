@@ -6,7 +6,6 @@ class Pektis {
 	public $kapikia;
 	public $katastasi;
 	public $idle;
-	public $enimerosi;
 	public $error;
 
 	public function __construct($login, $password = NULL) {
@@ -43,7 +42,6 @@ class Pektis {
 			$this->kapikia = $row['καπίκια'];
 			$this->katastasi = $row['κατάσταση'];
 			$this->idle = (int)($row['idle']);
-			$this->enimerosi = $row['ενημέρωση'];
 		}
 		else {
 			$this->error = (isset($password) ?
@@ -54,12 +52,11 @@ class Pektis {
 		}
 	}
 
-	public function poll_update($id) {
+	public function poll_update() {
 		global $globals;
 
-		$query = "UPDATE `παίκτης` SET `poll` = NOW(), " .
-			"`ενημέρωση` = " . $id . " WHERE `login` LIKE " .
-			"'" . $globals->asfales($globals->pektis->login) . "'";
+		$query = "UPDATE `παίκτης` SET `poll` = NOW() WHERE `login` LIKE " .
+			"'" . $globals->pektis->login . "'";
 		$globals->sql_query($query);
 	}
 

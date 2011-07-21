@@ -1,4 +1,44 @@
 var Permes = new function() {
+	this.processDedomena = function(dedomena) {
+		if (dedomena.permes === 'same') {
+			return;
+		}
+
+		var neaPermes = false;
+		if (isSet(dedomena.permesNew)) {
+			neaPermes = true;
+			for (var i = 0; i < dedomena.permesNew.length; i++) {
+				permes[permes.length] = dedomena.permesNew[i];
+			}
+		}
+		else {
+			if (permes.length <= 0) {
+				if (dedomena.permes.length > 0) {
+					neaPermes = true;
+				}
+			}
+			else if ((dedomena.permes.length > 0) &&
+				(dedomena.permes[dedomena.permes.length - 1].k >
+					permes[permes.length - 1].k)) {
+					neaPermes = true;
+			}
+			permes = dedomena.permes;
+		}
+
+		var x = getelid('permesArea');
+		if (isSet(x)) {Permes.stripShow(x, true); }
+
+		var x = getelid('permesLink');
+		if (isSet(x) && isSet(x.style)) {
+			if (neaPermes) {
+				x.style.color = '#990000';
+			}
+			else if (permes.length <= 0) {
+				x.style.color = '';
+			}
+		}
+	};
+
 	this.stripShow = function(div, auto) {
 		if (auto) {
 			if (notSet(permes) || (permes.length < 1)) {

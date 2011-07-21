@@ -44,8 +44,16 @@ Page::close();
 function prefadoros() {
 	global $globals;
 	$trapoula = new Trapoula;
-
+	$query = "INSERT INTO `συνεδρία` (`παίκτης`) VALUES ('" .
+		$globals->pektis->login . "')";
+	$globals->sql_query($query);
 	?>
+	<script type="text/javascript">
+	//<![CDATA[
+	sinedria.id = <?php print mysqli_insert_id($globals->db); ?>;
+alert(sinedria.id);
+	//]]>
+	</script>
 	<table class="tldbg" width="100%">
 	<tbody>
 	<tr>
