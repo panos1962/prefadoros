@@ -33,7 +33,6 @@ if (!$prev->diavase()) {
 
 $ekinisi = time();
 do {
-	check_neotero_id();
 	$curr = torina_dedomena();
 	if ($curr != $prev) {
 		diaforetika_dedomena($curr, $prev);
@@ -44,6 +43,7 @@ do {
 		break;
 	}
 	usleep(XRONOS_DEDOMENA_TIC);
+	check_neotero_id();
 } while (TRUE);
 
 print_epikefalida();
@@ -52,30 +52,29 @@ telos_ok();
 
 function check_neotero_id() {
 	global $globals;
+	global $sinedria;
 	global $id;
-	$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
-	$query = "SELECT `ενημέρωση` FROM `παίκτης` " .
-		"WHERE `login` LIKE " . $slogin;
+	$query = "SELECT `ενημέρωση` FROM `συνεδρία` WHERE `κωδικός` = " . $sinedria;
 	$result = $globals->sql_query($query);
 	$row = mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) {
-		Globals::fatal('ακαθόριστος παίκτης');
+		Globals::fatal('ακαθόριστη συνεδρία');
 	}
 
 	mysqli_free_result($result);
-	if ($row[0] !== $id) {
-		print_epikefalida();
+	if ($row[0] != $id) {
+		print_epikefalida($sinedria, $id);
 		print ",akiro:true}";
 		telos_ok();
 	}
 }
 
 function print_epikefalida() {
+	global $sinedria;
 	global $id;
-
 	header('Content-type: application/json; charset=utf-8');
-	print "data:{id:{$id}";
+	print "sinedria:{k:{$sinedria},i:{$id}";
 }
 
 function telos_ok() {

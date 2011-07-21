@@ -119,12 +119,6 @@ class Dedomena {
 		return($fh);
 	}
 
-	public function json_data() {
-		self::sxesi_json_data($this->sxesi);
-		self::permes_json_data($this->permes);
-		self::trapezi_json_data($this->trapezi);
-	}
-
 	public static function sxesi_json_data($curr, $prev = FALSE) {
 		if (!$prev) {
 			self::sxesi_all_json_data($curr);
@@ -313,7 +307,10 @@ function freska_dedomena($dedomena) {
 	$dedomena->grapse();
 	print_epikefalida();
 	print ",freska:true}";
-	$dedomena->json_data();
+
+	Dedomena::sxesi_json_data($dedomena->sxesi);
+	Dedomena::permes_json_data($dedomena->permes);
+	Dedomena::trapezi_json_data($dedomena->trapezi);
 }
 
 function diaforetika_dedomena($curr, $prev) {
@@ -322,19 +319,7 @@ function diaforetika_dedomena($curr, $prev) {
 	print "}";
 
 	Dedomena::sxesi_json_data($curr->sxesi, $prev->sxesi);
-
-	if ($curr->permes == $prev->permes) {
-		print ",permes:'same'";
-	}
-	else {
-		Dedomena::permes_json_data($curr->permes, $prev->permes);
-	}
-
-	if ($curr->trapezi == $prev->trapezi) {
-		print ",trapezi:'same'";
-	}
-	else {
-		Dedomena::trapezi_json_data($curr->trapezi);
-	}
+	Dedomena::permes_json_data($curr->permes, $prev->permes);
+	Dedomena::trapezi_json_data($curr->trapezi, $prev->trapezi);
 }
 ?>

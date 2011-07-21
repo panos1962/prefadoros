@@ -52,11 +52,15 @@ class Pektis {
 		}
 	}
 
-	public function poll_update() {
+	public function poll_update($sinedria, $id) {
 		global $globals;
 
 		$query = "UPDATE `παίκτης` SET `poll` = NOW() WHERE `login` LIKE " .
 			"'" . $globals->pektis->login . "'";
+		$globals->sql_query($query);
+
+		$query = "UPDATE `συνεδρία` SET `ενημέρωση` = " . $id .
+			" WHERE `κωδικός` = " . $sinedria;
 		$globals->sql_query($query);
 	}
 
