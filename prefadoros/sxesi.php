@@ -35,7 +35,7 @@ class Sxesi {
 		$nf = 0;
 		$this->login = $cols[$nf++];
 		$this->onoma = $cols[$nf++];
-		$this->online = self::is_online($cols[$nf++]);
+		$this->online = $cols[$nf++];
 		$this->diathesimos = $cols[$nf++];
 		$this->status = $cols[$nf++];
 		return(TRUE);
@@ -90,17 +90,18 @@ function process_sxesi() {
 	$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
 	$peknpat = NULL;
-	$query = "SELECT `peknpat` " .
-		"FROM `συνεδρία` WHERE `κωδικός` = " . $sinedria;
+	$query = "SELECT `peknpat`, `pekstat` FROM `συνεδρία` " .
+		"WHERE `κωδικός` = " . $sinedria;
 	$result = $globals->sql_query($query);
 	if ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 		@mysqli_free_result($result);
 		if ($row[0] != '') {
 			$peknpat = "%" . $globals->asfales($row[0]) . "%";
 		}
+		$pekstat = $globals->asfales($row[1]);
 	}
 
-	$query1 = "SELECT `login`, `όνομα`, (`poll` - NOW()) AS `idle` " .
+	$query1 = "SELECT `login`, `όνομα`, (NOW() - `poll`) AS `idle` " .
 		"FROM `παίκτης` WHERE 1 ";
 
 	if (isset($peknpat)) {
@@ -108,8 +109,14 @@ function process_sxesi() {
 			"(`login` LIKE '" . $peknpat . "')) ";
 	}
 
-	if (Globals::perastike('skat')) {
-		$query1 .= "AND (`idle` < " . XRONOS_PEKTIS_IDLE_MAX . ") ";
+	switch ($pekstat) {
+	case 'ΔΙΑΘΕΣΙΜΟΙ':
+	case 'ONLINE':
+		$online = TRUE;
+		break;
+	default:
+		$online = FALSE;
+		break;
 	}
 
 	$query2 = " ORDER BY `login`";
@@ -129,21 +136,25 @@ function process_sxesi() {
 		"(`status` LIKE 'ΦΙΛΟΣ')))" . $query2;
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-		$s = new Sxesi;
-		$s->set_from_dbrow($row, $energos, 'F');
-		$sxesi[] = $s;
+		if ((!$online) || ($row['idle'] < XRONOS_PEKTIS_IDLE_MAX)) {
+			$s = new Sxesi;
+			$s->set_from_dbrow($row, $energos, 'F');
+			$sxesi[] = $s;
+		}
 	}
 
 	// Αν έχει δοθεί name pattern ή κατάσταση online/available, τότε επιλέγω και
 	// μη σχετιζόμενους παίκτες.
-	if (isset($peknpat) || Globals::perastike('skat')) {
+	if (isset($peknpat) || $online) {
 		$query = $query1 . "AND (`login` NOT IN (SELECT `σχετιζόμενος` FROM `σχέση` WHERE " .
 			"(`παίκτης` LIKE " . $slogin . ")))" . $query2;
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			$s = new Sxesi;
-			$s->set_from_dbrow($row, $energos);
-			$sxesi[] = $s;
+			if ((!$online) || ($row['idle'] < XRONOS_PEKTIS_IDLE_MAX)) {
+				$s = new Sxesi;
+				$s->set_from_dbrow($row, $energos);
+				$sxesi[] = $s;
+			}
 		}
 	}
 
@@ -153,9 +164,11 @@ function process_sxesi() {
 		"(`status` LIKE 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ')))" . $query2;
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-		$s = new Sxesi;
-		$s->set_from_dbrow($row, $energos, 'B');
-		$sxesi[] = $s;
+		if ((!$online) || ($row['idle'] < XRONOS_PEKTIS_IDLE_MAX)) {
+			$s = new Sxesi;
+			$s->set_from_dbrow($row, $energos, 'B');
+			$sxesi[] = $s;
+		}
 	}
 
 	return $sxesi;

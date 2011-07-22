@@ -13,7 +13,7 @@ var forum = [];		// η δημόσια συζήτηση
 window.onload = function() {
 	init();
 	emoticons.display();
-//DUMPRSP.open();
+DUMPRSP.open();
 	setTimeout(function() { neaDedomena(true); }, 100);
 setTimeout(showKafenio, 500);
 };
@@ -110,13 +110,14 @@ function neaDedomenaCheck(req) {
 		return;
 	}
 
+	var tic = 100;
 	rsp = req.getResponse();
 DUMPRSP.dump(rsp);
 	if (!rsp.match(/@OK$/)) {
 		monitor.lathos();
 //alert('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
 		mainFyi('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
-		setTimeout(function() { neaDedomena(); }, 100);
+		setTimeout(function() { neaDedomena(); }, tic);
 		return;
 	}
 
@@ -128,7 +129,7 @@ DUMPRSP.dump(rsp);
 		monitor.lathos();
 //alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 		mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
-		setTimeout(function() { neaDedomena(); }, 100);
+		setTimeout(function() { neaDedomena(); }, tic);
 		return;
 	}
 
@@ -147,7 +148,7 @@ DUMPRSP.dump(rsp);
 		Permes.processDedomena(dedomena);
 	}
 
-	setTimeout(function() { neaDedomena(); }, 100);
+	setTimeout(function() { neaDedomena(); }, tic);
 }
 
 function showKafenio() {

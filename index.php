@@ -130,14 +130,16 @@ function sxesi_area() {
 	global $globals;
 	?>
 	<div class="pssHeaderArea">
-		<input id="spat" class="pssInput" type="text" value="" maxlength="256"
+		<input id="peknpat" class="pssInput" type="text" value="" maxlength="256"
 			size="20" onkeyup="Sxesi.patchange(event, this);"
 			style="background-image: url('<?php print $globals->server;
 				?>images/sxesiPrompt.png');" />
 		<img id="sxetikosIcon" src="<?php print $globals->server; ?>images/sxetikos.png"
-			class="pssIcon" title="Σχετιζόμενοι" alt="" />
-		<img src="<?php print $globals->server; ?>images/greenBall.png"
-			class="pssIcon" title="Online παίκτες" alt="" />
+			class="pssIcon" title="Σχετιζόμενοι" alt=""
+			onclick="Sxesi.sxetizomenoi(this);" />
+		<img id="pekstat" src="<?php print $globals->server; ?>images/greenBall.png"
+			class="pssIcon" title="Ασχέτως κατάστασης" alt=""
+			onclick="Sxesi.pekstat(this);" />
 		<div class="pssSizing">
 		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
 			class="pssSizingIcon" title="Μείωση περιοχής σχέσεων"
