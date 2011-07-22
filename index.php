@@ -58,7 +58,7 @@ function prefadoros() {
 	<table class="tldbg" width="100%">
 	<tbody>
 	<tr>
-	<td id="prefadorosColumn" class="prefadorosColumn tbldbg">
+	<td class="prefadorosColumn tbldbg">
 		<div id="prefadoros" class="prefadoros">
 			<div class="partida">
 				<?php $trapoula->parousiasi(); ?>
@@ -71,16 +71,20 @@ function prefadoros() {
 		?>
 	</td>
 	<td class="pssColumn tbldbg">
-		<?php
-		prosklisi_area();
-		sxesi_area();
-		sizitisi_area();
-		?>
+		<div id="pss" class="pss">
+			<?php
+			prosklisi_area();
+			sxesi_area();
+			sizitisi_area();
+			?>
+		</div>
 	</td>
 	<td id="emoticonsColumn" class="emoticonsColumn tbldbg">
 		<?php
 		emoticons();
 		?>
+	</td>
+	<td>
 	</td>
 	</tr>
 	</tbody>

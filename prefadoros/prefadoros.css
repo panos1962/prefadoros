@@ -1,7 +1,5 @@
 .prefadorosColumn {
-	width: 14.0cm;
-	min-width: 14.0cm;
-	max-width: 14.0cm;
+	width: 1px;
 }
 
 .prefadoros {
@@ -14,6 +12,12 @@
 	min-height: 13.0cm;
 
 	overflow-y: auto;
+}
+
+.prefadorosSteno {
+	width: 0px;
+	max-width: 0px;
+	display: none;
 }
 
 .partida {
@@ -124,8 +128,8 @@
 }
 
 .controlPanelColumn {
+	width: 1px;
 	vertical-align: top;
-	width: 1.0cm;
 	border-style: dotted;
 	border-width: 1px;
 	border-color: #E0E0D1;
@@ -141,9 +145,9 @@
 }
 
 .emoticonsColumn {
+	width: 1px;
 	display: none;
 	vertical-align: top;
-	width: 1.0cm;
 	border-style: dotted;
 	border-width: 1px;
 	border-color: #E0E0D1;
@@ -159,8 +163,20 @@
 }
 
 .pssColumn {
+	width: 1px;
 	vertical-align: top;
-	min-width: 9.0cm;
+}
+
+.pss {
+	width: 9.5cm;
+	min-width: 9.5cm;
+	max-width: 9.5cm;
+}
+
+.pssFardi {
+	width: 21.5cm;
+	min-width: 21.5cm;
+	max-width: 21.5cm;
 }
 
 .pssHeaderArea {

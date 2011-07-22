@@ -13,7 +13,7 @@ var forum = [];		// η δημόσια συζήτηση
 window.onload = function() {
 	init();
 	emoticons.display();
-DUMPRSP.open();
+//DUMPRSP.open();
 	setTimeout(function() { neaDedomena(true); }, 100);
 setTimeout(showKafenio, 500);
 };
