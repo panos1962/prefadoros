@@ -21,9 +21,9 @@ var monitor = new function() {
 			getelid('monitorDots').innerHTML = '';
 		}
 
-		var html = monitor.count;
+		var html = '<span title="Πλήθος ενημερώσεων">' + monitor.count + '</span>';
 		if (monitor.errorCount) {
-			html += ' <span style="color: ' +
+			html += ' <span title="Λανθασμένες ενημερώσεις" style="color: ' +
 				globals.color.error + ';">' +
 				monitor.errorCount + '</span>';
 		}
@@ -35,7 +35,8 @@ var monitor = new function() {
 		monitor.successiveErrors = 0;
 		monitor.updateCount();
 		var x = getelid('monitorDots');
-		var html = '<span style="color: #FFA500;">&bull;</span>' + x.innerHTML;
+		var html = '<span title="Αγνοήθηκαν δεδομένα" ' +
+			'style="color: #FFA500;">&bull;</span>' + x.innerHTML;
 		x.innerHTML = html;
 	};
 
@@ -43,7 +44,8 @@ var monitor = new function() {
 		monitor.successiveErrors = 0;
 		monitor.updateCount();
 		var x = getelid('monitorDots');
-		var html = '<span style="color: #85A366;">&bull;</span>' + x.innerHTML;
+		var html = '<span title="Χωρίς αλλαγή" ' +
+			'style="color: #85A366;">&bull;</span>' + x.innerHTML;
 		x.innerHTML = html;
 	};
 
@@ -51,7 +53,7 @@ var monitor = new function() {
 		monitor.successiveErrors = 0;
 		monitor.updateCount();
 		var x = getelid('monitorDots');
-		var html = '&bull;' + x.innerHTML;
+		var html = '<span title="Νέα δεδομένα">&bull;</span>' + x.innerHTML;
 		x.innerHTML = html;
 	};
 
@@ -60,8 +62,8 @@ var monitor = new function() {
 		monitor.successiveErrors++;
 		monitor.updateCount();
 		var x = getelid('monitorDots');
-		var html = '<span style="color: ' + globals.color.error +
-			';">&bull;</span>' + x.innerHTML;
+		var html = '<span title="Λανθασμένα δεδομένα" style="color: ' +
+			globals.color.error + ';">&bull;</span>' + x.innerHTML;
 		x.innerHTML = html;
 		if (monitor.successiveErrors > 3) {
 			monitor.successiveErrors = 0;
@@ -69,6 +71,16 @@ var monitor = new function() {
 			location.href = globals.server + 'error.php?minima=' +
 				uri('Παρουσιάστηκαν πολλά διαδοχικά σφάλματα ενημέρωσης');
 			return;
+		}
+	};
+
+	this.sinedria = function(dedomena) {
+		var x = getelid('sinedria');
+		if (isSet(x)) {
+			x.innerHTML = '<span title="Συνεδρία" class="sinedria">' +
+				dedomena.sinedria.k + '</span>#' +
+				'<span title="Ενημέρωση" class="sinedriaId">' +
+				dedomena.sinedria.i + '</span>';
 		}
 	};
 };
@@ -204,6 +216,7 @@ DUMPRSP.dump(rsp);
 		return;
 	}
 
+	monitor.sinedria(dedomena);
 	if ((dedomena.sinedria.k < sinedria.kodikos) || (dedomena.sinedria.i < sinedria.id)) {
 		monitor.ignore();
 		return;

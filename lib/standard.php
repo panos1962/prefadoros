@@ -427,14 +427,16 @@ class Page {
 		}
 		?>
 		[&nbsp;<a target="_blank" href="<?php print $globals->server;
-			?>help/index.php?pedi=yes" class="data">Οδηγίες</a>&nbsp;]
+			?>help/index.php?pedi=yes" title="Οδηγίες" class="data">Οδηγίες</a>&nbsp;]
 		[&nbsp;<a target="_blank" href="<?php print $globals->server;
-			?>faq/index.php?pedi=yes" class="data">FAQ</a>&nbsp;]
+			?>faq/index.php?pedi=yes" class="data"
+			title="Συνηθισμένες ερωτήσεις">FAQ</a>&nbsp;]
 		<?php
 		if ($globals->is_pektis()) {
 			?>
 			[&nbsp;<a id="permesLink" class="data" target="_blank" href="<?php
-				print $globals->server; ?>permes/index.php?pedi=yes" >PM</a>&nbsp;]
+				print $globals->server; ?>permes/index.php?pedi=yes"
+				title="Προσωπικά μηνύματα">PM</a>&nbsp;]
 			<?php
 		}
 	}
@@ -449,16 +451,15 @@ class Page {
 
 	protected static function rightTB() {
 		global $globals;
-		?>
-		<span id="monitor"></span>
-		<?php
+
 		if ($globals->is_pektis()) {
 			?>
 			<div id="monitorDots"></div>
 			<div id="monitorCount"></div>
+			<span id="sinedria"></span>
 			<a target="_blank" href="<?php
 				print $globals->server; ?>account/signup.php?modify"
-				class="data login" title="Account settings"><?php
+				class="data login" title="Στοιχεία λογαριασμού"><?php
 					print $globals->pektis->login; ?></a>
 			<?php
 			self::logout_section();

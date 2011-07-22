@@ -350,6 +350,7 @@
 	display: inline-block;
 	color: #006600;
 	margin-right: 0.5ex;
+	cursor: default;
 }
 
 #monitorCount {
@@ -359,4 +360,17 @@
 	font-weight: bold;
 	font-style: italic;
 	font-size: 0.8em;
+	cursor: default;
+}
+
+.sinedria {
+	font-size: 90%;
+	color: #FF6600;
+	cursor: default;
+}
+
+.sinedriaId {
+	font-size: 90%;
+	color: #CC9900;
+	cursor: default;
 }
