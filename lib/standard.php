@@ -3,7 +3,7 @@
 define('XRONOS_DEDOMENA_MAX', 18);
 
 // νεκρός χρόνος μεταξύ δύο διαδοχικών ανιχνεύσεων σε microseconds
-define('XRONOS_DEDOMENA_TIC', 700000);
+define('XRONOS_DEDOMENA_TIC', 500000);
 
 // μέγιστο διάστημα polling μέχρι να θεωρηθεί ο παίκτης offline.
 define('XRONOS_PEKTIS_IDLE_MAX', (XRONOS_DEDOMENA_MAX * 1.5));

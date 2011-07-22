@@ -32,11 +32,12 @@ class Sxesi {
 			return(FALSE);
 		}
 
-		$this->login = $cols[0];
-		$this->onoma = $cols[1];
-		$this->online = self::is_online($cols[2]);
-		$this->diathesimos = $cols[3];
-		$this->status = $cols[4];
+		$nf = 0;
+		$this->login = $cols[$nf++];
+		$this->onoma = $cols[$nf++];
+		$this->online = self::is_online($cols[$nf++]);
+		$this->diathesimos = $cols[$nf++];
+		$this->status = $cols[$nf++];
 		return(TRUE);
 	}
 
