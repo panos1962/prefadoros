@@ -127,7 +127,7 @@ function sxesi_area() {
 	?>
 	<div class="pssHeaderArea">
 		<input id="spat" class="pssInput" type="text" value="" maxlength="256"
-			size="20" onkeyup="return Sxesi.patchange(event, this);"
+			size="20" onkeyup="Sxesi.patchange(event, this);"
 			style="background-image: url('<?php print $globals->server;
 				?>images/sxesiPrompt.png');" />
 		<img id="sxetikosIcon" src="<?php print $globals->server; ?>images/sxetikos.png"

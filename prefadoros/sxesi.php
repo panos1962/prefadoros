@@ -85,15 +85,27 @@ class Sxesi {
 
 function process_sxesi() {
 	global $globals;
+	global $sinedria;
+
 	$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
+
+	$peknpat = NULL;
+	$query = "SELECT `peknpat` " .
+		"FROM `συνεδρία` WHERE `κωδικός` = " . $sinedria;
+	$result = $globals->sql_query($query);
+	if ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		@mysqli_free_result($result);
+		if ($row[0] != '') {
+			$peknpat = "%" . $globals->asfales($row[0]) . "%";
+		}
+	}
 
 	$query1 = "SELECT `login`, `όνομα`, (`poll` - NOW()) AS `idle` " .
 		"FROM `παίκτης` WHERE 1 ";
 
-	if (Globals::perastike('spat')) {
-		$pat = "'%" . $globals->asfales($_REQUEST['spat']) . "%'";
-		$query1 .= "AND ((`όνομα` LIKE " . $pat . ") OR " .
-			"(`login` LIKE " . $pat . ")) ";
+	if (isset($peknpat)) {
+		$query1 .= "AND ((`όνομα` LIKE '" . $peknpat . "') OR " .
+			"(`login` LIKE '" . $peknpat . "')) ";
 	}
 
 	if (Globals::perastike('skat')) {
@@ -124,7 +136,7 @@ function process_sxesi() {
 
 	// Αν έχει δοθεί name pattern ή κατάσταση online/available, τότε επιλέγω και
 	// μη σχετιζόμενους παίκτες.
-	if (Globals::perastike('spat') || Globals::perastike('skat')) {
+	if (isset($peknpat) || Globals::perastike('skat')) {
 		$query = $query1 . "AND (`login` NOT IN (SELECT `σχετιζόμενος` FROM `σχέση` WHERE " .
 			"(`παίκτης` LIKE " . $slogin . ")))" . $query2;
 		$result = $globals->sql_query($query);

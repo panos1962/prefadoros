@@ -171,7 +171,7 @@ class Dedomena {
 			$koma = '';
 			foreach ($del as $i => $dummy) {
 				print $koma; $koma = ",";
-				print $i . ":1";
+				print "'" . $i . "':1";
 			}
 			print "}";
 		}
@@ -181,7 +181,7 @@ class Dedomena {
 			$koma = '';
 			foreach ($mod as $i => $dummy) {
 				print $koma; $koma = ",";
-				print $i . ":";
+				print "'" . $i . "':";
 				$mod[$i]->json_data();
 			}
 			print "}";

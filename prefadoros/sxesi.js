@@ -281,6 +281,7 @@ var Sxesi = new function() {
 	};
 
 	var searchPektisTimer = null;
+	var peknpatPrev = '';
 
 	this.patchange = function(e, fld) {
 		if (searchPektisTimer) {
@@ -308,6 +309,10 @@ var Sxesi = new function() {
 			}
 		}
 
+		fld.value = fld.value.trim();
+		if ((fld.value == '') && (fld.value == peknpatPrev)) { return; }
+		peknpatPrev = fld.value;
+
 		var wk = globals.server + 'images/working.gif';
 		var si = getelid('sxetikosIcon');
 		if (isSet(si) && (si.src != wk)) {
@@ -323,11 +328,40 @@ var Sxesi = new function() {
 		}
 
 		searchPektisTimer = setTimeout(function() {
-			Sxesi.patsend(fld.value);
+			Sxesi.peknpat(fld.value);
 		}, delay);
 	};
 
-	this.patsend = function(pat) {
-		mainFyi(pat);
+	this.peknpat = function(pat) {
+		var ico = getelid('sxetikosIcon');
+		ico.src = globals.server + 'images/working.gif';
+		var req = new Request('sxesi/peknpat');
+		req.xhr.onreadystatechange = function() {
+			peknpatCheck(req, ico);
+		};
+
+		params = 'sinedria=' + sinedria.kodikos;
+		params += '&peknpat=' + uri(pat);
+		req.send(params);
+	};
+
+	function peknpatCheck(req, ico) {
+		if (req.xhr.readyState != 4) {
+			return;
+		}
+
+		rsp = req.getResponse();
+		if (rsp) {
+			playSound('beep');
+			mainFyi(rsp);
+			ico.src = globals.server + 'images/X.png';
+			setTimeout(function() {
+				ico.src = globals.server + 'images/sxetikos.png';
+			}, globals.duration.errorIcon);
+		}
+		else {
+			ico.src = globals.server + 'images/sxetikos.png';
+		}
+		return false;
 	};
 };
