@@ -170,10 +170,7 @@ var Sxesi = new function() {
 	};
 
 	function addFilosCheck(req, img, pektis) {
-		if (req.xhr.readyState != 4) {
-			return;
-		}
-
+		if (req.xhr.readyState != 4) { return; }
 		rsp = req.getResponse();
 		if (rsp) {
 			playSound('beep');
@@ -209,10 +206,7 @@ var Sxesi = new function() {
 	};
 
 	function apoklismosCheck(req, img, pektis) {
-		if (req.xhr.readyState != 4) {
-			return;
-		}
-
+		if (req.xhr.readyState != 4) { return; }
 		rsp = req.getResponse();
 		if (rsp) {
 			playSound('beep');
@@ -248,10 +242,7 @@ var Sxesi = new function() {
 	};
 
 	function aposisxetisiCheck(req, img, pektis) {
-		if (req.xhr.readyState != 4) {
-			return;
-		}
-
+		if (req.xhr.readyState != 4) { return; }
 		rsp = req.getResponse();
 		if (rsp) {
 			playSound('beep');
@@ -332,7 +323,28 @@ var Sxesi = new function() {
 		}, delay);
 	};
 
-	this.peknpat = function(pat) {
+	this.sxetizomenoi = function(img) {
+		if (searchPektisTimer) {
+			clearTimeout(searchPektisTimer);
+		}
+
+		var x = getelid('peknpat');
+		if (isSet(x)) {
+			x.value = '';
+			peknpatPrev = '';
+		}
+
+		var x = getelid('pekstat');
+		if (isSet(x)) {
+			x.src = globals.server + 'images/greenBall.png';
+		}
+
+		Sxesi.peknpat('', 'ΟΛΟΙ');
+		var x = getelid('mesg');
+		if (isSet(x)) { x.focus(); }
+	};
+
+	this.peknpat = function(pat, stat) {
 		var ico = getelid('sxetikosIcon');
 		ico.src = globals.server + 'images/working.gif';
 		var req = new Request('sxesi/peknpat');
@@ -342,14 +354,14 @@ var Sxesi = new function() {
 
 		params = 'sinedria=' + sinedria.kodikos;
 		params += '&peknpat=' + uri(pat);
+		if (isSet(stat)) {
+			params += '&pekstat=' + uri(stat);
+		}
 		req.send(params);
 	};
 
 	function peknpatCheck(req, ico) {
-		if (req.xhr.readyState != 4) {
-			return;
-		}
-
+		if (req.xhr.readyState != 4) { return; }
 		rsp = req.getResponse();
 		if (rsp) {
 			playSound('beep');
@@ -363,5 +375,63 @@ var Sxesi = new function() {
 			ico.src = globals.server + 'images/sxetikos.png';
 		}
 		return false;
+	};
+
+	this.pekstat = function(img) {
+		var x = img.src.split('/');
+		if (x.length < 1) { return; }
+
+		switch (x[x.length - 1]) {
+		case 'greenBall.png':	var stat = 'ΔΙΑΘΕΣΙΜΟΙ'; break
+		case 'orangeBall.png':	var stat = 'ONLINE'; break
+		case 'fouxBall.png':	var stat = 'ΟΛΟΙ'; break;
+		default: return;
+		}
+
+		var oldImg = img.src;
+		img.src = globals.server + 'images/working.gif';
+		var req = new Request('sxesi/pekstat');
+		req.xhr.onreadystatechange = function() {
+			Sxesi.pekstatCheck(req, img, stat, oldImg);
+		};
+
+		params = 'sinedria=' + sinedria.kodikos;
+		params += '&pekstat=' + uri(stat);
+		req.send(params);
+
+		var x = getelid('mesg');
+		if (isSet(x)) { x.focus(); }
+	};
+
+	this.pekstatCheck = function(req, ico, stat, oldIco) {
+		if (req.xhr.readyState != 4) { return; }
+		rsp = req.getResponse();
+		if (rsp) {
+			playSound('beep');
+			mainFyi(rsp);
+			ico.src = globals.server + 'images/X.png';
+			setTimeout(function() {
+				ico.src = oldIco;
+			}, globals.duration.errorIcon);
+		}
+		else {
+			switch (stat) {
+			case 'ΔΙΑΘΕΣΙΜΟΙ':
+				ico.src = globals.server + 'images/orangeBall.png';
+				ico.title = 'Διαθέσιμοι παίκτες';
+				break
+			case 'ONLINE':
+				ico.src = globals.server + 'images/fouxBall.png';
+				ico.title = 'Online παίκτες';
+				break
+			case 'ΟΛΟΙ':
+				ico.src = globals.server + 'images/greenBall.png';
+				ico.title = 'Ασχέτως κατάστασης';
+				break
+			}
+		}
+
+		var x = getelid('mesg');
+		if (isSet(x)) { x.focus(); }
 	};
 };
