@@ -11,32 +11,23 @@ class Dedomena {
 
 	public function diavase() {
 		$fh = self::open_file('r');
-		if (!$fh) {
-			return(FALSE);
-		}
+		if (!$fh) { return(FALSE); }
 
 		while ($line = Globals::get_line($fh)) {
 			switch ($line) {
-			case '@SXESI@':
-				$this->diavase_sxesi($fh);
-				break;
-			case '@PERMES@':
-				$this->diavase_permes($fh);
-				break;
-			case '@TRAPEZIA@':
-				$this->diavase_trapezi($fh);
-				break;
+			case '@SXESI@':		$this->diavase_sxesi($fh); break;
+			case '@PERMES@':	$this->diavase_permes($fh); break;
+			case '@TRAPEZI@':	$this->diavase_trapezi($fh); break;
 			}
 		}
+
 		fclose($fh);
 		return(TRUE);
 	}
 
 	private function diavase_sxesi($fh) {
 		while ($line = Globals::get_line($fh)) {
-			if ($line === '@END@') {
-				return;
-			}
+			if ($line === '@END@') { return; }
 
 			$s = new Sxesi();
 			if ($s->set_from_file($line)) {
@@ -50,9 +41,7 @@ class Dedomena {
 
 	private function diavase_permes($fh) {
 		while ($line = Globals::get_line($fh)) {
-			if ($line === '@END@') {
-				return;
-			}
+			if ($line === '@END@') { return; }
 
 			$p = new Permes();
 			if ($p->set_from_file($line)) {
@@ -66,21 +55,18 @@ class Dedomena {
 
 	private function diavase_trapezi($fh) {
 		while ($line = Globals::get_line($fh)) {
-			if ($line === '@END@') {
-				return;
-			}
+			if ($line === '@END@') { return; }
 		}
 	}
 
 	public function grapse() {
 		$fh = self::open_file('w');
-		if (!$fh) {
-			Globals::fatal('cannot write data file');
-		}
+		if (!$fh) { Globals::fatal('cannot write data file'); }
 
 		$this->grapse_sxesi($fh);
 		$this->grapse_permes($fh);
 		$this->grapse_trapezi($fh);
+
 		fclose($fh);
 	}
 
