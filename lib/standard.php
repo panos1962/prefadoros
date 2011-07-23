@@ -1,8 +1,10 @@
 <?php
 // μέγιστος χρόνος διαδικασίας διαδοχικών κύκλων ανίχνευσης νέων δεδομένων σε seconds
-define('XRONOS_DEDOMENA_MAX', 40);
+// define('XRONOS_DEDOMENA_MAX', 40);
+define('XRONOS_DEDOMENA_MAX', 3);
 
 // νεκρός χρόνος μεταξύ δύο διαδοχικών ανιχνεύσεων σε microseconds
+// define('XRONOS_DEDOMENA_TIC', 300000);
 define('XRONOS_DEDOMENA_TIC', 300000);
 
 // μέγιστο διάστημα polling μέχρι να θεωρηθεί ο παίκτης offline.
@@ -453,9 +455,7 @@ class Page {
 
 		if ($globals->is_pektis()) {
 			?>
-			<div id="monitorDots"></div>
-			<div id="monitorCount"></div>
-			<span id="sinedria"></span>
+			<div id="monitorArea" class="monitor"></div>
 			<a target="_blank" href="<?php
 				print $globals->server; ?>account/signup.php?modify"
 				class="data login" title="Στοιχεία λογαριασμού"><?php

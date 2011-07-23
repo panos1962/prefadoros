@@ -84,23 +84,29 @@ var DUMPRSP = new function() {
 	this.dump = function(rsp) {
 		if (notSet(wdump)) { return; }
 
-		var d = new Date;
-		var html = strTime(d, true) + ' [' + d.getMilliseconds() + ']<br />' + rsp + '<hr />';
+		try {
+			var p = wdump.document.createElement('div');
+			var d = new Date;
+			var html = strTime(d, true) +
+				' [' + d.getMilliseconds() + ']<br />' + rsp + '<hr />';
+			p.innerHTML = html;
 
-		var p = wdump.document.createElement('div');
-		p.innerHTML = html;
-
-		var eod = wdump.document.getElementById('EOD');
-		if (isSet(eod)) {
-			wdump.document.body.insertBefore(p, eod);
-			scrollBottom(wdump.document.body);
-		}
+			var eod = wdump.document.getElementById('EOD');
+			if (isSet(eod)) {
+				wdump.document.body.insertBefore(p, eod);
+				scrollBottom(wdump.document.body);
+			}
+		} catch(e) {};
 	};
 
 	this.close = function() {
 		if (isSet(wdump)) {
 			wdump.close();
 		}
+		DUMPRSP.reset();
+	};
+
+	this.reset = function() {
 		wdump = null;
 	};
 };
@@ -122,7 +128,6 @@ DUMPRSP.dump(rsp);
 		return;
 	}
 
-	monitor.sinedria(dedomena);
 	if ((dedomena.sinedria.k < sinedria.kodikos) || (dedomena.sinedria.i < sinedria.id)) {
 		monitor.ignore();
 		return;
@@ -185,60 +190,48 @@ function showKafenio() {
 }
 
 var monitor = new function() {
-	this.count = 0;
+	this.count = 0
 	this.errorCount = 0;
 	this.successiveErrors = 0;
+	this.dotsHTML = '';
 
-	this.updateCount = function() {
+	this.updateHTML = function(title, color) {
+		var x = getelid('monitorArea');
+		if (notSet(x)) { return; }
+
 		monitor.count++;
-		if ((monitor.count % 10) == 0) {
-			getelid('monitorDots').innerHTML = '';
-		}
+		if ((monitor.count % 10) == 1) { monitor.dotsHTML = ''; }
+		monitor.dotsHTML = '<span totle="' + title + '" style="color: ' +
+			color + ';">&bull;</span>' + monitor.dotsHTML;
 
-		var html = '<span title="Πλήθος ενημερώσεων">' + monitor.count + '</span>';
+		var html = '<span title="Συνεδρία" class="monitorSinedria">' +
+			sinedria.kodikos + '</span>';
+		html += '#<span title="Ενημέρωση" class="monitorId">' + sinedria.id + '</span>';
 		if (monitor.errorCount) {
-			html += ' <span title="Λανθασμένες ενημερώσεις" style="color: ' +
-				globals.color.error + ';">' +
-				monitor.errorCount + '</span>';
+			html += '#<span title="Λανθασμένες ενημερώσεις" style="color: ' +
+				globals.color.error + ';">' + monitor.errorCount + '</span>';
 		}
-
-		getelid('monitorCount').innerHTML = html;
+		x.innerHTML =  monitor.dotsHTML + html;
 	};
 
 	this.ignore = function() {
 		monitor.successiveErrors = 0;
-		monitor.updateCount();
-		var x = getelid('monitorDots');
-		var html = '<span title="Αγνοήθηκαν δεδομένα" ' +
-			'style="color: #FFA500;">&bull;</span>' + x.innerHTML;
-		x.innerHTML = html;
+		monitor.updateHTML('Αγνοήθηκαν δεδομένα', '#FFA500');
 	};
 
 	this.idia = function() {
 		monitor.successiveErrors = 0;
-		monitor.updateCount();
-		var x = getelid('monitorDots');
-		var html = '<span title="Χωρίς αλλαγή" ' +
-			'style="color: #85A366;">&bull;</span>' + x.innerHTML;
-		x.innerHTML = html;
+		monitor.updateHTML('Χωρίς αλλαγή', '#85A366');
 	};
 
 	this.freska = function() {
 		monitor.successiveErrors = 0;
-		monitor.updateCount();
-		var x = getelid('monitorDots');
-		var html = '<span title="Νέα δεδομένα">&bull;</span>' + x.innerHTML;
-		x.innerHTML = html;
+		monitor.updateHTML('Νέα δεδομένα', '#006600');
 	};
 
 	this.lathos = function() {
 		monitor.errorCount++;
 		monitor.successiveErrors++;
-		monitor.updateCount();
-		var x = getelid('monitorDots');
-		var html = '<span title="Λανθασμένα δεδομένα" style="color: ' +
-			globals.color.error + ';">&bull;</span>' + x.innerHTML;
-		x.innerHTML = html;
 		if (monitor.successiveErrors > 3) {
 			monitor.successiveErrors = 0;
 			alert('too many successive errors');
@@ -246,15 +239,7 @@ var monitor = new function() {
 				uri('Παρουσιάστηκαν πολλά διαδοχικά σφάλματα ενημέρωσης');
 			return;
 		}
-	};
 
-	this.sinedria = function(dedomena) {
-		var x = getelid('sinedria');
-		if (isSet(x)) {
-			x.innerHTML = '<span title="Συνεδρία" class="sinedria">' +
-				dedomena.sinedria.k + '</span>#' +
-				'<span title="Ενημέρωση" class="sinedriaId">' +
-				dedomena.sinedria.i + '</span>';
-		}
+		monitor.updateHTML('Λανθασμένα δεδομένα', globals.color.error);
 	};
 };
