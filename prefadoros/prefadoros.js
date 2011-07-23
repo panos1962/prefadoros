@@ -13,11 +13,21 @@ var forum = [];		// η δημόσια συζήτηση
 window.onload = function() {
 	init();
 	emoticons.display();
+	setTimeout(function() {
+		var x = getelid('motd');
+		if (notSet(x)) { return; }
+		if (isSet(x.pineza)) {return; }
+		sviseNode(x, 1200);
+	}, globals.duration.motd);
+	setTimeout(function() {
+		var x = getelid('diafimisi');
+		if (notSet(x)) { return; }
+		if (isSet(x.pineza)) {return; }
+		sviseNode(x, 1200);
+	}, globals.duration.diafimisi);
 DUMPRSP.open();
 	setTimeout(function() { neaDedomena(true); }, 100);
 	setTimeout(showKafenio, 500);
-	setTimeout(function() { sviseNode(getelid('diafimisi'), 1200); }, 20000);
-	setTimeout(function() { sviseNode(getelid('motd'), 1200); }, 30000);
 };
 
 window.onunload = function() {

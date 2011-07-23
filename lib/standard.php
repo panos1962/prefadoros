@@ -278,26 +278,26 @@ class Page {
 		<title><?php print $titlos; ?></title>
 		<?php self::stylesheet('lib/standard'); ?>
 		<script type="text/javascript">
-			//<![CDATA[
-			var globals = {};
-			var pektis = null;
-			globals.server = '<?php print $globals->server; ?>';
-			globals.timeDif = <?php print time(); ?>;
-			pektis = {};
-			<?php
-			if (Session::is_set('ps_login')) {
-				?>
-				pektis.login = '<?php print $_SESSION['ps_login']; ?>';
-				<?php
-			}
-			if (Session::is_set('ps_whlt') &&
-				preg_match('/^[0-9]+:[0-9]+:[0-9]+:[0-9]+$/', $_SESSION['ps_whlt'])) {
-					?>
-					globals.funchatWhlt = '<?php print $_SESSION['ps_whlt']; ?>';
-					<?php
-			}
+		//<![CDATA[
+		var globals = {};
+		globals.server = '<?php print $globals->server; ?>';
+		globals.timeDif = <?php print time(); ?>;
+		globals.administrator = <?php print $globals->is_administrator() ? 'true' : 'false'; ?>;
+		var pektis = {};
+		<?php
+		if (Session::is_set('ps_login')) {
 			?>
-			//]]>
+			pektis.login = '<?php print $_SESSION['ps_login']; ?>';
+			<?php
+		}
+		if (Session::is_set('ps_whlt') &&
+			preg_match('/^[0-9]+:[0-9]+:[0-9]+:[0-9]+$/', $_SESSION['ps_whlt'])) {
+				?>
+				globals.funchatWhlt = '<?php print $_SESSION['ps_whlt']; ?>';
+				<?php
+		}
+		?>
+		//]]>
 		</script>
 		<?php self::javascript('lib/standard'); ?>
 		<?php
@@ -316,7 +316,9 @@ class Page {
 		$diafimisi = @file_get_contents($globals->server . 'diafimisi.html');
 		if (!$diafimisi) { return; }
 		?>
-		<div id="diafimisi" class="diafimisiArea">
+		<div id="diafimisi" class="diafimisiArea"
+			onmouseover="getelid('apokripsidiafimisi').style.visibility='visible';"
+			onmouseout="getelid('apokripsidiafimisi').style.visibility='hidden';">
 			<?php
 			self::apokripsi('diafimisi');
 			print $diafimisi;
@@ -333,7 +335,9 @@ class Page {
 			@file_get_contents($globals->server . 'motd.html') : FALSE);
 		if (!($motd1 || $motd2)) { return; }
 		?>
-		<div id="motd" class="motdArea">
+		<div id="motd" class="motdArea"
+			onmouseover="getelid('apokripsimotd').style.visibility='visible';"
+			onmouseout="getelid('apokripsimotd').style.visibility='hidden';">
 			<div class="motdInnerArea">
 				<?php
 				self::apokripsi('motd');
@@ -585,7 +589,10 @@ class Page {
 	public static function apokripsi($id) {
 		global $globals;
 		?>
-		<div style="float: right;">
+		<div id="apokripsi<?php print $id; ?>" style="float: right; visibility: hidden;">
+			<img class="pinezaIcon" title="Καρφίτσωμα" src="<?php
+				print $globals->server; ?>images/pineza.png" alt=""
+				onclick="karfitsoma('<?php print $id; ?>', this);">
 			<img class="apokripsiIcon" title="Απόκρυψη" src="<?php
 				print $globals->server; ?>images/Xgrey.png" alt=""
 				onclick="sviseNode(getelid('<?php print $id; ?>'));" />
