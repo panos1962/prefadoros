@@ -372,6 +372,9 @@
 	font-style: italic;
 	font-size: 0.8em;
 	cursor: default;
+	width: 4.8cm;
+	min-width: 4.8cm;
+	max-width: 4.8cm;
 }
 
 .monitorSinedria {

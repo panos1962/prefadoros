@@ -70,12 +70,16 @@ function neaDedomena(freska) {
 var DUMPRSP = new function() {
 	var wdump = null;
 
+	this.onOff = function() {
+		isSet(wdump) ? DUMPRSP.close() : DUMPRSP.open();
+	};
+
 	this.open = function(rsp) {
 		if (notSet(wdump)) {
 			wdump = window.open(globals.server +
 				'lib/dumprsp.php', '_blank',
-				'location=1,status=1,titlebar=1,menubar=1,scrollbars=1,' +
-				'resizable=1,width=600,height=500,left=200,top=100');
+				'location=0,status=0,titlebar=0,menubar=0,scrollbars=1,' +
+				'resizable=0,width=600,height=500,left=200,top=100');
 			if (notSet(wdump)) {
 				mainFyi('DUMPRSP: cannot open window');
 				return;
@@ -98,7 +102,7 @@ var DUMPRSP = new function() {
 				wdump.document.body.insertBefore(p, eod);
 				scrollBottom(wdump.document.body);
 			}
-		} catch(e) {};
+		} catch(e) { DUMPRSP.reset };
 	};
 
 	this.close = function() {
