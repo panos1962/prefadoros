@@ -10,8 +10,17 @@ class Dedomena {
 	}
 
 	public function diavase() {
+		global $globals;
+
+		if (!$globals->klidoma($globals->pektis->login)) {
+			Globals::fatal('cannot lock in order to write data file');
+		}
+
 		$fh = self::open_file('r');
-		if (!$fh) { return(FALSE); }
+		if (!$fh) {
+			$globals->xeklidoma($globals->pektis->login);
+			return(FALSE);
+		}
 
 		while ($line = Globals::get_line($fh)) {
 			switch ($line) {
@@ -22,6 +31,7 @@ class Dedomena {
 		}
 
 		fclose($fh);
+		$globals->xeklidoma($globals->pektis->login);
 		return(TRUE);
 	}
 
@@ -60,14 +70,24 @@ class Dedomena {
 	}
 
 	public function grapse() {
+		global $globals;
+
+		if (!$globals->klidoma($globals->pektis->login)) {
+			Globals::fatal('cannot lock in order to write data file');
+		}
+
 		$fh = self::open_file('w');
-		if (!$fh) { Globals::fatal('cannot write data file'); }
+		if (!$fh) {
+			$globals->xeklidoma($globals->pektis->login);
+			Globals::fatal('cannot write data file');
+		}
 
 		$this->grapse_sxesi($fh);
 		$this->grapse_permes($fh);
 		$this->grapse_trapezi($fh);
 
 		fclose($fh);
+		$globals->xeklidoma($globals->pektis->login);
 	}
 
 	private function grapse_sxesi($fh) {

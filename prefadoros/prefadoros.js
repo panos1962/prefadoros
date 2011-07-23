@@ -113,21 +113,10 @@ function neaDedomenaCheck(req) {
 	var tic = 100;
 	rsp = req.getResponse();
 DUMPRSP.dump(rsp);
-	if (!rsp.match(/@OK$/)) {
-		monitor.lathos();
-//alert('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
-		mainFyi('Παρελήφθησαν λανθασμένα δεδομένα (' + rsp + ')');
-		setTimeout(function() { neaDedomena(); }, tic);
-		return;
-	}
-
-	rsp = rsp.replace(/@OK$/, '');
-//alert(rsp);
 	try {
 		var dedomena = eval('({' + rsp + '})');
 	} catch(e) {
 		monitor.lathos();
-//alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 		mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 		setTimeout(function() { neaDedomena(); }, tic);
 		return;

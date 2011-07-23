@@ -20,8 +20,8 @@ class Pektis {
 		unset($this->idle);
 		unset($this->error);
 
-		$query = "SELECT `login`, `όνομα`, `email`, `καπίκια`, " .
-			"κατάσταση, (NOW() - `poll`) AS `idle` " .
+		$query = "SELECT `login`, `όνομα`, `email`, `καπίκια`, κατάσταση, " .
+			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
 			"FROM `παίκτης` WHERE `login` LIKE '" . $globals->asfales($login) . "'";
 		if (isset($password)) {
 			$query .= " AND `password` LIKE '" . $globals->asfales($password) . "'";
@@ -56,7 +56,7 @@ class Pektis {
 		global $globals;
 
 		$query = "UPDATE `παίκτης` SET `poll` = NOW() WHERE `login` LIKE " .
-			"'" . $globals->pektis->login . "'";
+			"'" . $this->login . "'";
 		$globals->sql_query($query);
 
 		$query = "UPDATE `συνεδρία` SET `ενημέρωση` = " . $id .
