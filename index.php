@@ -53,6 +53,7 @@ function prefadoros() {
 	//<![CDATA[
 	sinedria.kodikos = <?php print mysqli_insert_id($globals->db); ?>;
 	sinedria.id = 0;
+	sinedria.dumprsp = <?php print Globals::perastike('dumprsp') ? 'true' : 'false'; ?>
 	//]]>
 	</script>
 	<table class="tldbg" width="100%">

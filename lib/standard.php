@@ -209,13 +209,13 @@ function set_globals($anonima = FALSE) {
 		$dbpassword = '';
 		break;
 	case 'tessa.gen6dns.net':
-		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/~panos/new';
+		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/~panos/new/';
 		$dbname = 'panos_prefadoros';
 		$dbuser = 'panos_prefadoros';
 		$dbpassword = $dpass;
 		break;
 	case 'www.prefadoros.gr':
-		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/new';
+		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/new/';
 		$dbname = 'panos_prefadoros';
 		$dbuser = 'panos_prefadoros';
 		$dbpassword = $dpass;
@@ -333,9 +333,15 @@ class Page {
 	public static function motd() {
 		global $globals;
 
-		$motd1 = @file_get_contents($globals->server . 'motd_all.html');
-		$motd2 = ($globals->is_pektis() ?
-			@file_get_contents($globals->server . 'motd.html') : FALSE);
+		$motd1 = @file_get_contents("motd_all.html");
+		if ($globals->is_pektis()) {
+			$motd2 = "motd/" . $globals->pektis->login . ".html";
+			$motd2 = (@file_exists($motd2) && @is_readable($motd2)) ?
+				@file_get_contents($motd2) : FALSE;
+		}
+		else {
+			$motd2 = FALSE;
+		}
 		if (!($motd1 || $motd2)) { return; }
 		?>
 		<div id="motd" class="motdArea"
