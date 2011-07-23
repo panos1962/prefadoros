@@ -120,7 +120,7 @@ function check_neotero_id() {
 	if ($row[0] != $id) {
 		print_epikefalida($sinedria, $id);
 		print ",akiro:true}";
-		telos_ok();
+		die(0);
 	}
 }
 
