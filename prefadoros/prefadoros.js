@@ -16,13 +16,13 @@ window.onload = function() {
 	setTimeout(function() {
 		var x = getelid('motd');
 		if (notSet(x)) { return; }
-		if (isSet(x.pineza)) {return; }
+		if (isSet(x.pineza) && x.pineza) {return; }
 		sviseNode(x, 1200);
 	}, globals.duration.motd);
 	setTimeout(function() {
 		var x = getelid('diafimisi');
 		if (notSet(x)) { return; }
-		if (isSet(x.pineza)) {return; }
+		if (isSet(x.pineza) && x.pineza) {return; }
 		sviseNode(x, 1200);
 	}, globals.duration.diafimisi);
 DUMPRSP.open();
