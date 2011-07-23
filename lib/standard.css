@@ -132,11 +132,19 @@ a img {
 	background-color: #FFFFFF;
 }
 
+.pinezaIcon {
+	width: 0.56cm;
+	margin-top: 0.08cm;
+	vertical-align: top;
+	cursor: pointer;
+	opacity: 0.65;
+	filter: alpha(opacity=65);
+}
+
 .apokripsiIcon {
 	width: 0.65cm;
 	vertical-align: top;
 	cursor: pointer;
-	margin-left: -0.5cm;
 	opacity: 0.65;
 	filter: alpha(opacity=65);
 }

@@ -25,6 +25,7 @@ function loginCheck(form) {
 		var x = w.getelid('administratorLabel');
 		if (isSet(x)) {
 			x.setAttribute('class', 'data administrator');
+			w.globals.administrator = true;
 		}
 	}
 	return true;

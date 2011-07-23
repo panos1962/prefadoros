@@ -11,6 +11,7 @@ function exitAdministrator() {
 			var x = w.getelid('administratorLabel');
 			if (isSet(x)) {
 				x.setAttribute('class', 'data');
+				w.globals.administrator = false;
 			}
 		}
 		window.close();
