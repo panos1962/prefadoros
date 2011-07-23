@@ -101,7 +101,8 @@ function process_sxesi() {
 		$pekstat = $globals->asfales($row[1]);
 	}
 
-	$query1 = "SELECT `login`, `όνομα`, (NOW() - `poll`) AS `idle` " .
+	$query1 = "SELECT `login`, `όνομα`, " .
+		"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
 		"FROM `παίκτης` WHERE 1 ";
 
 	if (isset($peknpat)) {

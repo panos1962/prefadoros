@@ -2,14 +2,20 @@
 class Prefadoros {
 	public static $errmsg = 'Prefadoros::';
 
-	public static function set_pektis() {
+	public static function set_pektis($login = FALSE) {
 		global $globals;
 
 		if ($globals->is_pektis()) {
 			Globals::fatal(self::$errmsg . 'set_pektis(): επανακαθορισμός παίκτη');
 		}
 
-		if (Session::is_set('ps_login')) {
+		if ($login) {
+			$globals->pektis = new Pektis($login);
+			if (!isset($globals->pektis->login)) {
+				unset($globals->pektis);
+			}
+		}
+		elseif (Session::is_set('ps_login')) {
 			$globals->pektis = new Pektis($_SESSION['ps_login']);
 			if (!isset($globals->pektis->login)) {
 				unset($_SESSION['ps_login']);
@@ -18,11 +24,11 @@ class Prefadoros {
 		}
 	}
 
-	public static function pektis_check() {
+	public static function pektis_check($login = FALSE) {
 		global $globals;
 
 		if (!$globals->is_pektis()) {
-			self::set_pektis();
+			self::set_pektis($login);
 			if (!$globals->is_pektis()) {
 				Globals::fatal(self::$errmsg . 'pektis_check(): ακαθόριστος παίκτης');
 			}

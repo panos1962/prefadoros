@@ -1,6 +1,6 @@
 <?php
 // μέγιστος χρόνος διαδικασίας διαδοχικών κύκλων ανίχνευσης νέων δεδομένων σε seconds
-define('XRONOS_DEDOMENA_MAX', 18);
+define('XRONOS_DEDOMENA_MAX', 40);
 
 // νεκρός χρόνος μεταξύ δύο διαδοχικών ανιχνεύσεων σε microseconds
 define('XRONOS_DEDOMENA_TIC', 300000);
@@ -112,39 +112,6 @@ class Globals {
 		die(1);
 	}
 
-	public function klidoma($tag, $timeout = 2) {
-		$query = "SELECT GET_LOCK('" . $this->asfales($tag) . "', " . $timeout . ")";
-		$result = @mysqli_query($this->db, $query);
-		if (!$result) {
-			return(FALSE);
-		}
-
-		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
-		if (!$row) {
-			return(FALSE);
-		}
-		@mysqli_free_result($result);
-
-		if ($row[0] != 1) {
-			return(FALSE);
-		}
-
-		@mysqli_autocommit($this->db, FALSE);
-		return(TRUE);
-	}
-
-	public function xeklidoma($tag, $ok) {
-		if ($ok) {
-			@mysqli_commit($this->db);
-		}
-		else {
-			@mysqli_rollback($this->db);
-		}
-
-		$query = "DO RELEASE_LOCK('" . $this->asfales($tag) . "')";
-		@mysqli_query($this->db, $query);
-	}
-
 	public static function fatal($msg = 'unknown') {
 		print 'ERROR: ' . $msg;
 		die(1);
@@ -160,6 +127,38 @@ class Globals {
 
 	public static function put_line($fh, $s) {
 		return(fwrite($fh, $s . "\n"));
+	}
+
+	public function klidoma($tag, $autocommit = FALSE, $timeout = 2) {
+		$query = "SELECT GET_LOCK('" . $this->asfales($tag) . "', " . $timeout . ")";
+		$result = @mysqli_query($this->db, $query);
+		if (!$result) { return(FALSE); }
+
+		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
+		if (!$row) { return(FALSE); }
+
+		@mysqli_free_result($result);
+		if ($row[0] != 1) { return(FALSE); }
+
+		if ($autocommit) {
+			@mysqli_autocommit($this->db, FALSE);
+		}
+
+		return(TRUE);
+	}
+
+	function xeklidoma($tag, $commit = NULL) {
+		if (isset($commit)) {
+			if ($commit) {
+				@mysqli_commit($this->db);
+			}
+			else {
+				@mysqli_rollback($this->db);
+			}
+		}
+
+		$query = "DO RELEASE_LOCK('" . $this->asfales($tag) . "')";
+		@mysqli_query($this->db, $query);
 	}
 }
 

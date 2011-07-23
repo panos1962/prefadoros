@@ -77,7 +77,6 @@ var Sxesi = new function() {
 	this.HTML = function(i) {
 		var html = '';
 		html += '<div class="sxesiLine zebra' + (i % 2);
-		sxesi[i].o  = 0;
 		if (sxesi[i].o < 1) {
 			html += ' sxesiOffline';
 		}
@@ -85,20 +84,20 @@ var Sxesi = new function() {
 		html += 'onmouseout="emfanesAfanes(this, false);">';
 		switch (sxesi[i].o) {
 		case 1:
-			var ball = 'orangeBall';
+			var ball = 'orange';
 			var title = 'Online, απασχολημένος';
 			break;
 		case 2:
-			ball = 'greenBall';
-			title = 'Online, διαθέσιμος';
+			var ball = 'green';
+			var title = 'Online, διαθέσιμος';
 			break;
 		default:
-			ball = 'fouxBall';
-			title = 'Offline';
+			var ball = 'blue';
+			var title = 'Offline';
 			break;
 		}
 		html += '<img alt="" class="sxesiDiathesimotita" src="' +
-			globals.server + 'images/' + ball + '.png" ' +
+			globals.server + 'images/' + ball + 'Ball.png" ' +
 			'title="' + title + '. Κλικ για εργαλεία" ' +
 			'onclick="Sxesi.panel(\'' + sxesi[i].l + '\');" />';
 		html += '<div id="sx_' + sxesi[i].l + '" style="display: none;">';
@@ -336,7 +335,8 @@ var Sxesi = new function() {
 
 		var x = getelid('pekstat');
 		if (isSet(x)) {
-			x.src = globals.server + 'images/greenBall.png';
+			x.src = globals.server + 'images/blueBall.png';
+			x.title = 'Ασχέτως κατάστασης';
 		}
 
 		Sxesi.peknpat('', 'ΟΛΟΙ');
@@ -382,9 +382,9 @@ var Sxesi = new function() {
 		if (x.length < 1) { return; }
 
 		switch (x[x.length - 1]) {
-		case 'greenBall.png':	var stat = 'ΔΙΑΘΕΣΙΜΟΙ'; break
-		case 'orangeBall.png':	var stat = 'ONLINE'; break
-		case 'fouxBall.png':	var stat = 'ΟΛΟΙ'; break;
+		case 'greenBall.png':	var stat = 'ONLINE'; break
+		case 'orangeBall.png':	var stat = 'ΟΛΟΙ'; break
+		case 'blueBall.png':	var stat = 'ΔΙΑΘΕΣΙΜΟΙ'; break;
 		default: return;
 		}
 
@@ -417,15 +417,15 @@ var Sxesi = new function() {
 		else {
 			switch (stat) {
 			case 'ΔΙΑΘΕΣΙΜΟΙ':
-				ico.src = globals.server + 'images/orangeBall.png';
+				ico.src = globals.server + 'images/greenBall.png';
 				ico.title = 'Διαθέσιμοι παίκτες';
 				break
 			case 'ONLINE':
-				ico.src = globals.server + 'images/fouxBall.png';
+				ico.src = globals.server + 'images/orangeBall.png';
 				ico.title = 'Online παίκτες';
 				break
 			case 'ΟΛΟΙ':
-				ico.src = globals.server + 'images/greenBall.png';
+				ico.src = globals.server + 'images/blueBall.png';
 				ico.title = 'Ασχέτως κατάστασης';
 				break
 			}
