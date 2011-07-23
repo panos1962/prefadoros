@@ -26,7 +26,8 @@ window.onload = function() {
 		if (isSet(x.pineza) && x.pineza) {return; }
 		sviseNode(x, 1200);
 	}, globals.duration.diafimisi);
-DUMPRSP.open();
+
+	if (sinedria.dumprsp) { DUMPRSP.open(); }
 	setTimeout(function() { neaDedomena(true); }, 100);
 	setTimeout(checkAlive, 700);
 	setTimeout(showKafenio, 500);
