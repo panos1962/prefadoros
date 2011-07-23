@@ -589,7 +589,7 @@ class Page {
 	public static function apokripsi($id) {
 		global $globals;
 		?>
-		<div id="apokripsi<?php print $id; ?>" style="float: right; visibility: hidden;">
+		<div id="apokripsi<?php print $id; ?>" class="apokripsi">
 			<img class="pinezaIcon" title="Καρφίτσωμα" src="<?php
 				print $globals->server; ?>images/pineza.png" alt=""
 				onclick="karfitsoma('<?php print $id; ?>', this);">
