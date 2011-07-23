@@ -9,6 +9,7 @@ var sizitisi = [];	// τα σχόλια του τραπεζιού
 var trapezi = [];	// τα ενεργά τραπέζια
 var rebelos = [];	// περιφερόμενοι παίκτες
 var forum = [];		// η δημόσια συζήτηση
+var lastData = false;	// το timestamp της τελευταίας επιστροφής
 
 window.onload = function() {
 	init();
@@ -27,6 +28,7 @@ window.onload = function() {
 	}, globals.duration.diafimisi);
 DUMPRSP.open();
 	setTimeout(function() { neaDedomena(true); }, 100);
+	setTimeout(checkAlive, 700);
 	setTimeout(showKafenio, 500);
 };
 
@@ -34,6 +36,16 @@ window.onunload = function() {
 	try { controlPanel.funchatClose(); } catch(e) {};
 	try { DUMPRSP.close(); } catch(e) {};
 };
+
+function checkAlive() {
+	var tora = currentTimestamp();
+	if ((lastData > 0) && ((tora - lastData) > xronos.dedomena.namax)) {
+		monitor.lathos();
+		mainFyi('regular polling cycle recycled');
+		setTimeout(function() { neaDedomena(true); }, 100);
+	}
+	setTimeout(checkAlive, 1000);
+}
 
 function testConnect() {
 	var req = new Request('prefadoros/testConnect');
@@ -149,6 +161,7 @@ DUMPRSP.dump(rsp);
 		return;
 	}
 
+	lastData = currentTimestamp();
 	if (isSet(dedomena.sinedria.same)) {
 		monitor.idia();
 	}

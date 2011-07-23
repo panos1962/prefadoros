@@ -91,7 +91,8 @@ class Prefadoros {
 			var xronos = {
 				dedomena: {
 					max:		<?php print XRONOS_DEDOMENA_MAX; ?>,
-					tic:		<?php print XRONOS_DEDOMENA_TIC; ?>
+					tic:		<?php print XRONOS_DEDOMENA_TIC; ?>,
+					namax:		<?php print XRONOS_NO_ANSWER_MAX; ?>
 				}
 			};
 		</script>
