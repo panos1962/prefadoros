@@ -26,12 +26,16 @@ a img {
 .diafimisiArea {
 	text-align: center;
 	margin-bottom: 0.2cm;
+	opacity: 1.0;
+	filter: alpha(opacity=100);
 }
 
 .motdArea {
 	background-color: #305930;
 	padding: 0.1cm;
 	margin-bottom: 0.2cm;
+	opacity: 1.0;
+	filter: alpha(opacity=100);
 }
 
 .motdInnerArea {

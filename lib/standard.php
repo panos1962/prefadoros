@@ -314,9 +314,7 @@ class Page {
 		global $globals;
 
 		$diafimisi = @file_get_contents($globals->server . 'diafimisi.html');
-		if (!$diafimisi) {
-			return;
-		}
+		if (!$diafimisi) { return; }
 		?>
 		<div id="diafimisi" class="diafimisiArea">
 			<?php
@@ -331,29 +329,17 @@ class Page {
 		global $globals;
 
 		$motd1 = @file_get_contents($globals->server . 'motd_all.html');
-		if ($globals->is_pektis()) {
-			$motd2 = @file_get_contents($globals->server . 'motd.html');
-		}
-		else {
-			$motd2 = FALSE;
-		}
-
-		if (!($motd1 || $motd2)) {
-			return;
-		}
+		$motd2 = ($globals->is_pektis() ?
+			@file_get_contents($globals->server . 'motd.html') : FALSE);
+		if (!($motd1 || $motd2)) { return; }
 		?>
 		<div id="motd" class="motdArea">
 			<div class="motdInnerArea">
 				<?php
 				self::apokripsi('motd');
-				if ($motd1) {
-					print $motd1;
-				}
-
+				if ($motd1) { print $motd1; }
 				if ($motd2) {
-					if ($motd1) {
-						print '<hr class="motdLine" />';
-					}
+					if ($motd1) { print '<hr class="motdLine" />'; }
 					print $motd2;
 				}
 				?>

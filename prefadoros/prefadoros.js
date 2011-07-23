@@ -15,7 +15,9 @@ window.onload = function() {
 	emoticons.display();
 DUMPRSP.open();
 	setTimeout(function() { neaDedomena(true); }, 100);
-setTimeout(showKafenio, 500);
+	setTimeout(showKafenio, 500);
+	setTimeout(function() { sviseNode(getelid('diafimisi'), 1200); }, 20000);
+	setTimeout(function() { sviseNode(getelid('motd'), 1200); }, 30000);
 };
 
 window.onunload = function() {
