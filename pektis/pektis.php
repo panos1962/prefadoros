@@ -5,6 +5,7 @@ class Pektis {
 	public $email;
 	public $kapikia;
 	public $katastasi;
+	public $poll;
 	public $idle;
 	public $error;
 
@@ -17,10 +18,12 @@ class Pektis {
 		unset($this->email);
 		unset($this->kapikia);
 		unset($this->katastasi);
+		unset($this->poll);
 		unset($this->idle);
 		unset($this->error);
 
-		$query = "SELECT `login`, `όνομα`, `email`, `καπίκια`, κατάσταση, " .
+		$query = "SELECT `login`, `όνομα`, `email`, `καπίκια`, " .
+			"`κατάσταση`, UNIX_TIMESTAMP(`poll`), " .
 			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
 			"FROM `παίκτης` WHERE `login` LIKE '" . $globals->asfales($login) . "'";
 		if (isset($password)) {
@@ -41,6 +44,7 @@ class Pektis {
 			$this->email = $row['email'];
 			$this->kapikia = $row['καπίκια'];
 			$this->katastasi = $row['κατάσταση'];
+			$this->poll = $row['poll'];
 			$this->idle = (int)($row['idle']);
 		}
 		else {

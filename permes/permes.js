@@ -1,6 +1,6 @@
 var Permes = new function() {
-	this.apostoli = function(fixed) {
-		if (notSet(fixed)) { fixed = false; }
+	this.apostoli = function(prosFixed) {
+		if (notSet(prosFixed)) { prosFixed = false; }
 		var msg = getelid('permesInput');
 		if (notSet(msg) || notSet(msg.value) || ((msg.value = msg.value.trim()) == '')) {
 			alert('Δεν υπάρχει μήνυμα για αποστολή');
@@ -18,14 +18,14 @@ var Permes = new function() {
 
 		var req = new Request('permes/apostoli');
 		req.xhr.onreadystatechange = function() {
-			apostoliCheck(req, msg, pros, fixed);
+			apostoliCheck(req, msg, pros, prosFixed);
 		};
 
 		var params = 'pros=' + uri(pros.value) + '&minima=' + uri(msg.value);
 		req.send(params);
 	};
 
-	function apostoliCheck(req, msg, pros, fixed) {
+	function apostoliCheck(req, msg, pros, prosFixed) {
 		if (req.xhr.readyState != 4) {
 			return;
 		}
@@ -37,7 +37,7 @@ var Permes = new function() {
 		else {
 			formaFyi('Το μήνυμά σας έχει αποσταλεί');
 			Permes.refresh();
-			if (!fixed) { pros.value = ''; }
+			if (!prosFixed) { pros.value = ''; }
 		}
 
 		pros.focus();
@@ -53,9 +53,9 @@ var Permes = new function() {
 		return false;
 	};
 
-	this.cancel = function(fixed) {
-		if (notSet(fixed)) { fixed = false; }
-		if (fixed) { return exitChild(); }
+	this.cancel = function(prosFixed) {
+		if (notSet(prosFixed)) { prosFixed = false; }
+		if (prosFixed) { return exitChild(); }
 
 		var x = getelid('formaApostolis');
 		if (isSet(x) && isSet(x.style)) {
@@ -68,14 +68,14 @@ var Permes = new function() {
 		var x = getelid('minimata');
 		if (notSet(x)) { return; }
 
-		x.innerHTML = '<img src="' + globals.server + 'images/working.gif" ' +
-			'alt="" />';
-
 		var exer = getelid('exer');
 		if (notSet(exer)) { return; }
 
 		var iser = getelid('iser');
 		if (notSet(iser)) { return; }
+
+		x.innerHTML = '<img src="' + globals.server +
+			'images/working.gif" alt="" />';
 
 		if ((!exer.checked) && (!iser.checked)) {
 			if (ie == 'iser') {
@@ -86,7 +86,7 @@ var Permes = new function() {
 			}
 		}
 
-		var params = 'dummy=yes';
+		var params = 'timeDif=' + globals.timeDif;
 		if (exer.checked) { params += '&exer=yes'; }
 		if (iser.checked) { params += '&iser=yes'; }
 
@@ -99,10 +99,7 @@ var Permes = new function() {
 	};
 
 	this.refreshCheck = function(req, x) {
-		if (req.xhr.readyState != 4) {
-			return;
-		}
-
+		if (req.xhr.readyState != 4) { return; }
 		rsp = req.getResponse();
 		x.innerHTML = rsp;
 		return false;

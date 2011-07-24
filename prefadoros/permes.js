@@ -76,31 +76,12 @@ var Permes = new function() {
 			else {
 				mesg += permes[i].m;
 			}
-			mesg += '<span class="permesDate">[' + Permes.xronos(permes[i].d) + ']</span>';
+			mesg += '<span class="permesDate">[' + strPote(permes[i].d) + ']</span>';
 			mesg += '</span>';
 		}
 
 		div.innerHTML = '<div class="permesData">' +
 			'<marquee loop=10000 behavior=scroll scrollamount=6>' +
 			mesg + '</marquee></div>';
-	};
-
-	this.xronos = function(d) {
-		var tora = parseInt(currentTimestamp() / 1000);
-		var dif = tora - d + globals.timeDif;
-		if (dif < 60) {
-			return 'τώρα';
-		}
-		if (dif < 3600) {
-			var x = parseInt(dif / 60);
-			return 'πριν ' + x + ' λεπτ' + (x < 2 ? 'ό' : 'ά');
-		}
-		if (dif < 86400) {
-			var x = parseInt(dif / 3600);
-			return 'πριν ' + x + ' ώρ' + (x < 2 ? 'α' : 'ες');
-		}
-		
-		d = new Date(d * 1000);
-		return strDate(d) + ', ' + strTime(d);
 	};
 };
