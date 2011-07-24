@@ -1,11 +1,13 @@
 var Dedomena = new function() {
-	var lastData = 0;
+	var lastDataTS = 0;
+	var sessionAliveTS = 0;
 
 	this.setup = function() {
 		setTimeout(function() {
 			Dedomena.neaDedomena(true);
 		}, 200);
 		setTimeout(Dedomena.checkAlive, 700);
+		sessionAliveTS = currentTimestamp();
 	}
 
 	this.schedule = function(freska) {
@@ -14,12 +16,17 @@ var Dedomena = new function() {
 	};
 
 	this.checkAlive = function() {
-		if ((lastData > 0) && ((currentTimestamp() - lastData) > xronos.dedomena.namax)) {
+		var tora = currentTimestamp();
+		if ((lastDataTS > 0) && ((tora - lastDataTS) > xronos.dedomena.namax)) {
 			monitor.lathos();
 			mainFyi('regular polling cycle recycled');
 			Dedomena.schedule(true);
 		}
 		setTimeout(Dedomena.checkAlive, 1000);
+
+		if ((sessionAliveTS > 0) && ((tora - sessionAliveTS) > 300)) {
+			Dedomena.sessionAlive();
+		}
 	};
 
 	this.neaDedomena = function(freska) {
@@ -60,7 +67,7 @@ var Dedomena = new function() {
 			return;
 		}
 
-		lastData = currentTimestamp();
+		lastDataTS = currentTimestamp();
 		if (isSet(dedomena.sinedria.same)) {
 			monitor.idia();
 			Dedomena.schedule();
@@ -72,5 +79,10 @@ var Dedomena = new function() {
 		Sxesi.processDedomena(dedomena);
 		Permes.processDedomena(dedomena);
 		Dedomena.schedule();
+	};
+
+	this.sessionAlive = function() {
+		var req = new Request('prefadoros/sessionAlive');
+		req.send();
 	};
 };
