@@ -109,11 +109,9 @@ class Globals {
 
 	public function sql_query($query, $msg = 'SQL error') {
 		$result = @mysqli_query($this->db, $query);
-		if ($result) {
-			return($result);
-		}
+		if ($result) { return($result); }
 
-		print $msg . ': ' . @mysqli_error($this->db);
+		print $msg . ': ' . $query . ': ' . @mysqli_error($this->db);
 		die(1);
 	}
 
@@ -418,12 +416,11 @@ class Page {
 
 	protected static function leftTB() {
 		global $globals;
-
+		?>
+		<div style="display: inline-block; width: 9.0cm;">
+		<?php
 		if ($globals->is_pektis()) {
-			?>
-			[&nbsp;<a href="<?php print $globals->server; ?>index.php"
-				class="data">Καφενείο</a>&nbsp;]
-			<?php
+			?> <span id="partidaKafenio"></span> <?php
 		}
 		?>
 		[&nbsp;<a target="_blank" href="<?php print $globals->server;
@@ -439,6 +436,9 @@ class Page {
 				title="Προσωπικά μηνύματα">PM</a>&nbsp;]
 			<?php
 		}
+		?>
+		</div>
+		<?php
 	}
 
 	protected static function centerTB($titlos = 'Πρεφαδόρος') {
@@ -454,10 +454,10 @@ class Page {
 
 		if ($globals->is_pektis()) {
 			?>
-			<div id="monitorArea" class="monitor"></div>
 			<a target="_blank" href="<?php
 				print $globals->server; ?>account/signup.php?modify"
-				class="data login" title="Στοιχεία λογαριασμού"><?php
+				class="data login" title="Στοιχεία λογαριασμού"
+				style="display: inline-block; max-width: 5.4cm; overflow: hidden;"><?php
 					print $globals->pektis->login; ?></a>
 			<?php
 			self::logout_section();
@@ -487,8 +487,8 @@ class Page {
 	protected static function logout_section() {
 		global $globals;
 		?>
-		[&nbsp;<a href="<?php print $globals->server; ?>/index.php"
-			onclick="return logout();" class="data">Έξοδος</a>&nbsp;]
+		<span class="nobr">[&nbsp;<a href="<?php print $globals->server; ?>/index.php"
+			onclick="return logout();" class="data">Έξοδος</a>&nbsp;]</span>
 		<?php
 	}
 
@@ -575,13 +575,14 @@ class Page {
 	protected static function rightRB() {
 		global $globals;
 		?>
-		<span class="data" style="font-style: italic; white-space: nowrap;">
+		<div class="data" style="font-style: italic; white-space: nowrap;">
 			&copy; Panos I. Papadopoulos <span style="font-style: normal;">[<a
 				href="mailto:<?php print 'panos1962@gmail.com'; ?>"><img
 				src="<?php print $globals->server; ?>images/email.png"
 				style="width: 0.6cm; height: 0.5cm; margin-bottom: -0.15cm;"
 					alt="" /></a>]</span> 2011&ndash;
-		</span>
+		</div>
+		<div id="monitorArea" class="monitor"></div>
 		<?php
 	}
 

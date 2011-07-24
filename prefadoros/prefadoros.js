@@ -14,20 +14,9 @@ var lastData = false;	// το timestamp της τελευταίας επιστρ
 window.onload = function() {
 	init();
 	emoticons.display();
-	setTimeout(function() {
-		var x = getelid('motd');
-		if (notSet(x)) { return; }
-		if (isSet(x.pineza) && x.pineza) {return; }
-		sviseNode(x, 1200);
-	}, globals.duration.motd);
-	setTimeout(function() {
-		var x = getelid('diafimisi');
-		if (notSet(x)) { return; }
-		if (isSet(x.pineza) && x.pineza) {return; }
-		sviseNode(x, 1200);
-	}, globals.duration.diafimisi);
-
-	if (sinedria.dumprsp) { DUMPRSP.open(); }
+	motdSetup();
+	diafimisiSetup();
+	if (sinedria.dumprsp) { dumprsp.open(); }
 	setTimeout(function() { neaDedomena(true); }, 100);
 	setTimeout(checkAlive, 700);
 	setTimeout(showKafenio, 500);
@@ -35,7 +24,7 @@ window.onload = function() {
 
 window.onunload = function() {
 	try { controlPanel.funchatClose(); } catch(e) {};
-	try { DUMPRSP.close(); } catch(e) {};
+	try { dumprsp.close(); } catch(e) {};
 };
 
 function checkAlive() {
@@ -46,25 +35,6 @@ function checkAlive() {
 		setTimeout(function() { neaDedomena(true); }, 100);
 	}
 	setTimeout(checkAlive, 1000);
-}
-
-function testConnect() {
-	var req = new Request('prefadoros/testConnect');
-	req.xhr.onreadystatechange = function() {
-		testConnectCheck(req);
-	};
-
-	req.send();
-}
-
-function testConnectCheck(req) {
-	if (req.xhr.readyState != 4) {
-		return;
-	}
-
-	rsp = req.getResponse();
-	mainFyi(rsp);
-	setTimeout(testConnect, 1000);
 }
 
 function neaDedomena(freska) {
@@ -90,56 +60,6 @@ function neaDedomena(freska) {
 	req.send(params);
 }
 
-var DUMPRSP = new function() {
-	var wdump = null;
-
-	this.onOff = function() {
-		isSet(wdump) ? DUMPRSP.close() : DUMPRSP.open();
-	};
-
-	this.open = function(rsp) {
-		if (notSet(wdump)) {
-			wdump = window.open(globals.server +
-				'lib/dumprsp.php', '_blank',
-				'location=0,status=0,titlebar=0,menubar=0,scrollbars=1,' +
-				'resizable=0,width=600,height=500,left=200,top=100');
-			if (notSet(wdump)) {
-				mainFyi('DUMPRSP: cannot open window');
-				return;
-			}
-		}
-	};
-
-	this.dump = function(rsp) {
-		if (notSet(wdump)) { return; }
-
-		try {
-			var p = wdump.document.createElement('div');
-			var d = new Date;
-			var html = strTime(d, true) +
-				' [' + d.getMilliseconds() + ']<br />' + rsp + '<hr />';
-			p.innerHTML = html;
-
-			var eod = wdump.document.getElementById('EOD');
-			if (isSet(eod)) {
-				wdump.document.body.insertBefore(p, eod);
-				scrollBottom(wdump.document.body);
-			}
-		} catch(e) { DUMPRSP.reset };
-	};
-
-	this.close = function() {
-		if (isSet(wdump)) {
-			wdump.close();
-		}
-		DUMPRSP.reset();
-	};
-
-	this.reset = function() {
-		wdump = null;
-	};
-};
-
 function neaDedomenaCheck(req) {
 	if (req.xhr.readyState != 4) {
 		return;
@@ -147,7 +67,7 @@ function neaDedomenaCheck(req) {
 
 	var tic = 100;
 	rsp = req.getResponse();
-DUMPRSP.dump(rsp);
+	dumprsp.dump(rsp);
 	try {
 		var dedomena = eval('({' + rsp + '})');
 	} catch(e) {
@@ -165,19 +85,35 @@ DUMPRSP.dump(rsp);
 	lastData = currentTimestamp();
 	if (isSet(dedomena.sinedria.same)) {
 		monitor.idia();
+		setTimeout(function() { neaDedomena(); }, tic);
+		return;
 	}
-	else {
-		monitor.freska();
-		Sxesi.processDedomena(dedomena);
-		Permes.processDedomena(dedomena);
-	}
+
+	monitor.freska();
+	Partida.processDedomena(dedomena);
+	Sxesi.processDedomena(dedomena);
+	Permes.processDedomena(dedomena);
 
 	setTimeout(function() { neaDedomena(); }, tic);
 }
 
+function showPartida() {
+	var x = getelid('prefadoros');
+	if (notSet(x)) { return false; }
+
+	x.innerHTML = 'ΠΑΡΤΙΔΑ';
+
+	x = getelid('partidaKafenio');
+	if (notSet(x)) {return false; }
+
+	x.innerHTML = '[&nbsp;<a href="#" onclick="return showKafenio();" ' +
+		'class="data" title ="Εμφάνιση τραπεζιού">Καφενείο</a>&nbsp;]';
+	return false;
+}
+
 function showKafenio() {
 	var x = getelid('prefadoros');
-	if (notSet(x)) { return; }
+	if (notSet(x)) { return false; }
 
 	pektes = [
 		"panos",
@@ -217,59 +153,29 @@ function showKafenio() {
 
 	html += '</div>';
 	x.innerHTML = html;
+
+	x = getelid('partidaKafenio');
+	if (notSet(x)) {return false; }
+
+	x.innerHTML = '[&nbsp;<a href="#" onclick="return showPartida();" ' +
+		'class="data" title="Εμφάνιση καφενείου">Τραπέζι</a>&nbsp;]';
+	return false;
 }
 
-var monitor = new function() {
-	this.count = 0
-	this.errorCount = 0;
-	this.successiveErrors = 0;
-	this.dotsHTML = '';
-
-	this.updateHTML = function(title, color) {
-		var x = getelid('monitorArea');
+function motdSetup() {
+	setTimeout(function() {
+		var x = getelid('motd');
 		if (notSet(x)) { return; }
+		if (isSet(x.pineza) && x.pineza) {return; }
+		sviseNode(x, 1200);
+	}, globals.duration.motd);
+}
 
-		monitor.count++;
-		if ((monitor.count % 10) == 1) { monitor.dotsHTML = ''; }
-		monitor.dotsHTML = '<span title="' + title + '" style="color: ' +
-			color + ';">&bull;</span>' + monitor.dotsHTML;
-
-		var html = '<span title="Συνεδρία" class="monitorSinedria">' +
-			sinedria.kodikos + '</span>';
-		html += '#<span title="Ενημέρωση" class="monitorId">' + sinedria.id + '</span>';
-		if (monitor.errorCount) {
-			html += '#<span title="Λανθασμένες ενημερώσεις" style="color: ' +
-				globals.color.error + ';">' + monitor.errorCount + '</span>';
-		}
-		x.innerHTML =  monitor.dotsHTML + html;
-	};
-
-	this.ignore = function() {
-		monitor.successiveErrors = 0;
-		monitor.updateHTML('Αγνοήθηκαν δεδομένα', '#FFA500');
-	};
-
-	this.idia = function() {
-		monitor.successiveErrors = 0;
-		monitor.updateHTML('Χωρίς αλλαγή', '#85A366');
-	};
-
-	this.freska = function() {
-		monitor.successiveErrors = 0;
-		monitor.updateHTML('Νέα δεδομένα', '#006600');
-	};
-
-	this.lathos = function() {
-		monitor.errorCount++;
-		monitor.successiveErrors++;
-		if (monitor.successiveErrors > 3) {
-			monitor.successiveErrors = 0;
-			alert('too many successive errors');
-			location.href = globals.server + 'error.php?minima=' +
-				uri('Παρουσιάστηκαν πολλά διαδοχικά σφάλματα ενημέρωσης');
-			return;
-		}
-
-		monitor.updateHTML('Λανθασμένα δεδομένα', globals.color.error);
-	};
-};
+function diafimisiSetup() {
+	setTimeout(function() {
+		var x = getelid('diafimisi');
+		if (notSet(x)) { return; }
+		if (isSet(x.pineza) && x.pineza) {return; }
+		sviseNode(x, 1200);
+	}, globals.duration.diafimisi);
+}
