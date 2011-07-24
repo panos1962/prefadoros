@@ -10,8 +10,6 @@
 	height: 13.0cm;
 	max-height: 13.0cm;
 	min-height: 13.0cm;
-
-	overflow-y: auto;
 }
 
 .prefadorosSteno {
@@ -21,9 +19,9 @@
 }
 
 .partida {
-	width: 13.7cm;
-	min-width: 13.7cm;
-	max-width: 13.7cm;
+	width: 13.5cm;
+	min-width: 13.5cm;
+	max-width: 13.5cm;
 
 	height: 12.6cm;
 	max-height: 12.6cm;

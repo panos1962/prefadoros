@@ -1,8 +1,12 @@
-var dumprsp = new function() {
+var Dumprsp = new function() {
 	var wdump = null;
 
 	this.onOff = function() {
-		isSet(wdump) ? dumprsp.close() : dumprsp.open();
+		isSet(wdump) ? Dumprsp.close() : Dumprsp.open();
+	};
+
+	this.setup = function() {
+		if (sinedria.dumprsp) { Dumprsp.open(); }
 	};
 
 	this.open = function(rsp) {
@@ -33,14 +37,14 @@ var dumprsp = new function() {
 				wdump.document.body.insertBefore(p, eod);
 				scrollBottom(wdump.document.body);
 			}
-		} catch(e) { dumprsp.reset };
+		} catch(e) { Dumprsp.reset };
 	};
 
 	this.close = function() {
 		if (isSet(wdump)) {
 			wdump.close();
 		}
-		dumprsp.reset();
+		Dumprsp.reset();
 	};
 
 	this.reset = function() {

@@ -9,6 +9,7 @@ Prefadoros::set_pektis();
 Page::head();
 if ($globals->is_pektis()) {
 	Page::stylesheet('prefadoros/prefadoros');
+	Page::javascript('prefadoros/dedomena');
 	Page::javascript('prefadoros/dumprsp');
 	Page::javascript('prefadoros/monitor');
 	Page::javascript('prefadoros/prefadoros');
@@ -93,9 +94,7 @@ function prefadoros() {
 		</div>
 	</td>
 	<td id="emoticonsColumn" class="emoticonsColumn tbldbg">
-		<?php
-		emoticons();
-		?>
+		<?php emoticons(); ?>
 	</td>
 	<td>
 	</td>
@@ -194,7 +193,7 @@ function emoticons() {
 	<div>
 		<img class="emoticonsIcon" alt="" src="<?php
 			print $globals->server; ?>images/controlPanel/4Balls.png"
-			title="Εναλλαγή emoticons" onclick="emoticons.enalagi();" />
+			title="Εναλλαγή emoticons" onclick="Emoticons.enalagi();" />
 		<div id="emoticons">
 		</div>
 	</div>
