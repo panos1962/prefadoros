@@ -1,11 +1,11 @@
 <?php
 // μέγιστος χρόνος διαδικασίας διαδοχικών κύκλων ανίχνευσης νέων δεδομένων σε seconds
 // define('XRONOS_DEDOMENA_MAX', 40);
-define('XRONOS_DEDOMENA_MAX', 10);
+define('XRONOS_DEDOMENA_MAX', 40);
 
 // νεκρός χρόνος μεταξύ δύο διαδοχικών ανιχνεύσεων σε microseconds
 // define('XRONOS_DEDOMENA_TIC', 300000);
-define('XRONOS_DEDOMENA_TIC', 500000);
+define('XRONOS_DEDOMENA_TIC', 300000);
 
 // μέγιστο διάστημα polling μέχρι να θεωρηθεί ο παίκτης offline.
 define('XRONOS_PEKTIS_IDLE_MAX', (XRONOS_DEDOMENA_MAX * 1.5));
