@@ -628,4 +628,25 @@ class Page {
 	}
 }
 
+class Xronos {
+	public static function pote($ts, $offset = 0, $format = 'd/m/Y, h:m') {
+		$dif = time() - ($ts += $offset);
+		if ($dif < 60) {
+			return 'τώρα';
+		}
+
+		if ($dif < 3600) {
+			$x = round($dif / 60);
+			return 'πριν ' . $x . ' λεπτ' . ($x < 2 ? 'ό' : 'ά');
+		}
+
+		if ($dif < 86400) {
+			$x = round($dif / 3600);
+			return 'πριν ' . $x . ' ώρ' . ($x < 2 ? 'α' : 'ες');
+		}
+		
+	
+		return date($format, $ts);
+	}
+}
 ?>

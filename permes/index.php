@@ -27,11 +27,16 @@ else {
 <?php
 Page::close();
 
-function minima_pros($pros = '', $fixed = FALSE) {
+// Η function "minima_pros" σχηματίζει τη φόρμα αποστολής μηνυμάτων.
+// Ως παραμέτρους δέχεται το login name του παραλήπτη ("pros") και
+// τη flag "pros_fixed" που δείχνει αν ο παραλήπτης είναι συγκεκριμένος
+// και δεν μπορεί να καθοριστεί στην παραγόμενη φόρμα.
+
+function minima_pros($pros = '', $pros_fixed = FALSE) {
 	?>
 	<div style="padding-top: 0.4cm; padding-bottom: 0.4cm;">
 	<span class="data">Αποστολή προσωπικού μηνύματος προς <?php
-		if ($fixed) {
+		if ($pros_fixed) {
 			?>
 			<span class="permesPros"><?php print $pros; ?></span>
 			<input id="paraliptis" type="hidden" value="<?php
@@ -45,27 +50,23 @@ function minima_pros($pros = '', $fixed = FALSE) {
 		}?></span>
 	</div>
 	<div style="width: 11.0cm;">
-	<textarea id="permesInput" rows="14" cols="<?php print $fixed ? 60 : 80; ?>">
+	<textarea id="permesInput" rows="14" cols="<?php print $pros_fixed ? 60 : 80; ?>">
 	</textarea>
 	<div id="formaFyi" class="fyi formaFyi">&#xfeff;</div>
 	<input class="button formaButton" type="submit" value="Αποστολή"
-		onclick="return Permes.apostoli(<?php if ($fixed) print 'true'; ?>);" />
+		onclick="return Permes.apostoli(<?php if ($pros_fixed) print 'true'; ?>);" />
 	<input class="button formaButton" type="reset" value="Reset"
 		onclick="return Permes.reset();" />
 	<input class="button formaButton" type="submit" value="Άκυρο"
-		onclick="return Permes.cancel(<?php if ($fixed) print 'true'; ?>);" />
+		onclick="return Permes.cancel(<?php if ($pros_fixed) print 'true'; ?>);" />
 	</div>
 	<?php
 }
 
 function minimata() {
-	global $globals;
-	$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 	?>
 	<div id="formaApostolis" style="display: none; margin-bottom: 1.0cm;">
-		<?php
-		minima_pros();
-		?>
+		<?php minima_pros(); ?>
 	</div>
 	<div style="margin-top: 0px;">
 	Εισερχόμενα <input id="iser" type="checkbox" checked="yes" onchange="Permes.refresh('iser');" />

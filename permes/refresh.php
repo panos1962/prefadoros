@@ -8,7 +8,9 @@ set_globals();
 Prefadoros::pektis_check();
 $slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
-$query = "SELECT * FROM `μήνυμα` WHERE ";
+$time_dif = Globals::perastike_check('timeDif');
+
+$query = "SELECT *, UNIX_TIMESTAMP(`δημιουργία`) AS `πότε` FROM `μήνυμα` WHERE ";
 if (Globals::perastike('exer') && Globals::perastike('iser')) {
 	$query .= "(`αποστολέας` LIKE " . $slogin . ") OR " .
 		"(`παραλήπτης` LIKE " . $slogin . ")";
@@ -62,6 +64,8 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 			$minima = preg_replace("/\n/", "<br />", $row['μήνυμα']);
 			print $minima;
 			?>
+			<span class="permesXronosArea">[<span class="permesXronos"><?php
+				print Xronos::pote($row['πότε'], $time_dif); ?></span>]</span>
 		</div>
 	</td>
 	<td style="vertical-align: top;">
