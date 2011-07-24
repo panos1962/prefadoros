@@ -3,11 +3,9 @@ var Dedomena = new function() {
 	var sessionAliveTS = 0;
 
 	this.setup = function() {
-		setTimeout(function() {
-			Dedomena.neaDedomena(true);
-		}, 200);
-		setTimeout(Dedomena.checkAlive, 700);
 		sessionAliveTS = (lastDataTS = currentTimestamp());
+		setTimeout(function() { Dedomena.neaDedomena(true); }, 200);
+		setTimeout(Dedomena.checkAlive, 1000);
 	}
 
 	this.schedule = function(freska) {
