@@ -231,7 +231,7 @@ var monitor = new function() {
 
 		monitor.count++;
 		if ((monitor.count % 10) == 1) { monitor.dotsHTML = ''; }
-		monitor.dotsHTML = '<span totle="' + title + '" style="color: ' +
+		monitor.dotsHTML = '<span title="' + title + '" style="color: ' +
 			color + ';">&bull;</span>' + monitor.dotsHTML;
 
 		var html = '<span title="Συνεδρία" class="monitorSinedria">' +
