@@ -6,11 +6,11 @@
 }
 
 .permesPros {
+	margin-left: 0.4cm;
 	font-weight: bold;
 	color: #006600;
 	vertical-align: top;
 	min-width: 2.0cm;
-	background-color: #FFFFFF;
 }
 
 .permesApo {

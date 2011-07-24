@@ -34,8 +34,10 @@ Page::close();
 
 function minima_pros($pros = '', $pros_fixed = FALSE) {
 	?>
-	<div style="padding-top: 0.4cm; padding-bottom: 0.4cm;">
-	<span class="data">Αποστολή προσωπικού μηνύματος προς <?php
+	<div class="formaData" style="padding: 0.4cm;">
+	<div style="padding-bottom: 0.2cm;">
+		<span style="font-style: italic; margin-left: 0.2cm;">
+			Αποστολή προσωπικού μηνύματος προς</span><?php
 		if ($pros_fixed) {
 			?>
 			<span class="permesPros"><?php print $pros; ?></span>
@@ -47,10 +49,11 @@ function minima_pros($pros = '', $pros_fixed = FALSE) {
 			<input id="paraliptis" type="text" value="<?php
 				print $pros; ?>" maxlength="32" size="20"
 				class="formaField" /><?php
-		}?></span>
+		}?>
 	</div>
 	<div style="width: 11.0cm;">
-	<textarea id="permesInput" rows="14" cols="<?php print $pros_fixed ? 60 : 80; ?>">
+	<textarea id="permesInput" rows="14" cols="<?php print $pros_fixed ? 80 : 80; ?>"
+		style="font-size: 0.4cm;">
 	</textarea>
 	<div id="formaFyi" class="fyi formaFyi">&#xfeff;</div>
 	<input class="button formaButton" type="submit" value="Αποστολή"
@@ -59,6 +62,7 @@ function minima_pros($pros = '', $pros_fixed = FALSE) {
 		onclick="return Permes.reset();" />
 	<input class="button formaButton" type="submit" value="Άκυρο"
 		onclick="return Permes.cancel(<?php if ($pros_fixed) print 'true'; ?>);" />
+	</div>
 	</div>
 	<?php
 }
