@@ -7,7 +7,7 @@ var Dedomena = new function() {
 			Dedomena.neaDedomena(true);
 		}, 200);
 		setTimeout(Dedomena.checkAlive, 700);
-		sessionAliveTS = currentTimestamp();
+		sessionAliveTS = (lastDataTS = currentTimestamp());
 	}
 
 	this.schedule = function(freska) {
@@ -15,17 +15,34 @@ var Dedomena = new function() {
 		setTimeout(function() { Dedomena.neaDedomena(freska); }, 100);
 	};
 
+	// Η μέθοδος "keepAlive" τρέχει σε τακτά χρονικά διαστήματα και ελέγχει
+	// αν η επικοινωνία μας με τον server είναι ζωντανή. Πράγματι, κάθε φορά
+	// που επιστρέφονται δεδομένα από τον server καρατάμε το χρόνο στη
+	// μεταβλητή "lastDataTS" (σε milliseconds). Η "keepAlive" ελέγχει αν
+	// ο χρόνος που έχει παρέλθει από την τελευταία παραλαβή, έχει υπερβεί
+	// τον μέγιστο επιτρεπτό χρόνο απραξίας ("xronos.dedomena.namax"), και
+	// αν όντως έχει συμβεί αυτό, επαναδρομολογεί νέο αίτημα ενημέρωσης.
+	// Παράλληλα, ανανεώνεται το session, καθώς μπορεί ο χρήστης μπορεί
+	// να μην έχει επικοινωνία με τον server για μεγάλα χρονικά διαστήματα,
+	// με αποτέλεσμα να απενεργοποιείται το session, εφόσον τα αιτήματα
+	// ενημέρωσης λειτουργούν εκτός session.
+
 	this.checkAlive = function() {
 		var tora = currentTimestamp();
-		if ((lastDataTS > 0) && ((tora - lastDataTS) > xronos.dedomena.namax)) {
+		var elapsed = tora - lastDataTS;
+		if (elapsed > xronos.dedomena.namax) {
 			monitor.lathos();
 			mainFyi('regular polling cycle recycled');
 			Dedomena.schedule(true);
 		}
-		setTimeout(Dedomena.checkAlive, 1000);
+		var epomeno = xronos.dedomena.namax - elapsed;
+		if (epomeno < 1000) { epomeno = 1000 }
+		setTimeout(Dedomena.checkAlive, epomeno);
 
-		if ((sessionAliveTS > 0) && ((tora - sessionAliveTS) > 300)) {
+		// Κάθε 5 λεπτά, ανανεώνουμε το session.
+		if ((tora - sessionAliveTS) > 300000) {
 			Dedomena.sessionAlive();
+			sessionAliveTS = tora;
 		}
 	};
 
@@ -84,5 +101,6 @@ var Dedomena = new function() {
 	this.sessionAlive = function() {
 		var req = new Request('prefadoros/sessionAlive');
 		req.send();
+		mainFyi('session recharged');
 	};
 };
