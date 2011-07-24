@@ -50,13 +50,11 @@
 
 	margin-left: auto;
 	margin-right: auto;
-
-	margin-top: 0.2cm;
 }
 
 .kafenioPektis {
 	display: inline-block;
-	margin-top: 0.2cm;
+	margin-bottom: 0.2cm;
 	margin-right: 0.2cm;
 	text-align: center;
 
