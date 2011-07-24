@@ -9,7 +9,10 @@ Prefadoros::set_pektis();
 Page::head();
 if ($globals->is_pektis()) {
 	Page::stylesheet('prefadoros/prefadoros');
+	Page::javascript('prefadoros/dumprsp');
+	Page::javascript('prefadoros/monitor');
 	Page::javascript('prefadoros/prefadoros');
+	Page::javascript('prefadoros/partida');
 	Page::javascript('prefadoros/sxesi');
 	Page::javascript('prefadoros/permes');
 	Page::javascript('prefadoros/kafenio');
@@ -54,6 +57,15 @@ function prefadoros() {
 	sinedria.kodikos = <?php print mysqli_insert_id($globals->db); ?>;
 	sinedria.id = 0;
 	sinedria.dumprsp = <?php print Globals::perastike('dumprsp') ? 'true' : 'false'; ?>
+	<?php
+	if ($globals->is_trapezi()) {
+		?>
+		partida.kodikos = <?php print $globals->trapezi->kodikos; ?>;
+		partida.simetoxi = '<?php print $globals->trapezi->simetoxi; ?>';
+		partida.thesi = <?php print $globals->trapezi->thesi; ?>;
+		<?php
+	}
+	?>
 	//]]>
 	</script>
 	<table class="tldbg" width="100%">

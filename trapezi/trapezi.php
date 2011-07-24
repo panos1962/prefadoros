@@ -12,6 +12,8 @@ class Trapezi {
 	public $idle3;
 	public $kasa;
 	public $idiotikotita;
+	public $simetoxi;
+	public $thesi;
 	public $error;
 
 	public function __construct() {
@@ -30,6 +32,8 @@ class Trapezi {
 		unset($this->idle3);
 		unset($this->kasa);
 		unset($this->idiotikotita);
+		unset($this->simetoxi);
+		unset($this->thesi);
 		unset($this->error);
 
 		Prefadoros::pektis_check();
@@ -42,21 +46,28 @@ class Trapezi {
 		// εφόσον, φυσικά, το επιθυμεί.
 
 		$login = $globals->asfales($globals->pektis->login);
-		$query = "SELECT `κωδικός`, " .
+		$select = "SELECT `κωδικός`, " .
 			"`παίκτης1`, `αποδοχή1`, UNIX_TIMESTAMP(`poll1`) AS `poll1`, " .
 			"`παίκτης2`, `αποδοχή2`, UNIX_TIMESTAMP(`poll2`) AS `poll2`, " .
 			"`παίκτης3`, `αποδοχή3`, UNIX_TIMESTAMP(`poll3`) AS `poll3`, " .
-			"`κάσα`, `ιδιωτικότητα` FROM `τραπέζι` " .
-			"WHERE ((`παίκτης1` LIKE '" . $login . "') " .
+			"`κάσα`, `ιδιωτικότητα` FROM `τραπέζι` ";
+		$order = "AND (`τέλος` IS NULL) ORDER BY `κωδικός` DESC LIMIT 1";
+		$query = $select . "WHERE ((`παίκτης1` LIKE '" . $login . "') " .
 			"OR (`παίκτης2` LIKE '" . $login . "') " .
-			"OR (`παίκτης3` LIKE '" . $login . "')) " .
-			"AND (`τέλος` IS NULL) ORDER BY `κωδικός` DESC LIMIT 1";
+			"OR (`παίκτης3` LIKE '" . $login . "')) " . $order;
 		$result = $globals->sql_query($query);
 		$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
 		if (!$row) {
-			$this->error = $errmsg . 'δεν βρέθηκε τραπέζι για τον παίκτη "' .
-				$globals->pektis->login . '"';
-			return;
+			$query = $select . "WHERE (`κωδικός` IN (SELECT `τραπέζι` " .
+				"FROM `θεατής` WHERE `παίκτης` LIKE '" .
+				$login . "')) " . $order;
+			$result = $globals->sql_query($query);
+			$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
+			if (!$row) {
+				$this->error = $errmsg . 'δεν βρέθηκε τραπέζι για τον παίκτη "' .
+					$globals->pektis->login . '"';
+				return;
+			}
 		}
 		@mysqli_free_result($result);
 
@@ -73,74 +84,41 @@ class Trapezi {
 		$this->idle3 = (is_numeric($row['poll3']) ? $tora - $row['poll3'] : $tora);
 		$this->kasa = $row['κάσα'];
 		$this->idiotikotita = $row['ιδιωτικότητα'];
+		$this->simetoxi = 'ΠΑΙΚΤΗΣ';
+		if ($this->pektis1 == $globals->pektis->login) {
+			$this->thesi = 1;
+		}
+		elseif ($this->pektis2 == $globals->pektis->login) {
+			$this->thesi = 2;
+		}
+		elseif ($this->pektis3 == $globals->pektis->login) {
+			$this->thesi = 3;
+		}
+		else {
+			$this->simetoxi = 'ΘΕΑΤΗΣ';
+			$query = "SELECT `θέση` FROM `θεατής` WHERE `παίκτης` LIKE '" .
+				$login . "' AND `τραπέζι` = " . $this->kodikos;
+			$result = $globals->sql_query($query);
+			$row = @mysqli_fetch_array($result, MYSQLI_NUM);
+			if (!$row) {
+				$this->thesi = 1;
+			}
+			else {
+				@mysqli_free_result($result);
+				$this->thesi = $row[0];
+				if (($this->thesi < 1) || ($this->thesi > 3)) {
+					$this->thesi = 1;
+				}
+			}
+		}
 	}
 
-	static public function dialisi_adio() {
-		global $globals;
-
-		$query = "UPDATE `τραπέζι` SET `διάλυση` = NOW() " .
-			"WHERE `διάλυση` IS NULL AND `παίκτης1` IS NULL " .
-			"AND `παίκτης2` IS NULL AND `παίκτης3` IS NULL";
-		@mysqli_query($globals->db, $query);
-
-		$query = "DELETE FROM `πρόσκληση` WHERE `τραπέζι` IN (" .
-			"SELECT `κωδικός` FROM `τραπέζι` " .
-			"WHERE `διάλυση` IS NOT NULL)";
-		@mysqli_query($globals->db, $query);
+	public function is_pektis() {
+		return($this->simetoxi == 'ΠΑΙΚΤΗΣ');
 	}
 
-	public function thesi_pekti($out = TRUE) {
-		global $globals;
-		$errmsg = "Pektis(thesi_pekti): ";
-		unset($this->error);
-
-		if (!$globals->is_pektis()) {
-			$this->error = $errmsg . 'ακαθόριστος παίκτης';
-			if ($out) {
-				telos($this->error);
-			}
-
-			return(FALSE);
-		}
-		$pektis = $globals->pektis->login;
-
-		$query = "SELECT `παίκτης1`, `παίκτης2`, `παίκτης3` " .
-			"FROM `τραπέζι` WHERE `κωδικός` = " . $this->kodikos;
-		$result = @mysqli_query($globals->db, $query);
-		if (!$result) {
-			$this->error = $errmsg . 'SQL error (' .
-				@mysqli_error($globals->db) . ')';
-			if ($out) {
-				telos($this->error);
-			}
-
-			return(FALSE);
-		}
-
-		$row = mysqli_fetch_array($result, MYSQLI_NUM);
-		if (!$row) {
-			$this->error = $errmsg . 'δεν βρέθηκε το τραπέζι ' . $this->kodikos;
-			if ($out) {
-				telos($this->error);
-			}
-
-			return(FALSE);
-		}
-		mysqli_free_result($result);
-
-		for ($i = 0; $i < 3; $i++) {
-			if ($row[$i] == $globals->pektis->login) {
-				return($i + 1);
-			}
-		}
-
-		$this->error = $errmsg . 'δεν βρέθηκε ο παίκτης "' .
-			$pektis . '" στο τραπέζι ' . $this->kodikos;
-		if ($out) {
-			telos($this->error);
-		}
-
-		return(FALSE);
+	public function is_theatis() {
+		return(!$this->simetoxi == 'ΘΕΑΤΗΣ');
 	}
 
 	public function fetch_dianomi() {

@@ -42,16 +42,18 @@ class Prefadoros {
 			Globals::fatal(self::$errmsg . 'set_trapezi(): επανακαθορισμός τραπεζιού');
 		}
 
-		if ($globals->is_pektis()) {
-			$globals->trapezi = new Trapezi();
-			if (isset($globals->trapezi->kodikos)) {
-				$globals->trapezi->fetch_dianomi();
-				$globals->trapezi->fetch_kinisi();
-			}
-			else {
-				unset($globals->trapezi);
-			}
+		if (!$globals->is_pektis()) {
+			return;
 		}
+
+		$globals->trapezi = new Trapezi();
+		if (!isset($globals->trapezi->kodikos)) {
+			unset($globals->trapezi);
+			return;
+		}
+
+		$globals->trapezi->fetch_dianomi();
+		$globals->trapezi->fetch_kinisi();
 	}
 
 	public static function klidose_trapezi() {
