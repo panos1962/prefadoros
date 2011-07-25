@@ -73,10 +73,12 @@ var Prefadoros = new function() {
 		x.innerHTML = Partida.html;
 
 		x = getelid('partidaKafenio');
-		if (notSet(x)) {return false; }
-
-		x.innerHTML = '[&nbsp;<a href="#" onclick="return Prefadoros.showKafenio();" ' +
-			'class="data" title ="Εμφάνιση τραπεζιού">Καφενείο</a>&nbsp;]';
+		if (isSet(x)) {
+			x.innerHTML = '[&nbsp;<a href="#" ' +
+				'onclick="return Prefadoros.showKafenio();" ' +
+				'class="data" title ="Εμφάνιση τραπεζιού">' +
+				'Καφενείο</a>&nbsp;]';
+		}
 		return false;
 	};
 
@@ -85,51 +87,16 @@ var Prefadoros = new function() {
 		var x = getelid('prefadoros');
 		if (notSet(x)) { return false; }
 
-		pektes = [
-			"panos",
-			"maria",
-			"zoi",
-			"akis",
-			"nikos",
-			"makis"
-		];
-
-		trapezia = [
-			"asdjasd",
-			"askdhasjkdhad asd",
-			"sdasd asd",
-			"asjdgghasdhjgj",
-			"sd sdfsdf",
-			"asdjasd",
-			"askdhasjkdhad asd",
-			"sdasd asd",
-			"asjdgghasdhjgj",
-			"sd sdfsdf"
-		];
-
-		var html = '<div class="kafenio">';
-
-		if (isSet(pektes) && (pektes.length > 0)) {
-			html += '<div class="kafenioRebels">';
-			for (var i = 0; i < pektes.length; i++) {
-				html += Kafenio.rebelosHTML(pektes[i]);
-			}
-			html += '</div>';
-		}
-
-		for (var i = 0; i < trapezia.length; i++) {
-			html += Kafenio.trapeziHTML(trapezia[i]);
-		}
-
-		html += '</div>';
 		x.style.overflowY = 'auto';
-		x.innerHTML = html;
+		x.innerHTML = Kafenio.html;
 
 		x = getelid('partidaKafenio');
-		if (notSet(x)) {return false; }
-
-		x.innerHTML = '[&nbsp;<a href="#" onclick="return Prefadoros.showPartida();" ' +
-			'class="data" title="Εμφάνιση καφενείου">Τραπέζι</a>&nbsp;]';
+		if (isSet(x)) {
+			x.innerHTML = '[&nbsp;<a href="#" ' +
+				'onclick="return Prefadoros.showPartida();" ' +
+				'class="data" title="Εμφάνιση καφενείου">' +
+				'Τραπέζι</a>&nbsp;]';
+		}
 		return false;
 	};
 }
