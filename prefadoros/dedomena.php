@@ -9,7 +9,7 @@ class Dedomena {
 		$this->sxesi = array();
 		$this->permes = array();
 		$this->trapezi = array();
-		unset($this->partida);
+		$this->partida = NULL;
 	}
 
 	public function diavase() {
@@ -27,25 +27,16 @@ class Dedomena {
 
 		while ($line = Globals::get_line($fh)) {
 			switch ($line) {
-			case '@PARTIDA@':	$this->diavase_partida($fh); break;
 			case '@SXESI@':		$this->diavase_sxesi($fh); break;
 			case '@PERMES@':	$this->diavase_permes($fh); break;
 			case '@TRAPEZI@':	$this->diavase_trapezi($fh); break;
+			case '@PARTIDA@':	$this->diavase_partida($fh); break;
 			}
 		}
 
 		fclose($fh);
 		$globals->xeklidoma($globals->pektis->login);
 		return(TRUE);
-	}
-
-	private function diavase_partida($fh) {
-		if ($line = Globals::get_line($fh)) {
-			$this->partida = new Trapezi(FALSE);
-			if (!$this->partida->set_from_string($line)) {
-				unset($this->partida);
-			}
-		}
 	}
 
 	private function diavase_sxesi($fh) {
@@ -82,6 +73,15 @@ class Dedomena {
 		}
 	}
 
+	private function diavase_partida($fh) {
+		if ($line = Globals::get_line($fh)) {
+			$this->partida = new Partida();
+			if (!$this->partida->set_from_string($line)) {
+				$this->partida = NULL;
+			}
+		}
+	}
+
 	public function grapse() {
 		global $globals;
 
@@ -98,6 +98,7 @@ class Dedomena {
 		$this->grapse_sxesi($fh);
 		$this->grapse_permes($fh);
 		$this->grapse_trapezi($fh);
+		$this->grapse_partida($fh);
 
 		fclose($fh);
 		$globals->xeklidoma($globals->pektis->login);
@@ -128,6 +129,16 @@ class Dedomena {
 			$this->trapezi[$i]->print_raw_data($fh);
 		}
 		Globals::put_line($fh, "@END@");
+	}
+
+	private function grapse_partida($fh) {
+		global $globals;
+		if (!$globals->is_trapezi()) {
+			return;
+		}
+
+		Globals::put_line($fh, "@PARTIDA@");
+		$globals->trapezi->print_raw_data($fh);
 	}
 
 	private static function open_file($rw) {
@@ -312,6 +323,33 @@ class Dedomena {
 		}
 		print "]";
 	}
+
+	public static function partida_json_data($curr, $prev = FALSE) {
+		print ",partida:";
+		if (($prev !== FALSE) && ($prev == $curr)) {
+			print "'same'";
+			return;
+		}
+
+		print "{";
+		if (isset($curr)) {
+			print "k:" . $curr->kodikos .
+				",p1:'" . $curr->pektis1 . "'" .
+				",a1:" . $curr->apodoxi1 .
+				",o1:" . $curr->online1 .
+				",p2:'" . $curr->pektis2 . "'" .
+				",a2:" . $curr->apodoxi2 .
+				",o2:" . $curr->online2 .
+				",p3:'" . $curr->pektis3 . "'" .
+				",a3:" . $curr->apodoxi3 .
+				",o3:" . $curr->online3 .
+				",s:" . $curr->kasa .
+				",p:" . $curr->prive .
+				",t:" . $curr->pektis .
+				",h:" . $curr->thesi;
+		}
+		print "}";
+	}
 }
 
 function torina_dedomena() {
@@ -319,6 +357,7 @@ function torina_dedomena() {
 	$dedomena->sxesi = process_sxesi();
 	$dedomena->permes = process_permes();
 	$dedomena->trapezi = process_trapezi();
+	$dedomena->partida = process_partida();
 	return($dedomena);
 }
 
@@ -330,6 +369,7 @@ function freska_dedomena($dedomena) {
 	Dedomena::sxesi_json_data($dedomena->sxesi);
 	Dedomena::permes_json_data($dedomena->permes);
 	Dedomena::trapezi_json_data($dedomena->trapezi);
+	Dedomena::partida_json_data($dedomena->partida);
 }
 
 function diaforetika_dedomena($curr, $prev) {
@@ -340,5 +380,6 @@ function diaforetika_dedomena($curr, $prev) {
 	Dedomena::sxesi_json_data($curr->sxesi, $prev->sxesi);
 	Dedomena::permes_json_data($curr->permes, $prev->permes);
 	Dedomena::trapezi_json_data($curr->trapezi, $prev->trapezi);
+	Dedomena::partida_json_data($curr->partida, $prev->partida);
 }
 ?>

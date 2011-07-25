@@ -61,9 +61,9 @@ function prefadoros() {
 	<?php
 	if ($globals->is_trapezi()) {
 		?>
-		partida.kodikos = <?php print $globals->trapezi->kodikos; ?>;
-		partida.simetoxi = '<?php print $globals->trapezi->simetoxi; ?>';
-		partida.thesi = <?php print $globals->trapezi->thesi; ?>;
+		partida.k = <?php print $globals->trapezi->kodikos; ?>;
+		partida.t = <?php print ($globals->trapezi->simetoxi == 'ΠΑΙΚΤΗΣ' ? 1 : 0); ?>;
+		partida.h = <?php print $globals->trapezi->thesi; ?>;
 		<?php
 	}
 	?>

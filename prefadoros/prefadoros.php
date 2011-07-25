@@ -100,5 +100,9 @@ class Prefadoros {
 		</script>
 		<?php
 	}
+
+	public static function is_online($idle) {
+		return($idle < XRONOS_PEKTIS_IDLE_MAX);
+	}
 }
 ?>
