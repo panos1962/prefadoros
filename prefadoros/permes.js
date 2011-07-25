@@ -1,9 +1,16 @@
 var Permes = new function() {
 	this.processDedomena = function(dedomena) {
-		if (dedomena.permes === 'same') {
+		// Αν δεν υπήρξε μεταβολή στα μηνύματα, τότε έχει
+		// επιστραφεί πεδίο "permes" με τιμή "same".
+		if (isSet(permes) && (dedomena.permes === 'same')) {
 			return;
 		}
 
+		// Αν οι μόνες μεταβολές αφορούν σε νέα μηνύματα, τότε
+		// έχει επιστραφεί array "permesNew" με τα νέα μηνύματα
+		// τα οποία θα προσθέσουμε στο τέλος του υπάρχοντος array
+		// μηνυμάτων. Εφόσον έχουμε μεταβολές σε υπάρχοντα μηνύματα,
+		// έχει επιστραφεί νέο array "permes" με όλα τα μηνύματα.
 		var neaPermes = false;
 		if (isSet(dedomena.permesNew)) {
 			neaPermes = true;
