@@ -32,7 +32,8 @@ function showPartida() {
 	if (notSet(x)) { return false; }
 
 	x.style.overflowY = 'hidden';
-	x.innerHTML = '<div class="partida">' + 'ΠΑΡΤΙΔΑ' + '</div>';
+	x.innerHTML = '<div class="partida partidaTheatis">' + 'ΠΑΡΤΙΔΑ ' + partida.kodikos +
+		', ' + partida.simetoxi + ', ΘΕΣΗ ' + partida.thesi + '</div>';
 
 	x = getelid('partidaKafenio');
 	if (notSet(x)) {return false; }

@@ -21,6 +21,7 @@ $no_session = TRUE;
 
 require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
+require_once '../trapezi/trapezi.php';
 require_once '../prefadoros/sxesi.php';
 require_once '../prefadoros/permes.php';
 require_once '../prefadoros/trapezi.php';
@@ -42,6 +43,7 @@ $id = Globals::perastike_check('id');
 // ελέγχου σταπλαίσια της τρέχουσας συνεδρίας.
 Prefadoros::pektis_check(Globals::perastike_check('login'));
 $globals->pektis->poll_update($sinedria, $id);
+Prefadoros::set_trapezi();
 
 // Αν έχει περαστεί παράμετρος "feska", τότε ζητάμε όλα τα δεδομένα
 // χωρίς να μπούμε στη διαδικασία της σύγκρισης με προηγούμενα

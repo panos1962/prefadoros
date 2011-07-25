@@ -38,6 +38,11 @@
 	background-repeat: repeat;
 }
 
+.partidaTheatis {
+	border-color: #996633;
+	background-image: url('../images/theatis.jpg');
+}
+
 .kafenio {
 	font-size: 0.5cm;
 	letter-spacing: 0.01cm;

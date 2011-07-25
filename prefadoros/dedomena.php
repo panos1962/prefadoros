@@ -1,12 +1,15 @@
 <?php
 class Dedomena {
 	public $sxesi;
+	public $permes;
 	public $trapezi;
+	public $partida;
 
 	public function __construct() {
 		$this->sxesi = array();
 		$this->permes = array();
 		$this->trapezi = array();
+		unset($this->partida);
 	}
 
 	public function diavase() {
@@ -24,6 +27,7 @@ class Dedomena {
 
 		while ($line = Globals::get_line($fh)) {
 			switch ($line) {
+			case '@PARTIDA@':	$this->diavase_partida($fh); break;
 			case '@SXESI@':		$this->diavase_sxesi($fh); break;
 			case '@PERMES@':	$this->diavase_permes($fh); break;
 			case '@TRAPEZI@':	$this->diavase_trapezi($fh); break;
@@ -33,6 +37,15 @@ class Dedomena {
 		fclose($fh);
 		$globals->xeklidoma($globals->pektis->login);
 		return(TRUE);
+	}
+
+	private function diavase_partida($fh) {
+		if ($line = Globals::get_line($fh)) {
+			$this->partida = new Trapezi(FALSE);
+			if (!$this->partida->set_from_string($line)) {
+				unset($this->partida);
+			}
+		}
 	}
 
 	private function diavase_sxesi($fh) {
