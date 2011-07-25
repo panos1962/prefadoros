@@ -24,7 +24,14 @@ var Kafenio = new function() {
 			html += (t.k + '#' + t.s);
 		}
 		else {
-			html += '&nbsp;'
+			html += '<img style="width: 0.5cm;" src="' + globals.server +
+				'images/trapoula/xromaS.png" alt="" />';
+			html += '<img style="width: 0.5cm;" src="' + globals.server +
+				'images/trapoula/xromaD.png" alt="" />';
+			html += '<img style="width: 0.5cm;" src="' + globals.server +
+				'images/trapoula/xromaC.png" alt="" />';
+			html += '<img style="width: 0.5cm;" src="' + globals.server +
+				'images/trapoula/xromaH.png" alt="" />';
 		}
 		html += '</div>';
 		html += '<div class="kafenioPektis">' +
