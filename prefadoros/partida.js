@@ -24,7 +24,19 @@ var Partida = new function() {
 	};
 
 	this.noPartida = function() {
-		Partida.html = '<div class="partida"></div>';
+		Partida.html = '<div class="partida">';
+		var xroma = ['S', 'D', 'C', 'H'];
+		var rank = ['7', '8', '9', 'T', 'J', 'Q', 'K', 'A'];
+		for (var i = 0; i < 4; i++) {
+			Partida.html += '<div style="margin-top: 0.84cm;">';
+			for (var j = 0; j < 8; j++) {
+				Partida.html += '<img src="' + globals.server +
+					'images/trapoula/' + xroma[i] + rank[j] +
+					'.png" style="margin-left: 0.08cm; width: 1.6cm;" alt ="" />';
+			}
+			Partida.html += '<div>';
+		}
+		Partida.html += '</div>';
 	};
 };
 
