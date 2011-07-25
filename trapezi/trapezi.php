@@ -16,7 +16,7 @@ class Trapezi {
 	public $thesi;
 	public $error;
 
-	public function __construct() {
+	public function __construct($current = TRUE) {
 		global $globals;
 		$errmsg = "Trapezi::construct(): ";
 
@@ -35,6 +35,10 @@ class Trapezi {
 		unset($this->simetoxi);
 		unset($this->thesi);
 		unset($this->error);
+
+		if (!$curent) {
+			return;
+		}
 
 		Prefadoros::pektis_check();
 
@@ -105,12 +109,16 @@ class Trapezi {
 			}
 			else {
 				@mysqli_free_result($result);
-				$this->thesi = $row[0];
+				$this->thesi = intval($row[0]);
 				if (($this->thesi < 1) || ($this->thesi > 3)) {
 					$this->thesi = 1;
 				}
 			}
 		}
+	}
+
+	public function set_from_string($data) {
+		return(FALSE);
 	}
 
 	public function is_pektis() {
