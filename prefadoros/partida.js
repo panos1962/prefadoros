@@ -1,11 +1,16 @@
 var Partida = new function() {
-	this.processDedomena = function(dedomena) {
-		if (dedomena.partida === 'same') { return; }
-		partida = dedomena.partida;
-		Partida.updateHTML();
-	};
+	this.html = '';
 
-	this.updateHTML = function() {
-		return;
+	this.processDedomena = function(dedomena) {
+		if (dedomena.partida === 'same') { return false; }
+		partida = dedomena.partida;
+		Partida.html = '';
+		if (!isPartida()) { return true; };
+
+		Partida.html = '<div class="partida';
+		if (!partida.t) { Partida.html += ' partidaTheatis'; }
+		Partida.html += '">' + 'ΠΑΡΤΙΔΑ ' + partida.k + ', ' +
+			partida.t + ', ΘΕΣΗ ' + partida.h + '</div>';
+		return true;
 	};
 };

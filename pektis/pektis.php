@@ -68,7 +68,7 @@ class Pektis {
 	}
 
 	public function is_online() {
-		return($this->idle < XRONOS_IDLE_MAX);
+		return(Prefadoros::is_online($this->idle));
 	}
 }
 ?>

@@ -1,4 +1,4 @@
-var kafenio = new function() {
+var Kafenio = new function() {
 	this.trapeziHTML = function(t) {
 		var html = '<hr class="kafenioTrapeziLine" />';
 		html += '<div class="kafenioTrapezi">';

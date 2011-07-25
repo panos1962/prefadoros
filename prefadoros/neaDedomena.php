@@ -25,6 +25,7 @@ require_once '../trapezi/trapezi.php';
 require_once '../prefadoros/sxesi.php';
 require_once '../prefadoros/permes.php';
 require_once '../prefadoros/trapezi.php';
+require_once '../prefadoros/partida.php';
 require_once '../prefadoros/dedomena.php';
 require_once '../prefadoros/prefadoros.php';
 set_globals();
@@ -74,6 +75,8 @@ if (!$prev->diavase()) {
 // ξεκινάμε τον κύκλο ελέγχου με τα τρέχοντα στοιχεία της database.
 $ekinisi = time();
 do {
+	unset($globals->trapezi);
+	Prefadoros::set_trapezi();
 	$curr = torina_dedomena();
 	if ($curr != $prev) {
 		diaforetika_dedomena($curr, $prev);

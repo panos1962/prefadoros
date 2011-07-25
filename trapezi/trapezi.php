@@ -16,7 +16,7 @@ class Trapezi {
 	public $thesi;
 	public $error;
 
-	public function __construct($current = TRUE) {
+	public function __construct($auto = TRUE) {
 		global $globals;
 		$errmsg = "Trapezi::construct(): ";
 
@@ -36,7 +36,7 @@ class Trapezi {
 		unset($this->thesi);
 		unset($this->error);
 
-		if (!$curent) {
+		if (!$auto) {
 			return;
 		}
 
@@ -115,10 +115,6 @@ class Trapezi {
 				}
 			}
 		}
-	}
-
-	public function set_from_string($data) {
-		return(FALSE);
 	}
 
 	public function is_pektis() {
@@ -202,6 +198,23 @@ class Trapezi {
 		}
 
 		return(!$proti);
+	}
+
+	public function print_raw_data($fh) {
+		fwrite($fh, $this->kodikos . "\t" .
+			$this->pektis1 . "\t" .
+			($this->apodoxi1 == 'YES' ? 1 : 0) . "\t" .
+			(Prefadoros::is_online($this->idle1) ? 1 : 0) . "\t" .
+			$this->pektis2 . "\t" .
+			($this->apodoxi2 == 'YES' ? 1 : 0) . "\t" .
+			(Prefadoros::is_online($this->idle2) ? 1 : 0) . "\t" .
+			$this->pektis3 . "\t" .
+			($this->apodoxi3 == 'YES' ? 1 : 0) . "\t" .
+			(Prefadoros::is_online($this->idle3) ? 1 : 0) . "\t" .
+			$this->kasa . "\t" .
+			(($this->idiotikotita == 'ΠΡΙΒΕ') ? 1 : 0) . "\t" .
+			($this->is_pektis() ? 1 : 0) . "\t" .
+			$this->thesi);
 	}
 
 	public function klidoma() {
