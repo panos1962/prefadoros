@@ -245,6 +245,25 @@
 	overflow-x: hidden;
 }
 
+.prosklisiLine {
+	height: 0.75cm;
+	max-height: 0.75cm;
+}
+
+.prosklisiData {
+	display: inline-block;
+	font-weight: bold;
+	color: #003366;
+}
+
+.prosklisiIcon {
+	height: 0.7cm;
+	width: 0.66cm;
+	margin-right: 0.15cm;
+	margin-bottom: -0.2cm;
+	cursor: pointer;
+}
+
 .sxesiArea {
 	height: 4cm;
 	max-height: 4cm;

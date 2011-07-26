@@ -1,11 +1,13 @@
 <?php
 class Dedomena {
+	public $prosklisi;
 	public $sxesi;
 	public $permes;
 	public $trapezi;
 	public $partida;
 
 	public function __construct() {
+		$this->prosklisi = array();
 		$this->sxesi = array();
 		$this->permes = array();
 		$this->trapezi = array();
@@ -27,6 +29,7 @@ class Dedomena {
 
 		while ($line = Globals::get_line($fh)) {
 			switch ($line) {
+			case '@PROSKLISI@':	$this->diavase_prosklisi($fh); break;
 			case '@SXESI@':		$this->diavase_sxesi($fh); break;
 			case '@PERMES@':	$this->diavase_permes($fh); break;
 			case '@TRAPEZI@':	$this->diavase_trapezi($fh); break;
@@ -37,6 +40,20 @@ class Dedomena {
 		fclose($fh);
 		$globals->xeklidoma($globals->pektis->login);
 		return(TRUE);
+	}
+
+	private function diavase_prosklisi($fh) {
+		while ($line = Globals::get_line($fh)) {
+			if ($line === '@END@') { return; }
+
+			$p = new Prosklisi();
+			if ($p->set_from_file($line)) {
+				$this->prosklisi[] = $p;
+			}
+			else {
+				unset($p);
+			}
+		}
 	}
 
 	private function diavase_sxesi($fh) {
@@ -95,6 +112,7 @@ class Dedomena {
 			Globals::fatal('cannot write data file');
 		}
 
+		$this->grapse_prosklisi($fh);
 		$this->grapse_sxesi($fh);
 		$this->grapse_permes($fh);
 		$this->grapse_trapezi($fh);
@@ -102,6 +120,15 @@ class Dedomena {
 
 		fclose($fh);
 		$globals->xeklidoma($globals->pektis->login);
+	}
+
+	private function grapse_prosklisi($fh) {
+		Globals::put_line($fh, "@PROSKLISI@");
+		$n = count($this->prosklisi);
+		for ($i = 0; $i < $n; $i++) {
+			$this->prosklisi[$i]->print_raw_data($fh);
+		}
+		Globals::put_line($fh, "@END@");
 	}
 
 	private function grapse_sxesi($fh) {
@@ -147,6 +174,95 @@ class Dedomena {
 		$fname = '../dedomena/' . $globals->pektis->login;
 		$fh = @fopen($fname, $rw);
 		return($fh);
+	}
+
+	public static function prosklisi_json_data($curr, $prev = FALSE) {
+		if (!$prev) {
+			self::prosklisi_all_json_data($curr);
+			return;
+		}
+
+		if ($curr == $prev) {
+			print ",prosklisi:'same'";
+			return;
+		}
+
+		// Κατασκευάζω τα arrays "cdata" και "pdata" που περιέχουν τα
+		// δεδομένα των προσκλήσεων δεικτοδοτημένα με τους κωδικούς
+		// των προσκλήσεων.
+
+		$cdata = array();
+		$ncurr = count($curr);
+		for ($i = 0; $i < $ncurr; $i++) {
+			$cdata["p_" . $curr[$i]->kodikos] = &$curr[$i];
+		}
+
+		$pdata = array();
+		$nprev = count($prev);
+		for ($i = 0; $i < $nprev; $i++) {
+			$pdata["p_" . $prev[$i]->kodikos] = &$prev[$i];
+		}
+
+		// Διατρέχω τώρα παλαιά και νέα δεδομένα με σκοπό να ελέγξω
+		// τις διαφορές και να τις καταχωρήσω στα arrays "new", "mod"
+		// και "del".
+
+		$ndif = 0;
+		$new = array();
+		foreach($cdata as $kodikos => $data) {
+			if (!array_key_exists($kodikos, $pdata)) {
+				$new[] = &$cdata[$kodikos];
+				$ndif++;
+			}
+		}
+
+		$del = array();
+		foreach($pdata as $kodikos => $data) {
+			if (!array_key_exists($kodikos, $cdata)) {
+				$del[$kodikos] = TRUE;
+				$ndif++;
+			}
+		}
+
+		// Αν οι διαφορές που προέκυψαν μεταξύ παλαιών και νέων δεδομένων
+		// είναι περισσότερες από τα ίδια τα δεδομένα, τότε επιστρέφω όλα
+		// τα δεδομένα.
+
+		if ($ndif >= $ncurr) {
+			self::prosklisi_all_json_data($curr);
+			return;
+		}
+
+		if (($n = count($del)) > 0) {
+			print ",prosklisiDel:{";
+			$koma = '';
+			foreach ($del as $i => $dummy) {
+				print $koma; $koma = ",";
+				print "'" . $i . "':1";
+			}
+			print "}";
+		}
+
+		if (($n = count($new)) > 0) {
+			print ",prosklisiNew:[";
+			$koma = '';
+			for ($i = 0; $i < $n; $i++) {
+				print $koma; $koma = ",";
+				$new[$i]->json_data();
+			}
+			print "]";
+		}
+	}
+
+	private static function prosklisi_all_json_data($prosklisi) {
+		$koma = '';
+		$n = count($prosklisi);
+		print ",prosklisi:[";
+		for ($i = 0; $i < $n; $i++) {
+			print $koma; $koma = ",";
+			$prosklisi[$i]->json_data();
+		}
+		print "]";
 	}
 
 	public static function sxesi_json_data($curr, $prev = FALSE) {
@@ -354,6 +470,7 @@ class Dedomena {
 
 function torina_dedomena() {
 	$dedomena = new Dedomena();
+	$dedomena->prosklisi = process_prosklisi();
 	$dedomena->sxesi = process_sxesi();
 	$dedomena->permes = process_permes();
 	$dedomena->trapezi = process_trapezi();
@@ -366,6 +483,7 @@ function freska_dedomena($dedomena) {
 	print_epikefalida();
 	print ",freska:true}";
 
+	Dedomena::prosklisi_json_data($dedomena->prosklisi);
 	Dedomena::sxesi_json_data($dedomena->sxesi);
 	Dedomena::permes_json_data($dedomena->permes);
 	Dedomena::trapezi_json_data($dedomena->trapezi);
@@ -377,6 +495,7 @@ function diaforetika_dedomena($curr, $prev) {
 	print_epikefalida();
 	print "}";
 
+	Dedomena::prosklisi_json_data($curr->prosklisi, $prev->prosklisi);
 	Dedomena::sxesi_json_data($curr->sxesi, $prev->sxesi);
 	Dedomena::permes_json_data($curr->permes, $prev->permes);
 	Dedomena::trapezi_json_data($curr->trapezi, $prev->trapezi);

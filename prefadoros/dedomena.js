@@ -90,6 +90,7 @@ var Dedomena = new function() {
 		}
 
 		monitor.freska();
+		Prosklisi.processDedomena(dedomena);
 		Sxesi.processDedomena(dedomena);
 		Permes.processDedomena(dedomena);
 		Partida.processDedomena(dedomena);

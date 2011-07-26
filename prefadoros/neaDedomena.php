@@ -22,6 +22,7 @@ $no_session = TRUE;
 require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
 require_once '../trapezi/trapezi.php';
+require_once '../prefadoros/prosklisi.php';
 require_once '../prefadoros/sxesi.php';
 require_once '../prefadoros/permes.php';
 require_once '../prefadoros/trapezi.php';
