@@ -10,8 +10,7 @@ Page::head();
 if ($globals->is_pektis()) {
 	Page::stylesheet('prefadoros/prefadoros');
 	Page::javascript('prefadoros/dedomena');
-	Page::javascript('prefadoros/dumprsp');
-	Page::javascript('prefadoros/monitor');
+	Page::javascript('prefadoros/misc');
 	Page::javascript('prefadoros/prefadoros');
 	Page::javascript('prefadoros/partida');
 	Page::javascript('prefadoros/sxesi');
