@@ -27,12 +27,9 @@ var Partida = new function() {
 		Partida.html = '<div class="partida">';
 		Partida.html += '<div class="partidaMinima" style="margin-top: 4.2cm;">';
 
-		Partida.html += '<div><span class="epilogi" ' +
-			'title="Στήστε ένα τραπέζι για να παίξετε μια νέα παρτίδα" ' +
-			'onmouseover="epilogiFotise(this);" ' +
-			'onmouseout="epilogiXefotise(this);">';
-		Partida.html += 'ΜΙΑ ΠΡΕΦΑ, ΠΑΡΑΚΑΛΩ!';
-		Partida.html += '</span></div>';
+		Partida.html += Tools.epilogiHTML('ΜΙΑ ΠΡΕΦΑ ΠΑΡΑΚΑΛΩ!',
+			'alert(\'asdasd\')',
+			'Στήστε ένα τραπέζι για να παίξετε μια νέα παρτίδα');
 
 		Partida.html += '<div style="width: 80%; margin-left: auto; ' +
 			'margin-right: auto; margin-top: 0.6cm;">';

@@ -100,14 +100,3 @@ var Prefadoros = new function() {
 function isPartida() {
 	return(isSet(partida) && isSet(partida.k));
 }
-
-function epilogiFotise(div) {
-	div.style.borderStyle = 'outset';
-	div.prevBC = div.style.backgroundColor;
-	div.style.backgroundColor = '#FFFF00';
-}
-
-function epilogiXefotise(div) {
-	div.style.borderStyle = 'solid';
-	div.style.backgroundColor = div.prevBC;
-}
