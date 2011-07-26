@@ -44,7 +44,8 @@ class Prosklisi {
 
 	public function json_data() {
 		print "{k:" . $this->kodikos . ",a:'" . $this->pios .
-			"',p:'" . $this->pion . "',s:" . $this->pote . "}";
+			"',p:'" . $this->pion . "',t:" . $this->trapezi .
+			",s:" . $this->pote . "}";
 	}
 }
 
