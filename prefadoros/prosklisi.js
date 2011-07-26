@@ -56,7 +56,6 @@ var Prosklisi = new function() {
 		var x = getelid('prosklisiArea');
 		if (notSet(x)) { return; }
 
-mainFyi('asdasda');
 		var html = '';
 		if (isSet(prosklisi)) {
 			for (var i = 0; i < prosklisi.length; i++) {
