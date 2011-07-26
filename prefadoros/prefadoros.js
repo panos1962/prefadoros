@@ -44,10 +44,6 @@ function diafimisiSetup() {
 	}, globals.duration.diafimisi);
 }
 
-function isPartida() {
-	return(isSet(partida) && isSet(partida.k));
-}
-
 var Prefadoros = new function() {
 	var show = null;
 
@@ -99,4 +95,19 @@ var Prefadoros = new function() {
 		}
 		return false;
 	};
+}
+
+function isPartida() {
+	return(isSet(partida) && isSet(partida.k));
+}
+
+function epilogiFotise(div) {
+	div.style.borderStyle = 'outset';
+	div.prevBC = div.style.backgroundColor;
+	div.style.backgroundColor = '#FFFF00';
+}
+
+function epilogiXefotise(div) {
+	div.style.borderStyle = 'solid';
+	div.style.backgroundColor = div.prevBC;
 }
