@@ -12,9 +12,10 @@ if ($globals->is_pektis()) {
 	Page::javascript('prefadoros/dedomena');
 	Page::javascript('prefadoros/misc');
 	Page::javascript('prefadoros/prefadoros');
-	Page::javascript('prefadoros/partida');
+	Page::javascript('prefadoros/prosklisi');
 	Page::javascript('prefadoros/sxesi');
 	Page::javascript('prefadoros/permes');
+	Page::javascript('prefadoros/partida');
 	Page::javascript('prefadoros/kafenio');
 	Page::javascript('lib/controlPanel');
 	Page::javascript('lib/pss');
