@@ -46,7 +46,7 @@ var Kafenio = new function() {
 
 	this.adio = function() {
 		Kafenio.html = '<div class="kafenio">';
-		Kafenio.html += '<div style="margin-bottom: 0.4cm;">' +
+		Kafenio.html += '<div style="padding: 0.4cm;">' +
 			Tools.miaPrefaHTML() + '</div>';
 		var trapezi = {k:null,s:null,p1:null,p2:null,p3:null};
 		for (var i = 0; i < 6; i++) {
