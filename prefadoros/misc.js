@@ -132,4 +132,25 @@ var Tools = new function() {
 		div.style.borderStyle = 'solid';
 		div.style.backgroundColor = div.prevBC;
 	};
+
+	this.xromataHTML = function(w) {
+		if (notSet(w)) { w = '0.5cm'; }
+		var html = '';
+		var beg = '<img style="width:' + w + ';" src="' +
+			globals.server + 'images/trapoula/xroma';
+		var end = '.png" alt="" />';
+
+		html += beg + 'S' + end;
+		html += beg + 'D' + end;
+		html += beg + 'C' + end;
+		html += beg + 'H' + end;
+
+		return html;
+	};
+
+	this.miaPrefaHTML = function() {
+		return '<div style="text-align: center;">' +
+			Tools.epilogiHTML('ΜΙΑ ΠΡΕΦΑ ΠΑΡΑΚΑΛΩ!', 'Partida.neaPartida();',
+			'Στήστε ένα τραπέζι για να παίξετε μια νέα παρτίδα') + '</div>';
+	};
 }

@@ -24,14 +24,7 @@ var Kafenio = new function() {
 			html += (t.k + '#' + t.s);
 		}
 		else {
-			html += '<img style="width: 0.5cm;" src="' + globals.server +
-				'images/trapoula/xromaS.png" alt="" />';
-			html += '<img style="width: 0.5cm;" src="' + globals.server +
-				'images/trapoula/xromaD.png" alt="" />';
-			html += '<img style="width: 0.5cm;" src="' + globals.server +
-				'images/trapoula/xromaC.png" alt="" />';
-			html += '<img style="width: 0.5cm;" src="' + globals.server +
-				'images/trapoula/xromaH.png" alt="" />';
+			html += Tools.xromataHTML('0.5cm');
 		}
 		html += '</div>';
 		html += '<div class="kafenioPektis">' +
@@ -53,8 +46,10 @@ var Kafenio = new function() {
 
 	this.adio = function() {
 		Kafenio.html = '<div class="kafenio">';
+		Kafenio.html += '<div style="margin-bottom: 0.4cm;">' +
+			Tools.miaPrefaHTML() + '</div>';
 		var trapezi = {k:null,s:null,p1:null,p2:null,p3:null};
-		for (var i = 0; i < 7; i++) {
+		for (var i = 0; i < 6; i++) {
 			Kafenio.html += Kafenio.trapeziHTML(trapezi);
 		}
 		Kafenio.html += '</div>';

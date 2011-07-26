@@ -25,21 +25,21 @@ var Partida = new function() {
 
 	this.noPartida = function() {
 		Partida.html = '<div class="partida">';
-		Partida.html += '<div class="partidaMinima" style="margin-top: 4.2cm;">';
-
-		Partida.html += Tools.epilogiHTML('ΜΙΑ ΠΡΕΦΑ ΠΑΡΑΚΑΛΩ!',
-			'alert(\'asdasd\')',
-			'Στήστε ένα τραπέζι για να παίξετε μια νέα παρτίδα');
-
+		Partida.html += '<div class="partidaMinima" style="margin-top: 1.8cm;">';
+		Partida.html += '<div style="padding: 0.6cm;">' + Tools.xromataHTML('1.2cm') + '</div>';
+		Partida.html += Tools.miaPrefaHTML();
 		Partida.html += '<div style="width: 80%; margin-left: auto; ' +
 			'margin-right: auto; margin-top: 0.6cm;">';
 		Partida.html += 'Μπορείτε να παραγγείλετε μια πρέφα ' +
 			'και μετά να καλέσετε τους φίλους σας στο τραπέζι. ' +
 			'Καλή διασκέδαση!';
 		Partida.html += '</div>';
+		Partida.html += '</div>';
+		Partida.html += '</div>';
+	};
 
-		Partida.html += '</div>';
-		Partida.html += '</div>';
+	this.neaPartida = function() {
+		mainFyi('νέα παρτίδα: δεν έχει γίνει ακόμη');
 	};
 };
 
