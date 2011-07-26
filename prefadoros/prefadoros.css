@@ -246,8 +246,9 @@
 }
 
 .prosklisiLine {
-	height: 0.75cm;
-	max-height: 0.75cm;
+	height: 0.76cm;
+	max-height: 0.76cm;
+	min-height: 0.76cm;
 }
 
 .prosklisiData {
@@ -256,11 +257,16 @@
 	color: #003366;
 }
 
+.prosklisiApo {
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+}
+
 .prosklisiIcon {
 	height: 0.7cm;
 	width: 0.66cm;
-	margin-right: 0.15cm;
-	margin-bottom: -0.2cm;
+	margin-right: 0.16cm;
+	margin-bottom: -0.23cm;
 	cursor: pointer;
 }
 
