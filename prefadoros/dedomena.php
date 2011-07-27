@@ -464,7 +464,7 @@ class Dedomena {
 				",a3:" . $curr->apodoxi3 .
 				",s:" . $curr->kasa .
 				",p:" . $curr->prive .
-				",t:" . $curr->pektis .
+				",t:" . $curr->theatis .
 				",h:" . $curr->thesi;
 		}
 		print "}";

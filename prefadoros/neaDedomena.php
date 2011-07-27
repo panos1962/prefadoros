@@ -94,7 +94,7 @@ do {
 	// στοιχείων.
 	if ((time() - $ekinisi) > XRONOS_DEDOMENA_MAX) {
 		print_epikefalida();
-		print ",same:true}";
+		print ",s:1}";
 		die(0);
 	}
 

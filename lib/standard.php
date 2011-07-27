@@ -13,6 +13,12 @@ define('XRONOS_PEKTIS_IDLE_MAX', (XRONOS_DEDOMENA_MAX * 1.5));
 // μέγιστο επιτρεπτό διάστημα μεταξύ απαντήσεων από τον server σε milliseconds.
 define('XRONOS_NO_ANSWER_MAX', ((XRONOS_DEDOMENA_MAX + 5) * 1000));
 
+// διάστημα στο οποίο ελέγχεται το φαινόμενο πολυβόλου σε milliseconds.
+define('XRONOS_POLIVOLO', 2000);
+
+// μέγιστος αριθμός δεκτών απαντήσεων σε διάστημα πολυβόλου.
+define('MAX_POLIVOLO', 10);
+
 if (isset($no_session)) {
 	$_SESSION = array();
 	$_SESSION['ps_login'] = $_REQUEST['login'];

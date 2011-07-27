@@ -90,12 +90,12 @@ class Prefadoros {
 	public static function set_params() {
 		?>
 		<script type="text/javascript">
-			var xronos = {
-				dedomena: {
-					max:		<?php print XRONOS_DEDOMENA_MAX; ?>,
-					tic:		<?php print XRONOS_DEDOMENA_TIC; ?>,
-					namax:		<?php print XRONOS_NO_ANSWER_MAX; ?>
-				}
+			var parameters = {
+				xronosMax:		<?php print XRONOS_DEDOMENA_MAX; ?>,
+				dedomenaTic:		<?php print XRONOS_DEDOMENA_TIC; ?>,
+				noAnswerMax:		<?php print XRONOS_NO_ANSWER_MAX; ?>,
+				xronosPolivolo:		<?php print XRONOS_POLIVOLO; ?>,
+				maxPolivolo:		<?php print MAX_POLIVOLO; ?>
 			};
 		</script>
 		<?php

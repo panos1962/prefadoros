@@ -42,7 +42,7 @@ class Partida {
 		$this->apodoxi3 = intval($cols[$nf++]);
 		$this->kasa = intval($cols[$nf++]);
 		$this->prive = intval($cols[$nf++]);
-		$this->pektis = intval($cols[$nf++]);
+		$this->theatis = intval($cols[$nf++]);
 		$this->thesi = intval($cols[$nf++]);
 		return(TRUE);
 	}
@@ -65,7 +65,7 @@ function process_partida() {
 	$p->apodoxi3 = ($globals->trapezi->apodoxi3 == 'YES' ? 1 : 0);
 	$p->kasa = intval($globals->trapezi->kasa);
 	$p->prive = ($globals->trapezi->idiotikotita == 'ΠΡΙΒΕ' ? 1 : 0);
-	$p->pektis = ($globals->trapezi->is_pektis() ? 1 : 0);
+	$p->theatis = ($globals->trapezi->is_pektis() ? 0 : 1);
 	$p->thesi = intval($globals->trapezi->thesi);
 	return($p);
 }
