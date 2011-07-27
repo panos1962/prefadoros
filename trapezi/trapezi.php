@@ -3,13 +3,10 @@ class Trapezi {
 	public $kodikos;
 	public $pektis1;
 	public $apodoxi1;
-	public $idle1;
 	public $pektis2;
 	public $apodoxi2;
-	public $idle2;
 	public $pektis3;
 	public $apodoxi3;
-	public $idle3;
 	public $kasa;
 	public $idiotikotita;
 	public $simetoxi;
@@ -23,13 +20,10 @@ class Trapezi {
 		unset($this->kodikos);
 		unset($this->pektis1);
 		unset($this->apodoxi1);
-		unset($this->idle1);
 		unset($this->pektis2);
 		unset($this->apodoxi2);
-		unset($this->idle2);
 		unset($this->pektis3);
 		unset($this->apodoxi3);
-		unset($this->idle3);
 		unset($this->kasa);
 		unset($this->idiotikotita);
 		unset($this->simetoxi);
@@ -50,11 +44,7 @@ class Trapezi {
 		// εφόσον, φυσικά, το επιθυμεί.
 
 		$login = $globals->asfales($globals->pektis->login);
-		$select = "SELECT `κωδικός`, " .
-			"`παίκτης1`, `αποδοχή1`, UNIX_TIMESTAMP(`poll1`) AS `poll1`, " .
-			"`παίκτης2`, `αποδοχή2`, UNIX_TIMESTAMP(`poll2`) AS `poll2`, " .
-			"`παίκτης3`, `αποδοχή3`, UNIX_TIMESTAMP(`poll3`) AS `poll3`, " .
-			"`κάσα`, `ιδιωτικότητα` FROM `τραπέζι` ";
+		$select = "SELECT * FROM `τραπέζι` ";
 		$order = "AND (`τέλος` IS NULL) ORDER BY `κωδικός` DESC LIMIT 1";
 		$query = $select . "WHERE ((`παίκτης1` LIKE '" . $login . "') " .
 			"OR (`παίκτης2` LIKE '" . $login . "') " .
@@ -79,13 +69,10 @@ class Trapezi {
 		$this->kodikos = $row['κωδικός'];
 		$this->pektis1 = $row['παίκτης1'];
 		$this->apodoxi1 = $row['αποδοχή1'];
-		$this->idle1 = (is_numeric($row['poll1']) ? $tora - $row['poll1'] : $tora);
 		$this->pektis2 = $row['παίκτης2'];
 		$this->apodoxi2 = $row['αποδοχή2'];
-		$this->idle2 = (is_numeric($row['poll2']) ? $tora - $row['poll2'] : $tora);
 		$this->pektis3 = $row['παίκτης3'];
 		$this->apodoxi3 = $row['αποδοχή3'];
-		$this->idle3 = (is_numeric($row['poll3']) ? $tora - $row['poll3'] : $tora);
 		$this->kasa = $row['κάσα'];
 		$this->idiotikotita = $row['ιδιωτικότητα'];
 		$this->simetoxi = 'ΠΑΙΚΤΗΣ';
@@ -201,16 +188,13 @@ class Trapezi {
 	}
 
 	public function print_raw_data($fh) {
-		fwrite($fh, $this->kodikos . "\t" .
+		Globals::put_line($fh, $this->kodikos . "\t" .
 			$this->pektis1 . "\t" .
 			($this->apodoxi1 == 'YES' ? 1 : 0) . "\t" .
-			(Prefadoros::is_online($this->idle1) ? 1 : 0) . "\t" .
 			$this->pektis2 . "\t" .
 			($this->apodoxi2 == 'YES' ? 1 : 0) . "\t" .
-			(Prefadoros::is_online($this->idle2) ? 1 : 0) . "\t" .
 			$this->pektis3 . "\t" .
 			($this->apodoxi3 == 'YES' ? 1 : 0) . "\t" .
-			(Prefadoros::is_online($this->idle3) ? 1 : 0) . "\t" .
 			$this->kasa . "\t" .
 			(($this->idiotikotita == 'ΠΡΙΒΕ') ? 1 : 0) . "\t" .
 			($this->is_pektis() ? 1 : 0) . "\t" .

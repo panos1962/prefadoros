@@ -7,11 +7,11 @@ class Dedomena {
 	public $partida;
 
 	public function __construct() {
+		$this->partida = NULL;
 		$this->prosklisi = array();
 		$this->sxesi = array();
 		$this->permes = array();
 		$this->trapezi = array();
-		$this->partida = NULL;
 	}
 
 	public function diavase() {
@@ -29,17 +29,26 @@ class Dedomena {
 
 		while ($line = Globals::get_line($fh)) {
 			switch ($line) {
+			case '@PARTIDA@':	$this->diavase_partida($fh); break;
 			case '@PROSKLISI@':	$this->diavase_prosklisi($fh); break;
 			case '@SXESI@':		$this->diavase_sxesi($fh); break;
 			case '@PERMES@':	$this->diavase_permes($fh); break;
 			case '@TRAPEZI@':	$this->diavase_trapezi($fh); break;
-			case '@PARTIDA@':	$this->diavase_partida($fh); break;
 			}
 		}
 
 		fclose($fh);
 		$globals->xeklidoma($globals->pektis->login);
 		return(TRUE);
+	}
+
+	private function diavase_partida($fh) {
+		if ($line = Globals::get_line($fh)) {
+			$this->partida = new Partida();
+			if (!$this->partida->set_from_string($line)) {
+				$this->partida = NULL;
+			}
+		}
 	}
 
 	private function diavase_prosklisi($fh) {
@@ -90,15 +99,6 @@ class Dedomena {
 		}
 	}
 
-	private function diavase_partida($fh) {
-		if ($line = Globals::get_line($fh)) {
-			$this->partida = new Partida();
-			if (!$this->partida->set_from_string($line)) {
-				$this->partida = NULL;
-			}
-		}
-	}
-
 	public function grapse() {
 		global $globals;
 
@@ -112,14 +112,24 @@ class Dedomena {
 			Globals::fatal('cannot write data file');
 		}
 
+		$this->grapse_partida($fh);
 		$this->grapse_prosklisi($fh);
 		$this->grapse_sxesi($fh);
 		$this->grapse_permes($fh);
 		$this->grapse_trapezi($fh);
-		$this->grapse_partida($fh);
 
 		fclose($fh);
 		$globals->xeklidoma($globals->pektis->login);
+	}
+
+	private function grapse_partida($fh) {
+		global $globals;
+		if (!$globals->is_trapezi()) {
+			return;
+		}
+
+		Globals::put_line($fh, "@PARTIDA@");
+		$globals->trapezi->print_raw_data($fh);
 	}
 
 	private function grapse_prosklisi($fh) {
@@ -158,16 +168,6 @@ class Dedomena {
 		Globals::put_line($fh, "@END@");
 	}
 
-	private function grapse_partida($fh) {
-		global $globals;
-		if (!$globals->is_trapezi()) {
-			return;
-		}
-
-		Globals::put_line($fh, "@PARTIDA@");
-		$globals->trapezi->print_raw_data($fh);
-	}
-
 	private static function open_file($rw) {
 		global $globals;
 
@@ -193,13 +193,13 @@ class Dedomena {
 		$cdata = array();
 		$ncurr = count($curr);
 		for ($i = 0; $i < $ncurr; $i++) {
-			$cdata["p_" . $curr[$i]->kodikos] = &$curr[$i];
+			$cdata["p" . $curr[$i]->kodikos] = &$curr[$i];
 		}
 
 		$pdata = array();
 		$nprev = count($prev);
 		for ($i = 0; $i < $nprev; $i++) {
-			$pdata["p_" . $prev[$i]->kodikos] = &$prev[$i];
+			$pdata["p" . $prev[$i]->kodikos] = &$prev[$i];
 		}
 
 		// Διατρέχω τώρα παλαιά και νέα δεδομένα με σκοπό να ελέγξω
@@ -458,13 +458,10 @@ class Dedomena {
 			print "k:" . $curr->kodikos .
 				",p1:'" . $curr->pektis1 . "'" .
 				",a1:" . $curr->apodoxi1 .
-				",o1:" . $curr->online1 .
 				",p2:'" . $curr->pektis2 . "'" .
 				",a2:" . $curr->apodoxi2 .
-				",o2:" . $curr->online2 .
 				",p3:'" . $curr->pektis3 . "'" .
 				",a3:" . $curr->apodoxi3 .
-				",o3:" . $curr->online3 .
 				",s:" . $curr->kasa .
 				",p:" . $curr->prive .
 				",t:" . $curr->pektis .

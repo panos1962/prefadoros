@@ -77,7 +77,8 @@ var Dedomena = new function() {
 			return;
 		}
 
-		if ((dedomena.sinedria.k < sinedria.kodikos) || (dedomena.sinedria.i < sinedria.id)) {
+		if ((dedomena.sinedria.k < sinedria.kodikos) ||
+			(dedomena.sinedria.i < sinedria.id)) {
 			monitor.ignore();
 			return;
 		}
@@ -90,10 +91,11 @@ var Dedomena = new function() {
 		}
 
 		monitor.freska();
+alert(dedomena.sinedria.f);
+		Partida.processDedomena(dedomena);
 		Prosklisi.processDedomena(dedomena);
 		Sxesi.processDedomena(dedomena);
 		Permes.processDedomena(dedomena);
-		Partida.processDedomena(dedomena);
 		Prefadoros.display();
 		Dedomena.schedule();
 	};
