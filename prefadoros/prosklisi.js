@@ -38,7 +38,7 @@ var Prosklisi = new function() {
 		if (isSet(dedomena.prosklisiDel)) { playSound('skisimo'); }
 		for (var i = 0; i < prosklisi.length; i++) {
 			if (isSet(dedomena.prosklisiDel) &&
-				(('p_' + prosklisi[i].k) in dedomena.prosklisiDel)) {
+				(('p' + prosklisi[i].k) in dedomena.prosklisiDel)) {
 				continue;
 			}
 

@@ -5,19 +5,16 @@ CREATE TABLE `τραπέζι` (
 		'NO',
 		'YES'
 	)		NOT NULL DEFAULT 'NO' COMMENT 'Αποδοχή όρων από τον πρώτο παίκτη',
-	`poll1`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Τελευταία επαφή πρώτου παίκτη',
 	`παίκτης2`	CHARACTER(32) NULL DEFAULT NULL COMMENT 'Δεύτερος παίκτης',
 	`αποδοχή2`	ENUM(
 		'NO',
 		'YES'
 	)		NOT NULL DEFAULT 'NO' COMMENT 'Αποδοχή όρων από τον δεύτερο παίκτη',
-	`poll2`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Τελευταία επαφή δεύτερου παίκτη',
 	`παίκτης3`	CHARACTER(32) NULL DEFAULT NULL COMMENT 'Τρίτος παίκτης',
 	`αποδοχή3`	ENUM(
 		'NO',
 		'YES'
 	)		NOT NULL DEFAULT 'NO' COMMENT 'Αποδοχή όρων από τον τρίτο παίκτη',
-	`poll3`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Τελευταία επαφή τρίτου παίκτη',
 	`κάσα`		INTEGER(4) NOT NULL DEFAULT 50 COMMENT 'Ποσό κάσας',
 	`ιδωτικότητα`	ENUM(
 		'ΠΡΙΒΕ',
