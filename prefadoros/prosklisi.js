@@ -81,8 +81,8 @@ var Prosklisi = new function() {
 			html += '<span>προς <div class="prosklisiData">' + prosklisi[i].p + '</div>';
 		}
 		else {
-			var apodoxi = ' title="Αποδοχή πρόσκλησης" onclick="Prosklisi.apodoxi(' +
-				prosklisi[i].k + ');" ';
+			var apodoxi = ' title="Αποδοχή πρόσκλησης (' + strPote(prosklisi[i].s) +
+				')" onclick="Prosklisi.apodoxi(' + prosklisi[i].k + ');" ';
 			html += '<img class="prosklisiIcon" src="' + globals.server +
 				'images/prosEmena.png"' + apodoxi + 'alt="" />';
 			html += '<img class="prosklisiIcon" src="' + globals.server +
