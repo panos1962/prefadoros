@@ -5,16 +5,12 @@ var Sxesi = new function() {
 	// δεδομένα που επετράφησαν από τον server.
 
 	this.processDedomena = function(dedomena) {
-		if (isSet(dedomena.sxesi)) {
-			// Αν στο πεδίο "sxesi" έχουμε τιμή το string "same", τότε
-			// σημαίνει ότι δεν έχει αλλάξει κάτι.
-			if (dedomena.sxesi === 'same') {
-				return;
-			}
+		if (notSet(dedomena.sxesi) && notSet(dedomena.sxesiNew) &&
+			notSet(dedomena.sxesiMod) && notSet(dedomena.sxesiDel)) {
+			return;
+		}
 
-			// Αλλιώς στο πεδίο "sxesi" έχει επιστραφεί το array των δεδομένων
-			// παικτών/σχέσεων, οπότε το βάζουμε στο σχετικό global array
-			// και επαναδιαμορφώνουμε το σχετικό εδάφιο της οθόνης.
+		if (isSet(dedomena.sxesi)) {
 			sxesi = dedomena.sxesi;
 			Sxesi.updateHTML();
 			return;

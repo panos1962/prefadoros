@@ -1,8 +1,6 @@
 var Permes = new function() {
 	this.processDedomena = function(dedomena) {
-		// Αν δεν υπήρξε μεταβολή στα μηνύματα, τότε έχει
-		// επιστραφεί πεδίο "permes" με τιμή "same".
-		if (isSet(permes) && (dedomena.permes === 'same')) {
+		if (notSet(dedomena.permes) && notSet(dedomena.permesNew)) {
 			return;
 		}
 
@@ -18,7 +16,7 @@ var Permes = new function() {
 				permes[permes.length] = dedomena.permesNew[i];
 			}
 		}
-		else {
+		else if (isSet(dedomena.permes)) {
 			if (permes.length <= 0) {
 				if (dedomena.permes.length > 0) {
 					neaPermes = true;

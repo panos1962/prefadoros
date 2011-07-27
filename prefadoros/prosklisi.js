@@ -5,16 +5,12 @@ var Prosklisi = new function() {
 	// δεδομένα που επετράφησαν από τον server.
 
 	this.processDedomena = function(dedomena) {
-		if (isSet(dedomena.prosklisi)) {
-			// Αν στο πεδίο "prosklisi" έχουμε τιμή το string "same", τότε
-			// σημαίνει ότι δεν έχει αλλάξει κάτι.
-			if (dedomena.prosklisi === 'same') {
-				return;
-			}
+		if (notSet(dedomena.prosklisi) && notSet(dedomena.prosklisiNew) &&
+			notSet(dedomena.prosklisiDel)) {
+			return;
+		}
 
-			// Αλλιώς στο πεδίο "prosklisi" έχει επιστραφεί το array των δεδομένων
-			// προσκλήσεων οπότε το βάζουμε στο σχετικό global array
-			// και επαναδιαμορφώνουμε το σχετικό εδάφιο της οθόνης.
+		if (isSet(dedomena.prosklisi)) {
 			prosklisi = dedomena.prosklisi;
 			Prosklisi.updateHTML();
 			return;
