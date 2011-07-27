@@ -80,7 +80,7 @@ var Prosklisi = new function() {
 			html += '<img class="prosklisiIcon" src="' + globals.server +
 				'images/apoMena.png" style="cursor: default;" alt="" />';
 			html += '<img class="prosklisiIcon" src="' + globals.server +
-				'images/Xred.png" onclick="Prosklisi.skisimo(' +
+				'images/Xgreen.png" onclick="Prosklisi.skisimo(' +
 				prosklisi[i].k + ');" title="Ανάκληση πρόσκλησης" alt="" />';
 			html += '<span>προς <div class="prosklisiData">' + prosklisi[i].p + '</div>';
 		}
@@ -91,7 +91,7 @@ var Prosklisi = new function() {
 				'images/prosEmena.png"' + apodoxi + 'alt="" />';
 			html += '<img class="prosklisiIcon" src="' + globals.server +
 				'images/Xred.png" onclick="Prosklisi.skisimo(' +
-				prosklisi[i].k + ');" title="Απόρριψη πρόσκλησης" alt="" />';
+				prosklisi[i].k + ', true);" title="Απόρριψη πρόσκλησης" alt="" />';
 			html += '<span' + apodoxi + 'style="cursor: pointer;">' +
 				'από <div class="prosklisiData">' + prosklisi[i].a + '</div>';
 		}
@@ -106,7 +106,12 @@ var Prosklisi = new function() {
 		mainFyi('αποδοχή πρόσκλησης ' + k);
 	};
 
-	this.skisimo = function(k) {
+	this.skisimo = function(k, cfrm) {
+		if (isSet(cfrm) && cfrm &&
+			(!confirm('Θέλετε πράγματι να απορρίψετε την πρόσκληση;'))) {
+			return;
+		}
+
 		mainFyi('σκίσιμο πρόσκλησης ' + k);
 	};
 };
