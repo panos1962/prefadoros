@@ -1,6 +1,8 @@
 var Dedomena = new function() {
 	var lastDataTS = 0;
 	var sessionAliveTS = 0;
+	var polivoloTS = 0;
+	var polivolo = 0;
 
 	this.setup = function() {
 		sessionAliveTS = (lastDataTS = currentTimestamp());
@@ -18,7 +20,7 @@ var Dedomena = new function() {
 	// που επιστρέφονται δεδομένα από τον server καρατάμε το χρόνο στη
 	// μεταβλητή "lastDataTS" (σε milliseconds). Η "keepAlive" ελέγχει αν
 	// ο χρόνος που έχει παρέλθει από την τελευταία παραλαβή, έχει υπερβεί
-	// τον μέγιστο επιτρεπτό χρόνο απραξίας ("xronos.dedomena.namax"), και
+	// τον μέγιστο επιτρεπτό χρόνο απραξίας ("parameters.noAnswerMax"), και
 	// αν όντως έχει συμβεί αυτό, επαναδρομολογεί νέο αίτημα ενημέρωσης.
 	// Παράλληλα, ανανεώνεται το session, καθώς μπορεί ο χρήστης μπορεί
 	// να μην έχει επικοινωνία με τον server για μεγάλα χρονικά διαστήματα,
@@ -28,12 +30,12 @@ var Dedomena = new function() {
 	this.checkAlive = function() {
 		var tora = currentTimestamp();
 		var elapsed = tora - lastDataTS;
-		if (elapsed > xronos.dedomena.namax) {
+		if (elapsed > parameters.noAnswerMax) {
 			monitor.lathos();
 			mainFyi('regular polling cycle recycled');
 			Dedomena.schedule(true);
 		}
-		var epomeno = xronos.dedomena.namax - elapsed;
+		var epomeno = parameters.noAnswerMax - elapsed;
 		if (epomeno < 1000) { epomeno = 1000 }
 		setTimeout(Dedomena.checkAlive, epomeno);
 
@@ -83,8 +85,29 @@ var Dedomena = new function() {
 			return;
 		}
 
-		lastDataTS = currentTimestamp();
-		if (isSet(dedomena.sinedria.same)) {
+		var tora = currentTimestamp();
+		lastDataTS = tora;
+		if (polivoloTS == 0) {
+			polivoloTS = tora;
+		}
+		else if ((tora - polivoloTS) < parameters.xronosPolivolo) {
+			if (polivolo++ > parameters.maxPolivolo) {
+				if (!confirm('ΠΡΟΣΟΧΗ: επαναλαμβανόμενες κλήσεις. ' +
+					'Να συνεχίσω τις προσπάθειες;')) {
+					location.href = globals.server + 'error.php?minima=' +
+						uri('Επαναλαμβανόμενες κλήσεις!');
+					return;
+				}
+				polivoloTS = currentTimestamp();
+				polivolo = 0;
+				
+			}
+		}
+		else {
+			polivoloTS = tora;
+			polivolo = 0;
+		}
+		if (isSet(dedomena.sinedria.s)) {
 			monitor.idia();
 			Dedomena.schedule();
 			return;

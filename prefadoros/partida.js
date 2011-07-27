@@ -18,7 +18,7 @@ var Partida = new function() {
 		}
 
 		Partida.html = '<div class="partida';
-		if (!partida.t) { Partida.html += ' partidaTheatis'; }
+		if (partida.t) { Partida.html += ' partidaTheatis'; }
 		Partida.html += '">' + 'ΠΑΡΤΙΔΑ ' + partida.k + ', ' +
 			partida.t + ', ΘΕΣΗ ' + partida.h + '</div>';
 	};

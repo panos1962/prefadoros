@@ -197,7 +197,7 @@ class Trapezi {
 			($this->apodoxi3 == 'YES' ? 1 : 0) . "\t" .
 			$this->kasa . "\t" .
 			(($this->idiotikotita == 'ΠΡΙΒΕ') ? 1 : 0) . "\t" .
-			($this->is_pektis() ? 1 : 0) . "\t" .
+			($this->is_pektis() ? 0 : 1) . "\t" .
 			$this->thesi);
 	}
 
