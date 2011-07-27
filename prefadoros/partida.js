@@ -7,13 +7,13 @@ var Partida = new function() {
 	// παρτίδας, ακόμη και αν αυτό είναι κενό.
 
 	this.processDedomena = function(dedomena) {
-		if (notSet(dedomena.pardtida) || (dedomena.partida === 'same')) {
+		if (notSet(dedomena.partida)) {
 			return;
 		}
 
 		partida = dedomena.partida;
-		Partida.html = 'Δεν υφίσταται παρτίδα';
 		if (!isPartida()) {
+			Partida.html = 'Δεν υφίσταται παρτίδα';
 			return;
 		}
 

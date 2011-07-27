@@ -91,7 +91,6 @@ var Dedomena = new function() {
 		}
 
 		monitor.freska();
-alert(dedomena.sinedria.f);
 		Partida.processDedomena(dedomena);
 		Prosklisi.processDedomena(dedomena);
 		Sxesi.processDedomena(dedomena);
