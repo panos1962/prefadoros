@@ -177,7 +177,7 @@ class Dedomena {
 	}
 
 	public static function prosklisi_json_data($curr, $prev = FALSE) {
-		if (!$prev) {
+		if ($prev === FALSE) {
 			self::prosklisi_all_json_data($curr);
 			return;
 		}
@@ -265,7 +265,7 @@ class Dedomena {
 	}
 
 	public static function sxesi_json_data($curr, $prev = FALSE) {
-		if (!$prev) {
+		if ($prev === FALSE) {
 			self::sxesi_all_json_data($curr);
 			return;
 		}
@@ -368,7 +368,7 @@ class Dedomena {
 	}
 
 	public static function permes_json_data($curr, $prev = FALSE) {
-		if (!$prev) {
+		if ($prev === FALSE) {
 			self::permes_all_json_data($curr);
 			return;
 		}
@@ -427,7 +427,7 @@ class Dedomena {
 	}
 
 	public static function trapezi_json_data($curr, $prev = FALSE) {
-		if (!$prev) {
+		if ($prev === FALSE) {
 			self::trapezi_all_json_data($curr);
 			return;
 		}
