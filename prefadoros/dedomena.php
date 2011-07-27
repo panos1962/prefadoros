@@ -487,13 +487,13 @@ function torina_dedomena() {
 function freska_dedomena($dedomena) {
 	$dedomena->grapse();
 	print_epikefalida();
-	print ",freska:true}";
+	print ",f:1}";
 
+	Dedomena::partida_json_data($dedomena->partida);
 	Dedomena::prosklisi_json_data($dedomena->prosklisi);
 	Dedomena::sxesi_json_data($dedomena->sxesi);
 	Dedomena::permes_json_data($dedomena->permes);
 	Dedomena::trapezi_json_data($dedomena->trapezi);
-	Dedomena::partida_json_data($dedomena->partida);
 }
 
 function diaforetika_dedomena($curr, $prev) {
@@ -501,10 +501,10 @@ function diaforetika_dedomena($curr, $prev) {
 	print_epikefalida();
 	print "}";
 
+	Dedomena::partida_json_data($curr->partida, $prev->partida);
 	Dedomena::prosklisi_json_data($curr->prosklisi, $prev->prosklisi);
 	Dedomena::sxesi_json_data($curr->sxesi, $prev->sxesi);
 	Dedomena::permes_json_data($curr->permes, $prev->permes);
 	Dedomena::trapezi_json_data($curr->trapezi, $prev->trapezi);
-	Dedomena::partida_json_data($curr->partida, $prev->partida);
 }
 ?>
