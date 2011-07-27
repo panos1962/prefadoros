@@ -183,7 +183,6 @@ class Dedomena {
 		}
 
 		if ($curr == $prev) {
-			print ",prosklisi:'same'";
 			return;
 		}
 
@@ -272,7 +271,6 @@ class Dedomena {
 		}
 
 		if ($curr == $prev) {
-			print ",sxesi:'same'";
 			return;
 		}
 
@@ -376,7 +374,6 @@ class Dedomena {
 		}
 
 		if ($curr == $prev) {
-			print ",permes:'same'";
 			return;
 		}
 
@@ -429,7 +426,18 @@ class Dedomena {
 		print "]";
 	}
 
-	public static function trapezi_json_data($trapezi) {
+	public static function trapezi_json_data($curr, $prev = FALSE) {
+		if (!$prev) {
+			self::trapezi_all_json_data($curr);
+			return;
+		}
+
+		if ($curr == $prev) {
+			return;
+		}
+	}
+
+	private static function trapezi_all_json_data($trapezi) {
 		print ",trapezi:[";
 		$koma = '';
 		$n = count($trapezi);
@@ -441,13 +449,11 @@ class Dedomena {
 	}
 
 	public static function partida_json_data($curr, $prev = FALSE) {
-		print ",partida:";
 		if (($prev !== FALSE) && ($prev == $curr)) {
-			print "'same'";
 			return;
 		}
 
-		print "{";
+		print ",partida:{";
 		if (isset($curr)) {
 			print "k:" . $curr->kodikos .
 				",p1:'" . $curr->pektis1 . "'" .

@@ -53,9 +53,9 @@ function process_prosklisi() {
 	global $globals;
 	global $sinedria;
 
-	$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
+	$prosklisi = array();
 
-	$peknpat = NULL;
+	$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 	$query = "SELECT `κωδικός`, `ποιος`, `ποιον`, `τραπέζι`, " .
 		"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `πρόσκληση` " .
 		"WHERE (`ποιος` LIKE " . $slogin . ") OR " .
