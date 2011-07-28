@@ -128,3 +128,8 @@ var Dedomena = new function() {
 		mainFyi('session recharged');
 	};
 };
+
+function isFreska(dedomena) {
+	return(isSet(dedomena) && isSet(dedomena.sinedria) &&
+		isSet(dedomena.sinedria.f) && (dedomena.sinedria.f == 1));
+}
