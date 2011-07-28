@@ -33,17 +33,17 @@ class Partida {
 		}
 			
 		$nf = 0;
-		$this->kodikos = intval($cols[$nf++]);
+		$this->kodikos = $cols[$nf++];
 		$this->pektis1 = $cols[$nf++];
-		$this->apodoxi1 = intval($cols[$nf++]);
+		$this->apodoxi1 = $cols[$nf++];
 		$this->pektis2 = $cols[$nf++];
-		$this->apodoxi2 = intval($cols[$nf++]);
+		$this->apodoxi2 = $cols[$nf++];
 		$this->pektis3 = $cols[$nf++];
-		$this->apodoxi3 = intval($cols[$nf++]);
-		$this->kasa = intval($cols[$nf++]);
-		$this->prive = intval($cols[$nf++]);
-		$this->theatis = intval($cols[$nf++]);
-		$this->thesi = intval($cols[$nf++]);
+		$this->apodoxi3 = $cols[$nf++];
+		$this->kasa = $cols[$nf++];
+		$this->prive = $cols[$nf++];
+		$this->theatis = $cols[$nf++];
+		$this->thesi = $cols[$nf++];
 		return(TRUE);
 	}
 }

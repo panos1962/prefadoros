@@ -211,5 +211,20 @@ class Trapezi {
 	public function xeklidoma($ok) {
 		xeklidoma('trapezi:' . $this->kodikos, $ok);
 	}
+
+	public function is_prosklisi() {
+		global $globals;
+		$query = "SELECT * FROM `πρόσκληση` WHERE (`κωδικός` = " .
+			$globals->trapezi->kodikos . ") AND `ποιον` LIKE '" .
+			$globals->asfales($globals->pektis->login) . "')";
+		$result = $globals->sql_query($query);
+		if (!$result) { return(FALSE); }
+
+		$row = @mysql_fetch_array($result, MYSQLI_NUM);
+		if (!$row) { return(FALSE); }
+
+		@mysqli_free_result($result);
+		return(TRUE);
+	}
 }
 ?>
