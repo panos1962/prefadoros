@@ -35,7 +35,7 @@ class Prefadoros {
 		}
 	}
 
-	public static function set_trapezi() {
+	public static function set_trapezi($all = FALSE) {
 		global $globals;
 
 		if ($globals->is_trapezi()) {
@@ -43,17 +43,21 @@ class Prefadoros {
 		}
 
 		if (!$globals->is_pektis()) {
-			return;
+			return(FALSE);
 		}
 
 		$globals->trapezi = new Trapezi();
 		if (!isset($globals->trapezi->kodikos)) {
 			unset($globals->trapezi);
-			return;
+			return(FALSE);
 		}
 
-		$globals->trapezi->fetch_dianomi();
-		$globals->trapezi->fetch_kinisi();
+		if ($all) {
+			$globals->trapezi->fetch_dianomi();
+			$globals->trapezi->fetch_kinisi();
+		}
+
+		return(TRUE);
 	}
 
 	public static function klidose_trapezi() {

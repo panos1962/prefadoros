@@ -58,6 +58,7 @@ var Prefadoros = new function() {
 		else {
 			Prefadoros.showKafenio();
 		}
+		controlPanel.display();
 	};
 
 	this.showPartida = function() {
