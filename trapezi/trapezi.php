@@ -35,35 +35,57 @@ class Trapezi {
 		}
 
 		Prefadoros::pektis_check();
+		$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
-		// Εντοπίζω το πιο "φρέσκο" ενεργό τραπέζι στο οποίο συμμετέχει
-		// ο παίκτης. Αν δεν είναι το τραπέζι που τον ενδιαφέρει, πρέπει
-		// να εξέλθει από το τραπέζι για να μεταφερθεί στο αμέσως προηγούμενο
-		// κοκ. Πριν επιχειρήσει έξοδο, είναι καλό να διασφαλίσει ότι υπάρχει
-		// πρόσκληση για το τραπέζι, ώστε να μπορεί αργότερα να επανέλθει,
-		// εφόσον, φυσικά, το επιθυμεί.
-
-		$login = $globals->asfales($globals->pektis->login);
-		$select = "SELECT * FROM `τραπέζι` ";
-		$order = "AND (`τέλος` IS NULL) ORDER BY `κωδικός` DESC LIMIT 1";
-		$query = $select . "WHERE ((`παίκτης1` LIKE '" . $login . "') " .
-			"OR (`παίκτης2` LIKE '" . $login . "') " .
-			"OR (`παίκτης3` LIKE '" . $login . "')) " . $order;
+		$query = "SELECT `τραπέζι`, `θέση` FROM `θεατής` WHERE `παίκτης` LIKE " .
+			$slogin . " ORDER BY `τραπέζι` DESC LIMIT 1";
 		$result = $globals->sql_query($query);
-		$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
+		if ($row) {
+			@mysqli_free_result($result);
+			$this->simetoxi = 'ΘΕΑΤΗΣ';
+			$this->thesi = $row[1];
+			$query = "SELECT * FROM `τραπέζι` WHERE `κωδικός` = " . $row[0];
+			$result = $globals->sql_query($query);
+			$row = @mysqli_fetch_array($result, MYSQLI_NUM);
+			if ($row) {
+				@mysqli_free_result($result);
+			}
+			else {
+				unset($this->simetoxi);
+				unset($this->thesi);
+			}
+		}
+
+		// Αν δεν έχω εντοπίσει τον παίκτη ως θεατή σε κάποιο τραπέζι, τότε
+		// προσπαθώ να τον εντοπίσω ως παίκτη.
 		if (!$row) {
-			$query = $select . "WHERE (`κωδικός` IN (SELECT `τραπέζι` " .
-				"FROM `θεατής` WHERE `παίκτης` LIKE '" .
-				$login . "')) " . $order;
+			$query = "SELECT * FROM `τραπέζι` WHERE " .
+				"((`παίκτης1` LIKE " . $slogin . ") " .
+				"OR (`παίκτης2` LIKE " . $slogin . ") " .
+				"OR (`παίκτης3` LIKE " . $slogin . ")) " .
+				"AND (`τέλος` IS NULL) ORDER BY `κωδικός` DESC LIMIT 1";
 			$result = $globals->sql_query($query);
 			$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
-			if (!$row) {
+			if ($row) {
+				@mysqli_free_result($result);
+				$this->simetoxi = 'ΠΑΙΚΤΗΣ';
+				if ($this->pektis1 == $globals->pektis->login) {
+					$this->thesi = 1;
+				}
+				elseif ($this->pektis2 == $globals->pektis->login) {
+					$this->thesi = 2;
+				}
+				elseif ($this->pektis3 == $globals->pektis->login) {
+					$this->thesi = 3;
+				}
+			}
+			else {
 				$this->error = $errmsg . 'δεν βρέθηκε τραπέζι για τον παίκτη "' .
 					$globals->pektis->login . '"';
 				return;
 			}
 		}
-		@mysqli_free_result($result);
 
 		$tora = time();
 		$this->kodikos = $row['κωδικός'];
@@ -75,33 +97,6 @@ class Trapezi {
 		$this->apodoxi3 = $row['αποδοχή3'];
 		$this->kasa = $row['κάσα'];
 		$this->idiotikotita = $row['ιδιωτικότητα'];
-		$this->simetoxi = 'ΠΑΙΚΤΗΣ';
-		if ($this->pektis1 == $globals->pektis->login) {
-			$this->thesi = 1;
-		}
-		elseif ($this->pektis2 == $globals->pektis->login) {
-			$this->thesi = 2;
-		}
-		elseif ($this->pektis3 == $globals->pektis->login) {
-			$this->thesi = 3;
-		}
-		else {
-			$this->simetoxi = 'ΘΕΑΤΗΣ';
-			$query = "SELECT `θέση` FROM `θεατής` WHERE `παίκτης` LIKE '" .
-				$login . "' AND `τραπέζι` = " . $this->kodikos;
-			$result = $globals->sql_query($query);
-			$row = @mysqli_fetch_array($result, MYSQLI_NUM);
-			if (!$row) {
-				$this->thesi = 1;
-			}
-			else {
-				@mysqli_free_result($result);
-				$this->thesi = intval($row[0]);
-				if (($this->thesi < 1) || ($this->thesi > 3)) {
-					$this->thesi = 1;
-				}
-			}
-		}
 	}
 
 	public function is_pektis() {

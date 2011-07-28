@@ -73,9 +73,7 @@ var Sxesi = new function() {
 	this.HTML = function(i) {
 		var html = '';
 		html += '<div class="sxesiLine zebra' + (i % 2);
-		if (sxesi[i].o < 1) {
-			html += ' sxesiOffline';
-		}
+		if (sxesi[i].o < 1) { html += ' sxesiOffline'; }
 		html += '" onmouseover="emfanesAfanes(this, true);" ';
 		html += 'onmouseout="emfanesAfanes(this, false);">';
 		switch (sxesi[i].o) {
@@ -92,7 +90,8 @@ var Sxesi = new function() {
 			var title = 'Offline';
 			break;
 		}
-		html += '<img alt="" class="sxesiDiathesimotita" src="' +
+		html += '<img id="sxi_' + sxesi[i].l + '" alt="" ' +
+			'class="sxesiDiathesimotita" src="' +
 			globals.server + 'images/' + ball + 'Ball.png" ' +
 			'title="' + title + '. Κλικ για εργαλεία" ' +
 			'onclick="Sxesi.panel(\'' + sxesi[i].l + '\');" />';
@@ -113,13 +112,18 @@ var Sxesi = new function() {
 		}
 		html += Sxesi.permesHTML(sxesi[i]);
 		html += '</div>';
-		html += '<div style="display: inline-block; cursor: pointer;" title="Πρόσκληση">';
+		html += '<div style="display: inline-block; cursor: pointer;" title="Πρόσκληση"';
+		switch (sxesi[i].s) {
+		case 'B':	break;
+		default:	html += ' onclick="Sxesi.prosklisi(\'' + sxesi[i].l + '\');"'; break;
+		}
+		html += '>';
 		html += '<div class="sxesiData">' + sxesi[i].n + '</div>';
 		html += '&nbsp;[&nbsp;<div class="sxesiData sxesi';
 		switch (sxesi[i].s) {
-		case 'F':		html += 'Filos'; break;
-		case 'B':		html += 'Apoklismenos'; break;
-		default:		html += 'Asxetos'; break;
+		case 'F':	html += 'Filos'; break;
+		case 'B':	html += 'Apoklismenos'; break;
+		default:	html += 'Asxetos'; break;
 		}
 		html += '">' + sxesi[i].l + '</div>&nbsp;]</div>';
 		html += '</div>'
@@ -249,7 +253,7 @@ var Sxesi = new function() {
 		}
 		else {
 			img.src = img.prevSrc;
-			mainFyi('Αποσυσχετίστηκε Ο παίκτης "' + pektis + '"');
+			mainFyi('Αποσυσχετίστηκε ο παίκτης "' + pektis + '"');
 		}
 		return false;
 	};
@@ -264,6 +268,43 @@ var Sxesi = new function() {
 	this.permesWindow = function(login) {
 		var w = window.open(globals.server + 'permes/index.php?' +
 			'pedi=yes&pros=' + uri(login));
+	};
+
+	this.prosklisi = function(pektis) {
+		if (!isPartida()) {
+			alert('ακαθόριστο τραπέζι');
+			return;
+		}
+		var img = getelid('sxi_' + pektis);
+		if (notSet(img)) { return; }
+		img.prevSrc = img.src;
+		img.src = globals.server + 'images/working.gif';
+		var req = new Request('sxesi/prosklisi');
+		req.xhr.onreadystatechange = function() {
+			prosklisiCheck(req, img, pektis);
+		};
+
+		params = 'pektis=' + uri(pektis);
+		params += '&partida=' + uri(partida.k);
+		req.send(params);
+	};
+
+	function prosklisiCheck(req, img, pektis) {
+		if (req.xhr.readyState != 4) { return; }
+		rsp = req.getResponse();
+		if (rsp) {
+			playSound('beep');
+			mainFyi(rsp);
+			img.src = globals.server + 'images/X.png';
+			setTimeout(function() {
+				img.src = img.prevSrc;
+			}, globals.duration.errorIcon);
+		}
+		else {
+			img.src = img.prevSrc;
+			mainFyi('Έχει αποσταλεί πρόσκληση στον παίκτη "' + pektis +
+				'" για το τραπέζι ' + partida.k + ')');
+		}
 	};
 
 	var searchPektisTimer = null;
