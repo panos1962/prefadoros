@@ -42,7 +42,7 @@ a img {
 }
 
 .motdInnerArea {
-	padding: 0.1cm;
+	padding: 0.2cm 0 0.2cm 0;
 	border-style: solid;
 	border-width: 2px;
 	color: #FFFF88;
