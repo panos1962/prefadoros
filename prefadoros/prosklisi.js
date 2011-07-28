@@ -14,6 +14,9 @@ var Prosklisi = new function() {
 			if (dedomena.prosklisi.length < prosklisi.length) {
 				playSound('skisimo');
 			}
+			else if (dedomena.prosklisi.length > prosklisi.length) {
+				playSound('sfirigma');
+			}
 			prosklisi = dedomena.prosklisi;
 			Prosklisi.updateHTML();
 			return;
