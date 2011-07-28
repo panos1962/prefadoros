@@ -10,13 +10,30 @@ var Prosklisi = new function() {
 			return;
 		}
 
+		var nea = false;
 		if (isSet(dedomena.prosklisi)) {
-			if (dedomena.prosklisi.length < prosklisi.length) {
-				playSound('skisimo');
+			if (!isFreska(dedomena)) {
+				var palia = {};
+				for (var i = 0; i < prosklisi.length; i++) {
+					if (prosklisi[i].a != pektis.login) {
+						palia.prosklisi[i].a = 1;
+					}
+				}
+
+				for (var i = 0; i < dedomena.prosklisi.length; i++) {
+					if ((dedomena.prosklisi[i].a != pektis.login) &&
+						(!(dedomena.prosklisi[i].a in palia))) {
+						playSound('sfirigma');
+						nea = true;
+						break;
+					}
+				}
+
+				if ((!nea) && (dedomena.prosklisi.length < prosklisi.length)) {
+					playSound('skisimo');
+				}
 			}
-			else if (dedomena.prosklisi.length > prosklisi.length) {
-				if (!isFreska(dedomena)) { playSound('sfirigma'); }
-			}
+
 			prosklisi = dedomena.prosklisi;
 			Prosklisi.updateHTML();
 			return;
@@ -32,16 +49,19 @@ var Prosklisi = new function() {
 		// Αν έχει επιστραφεί array "prosklisiNew", τότε πρόκειται για νέες
 		// εγγραφές τις οποίες θα εμφανίσω πρώτες.
 		if (isSet(dedomena.prosklisiNew)) {
-			playSound('sfirigma');
 			for (var i = 0; i < dedomena.prosklisiNew.length; i++) {
+				if (dedomena.prosklisiNew[i].a != pektis.login) {
+					nea = true;
+				}
 				prosklisi1[prosklisi1.length] = dedomena.prosklisiNew[i];
 			}
+			if (nea && (!isFreska(dedomena))) { playSound('sfirigma'); }
 		}
 
 		// Διατρέχω το παλιό array "prosklisi" και ελέγχω αν κάποιες από τις
 		// εγγραφές του έχουν διαγραφεί. Τις εγγραφές που εμφανίζονται
 		// να έχουν διαγραφεί τις αγνοώ.
-		if (isSet(dedomena.prosklisiDel)) { playSound('skisimo'); }
+		if ((!nea) && isSet(dedomena.prosklisiDel)) { playSound('skisimo'); }
 		for (var i = 0; i < prosklisi.length; i++) {
 			if (isSet(dedomena.prosklisiDel) &&
 				(('p' + prosklisi[i].k) in dedomena.prosklisiDel)) {
