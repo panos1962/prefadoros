@@ -34,11 +34,15 @@ class Trapezi {
 			return;
 		}
 
+		// Θα επιχειρήσουμε να βρούμε το τρέχον τραπέζι για τον παίκτη.
+		// Αν υπάρχει εγγραφή στον πίνακα "θεατής", τότε αυτό υπερισχύει,
+		// αλλιώς ψάχνουμε σε ποιο ενεργό τραπέζι συμμετέχει ο παίκτης.
+
 		Prefadoros::pektis_check();
 		$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
-		$query = "SELECT `τραπέζι`, `θέση` FROM `θεατής` WHERE `παίκτης` LIKE " .
-			$slogin . " ORDER BY `τραπέζι` DESC LIMIT 1";
+		$query = "SELECT `τραπέζι`, `θέση` FROM `θεατής` " .
+			"WHERE `παίκτης` LIKE " .  $slogin;
 		$result = $globals->sql_query($query);
 		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 		if ($row) {
@@ -47,7 +51,7 @@ class Trapezi {
 			$this->thesi = $row[1];
 			$query = "SELECT * FROM `τραπέζι` WHERE `κωδικός` = " . $row[0];
 			$result = $globals->sql_query($query);
-			$row = @mysqli_fetch_array($result, MYSQLI_NUM);
+			$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
 			if ($row) {
 				@mysqli_free_result($result);
 			}
@@ -70,14 +74,18 @@ class Trapezi {
 			if ($row) {
 				@mysqli_free_result($result);
 				$this->simetoxi = 'ΠΑΙΚΤΗΣ';
-				if ($this->pektis1 == $globals->pektis->login) {
+				if ($row['παίκτης1'] == $globals->pektis->login) {
 					$this->thesi = 1;
 				}
-				elseif ($this->pektis2 == $globals->pektis->login) {
+				elseif ($row['παίκτης2'] == $globals->pektis->login) {
 					$this->thesi = 2;
 				}
-				elseif ($this->pektis3 == $globals->pektis->login) {
+				elseif ($row['παίκτης3'] == $globals->pektis->login) {
 					$this->thesi = 3;
+				}
+				else {
+					$this->simetoxi = 'ΘΕΑΤΗΣ';
+					$this->thesi = 1;
 				}
 			}
 			else {
