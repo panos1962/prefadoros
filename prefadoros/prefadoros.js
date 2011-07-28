@@ -98,6 +98,18 @@ var Prefadoros = new function() {
 	};
 }
 
+function isPektis() {
+	return(isSet(pektis) && isSet(pektis.login));
+}
+
 function isPartida() {
 	return(isSet(partida) && isSet(partida.k));
+}
+
+function isPrive() {
+	return(isSet(partida) && isSet(partida.p) && (partida.p == 1));
+}
+
+function isDianomi() {
+	return(isSet(dianomi) && isSet(dianomi.length) && (dianomi.length > 0));
 }

@@ -14,7 +14,6 @@ if (!$globals->trapezi->is_pektis()) {
 	die('Δεν έχετε δικαίωμα αλλαγής της ιδιωτικότητας του τραπεζιού');
 }
 
-sleep(1);
 $idiotikotita = $globals->asfales(Globals::perastike_check('idiotikotita'));
 $query = "UPDATE `τραπέζι` SET `ιδιωτικότητα` = '" . $idiotikotita .
 	"' WHERE `κωδικός` = " . $globals->trapezi->kodikos;
