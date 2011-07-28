@@ -11,6 +11,9 @@ var Prosklisi = new function() {
 		}
 
 		if (isSet(dedomena.prosklisi)) {
+			if (dedomena.prosklisi.length < prosklisi.length) {
+				playSound('skisimo');
+			}
 			prosklisi = dedomena.prosklisi;
 			Prosklisi.updateHTML();
 			return;
@@ -76,7 +79,7 @@ var Prosklisi = new function() {
 			html += '<img class="prosklisiIcon" src="' + globals.server +
 				'images/apoMena.png" style="cursor: default;" alt="" />';
 			html += '<img class="prosklisiIcon" src="' + globals.server +
-				'images/Xgreen.png" onclick="Prosklisi.skisimo(' +
+				'images/Xgreen.png" onclick="Prosklisi.skisimo(this, ' +
 				prosklisi[i].k + ');" title="Ανάκληση πρόσκλησης" alt="" />';
 			html += '<span>προς <div class="prosklisiData">' + prosklisi[i].p + '</div>';
 		}
@@ -86,7 +89,7 @@ var Prosklisi = new function() {
 			html += '<img class="prosklisiIcon" src="' + globals.server +
 				'images/prosEmena.png"' + apodoxi + 'alt="" />';
 			html += '<img class="prosklisiIcon" src="' + globals.server +
-				'images/Xred.png" onclick="Prosklisi.skisimo(' +
+				'images/Xred.png" onclick="Prosklisi.skisimo(this, ' +
 				prosklisi[i].k + ', true);" title="Απόρριψη πρόσκλησης" alt="" />';
 			html += '<span' + apodoxi + 'style="cursor: pointer;">' +
 				'από <div class="prosklisiData">' + prosklisi[i].a + '</div>';
@@ -102,12 +105,36 @@ var Prosklisi = new function() {
 		mainFyi('αποδοχή πρόσκλησης ' + k);
 	};
 
-	this.skisimo = function(k, cfrm) {
+	this.skisimo = function(img, k, cfrm) {
 		if (isSet(cfrm) && cfrm &&
 			(!confirm('Θέλετε πράγματι να απορρίψετε την πρόσκληση;'))) {
 			return;
 		}
 
-		mainFyi('σκίσιμο πρόσκλησης ' + k);
+		img.prevSrc = img.src;
+		img.src = globals.server + 'images/working.gif';
+		var req = new Request('prosklisi/delProsklisi');
+		req.xhr.onreadystatechange = function() {
+			skisimoCheck(req, img);
+		};
+
+		params = 'kodikos=' + uri(k);
+		req.send(params);
+	};
+
+	function skisimoCheck(req, img) {
+		if (req.xhr.readyState != 4) { return; }
+		rsp = req.getResponse();
+		mainFyi(rsp);
+		if (rsp) {
+			playSound('beep');
+			img.src = globals.server + 'images/X.png';
+			setTimeout(function() {
+				img.src = img.prevSrc;
+			}, globals.duration.errorIcon);
+		}
+		else {
+			img.src = img.prevSrc;
+		}
 	};
 };

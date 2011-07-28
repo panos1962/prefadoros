@@ -112,12 +112,8 @@ var Sxesi = new function() {
 		}
 		html += Sxesi.permesHTML(sxesi[i]);
 		html += '</div>';
-		html += '<div style="display: inline-block; cursor: pointer;" title="Πρόσκληση"';
-		switch (sxesi[i].s) {
-		case 'B':	break;
-		default:	html += ' onclick="Sxesi.prosklisi(\'' + sxesi[i].l + '\');"'; break;
-		}
-		html += '>';
+		html += '<div style="display: inline-block; cursor: pointer;" title="Πρόσκληση"' +
+			' onclick="Sxesi.addProsklisi(\'' + sxesi[i].l + '\');">';
 		html += '<div class="sxesiData">' + sxesi[i].n + '</div>';
 		html += '&nbsp;[&nbsp;<div class="sxesiData sxesi';
 		switch (sxesi[i].s) {
@@ -270,7 +266,7 @@ var Sxesi = new function() {
 			'pedi=yes&pros=' + uri(login));
 	};
 
-	this.prosklisi = function(pektis) {
+	this.addProsklisi = function(pektis) {
 		if (!isPartida()) {
 			alert('ακαθόριστο τραπέζι');
 			return;
@@ -279,17 +275,17 @@ var Sxesi = new function() {
 		if (notSet(img)) { return; }
 		img.prevSrc = img.src;
 		img.src = globals.server + 'images/working.gif';
-		var req = new Request('sxesi/prosklisi');
+		var req = new Request('sxesi/addProsklisi');
 		req.xhr.onreadystatechange = function() {
-			prosklisiCheck(req, img, pektis);
+			addProsklisiCheck(req, img, pektis);
 		};
 
-		params = 'pektis=' + uri(pektis);
+		params = 'pion=' + uri(pektis);
 		params += '&partida=' + uri(partida.k);
 		req.send(params);
 	};
 
-	function prosklisiCheck(req, img, pektis) {
+	function addProsklisiCheck(req, img, pektis) {
 		if (req.xhr.readyState != 4) { return; }
 		rsp = req.getResponse();
 		if (rsp) {
@@ -303,7 +299,7 @@ var Sxesi = new function() {
 		else {
 			img.src = img.prevSrc;
 			mainFyi('Έχει αποσταλεί πρόσκληση στον παίκτη "' + pektis +
-				'" για το τραπέζι ' + partida.k + ')');
+				'" για το τραπέζι ' + partida.k);
 		}
 	};
 
