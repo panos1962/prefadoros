@@ -59,7 +59,7 @@ function process_prosklisi() {
 	$query = "SELECT `κωδικός`, `ποιος`, `ποιον`, `τραπέζι`, " .
 		"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `πρόσκληση` " .
 		"WHERE (`ποιος` LIKE " . $slogin . ") OR " .
-		"(`ποιον` LIKE " . $slogin . ")"; 
+		"(`ποιον` LIKE " . $slogin . ") ORDER BY `κωδικός` DESC"; 
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$p = new Prosklisi;

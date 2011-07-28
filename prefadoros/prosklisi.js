@@ -69,6 +69,7 @@ var Prosklisi = new function() {
 
 	this.HTML = function(i) {
 		var apoMena = (prosklisi[i].p != pektis.login);
+		var estali = ' (εστάλη ' + strPote(prosklisi[i].s) + ')';
 		var html = '';
 		html += '<div class="prosklisiLine zebra' + (i % 2);
 		if (apoMena) { html += ' prosklisiApo'; }
@@ -81,11 +82,14 @@ var Prosklisi = new function() {
 			html += '<img class="prosklisiIcon" src="' + globals.server +
 				'images/Xgreen.png" onclick="Prosklisi.skisimo(this, ' +
 				prosklisi[i].k + ');" title="Ανάκληση πρόσκλησης" alt="" />';
-			html += '<span>προς <div class="prosklisiData">' + prosklisi[i].p + '</div>';
+			html += '<span title="Πρόσκληση προς &quot;' + prosklisi[i].p +
+				'&quot; για το τραπέζι ' + prosklisi[i].t + estali +
+				'">προς <div class="prosklisiData">' + prosklisi[i].p + '</div>';
 		}
 		else {
-			var apodoxi = ' title="Αποδοχή πρόσκλησης (' + strPote(prosklisi[i].s) +
-				')" onclick="Prosklisi.apodoxi(' + prosklisi[i].k + ');" ';
+			var apodoxi = ' title="Αποδοχή πρόσκλησης από &quot;' +
+				prosklisi[i].a + '&quot; για το τραπέζι ' + prosklisi[i].t + estali +
+				'" onclick="Prosklisi.apodoxi(' + prosklisi[i].k + ');" ';
 			html += '<img class="prosklisiIcon" src="' + globals.server +
 				'images/prosEmena.png"' + apodoxi + 'alt="" />';
 			html += '<img class="prosklisiIcon" src="' + globals.server +
