@@ -1,39 +1,12 @@
 var Prosklisi = new function() {
-	// Η μέθοδος "processDedomena" καλείται κατά την επιστροφή δεδομένων
-	// και σκοπό έχει τον έλεγχο των παικτών/σχέσεων και την επαναδιαμόρφωση
-	// του σχετικού εδαφίου της οθόνης. Ως μοναδική παράμετρο δέχεται τα
-	// δεδομένα που επετράφησαν από τον server.
-
 	this.processDedomena = function(dedomena) {
 		if (notSet(dedomena.prosklisi) && notSet(dedomena.prosklisiNew) &&
 			notSet(dedomena.prosklisiDel)) {
 			return;
 		}
 
-		var nea = false;
 		if (isSet(dedomena.prosklisi)) {
-			if (!isFreska(dedomena)) {
-				var palia = {};
-				for (var i = 0; i < prosklisi.length; i++) {
-					if (prosklisi[i].a != pektis.login) {
-						palia.prosklisi[i].a = 1;
-					}
-				}
-
-				for (var i = 0; i < dedomena.prosklisi.length; i++) {
-					if ((dedomena.prosklisi[i].a != pektis.login) &&
-						(!(dedomena.prosklisi[i].a in palia))) {
-						playSound('sfirigma');
-						nea = true;
-						break;
-					}
-				}
-
-				if ((!nea) && (dedomena.prosklisi.length < prosklisi.length)) {
-					playSound('skisimo');
-				}
-			}
-
+			if (notFreska(dedomena)) { Prosklisi.ixitikoSima(dedomena); }
 			prosklisi = dedomena.prosklisi;
 			Prosklisi.updateHTML();
 			return;
@@ -45,17 +18,16 @@ var Prosklisi = new function() {
 		// νέο local array, το αντιγράφω στο global array "prosklisi" και επαναδιαμορφώνω
 		// το σχετικό εδάφιο της οθόνης.
 		var prosklisi1 = [];
+		var nea = false;
 
 		// Αν έχει επιστραφεί array "prosklisiNew", τότε πρόκειται για νέες
 		// εγγραφές τις οποίες θα εμφανίσω πρώτες.
 		if (isSet(dedomena.prosklisiNew)) {
 			for (var i = 0; i < dedomena.prosklisiNew.length; i++) {
-				if (dedomena.prosklisiNew[i].a != pektis.login) {
-					nea = true;
-				}
+				if (dedomena.prosklisiNew[i].a != pektis.login) { nea = true; }
 				prosklisi1[prosklisi1.length] = dedomena.prosklisiNew[i];
 			}
-			if (nea && (!isFreska(dedomena))) { playSound('sfirigma'); }
+			if (nea && notFreska(dedomena)) { playSound('sfirigma'); }
 		}
 
 		// Διατρέχω το παλιό array "prosklisi" και ελέγχω αν κάποιες από τις
@@ -63,17 +35,35 @@ var Prosklisi = new function() {
 		// να έχουν διαγραφεί τις αγνοώ.
 		if ((!nea) && isSet(dedomena.prosklisiDel)) { playSound('skisimo'); }
 		for (var i = 0; i < prosklisi.length; i++) {
-			if (isSet(dedomena.prosklisiDel) &&
-				(('p' + prosklisi[i].k) in dedomena.prosklisiDel)) {
-				continue;
+			if (notSet(dedomena.prosklisiDel) ||
+				(!(('p' + prosklisi[i].k) in dedomena.prosklisiDel))) {
+				prosklisi1[prosklisi1.length] = prosklisi[i];
 			}
-
-			prosklisi1[prosklisi1.length] = prosklisi[i];
 		}
 
 		prosklisi = prosklisi1;
-		delete prosklisi1;
 		Prosklisi.updateHTML();
+	};
+
+	this.ixitikoSima = function(dedomena) {
+		var palia = {};
+		for (var i = 0; i < prosklisi.length; i++) {
+			if (prosklisi[i].a != pektis.login) {
+				palia[prosklisi[i].a] = true;
+			}
+		}
+
+		for (var i = 0; i < dedomena.prosklisi.length; i++) {
+			if ((dedomena.prosklisi[i].a != pektis.login) &&
+				(!(dedomena.prosklisi[i].a in palia))) {
+				playSound('sfirigma');
+				return;
+			}
+		}
+
+		if (dedomena.prosklisi.length < prosklisi.length) {
+			playSound('skisimo');
+		}
 	};
 
 	this.updateHTML = function() {
@@ -86,7 +76,6 @@ var Prosklisi = new function() {
 				html += Prosklisi.HTML(i);
 			}
 		}
-		html += '';
 		x.innerHTML = html;
 	};
 
