@@ -10,26 +10,66 @@ Prefadoros::pektis_check();
 global $slogin;
 $slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
-Globals::perastike_check('pion');
-$pion = "'" . $globals->asfales($_REQUEST['pion']) . "'";
+$pion = Globals::perastike_check('pion');
 
-$trapezi = vres_to_trapezi($slogin);
-if (!$trapezi) {
-	die('Ακαθόριστο τραπέζι για πρόσκληση');
-}
+$filos = check_apoklismos($pion);
+check_katastasi($pion, $filos);
+
+$trapezi = vres_to_trapezi();
+if (!$trapezi) { die('Ακαθόριστο τραπέζι για πρόσκληση'); }
 
 $query = "INSERT INTO `πρόσκληση` (`ποιος`, `ποιον`, `τραπέζι`) " .
-	"VALUES (" . $slogin . ", " . $pion .  ", " .
+	"VALUES (" . $slogin . ", '" . $globals->asfales($pion) .  "', " .
 	$globals->asfales($trapezi) . ")";
 @mysqli_query($globals->db, $query);
 if (@mysqli_affected_rows($globals->db) != 1) {
-	die('Απέτυχε η αποστολή πρόσκλησης στον παίκτη "' .
-		$_REQUEST['pion'] . '" για το τραπέζι ' . $trapezi);
+	die('Μήπως έχετε ήδη στείλει πρόσκληση στον παίκτη "' .
+		$_REQUEST['pion'] . '" για το τραπέζι ' . $trapezi . ';');
 }
 
-function vres_to_trapezi($slogin) {
+// Η function "check_katastasi" ελέγχει την κατάσταση του παίκτη που προσκαλούμε.
+// Αν είναι διαθέσιμος, ή αν μας έχει στους φίλους, η πρόσκληση γίνεται δεκτή,
+// αλλιώς το πρόγραμμα επιστρέφει με σχετικό μήνυμα.
+
+function check_katastasi($pion, $filos) {
+	$p = new Pektis($pion);
+	switch ($p->katastasi) {
+	case 'AVAILABLE': return;
+	}
+
+	if (!$filos) {
+		die('Ο παίκτης "' . $pion . '" είναι απασχολημένος');
+	}
+}
+
+// Η function "check_apoklismos" δέχεται το όνομα ενός παίκτης και ελέγχει αν
+// ο παίκτης αυτός μας έχει αποκλείσει. Αν, όντως, είμαστε αποκλεισμένοι, τότε
+// η πρόσκλησή μας δεν γίνεται δεκτή και το πρόγραμμα επιστρέφει με σχετικό
+// μήνυμα. Σε άλλη περίπτωση, επιστρέφει TRUE εφόσον μας έχει στους φίλους,
+// αλλιώς επιστρέφει FALSE.
+
+function check_apoklismos($pion) {
 	global $globals;
-	global $login;
+	global $slogin;
+	$query = "SELECT `status` FROM `σχέση` WHERE `παίκτης` LIKE '" .
+		$globals->asfales($pion) . "' AND `σχετιζόμενος` LIKE " . $slogin;
+	$result = $globals->sql_query($query);
+	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
+	if (!$row) { return(FALSE); }
+
+	switch ($row[0]) {
+	case 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ':
+		die('Ο παίκτης "' . $pion . '" δεν αποδέχεται τις προσκλήσεις αυτή τη στιγμή');
+	case 'ΦΙΛΟΣ':
+		return(TRUE);
+	default:
+		return(FALSE);
+	}
+}
+
+function vres_to_trapezi() {
+	global $globals;
+	global $slogin;
 	Prefadoros::set_trapezi();
 	if (!$globals->is_trapezi()) {
 		return(FALSE);

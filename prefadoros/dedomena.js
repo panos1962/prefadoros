@@ -133,3 +133,7 @@ function isFreska(dedomena) {
 	return(isSet(dedomena) && isSet(dedomena.sinedria) &&
 		isSet(dedomena.sinedria.f) && (dedomena.sinedria.f == 1));
 }
+
+function notFreska(dedomena) {
+	return(!isFreska(dedomena));
+}
