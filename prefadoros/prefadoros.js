@@ -106,6 +106,10 @@ function isPartida() {
 	return(isSet(partida) && isSet(partida.k));
 }
 
+function notPartida() {
+	return(!isPartida());
+}
+
 function isPrive() {
 	return(isSet(partida) && isSet(partida.p) && (partida.p == 1));
 }

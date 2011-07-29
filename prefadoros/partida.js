@@ -12,8 +12,8 @@ var Partida = new function() {
 		}
 
 		partida = dedomena.partida;
-		if (!isPartida()) {
-			Partida.html = 'Δεν υφίσταται παρτίδα';
+		if (notPartida()) {
+			Partida.noPartida();
 			return;
 		}
 
@@ -36,6 +36,32 @@ var Partida = new function() {
 		Partida.html += '</div>';
 		Partida.html += '</div>';
 		Partida.html += '</div>';
+	};
+
+	this.neoTrapezi = function() {
+		if (isPartida()) { return; }
+
+		var ico = getelid('controlPanelIcon');
+		if (notSet(ico)) { return; }
+		ico.src = globals.server + 'images/working.gif';
+
+		var req = new Request('trapezi/neoTrapezi');
+		req.xhr.onreadystatechange = function() {
+			Partida.neoTrapeziCheck(req, ico);
+		};
+
+		req.send();
+	};
+
+	this.neoTrapeziCheck = function(req, ico) {
+		if (req.xhr.readyState != 4) { return; }
+		var rsp = req.getResponse();
+		mainFyi(rsp);
+		ico.src = globals.server + 'images/controlPanel/4Balls.png';
+		if (rsp) {
+			errorIcon(ico);
+			playSound('beep');
+		}
 	};
 
 	this.neaPartida = function() {

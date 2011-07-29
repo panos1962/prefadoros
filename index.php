@@ -110,7 +110,7 @@ function control_panel() {
 	global $globals;
 	?>
 	<div>
-		<img class="controlPanelIcon" alt="" src="<?php
+		<img id="controlPanelIcon" class="controlPanelIcon" alt="" src="<?php
 			print $globals->server; ?>images/controlPanel/4Balls.png"
 			title="Εναλλαγή εργαλείων" onclick="controlPanel.enalagi();" />
 		<div id="controlPanel">
