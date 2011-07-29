@@ -150,7 +150,7 @@ var Tools = new function() {
 
 	this.miaPrefaHTML = function() {
 		return '<div style="text-align: center;">' +
-			Tools.epilogiHTML('ΜΙΑ ΠΡΕΦΑ ΠΑΡΑΚΑΛΩ!', 'Partida.neaPartida();',
+			Tools.epilogiHTML('ΜΙΑ ΠΡΕΦΑ ΠΑΡΑΚΑΛΩ!', 'Partida.neoTrapezi();',
 			'Στήστε ένα τραπέζι για να παίξετε μια νέα παρτίδα') + '</div>';
 	};
 }
