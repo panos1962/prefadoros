@@ -205,11 +205,13 @@ class Trapezi {
 	}
 
 	public function klidoma() {
-		return(klidoma('trapezi:' . $this->kodikos));
+		global $globals;
+		return($globals->klidoma('trapezi:' . $this->kodikos));
 	}
 
 	public function xeklidoma($ok) {
-		xeklidoma('trapezi:' . $this->kodikos, $ok);
+		global $globals;
+		$globals->xeklidoma('trapezi:' . $this->kodikos, $ok);
 	}
 
 	public function is_prosklisi() {
