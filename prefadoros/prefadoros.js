@@ -102,6 +102,14 @@ function isPektis() {
 	return(isSet(pektis) && isSet(pektis.login));
 }
 
+function notPektis() {
+	return(!isPektis());
+}
+
+function isTheatis() {
+	return(isSet(partida) && isSet(partida.t) && (partida.t == 1));
+}
+
 function isPartida() {
 	return(isSet(partida) && isSet(partida.k));
 }
@@ -112,6 +120,10 @@ function notPartida() {
 
 function isPrive() {
 	return(isSet(partida) && isSet(partida.p) && (partida.p == 1));
+}
+
+function isPublic() {
+	return(!isPrive());
 }
 
 function isDianomi() {
