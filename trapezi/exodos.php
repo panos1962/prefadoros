@@ -105,6 +105,10 @@ if (($pektis1 != 'NULL') || ($pektis2 != 'NULL') || ($pektis3 != 'NULL')) {
 
 Prefadoros::xeklidose_trapezi(TRUE);
 
+// Το τραπέζι έχει κλείσει και έχει γίνει τυχόν επανατοποθέτηση των
+// τελευταίων παικτών, οπότε διαγράφουμε όλες τις περιφερειακές
+// εγγραφές που αφορούν στο τραπέζι (συμμετοχές, θεατές, προσκλήσεις).
+
 $query = "DELETE FROM `συμμετοχή` WHERE `τραπέζι` = " . $globals->trapezi->kodikos;
 $globals->sql_query($query);
 
