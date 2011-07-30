@@ -30,7 +30,7 @@ class Prefadoros {
 		if (!$globals->is_pektis()) {
 			self::set_pektis($login);
 			if (!$globals->is_pektis()) {
-				Globals::fatal(self::$errmsg . 'pektis_check(): ακαθόριστος παίκτης');
+				Globals::fatal(self::$errmsg . 'ακαθόριστος παίκτης');
 			}
 		}
 	}
@@ -39,7 +39,7 @@ class Prefadoros {
 		global $globals;
 
 		if ($globals->is_trapezi()) {
-			Globals::fatal(self::$errmsg . 'set_trapezi(): επανακαθορισμός τραπεζιού');
+			Globals::fatal(self::$errmsg . 'επανακαθορισμός τραπεζιού');
 		}
 
 		if (!$globals->is_pektis()) {
@@ -58,6 +58,17 @@ class Prefadoros {
 		}
 
 		return(TRUE);
+	}
+
+	public static function trapezi_check() {
+		global $globals;
+
+		if (!$globals->is_trapezi()) {
+			self::set_trapezi();
+			if (!$globals->is_trapezi()) {
+				Globals::fatal(self::$errmsg . 'ακαθόριστο τραπέζι');
+			}
+		}
 	}
 
 	public static function klidose_trapezi() {
@@ -107,6 +118,133 @@ class Prefadoros {
 
 	public static function is_online($idle) {
 		return($idle < XRONOS_PEKTIS_IDLE_MAX);
+	}
+
+	// Η μέθοδος "exodos" είναι από τις πλέον σημαντικές και σκοπό έχει
+	// την έξοδο του τρέχοντος παίκτη από το τρέχον τραπέζι.
+
+	public static function exodos() {
+		global $globals;
+
+		if ($globals->not_pektis()) { return(FALSE); }
+		$pektis = $globals->pektis;
+		$slogin = "'" . $globals->asfales($pektis->login) . "'";
+
+		if ($globals->not_trapezi()) { return(FALSE); }
+		$trapezi = $globals->trapezi;
+
+		// Αν ο παίκτης συμμετέχει ως θεατής, τότε απλώς παύει να είναι θεατής.
+		// Εδώ υπάρχει ένα πρόβλημα. Αν όλοι οι παίκτες έχουν γίνει θεατές και
+		// κατόπιν κάνουν έξοδο από το τραπέζι, τότε θα παραμείνει το τραπέζι
+		// σε κατάσταση "ζόμπι" (ενεργό, χωρίς παίκτες). Το τραπέζι κλείνει
+		// μόνο όταν και τελευταίος παίκτης πραγματοποιήσει έξοδο είτε άμεσα
+		// (πατώντας το κόκκινο κουμπάκι εξόδου), είτε έμμεσα (αποδεχόμενος
+		// πρόσκληση από άλλο τραπέζι).
+
+		if ($trapezi->simetoxi == 'ΘΕΑΤΗΣ') {
+			$query = "DELETE FROM `θεατής` WHERE `παίκτης` LIKE " . $slogin;
+			$globals->sql_query($query);
+			if (mysqli_affected_rows($globals->db) != 1) {
+				print 'Απέτυχε η έξοδος του παίκτη "' . $pektis->login .
+					'" από το τραπέζι ' . $trapezi->kodikos .
+					' ως θεατή';
+				return(FALSE);
+			}
+			return(TRUE);
+		}
+
+		// Επιβεβαιώνουμε ότι ο παίκτης όντως συμμετέχει στο τραπέζι.
+		$p = 'pektis' . $trapezi->thesi;
+		if ($trapezi->$p != $pektis->login) {
+			print 'Ο παίκτης "' . $pektis->login .
+				'" δεν συμμετέχει στο τραπέζι ' . $trapezi->kodikos;
+			return(FALSE);
+		}
+
+		// Εκκενώνουμε τη θέση του παίκτη στο τραπέζι.
+		$query = "UPDATE `τραπέζι` SET `παίκτης" . $trapezi->thesi .
+			"` = NULL WHERE `κωδικός` = " . $trapezi->kodikos;
+		$globals->sql_query($query);
+		if (mysqli_affected_rows($globals->db) != 1) {
+			print 'Απέτυχε η εκκένωση της θέσης του παίκτη "' . $pektis->login .
+				'" στο τραπέζι ' . $trapezi->kodikos;
+			return(FALSE);
+		}
+
+		// Κρατάμε τη θέση στην οποία έπαιζε ο παίκτης στο τραπέζι.
+		// Καλού κακού διαγράφουμε πρώτα τυχόν άλλη συμμετοχή στην
+		// ίδια θέση αυτού του τραπεζιού.
+		$query = "DELETE FROM `συμμετοχή` WHERE (`τραπέζι` = " .
+			$trapezi->kodikos . ") AND (`θέση` = " . $trapezi->thesi . ")";
+		$globals->sql_query($query);
+
+		$query = "INSERT INTO `συμμετοχή` (`τραπέζι`, `θέση`, `παίκτης`) " .
+			"VALUES (" . $trapezi->kodikos . ", " . $trapezi->thesi .
+			", " . $slogin . ")";
+		$globals->sql_query($query);
+		if (mysqli_affected_rows($globals->db) != 1) {
+			print 'Απέτυχε η εισαγωγή συμμετοχής του παίκτη "' +
+				$pektis->login . '" για το τραπέζι ' . $trapezi->kodikos;
+			return(FALSE);
+		}
+
+		// Επιχειρούμε να κλείσουμε το τραπέζι, εφόσον όλες οι θέσεις
+		// είναι πλέον κενές.
+		$query = "UPDATE `τραπέζι` SET `τέλος` = NOW() WHERE (`κωδικός` = " .
+			$trapezi->kodikos .  ") AND (`παίκτης1` IS NULL) AND " .
+			"(`παίκτης2` IS NULL) AND (`παίκτης3` IS NULL)";
+		$globals->sql_query($query);
+
+		// Αν δεν ενημερωθεί το τραπέζι σημαίνει ότι δεν έχουν ακόμη
+		// εκκενωθεί όλες οι θέσεις, οπότε επιστρέφουμε.
+		if (mysqli_affected_rows($globals->db) != 1) {
+			return(TRUE);
+		}
+
+		// Το τραπέζι μόλις έχει κλείσει, οπότε επαναφέρω τους τελευταίους
+		// συμμετέχοντες παίκτες.
+		$query = "SELECT * FROM `συμμετοχή` WHERE `τραπέζι` = " . $trapezi->kodikos;
+		$result = $globals->sql_query($query);
+		if (!$result) {
+			print 'Απέτυχε το μάζεμα συμμετοχών για το τραπέζι ' . $trapezi->kodikos;
+			return(FALSE);
+		}
+
+		$pektis1 = 'NULL';
+		$pektis2 = 'NULL';
+		$pektis3 = 'NULL';
+		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+			$p = "pektis" . $row['θέση'];
+			$$p = "'" . $globals->asfales($row['παίκτης']) . "'";
+		}
+
+		// Αν έχουμε μαζέψει έστω και μια εγγραφή συμμετοχής, προχωρούμε στην
+		// επανατοποθέτηση των παικτών.
+		if (($pektis1 != 'NULL') || ($pektis2 != 'NULL') || ($pektis3 != 'NULL')) {
+			$query = "UPDATE `τραπέζι` SET `παίκτης1` = " . $pektis1 .
+				", `παίκτης2` = " . $pektis2 . ", " .  "`παίκτης3` = " .
+				$pektis3 . " WHERE `κωδικός` = " . $trapezi->kodikos;
+			$globals->sql_query($query);
+			if (mysqli_affected_rows($globals->db) != 1) {
+				print 'Απέτυχε η επανατοποθέτηση των παικτών στο τραπέζι ' .
+					$trapezi->kodikos;
+				return(FALSE);
+			}
+		}
+
+		// Το τραπέζι έχει κλείσει και έχει γίνει τυχόν επανατοποθέτηση των
+		// τελευταίων παικτών, οπότε διαγράφουμε όλες τις περιφερειακές
+		// εγγραφές που αφορούν στο τραπέζι (συμμετοχές, θεατές, προσκλήσεις).
+
+		$query = "DELETE FROM `συμμετοχή` WHERE `τραπέζι` = " . $trapezi->kodikos;
+		$globals->sql_query($query);
+
+		$query = "DELETE FROM `θεατής` WHERE `τραπέζι` = " . $trapezi->kodikos;
+		$globals->sql_query($query);
+
+		$query = "DELETE FROM `πρόσκληση` WHERE `τραπέζι` = " . $trapezi->kodikos;
+		$globals->sql_query($query);
+		return(TRUE);
 	}
 }
 ?>
