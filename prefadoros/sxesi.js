@@ -78,12 +78,12 @@ var Sxesi = new function() {
 		html += 'onmouseout="emfanesAfanes(this, false);">';
 		switch (sxesi[i].o) {
 		case 1:
-			var ball = 'orange';
-			var title = 'Online, απασχολημένος';
-			break;
-		case 2:
 			var ball = 'green';
 			var title = 'Online, διαθέσιμος';
+			break;
+		case 2:
+			var ball = 'orange';
+			var title = 'Online, απασχολημένος';
 			break;
 		default:
 			var ball = 'blue';
