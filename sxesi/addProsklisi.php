@@ -16,7 +16,6 @@ $filos = check_apoklismos($pion);
 check_katastasi($pion, $filos);
 
 $trapezi = vres_to_trapezi();
-if (!$trapezi) { die('Ακαθόριστο τραπέζι για πρόσκληση'); }
 
 $query = "INSERT INTO `πρόσκληση` (`ποιος`, `ποιον`, `τραπέζι`) " .
 	"VALUES (" . $slogin . ", '" . $globals->asfales($pion) .  "', " .
@@ -69,25 +68,21 @@ function check_apoklismos($pion) {
 
 function vres_to_trapezi() {
 	global $globals;
-	global $slogin;
+
 	Prefadoros::set_trapezi();
 	if (!$globals->is_trapezi()) {
-		return(FALSE);
+		die('Ακαθόριστο τραπέζι');
 	}
 
 	if ($globals->trapezi->simetoxi == 'ΠΑΙΚΤΗΣ') {
 		return($globals->trapezi->kodikos);
 	}
 
-	$query = "SELECT * FROM `πρόσκληση` WHERE `ποιον` LIKE " . $slogin .
-		" AND `τραπέζι` = " . $globals->trapezi->kodikos;
-	$result = $globals->sql_query($query);
-	$row = @mysqli_fetch_array($result);
-	if (!$row) {
-		return(FALSE);
+	if ($globals->trapezi->is_prosklisi()) {
+		return($globals->trapezi->kodikos);
 	}
 
-	return($globals->trapezi->kodikos);
+	die('Δεν έχετε δικαίωμα πρόσκλησης παικτών σε αυτό το τραπέζι');
 }
 
 ?>
