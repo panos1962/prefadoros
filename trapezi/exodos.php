@@ -31,7 +31,7 @@ if ($globals->trapezi->$pektis != $globals->pektis->login) {
 
 Prefadoros::klidose_trapezi();
 
-// Κενώνουμε τη θέση του παίκτη στο τραπέζι.
+// Εκκενώνουμε τη θέση του παίκτη στο τραπέζι.
 $query = "UPDATE `τραπέζι` SET `παίκτης" . $globals->trapezi->thesi .
 	"` = NULL WHERE `κωδικός` = " . $globals->trapezi->kodikos;
 $globals->sql_query($query);
@@ -66,7 +66,7 @@ $query = "UPDATE `τραπέζι` SET `τέλος` = NOW() " .
 $globals->sql_query($query);
 
 // Αν δεν ενημερωθεί το τραπέζι σημαίνει ότι δεν έχουν ακόμη
-// κενωθεί όλες οι θέσεις, οπότε επιστρέφουμε.
+// εκκενωθεί όλες οι θέσεις, οπότε επιστρέφουμε.
 if (mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(TRUE);
 	die(0);
