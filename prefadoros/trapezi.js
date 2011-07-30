@@ -44,10 +44,11 @@ var Trapezi = new function() {
 		trapezi = trapezi1;
 		delete trapezi1;
 		Trapezi.updateHTML();
+
 		if (notSet(ixos) && isSet(dedomena.trapeziDel)) {
 			ixos = 'blioup';
 		}
-		if (isSet(ixos)) { playSound(ixos); }
+		if (isSet(ixos) && (Prefadoros.show == 'kafenio')) { playSound(ixos); }
 	};
 
 	this.updateHTML = function() {
