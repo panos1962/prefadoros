@@ -23,7 +23,7 @@ if ($globals->trapezi->simetoxi == 'ΘΕΑΤΗΣ') {
 	die(0);
 }
 
-// Επιβεβαιώνουμε ότι ο παίκτης όντωα συμμετέχει στο τραπέζι.
+// Επιβεβαιώνουμε ότι ο παίκτης όντως συμμετέχει στο τραπέζι.
 $pektis = 'pektis' . $globals->trapezi->thesi;
 if ($globals->trapezi->$pektis != $globals->pektis->login) {
 	die('Δεν συμμετέχετε στο τραπέζι');

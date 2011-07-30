@@ -268,7 +268,8 @@ var Sxesi = new function() {
 
 	this.addProsklisi = function(pektis) {
 		if (!isPartida()) {
-			alert('ακαθόριστο τραπέζι');
+			playSound('beep');
+			mainFyi('Ακαθόριστο τραπέζι');
 			return;
 		}
 		var img = getelid('sxi_' + pektis);

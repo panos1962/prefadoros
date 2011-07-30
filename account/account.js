@@ -72,7 +72,7 @@ account.onload = function() {
 			return false;
 		}
 
-		if (!fld.value.match(/^[a-zA-Z][a-zA-Z0-9_]*$/)) {
+		if (!fld.value.match(/^[a-zA-Z][a-zA-Z0-9_!@#=.:+-]*$/)) {
 			fld.style.color = globals.color.error;
 			formaFyi('Το login name δεν είναι δεκτό');
 			return false;
