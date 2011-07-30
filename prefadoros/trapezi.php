@@ -3,6 +3,7 @@ function process_trapezi() {
 	global $globals;
 	global $sinedria;
 
+	$energos = Prefadoros::energos_pektis();
 	$trapezi = array();
 
 	$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
@@ -12,6 +13,7 @@ function process_trapezi() {
 	while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$t = new Trapezi(FALSE);
 		$t->set_from_dbrow($row);
+		$t->set_energos_pektis($energos);
 		$trapezi[] = $t;
 	}
 

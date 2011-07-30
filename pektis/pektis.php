@@ -1,6 +1,7 @@
 <?php
 class Pektis {
 	public $login;
+	public $slogin;
 	public $onoma;
 	public $email;
 	public $kapikia;
@@ -14,6 +15,7 @@ class Pektis {
 		$errmsg = 'Pektis::construct: ';
 
 		unset($this->login);
+		unset($this->slogin);
 		unset($this->onoma);
 		unset($this->email);
 		unset($this->kapikia);
@@ -39,6 +41,7 @@ class Pektis {
 		if ($row) {
 			@mysqli_free_result($result);
 			$this->login = $row['login'];
+			$this->slogin = "'" . $globals->asfales($this->login) . "'";
 			$this->onoma = $row['όνομα'];
 			$this->email = $row['email'];
 			$this->kapikia = $row['καπίκια'];

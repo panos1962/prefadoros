@@ -79,6 +79,7 @@
 	margin-bottom: 0.2cm;
 	margin-right: 0.2cm;
 	text-align: center;
+	overflow: hidden;
 
 	width: 2.8cm;
 	min-width: 2.8cm;
@@ -95,9 +96,17 @@
 	background-color: #8AA886;
 }
 
-.kafenioPektisTheatis {
+.theatis {
 	border-color: #996633;
 	background-color: #B8A57A;
+}
+
+.offline {
+	border-style: dotted;
+}
+
+.apodoxi {
+	border-color: #B22222;
 }
 
 .kafenioTrapeziInfo {
