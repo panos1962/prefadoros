@@ -45,14 +45,14 @@ function diafimisiSetup() {
 }
 
 var Prefadoros = new function() {
-	var show = null;
+	this.show = null;
 
 	this.display = function() {
-		if (notSet(show)) {
-			show = isPartida() ? 'partida' : 'kafenio';
+		if (notSet(this.show)) {
+			this.show = isPartida() ? 'partida' : 'kafenio';
 		}
 
-		if (show === 'partida') {
+		if (this.show === 'partida') {
 			Prefadoros.showPartida();
 		}
 		else {
@@ -62,7 +62,7 @@ var Prefadoros = new function() {
 	};
 
 	this.showPartida = function() {
-		show = 'partida';
+		this.show = 'partida';
 		var x = getelid('prefadoros');
 		if (notSet(x)) { return false; }
 
@@ -80,7 +80,7 @@ var Prefadoros = new function() {
 	};
 
 	this.showKafenio = function() {
-		show = 'kafenio';
+		this.show = 'kafenio';
 		var x = getelid('prefadoros');
 		if (notSet(x)) { return false; }
 
