@@ -33,7 +33,6 @@ var Prosklisi = new function() {
 		// Διατρέχω το παλιό array "prosklisi" και ελέγχω αν κάποιες από τις
 		// εγγραφές του έχουν διαγραφεί. Τις εγγραφές που εμφανίζονται
 		// να έχουν διαγραφεί τις αγνοώ.
-		if ((!nea) && isSet(dedomena.prosklisiDel)) { playSound('skisimo'); }
 		for (var i = 0; i < prosklisi.length; i++) {
 			if (notSet(dedomena.prosklisiDel) ||
 				(!(('p' + prosklisi[i].k) in dedomena.prosklisiDel))) {
@@ -59,10 +58,6 @@ var Prosklisi = new function() {
 				playSound('sfirigma');
 				return;
 			}
-		}
-
-		if (dedomena.prosklisi.length < prosklisi.length) {
-			playSound('skisimo');
 		}
 	};
 
