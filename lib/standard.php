@@ -60,8 +60,16 @@ class Globals {
 		return(isset($this->pektis));
 	}
 
+	public function not_pektis() {
+		return(!$this->is_pektis());
+	}
+
 	public function is_trapezi() {
 		return(isset($this->trapezi));
+	}
+
+	public function not_trapezi() {
+		return(!$this->is_trapezi());
 	}
 
 	public function trapezi_check() {

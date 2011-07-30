@@ -102,8 +102,8 @@ var Prosklisi = new function() {
 			var apodoxi = ' title="Αποδοχή πρόσκλησης από &quot;' +
 				prosklisi[i].a + '&quot; για το τραπέζι ' + prosklisi[i].t + estali +
 				'" onclick="Prosklisi.apodoxi(' + prosklisi[i].k + ');" ';
-			html += '<img class="prosklisiIcon" src="' + globals.server +
-				'images/prosEmena.png"' + apodoxi + 'alt="" />';
+			html += '<img id="ap_' + prosklisi[i].k + '" class="prosklisiIcon" ' +
+				'src="' + globals.server + 'images/prosEmena.png"' + apodoxi + 'alt="" />';
 			html += '<img class="prosklisiIcon" src="' + globals.server +
 				'images/Xred.png" onclick="Prosklisi.skisimo(this, ' +
 				prosklisi[i].k + ', true);" title="Απόρριψη πρόσκλησης" alt="" />';
@@ -119,6 +119,28 @@ var Prosklisi = new function() {
 
 	this.apodoxi = function(k) {
 		mainFyi('αποδοχή πρόσκλησης ' + k);
+		var img = getelid('ap_' + k);
+		if (notSet(img)) { return; }
+		img.prevSrc = img.src;
+		img.src = globals.server + 'images/working.gif';
+		var req = new Request('prosklisi/apodoxi');
+		req.xhr.onreadystatechange = function() {
+			apodoxiCheck(req, img);
+		};
+
+		params = 'prosklisi=' + uri(k);
+		req.send(params);
+	};
+
+	function apodoxiCheck(req, img) {
+		if (req.xhr.readyState != 4) { return; }
+		img.src = img.prevSrc;
+		rsp = req.getResponse();
+		mainFyi(rsp);
+		if (rsp) {
+			errorIcon(img);
+			playSound('beep');
+		}
 	};
 
 	this.skisimo = function(img, k, cfrm) {
