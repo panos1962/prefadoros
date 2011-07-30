@@ -246,5 +246,19 @@ class Prefadoros {
 		$globals->sql_query($query);
 		return(TRUE);
 	}
+
+	static public function energos_pektis() {
+		global $globals;
+
+		$energos = array();
+		$query = "SELECT `login` FROM `παίκτης` WHERE " .
+			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
+			XRONOS_PEKTIS_IDLE_MAX;
+		$result = $globals->sql_query($query);
+		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+			$energos[$row[0]] = TRUE;
+		}
+		return($energos);
+	}
 }
 ?>

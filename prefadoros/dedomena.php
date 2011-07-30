@@ -136,6 +136,7 @@ class Dedomena {
 			return;
 		}
 
+		$globals->trapezi->set_energos_pektis();
 		Globals::put_line($fh, "@PARTIDA@");
 		$globals->trapezi->print_raw_data($fh);
 	}
@@ -545,17 +546,15 @@ class Dedomena {
 
 		print ",partida:{";
 		if (isset($curr)) {
-			print "k:" . $curr->kodikos .
-				",p1:'" . $curr->pektis1 . "'" .
-				",a1:" . $curr->apodoxi1 .
-				",p2:'" . $curr->pektis2 . "'" .
-				",a2:" . $curr->apodoxi2 .
-				",p3:'" . $curr->pektis3 . "'" .
-				",a3:" . $curr->apodoxi3 .
-				",s:" . $curr->kasa .
-				",p:" . $curr->prive .
-				",t:" . $curr->theatis .
-				",h:" . $curr->thesi;
+			print "k:" . $curr->kodikos;
+			print ",p1:'" . $curr->pektis1 . "'" . ",a1:" . $curr->apodoxi1;
+			if ($curr->online1) { print ",o1:1"; }
+			print ",p2:'" . $curr->pektis2 . "'" . ",a2:" . $curr->apodoxi2;
+			if ($curr->online2) { print ",o2:1"; }
+			print ",p3:'" . $curr->pektis3 . "'" . ",a3:" . $curr->apodoxi3;
+			if ($curr->online3) { print ",o3:1"; }
+			print ",s:" . $curr->kasa . ",p:" . $curr->prive .
+				",t:" . $curr->theatis . ",h:" . $curr->thesi;
 		}
 		print "}";
 	}

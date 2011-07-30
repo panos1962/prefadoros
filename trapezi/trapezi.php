@@ -3,10 +3,13 @@ class Trapezi {
 	public $kodikos;
 	public $pektis1;
 	public $apodoxi1;
+	public $online1;
 	public $pektis2;
 	public $apodoxi2;
+	public $online2;
 	public $pektis3;
 	public $apodoxi3;
+	public $online3;
 	public $kasa;
 	public $prive;
 
@@ -21,7 +24,7 @@ class Trapezi {
 
 	public $error;
 
-	public function __construct($auto = TRUE) {
+	public function __construct($trexon = TRUE) {
 		global $globals;
 		$errmsg = "Trapezi::construct(): ";
 
@@ -45,19 +48,19 @@ class Trapezi {
 
 		unset($this->error);
 
-		if (!$auto) {
+		if (!$trexon) {
 			return;
 		}
 
-		// Θα επιχειρήσουμε να βρούμε το τρέχον τραπέζι για τον παίκτη.
+		// Υποτίθεται ότι ο παίκτης είναι καθορισμένος και θα
+		// επιχειρήσουμε να βρούμε το τρέχον τραπέζι για τον παίκτη.
 		// Αν υπάρχει εγγραφή στον πίνακα "θεατής", τότε αυτό υπερισχύει,
-		// αλλιώς ψάχνουμε σε ποιο ενεργό τραπέζι συμμετέχει ο παίκτης.
+		// αλλιώς ψάχνουμε το τελευταίο ενεργό τραπέζι στο οποίο
+		// συμμετέχει ο παίκτης.
 
 		Prefadoros::pektis_check();
-		$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
-
 		$query = "SELECT `τραπέζι`, `θέση` FROM `θεατής` " .
-			"WHERE `παίκτης` LIKE " .  $slogin;
+			"WHERE `παίκτης` LIKE " .  $globals->pektis->slogin;
 		$result = $globals->sql_query($query);
 		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 		if ($row) {
@@ -80,27 +83,26 @@ class Trapezi {
 		// προσπαθώ να τον εντοπίσω ως παίκτη.
 		if (!$row) {
 			$query = "SELECT * FROM `τραπέζι` WHERE " .
-				"((`παίκτης1` LIKE " . $slogin . ") " .
-				"OR (`παίκτης2` LIKE " . $slogin . ") " .
-				"OR (`παίκτης3` LIKE " . $slogin . ")) " .
+				"((`παίκτης1` LIKE " . $globals->pektis->slogin . ") " .
+				"OR (`παίκτης2` LIKE " . $globals->pektis->slogin . ") " .
+				"OR (`παίκτης3` LIKE " . $globals->pektis->slogin . ")) " .
 				"AND (`τέλος` IS NULL) ORDER BY `κωδικός` DESC LIMIT 1";
 			$result = $globals->sql_query($query);
 			$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
 			if ($row) {
 				@mysqli_free_result($result);
-				$this->theatis = 0;
-				if ($row['παίκτης1'] == $globals->pektis->login) {
-					$this->thesi = 1;
+				for ($i = 1; $i <= 3; $i++) {
+					if ($row["παίκτης" . $i] == $globals->pektis->login) {
+						$this->theatis = 0;
+						$this->thesi = $i;
+						break;
+					}
 				}
-				elseif ($row['παίκτης2'] == $globals->pektis->login) {
-					$this->thesi = 2;
-				}
-				elseif ($row['παίκτης3'] == $globals->pektis->login) {
-					$this->thesi = 3;
-				}
-				else {
-					$this->theatis = 1;
-					$this->thesi = 1;
+				if ($i > 3) {
+					$this->error = $errmsg . 'βρέθηκε τραπέζι για τον παίκτη "' .
+						$globals->pektis->login . '", αλλά η θέση είναι ' .
+						'ακαθόριστη';
+					return;
 				}
 			}
 			else {
@@ -110,6 +112,10 @@ class Trapezi {
 			}
 		}
 
+		$this->set_from_dbrow($row);
+	}
+
+	public function set_from_dbrow($row, $basic = TRUE) {
 		$this->kodikos = $row['κωδικός'];
 		$this->pektis1 = $row['παίκτης1'];
 		$this->apodoxi1 = ($row['αποδοχή1'] == 'YES' ? 1 : 0);
@@ -119,6 +125,49 @@ class Trapezi {
 		$this->apodoxi3 = ($row['αποδοχή3'] == 'YES' ? 1 : 0);
 		$this->kasa = $row['κάσα'];
 		$this->prive = ($row['ιδιωτικότητα'] == 'ΠΡΙΒΕ' ? 1 : 0);
+
+		if ($basic) { return; }
+
+		// μάζεμα διανομών και θέση των υπολοίπων πεδίων.
+	}
+
+	public function set_energos_pektis($energos = FALSE) {
+		if ($energos === FALSE) { $energos = Prefadoros::energos_pektis(); }
+		for ($i = 1; $i <= 3; $i++) {
+			$pektis = "pektis" . $i;
+			$online = "online" . $i;
+			$this->$online = array_key_exists($this->$pektis, $energos) ? 1 : 0;
+		}
+	}
+
+	public function set_from_file($line) {
+		$cols = explode("\t", $line);
+		if (count($cols) != 12) { return(FALSE); }
+
+		$nf = 0;
+		$this->kodikos = $cols[$nf++];
+		$this->pektis1 = $cols[$nf++];
+		$this->apodoxi1 = $cols[$nf++];
+		$this->online1 = $cols[$nf++];
+		$this->pektis2 = $cols[$nf++];
+		$this->apodoxi2 = $cols[$nf++];
+		$this->online2 = $cols[$nf++];
+		$this->pektis3 = $cols[$nf++];
+		$this->apodoxi3 = $cols[$nf++];
+		$this->online3 = $cols[$nf++];
+		$this->kasa = $cols[$nf++];
+		$this->prive = $cols[$nf++];
+		return(TRUE);
+	}
+
+	public function klidoma() {
+		global $globals;
+		return($globals->klidoma('trapezi:' . $this->kodikos));
+	}
+
+	public function xeklidoma($ok) {
+		global $globals;
+		$globals->xeklidoma('trapezi:' . $this->kodikos, $ok);
 	}
 
 	public function is_theatis() {
@@ -127,6 +176,26 @@ class Trapezi {
 
 	public function is_pektis() {
 		return(!$this->is_theatis());
+	}
+
+	public function is_prosklisi($pektis = FALSE) {
+		global $globals;
+		if (!$pektis) {
+			if (!$globals->is_pektis()) { return(FALSE); }
+			$pektis = $globals->pektis->login;
+		}
+
+		$query = "SELECT * FROM `πρόσκληση` WHERE (`τραπέζι` = " .
+			$this->kodikos . ") AND (`ποιον` LIKE '" .
+			$globals->asfales($pektis) . "')";
+		$result = $globals->sql_query($query);
+		if (!$result) { return(FALSE); }
+
+		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
+		if (!$row) { return(FALSE); }
+
+		@mysqli_free_result($result);
+		return(TRUE);
 	}
 
 	public function fetch_dianomi() {
@@ -204,90 +273,41 @@ class Trapezi {
 		return(!$proti);
 	}
 
-	public function klidoma() {
-		global $globals;
-		return($globals->klidoma('trapezi:' . $this->kodikos));
-	}
-
-	public function xeklidoma($ok) {
-		global $globals;
-		$globals->xeklidoma('trapezi:' . $this->kodikos, $ok);
-	}
-
-	public function is_prosklisi($pektis = FALSE) {
-		global $globals;
-		if (!$pektis) {
-			if (!$globals->is_pektis()) { return(FALSE); }
-			$pektis = $globals->pektis->login;
-		}
-
-		$query = "SELECT * FROM `πρόσκληση` WHERE (`τραπέζι` = " .
-			$this->kodikos . ") AND (`ποιον` LIKE '" .
-			$globals->asfales($pektis) . "')";
-		$result = $globals->sql_query($query);
-		if (!$result) { return(FALSE); }
-
-		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
-		if (!$row) { return(FALSE); }
-
-		@mysqli_free_result($result);
-		return(TRUE);
-	}
-
-	public function set_from_dbrow($row) {
-		$this->kodikos = $row['κωδικός'];
-		$this->pektis1 = $row['παίκτης1'];
-		$this->apodoxi1 = ($row['αποδοχή1'] == 'YES' ? 1 : 0);
-		$this->pektis2 = $row['παίκτης2'];
-		$this->apodoxi2 = ($row['αποδοχή2'] == 'YES' ? 1 : 0);
-		$this->pektis3 = $row['παίκτης3'];
-		$this->apodoxi3 = ($row['αποδοχή3'] == 'YES' ? 1 : 0);
-		$this->kasa = $row['κάσα'];
-		$this->prive = ($row['ιδιωτικότητα'] == 'ΠΡΙΒΕ' ? 1 : 0);
-		// μάζεμα διανομών και θέση των υπολοίπων πεδίων.
-	}
-
-	public function set_from_file($line) {
-		$cols = explode("\t", $line);
-		if (count($cols) != 9) {
-			return(FALSE);
-		}
-
-		$nf = 0;
-		$this->kodikos = $cols[$nf++];
-		$this->pektis1 = $cols[$nf++];
-		$this->apodoxi2 = $cols[$nf++];
-		$this->pektis2 = $cols[$nf++];
-		$this->apodoxi1 = $cols[$nf++];
-		$this->pektis3 = $cols[$nf++];
-		$this->apodoxi3 = $cols[$nf++];
-		$this->kasa = $cols[$nf++];
-		$this->prive = $cols[$nf++];
-		return(TRUE);
-	}
-
 	public function print_raw_data($fh, $full = TRUE) {
-		fwrite($fh, $this->kodikos . "\t" .
+		fwrite($fh,
+			$this->kodikos . "\t" .
 			$this->pektis1 . "\t" .
 			$this->apodoxi1 . "\t" .
+			$this->online1 . "\t" .
 			$this->pektis2 . "\t" .
 			$this->apodoxi2 . "\t" .
+			$this->online2 . "\t" .
 			$this->pektis3 . "\t" .
 			$this->apodoxi3 . "\t" .
+			$this->online3 . "\t" .
 			$this->kasa . "\t" .
 			$this->prive);
 		if ($full) {
-			fwrite($fh, "\t" . $this->theatis . "\t" . $this->thesi);
+			fwrite($fh,
+				"\t" . $this->theatis .
+				"\t" . $this->thesi);
 		}
 		Globals::put_line($fh, '');
 	}
 
 	public function json_data() {
-		print "{k:" . $this->kodikos .
-			",p1:'" . $this->pektis1 . "',a1:" . $this->apodoxi1 .
-			",p2:'" . $this->pektis2 . "',a2:" . $this->apodoxi2 .
-			",p3:'" . $this->pektis3 . "',a3:" . $this->apodoxi3 .
-			",s:" . $this->kasa . ",r:" . $this->prive . "}";
+		print "{k:" . $this->kodikos;
+		for ($i = 1; $i <= 3; $i++) {
+			$pektis = "pektis" . $i;
+			$apodoxi = "apodoxi" . $i;
+			$online = "online" . $i;
+			print ",p" . $i . ":'" . $this->$pektis .
+				"',a" . $i . ":" . $this->$apodoxi;
+			if ($this->$online) {
+				print ",o" . $i . ":1";
+			}
+		}
+		print ",s:" . $this->kasa . ",r:" . $this->prive . "}";
 	}
 }
 ?>

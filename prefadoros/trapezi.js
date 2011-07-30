@@ -78,7 +78,13 @@ var Trapezi = new function() {
 		html += '">';
 		html += '<div class="kafenioTrapeziInfo';
 		if (theatis) { html += ' kafenioTrapeziInfoTheatis'; }
-		html += '">';
+		html += '"';
+		if (isSet(t.k) && isSet(t.s)) {
+			html += ' style="cursor: pointer;"';
+			html += ' title="Θεατής στο τραπέζι ' + t.k + '"';
+			html += ' onclick="Trapezi.theatis(' + t.k + ');"';
+		}
+		html += '>';
 		if (isSet(t.k) && isSet(t.s)) {
 			html += (t.k + '#' + t.s);
 		}
@@ -86,17 +92,50 @@ var Trapezi = new function() {
 			html += Tools.xromataHTML('0.5cm');
 		}
 		html += '</div>';
-		html += '<div class="kafenioPektis';
-		if (theatis) { html += ' kafenioPektisTheatis'; }
-		html += '">' + (t.p1 ? t.p1 : '&nbsp;') + '</div>';
-		html += '<div class="kafenioPektis';
-		if (theatis) { html += ' kafenioPektisTheatis'; }
-		html += '">' + (t.p2 ? t.p2 : '&nbsp;') + '</div>';
-		html += '<div class="kafenioPektis';
-		if (theatis) { html += ' kafenioPektisTheatis'; }
-		html += '">' + (t.p3 ? t.p3 : '&nbsp;') + '</div>';
+		for (var i = 1; i <= 3; i++) {
+			html += '<div class="kafenioPektis';
+			if (theatis) { html += ' theatis'; }
+			if (notSet(eval('t.o' + i))) { html += ' offline'; }
+			else if (notSet(eval('t.a' + i)) ||
+				(eval('t.a' + i) != 1)) { html += ' apodoxi'; }
+			html += '"';
+			var pektis = eval('t.p' + i);
+			if (pektis) {
+				html += ' onclick="Sxesi.permesWindow(\'' + pektis + '\');"';
+				html += ' title="Προσωπικό μήνυμα στο χρήστη &quot;' +
+					pektis + '&quot;"';
+				html += ' style="cursor: pointer;"';
+			}
+			html += '>';
+			html += eval('t.p' + i) ? eval('t.p' + i) : '&nbsp;';
+			html += '</div>';
+		}
 		html += '</div>';
 		return html;
+	};
+
+	this.theatis = function(t) {
+		var ico = getelid('controlPanelIcon');
+		if (notSet(ico)) { return; }
+		ico.src = globals.server + 'images/working.gif';
+
+		var req = new Request('trapezi/theatis');
+		req.xhr.onreadystatechange = function() {
+			Trapezi.theatisCheck(req, ico);
+		};
+
+		req.send('trapezi=' + t);
+	};
+
+	this.theatisCheck = function(req, ico) {
+		if (req.xhr.readyState != 4) { return; }
+		ico.src = globals.server + 'images/controlPanel/4Balls.png';
+		var rsp = req.getResponse();
+		if (rsp) {
+			mainFyi(rsp);
+			errorIcon(ico);
+			playSound('beep');
+		}
 	};
 
 	this.rebelosHTML = function(t) {
