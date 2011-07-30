@@ -74,7 +74,7 @@ function vres_to_trapezi() {
 		die('Ακαθόριστο τραπέζι');
 	}
 
-	if ($globals->trapezi->simetoxi == 'ΠΑΙΚΤΗΣ') {
+	if ($globals->trapezi->is_pektis()) {
 		return($globals->trapezi->kodikos);
 	}
 

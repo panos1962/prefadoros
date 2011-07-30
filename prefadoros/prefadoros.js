@@ -85,7 +85,7 @@ var Prefadoros = new function() {
 		if (notSet(x)) { return false; }
 
 		x.style.overflowY = 'auto';
-		x.innerHTML = Kafenio.html;
+		x.innerHTML = Trapezi.html;
 
 		x = getelid('partidaKafenio');
 		if (isSet(x)) {

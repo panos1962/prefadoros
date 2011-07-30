@@ -45,14 +45,17 @@ die('@' . $row[0] . '@');
 	die('Το τραπέζι έχει κλείσει');
 }
 
-for ($i = 1; $i <= 3; $i++) {
-	if (!$row[$i]) { break; }
+$thesi = vres_simetoxi();
+for ($i = 0; $i < 3; $i++) {
+	if (!$row[$thesi]) { break; }
+	$thesi++;
+	if ($thesi > 3) { $thesi = 1; }
 }
-if ($i > 3) {
+if ($i >= 3) {
 	gine_theatis();
 }
 else {
-	gine_pektis($i);
+	gine_pektis($thesi);
 }
 @mysqli_commit($globals->db);
 
@@ -109,5 +112,21 @@ function trapezi_prosklisis() {
 	}
 
 	return($row['τραπέζι']);
+}
+
+function vres_simetoxi() {
+	global $globals;
+	global $slogin;
+	global $strapezi;
+
+	$query = "SELECT `θέση` FROM `συμμετοχή` WHERE " .
+		"(`τραπέζι` = " . $strapezi . ") AND " .
+		"(`παίκτης` LIKE " . $slogin . ")";
+	$result = $globals->sql_query($query);
+	$row = @mysqli_fetch_array($result);
+	if (!$row) { return 1; }
+
+	@mysqli_free_result($result);
+	return($row[0]);
 }
 ?>

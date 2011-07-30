@@ -148,9 +148,12 @@ var Tools = new function() {
 		return html;
 	};
 
-	this.miaPrefaHTML = function() {
-		return '<div style="text-align: center;">' +
-			Tools.epilogiHTML('ΜΙΑ ΠΡΕΦΑ ΠΑΡΑΚΑΛΩ!', 'Partida.neoTrapezi();',
+	this.miaPrefaHTML = function(space) {
+		var html = '<div style="text-align: center;';
+		if (isSet(space)) { html += 'padding-bottom: 0.2cm;'; }
+		html += '">';
+		html += Tools.epilogiHTML('ΜΙΑ ΠΡΕΦΑ ΠΑΡΑΚΑΛΩ!', 'Partida.neoTrapezi();',
 			'Στήστε ένα τραπέζι για να παίξετε μια νέα παρτίδα') + '</div>';
+		return html;
 	};
 }

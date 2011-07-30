@@ -15,11 +15,11 @@ if (!Prefadoros::set_trapezi()) {
 }
 
 @mysqli_autocommit($globals->db, FALSE);
-if ($globals->trapezi->simetoxi == 'ΠΑΙΚΤΗΣ') {
-	apo_pektis_theatis();
+if ($globals->trapezi->theatis == 1) {
+	apo_theatis_pektis();
 }
 else {
-	apo_theatis_pektis();
+	apo_pektis_theatis();
 }
 @mysqli_commit($globals->db);
 

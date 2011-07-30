@@ -95,6 +95,11 @@
 	background-color: #8AA886;
 }
 
+.kafenioPektisTheatis {
+	border-color: #996633;
+	background-color: #B8A57A;
+}
+
 .kafenioTrapeziInfo {
 	display: inline-block;
 	margin-top: 0.2cm;
@@ -141,8 +146,21 @@
 	border-width: 0.085cm;
 	border-color: #4D944D;
 
-	background-image: url('../images/trapezi.jpg');
+	background-image: url('../images/trapeziPartida.jpg');
 	background-repeat: repeat;
+}
+
+.kafenioTrapeziPrive {
+	border-style: solid;
+}
+
+.kafenioTrapeziTheatis {
+	border-color: #996633;
+	background-image: url('../images/trapeziTheatis.jpg');
+}
+
+.kafenioTrapeziInfoTheatis {
+	border-color: #B8A57A;
 }
 
 .controlPanelColumn {

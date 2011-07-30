@@ -141,7 +141,7 @@ class Prefadoros {
 		// (πατώντας το κόκκινο κουμπάκι εξόδου), είτε έμμεσα (αποδεχόμενος
 		// πρόσκληση από άλλο τραπέζι).
 
-		if ($trapezi->simetoxi == 'ΘΕΑΤΗΣ') {
+		if ($trapezi->is_theatis()) {
 			$query = "DELETE FROM `θεατής` WHERE `παίκτης` LIKE " . $slogin;
 			$globals->sql_query($query);
 			if (mysqli_affected_rows($globals->db) != 1) {

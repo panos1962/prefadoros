@@ -57,14 +57,14 @@ function process_partida() {
 
 	$p = new Partida();
 	$p->kodikos = intval($globals->trapezi->kodikos);
-	$p->pektis1 = (isset($globals->trapezi->pektis1) ? $globals->trapezi->pektis1 : '');
-	$p->apodoxi1 = ($globals->trapezi->apodoxi1 == 'YES' ? 1 : 0);
-	$p->pektis2 = (isset($globals->trapezi->pektis2) ? $globals->trapezi->pektis2 : '');
-	$p->apodoxi2 = ($globals->trapezi->apodoxi2 == 'YES' ? 1 : 0);
-	$p->pektis3 = (isset($globals->trapezi->pektis3) ? $globals->trapezi->pektis3 : '');
-	$p->apodoxi3 = ($globals->trapezi->apodoxi3 == 'YES' ? 1 : 0);
-	$p->kasa = intval($globals->trapezi->kasa);
-	$p->prive = ($globals->trapezi->idiotikotita == 'ΠΡΙΒΕ' ? 1 : 0);
+	$p->pektis1 = $globals->trapezi->pektis1;
+	$p->apodoxi1 = $globals->trapezi->apodoxi1;
+	$p->pektis2 = $globals->trapezi->pektis2;
+	$p->apodoxi2 = $globals->trapezi->apodoxi2;
+	$p->pektis3 = $globals->trapezi->pektis3;
+	$p->apodoxi3 = $globals->trapezi->apodoxi3;
+	$p->kasa = $globals->trapezi->kasa;
+	$p->prive = $globals->trapezi->prive;
 	$p->theatis = ($globals->trapezi->is_pektis() ? 0 : 1);
 	$p->thesi = intval($globals->trapezi->thesi);
 	return($p);

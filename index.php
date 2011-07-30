@@ -16,7 +16,7 @@ if ($globals->is_pektis()) {
 	Page::javascript('prefadoros/prosklisi');
 	Page::javascript('prefadoros/sxesi');
 	Page::javascript('prefadoros/permes');
-	Page::javascript('prefadoros/kafenio');
+	Page::javascript('prefadoros/trapezi');
 	Page::javascript('lib/controlPanel');
 	Page::javascript('lib/pss');
 	Page::javascript('lib/emoticons');
@@ -50,7 +50,7 @@ function prefadoros() {
 	global $globals;
 	$trapoula = new Trapoula;
 	$query = "INSERT INTO `συνεδρία` (`παίκτης`) VALUES ('" .
-		$globals->pektis->login . "')";
+		$globals->asfales($globals->pektis->login) . "')";
 	$globals->sql_query($query);
 	?>
 	<script type="text/javascript">
@@ -62,7 +62,7 @@ function prefadoros() {
 	if ($globals->is_trapezi()) {
 		?>
 		partida.k = <?php print $globals->trapezi->kodikos; ?>;
-		partida.t = <?php print ($globals->trapezi->simetoxi == 'ΠΑΙΚΤΗΣ' ? 1 : 0); ?>;
+		partida.t = <?php print $globals->trapezi->theatis; ?>;
 		partida.h = <?php print $globals->trapezi->thesi; ?>;
 		<?php
 	}
