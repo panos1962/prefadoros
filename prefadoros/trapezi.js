@@ -138,7 +138,10 @@ var Trapezi = new function() {
 		if (req.xhr.readyState != 4) { return; }
 		ico.src = globals.server + 'images/controlPanel/4Balls.png';
 		var rsp = req.getResponse();
-		if (rsp) {
+		if (rsp == 'partida') {
+			Prefadoros.showPartida();
+		}
+		else if (rsp) {
 			mainFyi(rsp);
 			errorIcon(ico);
 			playSound('beep');
