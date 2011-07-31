@@ -10,6 +10,8 @@ global $trapezi;
 $trapezi = Globals::perastike_check('trapezi');
 global $strapezi;
 $strapezi = $globals->asfales($trapezi);
+
+@mysqli_autocommit($globals->db, FALSE);
 check_pektis();
 
 $query = "SELECT `τραπέζι` FROM `θεατής` WHERE `παίκτης` LIKE " .
@@ -35,12 +37,14 @@ else {
 }
 $globals->sql_query($query);
 
+@mysqli_commit($globals->db);
+
 function check_pektis() {
 	global $globals;
 	global $trapezi;
 	global $strapezi;
 
-	$query = "SELECT `παίκτης1`, `παίκτης2`, `παίκτης3` " .
+	$query = "SELECT `κωδικός`, `παίκτης1`, `παίκτης2`, `παίκτης3` " .
 		"FROM `τραπέζι` WHERE `κωδικός` = " . $strapezi;
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
@@ -49,10 +53,29 @@ function check_pektis() {
 	}
 
 	@mysqli_free_result($result);
-	for ($i = 0; $i < 3; $i++) {
-		if ($row[$i] == $globals->pektis->login) {
-			die('Συμμετέχετε ως παίκτης στο τραπέζι ' . $trapezi .
-				'. Δοκιμάστε από το control panel.');
+	for ($i = 1; $i <= 3; $i++) {
+		if ($row[$i] != $globals->pektis->login) { continue; }
+
+		$query = "DELETE FROM `συμμετοχή` WHERE (`παίκτης` = " .
+			$globals->pektis->slogin . ") AND (`τραπέζι` = " .
+			$strapezi . ")";
+		$globals->sql_query($query);
+
+		$query = "INSERT INTO `συμμετοχή` (`παίκτης`, `τραπέζι`, `θέση`) " .
+			"VALUES (" . $globals->pektis->slogin . ", " .
+			$strapezi . ", " . $i . ")";
+		$globals->sql_query($query);
+		if (@mysqli_affected_rows($globals->db) != 1) {
+			@mysqli_rollback($globals->db);
+			die('Απέτυχε η εισαγωγή συμμετοχής');
+		}
+
+		$query = "UPDATE `τραπέζι` SET `παίκτης" . $i . "` = NULL " .
+			"WHERE `κωδικός` = " . $strapezi;
+		$globals->sql_query($query);
+		if (@mysqli_affected_rows($globals->db) != 1) {
+			@mysqli_rollback($globals->db);
+			die('Απέτυχε εκκένωση της θέσης του παίκτη στο τραπέζι');
 		}
 	}
 }
