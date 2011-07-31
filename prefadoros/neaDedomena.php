@@ -135,6 +135,11 @@ function print_epikefalida() {
 	global $sinedria;
 	global $id;
 
+	// Για να έχουμε ενημερωμένα στοιχεία σχετικά με την κατάσταση
+	// του παίκτη επαναπροσπελαύνουμε τον παίκτη πριν την επιστροφή.
+	unset($globals->pektis);
+	Prefadoros::pektis_check();
+
 	header('Content-type: application/json; charset=utf-8');
 	print "sinedria:{k:{$sinedria},i:{$id}";
 	if ($globals->pektis->kapikia != 'YES') { print ",p:0"; }
