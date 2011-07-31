@@ -41,7 +41,7 @@
 }
 
 .partidaTheatis {
-	border-color: #996633;
+	border-color: #928864;
 	background-image: url('../images/theatis.jpg');
 }
 
@@ -109,7 +109,7 @@
 }
 
 .kafenioTrapeziTheatis {
-	border-color: #996633;
+	border-color: #928864;
 	background-image: url('../images/trapeziTheatis.jpg');
 }
 
@@ -137,7 +137,7 @@
 }
 
 .kafenioTrapeziInfoTheatis {
-	border-color: #B8A57A;
+	border-color: #B7AA7D;
 }
 
 .kafenioPektis {
@@ -161,8 +161,8 @@
 }
 
 .theatis {
-	border-color: #996633;
-	background-color: #B8A57A;
+	border-color: #928864;
+	background-color: #B7AA7D;
 }
 
 .offline {
@@ -171,6 +171,10 @@
 
 .oxiApodoxi {
 	border-color: #B22222;
+}
+
+.rebelos {
+	margin-bottom: 0.2cm;
 }
 
 .controlPanelColumn {
