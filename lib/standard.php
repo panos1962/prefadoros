@@ -334,10 +334,17 @@ class Page {
 		<div id="diafimisi" class="diafimisiArea"
 			onmouseover="getelid('apokripsidiafimisi').style.visibility='visible';"
 			onmouseout="getelid('apokripsidiafimisi').style.visibility='hidden';">
-			<?php
-			self::apokripsi('diafimisi');
-			print $diafimisi;
-			?>
+			<?php self::apokripsi('diafimisi'); ?>
+			<script type="text/javascript">
+			//<![CDATA[
+			setTimeout(function() {
+				var x = getelid('diafimisi');
+				if (notSet(x)) { return; }
+				x.innerHTML += '<?php print str_replace
+					(array("\r\n", "\r", "\n", "\t"), '', $diafimisi); ?>';
+			}, 500);
+			//]]>
+			</script>
 		</div>
 		<?php
 	}

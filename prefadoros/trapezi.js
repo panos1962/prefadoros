@@ -80,6 +80,8 @@ var Trapezi = new function() {
 		if (theatis) { html += ' kafenioTrapeziInfoTheatis'; }
 		html += '"';
 		if (isSet(t.k) && isSet(t.s)) {
+			html += ' onmouseover="Trapezi.fotise(this);"';
+			html += ' onmouseout="Trapezi.xefotise(this);"';
 			html += ' style="cursor: pointer;"';
 			html += ' title="';
 			if (theatis) {
@@ -108,7 +110,10 @@ var Trapezi = new function() {
 			html += '"';
 			var pektis = eval('t.p' + i);
 			if (pektis) {
-				html += ' onclick="Sxesi.permesWindow(\'' + pektis + '\');"';
+				html += ' onmouseover="Trapezi.fotise(this);"';
+				html += ' onmouseout="Trapezi.xefotise(this);"';
+				html += ' onclick="Sxesi.permesWindow(\'' + pektis +
+					'\', \'Γεια χαρά!\');"';
 				html += ' title="Προσωπικό μήνυμα στο χρήστη &quot;' +
 					pektis + '&quot;"';
 				html += ' style="cursor: pointer;"';
@@ -119,6 +124,18 @@ var Trapezi = new function() {
 		}
 		html += '</div>';
 		return html;
+	};
+
+	this.fotise = function(div) {
+		if (notSet(div)) { return; }
+		div.oldClass = div.getAttribute('class');
+		if (notSet(div.oldClass)) { return; }
+		div.setAttribute('class', div.oldClass + ' kafenioFotismeno');
+	};
+
+	this.xefotise = function(div) {
+		if (notSet(div) || notSet(div.oldClass)) { return; }
+		div.setAttribute('class', div.oldClass);
 	};
 
 	this.theatis = function(t) {

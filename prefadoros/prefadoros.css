@@ -138,6 +138,7 @@
 }
 
 .kafenioTrapezi {
+	color: #333333;
 	margin-top: 0.2cm;
 
 	width: 12.7cm;
@@ -170,6 +171,11 @@
 
 .kafenioTrapeziInfoTheatis {
 	border-color: #B8A57A;
+}
+
+.kafenioFotismeno {
+	color: #111111;
+	font-weight: bold;
 }
 
 .controlPanelColumn {

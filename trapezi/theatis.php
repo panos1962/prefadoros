@@ -15,16 +15,25 @@ $strapezi = $globals->asfales($trapezi);
 // τότε θα τυπωθεί το μήνυμα "partida", ώστε κατά την επιστροφή
 // να μεταβούμε σε mode τραπεζιού και να εμφανιστεί απευθείας
 // το επιθυμητό τραπέζι.
+$partida = FALSE;
 
 @mysqli_autocommit($globals->db, FALSE);
+
+// Πρώτα ελέγχουμε αν ο παίκτης συμμετέχει ήδη στο πεθυμητό τραπέζι.
 check_pektis();
 
+// Εντοπίζουμε τυχόν υπάρχουσα εγγραφή του παίκτη ως θεατή.
 $query = "SELECT `τραπέζι` FROM `θεατής` WHERE `παίκτης` LIKE " .
 	$globals->pektis->slogin;
 $result = $globals->sql_query($query);
 $row = @mysqli_fetch_array($result, MYSQLI_NUM);
 if ($row) {
 	@mysqli_free_result($result);
+
+	// Αν ο παίκτης είναι ήδη θεατής στο τραπέζι, τότε απλώς παύει
+	// να είναι θεατής. Αν είναι θεατής σε άλλο τραπέζι, τότε τον
+	// κάνουμε θεατή στο επιθυμητό τραπέζι.
+
 	if ($row[0] == $trapezi) {
 		$query = "DELETE FROM `θεατής` WHERE `παίκτης` LIKE " .
 			$globals->pektis->slogin;
@@ -37,6 +46,9 @@ if ($row) {
 	}
 }
 else {
+	// Ο παίκτης δεν είναι θεατής σε κάποιο τραπέζι, οπότε απλώς
+	// τον τοποθετούμε ως θεατή στο επιθυμητό τραπέζι.
+
 	check_prosvasi();
 	$query = "INSERT INTO `θεατής` (`παίκτης`, `τραπέζι`, `θέση`) " .
 		"VALUES (" . $globals->pektis->slogin . ", " . $strapezi . ", 1)";
@@ -45,7 +57,7 @@ else {
 $globals->sql_query($query);
 
 @mysqli_commit($globals->db);
-if ($partida === TRUE) { print 'partida'; }
+if ($partida) { print 'partida'; }
 
 // Εαν ο παίκτης συμμετέχει στο τραπέζι στο οποίο ζητά να γίνει
 // θεατής, τότε διαγράφουμε τυχόν άλλη συμμετοχή του παίκτη ως
