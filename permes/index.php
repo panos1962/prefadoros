@@ -77,8 +77,10 @@ function minimata() {
 	<div style="margin-top: 0px;">
 	Εισερχόμενα <input id="iser" type="checkbox" checked="yes" onchange="Permes.refresh('iser');" />
 	Εξερχόμενα <input id="exer" type="checkbox" onchange="Permes.refresh('exer');" />
+	<input class="button formaButton" type="submit" value="Ανανέωση"
+		onclick="location.href=location.href;return false;" style="margin-left: 2.0cm;" />
 	<input class="button formaButton" type="submit" value="Σύνθεση"
-		onclick="return Permes.sinthesi();" style="margin-left: 4.0cm;" />
+		onclick="return Permes.sinthesi();" style="margin-left: 1.0cm;" />
 	</div>
 	<div id="minimata" style="margin-top: 0px;">
 	</div>
