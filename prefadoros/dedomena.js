@@ -107,6 +107,12 @@ var Dedomena = new function() {
 			polivoloTS = tora;
 			polivolo = 0;
 		}
+
+		if (isSet(dedomena) && isSet(dedomena.sinedria)) {
+			pektis.kapikia = (!(isSet(dedomena.sinedria.p) && (dedomena.sinedria.p == 0)));
+			pektis.available = (!(isSet(dedomena.sinedria.b) && (dedomena.sinedria.b == 0)));
+		}
+
 		if (isSet(dedomena.sinedria.s)) {
 			monitor.idia();
 			Dedomena.schedule();
@@ -114,10 +120,6 @@ var Dedomena = new function() {
 		}
 
 		monitor.freska();
-		if (isSet(dedomena) && isSet(dedomena.sinedria)) {
-			pektis.kapikia = (!(isSet(dedomena.sinedria.p) && (dedomena.sinedria.p == 0)));
-			pektis.available = (!(isSet(dedomena.sinedria.b) && (dedomena.sinedria.b == 0)));
-		}
 		Partida.processDedomena(dedomena);
 		Prosklisi.processDedomena(dedomena);
 		Sxesi.processDedomena(dedomena);
