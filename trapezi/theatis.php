@@ -11,6 +11,11 @@ $trapezi = Globals::perastike_check('trapezi');
 global $strapezi;
 $strapezi = $globals->asfales($trapezi);
 
+// Εαν επιτύχουμε να γίνουμε παίκτες στο επιθυμητό τραπέζι,
+// τότε θα τυπωθεί το μήνυμα "partida", ώστε κατά την επιστροφή
+// να μεταβούμε σε mode τραπεζιού και να εμφανιστεί απευθείας
+// το επιθυμητό τραπέζι.
+
 @mysqli_autocommit($globals->db, FALSE);
 check_pektis();
 
@@ -28,16 +33,26 @@ if ($row) {
 		check_prosvasi();
 		$query = "UPDATE `θεατής` SET `τραπέζι` = " . $strapezi .
 			" WHERE `παίκτης` LIKE " . $globals->pektis->slogin;
+		$partida = TRUE;
 	}
 }
 else {
 	check_prosvasi();
 	$query = "INSERT INTO `θεατής` (`παίκτης`, `τραπέζι`, `θέση`) " .
 		"VALUES (" . $globals->pektis->slogin . ", " . $strapezi . ", 1)";
+	$partida = TRUE;
 }
 $globals->sql_query($query);
 
 @mysqli_commit($globals->db);
+if ($partida === TRUE) { print 'partida'; }
+
+// Εαν ο παίκτης συμμετέχει στο τραπέζι στο οποίο ζητά να γίνει
+// θεατής, τότε διαγράφουμε τυχόν άλλη συμμετοχή του παίκτη ως
+// θεατή σε τυχόν άλλο τραπέζι και επιστρέφουμε σε mode τραπεζιού.
+// Εκεί ο παίκτης μπορεί με ασφάλεια να εναλλάσσει τη συμμετοχή
+// του ως παίκτης ή θεατής χρησιμοποιώντας το σχεστικό κουμπί
+// του control panel.
 
 function check_pektis() {
 	global $globals;
@@ -54,28 +69,12 @@ function check_pektis() {
 
 	@mysqli_free_result($result);
 	for ($i = 1; $i <= 3; $i++) {
-		if ($row[$i] != $globals->pektis->login) { continue; }
-
-		$query = "DELETE FROM `συμμετοχή` WHERE (`παίκτης` = " .
-			$globals->pektis->slogin . ") AND (`τραπέζι` = " .
-			$strapezi . ")";
-		$globals->sql_query($query);
-
-		$query = "INSERT INTO `συμμετοχή` (`παίκτης`, `τραπέζι`, `θέση`) " .
-			"VALUES (" . $globals->pektis->slogin . ", " .
-			$strapezi . ", " . $i . ")";
-		$globals->sql_query($query);
-		if (@mysqli_affected_rows($globals->db) != 1) {
-			@mysqli_rollback($globals->db);
-			die('Απέτυχε η εισαγωγή συμμετοχής');
-		}
-
-		$query = "UPDATE `τραπέζι` SET `παίκτης" . $i . "` = NULL " .
-			"WHERE `κωδικός` = " . $strapezi;
-		$globals->sql_query($query);
-		if (@mysqli_affected_rows($globals->db) != 1) {
-			@mysqli_rollback($globals->db);
-			die('Απέτυχε εκκένωση της θέσης του παίκτη στο τραπέζι');
+		if ($row[$i] == $globals->pektis->login) {
+			$query = "DELETE FROM `θεατής` WHERE `παίκτης` LIKE " .
+				$globals->pektis->slogin;
+			$globals->sql_query($query);
+			@mysqli_commit($globals->db);
+			die('partida');
 		}
 	}
 }
