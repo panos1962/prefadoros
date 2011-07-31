@@ -74,28 +74,6 @@
 	margin-right: auto;
 }
 
-.kafenioPektis {
-	display: inline-block;
-	margin-bottom: 0.2cm;
-	margin-right: 0.2cm;
-	text-align: center;
-	overflow: hidden;
-
-	width: 2.8cm;
-	min-width: 2.8cm;
-	max-width: 2.8cm;
-
-	height: 0.7cm;
-	max-height: 0.7cm;
-	min-height: 0.7cm;
-
-	border-style: solid;
-	border-width: 0.08cm;
-	border-color: #4D944D;
-
-	background-color: #8AA886;
-}
-
 .theatis {
 	border-color: #996633;
 	background-color: #B8A57A;
@@ -107,25 +85,6 @@
 
 .oxiApodoxi {
 	border-color: #B22222;
-}
-
-.kafenioTrapeziInfo {
-	display: inline-block;
-	margin-top: 0.2cm;
-	margin-right: 0.2cm;
-	text-align: center;
-
-	width: 2.8cm;
-	min-width: 2.8cm;
-	max-width: 2.8cm;
-
-	height: 0.7cm;
-	max-height: 0.7cm;
-	min-height: 0.7cm;
-
-	border-style: dotted;
-	border-width: 0.08cm;
-	border-color: #8AA886;
 }
 
 .kafenioTrapeziLine {
@@ -140,14 +99,12 @@
 .kafenioTrapezi {
 	color: #333333;
 	margin-top: 0.2cm;
+	padding-top: 0.2cm;
+	padding-bottom: 0.2cm;
 
 	width: 12.7cm;
 	min-width: 12.7cm;
 	max-width: 12.7cm;
-
-	height: 1.2cm;
-	max-height: 1.2cm;
-	min-height: 1.2cm;
 
 	margin-left: auto;
 	margin-right: auto;
@@ -169,13 +126,52 @@
 	background-image: url('../images/trapeziTheatis.jpg');
 }
 
+.kafenioFotismeno {
+	color: #111111;
+	font-weight: bold;
+}
+
+.kafenioTrapeziInfo {
+	display: inline-block;
+	margin-right: 0.2cm;
+	text-align: center;
+
+	width: 2.8cm;
+	min-width: 2.8cm;
+	max-width: 2.8cm;
+
+	height: 0.7cm;
+	max-height: 0.7cm;
+	min-height: 0.7cm;
+
+	border-style: dotted;
+	border-width: 0.08cm;
+	border-color: #8AA886;
+}
+
 .kafenioTrapeziInfoTheatis {
 	border-color: #B8A57A;
 }
 
-.kafenioFotismeno {
-	color: #111111;
-	font-weight: bold;
+.kafenioPektis {
+	display: inline-block;
+	margin-right: 0.2cm;
+	text-align: center;
+	overflow: hidden;
+
+	width: 2.8cm;
+	min-width: 2.8cm;
+	max-width: 2.8cm;
+
+	height: 0.7cm;
+	max-height: 0.7cm;
+	min-height: 0.7cm;
+
+	border-style: solid;
+	border-width: 0.08cm;
+	border-color: #4D944D;
+
+	background-color: #8AA886;
 }
 
 .controlPanelColumn {
