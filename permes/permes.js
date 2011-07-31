@@ -206,7 +206,6 @@ window.onload = function() {
 	init();
 	var x = getelid('permesInput');
 	if (isSet(x)) {
-		x.value = '';
 		try { x.focus(); } catch(e) {};
 	}
 

@@ -261,9 +261,10 @@ var Sxesi = new function() {
 		return html;
 	};
 
-	this.permesWindow = function(login) {
+	this.permesWindow = function(login, msg) {
+		msg = isSet(msg) ? '&minima=' + uri(msg) : '';
 		var w = window.open(globals.server + 'permes/index.php?' +
-			'pedi=yes&pros=' + uri(login));
+			'pedi=yes&pros=' + uri(login) + msg);
 	};
 
 	this.addProsklisi = function(pektis) {

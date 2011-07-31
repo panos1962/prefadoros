@@ -53,8 +53,10 @@ function minima_pros($pros = '', $pros_fixed = FALSE) {
 	</div>
 	<div style="width: 11.0cm;">
 	<textarea id="permesInput" rows="14" cols="<?php print $pros_fixed ? 80 : 80; ?>"
-		style="font-size: 0.4cm;">
-	</textarea>
+		style="font-size: 0.4cm;"><?php
+		if (Globals::perastike('minima')) {
+			print $_REQUEST['minima'];
+		} ?></textarea>
 	<div id="formaFyi" class="fyi formaFyi">&#xfeff;</div>
 	<input class="button formaButton" type="submit" value="Αποστολή"
 		onclick="return Permes.apostoli(<?php if ($pros_fixed) print 'true'; ?>);" />
