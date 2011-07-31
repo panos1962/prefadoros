@@ -56,20 +56,17 @@ var Trapezi = new function() {
 		if (notPartida()) { Trapezi.html += Tools.miaPrefaHTML(true); }
 		if (rebelos.length > 0) {
 			Trapezi.html += '<div class="kafenioRebels">';
-for (var ii = 0; ii < 10; ii++) {
 			for (var i = 0; i < rebelos.length; i++) {
 				if (notSet(rebelos[i].t)) {
 					Trapezi.html += Trapezi.rebelosHTML(rebelos[i].l);
 				}
 			}
-}
 			Trapezi.html += '</div>';
 		}
 
 		for (var i = 0; i < trapezi.length; i++) {
 			Trapezi.html += Trapezi.trapeziHTML(trapezi[i]);
 			var protos = '<div class="kafenioRebels" style="margin-top: 0.2cm;">';
-for (var ii = 0; ii < 10; ii++) {
 			for (var j = 0; j < rebelos.length; j++) {
 				if (isSet(rebelos[j].t) && (rebelos[j].t == trapezi[i].k)) {
 					Trapezi.html += protos;
@@ -77,7 +74,6 @@ for (var ii = 0; ii < 10; ii++) {
 					Trapezi.html += Trapezi.rebelosHTML(rebelos[j].l, true);
 				}
 			}
-}
 			if (protos === '') { Trapezi.html += '</div>'; }
 		}
 		Trapezi.html += '</div>';
@@ -124,20 +120,24 @@ for (var ii = 0; ii < 10; ii++) {
 				(eval('t.a' + i) != 1)) { html += ' oxiApodoxi'; }
 			html += '"';
 			var pektis = eval('t.p' + i);
-			if (pektis) {
-				html += ' onmouseover="Trapezi.fotise(this);"';
-				html += ' onmouseout="Trapezi.xefotise(this);"';
-				html += ' onclick="Sxesi.permesWindow(\'' + pektis +
-					'\', \'Γεια χαρά!\');"';
-				html += ' title="Προσωπικό μήνυμα στο χρήστη &quot;' +
-					pektis + '&quot;"';
-				html += ' style="cursor: pointer;"';
-			}
+			if (pektis) { html += Trapezi.permesHTML(pektis); }
 			html += '>';
 			html += eval('t.p' + i) ? eval('t.p' + i) : '&nbsp;';
 			html += '</div>';
 		}
 		html += '</div>';
+		return html;
+	};
+
+	this.permesHTML = function(pektis) {
+		var html = '';
+		html += ' onmouseover="Trapezi.fotise(this);"';
+		html += ' onmouseout="Trapezi.xefotise(this);"';
+		html += ' onclick="Sxesi.permesWindow(\'' + pektis +
+			'\', \'Γεια χαρά!\');"';
+		html += ' title="Προσωπικό μήνυμα στο χρήστη &quot;' +
+			pektis + '&quot;"';
+		html += ' style="cursor: pointer;"';
 		return html;
 	};
 
@@ -181,9 +181,11 @@ for (var ii = 0; ii < 10; ii++) {
 	};
 
 	this.rebelosHTML = function(t, theatis) {
-		var html = '<div class="kafenioPektis';
+		var html = '<div class="kafenioPektis rebelos';
 		if (isSet(theatis)) { html += ' theatis'; }
-		html += '">';
+		html += '"';
+		html += Trapezi.permesHTML(t);
+		html += '>';
 		html += t;
 		html += '</div>';
 		return html;
