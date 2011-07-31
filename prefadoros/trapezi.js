@@ -81,7 +81,14 @@ var Trapezi = new function() {
 		html += '"';
 		if (isSet(t.k) && isSet(t.s)) {
 			html += ' style="cursor: pointer;"';
-			html += ' title="Θεατής στο τραπέζι ' + t.k + '"';
+			html += ' title="';
+			if (theatis) {
+				html += 'Αποχώρηση ως θεατής από το τραπέζι ' + t.k;
+			}
+			else {
+				html += 'Θεατής στο τραπέζι ' + t.k;
+			}
+			html += '"';
 			html += ' onclick="Trapezi.theatis(' + t.k + ');"';
 		}
 		html += '>';

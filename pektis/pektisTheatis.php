@@ -83,7 +83,7 @@ function apo_theatis_pektis() {
 	// να συμμετάσχει ως παίκτης.
 	if (!$globals->trapezi->is_prosklisi()) {
 		@mysqli_rollback($globals->db);
-		die('Δεν έχετε προσκληθεί στο τραπέζι');
+		die('Δεν έχετε προσκληθεί στο τραπέζι ' . $globals->trapezi->kodikos);
 	}
 
 	// Διαγράφουμε την εγγραφή του παίκτη ως θεατή.
@@ -92,6 +92,14 @@ function apo_theatis_pektis() {
 	if (mysqli_affected_rows($globals->db) != 1) {
 		@mysqli_rollback($globals->db);
 		die('Απέτυχε η διαγραφή θεατή');
+	}
+
+	// Ελέγχουμε μήπως ο παίκτης συμμετέχει ήδη στο τραπέζι.
+	for ($i = 1; $i <= 3; $i++) {
+		$pektis = "pektis" . $i;
+		if ($globals->trapezi->$pektis == $globals->pektis->login) {
+			return;
+		}
 	}
 
 	// Ελέγχουμε αν υπάρχει εγγραφή συμμετοχής του παίκτη στο τραπέζι
