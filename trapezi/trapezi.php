@@ -301,8 +301,10 @@ class Trapezi {
 			$pektis = "pektis" . $i;
 			$apodoxi = "apodoxi" . $i;
 			$online = "online" . $i;
-			print ",p" . $i . ":'" . $this->$pektis .
-				"',a" . $i . ":" . $this->$apodoxi;
+			print ",p" . $i . ":'" . $this->$pektis . "'";
+			if ($this->$apodoxi != 1) {
+				print ",a" . $i . ":" . $this->$apodoxi;
+			}
 			if ($this->$online) {
 				print ",o" . $i . ":1";
 			}
