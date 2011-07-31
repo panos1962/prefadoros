@@ -61,7 +61,7 @@
 }
 
 .kafenio {
-	font-size: 0.5cm;
+	font-size: 0.4cm;
 	letter-spacing: 0.01cm;
 }
 
@@ -72,19 +72,6 @@
 
 	margin-left: auto;
 	margin-right: auto;
-}
-
-.theatis {
-	border-color: #996633;
-	background-color: #B8A57A;
-}
-
-.offline {
-	border-style: dotted;
-}
-
-.oxiApodoxi {
-	border-color: #B22222;
 }
 
 .kafenioTrapeziLine {
@@ -135,14 +122,14 @@
 	display: inline-block;
 	margin-right: 0.2cm;
 	text-align: center;
+	overflow: hidden;
+
+	padding-top: 0.02cm;
+	padding-bottom: 0.08cm;
 
 	width: 2.8cm;
 	min-width: 2.8cm;
 	max-width: 2.8cm;
-
-	height: 0.7cm;
-	max-height: 0.7cm;
-	min-height: 0.7cm;
 
 	border-style: dotted;
 	border-width: 0.08cm;
@@ -159,19 +146,31 @@
 	text-align: center;
 	overflow: hidden;
 
+	padding-top: 0.02cm;
+	padding-bottom: 0.08cm;
+
 	width: 2.8cm;
 	min-width: 2.8cm;
 	max-width: 2.8cm;
-
-	height: 0.7cm;
-	max-height: 0.7cm;
-	min-height: 0.7cm;
 
 	border-style: solid;
 	border-width: 0.08cm;
 	border-color: #4D944D;
 
 	background-color: #8AA886;
+}
+
+.theatis {
+	border-color: #996633;
+	background-color: #B8A57A;
+}
+
+.offline {
+	border-style: dotted;
+}
+
+.oxiApodoxi {
+	border-color: #B22222;
 }
 
 .controlPanelColumn {
