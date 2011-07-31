@@ -40,7 +40,6 @@ if (!$row) {
 
 @mysqli_free_result($result);
 if ($row[0]) {
-die('@' . $row[0] . '@');
 	@mysqli_rollback($globals->db);
 	die('Το τραπέζι έχει κλείσει');
 }
