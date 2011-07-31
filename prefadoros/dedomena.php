@@ -1,10 +1,11 @@
 <?php
 class Dedomena {
+	public $partida;
 	public $prosklisi;
 	public $sxesi;
 	public $permes;
 	public $trapezi;
-	public $partida;
+	public $rebelos;
 
 	public function __construct() {
 		$this->partida = NULL;
@@ -12,6 +13,7 @@ class Dedomena {
 		$this->sxesi = array();
 		$this->permes = array();
 		$this->trapezi = array();
+		$this->rebelos = array();
 	}
 
 	public function diavase() {
@@ -34,6 +36,7 @@ class Dedomena {
 			case '@SXESI@':		$this->diavase_sxesi($fh); break;
 			case '@PERMES@':	$this->diavase_permes($fh); break;
 			case '@TRAPEZI@':	$this->diavase_trapezi($fh); break;
+			case '@REBELOS@':	$this->diavase_rebelos($fh); break;
 			}
 		}
 
@@ -107,6 +110,20 @@ class Dedomena {
 		}
 	}
 
+	private function diavase_rebelos($fh) {
+		while ($line = Globals::get_line($fh)) {
+			if ($line === '@END@') { return; }
+
+			$r = new Rebelos();
+			if ($r->set_from_file($line)) {
+				$this->rebelos[] = $r;
+			}
+			else {
+				unset($r);
+			}
+		}
+	}
+
 	public function grapse() {
 		global $globals;
 
@@ -125,6 +142,7 @@ class Dedomena {
 		$this->grapse_sxesi($fh);
 		$this->grapse_permes($fh);
 		$this->grapse_trapezi($fh);
+		$this->grapse_rebelos($fh);
 
 		fclose($fh);
 		$globals->xeklidoma($globals->pektis->login);
@@ -173,6 +191,15 @@ class Dedomena {
 		$n = count($this->trapezi);
 		for ($i = 0; $i < $n; $i++) {
 			$this->trapezi[$i]->print_raw_data($fh, FALSE);
+		}
+		Globals::put_line($fh, "@END@");
+	}
+
+	private function grapse_rebelos($fh) {
+		Globals::put_line($fh, "@REBELOS@");
+		$n = count($this->rebelos);
+		for ($i = 0; $i < $n; $i++) {
+			$this->rebelos[$i]->print_raw_data($fh, FALSE);
 		}
 		Globals::put_line($fh, "@END@");
 	}
@@ -539,6 +566,109 @@ class Dedomena {
 		print "]";
 	}
 
+	public static function rebelos_json_data($curr, $prev = FALSE) {
+		if ($prev === FALSE) {
+			self::rebelos_all_json_data($curr);
+			return;
+		}
+
+		if ($curr == $prev) {
+			return;
+		}
+
+		// Κατασκευάζω τα arrays "cdata" και "pdata" που περιέχουν τα
+		// δεδομένα των παικτών δεικτοδοτημένα με τα login names.
+
+		$cdata = array();
+		$ncurr = count($curr);
+		for ($i = 0; $i < $ncurr; $i++) {
+			$cdata[$curr[$i]->login] = &$curr[$i];
+		}
+
+		$pdata = array();
+		$nprev = count($prev);
+		for ($i = 0; $i < $nprev; $i++) {
+			$pdata[$prev[$i]->login] = &$prev[$i];
+		}
+
+		// Διατρέχω τώρα παλαιά και νέα δεδομένα με σκοπό να ελέγξω
+		// τις διαφορές και να τις καταχωρήσω στα arrays "new", "mod"
+		// και "del".
+
+		$ndif = 0;
+		$new = array();
+		$mod = array();
+		foreach($cdata as $login => $data) {
+			if (!array_key_exists($login, $pdata)) {
+				$new[] = &$cdata[$login];
+				$ndif++;
+			}
+			elseif ($cdata[$login] != $pdata[$login]) {
+				$mod[$login] = &$cdata[$login];
+				$ndif++;
+			}
+		}
+
+		$del = array();
+		foreach($pdata as $login => $data) {
+			if (!array_key_exists($login, $cdata)) {
+				$del[$login] = TRUE;
+				$ndif++;
+			}
+		}
+
+		// Αν οι διαφορές που προέκυψαν μεταξύ παλαιών και νέων δεδομένων
+		// είναι περισσότερες από τα ίδια τα δεδομένα, τότε επιστρέφω όλα
+		// τα δεδομένα.
+
+		if ($ndif >= $ncurr) {
+			self::rebelos_all_json_data($curr);
+			return;
+		}
+
+		if (($n = count($del)) > 0) {
+			print ",rebelosDel:{";
+			$koma = '';
+			foreach ($del as $i => $dummy) {
+				print $koma; $koma = ",";
+				print "'" . $i . "':1";
+			}
+			print "}";
+		}
+
+		if (($n = count($mod)) > 0) {
+			print ",rebelosMod:{";
+			$koma = '';
+			foreach ($mod as $i => $dummy) {
+				print $koma; $koma = ",";
+				print "'" . $i . "':";
+				$mod[$i]->json_data();
+			}
+			print "}";
+		}
+
+		if (($n = count($new)) > 0) {
+			print ",rebelosNew:[";
+			$koma = '';
+			for ($i = 0; $i < $n; $i++) {
+				print $koma; $koma = ",";
+				$new[$i]->json_data();
+			}
+			print "]";
+		}
+	}
+
+	private static function rebelos_all_json_data($rebelos) {
+		print ",rebelos:[";
+		$koma = '';
+		$n = count($rebelos);
+		for ($i = 0; $i < $n; $i++) {
+			print $koma; $koma = ",";
+			$rebelos[$i]->json_data();
+		}
+		print "]";
+	}
+
 	public static function partida_json_data($curr, $prev = FALSE) {
 		if (($prev !== FALSE) && ($prev == $curr)) {
 			return;
@@ -567,6 +697,7 @@ function torina_dedomena() {
 	$dedomena->sxesi = process_sxesi();
 	$dedomena->permes = process_permes();
 	$dedomena->trapezi = process_trapezi();
+	$dedomena->rebelos = process_rebelos();
 	return($dedomena);
 }
 
@@ -580,6 +711,7 @@ function freska_dedomena($dedomena) {
 	Dedomena::sxesi_json_data($dedomena->sxesi);
 	Dedomena::permes_json_data($dedomena->permes);
 	Dedomena::trapezi_json_data($dedomena->trapezi);
+	Dedomena::rebelos_json_data($dedomena->rebelos);
 }
 
 function diaforetika_dedomena($curr, $prev) {
@@ -592,5 +724,6 @@ function diaforetika_dedomena($curr, $prev) {
 	Dedomena::sxesi_json_data($curr->sxesi, $prev->sxesi);
 	Dedomena::permes_json_data($curr->permes, $prev->permes);
 	Dedomena::trapezi_json_data($curr->trapezi, $prev->trapezi);
+	Dedomena::rebelos_json_data($curr->rebelos, $prev->rebelos);
 }
 ?>
