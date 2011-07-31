@@ -1,7 +1,6 @@
 <?php
 function process_trapezi() {
 	global $globals;
-	global $sinedria;
 
 	$energos = Prefadoros::energos_pektis();
 	$trapezi = array();

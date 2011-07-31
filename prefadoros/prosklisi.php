@@ -51,7 +51,6 @@ class Prosklisi {
 
 function process_prosklisi() {
 	global $globals;
-	global $sinedria;
 
 	$prosklisi = array();
 

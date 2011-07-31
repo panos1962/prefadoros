@@ -56,14 +56,29 @@ var Trapezi = new function() {
 		if (notPartida()) { Trapezi.html += Tools.miaPrefaHTML(true); }
 		if (rebelos.length > 0) {
 			Trapezi.html += '<div class="kafenioRebels">';
+for (var ii = 0; ii < 10; ii++) {
 			for (var i = 0; i < rebelos.length; i++) {
-				Trapezi.html += Trapezi.rebelosHTML(rebelos[i]);
+				if (notSet(rebelos[i].t)) {
+					Trapezi.html += Trapezi.rebelosHTML(rebelos[i].l);
+				}
 			}
+}
 			Trapezi.html += '</div>';
 		}
 
 		for (var i = 0; i < trapezi.length; i++) {
 			Trapezi.html += Trapezi.trapeziHTML(trapezi[i]);
+			var protos = '<div class="kafenioRebels" style="margin-top: 0.2cm;">';
+for (var ii = 0; ii < 10; ii++) {
+			for (var j = 0; j < rebelos.length; j++) {
+				if (isSet(rebelos[j].t) && (rebelos[j].t == trapezi[i].k)) {
+					Trapezi.html += protos;
+					protos = '';
+					Trapezi.html += Trapezi.rebelosHTML(rebelos[j].l, true);
+				}
+			}
+}
+			if (protos === '') { Trapezi.html += '</div>'; }
 		}
 		Trapezi.html += '</div>';
 	};
@@ -165,8 +180,10 @@ var Trapezi = new function() {
 		}
 	};
 
-	this.rebelosHTML = function(t) {
-		var html = '<div class="kafenioPektis">';
+	this.rebelosHTML = function(t, theatis) {
+		var html = '<div class="kafenioPektis';
+		if (isSet(theatis)) { html += ' theatis'; }
+		html += '">';
 		html += t;
 		html += '</div>';
 		return html;
@@ -181,6 +198,56 @@ var Trapezi = new function() {
 			Trapezi.html += Trapezi.trapeziHTML(trapezi);
 		}
 		Trapezi.html += '</div>';
+	};
+};
+
+var Rebelos = new function() {
+	this.processDedomena = function(dedomena) {
+		if (isSet(dedomena.rebelos)) {
+			rebelos = dedomena.rebelos;
+			return;
+		}
+
+		var rebelos1 = [];
+		var ixos = null;
+
+		// Αν έχει επιστραφεί array "rebelosNew", τότε πρόκειται για νέες
+		// εγγραφές τις οποίες θα εμφανίσω πρώτες.
+		if (isSet(dedomena.rebelosNew)) {
+			ixos = 'pop';
+			for (var i = 0; i < dedomena.rebelosNew.length; i++) {
+				rebelos1[rebelos1.length] = dedomena.rebelosNew[i];
+			}
+		}
+
+		// Διατρέχω το παλιό array "rebelos" και ελέγχω αν κάποιες από τις
+		// εγγραφές του έχουν τροποποιηθεί ή διαγραφεί. Για τις εγγραφές
+		// που εμφανίζονται να έχουν τροποποιηθεί (array "rebelosMod") περνάω
+		// στο νέο array τα νέα δεδομένα, ενώ τις εγγραφές που εμφανίζονται
+		// να έχουν διαγραφεί τις αγνοώ· τις υπόλοιπες εγγραφές απλώς τις
+		// αντιγράφω στο νέο array.
+		for (var i = 0; i < rebelos.length; i++) {
+			if (isSet(dedomena.rebelosDel) &&
+				(rebelos[i].l in dedomena.rebelosDel)) {
+				continue;
+			}
+
+			if (isSet(dedomena.rebelosMod) &&
+				(rebelos[i].l in dedomena.rebelosMod)) {
+				rebelos1[rebelos1.length] = dedomena.rebelosMod[rebelos[i].l];
+				continue;
+			}
+
+			rebelos1[rebelos1.length] = rebelos[i];
+		}
+
+		rebelos = rebelos1;
+		delete rebelos1;
+
+		if (notSet(ixos) && isSet(dedomena.rebelosDel)) {
+			ixos = 'blioup';
+		}
+		if (isSet(ixos) && (Prefadoros.show == 'kafenio')) { playSound(ixos); }
 	};
 };
 

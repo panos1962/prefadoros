@@ -124,6 +124,7 @@ var Dedomena = new function() {
 		Prosklisi.processDedomena(dedomena);
 		Sxesi.processDedomena(dedomena);
 		Permes.processDedomena(dedomena);
+		Rebelos.processDedomena(dedomena);
 		Trapezi.processDedomena(dedomena);
 		Prefadoros.display();
 		Dedomena.schedule();
