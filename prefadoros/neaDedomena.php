@@ -131,10 +131,13 @@ function check_neotero_id() {
 }
 
 function print_epikefalida() {
+	global $globals;
 	global $sinedria;
 	global $id;
 
 	header('Content-type: application/json; charset=utf-8');
 	print "sinedria:{k:{$sinedria},i:{$id}";
+	if ($globals->pektis->kapikia != 'YES') { print ",p:0"; }
+	if ($globals->pektis->katastasi != 'AVAILABLE') { print ",b:0"; }
 }
 ?>
