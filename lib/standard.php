@@ -134,12 +134,34 @@ class Globals {
 		die(1);
 	}
 
+	// Επιχειρεί να διαβάσει μια γραμμή από αρχείο. Αν τα καταφέρει,
+	// επιστρέφει τη γραμμή, αλλιώς FALSE.
+
 	public static function get_line($fh) {
 		$line = fgets($fh);
 		if ($line) {
 			return(preg_replace("/[\r\n].*/", '', $line));
 		}
 		return(FALSE);
+	}
+
+	// Επιχειρεί να διαβάσει μια γραμμή από αρχείο. Αν τα καταφέρει
+	// και η γραμμή δεν είναι "@END@", επιστρέφει τη γραμμή, αλλιώς
+	// επιστρέφει FALSE.
+	//
+	// Η function είναι βολική για διάβασμα δεδομένων που τελειώνουν
+	// με γραμμή "@END@".
+
+	public static function get_line_end($fh) {
+		if (($line = self::get_line($fh)) === FALSE) {
+			return(FALSE);
+		}
+
+		if ($line === '@END@') {
+			return(FALSE);
+		}
+
+		return($line);
 	}
 
 	public static function put_line($fh, $s) {
