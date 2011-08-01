@@ -110,6 +110,10 @@ function isTheatis() {
 	return(isSet(partida) && isSet(partida.t) && (partida.t == 1));
 }
 
+function notTheatis() {
+	return(!isTheatis());
+}
+
 function isPartida() {
 	return(isSet(partida) && isSet(partida.k));
 }
@@ -128,4 +132,8 @@ function isPublic() {
 
 function isDianomi() {
 	return(isSet(dianomi) && isSet(dianomi.length) && (dianomi.length > 0));
+}
+
+function notDianomi() {
+	return(!isDianomi());
 }
