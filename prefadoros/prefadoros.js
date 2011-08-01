@@ -62,10 +62,10 @@ var Prefadoros = new function() {
 	};
 
 	this.showPartida = function() {
-		this.show = 'partida';
 		var x = getelid('prefadoros');
 		if (notSet(x)) { return false; }
 
+		this.show = 'partida';
 		x.style.overflowY = 'hidden';
 		x.innerHTML = Partida.html;
 
@@ -80,10 +80,10 @@ var Prefadoros = new function() {
 	};
 
 	this.showKafenio = function() {
-		this.show = 'kafenio';
 		var x = getelid('prefadoros');
 		if (notSet(x)) { return false; }
 
+		this.show = 'kafenio';
 		x.style.overflowY = 'auto';
 		x.innerHTML = Trapezi.html;
 
