@@ -500,7 +500,7 @@ class Page {
 			<a target="_blank" href="<?php
 				print $globals->server; ?>account/signup.php?modify"
 				class="data login" title="Στοιχεία λογαριασμού"
-				style="display: inline-block; max-width: 5.4cm; overflow: hidden;"><?php
+				style="max-width: 5.4cm; overflow: hidden;"><?php
 					print $globals->pektis->login; ?></a>
 			<?php
 			self::logout_section();
@@ -530,8 +530,8 @@ class Page {
 	protected static function logout_section() {
 		global $globals;
 		?>
-		<span class="nobr">[&nbsp;<a href="<?php print $globals->server; ?>/index.php"
-			onclick="return logout();" class="data">Έξοδος</a>&nbsp;]</span>
+		[&nbsp;<a href="<?php print $globals->server; ?>/index.php"
+			onclick="return logout();" class="data">Έξοδος</a>&nbsp;]
 		<?php
 	}
 
