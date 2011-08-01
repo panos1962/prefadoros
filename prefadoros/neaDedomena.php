@@ -28,7 +28,6 @@ require_once '../prefadoros/sxesi.php';
 require_once '../prefadoros/permes.php';
 require_once '../prefadoros/trapezi.php';
 require_once '../prefadoros/rebelos.php';
-require_once '../prefadoros/dedomena.php';
 require_once '../prefadoros/prefadoros.php';
 set_globals();
 
@@ -145,5 +144,121 @@ function print_epikefalida() {
 	print "sinedria:{k:{$sinedria},i:{$id}";
 	if ($globals->pektis->kapikia != 'YES') { print ",p:0"; }
 	if ($globals->pektis->katastasi != 'AVAILABLE') { print ",b:0"; }
+}
+
+class Dedomena {
+	public $partida;
+	public $prosklisi;
+	public $sxesi;
+	public $permes;
+	public $trapezi;
+	public $rebelos;
+
+	public function __construct() {
+		$this->partida = NULL;
+		$this->prosklisi = array();
+		$this->sxesi = array();
+		$this->permes = array();
+		$this->trapezi = array();
+		$this->rebelos = array();
+	}
+
+	public function diavase() {
+		global $globals;
+
+		if (!$globals->klidoma($globals->pektis->login)) {
+			Globals::fatal('cannot lock in order to write data file');
+		}
+
+		$fh = self::open_file('r');
+		if (!$fh) {
+			$globals->xeklidoma($globals->pektis->login);
+			return(FALSE);
+		}
+
+		while ($line = Globals::get_line($fh)) {
+			switch ($line) {
+			case '@PARTIDA@':	Partida::diavase($fh, $this->partida); break;
+			case '@PROSKLISI@':	Prosklisi::diavase($fh, $this->prosklisi); break;
+			case '@SXESI@':		Sxesi::diavase($fh, $this->sxesi); break;
+			case '@PERMES@':	Permes::diavase($fh, $this->permes); break;
+			case '@TRAPEZI@':	Kafenio::diavase($fh, $this->trapezi); break;
+			case '@REBELOS@':	Rebelos::diavase($fh, $this->rebelos); break;
+			}
+		}
+
+		fclose($fh);
+		$globals->xeklidoma($globals->pektis->login);
+		return(TRUE);
+	}
+
+	public function grapse() {
+		global $globals;
+
+		if (!$globals->klidoma($globals->pektis->login)) {
+			Globals::fatal('cannot lock in order to write data file');
+		}
+
+		$fh = self::open_file('w');
+		if (!$fh) {
+			$globals->xeklidoma($globals->pektis->login);
+			Globals::fatal('cannot write data file');
+		}
+
+		Partida::grapse($fh, $this->partida);
+		Prosklisi::grapse($fh, $this->prosklisi);
+		Sxesi::grapse($fh, $this->sxesi);
+		Permes::grapse($fh, $this->permes);
+		Kafenio::grapse($fh, $this->trapezi);
+		Rebelos::grapse($fh, $this->rebelos);
+
+		fclose($fh);
+		$globals->xeklidoma($globals->pektis->login);
+	}
+
+	private static function open_file($rw) {
+		global $globals;
+
+		$fname = '../dedomena/' . $globals->pektis->login;
+		$fh = @fopen($fname, $rw);
+		return($fh);
+	}
+}
+
+function torina_dedomena() {
+	$dedomena = new Dedomena();
+	$dedomena->partida = Partida::process();
+	$dedomena->prosklisi = Prosklisi::process();
+	$dedomena->sxesi = Sxesi::process();
+	$dedomena->permes = Permes::process();
+	$dedomena->trapezi = Kafenio::process();
+	$dedomena->rebelos = Rebelos::process();
+	return($dedomena);
+}
+
+function freska_dedomena($dedomena) {
+	$dedomena->grapse();
+	print_epikefalida();
+	print ",f:1}";
+
+	Partida::print_json_data($dedomena->partida);
+	Prosklisi::print_json_data($dedomena->prosklisi);
+	Sxesi::print_json_data($dedomena->sxesi);
+	Permes::print_json_data($dedomena->permes);
+	Kafenio::print_json_data($dedomena->trapezi);
+	Rebelos::print_json_data($dedomena->rebelos);
+}
+
+function diaforetika_dedomena($curr, $prev) {
+	$curr->grapse();
+	print_epikefalida();
+	print "}";
+
+	Partida::print_json_data($curr->partida, $prev->partida);
+	Prosklisi::print_json_data($curr->prosklisi, $prev->prosklisi);
+	Sxesi::print_json_data($curr->sxesi, $prev->sxesi);
+	Permes::print_json_data($curr->permes, $prev->permes);
+	Kafenio::print_json_data($curr->trapezi, $prev->trapezi);
+	Rebelos::print_json_data($curr->rebelos, $prev->rebelos);
 }
 ?>
