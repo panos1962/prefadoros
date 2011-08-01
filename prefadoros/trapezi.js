@@ -113,14 +113,15 @@ var Trapezi = new function() {
 		}
 		html += '</div>';
 		for (var i = 1; i <= 3; i++) {
+			var p = eval('t.p' + i);
 			html += '<div class="kafenioPektis';
 			if (theatis) { html += ' theatis'; }
 			if (notSet(eval('t.o' + i))) { html += ' offline'; }
 			else if (isSet(eval('t.a' + i)) &&
 				(eval('t.a' + i) != 1)) { html += ' oxiApodoxi'; }
+			if (isPektis() && (p == pektis.login)) { html += ' ego'; }
 			html += '"';
-			var pektis = eval('t.p' + i);
-			if (pektis) { html += Trapezi.permesHTML(pektis); }
+			if (p) { html += Trapezi.permesHTML(p); }
 			html += '>';
 			html += eval('t.p' + i) ? eval('t.p' + i) : '&nbsp;';
 			html += '</div>';
@@ -129,14 +130,14 @@ var Trapezi = new function() {
 		return html;
 	};
 
-	this.permesHTML = function(pektis) {
+	this.permesHTML = function(p) {
 		var html = '';
 		html += ' onmouseover="Trapezi.fotise(this);"';
 		html += ' onmouseout="Trapezi.xefotise(this);"';
-		html += ' onclick="Sxesi.permesWindow(\'' + pektis +
+		html += ' onclick="Sxesi.permesWindow(\'' + p +
 			'\', \'Γεια χαρά!\');"';
 		html += ' title="Προσωπικό μήνυμα στο χρήστη &quot;' +
-			pektis + '&quot;"';
+			p + '&quot;"';
 		html += ' style="cursor: pointer;"';
 		return html;
 	};
@@ -183,6 +184,7 @@ var Trapezi = new function() {
 	this.rebelosHTML = function(t, theatis) {
 		var html = '<div class="kafenioPektis rebelos';
 		if (isSet(theatis)) { html += ' theatis'; }
+		if (isPektis() && (t == pektis.login)) { html += ' ego'; }
 		html += '"';
 		html += Trapezi.permesHTML(t);
 		html += '>';
