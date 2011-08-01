@@ -117,7 +117,7 @@ var Trapezi = new function() {
 			html += '<div class="kafenioPektis';
 			if (theatis) { html += ' theatis'; }
 			if (notSet(eval('t.o' + i))) { html += ' offline'; }
-			else if (isSet(eval('t.a' + i)) &&
+			if (isSet(eval('t.a' + i)) &&
 				(eval('t.a' + i) != 1)) { html += ' oxiApodoxi'; }
 			if (isPektis() && (p == pektis.login)) { html += ' ego'; }
 			html += '"';

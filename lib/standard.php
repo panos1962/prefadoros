@@ -1,7 +1,7 @@
 <?php
 // μέγιστος χρόνος διαδικασίας διαδοχικών κύκλων ανίχνευσης νέων δεδομένων σε seconds
 // define('XRONOS_DEDOMENA_MAX', 40);
-define('XRONOS_DEDOMENA_MAX', 140);
+define('XRONOS_DEDOMENA_MAX', 40);
 
 // νεκρός χρόνος μεταξύ δύο διαδοχικών ανιχνεύσεων σε microseconds
 // define('XRONOS_DEDOMENA_TIC', 300000);
