@@ -89,6 +89,7 @@ var Partida = new function() {
 		html += '<div class="pektisMain';
 		if (isTheatis()) { html += ' theatis'; }
 		if (isSet(partida.a3) && (partida.a3 == 0)) { html += ' oxiApodoxi'; }
+		if (notSet(partida.o3) || (partida.o3 == 0)) { html += ' offline'; }
 		html += '">';
 		html += '<div class="pektisData">';
 		html += '<div class="pektisName">' + partida.p3 + '</div>';
@@ -106,6 +107,7 @@ var Partida = new function() {
 		html += '<div class="pektisMain';
 		if (isTheatis()) { html += ' theatis'; }
 		if (isSet(partida.a2) && (partida.a2 == 0)) { html += ' oxiApodoxi'; }
+		if (notSet(partida.o2) || (partida.o2 == 0)) { html += ' offline'; }
 		html += '">';
 		html += '<div class="pektisName">' + partida.p2 + '</div>';
 		html += '</div>';
@@ -115,6 +117,7 @@ var Partida = new function() {
 
 	this.pektis1HTML = function() {
 dianomi = [ true ];
+dianomi = [];
 		var html = '';
 		html += '<div class="pektis1';
 		if (isDianomi()) { html += ' pektis1akri'; }
@@ -123,6 +126,7 @@ dianomi = [ true ];
 		if (isDianomi()) { html += ' pektis1MainAkri'; }
 		if (isTheatis()) { html += ' theatis'; }
 		if (isSet(partida.a1) && (partida.a1 == 0)) { html += ' oxiApodoxi'; }
+		if (notSet(partida.o1) || (partida.o1 == 0)) { html += ' offline'; }
 		html += '">';
 		html += '<div class="pektisName">' + partida.p1 + '</div>';
 		html += '</div>';

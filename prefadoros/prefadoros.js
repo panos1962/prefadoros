@@ -151,6 +151,17 @@ function notDianomi() {
 	return(!isDianomi());
 }
 
+function isApodoxi(thesi) {
+	if (notSet(partida)) { return false; }
+	var apodoxi = eval('partida.a' + thesi);
+	if (notSet(apodoxi)) { return true; }
+	return(apodoxi != 0);
+}
+
+function notApodoxi(thesi) {
+	return(!isApodoxi(thesi));
+}
+
 function mapThesi(ena, thesi) {
 	switch (ena) {
 	case 2:		thesi += 1; break;
