@@ -37,10 +37,11 @@ function apo_pektis_theatis() {
 	$query = "DELETE FROM `θεατής` WHERE `παίκτης` LIKE " . $slogin;
 	$globals->sql_query($query);
 
-	// Διαγράφουμε τυχόν εγγραφές συμμετοχής του παίκτη στο τραπέζι.
+	// Διαγράφουμε τυχόν εγγραφές συμμετοχής στο τραπέζι για τον
+	// ίδιο παίκτη, ή για την ίδια θέση.
 	$query = "DELETE FROM `συμμετοχή` WHERE (`τραπέζι` = " .
-		$globals->trapezi->kodikos . ") AND (`παίκτης` LIKE " .
-		$slogin . ")";
+		$globals->trapezi->kodikos . ") AND ((`παίκτης` LIKE " .
+		$slogin . ") OR (`θέση` = " . $globals->trapezi->thesi . "))";
 	$globals->sql_query($query);
 
 	// Δημιουργούμε εγγραφή συμμετοχής του παίκτη στο τραπέζι στη

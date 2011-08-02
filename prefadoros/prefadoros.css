@@ -65,11 +65,16 @@
 	position: absolute;
 	left: 0.2cm;
 	line-height: 0.56cm;
-	font-size: 0.40cm;
-	padding-left: 0.4cm;
-	background-color: teal;
+	font-size: 0.45cm;
+	font-style: italic;
+	//background-color: teal;
 
 	width: 12.7cm;
+}
+
+.partidaInfoData {
+	font-weight: bold;
+	color: #003366;
 }
 
 .partidaInfoTop {
@@ -87,7 +92,7 @@
 	top: 0.66cm;
 
 	width: 6.0cm;
-	height: 3.0cm;
+	height: 3.2cm;
 
 	background-color: yellow;
 }
@@ -99,7 +104,7 @@
 	top: 0.66cm;
 
 	width: 6.0cm;
-	height: 3.0cm;
+	height: 3.2cm;
 
 	background-color: yellow;
 }
@@ -111,7 +116,7 @@
 	bottom: 0.66cm;
 
 	width: 6.0cm;
-	height: 3.0cm;
+	height: 3.2cm;
 
 	background-color: yellow;
 }
@@ -135,6 +140,11 @@
 	background-color: #8AA886;
 }
 
+.pektis1Main {
+	top: auto;
+	bottom: 0px;
+}
+
 .pektis1MainAkri {
 	width: 4.2cm;
 }
@@ -144,6 +154,29 @@
 	font-weight: bold;
 	text-align: center;
 	overflow: hidden;
+}
+
+.theatisArea {
+	position: absolute;
+	left: 0.2cm;
+	top: 4.0cm;
+	font-size: 0.38cm;
+	font-style: italic;
+
+	width: 2.6cm;
+	max-width: 3.0cm;
+	max-height: 4.3cm;
+	overflow: hidden;
+}
+
+.theatisData {
+	background-color: #B7AA7D;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #928864;
+	margin-bottom: 1px;
+	padding-left: 3px;
+	padding-bottom: 2px;
 }
 
 .kafenio {

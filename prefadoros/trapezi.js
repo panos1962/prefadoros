@@ -1,5 +1,5 @@
 var Trapezi = new function() {
-	this.html = '';
+	this.HTML = '';
 
 	this.processDedomena = function(dedomena) {
 		if (isSet(dedomena.trapezi)) {
@@ -50,31 +50,31 @@ var Trapezi = new function() {
 	};
 
 	this.updateHTML = function() {
-		Trapezi.html = '<div class="kafenio">';
-		if (notPartida()) { Trapezi.html += Tools.miaPrefaHTML(true); }
+		Trapezi.HTML = '<div class="kafenio">';
+		if (notPartida()) { Trapezi.HTML += Tools.miaPrefaHTML(true); }
 		if (rebelos.length > 0) {
-			Trapezi.html += '<div class="kafenioRebels">';
+			Trapezi.HTML += '<div class="kafenioRebels">';
 			for (var i = 0; i < rebelos.length; i++) {
 				if (notSet(rebelos[i].t)) {
-					Trapezi.html += Trapezi.rebelosHTML(rebelos[i].l);
+					Trapezi.HTML += Trapezi.rebelosHTML(rebelos[i].l);
 				}
 			}
-			Trapezi.html += '</div>';
+			Trapezi.HTML += '</div>';
 		}
 
 		for (var i = 0; i < trapezi.length; i++) {
-			Trapezi.html += Trapezi.trapeziHTML(trapezi[i]);
+			Trapezi.HTML += Trapezi.trapeziHTML(trapezi[i]);
 			var protos = '<div class="kafenioRebels" style="margin-top: 0.2cm;">';
 			for (var j = 0; j < rebelos.length; j++) {
 				if (isSet(rebelos[j].t) && (rebelos[j].t == trapezi[i].k)) {
-					Trapezi.html += protos;
+					Trapezi.HTML += protos;
 					protos = '';
-					Trapezi.html += Trapezi.rebelosHTML(rebelos[j].l, true);
+					Trapezi.HTML += Trapezi.rebelosHTML(rebelos[j].l, true);
 				}
 			}
-			if (protos === '') { Trapezi.html += '</div>'; }
+			if (protos === '') { Trapezi.HTML += '</div>'; }
 		}
-		Trapezi.html += '</div>';
+		Trapezi.HTML += '</div>';
 	};
 
 	this.trapeziHTML = function(t) {
@@ -192,14 +192,14 @@ var Trapezi = new function() {
 	};
 
 	this.adio = function() {
-		Trapezi.html = '<div class="kafenio">';
-		Trapezi.html += '<div style="padding: 0.4cm;">' +
+		Trapezi.HTML = '<div class="kafenio">';
+		Trapezi.HTML += '<div style="padding: 0.4cm;">' +
 			Tools.miaPrefaHTML() + '</div>';
 		var trapezi = {k:null,s:null,p1:null,p2:null,p3:null};
 		for (var i = 0; i < 6; i++) {
-			Trapezi.html += Trapezi.trapeziHTML(trapezi);
+			Trapezi.HTML += Trapezi.trapeziHTML(trapezi);
 		}
-		Trapezi.html += '</div>';
+		Trapezi.HTML += '</div>';
 	};
 };
 
