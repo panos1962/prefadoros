@@ -75,7 +75,7 @@ var Dedomena = new function() {
 		} catch(e) {
 			monitor.lathos();
 			mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
-			alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
+// alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 			Dedomena.schedule(true);
 			return;
 		}
@@ -120,6 +120,12 @@ var Dedomena = new function() {
 			return;
 		}
 
+		if (!Dedomena.checkPartidaPektis(dedomena)) {
+			monitor.lathos();
+			Dedomena.schedule(true);
+			return;
+		}
+
 		monitor.freska();
 		Partida.processDedomena(dedomena);
 		Prosklisi.processDedomena(dedomena);
@@ -127,8 +133,34 @@ var Dedomena = new function() {
 		Permes.processDedomena(dedomena);
 		Rebelos.processDedomena(dedomena);
 		Trapezi.processDedomena(dedomena);
+
+		Partida.updateHTML();
+		Trapezi.updateHTML();
 		Prefadoros.display();
+
 		Dedomena.schedule();
+	};
+
+	this.checkPartidaPektis = function(dedomena) {
+		if (notSet(dedomena.partida)) { return true; }
+		if (notSet(dedomena.partida.k)) { return true; }
+		if (notPektis()) {
+			mainFyi('Επεστράφη παρτίδα, ενώ ο παίκτης είναι ακαθόριστος');
+			return false;
+		}
+
+		// Αν ο παίκτης συμμετέχει ως θεατής, τότε δεν πειράζει
+		// τυχόν λάθος θέση.
+		if (isSet(dedomena.partida.t) && (dedomena.partida.t != 0)) {
+			return true;
+		}
+
+		if (dedomena.partida.p1 != pektis.login) {
+			mainFyi('Ο παίκτης δεν βρίσκεται στην πρώτη θέση');
+			return false;
+		}
+
+		return true;
 	};
 
 	this.sessionAlive = function() {

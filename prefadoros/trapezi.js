@@ -4,7 +4,6 @@ var Trapezi = new function() {
 	this.processDedomena = function(dedomena) {
 		if (isSet(dedomena.trapezi)) {
 			trapezi = dedomena.trapezi;
-			Trapezi.updateHTML();
 			return;
 		}
 
@@ -43,7 +42,6 @@ var Trapezi = new function() {
 
 		trapezi = trapezi1;
 		delete trapezi1;
-		Trapezi.updateHTML();
 
 		if (notSet(ixos) && isSet(dedomena.trapeziDel)) {
 			ixos = 'blioup';
