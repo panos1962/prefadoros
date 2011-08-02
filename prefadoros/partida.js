@@ -174,22 +174,14 @@ dianomi = [ true ];
 		var more = 0;
 /*
 rebelos = [
-	{t:2217,l:'bolek'},
-	{t:2217,l:'lolek'},
-	{t:2217,l:'maria'},
-	{t:2217,l:'sakis'},
-	{t:2217,l:'lakis'},
 	{t:2217,l:'takis'},
 	{t:2217,l:'panos1962@gmail.com'},
 	{t:2217,l:'hshshs'},
 	{t:2217,l:'bolek'},
+	{t:2217,l:'panos1962@gmail.com'},
 	{t:2217,l:'lolek'},
 	{t:2217,l:'sakis'},
-	{t:2217,l:'lakis'},
-	{t:2217,l:'takis'},
-	{t:2217,l:'panos1962@gmail.com'},
-	{t:2217,l:'hshshs'},
-	{t:2217,l:'panos1962@gmail.com'}
+	{t:2217,l:'hshshs'}
 ];
 */
 		for (var i = 0; i < rebelos.length; i++) {
@@ -202,20 +194,24 @@ rebelos = [
 				}
 				html += protos;
 				protos = '';
-				html += '<div class="theatisData">';
-				html += rebelos[i].l;
-				html += '</div>';
+				html += Partida.theatisItemHTML(rebelos[i].l);
 				count++;
 			}
 		}
-		if (more == 1) {
-			html += '<div class="theatisData">';
-			html += moreProtos;
-			html += '</div>';
-		}
+		if (more == 1) { html += Partida.theatisItemHTML(moreProtos); }
 		else if (more > 0) { html += '<div>και άλλοι ' + more + '</div>'; }
 
 		if (protos == '') { html += '</div>'; }
+		return html;
+	};
+
+	this.theatisItemHTML = function(pektis) {
+		var html = '';
+		html += '<div class="theatisData"';
+		html += Trapezi.permesHTML(pektis);
+		html += '>';
+		html += pektis;
+		html += '</div>';
 		return html;
 	};
 
