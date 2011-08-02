@@ -18,37 +18,43 @@ var Partida = new function() {
 				return;
 			}
 
-			var alagi = false;
-			for (var i = 1; i <= 3; i++) {
-				var proin = eval('partida.p' + i);
-				var nin = eval('dedomena.partida.p' + i);
-				if (proin == nin) { continue; }
-
-				if ((nin == '') || (nin == pektis.login)) {
-					var neos = false;
-				}
-				else {
-					var neos = true;
-					for (j = 1; j <= 3; j++) {
-						var proin = eval('partida.p' + j);
-						if (nin == proin) {
-							neos = false;
-							break;
-						}
-					}
-				}
-
-				if (neos) {
-					playSound('doorBell');
-					alagi = false;
-					break;
-				}
-				var alagi = true;
+			if (dedomena.partida.k == partida.k) {
+				Partida.ixosIsodosExodos(dedomena.partida);
 			}
-			if (alagi) { playSound('blioup'); }
 		}
 
 		partida = dedomena.partida;
+	};
+
+	this.ixosIsodosExodos = function(nea) {
+		var alagi = false;
+		for (var i = 1; i <= 3; i++) {
+			var proin = eval('partida.p' + i);
+			var nin = eval('nea.p' + i);
+			if (proin == nin) { continue; }
+
+			if ((nin == '') || (nin == pektis.login)) {
+				var neos = false;
+			}
+			else {
+				var neos = true;
+				for (j = 1; j <= 3; j++) {
+					var proin = eval('partida.p' + j);
+					if (nin == proin) {
+						neos = false;
+						break;
+					}
+				}
+			}
+
+			if (neos) {
+				playSound('doorBell');
+				alagi = false;
+				break;
+			}
+			var alagi = true;
+		}
+		if (alagi) { playSound('blioup'); }
 	};
 
 	this.updateHTML = function() {
