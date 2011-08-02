@@ -12,9 +12,8 @@ class Trapezi {
 	public $online3;
 	public $kasa;
 	public $prive;
-
-	public $theatis;
 	public $thesi;
+	public $theatis;
 
 	public $ipolipo;
 	public $kapikia1;
@@ -37,9 +36,8 @@ class Trapezi {
 		unset($this->apodoxi3);
 		unset($this->kasa);
 		unset($this->prive);
-
-		unset($this->theatis);
 		unset($this->thesi);
+		unset($this->theatis);
 
 		unset($this->ipolipo);
 		unset($this->kapikia1);
@@ -65,8 +63,8 @@ class Trapezi {
 		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 		if ($row) {
 			@mysqli_free_result($result);
-			$this->theatis = 1;
 			$this->thesi = $row[1];
+			$this->theatis = 1;
 			$query = "SELECT * FROM `τραπέζι` WHERE `κωδικός` = " . $row[0];
 			$result = $globals->sql_query($query);
 			$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
@@ -74,8 +72,8 @@ class Trapezi {
 				@mysqli_free_result($result);
 			}
 			else {
-				unset($this->theatis);
 				unset($this->thesi);
+				unset($this->theatis);
 			}
 		}
 
@@ -93,8 +91,8 @@ class Trapezi {
 				@mysqli_free_result($result);
 				for ($i = 1; $i <= 3; $i++) {
 					if ($row["παίκτης" . $i] == $globals->pektis->login) {
-						$this->theatis = 0;
 						$this->thesi = $i;
+						$this->theatis = 0;
 						break;
 					}
 				}
@@ -289,8 +287,8 @@ class Trapezi {
 			$this->prive);
 		if ($full) {
 			fwrite($fh,
-				"\t" . $this->theatis .
-				"\t" . $this->thesi);
+				"\t" . $this->thesi .
+				"\t" . $this->theatis);
 		}
 		Globals::put_line($fh, '');
 	}

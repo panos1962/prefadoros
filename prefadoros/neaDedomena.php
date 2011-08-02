@@ -125,7 +125,7 @@ function check_neotero_id() {
 	mysqli_free_result($result);
 	if ($row[0] != $id) {
 		print_epikefalida($sinedria, $id);
-		print ",akiro:true}";
+		print "}";
 		die(0);
 	}
 }
@@ -241,6 +241,7 @@ function freska_dedomena($dedomena) {
 	print_epikefalida();
 	print ",f:1}";
 
+	Partida::set_thesi_map($dedomena->partida);
 	Partida::print_json_data($dedomena->partida);
 	Prosklisi::print_json_data($dedomena->prosklisi);
 	Sxesi::print_json_data($dedomena->sxesi);
@@ -254,6 +255,7 @@ function diaforetika_dedomena($curr, $prev) {
 	print_epikefalida();
 	print "}";
 
+	Partida::set_thesi_map($curr->partida);
 	Partida::print_json_data($curr->partida, $prev->partida);
 	Prosklisi::print_json_data($curr->prosklisi, $prev->prosklisi);
 	Sxesi::print_json_data($curr->sxesi, $prev->sxesi);

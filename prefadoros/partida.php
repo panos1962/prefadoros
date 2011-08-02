@@ -12,8 +12,9 @@ class Partida {
 	public $online3;
 	public $kasa;
 	public $prive;
-	public $theatis;
 	public $thesi;
+	public $theatis;
+	public $thesi_map;
 
 	public function __construct() {
 		unset($this->kodikos);
@@ -28,8 +29,9 @@ class Partida {
 		unset($this->online3);
 		unset($this->kasa);
 		unset($this->prive);
-		unset($this->theatis);
 		unset($this->thesi);
+		unset($this->theatis);
+		unset($this->thesi_map);
 	}
 
 	public function set_from_string($data) {
@@ -51,8 +53,8 @@ class Partida {
 		$this->online3 = $cols[$nf++];
 		$this->kasa = $cols[$nf++];
 		$this->prive = $cols[$nf++];
-		$this->theatis = $cols[$nf++];
 		$this->thesi = $cols[$nf++];
+		$this->theatis = $cols[$nf++];
 		return(TRUE);
 	}
 
@@ -77,21 +79,25 @@ class Partida {
 	}
 
 	public static function print_json_data($curr, $prev = FALSE) {
-		if (($prev !== FALSE) && ($prev == $curr)) {
+		if (($prev !== FALSE) && ($curr == $prev)) {
 			return;
 		}
 
 		print ",partida:{";
 		if (isset($curr)) {
 			print "k:" . $curr->kodikos;
-			print ",p1:'" . $curr->pektis1 . "'" . ",a1:" . $curr->apodoxi1;
-			if ($curr->online1) { print ",o1:1"; }
-			print ",p2:'" . $curr->pektis2 . "'" . ",a2:" . $curr->apodoxi2;
-			if ($curr->online2) { print ",o2:1"; }
-			print ",p3:'" . $curr->pektis3 . "'" . ",a3:" . $curr->apodoxi3;
-			if ($curr->online3) { print ",o3:1"; }
+			for ($i = 1; $i <= 3; $i++) {
+				$pektis = "pektis" . $curr->thesi_map[$i];
+				$apodoxi = "apodoxi" . $curr->thesi_map[$i];
+				$online = "online" . $curr->thesi_map[$i];
+				print ",p" . $i . ":'" . $curr->$pektis . "'" .
+					",a" . $i . ":" . $curr->$apodoxi;
+				if ($curr->$online) {
+					print ",o" . $i . ":1";
+				}
+			}
 			print ",s:" . $curr->kasa . ",p:" . $curr->prive .
-				",t:" . $curr->theatis . ",h:" . $curr->thesi;
+				",h:" . $curr->thesi . ",t:" . $curr->theatis;
 		}
 		print "}";
 	}
@@ -107,20 +113,35 @@ class Partida {
 
 		$p = new Partida();
 		$p->kodikos = $globals->trapezi->kodikos;
+
 		$p->pektis1 = $globals->trapezi->pektis1;
 		$p->apodoxi1 = $globals->trapezi->apodoxi1;
 		$p->online1 = $globals->trapezi->online1;
+
 		$p->pektis2 = $globals->trapezi->pektis2;
 		$p->apodoxi2 = $globals->trapezi->apodoxi2;
 		$p->online2 = $globals->trapezi->online2;
+
 		$p->pektis3 = $globals->trapezi->pektis3;
 		$p->apodoxi3 = $globals->trapezi->apodoxi3;
 		$p->online3 = $globals->trapezi->online3;
+
 		$p->kasa = $globals->trapezi->kasa;
 		$p->prive = $globals->trapezi->prive;
-		$p->theatis = ($globals->trapezi->is_pektis() ? 0 : 1);
 		$p->thesi = $globals->trapezi->thesi;
+		$p->theatis = $globals->trapezi->theatis;
+
 		return($p);
+	}
+
+	public static function set_thesi_map($p) {
+		if (isset($p)) {
+			switch ($p->thesi) {
+			case 2:		$p->thesi_map = array(0, 2, 3, 1); break;
+			case 3:		$p->thesi_map = array(0, 3, 1, 2); break;
+			default:	$p->thesi_map = array(0, 1, 2, 3); break;
+			}
+		}
 	}
 }
 ?>
