@@ -128,12 +128,12 @@ var Trapezi = new function() {
 		return html;
 	};
 
-	this.permesHTML = function(p) {
+	this.permesHTML = function(p, msg) {
+		if (notSet(msg)) { msg = 'Γεια χαρά!'; }
 		var html = '';
 		html += ' onmouseover="Trapezi.fotise(this);"';
 		html += ' onmouseout="Trapezi.xefotise(this);"';
-		html += ' onclick="Sxesi.permesWindow(\'' + p +
-			'\', \'Γεια χαρά!\');"';
+		html += ' onclick="Sxesi.permesWindow(\'' + p + '\', \'' + msg + '\');"';
 		html += ' title="Προσωπικό μήνυμα στο χρήστη &quot;' +
 			p + '&quot;"';
 		html += ' style="cursor: pointer;"';
