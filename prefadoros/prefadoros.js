@@ -80,7 +80,7 @@ var Prefadoros = new function() {
 
 		this.show = 'partida';
 		x.style.overflowY = 'hidden';
-		x.innerHTML = Partida.html;
+		x.innerHTML = Partida.HTML;
 
 		x = getelid('partidaKafenio');
 		if (isSet(x)) {
@@ -98,7 +98,7 @@ var Prefadoros = new function() {
 
 		this.show = 'kafenio';
 		x.style.overflowY = 'auto';
-		x.innerHTML = Trapezi.html;
+		x.innerHTML = Trapezi.HTML;
 
 		x = getelid('partidaKafenio');
 		if (isSet(x)) {
@@ -149,4 +149,14 @@ function isDianomi() {
 
 function notDianomi() {
 	return(!isDianomi());
+}
+
+function mapThesi(ena, thesi) {
+	switch (ena) {
+	case 2:		thesi += 1; break;
+	case 3:		thesi += 2; break;
+	}
+
+	while (thesi > 3) { thesi -= 3; }
+	return thesi;
 }
