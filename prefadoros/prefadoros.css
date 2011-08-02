@@ -61,36 +61,89 @@
 	text-align: center;
 }
 
-.pektis3 {
+.partidaInfo {
 	position: absolute;
 	left: 0.2cm;
-	top: 0.6cm;
+	line-height: 0.56cm;
+	font-size: 0.40cm;
+	padding-left: 0.4cm;
+	background-color: teal;
+
+	width: 12.7cm;
+}
+
+.partidaInfoTop {
+	top: 0px;
+}
+
+.partidaInfoBottom {
+	bottom: 0px;
+}
+
+.pektis3 {
+	position: absolute;
+	overflow: hidden;
+	left: 0.2cm;
+	top: 0.66cm;
+
+	width: 6.0cm;
 	height: 3.0cm;
-	width: 6.5cm;
+
 	background-color: yellow;
 }
 
 .pektis2 {
 	position: absolute;
-	left: 6.83cm;
-	top: 0.6cm;
+	overflow: hidden;
+	right: 0.2cm;
+	top: 0.66cm;
+
+	width: 6.0cm;
 	height: 3.0cm;
-	width: 6.5cm;
+
 	background-color: yellow;
 }
 
 .pektis1 {
 	position: absolute;
+	overflow: hidden;
 	left: 3.6cm;
-	top: 9.0cm;
+	bottom: 0.66cm;
+
+	width: 6.0cm;
 	height: 3.0cm;
-	width: 6.5cm;
+
 	background-color: yellow;
 }
 
 .pektis1akri {
 	left: 0.2cm;
 	width: 4.5cm;
+}
+
+.pektisMain {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+
+	width: 5.7cm;
+	height: 2.3cm;
+
+	border-style: solid;
+	border-width: 0.15cm;
+	border-color: #6B8E23;
+	background-color: #8AA886;
+}
+
+.pektis1MainAkri {
+	width: 4.2cm;
+}
+
+.pektisName {
+	font-size: 0.8cm;
+	font-weight: bold;
+	text-align: center;
+	overflow: hidden;
 }
 
 .kafenio {
