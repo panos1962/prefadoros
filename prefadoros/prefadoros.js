@@ -10,7 +10,20 @@ var sizitisi = [];	// τα σχόλια του τραπεζιού
 
 var trapezi = [];	// τα ενεργά τραπέζια
 var rebelos = [];	// περιφερόμενοι παίκτες
-var forum = [];		// η δημόσια συζήτηση
+var kafenio = [];	// η δημόσια συζήτηση
+
+sizitisi = [
+	{k: 123456, p:'panos', s:'asjdgjsd gas djs dgsa dhjas djas djasj'},
+	{k: 123457, p:'maria', s:'SGHDFDH HGSGDF DGSFGD Hhjas djas djasj'},
+	{k: 123457, p:'zoi', s:'asd asdas dasd asd asdas dasd asd asdj'}
+];
+
+kafenio = [
+	{k: 123446, p:'panos', s:'kaf kaf kaf kafs dgsa dhjas djas djasj'},
+	{k: 123447, p:'sakis', s:'KAF KAF KAF KAF GSFGD Hhjas djas djasj'},
+	{k: 123447, p:'WOLF', s:'kaf kaf s dasd asd asdas dasd asd asdj'},
+	{k: 123447, p:'makis', s:'kaf kaf s dasd S DSD SD SD SD SD SDSdj'}
+];
 
 window.onload = function() {
 	init();
