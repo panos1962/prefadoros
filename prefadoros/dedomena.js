@@ -75,6 +75,7 @@ var Dedomena = new function() {
 		} catch(e) {
 			monitor.lathos();
 			mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
+			alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 			Dedomena.schedule();
 			return;
 		}
