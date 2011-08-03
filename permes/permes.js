@@ -44,6 +44,18 @@ var Permes = new function() {
 		return false;
 	};
 
+	this.prosklisi = function(img) {
+		var pros = getelid('paraliptis');
+		if (notSet(pros) || notSet(pros.value) || ((pros.value = pros.value.trim()) == '')) {
+			alert('Ακαθόριστος παραλήπτης');
+			msg.focus();
+			return false;
+		}
+
+		Sxesi.addProsklisi(pros.value, img);
+		return false;
+	};
+
 	this.reset = function() {
 		var x = getelid('permesInput');
 		if (isSet(x)) {

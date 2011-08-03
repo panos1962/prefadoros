@@ -267,13 +267,8 @@ var Sxesi = new function() {
 			'pedi=yes&pros=' + uri(login) + msg);
 	};
 
-	this.addProsklisi = function(pektis) {
-		if (!isPartida()) {
-			playSound('beep');
-			mainFyi('Ακαθόριστο τραπέζι');
-			return;
-		}
-		var img = getelid('sxi_' + pektis);
+	this.addProsklisi = function(pektis, img) {
+		if (notSet(img)) { img = getelid('sxi_' + pektis); }
 		if (notSet(img)) { return; }
 		img.prevSrc = img.src;
 		img.src = globals.server + 'images/working.gif';
@@ -283,25 +278,24 @@ var Sxesi = new function() {
 		};
 
 		params = 'pion=' + uri(pektis);
-		params += '&partida=' + uri(partida.k);
 		req.send(params);
 	};
 
 	function addProsklisiCheck(req, img, pektis) {
 		if (req.xhr.readyState != 4) { return; }
 		rsp = req.getResponse();
-		if (rsp) {
+		if (rsp.match(/^OK@/)) {
+			img.src = img.prevSrc;
+			mainFyi('Έχει αποσταλεί πρόσκληση στον παίκτη "' + pektis +
+				'" για το τραπέζι ' + rsp.replace(/^OK@/, ''));
+		}
+		else if (rsp) {
 			playSound('beep');
 			mainFyi(rsp);
 			img.src = globals.server + 'images/X.png';
 			setTimeout(function() {
 				img.src = img.prevSrc;
 			}, globals.duration.errorIcon);
-		}
-		else {
-			img.src = img.prevSrc;
-			mainFyi('Έχει αποσταλεί πρόσκληση στον παίκτη "' + pektis +
-				'" για το τραπέζι ' + partida.k);
 		}
 	};
 
