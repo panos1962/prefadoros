@@ -134,7 +134,7 @@ var Trapezi = new function() {
 		html += ' onmouseover="Trapezi.fotise(this);"';
 		html += ' onmouseout="Trapezi.xefotise(this);"';
 		html += ' onclick="Sxesi.permesWindow(\'' + p + '\', \'' + msg + '\');"';
-		html += ' title="Προσωπικό μήνυμα στο χρήστη &quot;' +
+		html += ' title="Πρόσκληση, ή προσωπικό μήνυμα προς το χρήστη &quot;' +
 			p + '&quot;"';
 		html += ' style="cursor: pointer;"';
 		return html;
