@@ -16,23 +16,29 @@ var Permes = new function() {
 			return false;
 		}
 
+		var img = getelid('emailIcon');
+		if (notSet(img)) { return; }
+		img.src = globals.server + 'images/working.gif';
+
 		var req = new Request('permes/apostoli');
 		req.xhr.onreadystatechange = function() {
-			apostoliCheck(req, msg, pros, prosFixed);
+			apostoliCheck(req, msg, pros, prosFixed, img);
 		};
 
 		var params = 'pros=' + uri(pros.value) + '&minima=' + uri(msg.value);
 		req.send(params);
 	};
 
-	function apostoliCheck(req, msg, pros, prosFixed) {
+	function apostoliCheck(req, msg, pros, prosFixed, img) {
 		if (req.xhr.readyState != 4) {
 			return;
 		}
 
+		img.src = globals.server + 'images/email.png';
 		rsp = req.getResponse();
 		if (rsp) {
 			formaFyi('Απέτυχε η αποστολή του μηνύματος');
+			errorIcon(img);
 		}
 		else {
 			formaFyi('Το μήνυμά σας έχει αποσταλεί');
