@@ -1,19 +1,19 @@
 <?php
-// μέγιστος χρόνος διαδικασίας διαδοχικών κύκλων ανίχνευσης νέων δεδομένων σε seconds
+// μέγιστος χρόνος διαδικασίας διαδοχικών κύκλων ανίχνευσης νέων δεδομένων (seconds)
 // define('XRONOS_DEDOMENA_MAX', 40);
 define('XRONOS_DEDOMENA_MAX', 40);
 
-// νεκρός χρόνος μεταξύ δύο διαδοχικών ανιχνεύσεων σε microseconds
+// νεκρός χρόνος μεταξύ δύο διαδοχικών ανιχνεύσεων (microseconds)
 // define('XRONOS_DEDOMENA_TIC', 300000);
 define('XRONOS_DEDOMENA_TIC', 300000);
 
-// μέγιστο διάστημα polling μέχρι να θεωρηθεί ο παίκτης offline.
+// μέγιστο διάστημα polling μέχρι να θεωρηθεί ο παίκτης offline σε (seconds)
 define('XRONOS_PEKTIS_IDLE_MAX', (XRONOS_DEDOMENA_MAX + 10));
 
-// μέγιστο επιτρεπτό διάστημα μεταξύ απαντήσεων από τον server σε milliseconds.
+// μέγιστο επιτρεπτό διάστημα μεταξύ απαντήσεων από τον server (milliseconds)
 define('XRONOS_NO_ANSWER_MAX', ((XRONOS_DEDOMENA_MAX + 5) * 1000));
 
-// διάστημα στο οποίο ελέγχεται το φαινόμενο πολυβόλου σε milliseconds.
+// διάστημα στο οποίο ελέγχεται το φαινόμενο πολυβόλου (milliseconds)
 define('XRONOS_POLIVOLO', 2000);
 
 // μέγιστος αριθμός δεκτών απαντήσεων σε διάστημα πολυβόλου.
