@@ -93,9 +93,7 @@ var Partida = new function() {
 		html += Partida.thesiTheasisHTML(3);
 		html += '>';
 		html += '<div class="pektisMain';
-		if (isTheatis()) { html += ' theatis'; }
-		if (isSet(partida.a3) && (partida.a3 == 0)) { html += ' oxiApodoxi'; }
-		if (notSet(partida.o3) || (partida.o3 == 0)) { html += ' offline'; }
+		html += Partida.pektisMainHTML(3);
 		html += '">';
 		html += '<div class="pektisData">';
 		html += '<div class="pektisName">' + partida.p3 + '</div>';
@@ -111,9 +109,7 @@ var Partida = new function() {
 		html += Partida.thesiTheasisHTML(2);
 		html += '>';
 		html += '<div class="pektisMain';
-		if (isTheatis()) { html += ' theatis'; }
-		if (isSet(partida.a2) && (partida.a2 == 0)) { html += ' oxiApodoxi'; }
-		if (notSet(partida.o2) || (partida.o2 == 0)) { html += ' offline'; }
+		html += Partida.pektisMainHTML(2);
 		html += '">';
 		html += '<div class="pektisName">' + partida.p2 + '</div>';
 		html += '</div>';
@@ -130,13 +126,24 @@ dianomi = [];
 		html += '">';
 		html += '<div class="pektisMain pektis1Main';
 		if (isDianomi()) { html += ' pektis1MainAkri'; }
-		if (isTheatis()) { html += ' theatis'; }
-		if (isSet(partida.a1) && (partida.a1 == 0)) { html += ' oxiApodoxi'; }
-		if (notSet(partida.o1) || (partida.o1 == 0)) { html += ' offline'; }
+		html += Partida.pektisMainHTML(1);
 		html += '">';
 		html += '<div class="pektisName">' + partida.p1 + '</div>';
 		html += '</div>';
 		html += '</div>';
+		return html;
+	};
+
+	this.pektisMainHTML = function(thesi) {
+		var html = '';
+		var pektis = eval('partida.p' + thesi);
+		var apodoxi = eval('partida.a' + thesi);
+		var online = eval('partida.o' + thesi);
+		if (isTheatis()) { html += ' theatis'; }
+		if (pektis != '') {
+			html += ' ' + ((isSet(apodoxi) && (apodoxi == 0)) ? 'oxiApodoxi' : 'apodoxi');
+			if (notSet(online) || (online == 0)) { html += ' offline'; }
+		}
 		return html;
 	};
 
