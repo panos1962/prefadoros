@@ -8,6 +8,7 @@ Page::stylesheet('permes/permes');
 Page::stylesheet('lib/forma');
 Page::javascript('lib/forma');
 Page::javascript('permes/permes');
+Page::javascript('prefadoros/sxesi');
 Page::javascript('lib/soundmanager');
 Page::body();
 Page::epikefalida(Globals::perastike('pedi'));
@@ -33,6 +34,7 @@ Page::close();
 // και δεν μπορεί να καθοριστεί στην παραγόμενη φόρμα.
 
 function minima_pros($pros = '', $pros_fixed = FALSE) {
+	global $globals;
 	?>
 	<div class="formaData" style="padding: 0.4cm;">
 	<div style="padding-bottom: 0.2cm;">
@@ -59,7 +61,12 @@ function minima_pros($pros = '', $pros_fixed = FALSE) {
 		} ?></textarea>
 	<div id="formaFyi" class="fyi formaFyi">&#xfeff;</div>
 	<input class="button formaButton" type="submit" value="Αποστολή"
-		onclick="return Permes.apostoli(<?php if ($pros_fixed) print 'true'; ?>);" />
+		onclick="return Permes.apostoli(<?php if ($pros_fixed) print 'true';
+			?>, getelid('emailIcon'));" />
+	<img id="emailIcon" src="<?php print $globals->server; ?>images/email.png"
+		style="width: 0.7cm; margin-bottom: -0.18cm; margin-left: -0.4cm;" alt="" />
+	<input class="button formaButton" type="submit" value="Πρόσκληση"
+		onclick="return Permes.prosklisi(getelid('emailIcon'));" />
 	<input class="button formaButton" type="reset" value="Reset"
 		onclick="return Permes.reset();" />
 	<input class="button formaButton" type="submit" value="Άκυρο"
