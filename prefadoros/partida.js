@@ -19,7 +19,11 @@ var Partida = new function() {
 			}
 
 			if (dedomena.partida.k == partida.k) {
-				Partida.ixosIsodosExodos(dedomena.partida);
+				if (!Partida.ixosIsodosExodos(dedomena.partida)) {
+					if (dedomena.partida.s != partida.s) {
+						playSound('blioup');
+					}
+				}
 			}
 		}
 
@@ -49,12 +53,17 @@ var Partida = new function() {
 
 			if (neos) {
 				playSound('doorBell');
-				alagi = false;
-				break;
+				return true;
 			}
 			var alagi = true;
 		}
-		if (alagi) { playSound('blioup'); }
+
+		if (alagi) {
+			playSound('blioup');
+			return true;
+		}
+
+		return false;
 	};
 
 	this.updateHTML = function() {
@@ -70,7 +79,12 @@ var Partida = new function() {
 		html += '">';
 
 		html += '<div class="partidaInfo partidaInfoTop">';
-		html += 'τραπέζι: <span class="partidaInfoData">' + partida.k + '</span>';
+		html += 'τραπέζι: <span class="partidaInfoData';
+		if (isTheatis()) { html += ' theatis'; }
+		html += '">' + partida.k + '</span>';
+		html += ', κάσα: <span class="partidaInfoData';
+		if (isTheatis()) { html += ' theatis'; }
+		html += '">' + partida.s + '</span>';
 		html += '</div>';
 
 		html += Partida.pektis3HTML();
