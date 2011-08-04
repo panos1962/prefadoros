@@ -157,6 +157,14 @@ class Kafenio {
 			return;
 		}
 
+		$query = "DELETE FROM `πρόσκληση` WHERE `τραπέζι` IN " .
+			"(SELECT `κωδικός` FROM `τραπέζι` WHERE `τέλος` IS NOT NULL)";
+		$result = mysqli_query($globals->db, $query);
+		if (!$result) {
+			@mysqli_rollback($globals->db);
+			return;
+		}
+
 		$query = "DELETE FROM `θεατής` WHERE `τραπέζι` IN " .
 			"(SELECT `κωδικός` FROM `τραπέζι` WHERE `τέλος` IS NOT NULL)";
 		$result = mysqli_query($globals->db, $query);
