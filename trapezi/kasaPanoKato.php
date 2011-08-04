@@ -13,8 +13,12 @@ if ($globals->trapezi->theatis) {
 	die('Δεν μπορείτε να αλλάξετε την κάσα ως θεατής');
 }
 
-$query = "UPDATE `τραπέζι` SET `κάσα` = (`κάσα` + " . $dif .
-	") WHERE `κωδικός` LIKE " . $globals->trapezi->kodikos;
+if (($globals->trapezi->kasa += $dif) < 0) {
+	$globals->trapezi->kasa = 0;
+}
+
+$query = "UPDATE `τραπέζι` SET `κάσα` = " . $globals->trapezi->kasa .
+	" WHERE `κωδικός` LIKE " . $globals->trapezi->kodikos;
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	die('Απέτυχε η αλλαγή της κάσας');

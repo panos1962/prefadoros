@@ -188,7 +188,7 @@ dianomi = [];
 			Partida.thesiTheasisCheck(req, ico);
 		};
 
-		var params = 'thesi=' + uri(mapThesi(partida.h, thesi));
+		var params = 'thesi=' + uri(mapThesi(thesi));
 		req.send(params);
 	};
 
