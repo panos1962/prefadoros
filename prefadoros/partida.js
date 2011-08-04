@@ -78,13 +78,20 @@ var Partida = new function() {
 		if (partida.p) { html += ' partidaPrive'; }
 		html += '">';
 
+		var tbc = isTheatis() ? ' theatis' : '';
 		html += '<div class="partidaInfo partidaInfoTop">';
-		html += 'τραπέζι: <span class="partidaInfoData';
-		if (isTheatis()) { html += ' theatis'; }
-		html += '">' + partida.k + '</span>';
-		html += ', κάσα: <span class="partidaInfoData';
-		if (isTheatis()) { html += ' theatis'; }
-		html += '">' + partida.s + '</span>';
+		html += 'τραπέζι: <span class="partidaInfoData' + tbc + '">';
+		html += partida.k + '</span>';
+		html += ', κάσα: <span class="partidaInfoData' + tbc + '">';
+		html += partida.s + '</span>';
+		if (notTheatis()) {
+			html += '<img class="kasaPanoKato' + tbc + '" alt="" src="' + globals.server +
+				'images/panoKasa.png" title="Αύξηση κάσας κατά 300 καπίκια" ' +
+				'onclick="Partida.kasaPanoKato(10, this);" />';
+			html += '<img class="kasaPanoKato' + tbc + '" alt="" src="' + globals.server +
+				'images/katoKasa.png" title="Μείωση κάσας κατά 300 καπίκια" ' +
+				'onclick="Partida.kasaPanoKato(-10, this);" />';
+		}
 		html += '</div>';
 
 		html += Partida.pektis3HTML();
@@ -290,6 +297,33 @@ rebelos = [
 	this.neaPartida = function() {
 		mainFyi('νέα παρτίδα: δεν έχει γίνει ακόμη');
 	};
+
+	this.kasaPanoKato = function(dif, ico) {
+		if (!isPartida()) { return; }
+		if (isTheatis()) { return; }
+
+		ico.prevSrc = ico.src;
+		ico.src = globals.server + 'images/workingBilies.gif';
+
+		var req = new Request('trapezi/kasaPanoKato');
+		req.xhr.onreadystatechange = function() {
+			Partida.kasaPanosKatoCheck(req, ico);
+		};
+
+		req.send('dif=' + uri(dif));
+	};
+
+	this.kasaPanosKatoCheck = function(req, ico) {
+		if (req.xhr.readyState != 4) { return; }
+		var rsp = req.getResponse();
+		mainFyi(rsp);
+		ico.src = ico.prevSrc;
+		if (rsp) {
+			errorIcon(ico);
+			playSound('beep');
+		}
+	};
+		
 };
 
 Partida.noPartidaHTML();
