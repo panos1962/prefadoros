@@ -48,6 +48,7 @@ if (Globals::perastike('alagi')) {
 		}
 	}
 	if ($i == $max) { die('Δεν υπάρχει κενή θέση'); }
+	$errmsg = 'Δεν έγινε αλλαγή θέσης';
 }
 else {
 	switch ($globals->trapezi->thesi) {
@@ -56,6 +57,7 @@ else {
 	case 3:		$ena = 1; $dio = 2; break;
 	default:	die('Ακαθόριστη θέση παίκτη');
 	}
+	$errmsg = 'Δεν έγινε αλλαγή στη διάταξη των παικτών';
 }
 
 $pektis1 = "pektis" . $ena;
@@ -75,7 +77,7 @@ $query = "UPDATE `τραπέζι` SET `παίκτης" . $ena . "` = " . $pektis
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(FALSE);
-	die('Δεν έγινε αλλαγή στη διάταξη των παικτών');
+	die($errmsg);
 }
 
 Prefadoros::xeklidose_trapezi(TRUE);

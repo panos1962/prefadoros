@@ -177,9 +177,10 @@ dianomi = [];
 		return html;
 	};
 
-	this.thesiTheasis = function(thesi) {
-		var ico = getelid('controlPanelIcon');
+	this.thesiTheasis = function(thesi, ico) {
+		if (notSet(ico)) { ico = getelid('controlPanelIcon'); }
 		if (notSet(ico)) { return; }
+		ico.prevSrc = ico.src;
 		ico.src = globals.server + 'images/working.gif';
 		mainFyi('Αλλαγή παρακολουθούμενου παίκτη');
 
@@ -196,7 +197,7 @@ dianomi = [];
 		if (req.xhr.readyState != 4) { return; }
 		var rsp = req.getResponse();
 		mainFyi(rsp);
-		ico.src = globals.server + 'images/controlPanel/4Balls.png';
+		ico.src = ico.prevSrc;
 		if (rsp) {
 			errorIcon(ico);
 			playSound('beep');
@@ -291,6 +292,9 @@ rebelos = [
 		if (rsp) {
 			errorIcon(ico);
 			playSound('beep');
+		}
+		else {
+			controlPanel.display('default');
 		}
 	};
 
