@@ -1,5 +1,5 @@
 var Permes = new function() {
-	this.apostoli = function(prosFixed) {
+	this.apostoli = function(prosFixed, img) {
 		if (notSet(prosFixed)) { prosFixed = false; }
 		var msg = getelid('permesInput');
 		if (notSet(msg) || notSet(msg.value) || ((msg.value = msg.value.trim()) == '')) {
@@ -16,7 +16,7 @@ var Permes = new function() {
 			return false;
 		}
 
-		var img = getelid('emailIcon');
+		if (notSet(img)) { var img = getelid('emailIcon'); }
 		if (notSet(img)) { return; }
 		img.src = globals.server + 'images/working.gif';
 

@@ -61,7 +61,7 @@ function minima_pros($pros = '', $pros_fixed = FALSE) {
 		} ?></textarea>
 	<div id="formaFyi" class="fyi formaFyi">&#xfeff;</div>
 	<input class="button formaButton" type="submit" value="Αποστολή"
-		onclick="return Permes.apostoli(<?php if ($pros_fixed) print 'true';
+		onclick="return Permes.apostoli(<?php print $pros_fixed ? 'true' : 'false';
 			?>, getelid('emailIcon'));" />
 	<img id="emailIcon" src="<?php print $globals->server; ?>images/email.png"
 		style="width: 0.7cm; margin-bottom: -0.18cm; margin-left: -0.4cm;" alt="" />
