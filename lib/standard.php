@@ -451,6 +451,15 @@ class Page {
 				</div>
 			</td>
 			<td class="tbldbg" style="width: 49%;">
+				<div class="toolbarRight">
+					<?php
+					if ($globals->is_pektis()) {
+						?><span class="data login"><?php
+							print $globals->pektis->login;
+						?></span><?php
+					}
+					?>
+				</div>
 			</td>
 			</tr></table>
 		</div>
