@@ -93,6 +93,10 @@ var Partida = new function() {
 				'onclick="Partida.kasaPanoKato(-10, this);" />';
 		}
 		html += '</div>';
+		if (isKlisto()) {
+			html += '<img class="partidaKlisto" alt="" src="' + globals.server +
+				'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
+		}
 
 		html += Partida.pektis3HTML();
 		html += Partida.pektis2HTML();

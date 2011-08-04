@@ -12,6 +12,7 @@ class Partida {
 	public $online3;
 	public $kasa;
 	public $prive;
+	public $klisto;
 	public $thesi;
 	public $theatis;
 	public $thesi_map;
@@ -29,6 +30,7 @@ class Partida {
 		unset($this->online3);
 		unset($this->kasa);
 		unset($this->prive);
+		unset($this->klisto);
 		unset($this->thesi);
 		unset($this->theatis);
 		unset($this->thesi_map);
@@ -36,7 +38,7 @@ class Partida {
 
 	public function set_from_string($data) {
 		$cols = explode("\t", $data);
-		if (count($cols) != 14) {
+		if (count($cols) != 15) {
 			return(FALSE);
 		}
 			
@@ -53,6 +55,7 @@ class Partida {
 		$this->online3 = $cols[$nf++];
 		$this->kasa = $cols[$nf++];
 		$this->prive = $cols[$nf++];
+		$this->klisto = $cols[$nf++];
 		$this->thesi = $cols[$nf++];
 		$this->theatis = $cols[$nf++];
 		return(TRUE);
@@ -96,8 +99,9 @@ class Partida {
 					print ",o" . $i . ":1";
 				}
 			}
-			print ",s:" . $curr->kasa . ",p:" . $curr->prive .
-				",h:" . $curr->thesi . ",t:" . $curr->theatis;
+			print ",s:" . $curr->kasa . ",p:" . $curr->prive;
+			if ($curr->klisto) { print ",b:1"; }
+			print ",h:" . $curr->thesi . ",t:" . $curr->theatis;
 		}
 		print "}";
 	}
@@ -128,6 +132,7 @@ class Partida {
 
 		$p->kasa = $globals->trapezi->kasa;
 		$p->prive = $globals->trapezi->prive;
+		$p->klisto = $globals->trapezi->klisto;
 		$p->thesi = $globals->trapezi->thesi;
 		$p->theatis = $globals->trapezi->theatis;
 

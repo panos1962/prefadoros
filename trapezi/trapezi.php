@@ -12,6 +12,7 @@ class Trapezi {
 	public $online3;
 	public $kasa;
 	public $prive;
+	public $klisto;
 	public $thesi;
 	public $theatis;
 
@@ -36,6 +37,7 @@ class Trapezi {
 		unset($this->apodoxi3);
 		unset($this->kasa);
 		unset($this->prive);
+		unset($this->klisto);
 		unset($this->thesi);
 		unset($this->theatis);
 
@@ -122,7 +124,8 @@ class Trapezi {
 		$this->pektis3 = $row['παίκτης3'];
 		$this->apodoxi3 = ($row['αποδοχή3'] == 'YES' ? 1 : 0);
 		$this->kasa = $row['κάσα'];
-		$this->prive = ($row['ιδιωτικότητα'] == 'ΠΡΙΒΕ' ? 1 : 0);
+		$this->prive = ($row['ιδιωτικότητα'] == 'ΔΗΜΟΣΙΟ' ? 0 : 1);
+		$this->klisto = ($row['πρόσβαση'] == 'ΑΝΟΙΚΤΟ' ? 0 : 1);
 
 		if ($basic) { return; }
 
@@ -140,7 +143,7 @@ class Trapezi {
 
 	public function set_from_file($line) {
 		$cols = explode("\t", $line);
-		if (count($cols) != 12) { return(FALSE); }
+		if (count($cols) != 13) { return(FALSE); }
 
 		$nf = 0;
 		$this->kodikos = $cols[$nf++];
@@ -155,6 +158,7 @@ class Trapezi {
 		$this->online3 = $cols[$nf++];
 		$this->kasa = $cols[$nf++];
 		$this->prive = $cols[$nf++];
+		$this->klisto = $cols[$nf++];
 		return(TRUE);
 	}
 
@@ -284,7 +288,8 @@ class Trapezi {
 			$this->apodoxi3 . "\t" .
 			$this->online3 . "\t" .
 			$this->kasa . "\t" .
-			$this->prive);
+			$this->prive . "\t" .
+			$this->klisto);
 		if ($full) {
 			fwrite($fh,
 				"\t" . $this->thesi .
@@ -307,7 +312,9 @@ class Trapezi {
 				print ",o" . $i . ":1";
 			}
 		}
-		print ",s:" . $this->kasa . ",r:" . $this->prive . "}";
+		print ",s:" . $this->kasa . ",r:" .$this->prive;
+		if ($this->klisto == 1) { print ",b:1"; }
+ 		print "}";
 	}
 }
 ?>
