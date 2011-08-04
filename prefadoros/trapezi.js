@@ -114,16 +114,15 @@ var Trapezi = new function() {
 			var p = eval('t.p' + i);
 			html += '<div class="kafenioPektis';
 			if (theatis) { html += ' theatis'; }
-			if (p != '') {
-				if (notSet(eval('t.o' + i))) { html += ' offline'; }
-				if (isSet(eval('t.a' + i)) && (eval('t.a' + i) != 1)) {
-					html += ' oxiApodoxi';
-				}
-				else {
-					html += ' apodoxi';
-				}
+			if (p == '') {
+				html += ' keniThesi';
 			}
-			if (isPektis() && (p == pektis.login)) { html += ' ego'; }
+			else {
+				if (notSet(eval('t.o' + i))) { html += ' offline'; }
+				html += ' ' + ((isSet(eval('t.a' + i)) && (eval('t.a' + i) != 1)) ?
+					'oxiApodoxi' : 'apodoxi');
+				if (isPektis() && (p == pektis.login)) { html += ' ego'; }
+			}
 			html += '"';
 			if (p) { html += Trapezi.permesHTML(p); }
 			html += '>';

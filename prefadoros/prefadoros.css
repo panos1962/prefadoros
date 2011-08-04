@@ -64,10 +64,12 @@
 .partidaInfo {
 	position: absolute;
 	left: 0.2cm;
-	line-height: 0.56cm;
+	height: 0.64cm;
+	max-height: 0.64cm;
 	font-size: 0.45cm;
 	font-style: italic;
 	//background-color: teal;
+	overflow: hidden;
 
 	width: 12.7cm;
 }
@@ -84,6 +86,15 @@
 
 .partidaInfoBottom {
 	bottom: 0px;
+}
+
+.kasaPanoKato {
+	padding-left: 0.1cm;
+	width: 0.4cm;
+	height: 0.52cm;
+	background-color: #8AA886;
+	margin-bottom: -0.14cm;
+	cursor: pointer;
 }
 
 .pektis3 {
@@ -283,6 +294,11 @@
 .theatis {
 	border-color: #928864;
 	background-color: #B7AA7D;
+}
+
+.keniThesi {
+	border-style: dotted;
+	border-color: #928864;
 }
 
 .ego {
