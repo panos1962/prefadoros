@@ -11,9 +11,9 @@ Page::javascript('permes/permes');
 Page::javascript('prefadoros/sxesi');
 Page::javascript('lib/soundmanager');
 Page::body();
+Prefadoros::pektis_check();
 Page::epikefalida(Globals::perastike('pedi'));
 Page::fyi();
-Prefadoros::pektis_check();
 ?>
 <div class="mainArea permesArea">
 <?php
@@ -85,9 +85,11 @@ function minimata() {
 	Εισερχόμενα <input id="iser" type="checkbox" checked="yes" onchange="Permes.refresh('iser');" />
 	Εξερχόμενα <input id="exer" type="checkbox" onchange="Permes.refresh('exer');" />
 	<input class="button formaButton" type="submit" value="Ανανέωση"
-		onclick="location.href=location.href;return false;" style="margin-left: 2.0cm;" />
+		onclick="location.href=location.href;return false;" style="margin-left: 1.0cm;" />
 	<input class="button formaButton" type="submit" value="Σύνθεση"
-		onclick="return Permes.sinthesi();" style="margin-left: 1.0cm;" />
+		onclick="return Permes.sinthesi();" style="margin-left: 0.5cm;" />
+	<input class="button formaButton" type="submit" value="Άκυρο"
+		onclick="self.close(); return false;" style="margin-left: 0.5cm;" />
 	</div>
 	<div id="minimata" style="margin-top: 0px;">
 	</div>
