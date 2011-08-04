@@ -654,7 +654,7 @@ class Page {
 		<div id="apokripsi<?php print $id; ?>" class="apokripsi">
 			<img class="pinezaIcon" title="Καρφίτσωμα" src="<?php
 				print $globals->server; ?>images/pineza.png" alt=""
-				onclick="karfitsoma('<?php print $id; ?>', this);">
+				onclick="karfitsoma('<?php print $id; ?>', this);" />
 			<img class="apokripsiIcon" title="Απόκρυψη" src="<?php
 				print $globals->server; ?>images/Xgrey.png" alt=""
 				onclick="sviseNode(getelid('<?php print $id; ?>'));" />
