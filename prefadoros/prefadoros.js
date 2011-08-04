@@ -144,6 +144,14 @@ function isPublic() {
 	return(!isPrive());
 }
 
+function isKlisto() {
+	return(isSet(partida) && isSet(partida.b) && (partida.b == 1));
+}
+
+function isAnikto() {
+	return(!isKlisto());
+}
+
 function isDianomi() {
 	return(isSet(dianomi) && isSet(dianomi.length) && (dianomi.length > 0));
 }

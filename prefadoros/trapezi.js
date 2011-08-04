@@ -85,6 +85,10 @@ var Trapezi = new function() {
 		if (t.r) { html += ' kafenioTrapeziPrive'; }
 		if (theatis) { html += ' kafenioTrapeziTheatis'; }
 		html += '">';
+		if (isSet(t.b) && (t.b == 1)) {
+			html += '<img class="kafenioTrapeziKlisto" alt="" src="' + globals.server +
+				'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
+		}
 		html += '<div class="kafenioTrapeziInfo';
 		if (theatis) { html += ' kafenioTrapeziInfoTheatis'; }
 		html += '"';
