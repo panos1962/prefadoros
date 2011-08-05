@@ -312,7 +312,8 @@ class Trapezi {
 				print ",o" . $i . ":1";
 			}
 		}
-		print ",s:" . $this->kasa . ",r:" .$this->prive;
+		print ",s:" . $this->kasa;
+		if ($this->prive == 1) { print ",r:1"; }
 		if ($this->klisto == 1) { print ",b:1"; }
  		print "}";
 	}

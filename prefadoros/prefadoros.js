@@ -171,6 +171,21 @@ function notApodoxi(thesi) {
 	return(!isApodoxi(thesi));
 }
 
+function isKeniThesi() {
+	if (isSet(partida)) {
+		for (var i = 1; i <= 3; i++) {
+			if (eval('partida.p' + i) == '') {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+function notKeniThesi() {
+	return(!isKeniThesi());
+}
+
 // Δέχεται μια θέση όπως εμφανίζεται στον client και επιστρέφει την
 // πραγματική θέση. Η αντιστοίχιση γίνεται με βάση τη θέση του παίκτη
 // (partida.h) ή με βάση τη θέση που περνάμε ως δεύτερη παράμετρο.

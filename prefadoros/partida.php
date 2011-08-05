@@ -99,9 +99,11 @@ class Partida {
 					print ",o" . $i . ":1";
 				}
 			}
-			print ",s:" . $curr->kasa . ",p:" . $curr->prive;
-			if ($curr->klisto) { print ",b:1"; }
-			print ",h:" . $curr->thesi . ",t:" . $curr->theatis;
+			print ",s:" . $curr->kasa;
+			if ($curr->prive == 1) { print ",p:1"; }
+			if ($curr->klisto == 1) { print ",b:1"; }
+			print ",h:" . $curr->thesi;
+			if ($curr->theatis == 1) { print ",t:1"; }
 		}
 		print "}";
 	}
