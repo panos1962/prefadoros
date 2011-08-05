@@ -174,6 +174,8 @@ function sizitisi_area() {
 		</div>
 	</div>
 	<div id="sizitisiArea" class="pssArea sizitisiArea">
+	<div id="sizitisiTrapezi" style="display: none;">Συζήτηση τραπεζιού</div>
+	<div id="sizitisiKafenio" style="display: none;">Συζήτηση καφενείου</div>
 	</div>
 	<?php
 }

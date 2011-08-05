@@ -133,6 +133,8 @@ var Dedomena = new function() {
 		Permes.processDedomena(dedomena);
 		Rebelos.processDedomena(dedomena);
 		Trapezi.processDedomena(dedomena);
+		Sizitisi.processDedomena(dedomena);
+		Kafenio.processDedomena(dedomena);
 
 		Partida.updateHTML();
 		Trapezi.updateHTML();

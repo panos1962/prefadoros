@@ -66,7 +66,6 @@ var Sxesi = new function() {
 				html += Sxesi.HTML(i);
 			}
 		}
-		html += '';
 		x.innerHTML = html;
 	};
 
