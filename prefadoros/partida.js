@@ -144,6 +144,7 @@ dianomi = [];
 		html += '">';
 		html += '<div class="pektisName">' + partida.p1 + '</div>';
 		html += '</div>';
+		html += Partida.miposBikeTora(1);
 		html += '</div>';
 		return html;
 	};
