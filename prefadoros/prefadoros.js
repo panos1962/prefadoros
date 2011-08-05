@@ -72,7 +72,16 @@ var Prefadoros = new function() {
 		else {
 			Prefadoros.showKafenio();
 		}
+		Prefadoros.clearBikeNeos();
 		controlPanel.display();
+	};
+
+	this.clearBikeNeos = function() {
+		if (notSet(partida)) { return; }
+		for (i = 1; i <= 3; i++) {
+			var n = 'n' + i;
+			if (n in partida) { delete partida[n]; }
+		}
 	};
 
 	this.showPartida = function() {
@@ -109,6 +118,31 @@ var Prefadoros = new function() {
 				'Τραπέζι</a>&nbsp;]';
 		}
 		return false;
+	};
+
+	this.sviseBikeTora = function(img) {
+		setTimeout(function() {
+			Prefadoros.sviseBikeTora2(img);
+		}, 3000);
+	};
+
+	this.sviseBikeTora2 = function(img) {
+		var x = parseFloat(img.style.width);
+		if (x < 0.4) {
+			img.parentNode.removeChild(img);
+			return;
+		}
+
+		img.style.width = (x - 0.2) + 'cm';
+
+		x = parseFloat(img.style.top);
+		img.style.top = (x + 0.1) + 'cm';
+
+		x = parseFloat(img.style.right);
+		img.style.right = (x + 0.2) + 'cm';
+		setTimeout(function() {
+			Prefadoros.sviseBikeTora2(img);
+		}, 50);
 	};
 }
 

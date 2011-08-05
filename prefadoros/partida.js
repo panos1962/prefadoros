@@ -19,10 +19,11 @@ var Partida = new function() {
 			}
 
 			if (dedomena.partida.k == partida.k) {
-				if (!Partida.ixosIsodosExodos(dedomena.partida)) {
-					if (dedomena.partida.s != partida.s) {
-						playSound('blioup');
-					}
+				if (Partida.bikeNeos(dedomena.partida)) {
+					playSound('doorBell');
+				}
+				else if (dedomena.partida != partida) {
+					playSound('blioup');
 				}
 			}
 		}
@@ -30,40 +31,26 @@ var Partida = new function() {
 		partida = dedomena.partida;
 	};
 
-	this.ixosIsodosExodos = function(nea) {
-		var alagi = false;
+	this.bikeNeos = function(nea) {
+		var neos = false;
 		for (var i = 1; i <= 3; i++) {
 			var proin = eval('partida.p' + i);
 			var nin = eval('nea.p' + i);
 			if (proin == nin) { continue; }
+			if (nin == '') { continue; }
+			if (nin == pektis.login) { continue; }
 
-			if ((nin == '') || (nin == pektis.login)) {
-				var neos = false;
+			for (j = 1; j <= 3; j++) {
+				var proin = eval('partida.p' + j);
+				if (nin == proin) { break; }
 			}
-			else {
-				var neos = true;
-				for (j = 1; j <= 3; j++) {
-					var proin = eval('partida.p' + j);
-					if (nin == proin) {
-						neos = false;
-						break;
-					}
-				}
+			if (j > 3) {
+				neos = true;
+				nea['n' + i] = true;
 			}
-
-			if (neos) {
-				playSound('doorBell');
-				return true;
-			}
-			var alagi = true;
 		}
 
-		if (alagi) {
-			playSound('blioup');
-			return true;
-		}
-
-		return false;
+		return neos;
 	};
 
 	this.updateHTML = function() {
@@ -124,6 +111,7 @@ var Partida = new function() {
 		html += '<div class="pektisName">' + partida.p3 + '</div>';
 		html += '</div>';
 		html += '</div>';
+		html += Partida.miposBikeTora(3);
 		html += '</div>';
 		return html;
 	};
@@ -138,6 +126,7 @@ var Partida = new function() {
 		html += '">';
 		html += '<div class="pektisName">' + partida.p2 + '</div>';
 		html += '</div>';
+		html += Partida.miposBikeTora(2);
 		html += '</div>';
 		return html;
 	};
@@ -157,6 +146,14 @@ dianomi = [];
 		html += '</div>';
 		html += '</div>';
 		return html;
+	};
+
+	this.miposBikeTora = function(thesi) {
+		if (Prefadoros.show != 'partida') { return ''; }
+		if (!(('n' + thesi) in partida)) { return ''; }
+		return '<img src="' + globals.server + 'images/hi.png" ' +
+			'style="position: absolute; width: 1.6cm; top: -0.8cm; right: -0.1cm;" ' +
+			'alt="" onload="Prefadoros.sviseBikeTora(this);" />';
 	};
 
 	this.pektisMainHTML = function(thesi) {

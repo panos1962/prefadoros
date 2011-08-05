@@ -1,6 +1,8 @@
 CREATE TABLE `συζήτηση` (
 	`κωδικός`	INTEGER(10) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
 	`παίκτης`	CHARACTER(32) NOT NULL COMMENT 'Ομιλών παίκτης',
+	-- Αν ο κωδικός τραπεζιού είναι κενός, τότε πρόκειται για σχόλιο
+	-- που αφορά στη συζήτηση του καφενείου.
 	`τραπέζι`	INTEGER(10) NULL COMMENT 'Κωδικός τραπεζιού',
 	`σχόλιο`	VARCHAR(16384) NOT NULL COMMENT 'Κείμενο σχολίου',
 	`πότε`		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Πότε ειπώθηκε',
