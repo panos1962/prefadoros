@@ -88,6 +88,12 @@ var Prefadoros = new function() {
 		var x = getelid('prefadoros');
 		if (notSet(x)) { return false; }
 
+		var s = getelid('sizitisiKafenio');
+		if (isSet(s)) { s.style.display = 'none'; }
+
+		var s = getelid('sizitisiTrapezi');
+		if (isSet(s)) { s.style.display = 'inline'; }
+
 		this.show = 'partida';
 		x.style.overflowY = 'hidden';
 		x.innerHTML = Partida.HTML;
@@ -105,6 +111,12 @@ var Prefadoros = new function() {
 	this.showKafenio = function() {
 		var x = getelid('prefadoros');
 		if (notSet(x)) { return false; }
+
+		var s = getelid('sizitisiTrapezi');
+		if (isSet(s)) { s.style.display = 'none'; }
+
+		var s = getelid('sizitisiKafenio');
+		if (isSet(s)) { s.style.display = 'inline'; }
 
 		this.show = 'kafenio';
 		x.style.overflowY = 'auto';
