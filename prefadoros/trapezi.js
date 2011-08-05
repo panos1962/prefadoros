@@ -85,10 +85,6 @@ var Trapezi = new function() {
 		if (t.r) { html += ' kafenioTrapeziPrive'; }
 		if (theatis) { html += ' kafenioTrapeziTheatis'; }
 		html += '">';
-		if (isSet(t.b) && (t.b == 1)) {
-			html += '<img class="kafenioTrapeziKlisto" alt="" src="' + globals.server +
-				'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
-		}
 		html += '<div class="kafenioBox kafenioTrapeziInfo';
 		if (theatis) { html += ' kafenioTrapeziInfoTheatis'; }
 		html += '"';
@@ -107,6 +103,10 @@ var Trapezi = new function() {
 			html += ' onclick="Trapezi.theatis(' + t.k + ');"';
 		}
 		html += '>';
+		if (isSet(t.b) && (t.b == 1)) {
+			html += '<img class="kafenioTrapeziKlisto" alt="" src="' + globals.server +
+				'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
+		}
 		if (isSet(t.k) && isSet(t.s)) {
 			html += (t.k + '#' + t.s);
 		}
@@ -148,7 +148,7 @@ var Trapezi = new function() {
 		if (i > 3) { return ''; }
 
 		html = '<img src="' + globals.server + 'images/hi.png" alt="" ' +
-			'style="position: absolute; width: 0.8cm; top: -0.4cm; right: -0.2cm;" ' +
+			'style="position: absolute; width: 0.9cm; top: -0.6cm; right: -0.2cm;" ' +
 			'onload="Prefadoros.sviseBikeTora(this);" />';
 		return html;
 	};
