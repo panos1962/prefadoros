@@ -130,10 +130,26 @@ var Trapezi = new function() {
 			html += '"';
 			if (p) { html += Trapezi.permesHTML(p); }
 			html += '>';
-			html += eval('t.p' + i) ? eval('t.p' + i) : '&nbsp;';
+			html += '<div class="kafenioPektisName">' + (p == '' ? '&nbsp;' : p) + '</div>';
+				if (partida.k == t.k) { html += Trapezi.miposBikeTora(p); }
 			html += '</div>';
 		}
 		html += '</div>';
+		return html;
+	};
+
+	this.miposBikeTora = function(pektis) {
+		if (Prefadoros.show != 'kafenio') { return ''; }
+		for (var i = 1; i <= 3; i++) {
+			if ((partida['p' + i] == pektis) && (('n' + i) in partida)) {
+				break;
+			}
+		}
+		if (i > 3) { return ''; }
+
+		html = '<img src="' + globals.server + 'images/hi.png" alt="" ' +
+			'style="position: absolute; width: 0.8cm; top: -0.4cm; right: -0.2cm;" ' +
+			'onload="Prefadoros.sviseBikeTora(this);" />';
 		return html;
 	};
 
