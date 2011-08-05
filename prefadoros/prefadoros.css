@@ -261,30 +261,12 @@
 	font-weight: bold;
 }
 
-.kafenioTrapeziInfo {
-	display: inline-block;
-	margin-right: 0.2cm;
-	text-align: center;
-	overflow: hidden;
-
-	width: 2.8cm;
-	min-width: 2.8cm;
-	max-width: 2.8cm;
-
-	border-style: dotted;
-	border-width: 0.08cm;
-	border-color: #8AA886;
-}
-
-.kafenioTrapeziInfoTheatis {
-	border-color: #B7AA7D;
-}
-
-.kafenioPektis {
+.kafenioBox {
 	display: inline-block;
 	position: relative;
 	margin-right: 0.2cm;
 	text-align: center;
+	overflow: hidden;
 
 	padding-top: 0.02cm;
 	padding-bottom: 0.08cm;
@@ -293,8 +275,20 @@
 	min-width: 2.8cm;
 	max-width: 2.8cm;
 
-	border-style: solid;
 	border-width: 0.08cm;
+}
+
+.kafenioTrapeziInfo {
+	border-style: dotted;
+	border-color: #8AA886;
+}
+
+.kafenioTrapeziInfoTheatis {
+	border-color: #B7AA7D;
+}
+
+.kafenioPektis {
+	border-style: solid;
 	border-color: #6B8E23;
 
 	background-color: #8AA886;

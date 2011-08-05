@@ -89,7 +89,7 @@ var Trapezi = new function() {
 			html += '<img class="kafenioTrapeziKlisto" alt="" src="' + globals.server +
 				'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
 		}
-		html += '<div class="kafenioTrapeziInfo';
+		html += '<div class="kafenioBox kafenioTrapeziInfo';
 		if (theatis) { html += ' kafenioTrapeziInfoTheatis'; }
 		html += '"';
 		if (isSet(t.k) && isSet(t.s)) {
@@ -116,7 +116,7 @@ var Trapezi = new function() {
 		html += '</div>';
 		for (var i = 1; i <= 3; i++) {
 			var p = eval('t.p' + i);
-			html += '<div class="kafenioPektis';
+			html += '<div class="kafenioBox kafenioPektis';
 			if (theatis) { html += ' theatis'; }
 			if (p == '') {
 				html += ' keniThesi';
@@ -205,7 +205,7 @@ var Trapezi = new function() {
 	};
 
 	this.rebelosHTML = function(t, theatis) {
-		var html = '<div class="kafenioPektis rebelos';
+		var html = '<div class="kafenioBox kafenioPektis rebelos';
 		if (isSet(theatis)) { html += ' theatis'; }
 		if (isPektis() && (t == pektis.login)) { html += ' ego'; }
 		html += '"';
