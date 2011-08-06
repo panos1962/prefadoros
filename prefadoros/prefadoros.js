@@ -17,6 +17,7 @@ window.onload = function() {
 	diafimisiSetup();
 	Dumprsp.setup();
 	Dedomena.setup();
+	Sizitisi.sxolioFocus();
 };
 
 window.onunload = function() {
