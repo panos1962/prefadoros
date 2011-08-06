@@ -540,6 +540,24 @@
 	padding-right: 0.2cm;
 }
 
+.moliviPartida {
+	width: 1.2cm;
+	min-width: 1.2cm;
+	max-width: 1.2cm;
+	height: 0.4cm;
+	max-height: 0.4cm;
+	min-height: 0.4cm;
+}
+
+.moliviKafenio {
+	width: 1.4cm;
+	min-width: 1.4cm;
+	max-width: 1.4cm;
+	height: 0.3cm;
+	max-height: 0.3cm;
+	min-height: 0.3cm;
+}
+
 .kafedaki {
 	border-style: dotted;
 	border-width: 2px;

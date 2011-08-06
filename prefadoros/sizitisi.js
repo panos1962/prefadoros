@@ -112,6 +112,16 @@ var Sizitisi = new function() {
 		}
 		html += '<div class="sizitisiPektis" style="color: #' +
 			color + ';">' + s.p + '</div>';
+		switch (s.s) {
+		case '@WT@':
+			s.s = '<img class="moliviPartida" src="' + globals.server +
+				'images/moliviPartida.gif" alt="" />';
+			break;
+		case '@WK@':
+			s.s = '<img class="moliviKafenio" src="' + globals.server +
+				'images/moliviKafenio.gif" alt="" />';
+			break;
+		}
 		html += s.s;
 		return html;
 	};
@@ -154,6 +164,7 @@ var Sizitisi = new function() {
 			}
 		}
 
+		Sizitisi.checkWriting(fld);
 		if (fld.value != '') {
 			fld.style.backgroundImage = 'none';
 			preview.innerHTML = '<hr />';
@@ -165,10 +176,52 @@ var Sizitisi = new function() {
 		}
 	};
 
+	var moliviTimer = null;
+	var writing = '';
+
+	this.checkWriting = function(fld) {
+		if ((fld.value != '') && (Prefadoros.show == 'partida') &&
+			(writing == 'partida')) { return; }
+		if ((fld.value != '') && (Prefadoros.show == 'kafenio') &&
+			(writing == 'kafenio')) { return; }
+		if ((fld.value == '') && (writing == '')) { return; }
+
+		if (isSet(moliviTimer)) { clearTimeout(moliviTimer); }
+		moliviTimer = setTimeout(function() {
+			if (fld.value == '') { Sizitisi.setWriting(); }
+			else { Sizitisi.setWriting(Prefadoros.show); }
+		}, 1000);
+	};
+
+	this.setWriting = function(tk) {
+		if (notSet(tk)) { tk = ''; }
+		var req = new Request('sizitisi/writing');
+		req.xhr.onreadystatechange = function() {
+			Sizitisi.setWritingCheck(req, tk);
+		};
+		var params = 'tk=' + uri(tk);
+		req.send(params);
+	};
+
+	this.setWritingCheck = function(req, tk) {
+		if (req.xhr.readyState != 4) { return; }
+		var rsp = req.getResponse();
+		if (rsp) {
+			mainFyi(rsp);
+		}
+		else {
+			writing = tk;
+		}
+	};
+
 	this.resetSxolioInput = function(fld, preview) {
 		if (notSet(preview)) {
 			preview = getelid('sxolioPreview');
 			if (notSet(preview)) { return; }
+		}
+		if (notSet(fld)) {
+			fld = getelid('sxolioInput');
+			if (notSet(fld)) { return; }
 		}
 		fld.value = '';
 		fld.style.backgroundImage = "url('" + globals.server +
@@ -212,6 +265,7 @@ var Sizitisi = new function() {
 		}
 		else {
 			Sizitisi.resetSxolioInput(fld);
+			writing = '';
 		}
 	};
 
