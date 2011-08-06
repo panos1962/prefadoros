@@ -520,6 +520,20 @@
 	max-height: 4cm;
 	overflow-y: auto;
 	overflow-x: hidden;
+	white-space: normal;
+}
+
+.sizitisiSxolio {
+	font-size: 0.32cm;
+	letter-spacing: 0px;
+	margin-bottom: 0.1cm;
+}
+
+.sizitisiPektis {
+	display: inline-block;
+	font-weight: bold;
+	font-style: italic;
+	padding-right: 0.2cm;
 }
 
 .kafedaki {

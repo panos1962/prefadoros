@@ -39,8 +39,10 @@ class Sizitisi {
 	}
 
 	public function json_data() {
+		$sxolio = preg_replace('/\\\/', '\\\\\\', $this->sxolio);
+		$sxolio = preg_replace("/'/", "\'", $sxolio);
 		print "{k:" . $this->kodikos . ",p:'" . $this->pektis . "',s:'" .
-			$this->sxolio . "',w:" . $this->pote . "}";
+			$sxolio . "',w:" . $this->pote . "}";
 	}
 
 	public static function diavase($fh, &$slist) {
@@ -125,24 +127,23 @@ class Sizitisi {
 		}
 
 		if (($n = count($del)) > 0) {
-			print ",sizitisiDel:{";
+			print ",sizitisiDel:[";
 			$koma = '';
 			foreach ($del as $i => $dummy) {
 				print $koma; $koma = ",";
-				print "'" . $i . "':1";
+				print "'" . $i . "'";
 			}
-			print "}";
+			print "]";
 		}
 
 		if (($n = count($mod)) > 0) {
-			print ",sizitisiMod:{";
+			print ",sizitisiMod:[";
 			$koma = '';
 			foreach ($mod as $i => $dummy) {
 				print $koma; $koma = ",";
-				print "'" . $i . "':";
 				$mod[$i]->json_data();
 			}
-			print "}";
+			print "]";
 		}
 
 		if (($n = count($new)) > 0) {

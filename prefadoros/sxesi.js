@@ -327,7 +327,7 @@ var Sxesi = new function() {
 			}
 		}
 
-		fld.value = fld.value.trim();
+		//fld.value = fld.value.trim();
 		if ((fld.value == '') && (fld.value == peknpatPrev)) { return; }
 		peknpatPrev = fld.value;
 
