@@ -153,7 +153,7 @@ var Sxesi = new function() {
 	};
 
 	this.addFilos = function(img, pektis) {
-		Sizitisi.sxolioFocus();
+		if (isSet(Sizitisi)) { Sizitisi.sxolioFocus(); }
 		img.prevSrc = img.src;
 		img.src = globals.server + 'images/working.gif';
 		var req = new Request('sxesi/addFilos');
@@ -190,7 +190,7 @@ var Sxesi = new function() {
 	};
 
 	this.apoklismos = function(img, pektis) {
-		Sizitisi.sxolioFocus();
+		if (isSet(Sizitisi)) { Sizitisi.sxolioFocus(); }
 		img.prevSrc = img.src;
 		img.src = globals.server + 'images/working.gif';
 		var req = new Request('sxesi/apoklismos');
@@ -227,7 +227,7 @@ var Sxesi = new function() {
 	};
 
 	this.aposisxetisi = function(img, pektis) {
-		Sizitisi.sxolioFocus();
+		if (isSet(Sizitisi)) { Sizitisi.sxolioFocus(); }
 		img.prevSrc = img.src;
 		img.src = globals.server + 'images/working.gif';
 		var req = new Request('sxesi/aposisxetisi');
@@ -270,7 +270,7 @@ var Sxesi = new function() {
 	};
 
 	this.addProsklisi = function(pektis, img) {
-		Sizitisi.sxolioFocus();
+		if (isSet(Sizitisi)) { Sizitisi.sxolioFocus(); }
 		if (notSet(img)) { img = getelid('sxi_' + pektis); }
 		if (notSet(img)) { return; }
 		img.prevSrc = img.src;
@@ -356,7 +356,7 @@ var Sxesi = new function() {
 	};
 
 	this.sxetizomenoi = function(img) {
-		Sizitisi.sxolioFocus();
+		if (isSet(Sizitisi)) { Sizitisi.sxolioFocus(); }
 		if (searchPektisTimer) {
 			clearTimeout(searchPektisTimer);
 		}
@@ -412,7 +412,7 @@ var Sxesi = new function() {
 	};
 
 	this.pekstat = function(img) {
-		Sizitisi.sxolioFocus();
+		if (isSet(Sizitisi)) { Sizitisi.sxolioFocus(); }
 		var x = img.src.split('/');
 		if (x.length < 1) { return; }
 
