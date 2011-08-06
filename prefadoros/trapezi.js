@@ -103,10 +103,7 @@ var Trapezi = new function() {
 			html += ' onclick="Trapezi.theatis(' + t.k + ');"';
 		}
 		html += '>';
-		if (isSet(t.b) && (t.b == 1)) {
-			html += '<img class="kafenioTrapeziKlisto" alt="" src="' + globals.server +
-				'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
-		}
+		html += '<div class="kafenioBoxData">';
 		if (isSet(t.k) && isSet(t.s)) {
 			html += (t.k + '#' + t.s);
 		}
@@ -114,6 +111,11 @@ var Trapezi = new function() {
 			html += Tools.xromataHTML('0.5cm');
 		}
 		html += '</div>';
+		html += '</div>';
+		if (isSet(t.b) && (t.b == 1)) {
+			html += '<img class="kafenioTrapeziKlisto" alt="" src="' + globals.server +
+				'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
+		}
 		for (var i = 1; i <= 3; i++) {
 			var p = eval('t.p' + i);
 			html += '<div class="kafenioBox kafenioPektis';
@@ -130,7 +132,7 @@ var Trapezi = new function() {
 			html += '"';
 			if (p) { html += Trapezi.permesHTML(p); }
 			html += '>';
-			html += '<div class="kafenioPektisName">' + (p == '' ? '&nbsp;' : p) + '</div>';
+			html += '<div class="kafenioBoxData">' + (p == '' ? '&nbsp;' : p) + '</div>';
 				if (partida.k == t.k) { html += Trapezi.miposBikeTora(p); }
 			html += '</div>';
 		}
