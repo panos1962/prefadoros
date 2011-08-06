@@ -6,24 +6,9 @@ var prosklisi = [];	// οι προσκλήσεις που αφορούν στο�
 var partida = {};	// το τραπέζι στο οποίο συμμετέχει ο παίκτης
 var dianomi = [];	// οι διανομές του τραπεζιού
 var kinisi = [];	// οι κινήσεις της διανομής
-var sizitisi = [];	// τα σχόλια του τραπεζιού
 
 var trapezi = [];	// τα ενεργά τραπέζια
 var rebelos = [];	// περιφερόμενοι παίκτες
-var kafenio = [];	// η δημόσια συζήτηση
-
-sizitisi = [
-	{k: 123456, p:'panos', s:'asjdgjsd gas djs dgsa dhjas djas djasj'},
-	{k: 123457, p:'maria', s:'SGHDFDH HGSGDF DGSFGD Hhjas djas djasj'},
-	{k: 123457, p:'zoi', s:'asd asdas dasd asd asdas dasd asd asdj'}
-];
-
-kafenio = [
-	{k: 123446, p:'panos', s:'kaf kaf kaf kafs dgsa dhjas djas djasj'},
-	{k: 123447, p:'sakis', s:'KAF KAF KAF KAF GSFGD Hhjas djas djasj'},
-	{k: 123447, p:'WOLF', s:'kaf kaf s dasd asd asdas dasd asd asdj'},
-	{k: 123447, p:'makis', s:'kaf kaf s dasd S DSD SD SD SD SD SDSdj'}
-];
 
 window.onload = function() {
 	init();
@@ -84,7 +69,7 @@ var Prefadoros = new function() {
 		}
 	};
 
-	this.showPartida = function() {
+	this.showPartida = function(fs) {
 		var x = getelid('prefadoros');
 		if (notSet(x)) { return false; }
 
@@ -96,20 +81,24 @@ var Prefadoros = new function() {
 		x.innerHTML = Partida.HTML;
 
 		var s = getelid('sizitisiTrapezi');
-		if (isSet(s)) { s.style.display = 'inline'; }
+		if (isSet(s)) {
+			Sizitisi.scrollBottom();
+			s.style.display = 'inline';
+		}
 
 		x = getelid('partidaKafenio');
 		if (isSet(x)) {
 			x.innerHTML = '[&nbsp;<a href="#" ' +
-				'onclick="return Prefadoros.showKafenio();" ' +
+				'onclick="return Prefadoros.showKafenio(true);" ' +
 				'class="data" title ="Εμφάνιση τραπεζιού">' +
 				'Καφενείο</a>&nbsp;]';
 		}
 
+		if (isSet(fs) && fs) { Sizitisi.sxolioFocus(); }
 		return false;
 	};
 
-	this.showKafenio = function() {
+	this.showKafenio = function(fs) {
 		var x = getelid('prefadoros');
 		if (notSet(x)) { return false; }
 
@@ -121,16 +110,20 @@ var Prefadoros = new function() {
 		x.innerHTML = Trapezi.HTML;
 
 		var s = getelid('sizitisiKafenio');
-		if (isSet(s)) { s.style.display = 'inline'; }
+		if (isSet(s)) {
+			Sizitisi.scrollBottom();
+			s.style.display = 'inline';
+		}
 
 		x = getelid('partidaKafenio');
 		if (isSet(x)) {
 			x.innerHTML = '[&nbsp;<a href="#" ' +
-				'onclick="return Prefadoros.showPartida();" ' +
+				'onclick="return Prefadoros.showPartida(true);" ' +
 				'class="data" title="Εμφάνιση καφενείου">' +
 				'Τραπέζι</a>&nbsp;]';
 		}
 
+		if (isSet(fs) && fs) { Sizitisi.sxolioFocus(); }
 		return false;
 	};
 

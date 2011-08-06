@@ -18,7 +18,6 @@ if ($globals->is_pektis()) {
 	Page::javascript('prefadoros/permes');
 	Page::javascript('prefadoros/trapezi');
 	Page::javascript('prefadoros/sizitisi');
-	Page::javascript('prefadoros/kafenio');
 	Page::javascript('lib/controlPanel');
 	Page::javascript('lib/pss');
 	Page::javascript('lib/emoticons');
@@ -163,9 +162,10 @@ function sizitisi_area() {
 	global $globals;
 	?>
 	<div class="pssHeaderArea">
-		<input id="mesg" class="pssInput" type="text" value="" maxlength="4096"
+		<input id="sxolioInput" class="pssInput" type="text" value="" maxlength="4096"
 			size="30" style="background-image: url('<?php
-			print $globals->server; ?>images/sizitisiPrompt.png');" />
+			print $globals->server; ?>images/sizitisiPrompt.png');"
+			onkeyup="Sizitisi.keyCheck(event, this);" />
 		<div class="pssSizing">
 		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
 			class="pssSizingIcon" title="Μείωση περιοχής συζήτησης"
@@ -176,8 +176,8 @@ function sizitisi_area() {
 		</div>
 	</div>
 	<div id="sizitisiArea" class="pssArea sizitisiArea">
-	<div id="sizitisiTrapezi" style="display: none;">Συζήτηση τραπεζιού</div>
-	<div id="sizitisiKafenio" style="display: none;">Συζήτηση καφενείου</div>
+	<div id="sizitisiTrapezi" style="display: none;"></div>
+	<div id="sizitisiKafenio" style="display: none;"></div>
 	</div>
 	<?php
 }
