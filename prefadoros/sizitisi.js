@@ -29,7 +29,6 @@ var Sizitisi = new function() {
 		}
 		if (isSet(dedomena.sizitisi)) {
 			sizitisi.innerHTML = '<div id="st_end"></div>';
-			sizitisi.innerHTML += '<div id="st_preview"></div>';
 		}
 		telos = getelid('st_end');
 		if (notSet(telos)) {
@@ -126,10 +125,9 @@ var Sizitisi = new function() {
 	};
 
 	this.keyCheck = function(e, fld) {
-		var id = (Prefadoros.show == 'partida' ? 'st' : 'sk') + '_preview';
-		var preview = getelid(id);
+		var preview = getelid('sxolioPreview');
 		if (notSet(preview)) {
-			alert(id + ': node not found');
+			alert('sxolioPreview: node not found');
 			return;
 		}
 
@@ -189,7 +187,6 @@ var Kafenio = new function() {
 		}
 		if (isSet(dedomena.kafenio)) {
 			sizitisi.innerHTML = '<div id="sk_end"></div>';
-			sizitisi.innerHTML += '<div id="sk_preview"></div>';
 		}
 		telos = getelid('sk_end');
 		if (notSet(telos)) {
