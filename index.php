@@ -163,9 +163,16 @@ function sizitisi_area() {
 	?>
 	<div class="pssHeaderArea">
 		<input id="sxolioInput" class="pssInput" type="text" value="" maxlength="4096"
-			size="30" style="background-image: url('<?php
+			size="20" style="background-image: url('<?php
 			print $globals->server; ?>images/sizitisiPrompt.png');"
 			onkeyup="Sizitisi.keyCheck(event, this);" />
+		<img id="sxolioApostoli" src="<?php print $globals->server;
+			?>images/controlPanel/talk.png"
+			class="pssIcon" title="Αποστολή σχολίου" alt=""
+			onclick="Sizitisi.apostoli(null, this);" />
+		<img id="sxolioDiagrafi" src="<?php print $globals->server; ?>images/Xred.png"
+			class="pssIcon" title="Διαγραφή σχολίων" alt=""
+			onclick="Sizitisi.diagrafi(this);" />
 		<div class="pssSizing">
 		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
 			class="pssSizingIcon" title="Μείωση περιοχής συζήτησης"

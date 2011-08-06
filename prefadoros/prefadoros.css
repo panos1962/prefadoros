@@ -229,6 +229,10 @@
 	min-width: 12.7cm;
 	max-width: 12.7cm;
 
+	height: 0.8cm;
+	min-height: 0.8cm;
+	max-height: 0.8cm;
+
 	margin-left: auto;
 	margin-right: auto;
 
@@ -247,7 +251,7 @@
 .kafenioTrapeziKlisto {
 	position: absolute;
 	left: 0.1cm;
-	top: 0.50cm;
+	top: 0.90cm;
 	width: 0.6cm;
 }
 
@@ -262,8 +266,8 @@
 }
 
 .kafenioBox {
-	display: inline-block;
 	position: relative;
+	display: inline-block;
 	margin-right: 0.2cm;
 	text-align: center;
 
@@ -293,7 +297,7 @@
 	background-color: #8AA886;
 }
 
-.kafenioPektisName {
+.kafenioBoxData {
 	max-width: 2.8cm;
 	overflow: hidden;
 }

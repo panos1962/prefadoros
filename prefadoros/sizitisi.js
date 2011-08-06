@@ -2,7 +2,7 @@ var Sizitisi = new function() {
 	var sizitisi = null;
 	var telos = null;
 	var zebraColor = [
-		'556B2F',
+		'556B2F',	// That's for me!
 		'8A0808',
 		'006600',
 		'084B8A',
@@ -13,8 +13,8 @@ var Sizitisi = new function() {
 		'B45F04',
 		'B4045F'
 	];
-	var pektisColor = [];
 	var zebraLast = 1;
+	var pektisColor = [];
 
 	this.processDedomena = function(dedomena) {
 		if (notSet(dedomena.sizitisi) && notSet(dedomena.sizitisiNew) &&
@@ -145,6 +145,9 @@ var Sizitisi = new function() {
 			}
 
 			switch(key) {
+			case 13:	// Enter key
+				Sizitisi.apostoli(fld);
+				break;
 			case 27:	// Esc key
 				fld.value = '';
 				break;
@@ -158,11 +161,115 @@ var Sizitisi = new function() {
 			Sizitisi.scrollBottom();
 		}
 		else {
-			fld.style.backgroundImage = "url('" + globals.server +
-				"images/sizitisiPrompt.png')";
-			preview.innerHTML = '';
+			Sizitisi.resetSxolioInput(fld, preview);
 		}
 	};
+
+	this.resetSxolioInput = function(fld, preview) {
+		if (notSet(preview)) {
+			preview = getelid('sxolioPreview');
+			if (notSet(preview)) { return; }
+		}
+		fld.value = '';
+		fld.style.backgroundImage = "url('" + globals.server +
+			"images/sizitisiPrompt.png')";
+		preview.innerHTML = '';
+		fld.focus();
+	};
+
+	this.apostoli = function(fld, ico) {
+		if (notSet(fld)) {
+			var fld = getelid('sxolioInput');
+			if (notSet(fld)) { return; }
+		}
+		var sxolio = fld.value;
+
+		sxolio = sxolio.trim();
+		if (sxolio == '') { return; }
+
+		if (notSet(ico)) { ico = getelid('sxolioApostoli'); }
+		if (notSet(ico)) { return; }
+		ico.src = globals.server + 'images/working.gif';
+
+		var req = new Request('sizitisi/apostoli');
+		req.xhr.onreadystatechange = function() {
+			Sizitisi.apostoliCheck(req, fld, ico);
+		};
+
+		var params = 'tk=' + uri(Prefadoros.show);
+		params += '&sxolio=' + uri(sxolio);
+		req.send(params);
+	};
+
+	this.apostoliCheck = function(req, fld, ico) {
+		if (req.xhr.readyState != 4) { return; }
+		ico.src = globals.server + 'images/controlPanel/talk.png';
+		var rsp = req.getResponse();
+		if (rsp) {
+			mainFyi(rsp);
+			errorIcon(ico);
+			playSound('beep');
+		}
+		else {
+			Sizitisi.resetSxolioInput(fld);
+		}
+	};
+
+	var diagrafiCount = 0;
+	var diagrafiCountReset = null;
+
+	this.diagrafi = function(ico) {
+		Sizitisi.sxolioFocus();
+		if (notSet(ico)) { ico = getelid('sxolioDiagrafi'); }
+		if (notSet(ico)) { return; }
+		if (Prefadoros.show != 'partida') {
+			playSound('beep');
+			errorIcon(ico);
+			mainFyi('Δεν μπορείτε να παρέμβετε στη δημόσια συζήτηση');
+			return;
+		}
+		var params = 'dummy=1';
+		if (isSet(diagrafiCountReset)) { clearTimeout(diagrafiCountReset); }
+		
+		diagrafiCount++;
+		if (diagrafiCount > 3) {
+			diagrafiCount = 0;
+			if (confirm('Θέλετε να διαγράψετε όλη τη συζήτηση;')) {
+				params += '&delall=yes';
+			}
+		}
+		else {
+			diagrafiCountReset = setTimeout(function() {
+				diagrafiCount = 0;
+			}, 1000);
+		}
+
+		if (notSet(ico)) { ico = getelid('sxolioDiagrafi'); }
+		if (notSet(ico)) { return; }
+		ico.src = globals.server + 'images/working.gif';
+
+		var req = new Request('sizitisi/diagrafi');
+		req.xhr.onreadystatechange = function() {
+			Sizitisi.diagrafiCheck(req, ico);
+		};
+
+		req.send(params);
+	};
+
+	this.diagrafiCheck = function(req, ico) {
+		if (req.xhr.readyState != 4) { return; }
+		ico.src = globals.server + 'images/Xred.png';
+		var rsp = req.getResponse();
+		if (rsp) {
+			mainFyi(rsp);
+			errorIcon(ico);
+			playSound('beep');
+		}
+		else {
+			Sizitisi.resetSxolioInput();
+		}
+	};
+	
 
 	this.sxolioFocus = function() {
 		var x = getelid('sxolioInput');
@@ -187,6 +294,8 @@ var Kafenio = new function() {
 		}
 		if (isSet(dedomena.kafenio)) {
 			sizitisi.innerHTML = '<div id="sk_end"></div>';
+			Dedomena.kafenioApo = dedomena.kafenio.length > 0 ?
+				dedomena.kafenio[0].k : 1;
 		}
 		telos = getelid('sk_end');
 		if (notSet(telos)) {
