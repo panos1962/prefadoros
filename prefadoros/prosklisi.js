@@ -113,6 +113,7 @@ var Prosklisi = new function() {
 	};
 
 	this.apodoxi = function(k) {
+		Sizitisi.sxolioFocus();
 		mainFyi('αποδοχή πρόσκλησης ' + k);
 		var img = getelid('ap_' + k);
 		if (notSet(img)) { return; }
@@ -139,6 +140,7 @@ var Prosklisi = new function() {
 	};
 
 	this.skisimo = function(img, k, cfrm) {
+		Sizitisi.sxolioFocus();
 		if (isSet(cfrm) && cfrm &&
 			(!confirm('Θέλετε πράγματι να απορρίψετε την πρόσκληση;'))) {
 			return;
@@ -167,6 +169,7 @@ var Prosklisi = new function() {
 			}, globals.duration.errorIcon);
 		}
 		else {
+			playSound('skisimo');
 			img.src = img.prevSrc;
 		}
 	};
