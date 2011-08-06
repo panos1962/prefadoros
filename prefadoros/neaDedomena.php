@@ -272,6 +272,7 @@ function diaforetika_dedomena($curr, $prev) {
 	print "}";
 
 	Partida::set_thesi_map($curr->partida);
+	Partida::set_thesi_map($prev->partida);
 	Partida::print_json_data($curr->partida, $prev->partida);
 	Prosklisi::print_json_data($curr->prosklisi, $prev->prosklisi);
 	Sxesi::print_json_data($curr->sxesi, $prev->sxesi);

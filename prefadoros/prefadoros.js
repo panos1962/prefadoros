@@ -91,12 +91,12 @@ var Prefadoros = new function() {
 		var s = getelid('sizitisiKafenio');
 		if (isSet(s)) { s.style.display = 'none'; }
 
-		var s = getelid('sizitisiTrapezi');
-		if (isSet(s)) { s.style.display = 'inline'; }
-
 		this.show = 'partida';
 		x.style.overflowY = 'hidden';
 		x.innerHTML = Partida.HTML;
+
+		var s = getelid('sizitisiTrapezi');
+		if (isSet(s)) { s.style.display = 'inline'; }
 
 		x = getelid('partidaKafenio');
 		if (isSet(x)) {
@@ -105,6 +105,7 @@ var Prefadoros = new function() {
 				'class="data" title ="Εμφάνιση τραπεζιού">' +
 				'Καφενείο</a>&nbsp;]';
 		}
+
 		return false;
 	};
 
@@ -115,12 +116,12 @@ var Prefadoros = new function() {
 		var s = getelid('sizitisiTrapezi');
 		if (isSet(s)) { s.style.display = 'none'; }
 
-		var s = getelid('sizitisiKafenio');
-		if (isSet(s)) { s.style.display = 'inline'; }
-
 		this.show = 'kafenio';
 		x.style.overflowY = 'auto';
 		x.innerHTML = Trapezi.HTML;
+
+		var s = getelid('sizitisiKafenio');
+		if (isSet(s)) { s.style.display = 'inline'; }
 
 		x = getelid('partidaKafenio');
 		if (isSet(x)) {
@@ -129,6 +130,7 @@ var Prefadoros = new function() {
 				'class="data" title="Εμφάνιση καφενείου">' +
 				'Τραπέζι</a>&nbsp;]';
 		}
+
 		return false;
 	};
 
