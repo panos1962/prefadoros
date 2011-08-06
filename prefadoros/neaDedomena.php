@@ -28,6 +28,7 @@ require_once '../prefadoros/sxesi.php';
 require_once '../prefadoros/permes.php';
 require_once '../prefadoros/trapezi.php';
 require_once '../prefadoros/rebelos.php';
+require_once '../prefadoros/sizitisi.php';
 require_once '../prefadoros/prefadoros.php';
 set_globals();
 
@@ -47,7 +48,7 @@ Prefadoros::pektis_check(Globals::perastike_check('login'));
 $globals->pektis->poll_update($sinedria, $id);
 Prefadoros::set_trapezi();
 
-// Αν έχει περαστεί παράμετρος "feska", τότε ζητάμε όλα τα δεδομένα
+// Αν έχει περαστεί παράμετρος "freska", τότε ζητάμε όλα τα δεδομένα
 // χωρίς να μπούμε στη διαδικασία της σύγκρισης με προηγούμενα
 // δεδομένα της ίδιας συνεδρίας, οπότε μαζεύουμε τα τρέχοντα
 // δεδομένα και τα επιστρέφουμε στον client.
@@ -74,6 +75,7 @@ if (!$prev->diavase()) {
 // Είμαστε στη φάση που έχουμε διαβάσει επιτυχώς από το σχετικό αρχείο
 // τα δεδομένα της προηγούμενης αποστολής της τρέχουσας συνεδρίας και
 // ξεκινάμε τον κύκλο ελέγχου με τα τρέχοντα στοιχεία της database.
+
 $ekinisi = time();
 do {
 	unset($globals->trapezi);
@@ -153,6 +155,8 @@ class Dedomena {
 	public $permes;
 	public $trapezi;
 	public $rebelos;
+	public $sizitisi;
+	public $kafenio;
 
 	public function __construct() {
 		$this->partida = NULL;
@@ -161,6 +165,8 @@ class Dedomena {
 		$this->permes = array();
 		$this->trapezi = array();
 		$this->rebelos = array();
+		$this->sizitisi = array();
+		$this->kafenio = array();
 	}
 
 	public function diavase() {
@@ -184,6 +190,8 @@ class Dedomena {
 			case '@PERMES@':	Permes::diavase($fh, $this->permes); break;
 			case '@TRAPEZI@':	Kafenio::diavase($fh, $this->trapezi); break;
 			case '@REBELOS@':	Rebelos::diavase($fh, $this->rebelos); break;
+			case '@SIZITISI@':	Sizitisi::diavase($fh, $this->sizitisi); break;
+			case '@KAFENIO@':	Sizitisi::diavase($fh, $this->kafenio); break;
 			}
 		}
 
@@ -211,6 +219,8 @@ class Dedomena {
 		Permes::grapse($fh, $this->permes);
 		Kafenio::grapse($fh, $this->trapezi);
 		Rebelos::grapse($fh, $this->rebelos);
+		Sizitisi::grapse($fh, $this->sizitisi, 'SIZITISI');
+		Sizitisi::grapse($fh, $this->kafenio, 'KAFENIO');
 
 		fclose($fh);
 		$globals->xeklidoma($globals->pektis->login);
@@ -233,10 +243,13 @@ function torina_dedomena() {
 	$dedomena->permes = Permes::process();
 	$dedomena->trapezi = Kafenio::process();
 	$dedomena->rebelos = Rebelos::process();
+	$dedomena->sizitisi = Sizitisi::process_sizitisi();
+	$dedomena->kafenio = Sizitisi::process_kafenio();
 	return($dedomena);
 }
 
 function freska_dedomena($dedomena) {
+	global $globals;
 	$dedomena->grapse();
 	print_epikefalida();
 	print ",f:1}";
@@ -248,9 +261,12 @@ function freska_dedomena($dedomena) {
 	Permes::print_json_data($dedomena->permes);
 	Kafenio::print_json_data($dedomena->trapezi);
 	Rebelos::print_json_data($dedomena->rebelos);
+	Sizitisi::sizitisi_json_data($dedomena->sizitisi);
+	Sizitisi::kafenio_json_data($dedomena->kafenio);
 }
 
 function diaforetika_dedomena($curr, $prev) {
+	global $globals;
 	$curr->grapse();
 	print_epikefalida();
 	print "}";
@@ -262,5 +278,7 @@ function diaforetika_dedomena($curr, $prev) {
 	Permes::print_json_data($curr->permes, $prev->permes);
 	Kafenio::print_json_data($curr->trapezi, $prev->trapezi);
 	Rebelos::print_json_data($curr->rebelos, $prev->rebelos);
+	Sizitisi::sizitisi_json_data($curr->sizitisi, $prev->sizitisi);
+	Sizitisi::kafenio_json_data($curr->kafenio, $prev->kafenio);
 }
 ?>
