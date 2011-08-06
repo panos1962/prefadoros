@@ -178,6 +178,7 @@ function sizitisi_area() {
 	<div id="sizitisiArea" class="pssArea sizitisiArea">
 	<div id="sizitisiTrapezi" style="display: none;"></div>
 	<div id="sizitisiKafenio" style="display: none;"></div>
+	<div id="sxolioPreview"></div>
 	</div>
 	<?php
 }
