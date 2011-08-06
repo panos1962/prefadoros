@@ -229,13 +229,13 @@ class Sizitisi {
 		}
 
 		if (($n = count($del)) > 0) {
-			print ",kafenioDel:{";
+			print ",kafenioDel:[";
 			$koma = '';
 			foreach ($del as $i => $dummy) {
 				print $koma; $koma = ",";
-				print "'" . $i . "':1";
+				print "'" . $i . "'";
 			}
-			print "}";
+			print "]";
 		}
 
 		if (($n = count($mod)) > 0) {
@@ -278,10 +278,14 @@ class Sizitisi {
 		if ($globals->is_trapezi()) {
 			$query = "SELECT `κωδικός`, `παίκτης`, `σχόλιο`, " .
 				"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `συζήτηση` " .
-				"WHERE `τραπέζι` = " . $globals->trapezi->kodikos .
-				" ORDER BY `κωδικός`";
+				"WHERE (`τραπέζι` = " . $globals->trapezi->kodikos .
+				") OR (`σχόλιο` LIKE '@WK@') ORDER BY `κωδικός`";
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				if (($row['παίκτης'] == $globals->pektis->login) &&
+					preg_match("/^@W[TK]@/", $row['σχόλιο'])) {
+					continue;
+				}
 				$s = new Sizitisi;
 				$s->set_from_dbrow($row);
 				$sizitisi[] = $s;
@@ -314,6 +318,10 @@ class Sizitisi {
 			$kafenio_apo . ") ORDER BY `κωδικός`";
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+			if (($row['παίκτης'] == $globals->pektis->login) &&
+				preg_match("/^@W[TK]@/", $row['σχόλιο'])) {
+				continue;
+			}
 			$s = new Sizitisi;
 			$s->set_from_dbrow($row);
 			$sizitisi[] = $s;
