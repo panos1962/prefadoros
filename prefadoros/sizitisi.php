@@ -293,11 +293,25 @@ class Sizitisi {
 
 	public static function process_kafenio() {
 		global $globals;
+		global $kafenio_apo;
+
+		if ((!isset($kafenio_apo)) || ($kafenio_apo < 1)) {
+			$kafenio_apo = 1;
+			$query = "SELECT `κωδικός`, `παίκτης`, `σχόλιο`, " .
+				"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `συζήτηση` " .
+				"WHERE `τραπέζι` IS NULL ORDER BY `κωδικός` DESC LIMIT " .
+				KAFENIO_LINES;
+			$result = $globals->sql_query($query);
+			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				$kafenio_apo = $row['κωδικός'];
+			}
+		}
 
 		$sizitisi = array();
 		$query = "SELECT `κωδικός`, `παίκτης`, `σχόλιο`, " .
 			"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `συζήτηση` " .
-			"WHERE `τραπέζι` IS NULL ORDER BY `κωδικός`";
+			"WHERE (`τραπέζι` IS NULL) AND (`κωδικός` >= " .
+			$kafenio_apo . ") ORDER BY `κωδικός`";
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$s = new Sizitisi;

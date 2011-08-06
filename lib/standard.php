@@ -16,8 +16,11 @@ define('XRONOS_NO_ANSWER_MAX', ((XRONOS_DEDOMENA_MAX + 5) * 1000));
 // διάστημα στο οποίο ελέγχεται το φαινόμενο πολυβόλου (milliseconds)
 define('XRONOS_POLIVOLO', 2000);
 
-// μέγιστος αριθμός δεκτών απαντήσεων σε διάστημα πολυβόλου.
+// μέγιστος αριθμός δεκτών απαντήσεων σε διάστημα πολυβόλου
 define('MAX_POLIVOLO', 10);
+
+// αρχικό πλήθος σχολίων δημόσιας συζήτησης καφενείου
+define('KAFENIO_LINES', 50);
 
 if (isset($no_session)) {
 	$_SESSION = array();

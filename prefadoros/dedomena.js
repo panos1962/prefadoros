@@ -4,11 +4,14 @@ var Dedomena = new function() {
 	var polivoloTS = 0;
 	var polivolo = 0;
 
+	this.kafenioApo = 0;
+
 	this.setup = function() {
 		sessionAliveTS = (lastDataTS = currentTimestamp());
 		setTimeout(function() { Dedomena.neaDedomena(true); }, 200);
 		setTimeout(Dedomena.checkAlive, 1000);
-	}
+		Dedomena.kafenioApo = 0;
+	};
 
 	this.schedule = function(freska) {
 		if (notSet(freska)) { freska = false; }
@@ -60,9 +63,12 @@ var Dedomena = new function() {
 		params += '&id=' + sinedria.id;
 
 		if (freska) {
+			Dedomena.kafenioApo = 0;
 			params += '&freska=yes';
 		}
 
+		if (notSet(Dedomena.kafenioApo)) { Dedomena.kafenioApo = 0; }
+		params += '&kafenioApo=' + uri(Dedomena.kafenioApo);
 		req.send(params);
 	};
 

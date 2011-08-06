@@ -38,6 +38,9 @@ $sinedria = Globals::perastike_check('sinedria');
 global $id;
 $id = Globals::perastike_check('id');
 
+global $kafenio_apo;
+$kafenio_apo = Globals::perastike_check('kafenioApo');
+
 // Στο σημείο αυτό θα προσπελάσουμε τον παίκτη με βάση το login
 // name που περνάμε ως παράμετρο και θα ενημερώσουμε τόσο το
 // πεδίο "poll" του παίκτη, που δείχνει πότε ο παίκτης έκανε
