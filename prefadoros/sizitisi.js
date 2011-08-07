@@ -77,13 +77,13 @@ var Sizitisi = new function() {
 			var x = getelid('sxp_' + s.k);
 			if (notSet(x)) { return; }
 			if (notSet(x.style)) { return; }
-			x.style.fontSize = '0.28cm';
+			x.style.maxWidth = 'none';
 		};
 		p.onmouseout = function() {
 			var x = getelid('sxp_' + s.k);
 			if (notSet(x)) { return; }
 			if (notSet(x.style)) { return; }
-			x.style.fontSize = '1px';
+			x.style.maxWidth = '0';
 		};
 
 		p.innerHTML = Sizitisi.HTML(s);
@@ -487,13 +487,13 @@ var Kafenio = new function() {
 			var x = getelid('sxp_' + s.k);
 			if (notSet(x)) { return; }
 			if (notSet(x.style)) { return; }
-			x.style.fontSize = '0.28cm';
+			x.style.maxWidth = 'none';
 		};
 		p.onmouseout = function() {
 			var x = getelid('sxp_' + s.k);
 			if (notSet(x)) { return; }
 			if (notSet(x.style)) { return; }
-			x.style.fontSize = '1px';
+			x.style.maxWidth = '0';
 		};
 
 		p.innerHTML = Sizitisi.HTML(s);
