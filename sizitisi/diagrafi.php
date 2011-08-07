@@ -11,7 +11,8 @@ $trapezi = vres_trapezi();
 
 $query = "DELETE FROM `συζήτηση` WHERE (`τραπέζι` = " . $trapezi . ")";
 if (!Globals::perastike('delall')) {
-	$query .= " ORDER BY `κωδικός` DESC LIMIT 1";
+	$query .= " AND (`σχόλιο` NOT REGEXP '^@W[PK]@$') ".
+		"ORDER BY `κωδικός` DESC LIMIT 1";
 }
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) < 1) {
