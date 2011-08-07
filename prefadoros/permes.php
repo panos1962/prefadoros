@@ -1,4 +1,6 @@
 <?php
+define('MAX_PERMES_STRIP_LEN', 40);
+
 class Permes {
 	public $kodikos;
 	public $apostoleas;
@@ -39,9 +41,13 @@ class Permes {
 	}
 
 	public function json_data() {
-		$minima = preg_replace('/\\\/', '\\\\\\', $this->minima);
+		$minima = strip_tags($this->minima);
+		$minima = preg_replace('/\\\/', '\\\\\\', $minima);
 		$minima = preg_replace("/'/", "\'", $minima);
 		$minima = preg_replace('/"/', '\"', $minima);
+		if (mb_strlen($minima) > MAX_PERMES_STRIP_LEN) {
+			$minima = mb_substr($minima, 0, MAX_PERMES_STRIP_LEN) . "&#8230;";
+		}
 		print "{k:" . $this->kodikos . ",a:'" . $this->apostoleas .
 			"',m:'" . $minima .  "',d:" . $this->dimiourgia . "}";
 	}
