@@ -140,7 +140,7 @@ var Sizitisi = new function() {
 				'images/moliviKafenio.gif" alt="" />';
 		}
 		if (s == "@KN@") {
-			if (isSet(w) && ((currentTimestamp() - (w * 1000)) < 1000)) {
+			if (isSet(w) && ((currentTimestamp() - (w * 1000)) < 3000)) {
 				controlPanel.korna();
 			}
 			return '<img style="width: 0.8cm;" src="' + globals.server +
