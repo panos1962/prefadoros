@@ -21,5 +21,9 @@ CREATE TABLE `συζήτηση` (
 		`τραπέζι`
 	) REFERENCES `τραπέζι` (
 		`κωδικός`
-	) ON DELETE CASCADE ON UPDATE CASCADE
+	) ON DELETE CASCADE ON UPDATE CASCADE,
+
+	KEY (
+		`πότε`
+	) USING BTREE
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας συζητήσεων'

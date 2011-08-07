@@ -7,7 +7,7 @@ Page::data();
 set_globals();
 
 Prefadoros::pektis_check();
-switch ($tk = Globals::perastike_check('tk')) {
+switch ($pk = Globals::perastike_check('pk')) {
 case 'partida':		$trapezi = vres_trapezi(); break;
 case 'kafenio':		$trapezi = "NULL"; break;
 default:		die('Ακαθόριστο τραπέζι/καφενείο');
@@ -22,7 +22,7 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 	die('Απέτυχε η εισαγωγή σχολίου');
 }
 $query = "DELETE FROM `συζήτηση` WHERE (`παίκτης` LIKE " .
-	$globals->pektis->slogin . ") AND (`σχόλιο` REGEXP '^@W[TK]@$')";
+	$globals->pektis->slogin . ") AND (`σχόλιο` REGEXP '^@W[PK]@$')";
 $globals->sql_query($query);
 
 function vres_trapezi() {

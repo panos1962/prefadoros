@@ -113,7 +113,7 @@ var Sizitisi = new function() {
 		html += '<div class="sizitisiPektis" style="color: #' +
 			color + ';">' + s.p + '</div>';
 		switch (s.s) {
-		case '@WT@':
+		case '@WP@':
 			s.s = '<img class="moliviPartida" src="' + globals.server +
 				'images/moliviPartida.gif" alt="" />';
 			break;
@@ -193,24 +193,24 @@ var Sizitisi = new function() {
 		}, 1000);
 	};
 
-	this.setWriting = function(tk) {
-		if (notSet(tk)) { tk = ''; }
+	this.setWriting = function(pk) {
+		if (notSet(pk)) { pk = ''; }
 		var req = new Request('sizitisi/writing');
 		req.xhr.onreadystatechange = function() {
-			Sizitisi.setWritingCheck(req, tk);
+			Sizitisi.setWritingCheck(req, pk);
 		};
-		var params = 'tk=' + uri(tk);
+		var params = 'pk=' + uri(pk);
 		req.send(params);
 	};
 
-	this.setWritingCheck = function(req, tk) {
+	this.setWritingCheck = function(req, pk) {
 		if (req.xhr.readyState != 4) { return; }
 		var rsp = req.getResponse();
 		if (rsp) {
 			mainFyi(rsp);
 		}
 		else {
-			writing = tk;
+			writing = pk;
 		}
 	};
 
@@ -249,7 +249,7 @@ var Sizitisi = new function() {
 			Sizitisi.apostoliCheck(req, fld, ico);
 		};
 
-		var params = 'tk=' + uri(Prefadoros.show);
+		var params = 'pk=' + uri(Prefadoros.show);
 		params += '&sxolio=' + uri(sxolio);
 		req.send(params);
 	};

@@ -19,9 +19,6 @@ define('XRONOS_POLIVOLO', 2000);
 // μέγιστος αριθμός δεκτών απαντήσεων σε διάστημα πολυβόλου
 define('MAX_POLIVOLO', 10);
 
-// αρχικό πλήθος σχολίων δημόσιας συζήτησης καφενείου
-define('KAFENIO_LINES', 50);
-
 if (isset($no_session)) {
 	$_SESSION = array();
 	$_SESSION['ps_login'] = $_REQUEST['login'];
