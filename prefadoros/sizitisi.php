@@ -1,4 +1,15 @@
 <?php
+
+// Η σταθερά "WRITING_ACTIVE" είναι ο χρόνος που ένα σχόλιο ένδειξης
+// γραφής σχολίου ("@WP", ή "@WK@") θεωρείται ενεργό. Ο χρόνος αυτός
+// ορίζεται σε δευτερόλεπτα.
+define('WRITING_ACTIVE', 60);
+
+// Η σταθερά "KAFENIO_TREXOUSES" δείχνει το πλήθος των σχολίων της
+// δημόσιας συζήτησης που επιστρέφονται αρχικά στον παίκτη.
+
+define('KAFENIO_LINES', 50);
+
 class Sizitisi {
 	public $kodikos;
 	public $pektis;
@@ -276,16 +287,15 @@ class Sizitisi {
 
 		$sizitisi = array();
 		if ($globals->is_trapezi()) {
+			$writing = time() - WRITING_ACTIVE;
 			$query = "SELECT `κωδικός`, `παίκτης`, `σχόλιο`, " .
 				"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `συζήτηση` " .
-				"WHERE (`τραπέζι` = " . $globals->trapezi->kodikos .
-				") OR (`σχόλιο` LIKE '@WK@') ORDER BY `κωδικός`";
+				"WHERE (`τραπέζι` = " . $globals->trapezi->kodikos . ") " .
+				"OR ((`πότε` > " . $writing . ") AND (`σχόλιο` LIKE '@WK@')) " .
+				"ORDER BY `κωδικός`";
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				if (($row['παίκτης'] == $globals->pektis->login) &&
-					preg_match("/^@W[TK]@/", $row['σχόλιο'])) {
-					continue;
-				}
+				if (self::my_writing($row)) { continue; }
 				$s = new Sizitisi;
 				$s->set_from_dbrow($row);
 				$sizitisi[] = $s;
@@ -293,6 +303,12 @@ class Sizitisi {
 		}
 
 		return $sizitisi;
+	}
+
+	public static function my_writing($row) {
+		global $globals;
+		return (($row['παίκτης'] == $globals->pektis->login) &&
+			preg_match("/^@W[PK]@$/", $row['σχόλιο']));
 	}
 
 	public static function process_kafenio() {
@@ -303,7 +319,7 @@ class Sizitisi {
 			$kafenio_apo = 1;
 			$query = "SELECT `κωδικός`, `παίκτης`, `σχόλιο`, " .
 				"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `συζήτηση` " .
-				"WHERE `τραπέζι` IS NULL ORDER BY `κωδικός` DESC LIMIT " .
+				"WHERE (`τραπέζι` IS NULL) ORDER BY `κωδικός` DESC LIMIT " .
 				KAFENIO_LINES;
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -318,10 +334,7 @@ class Sizitisi {
 			$kafenio_apo . ") ORDER BY `κωδικός`";
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			if (($row['παίκτης'] == $globals->pektis->login) &&
-				preg_match("/^@W[TK]@/", $row['σχόλιο'])) {
-				continue;
-			}
+			if (self::my_writing($row)) { continue; }
 			$s = new Sizitisi;
 			$s->set_from_dbrow($row);
 			$sizitisi[] = $s;

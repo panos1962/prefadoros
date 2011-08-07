@@ -8,12 +8,12 @@ set_globals();
 
 Prefadoros::pektis_check();
 $query = "DELETE FROM `συζήτηση` WHERE (`παίκτης` LIKE " .
-	$globals->pektis->slogin . ") AND (`σχόλιο` REGEXP '^@W[TK]@$')";
+	$globals->pektis->slogin . ") AND (`σχόλιο` REGEXP '^@W[PK]@$')";
 $globals->sql_query($query);
-switch ($tk = Globals::perastike_check('tk')) {
+switch ($pk = Globals::perastike_check('pk')) {
 case 'partida':
 	$trapezi = vres_trapezi();
-	$sxolio = "@WT@";
+	$sxolio = "@WP@";
 	break;
 case 'kafenio':
 	$trapezi = "NULL";
