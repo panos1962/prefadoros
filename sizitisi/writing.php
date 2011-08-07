@@ -2,20 +2,19 @@
 require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
 require_once '../trapezi/trapezi.php';
+require_once '../prefadoros/sizitisi.php';
 require_once '../prefadoros/prefadoros.php';
 Page::data();
 set_globals();
 
 Prefadoros::pektis_check();
-$query = "DELETE FROM `συζήτηση` WHERE (`παίκτης` LIKE " .
-	$globals->pektis->slogin . ") AND (`σχόλιο` REGEXP '^@W[PK]@$')";
-$globals->sql_query($query);
+Sizitisi::cleanup_writing();
 switch ($pk = Globals::perastike_check('pk')) {
-case 'partida':
+case 'P':
 	$trapezi = vres_trapezi();
 	$sxolio = "@WP@";
 	break;
-case 'kafenio':
+case 'K':
 	$trapezi = "NULL";
 	$sxolio = "@WK@";
 	break;

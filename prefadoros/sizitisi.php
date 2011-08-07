@@ -5,10 +5,13 @@
 // ορίζεται σε δευτερόλεπτα.
 define('WRITING_ACTIVE', 60);
 
-// Η σταθερά "KAFENIO_TREXOUSES" δείχνει το πλήθος των σχολίων της
+// 60 * 60 * 24 = 86400
+define('WRITING_CLEANUP', 86400);
+
+// Η σταθερά "KAFENIO_TREXONTA_SXOLIA" δείχνει το πλήθος των σχολίων της
 // δημόσιας συζήτησης που επιστρέφονται αρχικά στον παίκτη.
 
-define('KAFENIO_LINES', 50);
+define('KAFENIO_TREXONTA_SXOLIA', 50);
 
 class Sizitisi {
 	public $kodikos;
@@ -32,9 +35,7 @@ class Sizitisi {
 
 	public function set_from_file($line) {
 		$cols = explode("\t", $line);
-		if (count($cols) != 4) {
-			return(FALSE);
-		}
+		if (count($cols) != 4) { return(FALSE); }
 
 		$nf = 0;
 		$this->kodikos = $cols[$nf++];
@@ -282,16 +283,21 @@ class Sizitisi {
 		print "]";
 	}
 
+	public static function select_clause() {
+		return "SELECT `κωδικός`, `παίκτης`, `σχόλιο`, " .
+			"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `συζήτηση` ";
+	}
+
 	public static function process_sizitisi() {
 		global $globals;
 
 		$sizitisi = array();
 		if ($globals->is_trapezi()) {
 			$writing = time() - WRITING_ACTIVE;
-			$query = "SELECT `κωδικός`, `παίκτης`, `σχόλιο`, " .
-				"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `συζήτηση` " .
+			$query = self:: select_clause() .
 				"WHERE (`τραπέζι` = " . $globals->trapezi->kodikos . ") " .
-				"OR ((`πότε` > " . $writing . ") AND (`σχόλιο` LIKE '@WK@')) " .
+				"OR ((UNIX_TIMESTAMP(`πότε`) > " . $writing . ") " .
+				"AND (`σχόλιο` LIKE '@WK@')) " .
 				"ORDER BY `κωδικός`";
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -315,12 +321,20 @@ class Sizitisi {
 		global $globals;
 		global $kafenio_apo;
 
+		// Η global μεταβλητή "kafenio_apo" είναι κοινή εδώ και στο βασικό
+		// πρόγραμμα ελέγχου εμφάνισης νέων δεδομένων ("prefadoros/neaDedomena.php").
+		// Αρχικά η τιμή της είναι ή ασαφής, ή μηδέν. Αυτό σημαίνει ότι πρόκειται
+		// για το πρώτο μάζεμα σχολίων της δημόσιας συζήτησης (ΔΣ), οπότε σε αυτήν
+		// την περίπτωση θα μαζευτούν τα τρέχοντα σχόλια της ΔΣ και η μεταβλητή
+		// "kafenio_apo" θα πάρει τιμή από το πρώτο από αυτά τα σχόλια. Αυτή
+		// η τιμή θα χρησιμοποιηθεί με΄χρι να λήξει ο τρέχων κύκλος ελέγχου,
+		// ενώ για τους επόμενους κύκλους θα μας έρχεται ως παράμετρος από
+		// τον client.
+
 		if ((!isset($kafenio_apo)) || ($kafenio_apo < 1)) {
 			$kafenio_apo = 1;
-			$query = "SELECT `κωδικός`, `παίκτης`, `σχόλιο`, " .
-				"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `συζήτηση` " .
-				"WHERE (`τραπέζι` IS NULL) ORDER BY `κωδικός` DESC LIMIT " .
-				KAFENIO_LINES;
+			$query = self::select_clause() . "WHERE (`τραπέζι` IS NULL) " .
+				"ORDER BY `κωδικός` DESC LIMIT " . KAFENIO_TREXONTA_SXOLIA;
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				$kafenio_apo = $row['κωδικός'];
@@ -328,10 +342,8 @@ class Sizitisi {
 		}
 
 		$sizitisi = array();
-		$query = "SELECT `κωδικός`, `παίκτης`, `σχόλιο`, " .
-			"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `συζήτηση` " .
-			"WHERE (`τραπέζι` IS NULL) AND (`κωδικός` >= " .
-			$kafenio_apo . ") ORDER BY `κωδικός`";
+		$query = self::select_clause() . "WHERE (`τραπέζι` IS NULL) " .
+			"AND (`κωδικός` >= " . $kafenio_apo . ") ORDER BY `κωδικός`";
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			if (self::my_writing($row)) { continue; }
@@ -341,6 +353,24 @@ class Sizitisi {
 		}
 
 		return $sizitisi;
+	}
+
+	// Η function "καθαρίζει" τα προσφατα writing σχόλια του παίκτη και καλείται
+	// κατά την αποστολή σχολίων από τον παίκτη. Θα μπορούσαμε απλώς να διαγράφουμε
+	// όλα τα writing σχόλια του παίκτη, αλλά αυτό θα είχε ως αποτέλεσμα να
+	// διατρέξουμε αν όχι όλο τον πίνακα των σχολίων, τουλάχιστον όλα τα σχόλια
+	// του παίκτη. Για να το αποφύγουμε αυτό περιοριζόμαστε χρονικά.
+
+	public static function cleanup_writing() {
+		global $globals;
+		if ($globals->not_pektis()) { return; }
+
+		$prosfata = time() - WRITING_CLEANUP;
+		$query = "DELETE FROM `συζήτηση` " .
+			"WHERE (`παίκτης` LIKE " . $globals->pektis->slogin . ") " .
+			"AND (`σχόλιο` REGEXP '^@W[PK]@$') " .
+			"AND (UNIX_TIMESTAMP(`πότε`) > " . $prosfata . ")";
+		$globals->sql_query($query);
 	}
 }
 ?>

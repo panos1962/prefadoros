@@ -73,6 +73,19 @@ var Sizitisi = new function() {
 
 		p.setAttribute('class', 'sizitisiSxolio');
 		p.setAttribute('id', 'st_' + s.k);
+		p.onmouseover = function() {
+			var x = getelid('sxp_' + s.k);
+			if (notSet(x)) { return; }
+			if (notSet(x.style)) { return; }
+			x.style.fontSize = '0.28cm';
+		};
+		p.onmouseout = function() {
+			var x = getelid('sxp_' + s.k);
+			if (notSet(x)) { return; }
+			if (notSet(x.style)) { return; }
+			x.style.fontSize = '1px';
+		};
+
 		p.innerHTML = Sizitisi.HTML(s);
 		sizitisi.insertBefore(p, telos);
 	};
@@ -112,17 +125,67 @@ var Sizitisi = new function() {
 		}
 		html += '<div class="sizitisiPektis" style="color: #' +
 			color + ';">' + s.p + '</div>';
-		switch (s.s) {
-		case '@WP@':
-			s.s = '<img class="moliviPartida" src="' + globals.server +
+		html += Sizitisi.decode(s.s);
+		html += Sizitisi.oraSxoliou(s.k, s.w);
+		return html;
+	};
+
+	this.decode = function(s) {
+		if (s.match(/^@WP@$/)) {
+			return '<img class="moliviPartida" src="' + globals.server +
 				'images/moliviPartida.gif" alt="" />';
-			break;
-		case '@WK@':
-			s.s = '<img class="moliviKafenio" src="' + globals.server +
-				'images/moliviKafenio.gif" alt="" />';
-			break;
 		}
-		html += s.s;
+		if (s.match(/^@WK@$/)) {
+			return '<img class="moliviKafenio" src="' + globals.server +
+				'images/moliviKafenio.gif" alt="" />';
+		}
+
+		var fs = '^';
+		var tmima = s.split(fs);
+		if (tmima.length < 2) { return s; }
+
+		s = '';
+		var fsok = true;
+		for (var i = 0; i < tmima.length; i++) {
+			if (tmima[i].match(/^E:[0-9]+:[0-9]+$/)) {
+				var x = tmima[i].split(':');
+				var eset = eval('Emoticons.set' + x[1]);
+				if (notSet(eset) || (x[2] >= eset.length)) {
+					s += fs + tmima[i];
+					continue;
+				}
+				s += '<img class="sizitisiEmoticon" alt="" src="' + globals.server +
+					'images/emoticons/set' + x[1] + '/' + eset[x[2]] + '" />';
+				fsok = false;
+				continue;
+			}
+
+			if ((i > 0) && fsok) { s += fs; }
+			s += tmima[i];
+			fsok = true;
+		}
+
+		return s;
+	};
+
+	this.oraSxoliou = function(k, t) {
+		if (t == 0) { return ''; }
+
+		var tora = new Date();
+		var pote = new Date((t - globals.timeDif) * 1000);
+		var keno = tora.getTime() - pote.getTime();
+
+		var html = '<div id="sxp_' + k + '" class="sizitisiOra">';
+		if (keno > 86400000) {
+			html += pote.getDate() + '/' + (pote.getMonth() + 1) + ', ';
+		}
+
+		var lepta = pote.getMinutes();
+		if (lepta < 10) {
+			lepta = '0' + lepta;
+		}
+		html += pote.getHours() + ':' + lepta;
+		html += '</div>';
 		return html;
 	};
 
@@ -135,20 +198,14 @@ var Sizitisi = new function() {
 	};
 
 	this.keyCheck = function(e, fld) {
-		var preview = getelid('sxolioPreview');
-		if (notSet(preview)) {
-			alert('sxolioPreview: node not found');
-			return;
-		}
-
 		if (window.event) { var key = e.keyCode; }
 		else if (e.which) { key = e.which; }
 		else { key = false; }
 
 		if (key) {
 			if (fld.value == '') {
-				fld.style.backgroundImage = globals.server +
-					'images/sxesiPrompt.png';
+				fld.style.backgroundImage = "url('" + globals.server +
+					"images/sxesiPrompt.png')";
 			}
 			else {
 				fld.style.backgroundImage = '';
@@ -164,42 +221,54 @@ var Sizitisi = new function() {
 			}
 		}
 
+		Sizitisi.parousiasi(fld);
+	};
+
+	this.parousiasi = function(fld) {
+		var preview = getelid('sxolioPreview');
 		Sizitisi.checkWriting(fld);
 		if (fld.value != '') {
 			fld.style.backgroundImage = 'none';
-			preview.innerHTML = '<hr />';
-			preview.innerHTML += '<div class="sizitisiSxolio">' + fld.value + '</div>';
-			Sizitisi.scrollBottom();
+			if (isSet(preview)) {
+				var html = '<div class="sizitisiSxolio sizitisiPreview">';
+				html += '<div class="sizitisiPektis" style="color: #' +
+					zebraColor[0] + ';">' + pektis.login + '</div>';
+				html += Sizitisi.decode(fld.value);
+				html += '</div>';
+				preview.innerHTML = html;
+				Sizitisi.scrollBottom();
+			}
 		}
 		else {
 			Sizitisi.resetSxolioInput(fld, preview);
 		}
 	};
 
-	var moliviTimer = null;
+	var writingTimer = null;
 	var writing = '';
+	var neoWriting = '';
 
 	this.checkWriting = function(fld) {
-		if ((fld.value != '') && (Prefadoros.show == 'partida') &&
-			(writing == 'partida')) { return; }
-		if ((fld.value != '') && (Prefadoros.show == 'kafenio') &&
-			(writing == 'kafenio')) { return; }
-		if ((fld.value == '') && (writing == '')) { return; }
+		var neo = '';
+		if ((fld.value != '') && (Prefadoros.show == 'partida')) { neo = 'P'; }
+		if ((fld.value != '') && (Prefadoros.show == 'kafenio')) { neo = 'K'; }
+		if (neo == neoWriting) { return; }
 
-		if (isSet(moliviTimer)) { clearTimeout(moliviTimer); }
-		moliviTimer = setTimeout(function() {
-			if (fld.value == '') { Sizitisi.setWriting(); }
-			else { Sizitisi.setWriting(Prefadoros.show); }
-		}, 1000);
+		neoWriting = neo;
+		if (isSet(writingTimer)) { clearTimeout(writingTimer); }
+		writingTimer = setTimeout(Sizitisi.setWriting, 1000);
 	};
 
-	this.setWriting = function(pk) {
-		if (notSet(pk)) { pk = ''; }
+	this.setWriting = function() {
+		// mainFyi('writing = "' + writing + '", neoWriting = "' + neoWriting + '"');
+		writingTimer = null;
+		if (neoWriting == writing) { return; }
+
 		var req = new Request('sizitisi/writing');
 		req.xhr.onreadystatechange = function() {
-			Sizitisi.setWritingCheck(req, pk);
+			Sizitisi.setWritingCheck(req, neoWriting);
 		};
-		var params = 'pk=' + uri(pk);
+		var params = 'pk=' + neoWriting;
 		req.send(params);
 	};
 
@@ -212,12 +281,12 @@ var Sizitisi = new function() {
 		else {
 			writing = pk;
 		}
+		neoWriting = writing;
 	};
 
 	this.resetSxolioInput = function(fld, preview) {
 		if (notSet(preview)) {
 			preview = getelid('sxolioPreview');
-			if (notSet(preview)) { return; }
 		}
 		if (notSet(fld)) {
 			fld = getelid('sxolioInput');
@@ -226,7 +295,7 @@ var Sizitisi = new function() {
 		fld.value = '';
 		fld.style.backgroundImage = "url('" + globals.server +
 			"images/sizitisiPrompt.png')";
-		preview.innerHTML = '';
+		if (isSet(preview)) { preview.innerHTML = ''; }
 		fld.focus();
 	};
 
@@ -240,6 +309,18 @@ var Sizitisi = new function() {
 		sxolio = sxolio.trim();
 		if (sxolio == '') { return; }
 
+		switch (Prefadoros.show) {
+		case 'partida':
+			var pk = 'P';
+			break;
+		case 'kafenio':
+			pk = 'K';
+			break;
+		default:
+			mainFyi('Ακαθόριστη συζήτηση (παρτίδα/καφενείο)');
+			return;
+		}
+
 		if (notSet(ico)) { ico = getelid('sxolioApostoli'); }
 		if (notSet(ico)) { return; }
 		ico.src = globals.server + 'images/working.gif';
@@ -249,7 +330,7 @@ var Sizitisi = new function() {
 			Sizitisi.apostoliCheck(req, fld, ico);
 		};
 
-		var params = 'pk=' + uri(Prefadoros.show);
+		var params = 'pk=' + pk;
 		params += '&sxolio=' + uri(sxolio);
 		req.send(params);
 	};
@@ -266,6 +347,11 @@ var Sizitisi = new function() {
 		else {
 			Sizitisi.resetSxolioInput(fld);
 			writing = '';
+			neoWriting = '';
+			if (isSet(writingTimer)) {
+				clearTimeout(writingTimer);
+				writingTimer = null;
+			}
 		}
 	};
 
@@ -319,9 +405,6 @@ var Sizitisi = new function() {
 			errorIcon(ico);
 			playSound('beep');
 		}
-		else {
-			Sizitisi.resetSxolioInput();
-		}
 	};
 	
 
@@ -346,6 +429,12 @@ var Kafenio = new function() {
 			mainFyi('sizitisiKafenio: node not found');
 			return;
 		}
+
+		// Αν έχει επιστραφεί καρφωτός πίνακας δημόσιας συζήτησης (ΔΣ),
+		// κρατάμε τον κωδικό του παλαιοτέρου σχολίου για να τον
+		// στέλνουμε στον server, ώστε να εντοπίζει τις επόμενες
+		// έρευνες σε σχόλια της ΔΣ νεότερα από αυτό, συμπεριλαμβανομένου
+		// και αυτού του σχολίου (βλέπε "prefadoros/dedomena.js").
 		if (isSet(dedomena.kafenio)) {
 			sizitisi.innerHTML = '<div id="sk_end"></div>';
 			Dedomena.kafenioApo = dedomena.kafenio.length > 0 ?
@@ -394,6 +483,19 @@ var Kafenio = new function() {
 
 		p.setAttribute('class', 'sizitisiSxolio');
 		p.setAttribute('id', 'sk_' + s.k);
+		p.onmouseover = function() {
+			var x = getelid('sxp_' + s.k);
+			if (notSet(x)) { return; }
+			if (notSet(x.style)) { return; }
+			x.style.fontSize = '0.28cm';
+		};
+		p.onmouseout = function() {
+			var x = getelid('sxp_' + s.k);
+			if (notSet(x)) { return; }
+			if (notSet(x.style)) { return; }
+			x.style.fontSize = '1px';
+		};
+
 		p.innerHTML = Sizitisi.HTML(s);
 		sizitisi.insertBefore(p, telos);
 	};

@@ -2,15 +2,26 @@
 require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
 require_once '../trapezi/trapezi.php';
+require_once '../prefadoros/sizitisi.php';
 require_once '../prefadoros/prefadoros.php';
 Page::data();
 set_globals();
-
 Prefadoros::pektis_check();
+
+// Μας έχει έρθει σχόλιο για καταχώρηση (παράμετρος "sxolio")
+// και μαζί μας έχει έρθει και παράμετρος "pk" με τιμή "P",
+// ή "K" ανάλογα με το αν πρόκειται για σχόλιο που αφορά
+// στο τραπέζι, ή στη δημόσια συζήτηση αντίστοιχα.
+
 switch ($pk = Globals::perastike_check('pk')) {
-case 'partida':		$trapezi = vres_trapezi(); break;
-case 'kafenio':		$trapezi = "NULL"; break;
-default:		die('Ακαθόριστο τραπέζι/καφενείο');
+case 'P':
+	$trapezi = vres_to_trapezi();
+	break;
+case 'K':
+	$trapezi = "NULL";
+	break;
+default:
+	die('Ακαθόριστο τραπέζι/καφενείο');
 }
 
 $sxolio = Globals::perastike_check('sxolio');
@@ -21,11 +32,10 @@ $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	die('Απέτυχε η εισαγωγή σχολίου');
 }
-$query = "DELETE FROM `συζήτηση` WHERE (`παίκτης` LIKE " .
-	$globals->pektis->slogin . ") AND (`σχόλιο` REGEXP '^@W[PK]@$')";
-$globals->sql_query($query);
 
-function vres_trapezi() {
+Sizitisi::cleanup_writing();
+
+function vres_to_trapezi() {
 	global $globals;
 	Prefadoros::trapezi_check();
 	if ($globals->trapezi->is_theatis() && (!$globals->trapezi->is_prosklisi())) {

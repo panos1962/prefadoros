@@ -69,6 +69,7 @@ var Dedomena = new function() {
 
 		if (notSet(Dedomena.kafenioApo)) { Dedomena.kafenioApo = 0; }
 		params += '&kafenioApo=' + uri(Dedomena.kafenioApo);
+
 		req.send(params);
 	};
 
