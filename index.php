@@ -166,6 +166,7 @@ function sizitisi_area() {
 			size="20" style="background-image: url('<?php
 			print $globals->server; ?>images/sizitisiPrompt.png');"
 			onkeyup="Sizitisi.keyCheck(event, this);" />
+		<input id="sxolioInputHidden" type="hidden" value="" maxlength="4096" size="0" />
 		<img id="sxolioApostoli" src="<?php print $globals->server;
 			?>images/controlPanel/talk.png"
 			class="pssIcon" title="Αποστολή σχολίου" alt=""

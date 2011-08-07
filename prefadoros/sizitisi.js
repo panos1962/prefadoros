@@ -125,19 +125,26 @@ var Sizitisi = new function() {
 		}
 		html += '<div class="sizitisiPektis" style="color: #' +
 			color + ';">' + s.p + '</div>';
-		html += Sizitisi.decode(s.s);
+		html += Sizitisi.decode(s.s, s.w);
 		html += Sizitisi.oraSxoliou(s.k, s.w);
 		return html;
 	};
 
-	this.decode = function(s) {
-		if (s.match(/^@WP@$/)) {
+	this.decode = function(s, w) {
+		if (s == "@WP@") {
 			return '<img class="moliviPartida" src="' + globals.server +
 				'images/moliviPartida.gif" alt="" />';
 		}
-		if (s.match(/^@WK@$/)) {
+		if (s == "@WK@") {
 			return '<img class="moliviKafenio" src="' + globals.server +
 				'images/moliviKafenio.gif" alt="" />';
+		}
+		if (s == "@KN@") {
+			if (isSet(w) && ((currentTimestamp() - (w * 1000)) < 1000)) {
+				controlPanel.korna();
+			}
+			return '<img style="width: 0.8cm;" src="' + globals.server +
+				'images/controlPanel/korna.png" alt="" />';
 		}
 
 		var fs = '^';
@@ -299,7 +306,7 @@ var Sizitisi = new function() {
 		fld.focus();
 	};
 
-	this.apostoli = function(fld, ico) {
+	this.apostoli = function(fld, ico, pk) {
 		if (notSet(fld)) {
 			var fld = getelid('sxolioInput');
 			if (notSet(fld)) { return; }
@@ -309,7 +316,8 @@ var Sizitisi = new function() {
 		sxolio = sxolio.trim();
 		if (sxolio == '') { return; }
 
-		switch (Prefadoros.show) {
+		if (notSet(pk)) { pk = Prefadoros.show; }
+		switch (pk) {
 		case 'partida':
 			var pk = 'P';
 			break;
@@ -345,7 +353,9 @@ var Sizitisi = new function() {
 			playSound('beep');
 		}
 		else {
-			Sizitisi.resetSxolioInput(fld);
+			if (isSet(fld.id) && (fld.id == 'sxolioInput')) {
+				Sizitisi.resetSxolioInput(fld);
+			}
 			writing = '';
 			neoWriting = '';
 			if (isSet(writingTimer)) {

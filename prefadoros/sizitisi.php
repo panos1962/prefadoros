@@ -301,7 +301,7 @@ class Sizitisi {
 				"ORDER BY `κωδικός`";
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				if (self::my_writing($row)) { continue; }
+				if (self::my_notice($row)) { continue; }
 				$s = new Sizitisi;
 				$s->set_from_dbrow($row);
 				$sizitisi[] = $s;
@@ -311,10 +311,17 @@ class Sizitisi {
 		return $sizitisi;
 	}
 
-	public static function my_writing($row) {
+	public static function my_notice($row) {
 		global $globals;
-		return (($row['παίκτης'] == $globals->pektis->login) &&
-			preg_match("/^@W[PK]@$/", $row['σχόλιο']));
+		if ($row['παίκτης'] != $globals->pektis->login) { return(FALSE); }
+		switch ($row['σχόλιο']) {
+		case "@WP@":
+		case "@WK@":
+		case "@KN@":
+			return(TRUE);
+		}
+
+		return(FALSE);
 	}
 
 	public static function process_kafenio() {
@@ -346,7 +353,7 @@ class Sizitisi {
 			"AND (`κωδικός` >= " . $kafenio_apo . ") ORDER BY `κωδικός`";
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			if (self::my_writing($row)) { continue; }
+			if (self::my_notice($row)) { continue; }
 			$s = new Sizitisi;
 			$s->set_from_dbrow($row);
 			$sizitisi[] = $s;
