@@ -75,12 +75,7 @@ var Permes = new function() {
 			mesg += '<span class="permes' + zebra + '">';
 			mesg += '<span class="permesPektis permesPektis' + zebra + '">' +
 				permes[i].a + '</span>';
-			if (permes[i].m.length > 40) {
-				mesg += permes[i].m.substr(0, 40) + '&hellip;';
-			}
-			else {
-				mesg += permes[i].m;
-			}
+			mesg += permes[i].m;
 			mesg += '<span class="permesDate">[' + strPote(permes[i].d) + ']</span>';
 			mesg += '</span>';
 		}
