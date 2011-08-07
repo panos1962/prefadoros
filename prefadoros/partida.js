@@ -309,7 +309,8 @@ rebelos = [
 		if (isTheatis()) { return; }
 
 		ico.prevSrc = ico.src;
-		ico.src = globals.server + 'images/workingBilies.gif';
+		ico.src = globals.server + 'images/working' +
+			(dif > 0 ? 'Bilies' : 'Red') + '.gif';
 
 		var req = new Request('trapezi/kasaPanoKato');
 		req.xhr.onreadystatechange = function() {
