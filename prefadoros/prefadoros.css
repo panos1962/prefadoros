@@ -525,6 +525,12 @@
 	overflow-y: auto;
 	overflow-x: hidden;
 	white-space: normal;
+	user-select: text;
+	-moz-user-select: text;
+	-webkit-user-select: text;
+	-o-user-select: text;
+	-khtml-user-select: text;
+	-ms-user-select: text;
 }
 
 .sizitisiSxolio {
