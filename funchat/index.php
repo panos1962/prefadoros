@@ -127,7 +127,7 @@ function print_panel() {
 	$item_list[] = new Item("oxiRePoustiMou.gif", "Όχι, ρε Πού(σ)τιν μου…");
 	$item_list[] = new Item("tiKanisRePoutinMou.gif", "Τι κάνεις, ρε Πούτιν μου…", 5.2);
 	$item_list[] = new Item("thaGiniMaxi.gif", "Θα γίνει μάχη!");
-	$item_list[] = new Item("iseTromeros.gif", 4.8);
+	$item_list[] = new Item("iseTromeros.gif", "", 4.8);
 	$item_list[] = new Item("gamisaki.gif");
 	$item_list[] = new Item("catFire.gif");
 	$item_list[] = new Item("fayeGun.gif", "", 4.8);
