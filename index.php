@@ -59,6 +59,7 @@ function prefadoros() {
 	sinedria.kodikos = <?php print mysqli_insert_id($globals->db); ?>;
 	sinedria.id = 0;
 	sinedria.dumprsp = <?php print Globals::perastike('dumprsp') ? 'true' : 'false'; ?>;
+	globals.funchatServer = '<?php print FUNCHAT_SERVER; ?>';
 	//]]>
 	</script>
 	<table class="tldbg" width="100%">
