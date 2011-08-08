@@ -225,8 +225,10 @@ class Sxesi {
 				"(`login` LIKE '" . $peknpat . "')) ";
 		}
 
+		$available = FALSE;
 		switch ($pekstat) {
 		case 'ΔΙΑΘΕΣΙΜΟΙ':
+			$available = TRUE;
 		case 'ONLINE':
 			$online = TRUE;
 			break;
@@ -238,7 +240,7 @@ class Sxesi {
 		$query2 = " ORDER BY `login`";
 
 		// Δημιουργούμε λίστα όλων των ενεργών παικτών, ώστε να μπορούμε
-		// να μαρκάκρουμε τους ενεργόυς παίκτες.
+		// να μαρκάρουμε τους ενεργούς παίκτες.
 		$energos = Sxesi::energos_pektis();
 
 		// Δημιουργούμε λίστα των παικτών που πρόκειται να επιστραφεί.
@@ -252,11 +254,11 @@ class Sxesi {
 			"(`status` LIKE 'ΦΙΛΟΣ')))" . $query2;
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			if ((!$online) || ($row['idle'] < XRONOS_PEKTIS_IDLE_MAX)) {
-				$s = new Sxesi;
-				$s->set_from_dbrow($row, $energos, 'F');
-				$sxesi[] = $s;
-			}
+			if ($online && ($row['idle'] > XRONOS_PEKTIS_IDLE_MAX)) { continue; }
+			if ($available && array_key_exists($row['login'], $energos)) { continue; }
+			$s = new Sxesi;
+			$s->set_from_dbrow($row, $energos, 'F');
+			$sxesi[] = $s;
 		}
 
 		// Αν έχει δοθεί name pattern ή κατάσταση online/available, τότε επιλέγω και
@@ -266,11 +268,11 @@ class Sxesi {
 				"(`παίκτης` LIKE " . $slogin . ")))" . $query2;
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				if ((!$online) || ($row['idle'] < XRONOS_PEKTIS_IDLE_MAX)) {
-					$s = new Sxesi;
-					$s->set_from_dbrow($row, $energos);
-					$sxesi[] = $s;
-				}
+				if ($online && ($row['idle'] > XRONOS_PEKTIS_IDLE_MAX)) { continue; }
+				if ($available && array_key_exists($row['login'], $energos)) { continue; }
+				$s = new Sxesi;
+				$s->set_from_dbrow($row, $energos);
+				$sxesi[] = $s;
 			}
 		}
 
@@ -280,11 +282,11 @@ class Sxesi {
 			"(`status` LIKE 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ')))" . $query2;
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			if ((!$online) || ($row['idle'] < XRONOS_PEKTIS_IDLE_MAX)) {
-				$s = new Sxesi;
-				$s->set_from_dbrow($row, $energos, 'B');
-				$sxesi[] = $s;
-			}
+			if ($online && ($row['idle'] > XRONOS_PEKTIS_IDLE_MAX)) { continue; }
+			if ($available && array_key_exists($row['login'], $energos)) { continue; }
+			$s = new Sxesi;
+			$s->set_from_dbrow($row, $energos, 'B');
+			$sxesi[] = $s;
 		}
 
 		return $sxesi;
