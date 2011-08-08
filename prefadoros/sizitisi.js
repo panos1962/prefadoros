@@ -80,12 +80,14 @@ var Sizitisi = new function() {
 			if (notSet(x)) { return; }
 			if (notSet(x.style)) { return; }
 			x.style.maxWidth = 'none';
+			x.style.visibility = 'visible';
 		};
 		p.onmouseout = function() {
 			var x = getelid('sxp_' + s.k);
 			if (notSet(x)) { return; }
 			if (notSet(x.style)) { return; }
 			x.style.maxWidth = '0';
+			x.style.visibility = 'hidden';
 		};
 
 		p.innerHTML = Sizitisi.HTML(s);
@@ -527,12 +529,14 @@ var Kafenio = new function() {
 			if (notSet(x)) { return; }
 			if (notSet(x.style)) { return; }
 			x.style.maxWidth = 'none';
+			x.style.visibility = 'visible';
 		};
 		p.onmouseout = function() {
 			var x = getelid('sxp_' + s.k);
 			if (notSet(x)) { return; }
 			if (notSet(x.style)) { return; }
 			x.style.maxWidth = '0';
+			x.style.visibility = 'hidden';
 		};
 
 		p.innerHTML = Sizitisi.HTML(s);

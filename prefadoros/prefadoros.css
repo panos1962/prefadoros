@@ -570,12 +570,12 @@
 	position: absolute;
 	top: 0px;
 	right: 0px;
-	display: inline-block;
 	color: #999966;
 	background-color: #FFFFFF;
 	padding-left: 0.5em;
 	max-width: 0;
 	overflow: hidden;
+	visibility: hidden;
 }
 
 .moliviPartida {
