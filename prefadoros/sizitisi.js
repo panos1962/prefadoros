@@ -64,6 +64,8 @@ var Sizitisi = new function() {
 		}
 	};
 
+	var telefteaEpafi = currentTimestamp();
+
 	this.sxolioAdd = function(s) {
 		var p = document.createElement('div');
 		if (notSet(p)) {
@@ -88,6 +90,13 @@ var Sizitisi = new function() {
 
 		p.innerHTML = Sizitisi.HTML(s);
 		sizitisi.insertBefore(p, telos);
+
+		var tora = currentTimestamp();
+		var notice = (s.s).match('^@[WK][PKN]@$');
+		if ((s.p != pektis.login) && (!notice) && ((tora - telefteaEpafi) > 20000)) {
+			playSound('hiThere');
+		}
+		if (!notice) { telefteaEpafi = tora; }
 	};
 
 	this.sxolioDel = function(s) {
@@ -111,6 +120,7 @@ var Sizitisi = new function() {
 	};
 
 	this.HTML = function(s) {
+		var sxolio = Sizitisi.decode(s);
 		var html = '';
 		if (isPektis() && (s.p == pektis.login)) {
 			var color = zebraColor[0];
@@ -125,28 +135,32 @@ var Sizitisi = new function() {
 		}
 		html += '<div class="sizitisiPektis" style="color: #' +
 			color + ';">' + s.p + '</div>';
-		html += Sizitisi.decode(s.s, s.w);
+		html += sxolio;
 		html += Sizitisi.oraSxoliou(s.k, s.w);
 		return html;
 	};
 
-	this.decode = function(s, w) {
-		if (s == "@WP@") {
+	this.decode = function(s) {
+		if (s.s == "@WP@") {
 			return '<img class="moliviPartida" src="' + globals.server +
 				'images/moliviPartida.gif" alt="" />';
 		}
-		if (s == "@WK@") {
+		if (s.s == "@WK@") {
 			return '<img class="moliviKafenio" src="' + globals.server +
 				'images/moliviKafenio.gif" alt="" />';
 		}
-		if (s == "@KN@") {
-			if (isSet(w) && ((currentTimestamp() - (w * 1000)) < 3000)) {
-				controlPanel.korna();
+		if (s.s == "@KN@") {
+			if (isSet(s.w) && ((currentTimestamp() - (s.w * 1000)) < 3000)) {
+				setTimeout(controlPanel.korna, 100);
 			}
 			return '<img style="width: 0.8cm;" src="' + globals.server +
 				'images/controlPanel/korna.png" alt="" />';
 		}
 
+		return Sizitisi.textDecode(s.s);
+	};
+
+	this.textDecode = function(s) {
 		var fs = '^';
 		var tmima = s.split(fs);
 		if (tmima.length < 2) { return s; }
@@ -180,10 +194,9 @@ var Sizitisi = new function() {
 
 		var tora = new Date();
 		var pote = new Date((t - globals.timeDif) * 1000);
-		var keno = tora.getTime() - pote.getTime();
 
 		var html = '<div id="sxp_' + k + '" class="sizitisiOra">';
-		if (keno > 86400000) {
+		if (pote.getDate() != tora.getDate()) {
 			html += pote.getDate() + '/' + (pote.getMonth() + 1) + ', ';
 		}
 
@@ -196,18 +209,26 @@ var Sizitisi = new function() {
 		return html;
 	};
 
+	var scrollBottomTimer = null;
+
 	this.scrollBottom = function() {
+		if (isSet(scrollBottomTimer)) { return; }
 		var x = getelid('sizitisiArea');
 		if (notSet(x)) { return; }
-		setTimeout(function() {
+		scrollBottomTimer = setTimeout(function() {
 			x.scrollTop = x.scrollHeight;
-		}, 100);
+			scrollBottomTimer = null;
+		}, 300);
 	};
 
 	this.keyCheck = function(e, fld) {
 		if (window.event) { var key = e.keyCode; }
 		else if (e.which) { key = e.which; }
 		else { key = false; }
+
+		if (Prefadoros.show == 'partida') {
+			telefteaEpafi = currentTimestamp();
+		}
 
 		if (key) {
 			if (fld.value == '') {
@@ -240,7 +261,7 @@ var Sizitisi = new function() {
 				var html = '<div class="sizitisiSxolio sizitisiPreview">';
 				html += '<div class="sizitisiPektis" style="color: #' +
 					zebraColor[0] + ';">' + pektis.login + '</div>';
-				html += Sizitisi.decode(fld.value);
+				html += Sizitisi.textDecode(fld.value);
 				html += '</div>';
 				preview.innerHTML = html;
 				Sizitisi.scrollBottom();
