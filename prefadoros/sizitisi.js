@@ -94,7 +94,7 @@ var Sizitisi = new function() {
 		var tora = currentTimestamp();
 		var notice = (s.s).match('^@[WK][PKN]@$');
 		if ((s.p != pektis.login) &&
-			(!notice) && ((tora - telefteaEpafi) > 20000)) {
+			(!notice) && ((tora - telefteaEpafi) > 60000)) {
 			playSound('hiThere');
 		}
 		if (!notice) { telefteaEpafi = tora; }
