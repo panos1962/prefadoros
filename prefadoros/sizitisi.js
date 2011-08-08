@@ -93,7 +93,8 @@ var Sizitisi = new function() {
 
 		var tora = currentTimestamp();
 		var notice = (s.s).match('^@[WK][PKN]@$');
-		if ((s.p != pektis.login) && (!notice) && ((tora - telefteaEpafi) > 20000)) {
+		if ((s.p != pektis.login) &&
+			(!notice) && ((tora - telefteaEpafi) > 20000)) {
 			playSound('hiThere');
 		}
 		if (!notice) { telefteaEpafi = tora; }
@@ -151,7 +152,8 @@ var Sizitisi = new function() {
 		}
 		if (s.s == "@KN@") {
 			if (isSet(s.w) && ((currentTimestamp() - (s.w * 1000)) < 3000)) {
-				setTimeout(controlPanel.korna, 100);
+				// Don't use "setTimeout" here.
+				controlPanel.korna();
 			}
 			return '<img style="width: 0.8cm;" src="' + globals.server +
 				'images/controlPanel/korna.png" alt="" />';
