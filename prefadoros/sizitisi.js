@@ -330,6 +330,13 @@ var Sizitisi = new function() {
 	};
 
 	this.apostoli = function(fld, ico, pk) {
+		writing = '';
+		neoWriting = '';
+		if (isSet(writingTimer)) {
+			clearTimeout(writingTimer);
+			writingTimer = null;
+		}
+
 		if (notSet(fld)) {
 			var fld = getelid('sxolioInput');
 			if (notSet(fld)) { return; }
@@ -378,12 +385,6 @@ var Sizitisi = new function() {
 		else {
 			if (isSet(fld.id) && (fld.id == 'sxolioInput')) {
 				Sizitisi.resetSxolioInput(fld);
-			}
-			writing = '';
-			neoWriting = '';
-			if (isSet(writingTimer)) {
-				clearTimeout(writingTimer);
-				writingTimer = null;
 			}
 		}
 	};
