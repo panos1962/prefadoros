@@ -24,16 +24,21 @@ default:
 	die('Ακαθόριστο τραπέζι/καφενείο');
 }
 
+@mysqli_autocommit($globals->db, FALSE);
+
+Sizitisi::cleanup_writing();
+
 $sxolio = Globals::perastike_check('sxolio');
 $query = "INSERT INTO `συζήτηση` (`παίκτης`, `τραπέζι`, `σχόλιο`) " .
 	"VALUES (" . $globals->pektis->slogin . ", " . $trapezi . ", '" .
 	$globals->asfales($sxolio) . "')";
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
+	@mysqli_rollback($globals->db);
 	die('Απέτυχε η εισαγωγή σχολίου');
 }
 
-Sizitisi::cleanup_writing();
+@mysqli_commit($globals->db);
 
 function vres_to_trapezi() {
 	global $globals;
