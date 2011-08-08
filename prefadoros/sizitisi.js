@@ -268,7 +268,7 @@ var Sizitisi = new function() {
 			switch(key) {
 			case 13:	// Enter key
 				Sizitisi.apostoli(fld);
-				break;
+				return;
 			case 27:	// Esc key
 				fld.value = '';
 				break;
@@ -298,44 +298,30 @@ var Sizitisi = new function() {
 		}
 	};
 
-	var writingTimer = null;
 	var writing = '';
 	var neoWriting = '';
 
 	this.checkWriting = function(fld) {
-		var neo = '';
-		if ((fld.value != '') && (Prefadoros.show == 'partida')) { neo = 'P'; }
-		if ((fld.value != '') && (Prefadoros.show == 'kafenio')) { neo = 'K'; }
-		if (neo == neoWriting) { return; }
-
-		neoWriting = neo;
-		if (isSet(writingTimer)) { clearTimeout(writingTimer); }
-		writingTimer = setTimeout(Sizitisi.setWriting, 1000);
-	};
-
-	this.setWriting = function() {
-		// mainFyi('writing = "' + writing + '", neoWriting = "' + neoWriting + '"');
-		writingTimer = null;
+		var neoWriting = '';
+		if ((fld.value != '') && (Prefadoros.show == 'partida')) { neoWriting = 'P'; }
+		if ((fld.value != '') && (Prefadoros.show == 'kafenio')) { neoWriting = 'K'; }
 		if (neoWriting == writing) { return; }
+		writing = neoWriting;
 
 		var req = new Request('sizitisi/writing');
 		req.xhr.onreadystatechange = function() {
-			Sizitisi.setWritingCheck(req, neoWriting);
+			Sizitisi.setWritingCheck(req);
 		};
-		var params = 'pk=' + neoWriting;
+		var params = 'pk=' + writing;
 		req.send(params);
 	};
 
-	this.setWritingCheck = function(req, pk) {
+	this.setWritingCheck = function(req) {
 		if (req.xhr.readyState != 4) { return; }
 		var rsp = req.getResponse();
 		if (rsp) {
 			mainFyi(rsp);
 		}
-		else {
-			writing = pk;
-		}
-		neoWriting = writing;
 	};
 
 	this.resetSxolioInput = function(fld, preview) {
@@ -356,11 +342,6 @@ var Sizitisi = new function() {
 	this.apostoli = function(fld, ico, pk) {
 		writing = '';
 		neoWriting = '';
-		if (isSet(writingTimer)) {
-			clearTimeout(writingTimer);
-			writingTimer = null;
-		}
-
 		if (notSet(fld)) {
 			var fld = getelid('sxolioInput');
 			if (notSet(fld)) { return; }
