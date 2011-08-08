@@ -19,6 +19,8 @@ define('XRONOS_POLIVOLO', 2000);
 // μέγιστος αριθμός δεκτών απαντήσεων σε διάστημα πολυβόλου
 define('MAX_POLIVOLO', 10);
 
+define('FUNCHAT_SERVER', 'http://www.pineza.info/prefa/images/gallery/');
+
 if (isset($no_session)) {
 	$_SESSION = array();
 	$_SESSION['ps_login'] = $_REQUEST['login'];

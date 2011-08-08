@@ -84,3 +84,20 @@ window.onbeforeunload = function() {
 		w.controlPanel.funchatClose();
 	}
 };
+
+function stileFunchat(ikona, titlos, zoom, sound) {
+	var p = self.opener;
+	if (notSet(p)) { return; }
+	if (notSet(p.document)) { return; }
+	if (notSet(p.Sizitisi)) { return; }
+	var f = p.document.getElementById('sxolioInputHidden');
+	if (notSet(f)) { return; }
+
+	if ((titlos = prompt('', titlos)) === false) { return; }
+	f.value = '@FC';
+	f.value += '@' + ikona;
+	f.value += '@' + zoom;
+	f.value += '@' + sound;
+	f.value += '@' + titlos;
+	p.Sizitisi.apostoli(f);
+}

@@ -1,7 +1,11 @@
 <?php
 require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
+require_once '../trapezi/trapezi.php';
+require_once '../prefadoros/prefadoros.php';
 set_globals();
+Prefadoros::set_pektis();
+Prefadoros::set_trapezi();
 Page::head();
 Page::stylesheet('funchat/funchat');
 Page::javascript('funchat/funchat');
@@ -30,6 +34,8 @@ Page::close(FALSE);
 class Item {
 	public $image;
 	public $title;
+	public $zoom;
+	public $sound;
 
 	public function __construct($image, $title = '', $zoom = '', $sound = '') {
 		$this->image = $image;
@@ -40,7 +46,6 @@ class Item {
 
 	public function show() {
 		global $globals;
-		$host = 'http://www.pineza.info/prefa/images/gallery/';
 		$title = str_replace("'", "\\'", $this->title);
 		?>
 		<div class="funchat"
@@ -50,15 +55,13 @@ class Item {
 				title="Έχει και ήχο!"
 				<?php
 			}
-			/*
 			if ($globals->is_trapezi()) {
 				?>
-				onclick="addSxolio('<?php print $host . $this->image; ?>', '<?php
+				onclick="stileFunchat('<?php print $this->image; ?>', '<?php
 					print $title; ?>', '<?php print $this->zoom;
 					?>', '<?php print $this->sound; ?>');" style="cursor: pointer;"
 				<?php
 			}
-			*/
 			?>>
 			<?php
 			if ($this->sound != '') {
@@ -70,8 +73,14 @@ class Item {
 			}
 			?>
 			<div>
-				<img src="<?php print $host . $this->image; ?>"
-					class="funchatImage" alt="<?php
+				<img src="<?php
+					if (preg_match('/^user\//', $this->image)) {
+						print $globals->server . "funchat/" . $this->image;
+					}
+					else {
+						print FUNCHAT_SERVER . $this->image;
+					}
+					?>" class="funchatImage" alt="<?php
 					print $this->title; ?>" />
 			</div>
 			<div class="funchatTitle">
@@ -88,12 +97,10 @@ function print_panel() {
 	$item_list = array();
 
 	$item_list[] = new Item("bearFace.gif", "Βγάλαμε κανένα μάτι;");
-	$item_list[] = new Item("oliEfxaristimeni.gif", "Όλοι ευχαριστημένοι!");
 	$item_list[] = new Item("viziaPanoKato.gif", "Με βγάλατε!");
 	$item_list[] = new Item("vgika.gif", "Βγήκα!");
 	$item_list[] = new Item("viziaKatoPano.gif", "Θα περάσουμε ωραία…");
 	$item_list[] = new Item("ObamaClapping.gif", "Μπράβο, μπράβο…");
-	$item_list[] = new Item("thimisouReMalaka.gif", "Χμ…");
 	$item_list[] = new Item("stroumfaki.gif", "Α, χα, χα, χαααα!");
 	$item_list[] = new Item("haHaHa.gif");
 	$item_list[] = new Item("xekardismenoEmoticon.gif");
@@ -119,8 +126,6 @@ function print_panel() {
 	$item_list[] = new Item("meTipota.gif", "Με τίποτα!");
 	$item_list[] = new Item("oxiRePoustiMou.gif", "Όχι, ρε Πού(σ)τιν μου…");
 	$item_list[] = new Item("tiKanisRePoutinMou.gif", "Τι κάνεις, ρε Πούτιν μου…");
-	$item_list[] = new Item("koupitses.png", "Κουπίτσες μαλακές…");
-	$item_list[] = new Item("koupitses.png", "Κούπες και οι φίλοι να αποσύρονται…");
 	$item_list[] = new Item("thaGiniMaxi.gif", "Θα γίνει μάχη!");
 	$item_list[] = new Item("iseTromeros.gif");
 	$item_list[] = new Item("gamisaki.gif");
@@ -130,18 +135,18 @@ function print_panel() {
 	$item_list[] = new Item("shooter.gif");
 	$item_list[] = new Item("exeteAso.gif", "Έχετε κάποιον άσο;");
 	$item_list[] = new Item("dueto.gif", "Χορεύετε;", 0.9);
-	$item_list[] = new Item("mazi.gif", "Πάμε μαζί;");
 	$item_list[] = new Item("soloDance.gif", "Το 'παιξα ωραία!");
 	$item_list[] = new Item("zito.gif", "Ζήτω!");
 	$item_list[] = new Item("poulaki.gif", "Καμιά μπάζα πουθενά;");
 	$item_list[] = new Item("ipoklinome.gif", "Υποκλίνομαι!");
-	$item_list[] = new Item("kaneMonozigo.gif", "Κάνε τον ακροβάτη τώρα…");
 	$item_list[] = new Item("mikrosIseAkoma.gif", "Μικρός είσαι ακόμη. Θα μάθεις.");
 	$item_list[] = new Item("bebisEmoticon.gif");
+	$item_list[] = new Item("oliEfxaristimeni.gif", "Όλοι ευχαριστημένοι!");
 	$item_list[] = new Item("oliOk.gif", "Όλοι ευχαριστημένοι!");
-	$item_list[] = new Item("prosexe.gif", "Πρόσεχε!");
+	$item_list[] = new Item("prosexe.gif");
 	$item_list[] = new Item("mrBean.gif", "", 4.6);
 	$item_list[] = new Item("tinExoStisi.gif", "Την έστησα.");
+	$item_list[] = new Item("mazi.gif", "Πάμε μαζί;");
 	$item_list[] = new Item("maziCats.gif", "Πάμε μαζί, αγαπούλα;");
 	$item_list[] = new Item("tinEstise.gif", "Την έστησε!!!");
 	$item_list[] = new Item("tromosEmoticon.gif");
@@ -175,6 +180,7 @@ function print_panel() {
 	$item_list[] = new Item("toraTiKano.gif", "Τώρα;");
 	$item_list[] = new Item("oniropoloEmoticon.gif", "Λες η τύχη να είναι μαζί μου;");
 	$item_list[] = new Item("lesEmoticon.gif", "Λες;");
+	$item_list[] = new Item("thimisouReMalaka.gif", "Χμ…");
 	$item_list[] = new Item("xmEmoticon.gif");
 	$item_list[] = new Item("aporiaPokemon.gif");
 	$item_list[] = new Item("giatiEpexes.gif", "Γιατί έπαιξες, ρε συ;");
@@ -270,17 +276,21 @@ function print_panel() {
 	$item_list[] = new Item("bye.gif");
 	$item_list[] = new Item("ouranosSfontili.gif", "Ωχ!", "", "doing");
 	$item_list[] = new Item("klania.gif", "Σόρι παιδιά…", "", "klania");
+	$item_list[] = new Item("laptopEmoticon.gif");
+	$item_list[] = new Item("piramaEmoticon.gif", "Λέω να κάνω ένα πείραμα…");
+	$item_list[] = new Item("vivlioEmoticon.gif",
+		"Κάτσε να δω τι λέει ο Σαραντάκος γι αυτή την περίπτωση…");
 
-/*
-	if ($globals->is_pektis() && ($globals->pektis->login == 'panos')) {
-		$item_list[] = new Item("panosPrefadoros.jpg", "Γειά χαρά!");
-		$item_list[] = new Item("panosAngry.jpg", "Θα μου κλάσεις τα @@!");
-		$item_list[] = new Item("laptopEmoticon.gif", "Κωλόφυλλο έχω. Θα το χακέψω λίγο…");
-		$item_list[] = new Item("piramaEmoticon.gif", "Λέω να κάνω ένα πείραμα…");
-		$item_list[] = new Item("vivlioEmoticon.gif", "Κάτσε να δω τι λέει ο Σαραντάκος " .
-			"γι αυτή την περίπτωση…");
+	if ($globals->is_pektis() && is_dir($dir = "user/" . $globals->pektis->login)) {
+		$ikona = scandir($dir);
+		$cnt = count($ikona);
+		for ($i = 0; $i < $cnt; $i++) {
+			if (is_file($image = $dir . "/" . $ikona[$i]) &&
+				preg_match('/.(gif|png|jpg)$/i', $image)) {
+				$item_list[] = new Item($image);
+			}
+		}
 	}
-*/
 
 	?>
 	<?php

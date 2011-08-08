@@ -159,7 +159,31 @@ var Sizitisi = new function() {
 				'images/controlPanel/korna.png" alt="" />';
 		}
 
+		if ((s.s).match(/^@FC@/)) {
+			return Sizitisi.funchatDecode(s);
+		}
+
 		return Sizitisi.textDecode(s.s);
+	};
+
+	this.funchatDecode = function(s) {
+		var x = (s.s).split('@');
+		if (x.length < 6) { return Sizitisi.textDecode(s.s); }
+
+		var html = '<img src="';
+		html += x[2].match(/user\//) ? globals.server + 'funchat/' : globals.funchatServer;
+		html += x[2] + '" class="sizitisiFunchatImage" alt="" ';
+		if (x[3]) { html += 'style="width: ' + x[3] + 'cm;" '; }
+		html += '/>';
+		var titlos = x[5];
+		for (var i = 6; i < x.length; i++) { titlos += x[i]; }
+		if (titlos != '') { html += '<div>' + titlos + '</div>'; }
+
+		if (x[4] && isSet(s.w) && ((currentTimestamp() - (s.w * 1000)) < 3000)) {
+			playSound(x[4]);
+		}
+
+		return html;
 	};
 
 	this.textDecode = function(s) {
