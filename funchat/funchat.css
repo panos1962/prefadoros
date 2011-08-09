@@ -35,3 +35,9 @@ body {
 .funchatTitle {
 	font-size: 60%;
 }
+
+.funchatPrompt {
+	font-style: italic;
+	text-align: right;
+	padding-right: 0.1cm;
+}

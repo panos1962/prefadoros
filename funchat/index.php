@@ -13,11 +13,34 @@ Page::javascript('funchat/funchat');
 </head>
 <body onresize="funchat.whltSave();">
 <div>
-Διεύθυνση URL εικόνας: <input id="inputURL" type="text" value="" size="20"
+<table>
+<tr>
+<td>
+<div class="funchatPrompt">
+URL εικόνας
+</div>
+</td>
+<td>
+<input id="inputURL" type="text" value="" size="20"
 	maxlength="4096" onkeyup="Ikona.keyCheck(event, this);" />
-<button type="button" onclick="Ikona.previewURL(0.5);">+</button>
-<button type="button" onclick="Ikona.previewURL(-0.5);">&ndash;</button>
-<button type="button" onclick="Ikona.stileIkona();">Send!</button>
+<button type="button" onclick="Ikona.preview(0.5);">+</button>
+<button type="button" onclick="Ikona.preview(-0.5);">&ndash;</button>
+<button type="button" onclick="Ikona.stile();">Send!</button>
+</td>
+</tr>
+<tr>
+<td>
+<div class="funchatPrompt">
+Λεζάντα
+</div>
+</td>
+<td>
+<input id="inputLezanta" type="text" value="" size="40"
+	maxlength="4096" onkeyup="Ikona.keyCheck(event, this);" />
+</td>
+</tr>
+</table>
+<input id="ikonaData" type="hidden" value="" />
 </div>
 <?php
 if (Session::is_set('ps_whlt')) {
