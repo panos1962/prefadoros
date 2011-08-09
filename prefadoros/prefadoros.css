@@ -541,12 +541,17 @@
 	margin-left: 0.5cm;
 }
 
-.sizitisiPreview {
+.sizitisiPreviewLine {
 	border-style: dotted;
-	border-width: 1px 0 0 0;
+	border-width: 1px 0px 0px 0px;
 	border-color: #999966;
-	margin-top: 0.2cm;
-	padding-top: 0.1cm;
+	height: 1px;
+	max-height: 1px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.sizitisiPreview {
 	color: #003366;
 }
 
