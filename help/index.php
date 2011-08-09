@@ -48,7 +48,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 	επικοινωνίας των συμπαικτών, είτε με απευθείας ανταλλαγή
 	μηνυμάτων (chat), είτε με αποστολή προσωπικών μηνυμάτων (mail),
 	επομένως μπορεί να χρησιμοποιηθεί και ως χώρος συζήτησης και
-	κοινωνικής δικτύωσης γενικότερα.
+	απλής κοινωνικής δικτύωσης γενικότερα.
 </p>
 
 <p class="helpKimeno">
@@ -106,7 +106,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 	Για να δημιουργήσετε ένα λογαριασμό είναι απαραίτητο να
 	δώσετε κάποιο όνομα με το οποίο θα εισέρχεστε αργότερα
 	στο καφενείο (login), το πλήρες όνομά σας και ένα
-	email. Φυσικά, θα πρέπει να δώσετε και κάποιον κωδικό
+	email (προαιρετικό). Φυσικά, θα πρέπει να δώσετε και κάποιον κωδικό
 	(password) ώστε να μην μπορεί οποιοσδήποτε να εισέρχεται
 	στο καφενείο με το δικό σας όνομα.
 </p>
@@ -183,16 +183,14 @@ Page::epikefalida(Globals::perastike('pedi'));
 	να αποχωρήσετε από το συγκεκριμένο τραπέζι, ή γενικά
 	από το διαδικτυακό καφενείο, το σωστό είναι να
 	αποχωρήσετε πρώτα από το τραπέζι.
-	Σ' αυτήν την περίπτωση οι συμπαίκτες σας θα δουν
-	τη λέξη «<span style="font-style: italic;">Απουσιάζω…</span>»
-	στη θέση σας και θα έχουν
+	Σ' αυτήν την περίπτωση οι συμπαίκτες σας θα έχουν
 	τη δυνατότητα να προσκαλέσουν κάποιον άλλο
 	παίκτη να παίξει στη θέση σας.
 	Αν θέλετε, βέβαια, και εφόσον η θέση σας παραμένει κενή,
 	μπορείτε αργότερα να επανέλθετε στο τραπέζι
-	και ο μόνος τρόπος για να επανέλθετε ή να ενταχθείτε
-	σε κάποιο ήδη στημένο τραπέζι είναι να αποδεχθείτε
-	πρόσκληση γι' αυτό το τραπέζι.
+	και ο μόνος τρόπος για να επανέλθετε ως παίκτης
+	σε κάποιο ήδη στημένο τραπέζι είναι να έχετε
+	πρόσκληση για το τραπέζι αυτό.
 	Πάντως, για να μην βρεθείτε στη δυσάρεστη θέση
 	της αθέλητης διακοπής μιας καλής παρτίδας,
 	το πρόγραμμα σας απευθύνει πρόσκληση για
@@ -212,10 +210,13 @@ Page::epikefalida(Globals::perastike('pedi'));
 	θα πρέπει να βλέπετε στην οθόνη σας τις εξής ενότητες:
 	Αριστερά υπάρχει το καφενείο, ή η τσόχα πάνω στην οποία εξελίσσεται,
 	ή πρόκειται να εξελιχθεί το παιχνίδι της πρέφας,
-	στο κέντρο υπάρχει μια στενή στήλη που φέρει ένα
-	εικονίδιο με τέσσερις πολύχρωμες μπάλες
-	(<a href="#Control panel">control panel</a>), ενώ
-	δεξιότερα υπάρχουν τρεις ενότητες που αφορούν
+	στο κέντρο υπάρχει μια στενή στήλη με εργαλεία
+	(<a href="#Control panel">control panel</a>)
+	που φέρει στην κορυφή της ένα εικονίδιο με τέσσερις πολύχρωμες μπάλες
+	<span class="nobr">(<img src="<?php print $globals->server;
+		?>images/controlPanel/4Balls.png"
+		class="helpIconInline" alt = "" />),</span>
+	ενώ δεξιότερα υπάρχουν τρεις ενότητες που αφορούν
 	στις <a href="#Προσκλήσεις">προσκλήσεις</a>,
 	στην <a href="#Φίλοι και ανεπιθύμητοι">αναζήτηση παικτών</a>
 	και στην <a href="#Ανταλλαγή μηνυμάτων">ανταλλαγή γραπτών μηνυμάτων</a>
@@ -223,21 +224,33 @@ Page::epikefalida(Globals::perastike('pedi'));
 </p>
 
 <p class="helpKimeno">
-	Κάνοντας κλικ στο tab [Καφενείο] της γραμμής εργαλείων που βρίσκεται
+	Στο σημείο αυτό να πούμε ότι η τσόχα των τραπεζιών έχει πράσινο
+	χρώμα, εκτός και αν είστε θεατής σε κάποιο τραπέζι, οπότε το
+	χρώμα της τσόχας φαίνεται μπεζ. Επίσης να πούμε ότι ενώ μπορείτε
+	να συμμετέχετε σε πολλά τραπέζια ως παίκτης, μπορείτε να είστε
+	θεατής σε ένα μόνο τραπέζι κάθε φορά. Το τραπέζι το οποίο
+	βλέπετε κάθε φορά είναι είτε το νεότερο από τα τραπέζια στα
+	οποία συμμετέχετε ως παίκης, ενώ αν είστε θεατής σε κάποιο
+	τραπέζι, τότε αυτό το τραπέζι έχει προτεραιότητα.
+</p>
+
+<p class="helpKimeno">
+	Κάνοντας κλικ στο tab [<a href="#">Καφενείο</a>] της γραμμής
+	εργαλείων που βρίσκεται
 	στο επάνω μέρος της οθόνης, στη θέση της τσόχας θα εμφανιστούν
 	οι περιφερόμενοι online παίκτες και αμέσως μετά όλα τα ενεργά
 	τραπέζια με τους θεατές τους. Περιφερόμενοι θεωρούνται οι παίκτες που δεν ανήκουν
 	σε κάποιο τραπέζι, αλλά βρίσκονται σε κατάσταση online.
 	Εδώ μπορείτε να συμμετάσχετε σε δημόσια συζήτηση με όλους
 	τους υπόλοιπους παίκτες που βρίσκονται στο χώρου του καφενείου.
-	Μπορείτε ακόμη να προσκαλέσετε παίκτες στο τραπέζι σας,
-	εφόσον συμμετέχετε, ή έχετε δημιουργήσει κάποιο τραπέζι,
+	Μπορείτε ακόμη να στείλετε προσωπικά μηνύματα ή να
+	προσκαλέσετε παίκτες στο τραπέζι σας,
 	απλώς κάνοντας κλικ στο όνομά τους.
 </p>
 
 <p class="helpKimeno">
-	Αν κάνετε κλικ σε οποιοδήποτε παίκτη εμφανίζεται στο χώρο
-	του διαδικτυακού καφενείου, τότε ανοίγει νέα καρτάλα στο
+	Αν κάνετε κλικ σε οποιοδήποτε παίκτη όπου αυτός εμφανίζεται στο χώρο
+	του διαδικτυακού καφενείου, τότε ανοίγει νέα καρτέλα στο
 	φυλλομετρητή σας όπου μπορείτε να στείλετε κάποιο
 	προσωπικό μήνυμα, ή να απευθύνετε πρόσκληση, εφόσον
 	συμμετέχετε σε κάποιο τραπέζι.
@@ -256,18 +269,20 @@ Page::epikefalida(Globals::perastike('pedi'));
 	το μέγεθος της κάσας, τη διάταξη των παικτών κλπ.
 	Τα εργαλεία του control panel αλλάζουν κάνοντας κλικ
 	στο εικονίδιο με τις τέσσερις πολύχρωμες μπάλες
-	<span class="nobr">(<img src="<?php print $globals->server; ?>images/controlPanel/4Balls.png"
+	<span class="nobr">(<img src="<?php print $globals->server;
+		?>images/controlPanel/4Balls.png"
 		class="helpIconInline" alt = "" />),</span>
 	πάντως το πρόγραμμα προτείνει τα πιο συχνά χρησιμοποιούμενα
 	εργαλεία ανάλογα με τη φάση του παιχνιδιού.
 	Γενικά, στο control panel εμφανίζονται τα παρακάτω εικονίδια:
 </p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
-			<img src="<?php print $globals->server; ?>images/controlPanel/diataxi.png"
+			<img src="<?php print $globals->server;
+				?>images/controlPanel/diataxi.png"
 				class="helpIcon" alt="" />
 		</td>
 		<td class="helpKimeno">
@@ -277,23 +292,33 @@ Page::epikefalida(Globals::perastike('pedi'));
 			στο κάτω μέρος του τραπεζιού (νότος),
 			ουσιαστικά φαίνονται να εναλλάσσονται οι άλλοι
 			δύο παίκτες (ανατολή, δύση).
-			<p>
-			</p>
-			Το ίδιο εικονίδιο εμφανίζεται και στη στήλη των εργαλείων
-			συστήματος. Εκεί, ο ρόλος του είναι να αλλάζει τη θέση του παίκτη
-			και να τον τοποθετεί στην επόμενη κενή θέση στο τραπέζι.
-			Αυτό μπορεί να φανεί χρήσιμο μετά από αποχώρηση και
-			επανείσοδο του παίκτη στο τραπέζι, όπου μπορεί ο παίκτης
-			να τοποθετηθεί σε λάθος θέση, εφόσον έχει αποχωρήσει και
-			δεύτερος παίκτης από το τραπέζι. Πατώντας, λοιπόν,
-			επαναληπτικά αυτό το εικονίδιο, ο παίκτης διατρέχει με τη
-			σειρά όλες τις ελεύθερες θέσης του τραπεζιού.
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
+	<table width="100%">
+		<tr>
+		<td class="helpIconColumn">
+			<img src="<?php print $globals->server;
+				?>images/controlPanel/alagiThesis.png"
+				class="helpIcon" alt="" />
+		</td>
+		<td class="helpKimeno">
+			Παρόμοια λειτουργία επιτελεί και το εικονίδιο
+			αλλαγής θέσης. Κάνοντας κλικ στο συγκεκριμένο
+			εικονίδιο ο παίκτης διατρέχει με τη σειρά όλες
+			τις κενές θέσεις του τραπεζιού. Η λειτουργία
+			των εργαλείων αλλαγής θέσης γίνεται καλύτερα εμφανής
+			αν βρίσκεστε στο καφενείο, παρά όταν βλέπετε την
+			τσόχα του τραπεζιού.
+		</td>
+		</tr>
+	</table>
+</p>
+
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -302,13 +327,13 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		<td class="helpKimeno">
 			Κάνοντας κλικ στο συγκεκριμένο εικονίδιο
-			αλλάζουμε την κάσα από 500 σε 300 καπίκια
-			και τούμπαλιν. Το μέγεθος της κάσας εμφανίζεται
+			αλλάζουμε την αρχική κάσα του τραπεζιού από 500 σε 300 καπίκια
+			(για κάθε παίκτη) και τούμπαλιν. Το μέγεθος της κάσας εμφανίζεται
 			μαζί με άλλα στοιχεία του τραπεζιού στο
 			επάνω μέρος της τσόχας.
 			<p>
 			</p>
-			Οι παίκτες μπορούν να αυξήσουν, ή να μειώσουν την κάσα
+			Οι παίκτες, όμως, μπορούν να αυξήσουν, ή να μειώσουν την κάσα
 			και κατά τη διάρκεια του παιχνιδιού κάνοντας κλικ στα
 			αντίστοιχα εικονίδια
 			<span class="nobr">(<img src="<?php
@@ -321,9 +346,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -339,7 +364,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 			έχουν αυτή τη χρονική στιγμή. Το παιχνίδι ξεκινά
 			τη στιγμή που και οι τρεις παίκτες έχουν
 			αποδεχθεί τους όρους του παιχνιδιού, γι' αυτό
-			ο τρίτος παίκτης που θα αποδχθεί τους όρους
+			ο τρίτος παίκτης που θα αποδεχθεί τους όρους
 			του παιχνιδιού θα δει το εικονίδιο
 			<span class="nobr"><img src="<?php
 				print $globals->server; ?>images/controlPanel/go.jpg"
@@ -348,9 +373,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -361,15 +386,15 @@ Page::epikefalida(Globals::perastike('pedi'));
 			Σημαίνει επαναδιαπραγμάτευση των όρων του παιχνιδιού. Κάνοντας
 			κλικ σε αυτό το εικονίδιο, το εικονίδιο γίνεται πάλι
 			πράσινο, ενώ το πρασινωπό πλαίσιο που περιέβαλλε την
-			περιοχή μας γίνεται κοκκινωπό υποδηλώνοντας στους
+			περιοχή μας γίνεται πάλι κοκκινωπό υποδηλώνοντας στους
 			συμπαίκτες μας ότι ακόμη δεν έχουμε αποδεχθεί
 			τους όρους του παιχνιδιού.
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -391,9 +416,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -413,9 +438,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -424,16 +449,17 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		<td class="helpKimeno">
 			Κάνοντας κλικ σε αυτό το εικονίδιο μπορούμε να ελαχιστοποιήσουμε
-			προσωρινά το χώρο του παιχνιδιού και να αυξήσουμε έτσι τον
+			προσωρινά το χώρο του παιχνιδιού, ή το χώρο
+			του καφενείου και να αυξήσουμε έτσι τον
 			διαθέσιμο χώρο στην περιοχή ανταλλαγής μηνυμάτων (chat mode).
 			Αυτή η διαδικασία μπορεί να μας φανεί χρήσιμη όταν δεν παίζουμε
 			κάποια παρτίδα, αλλά απλώς συνομιλούμε με τους συμπαίκτες μας.
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -447,9 +473,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -476,9 +502,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -486,14 +512,25 @@ Page::epikefalida(Globals::perastike('pedi'));
 				class="helpIcon" alt="" />
 		</td>
 		<td class="helpKimeno">
-			Σημαίνει αποχώρηση από το τραπέζι. Αν αποχωρήσουμε από το τραπέζι
+			Σημαίνει αποχώρηση από το τραπέζι. Αν είμαστε θετατές στο
+			τραπέζι, τότε μετά την αποχώρησή μας, θα εμφανιστούμε στο
+			νεότερο από τα ταρπέζια στα οποία συμμετέχουμε ως παίκτες.
+			Αν δεν συμμετέχουμε σε κάποιο τραπέζι, τότε θα μας δοθεί η επιλογή
+			της δημιουργίας νέου τραπεζιού και μπορούμε είτε να δημιουργήσουμε
+			κάποιο νέο τραπέζι, είτε να μεταβούμε ως θεατές σε κάποιο
+			άλλο τραπέζι, είτε να να παραμείνουμε περιφερόμενοι στο
+			καφενείο.
+			<p></p>
+			Αν αποχωρήσουμε από τραπέζι στο οποίο συμμετέχουμε
+			ως παίκτες και όχι ως θεατές,
 			είναι πιθανό οι συμπαίκτες μας να μην μπορούν να
 			συνεχίσουν το παιχνίδι. Για να μπορέσει να συνεχιστεί το
 			παιχνίδι, θα πρέπει να προσκαλέσουν κάποιον άλλο παίκτη
 			και μόνον εφόσον αυτός αποδεχθεί την πρόσκληση, το παιχνίδι
 			θα μπορέσει να συνεχιστεί. Μπορούμε, ακόμη, να επανέλθουμε
 			στο τραπέζι, εφόσον, φυσικά, υπάρχει σχετική πρόσκληση.
-			Αποχώρηση από το τραπέζι κάνουμε συνήθως όταν έχουμε
+			Αποχώρηση από το τραπέζι, χωρίς να έχει τελειώσει η παρτίδα,
+			κάνουμε συνήθως όταν έχουμε
 			απευθύνει προσκλήσεις και οι προσκεκλημένοι μας
 			δεν έχουν ανταποκριθεί, ή ακόμη και κατά τη διάρκεια του
 			παιχνιδιού όταν συντρέχει σοβαρός λόγος διακοπής.
@@ -514,13 +551,47 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
-			<img src="<?php print $globals->server; ?>images/emoticons/set0/xamogelo.png"
+			<img src="<?php print $globals->server;
+				?>images/controlPanel/theatis.png"
+				class="helpIcon" alt="" />
+		</td>
+		<td class="helpKimeno">
+			Το ανθρωπάκι με τα γυαλιά είναι ένα πολύ χρήσιμο
+			εικονίδιο με το οποίο μπορούμε να αλλάζουμε τον
+			τρόπο με τον οποίο συμμετέχουμε σε κάποιο
+			τραπέζι. Πράγματι, κάνοντας κλικ σ' αυτό το
+			εικονίδιο μπορούμε από παίκτες να γίνουμε θεατές στο τραπέζι
+			και το αντίστροφο. Βεβαίως, για τη μεταλλαγή μας
+			από θεατές σε παίκτες του τραπεζιού θα πρέπει
+			να υπάρχει κενή θέση στο τραπέζι και να έχουμε
+			πρόσκληση για το τραπέζι αυτό.
+			<p></p>
+			Για να εισέλθουμε απευθείας ως θεατές σε κάποιο
+			τραπέζι ο ασφαλέστερος τρόπος είναι να κάνουμε
+			κλικ στον κωδικό αριθμό του τραπεζιού από το
+			χώρο του καφενείου.
+			Μπορούμε, ακόμη, να αποδεχθούμε τυχόν πρόσκληση
+			που μας έκαναν οι παίκτες του τραπεζιού, αλλά
+			σ' αυτήν την περίπτωση, εφόσον υπάρχει κενή θέση
+			θα εισέλθουμε ως παίκτες και κατόπιν θα πρέπει
+			να αλλάξουμε τη συμμετοχή μας ως θεατές.
+		</td>
+		</tr>
+	</table>
+</p>
+
+<p>
+	<table width="100%">
+		<tr>
+		<td class="helpIconColumn">
+			<img src="<?php print $globals->server;
+				?>images/emoticons/set0/xamogelo.png"
 				class="helpIcon" alt="" />
 		</td>
 		<td class="helpKimeno">
@@ -529,8 +600,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 			Εκεί ο παίκτης μπορεί να επιλέξει από διάφορες σειρές smilies
 			κάνοντας κλικ στο σχετικό εικονίδιο εναλλαγής
 			<span class="nobr">(<img src="<?php print $globals->server;
-			?>images/controlPanel/4Balls.png" class="helpIconInline" alt = "" />).</span>
-			Ο χρήστης μποεί να κλείσει το πάνελ των smilies κάνοντα κλικ
+				?>images/controlPanel/4Balls.png"
+				class="helpIconInline" alt = "" />).</span>
+			Ο χρήστης μπορεί να κλείσει το πάνελ των smilies κάνοντας κλικ
 			στο σχετικό εικονίδιο <span class="nobr">απόκρυψης (<img src="<?php
 			print $globals->server; ?>images/emoticons/set0/alien.png"
 			class="helpIconInline" alt = "" />)</span>
@@ -538,9 +610,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -557,8 +629,8 @@ Page::epikefalida(Globals::perastike('pedi'));
 			επικυρώστε την κίνησή σας και η εικόνα μαζί με το μήνυμα
 			που επιλέξατε θα εμφανιστούν στο χώρο της ανταλλαγής μηνυμάτων
 			του τραπεζιού.
-			Ο χρήστης μποεί να κλείσει το πάνελ των διασκεδαστικών
-			μηνυμάτων κάνοντα κλικ στο σχετικό εικονίδιο
+			Ο χρήστης μπορεί να κλείσει το πάνελ των διασκεδαστικών
+			μηνυμάτων κάνοντας κλικ στο σχετικό εικονίδιο
 			<span class="nobr">απόκρυψης (<img src="<?php
 			print $globals->server; ?>images/emoticons/set1/glosa.png"
 			class="helpIconInline" alt = "" />)</span>
@@ -566,9 +638,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -582,9 +654,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -602,13 +674,14 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
-			<img src="<?php print $globals->server; ?>images/controlPanel/akirosiKinisis.png"
+			<img src="<?php print $globals->server;
+				?>images/controlPanel/akirosiKinisis.png"
 				class="helpIcon" alt="" />
 		</td>
 		<td class="helpKimeno">
@@ -625,9 +698,30 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
+	<table width="100%">
+		<tr>
+		<td class="helpIconColumn">
+			<img src="<?php print $globals->server;
+				?>images/controlPanel/anamoniAkirosis.png"
+				class="helpIcon" alt="" />
+		</td>
+		<td class="helpKimeno">
+			Όσο κάποιος παίκτης ακυρώνει κινήσεις, οι υπόλοιποι
+			παίκτες δεν μπορούν να κάνουν καμία κίνηση στο
+			παιχνίδι, ενώ στο control panel εμφανίζεται
+			το εικονίδιο αναμονής. Όταν ο παίκτης που
+			ακυρώνει κινήσεις επαναφέρει την παρτίδα στο
+			επιθυμητό σημείο, κάνει κλικ σ' αυτό το εικονίδιο
+			και το παιχνίδι συνεχίζεται κανονικά.
+		</td>
+		</tr>
+	</table>
+</p>
+
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -659,7 +753,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
 <?php titlos('Προσκλήσεις'); ?>
 
@@ -676,12 +770,14 @@ Page::epikefalida(Globals::perastike('pedi'));
 	από τις προσκλήσεις που έχετε στείλει.
 	Για να απευθύνουμε πρόσκληση σε κάποιον φίλο
 	για συμμετοχή στο τραπέζι μας, απλώς κάνουμε κλικ
-	στο όνομά του στην περιοχή των φίλων.
-	Πάντως, στις προσκλήσεις θα δείτε
-	τα παρακάτω εικονίδια:
+	στο όνομά του στην περιοχή των φίλων, ή όπου ο παίκτης
+	αυτός εμφανίζεται στο καφενείο.
+	Το τραπέζι στο οποίο αφορά η πρόσκληση είναι
+	το νεότερο τραπέζι στο οποίο συμμετέχουμε ως παίκτες.
+	Πάνω στις προσκλήσεις θα δείτε τα παρακάτω εικονίδια:
 </div>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -697,13 +793,13 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
-			<img src="<?php print $globals->server; ?>images/delete.png"
+			<img src="<?php print $globals->server; ?>images/Xred.png"
 				class="helpIcon" alt="" />
 		</td>
 		<td class="helpKimeno">
@@ -712,9 +808,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -728,13 +824,13 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
-			<img src="<?php print $globals->server; ?>images/clear.png"
+			<img src="<?php print $globals->server; ?>images/Xgreen.png"
 				class="helpIcon" alt="" />
 		</td>
 		<td class="helpKimeno">
@@ -743,7 +839,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
 <?php titlos('Φίλοι και ανεπιθύμητοι'); ?>
 
@@ -767,7 +863,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 	συσχετισμένων προσώπων είναι τα εξής:
 </p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -782,9 +878,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -802,13 +898,13 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
-			<img src="<?php print $globals->server; ?>images/clear.png"
+			<img src="<?php print $globals->server; ?>images/Xgreen.png"
 				class="helpIcon" alt="" />
 		</td>
 		<td class="helpKimeno">
@@ -818,13 +914,13 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
-			<img src="<?php print $globals->server; ?>images/delete.png"
+			<img src="<?php print $globals->server; ?>images/Xred.png"
 				class="helpIcon" alt="" />
 		</td>
 		<td class="helpKimeno">
@@ -835,13 +931,13 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
-			<img src="<?php print $globals->server; ?>images/sxesi.png"
+			<img src="<?php print $globals->server; ?>images/sxetikos.png"
 				class="helpIcon" alt="" />
 		</td>
 		<td class="helpKimeno">
@@ -852,17 +948,17 @@ Page::epikefalida(Globals::perastike('pedi'));
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
-			<img src="<?php print $globals->server; ?>images/greenBall.png"
+			<img src="<?php print $globals->server; ?>images/blueBall.png"
 				class="helpIcon" alt="" />
 		</td>
 		<td class="helpKimeno">
-			Όταν υπάρχει μια πράσινη βούλα δεξιά από το πεδίο
+			Όταν υπάρχει μια μπλε βούλα δεξιά από το πεδίο
 			αναζήτησης παικτών και φίλων, σημαίνει ότι εμφανίζονται
 			παίκτες ασχέτως της κατάστασής τους, δεν ξεδιαλέγονται,
 			δηλαδή, παίκτες online, διαθέσιμοι κλπ.
@@ -870,14 +966,35 @@ Page::epikefalida(Globals::perastike('pedi'));
 			εμφανίζονται μόνο οι σχετιζόμενοι με μας παίκτες.
 			Σχετιζόμενοι παίκτες είναι αυτοί που είτε τους
 			έχουμε χαρακτηρίσει ως φίλους είτε τους έχουμε αποκλείσει.
-			Κάνοντας κλικ στην πράσινη βούλα, η βούλα θα πάρει
-			χρώμα πορτοκαλί και θα εμφανίζονται μόνο οι διαθέσιμοι παίκτες:
+			Κάνοντας κλικ στην μπλε βούλα, η βούλα θα πάρει
+			πράσινο χρώμα και θα εμφανίζονται μόνο οι διαθέσιμοι παίκτες:
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
-<div class="helpKimeno">
+<p>
+	<table width="100%">
+		<tr>
+		<td class="helpIconColumn">
+			<img src="<?php print $globals->server; ?>images/greenBall.png"
+				class="helpIcon" alt="" />
+		</td>
+		<td class="helpKimeno">
+			Όταν η βούλα που βρίσκεται δεξιά από το πεδίο
+			αναζήτησης παικτών και φίλων έχει πράσινο χρώμα,
+			σημαίνει ότι εμφανίζονται μόνο οι παίκτες που είναι διαθέσιμοι,
+			δηλαδή παίκτες που είναι online και δεν συμμετέχουν
+			ως παίκτες σε κάποιο τραπέζι.
+			Αν επιθυμούμε όλους τους online παίκτες, διαθέσιμους ή μη,
+			κάνουμε κλικ στην πράσινη βούλα και αυτή θα πάρει
+			χρώμα πορτοκαλί:
+		</td>
+		</tr>
+	</table>
+</p>
+
+<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -887,49 +1004,28 @@ Page::epikefalida(Globals::perastike('pedi'));
 		<td class="helpKimeno">
 			Όταν η βούλα που βρίσκεται δεξιά από το πεδίο
 			αναζήτησης παικτών και φίλων έχει χρώμα πορτοκαλί,
-			σημαίνει ότι εμφανίζονται μόνο οι παίκτες που είναι διαθέσιμοι,
-			δηλαδή παίκτες που είναι online και είτε είναι περιφερόμενοι
-			(εκτός τραπεζιού), είτε μετέχουν σε τραπέζι που έχει
-			μία ή δύο κενές θέσεις.
-			Αν επιθυμούμε όλους τους online παίκτες, διαθέσιμους ή μη,
-			κάνουμε κλικ στην πορτοκαλί βούλα και αυτή θα πάρει ιώδες χρώμα:
-		</td>
-		</tr>
-	</table>
-</div>
-
-<div class="helpKimeno">
-	<table width="100%">
-		<tr>
-		<td class="helpIconColumn">
-			<img src="<?php print $globals->server; ?>images/fouxBall.png"
-				class="helpIcon" alt="" />
-		</td>
-		<td class="helpKimeno">
-			Όταν η βούλα που βρίσκεται δεξιά από το πεδίο
-			αναζήτησης παικτών και φίλων έχει ιώδες χρώμα,
 			σημαίνει ότι εμφανίζονται όλοι οι online παίκτες,
 			διαθέσιμοι και μη.
-			Αν κάνουμε κλικ στην ιώδη βούλα, η βούλα ξαναγίνεται
-			πράσινη και εμφανίζονται και πάλι οι σχετιζόμενοι παίκτες.
+			Αν κάνουμε κλικ στην πορτοκαλί βούλα, η βούλα ξαναγίνεται
+			μπλε και εμφανίζονται και πάλι οι αναζητούμενοι,
+			ή οι σχετιζόμενοι παίκτες, ασχέτως της κατάστασής τους.
 		</td>
 		</tr>
 	</table>
-</div>
+</p>
 
 <?php titlos('Στήσιμο τραπεζιού'); ?>
 
 <p class="helpKimeno">
 	Κατά την πρώτη μας είσοδο στο διαδικτυακό καφενείο,
 	όπως επίσης και μετά από κάθε αποχώρησή μας από
-	κάποιο τραπέζι, εμφανίζεται στο control panel
-	εικονίδιο παραγγελίας πρέφας
-	<span class="nobr">(<img src="<?php print $globals->server; ?>images/neoTrapezi.png"
-		class="helpIconInline" alt = "" />).</span>
-	Κάνοντας κλικ σε αυτό το εικονίδιο δημιουργούμε νέο
+	κάποιο τραπέζι, εμφανίζεται στο χώρο του παιχνιδιού
+	προτροπή παραγγελίας πρέφας.
+	Κάνοντας κλικ σε αυτήν την προτροπή δημιουργούμε νέο
 	τραπέζι και εντασσόμαστε στο παιχνίδι ως πρώτος παίκτης.
 	Κατόπιν μπορούμε να καθορίσουμε το ύψος της κάσας σε 500 ή 300 καπίκια
-	<span class="nobr">(<img src="<?php print $globals->server; ?>images/kasa.png"
+	<span class="nobr">(<img src="<?php print $globals->server;
+		?>images/controlPanel/kasa.png"
 		class="helpIconInline" alt = "" />)</span>
 	και να απευθύνουμε προσκλήσεις σε φίλους για
 	συμμετοχή στο παιχνίδι.
@@ -942,12 +1038,13 @@ Page::epikefalida(Globals::perastike('pedi'));
 	μας, θα εμφανιστούν στο τραπέζι και μπορούν να κάνουν τις
 	δικές τους επιλογές στο παιχνίδι όσον αφορά στο
 	ύψος της κάσας
-	<span class="nobr">(<img src="<?php print $globals->server; ?>images/kasa.png"
+	<span class="nobr">(<img src="<?php print $globals->server;
+		?>images/controlPanel/kasa.png"
 		class="helpIconInline" alt = "" />)</span>
 	και στη διάταξη των παικτών
-	<span class="nobr">(<img src="<?php print $globals->server; ?>images/diataxi.png"
+	<span class="nobr">(<img src="<?php print $globals->server;
+		?>images/controlPanel/diataxi.png"
 		class="helpIconInline" alt = "" />).</span>
-
 	Κάθε φορά που κάποιος παίκτης συμφωνεί με τους
 	όρους του παιχνιδιού μπορεί να το δηλώσει στο
 	τραπέζι κάνοντας αποδοχή όρων με κλικ
@@ -959,7 +1056,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 	επιλέξουμε επαναδιαπραγμάτευση
 	<span class="nobr">(<img src="<?php print $globals->server; ?>images/controlPanel/uncheck.png"
 		class="helpIconInline" alt = "" />)</span>
-	το περίγραμμα αποκτά κοκκινωπό χρώμα.
+	το περίγραμμα αποκτά και πάλι κοκκινωπό χρώμα.
 </p>
 
 <p class="helpKimeno">
@@ -1006,11 +1103,11 @@ Page::epikefalida(Globals::perastike('pedi'));
 	τα λεγόμενα του τζογαδόρου, όλοι οι παίκτες "πληρώνονται"
 	τις μπάζες τους από την κάσα. Αν π.χ. γίνει αγορά
 	6 κούπες, και οι μπάζες βγουν 6 για τον τζογαδόρο,
-	3 για τον πρώτο αντίπαλο και 1 για τον δεύτερο,
+	3 για τον πρώτο αμυνόμενο και 1 για τον δεύτερο,
 	θα "σηκώσουμε" συνολικά 10Χ5=50 καπίκια από την κάσα,
 	τα οποία θα κατανεμηθούν 6Χ5=30 καπίκια για τον τζογαδόρο,
-	3Χ5=15 καπίκια για τον πρώτο αντίπαλο και 1Χ5=5 καπίκια
-	για τον δεύτερο αντίπαλο. Μετά την αγορά η κάσα είναι,
+	3Χ5=15 καπίκια για τον πρώτο αμυνόμενο και 1Χ5=5 καπίκια
+	για τον δεύτερο αμυνόμενο. Μετά την αγορά η κάσα είναι,
 	λοιπόν, μειωμένη κατά το αντίτιμο της αγοράς. Το παιχνίδι
 	συνεχίζεται με τον τρόπο αυτό μέχρι να εξαντληθεί το
 	ποσό της κάσας.
@@ -1036,18 +1133,18 @@ Page::epikefalida(Globals::perastike('pedi'));
 	που έχουν κάνει οι αντίπαλοί του, να καταβάλει στην κάσα
 	και το συνολικό αντίτιμο της αγοράς. Αν π.χ. γίνει αγορά
 	7 κούπες και ο τζογαδόρος κάνει 6 μπάζες, ενώ ο πρώτος
-	αντίπαλος κάνει 3 μπάζες και ο δεύτερος 1 μπάζα, τότε
+	αμυνόμενος κάνει 3 μπάζες και ο δεύτερος 1 μπάζα, τότε
 	ο τζογαδόρος πληρώνει από την τσέπη του 3Χ7=21 καπίκια
-	στον πρώτο αντίπαλο, 1Χ7=7 καπίκια στον δεύτερο αντίπαλο
+	στον πρώτο αμυνόμενο, 1Χ7=7 καπίκια στον δεύτερο αμυνόμενο
 	και καταθέτει 10Χ7=70 καπίκια στην κάσα. Επειδή θεωρείται
 	ότι όλοι οι παίκτες έχουν τα ίδια δικαιώματα στο συνολικό
 	ποσό της κάσας, δηλαδή είναι εν δυνάμει κάτοχοι του 1/3
 	του ποσού της κάσας, ο τζογαδόρος μας έχασε από
-	αυτή την αγορά 21+7+23.33 καπίκια, δηλαδή περίπου 50 καπίκια.
+	αυτή την αγορά 21+7+46.66 καπίκια, δηλαδή περίπου 75 καπίκια.
 </p>
 
 <p class="helpKimeno">
-	Το πρόγραμμα κάνει για μας όλους τους παραπάνω υπολογισμούς
+	Το πρόγραμμα κάνει για λογαριασμό μας όλους τους παραπάνω υπολογισμούς
 	και μας ενημερώνει ανά πάσα στιγμή για δύο πράγματα: το
 	συνολικό ποσό της κάσας που απομένει, και τα καπίκια που
 	τη δεδομένη στιγμή κερδίζει, ή χάνει ο κάθε παίκτης.
@@ -1074,7 +1171,8 @@ Page::epikefalida(Globals::perastike('pedi'));
 	το πρόγραμμα κυρίως για συναισθηματικούς λόγους, και
 	για να εμφανίσουμε το φύλλο αγώνα αρκεί να κάνουμε κλικ
 	στο εικονίδιο
-	<span class="nobr">(<img src="<?php print $globals->server; ?>images/kitapi.png"
+	<span class="nobr">(<img src="<?php print $globals->server;
+		?>images/controlPanel/kitapi.png"
 		class="helpIconInline" alt = "" />)</span>
 	στο control panel.
 	Το φύλλο αγώνα εμφανίζεται σε ξεχωριστό παράθυρο του
@@ -1145,12 +1243,14 @@ Page::epikefalida(Globals::perastike('pedi'));
 <p class="helpKimeno">
 	Αν κάποιος παίκτης επιθυμεί να τελειώσει την παρτίδα, μπορεί πολύ
 	απλά να αποχωρήσει
-	<span class="nobr">(<img src="<?php print $globals->server; ?>images/controlPanel/exodos.png"
+	<span class="nobr">(<img src="<?php print $globals->server;
+		?>images/controlPanel/exodos.png"
 		class="helpIconInline" alt = "" />)</span>
 	από το τραπέζι. Αν υπάρχει διάθεση εκκίνησης
 	μιας νέας παρτίδας, τότε οποιοσδήποτε από τους συμπαίκτες μπορεί
 	να κάνει κλικ στο εικονίδιο νέας παρτίδας
-	<span class="nobr">(<img src="<?php print $globals->server; ?>images/controlPanel/neaPartida.png"
+	<span class="nobr">(<img src="<?php print $globals->server;
+		?>images/controlPanel/neaPartida.png"
 		class="helpIconInline" alt = "" />)</span>
 	και οι συμπαίκτες θα λάβουν πρόσκληση για κάποιο νέο τραπέζι.
 	Αν οι συμπαίκτες έχουν χρόνο και διάθεση, μπορούν, πολύ απλά,
@@ -1186,7 +1286,8 @@ Page::epikefalida(Globals::perastike('pedi'));
 	κοινοποιούνται στο χώρο συνομιλίας είτε με το πάτημα
 	του πλήκτρου [Enter], είτε με κλικ στο εικονίδιο
 	κοινοποίησης μηνυμάτων
-	<span class="nobr">(<img src="<?php print $globals->server; ?>images/talk.png"
+	<span class="nobr">(<img src="<?php print $globals->server;
+		?>images/controlPanel/talk.png"
 		class="helpIconInline" alt = "" />)</span>
 	που βρίσκεται δεξιά από το πεδίο εισαγωγής μηνυμάτων.
 	Με το πλήκτρο [Escape] μπορείτε να καθαρίσετε
@@ -1208,23 +1309,22 @@ Page::epikefalida(Globals::perastike('pedi'));
 	συμπαίκτες σας θα το δουν μόνον εφόσον το
 	κοινοποιήσετε με το πλήκτρο [Enter],
 	ή κάνοντας κλικ στο σχετικό εικονίδιο
-	<span class="nobr">(<img src="<?php print $globals->server; ?>images/talk.png"
+	<span class="nobr">(<img src="<?php print $globals->server;
+		?>images/controlPanel/talk.png"
 		class="helpIconInline" alt = "" />).</span>
 </p>
 
 <p class="helpKimeno">
-	Στο σημείο αυτό να πούμε όιτ το εικονίδιο κοινοποίησης μηνυμάτων
-	<span class="nobr">(<img src="<?php print $globals->server; ?>images/talk.png"
-		class="helpIconInline" alt = "" />)</span>
-	που βρίσκεται δεξιά από το πεδίο εισαγωγής μηνυμάτων παίζει
-	και έναν ακόμη ρόλο. Πράγματι, αν κάνετε κλικ σε αυτό το εικονίδιο,
-	χωρίς όμως να έχετε πληκτρολογήσει κάτι στο χώρο εισαγωγής μηνυμάτων,
-	τότε το αποτέλεσμα είναι η ελαχιστοποίηση του χώρου συζήτησης
-	και η ανάλογη αύξηση του χώρου σχετιζομένων προσώπων. Αυτό
-	μπορεί να σας φανεί χρήσιμο όταν αναζητάτε φίλους, ή γενικότερα
-	όταν ο χώρος σχετιζομένων προσώπων δεν επαρκεί.
-	Ο χώρος συzήτησης επανεμφανίζεται κάνοντας εκ νέου κλικ
-	στο εικονίδιο.
+	Οι παίκτες μπορούν, αν θέλουν, να διαγράψουν την τελευταία
+	γραμμή της συζήτησης που λαμβάνει χώρα στο τραπέζι.
+	Πράγματι, κάνοντας κλικ στο εικονίδιο
+	<span class="nobr">(<img src="<?php print $globals->server;
+		?>images/Xred.png"
+		class="helpIconInline" alt = "" />),</span>
+	το πρόγραμμα διαγράφει την τελευταίο σχόλιο της συζήτησης
+	του τραπεζιού. Αν κάνουμε επαναλαμβανόμενες διαγραφές,
+	το πρόγραμμα πιθανόν να μας ρωτήσει αν θέλουμε να
+	διαγράψουμε όλη τη συζήτηση του τραπεζιού.
 </p>
 
 <p class="helpKimeno">
@@ -1260,12 +1360,10 @@ Page::epikefalida(Globals::perastike('pedi'));
 
 <p class="helpKimeno">
 	Αν είστε περιφερόμενος στο χώρο του καφενείου
-	(δεν ανήκετε δηλαδή σε κάποιο τραπέζι),
-	μπορείτε να σκουντήξετε κάποιον παίκτη
-	για συζήτηση στο χώρο του καφενείου,
-	εφόσον ο παίκτης αυτός βρίσκεται σε κάποιο
-	τραπέζι στο οποίο δεν μπορείτε να συμμετάσχετε
-	και επομένως δεν μπορείτε να του μιλήσετε.
+	(δεν συμμετέχετε δηλαδή σε κάποιο τραπέζι είτε ως παίκτης,
+	είτε ως θεατής), μπορείτε να απευθύνετε γρήγορο
+	προσωπικό μήνυμα σε κάποιον παίκτη κάνοντας απλώς κλικ
+	στο όνομά του όπου αυτός εμφανίζεται στο χώρο του καφενείου.
 	Αν λάβετε μήνυμα με το οποίο ο παίκτης δηλώνει
 	απασχολημένος, σημαίνει ότι ο παίκτης
 	δεν μπορεί επί του παρόντος να σας μιλήσει,
@@ -1572,7 +1670,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 </li>
 <li>
 	Πατήστε την πράσινη <span class="nobr">πασχαλίτσα
-	(<img src="<?php print $globals->server; ?>images/bug.png"
+	(<img src="<?php print $globals->server; ?>images/controlPanel/bug.png"
 		class="helpIconInline" alt = "" />)</span>
 	στο κάτω μέρος του control panel
 	(κεντρική στήλη εργαλείων). Αν δεν αποκατασταθεί η ορθή λειτουργία,
@@ -1599,7 +1697,8 @@ Page::epikefalida(Globals::perastike('pedi'));
 <li>
 	Ακυρώστε την τρέχουσα παρτίδα κάνοντας κλικ στο κουμπί καθαρισμού και
 	επανεκκίνησης της <span class="nobr">παρτίδας
-	(<img src="<?php print $globals->server; ?>images/controlPanel/restart.png"
+	(<img src="<?php print $globals->server;
+		?>images/controlPanel/neaPartida.png"
 		class="helpIconInline" alt = "" />)</span>
 	στο επάνω μέρος του control panel. Αν πάλι αντιμετωπίζετε προβλήματα,
 	τότε δεν μένει παρά να βγείτε όλοι από το τραπέζι και να στήσετε ένα νέο τραπέζι.
