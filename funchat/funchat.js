@@ -103,10 +103,11 @@ function stileFunchat(ikona, titlos, zoom, sound) {
 }
 
 var Ikona = new function() {
-	this.keyChek = function(e, fld) {
+	this.keyCheck = function(e, fld) {
 		var w = self.opener;
 		if (notSet(w)) { return; }
 		if (notSet(w.Sizitisi)) { return; }
+
 		var preview = w.getelid('sxolioPreview');
 		if (notSet(preview)) { return; }
 
@@ -117,57 +118,76 @@ var Ikona = new function() {
 		if (key) {
 			switch(key) {
 			case 13:	// Enter key
-				if (fld.value != '') {
-					fld.value = Ikona.HTML(fld);
-					w.Sizitisi.apostoli(fld);
-				}
-			case 27:	// Esc key
+				Ikona.stile();
+			case 27:	// Esc key();
 				fld.value = '';
-				preview.innerHTML = '';
+			default:
+				Ikona.preview();
 			}
 		}
 	};
 
 	var width = 4;
 
-	this.previewURL = function(dw) {
+	this.preview = function(dw) {
 		var w = self.opener;
 		if (notSet(w)) { return; }
 		if (notSet(w.Sizitisi)) { return; }
+
 		var preview = w.getelid('sxolioPreview');
 		if (notSet(preview)) { return; }
-		var fld = getelid('inputURL');
-		if (notSet(fld)) { return; }
-		if (fld.value == '') { return; }
 
-		width += dw;
+		var img = getelid('inputURL');
+		if (notSet(img)) { return; }
+		if (img.value == '') { return; }
+
+		var txt = getelid('inputLezanta');
+		if (notSet(txt)) { return; }
+
+		if (isSet(dw)) { width += dw; }
+
 		var html = '';
 		html += '<div class="sizitisiPreviewLine"></div>';
 		html += '<div class="sizitisiSxolio sizitisiPreview">';
 		html += '<div class="sizitisiPektis" style="color: #' +
 			w.Sizitisi.zebraColor[0] + ';">' + pektis.login + '</div>';
 		html += '</div>';
-		html += Ikona.HTML(fld);
+		html += Ikona.HTML(img, txt);
 		preview.innerHTML = html;
 		w.Sizitisi.scrollBottom();
 	};
 
-	this.stileIkona = function(e, fld) {
+	this.stile = function() {
 		var w = self.opener;
 		if (notSet(w)) { return; }
 		if (notSet(w.Sizitisi)) { return; }
+
 		var preview = w.getelid('sxolioPreview');
 		if (notSet(preview)) { return; }
-		var fld = getelid('inputURL');
+
+		var img = getelid('inputURL');
+		if (notSet(img)) { return; }
+		if (img.value == '') { return; }
+
+		var txt = getelid('inputLezanta');
+		if (notSet(txt)) { return; }
+
+		var fld = getelid('ikonaData');
 		if (notSet(fld)) { return; }
-		if (fld.value == '') { return; }
-		fld.value = Ikona.HTML(fld);
+
+		fld.value = Ikona.HTML(img, txt);
 		w.Sizitisi.apostoli(fld);
+
 		fld.value = '';
+		img.value = '';
+		txt.value = '';
 		preview.innerHTML = '';
 	};
 
-	this.HTML = function(fld) {
-		return '<img src="' + fld.value + '" style="width: ' + width + 'cm;" alt="" />';
+	this.HTML = function(img, txt) {
+		html = '';
+		html += '<img src="' + img.value + '" style="width: ' + width + 'cm;" alt="" />';
+		if (txt.value != '') { html += '<br />' + txt.value; }
+		return html;
 	};
 };
