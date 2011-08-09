@@ -286,7 +286,9 @@ var Sizitisi = new function() {
 		if (fld.value != '') {
 			fld.style.backgroundImage = 'none';
 			if (isSet(preview)) {
-				var html = '<div class="sizitisiSxolio sizitisiPreview">';
+				var html = '';
+				html += '<div class="sizitisiPreviewLine"></div>';
+				html += '<div class="sizitisiSxolio sizitisiPreview">';
 				html += '<div class="sizitisiPektis" style="color: #' +
 					zebraColor[0] + ';">' + pektis.login + '</div>';
 				html += Sizitisi.textDecode(fld.value);
@@ -305,7 +307,8 @@ var Sizitisi = new function() {
 
 	this.checkWriting = function(fld) {
 		var neoWriting = '';
-		if ((fld.value != '') && (Prefadoros.show == 'partida')) { neoWriting = 'P'; }
+		if ((fld.value != '') && (Prefadoros.show == 'partida') &&
+			isPartida()) { neoWriting = 'P'; }
 		if ((fld.value != '') && (Prefadoros.show == 'kafenio')) { neoWriting = 'K'; }
 		if (neoWriting == writing) { return; }
 		writing = neoWriting;
@@ -342,8 +345,6 @@ var Sizitisi = new function() {
 	};
 
 	this.apostoli = function(fld, ico, pk) {
-		writing = '';
-		neoWriting = '';
 		if (notSet(fld)) {
 			var fld = getelid('sxolioInput');
 			if (notSet(fld)) { return; }
@@ -390,6 +391,8 @@ var Sizitisi = new function() {
 			playSound('beep');
 		}
 		else {
+			writing = '';
+			neoWriting = '';
 			if (isSet(fld.id) && (fld.id == 'sxolioInput')) {
 				Sizitisi.resetSxolioInput(fld);
 			}
