@@ -3,13 +3,15 @@ body {
 }
 
 .funchat {
+	float: left;
 	margin-top: 0.1cm;
 	margin-right: 0.1cm;
-	float: left;
 	width: 2.8cm;
-	height: 2.8cm;
 	max-width: 2.8cm;
+	min-width: 2.8cm;
+	height: 2.8cm;
 	max-height: 2.8cm;
+	min-height: 2.8cm;
 	border-style: double;
 	border-width: 1px;
 	border-color: #FF6666;

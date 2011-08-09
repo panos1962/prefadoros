@@ -12,6 +12,13 @@ Page::javascript('funchat/funchat');
 ?>
 </head>
 <body onresize="funchat.whltSave();">
+<div>
+Διεύθυνση URL εικόνας: <input id="inputURL" type="text" value="" size="20"
+	maxlength="4096" onkeyup="Ikona.keyCheck(event, this);" />
+<button type="button" onclick="Ikona.previewURL(0.5);">+</button>
+<button type="button" onclick="Ikona.previewURL(-0.5);">&ndash;</button>
+<button type="button" onclick="Ikona.stileIkona();">Send!</button>
+</div>
 <?php
 if (Session::is_set('ps_whlt')) {
 	if (preg_match('/^[0-9]+:[0-9]+:[0-9]+:[0-9]+$/', $_SESSION['ps_whlt'])) {
@@ -298,7 +305,4 @@ function print_panel() {
 	for ($i = 0; $i < $cnt; $i++) {
 		$item_list[$i]->show();
 	}
-	?>
-	<div id="checkAlive" style="width: 2.9cm; float: none;">&nbsp;</div>
-	<?php
 }

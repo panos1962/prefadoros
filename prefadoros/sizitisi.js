@@ -1,7 +1,7 @@
 var Sizitisi = new function() {
 	var sizitisi = null;
 	var telos = null;
-	var zebraColor = [
+	this.zebraColor = [
 		'556B2F',	// That's for me!
 		'8A0808',
 		'006600',
@@ -126,15 +126,15 @@ var Sizitisi = new function() {
 		var sxolio = Sizitisi.decode(s);
 		var html = '';
 		if (isPektis() && (s.p == pektis.login)) {
-			var color = zebraColor[0];
+			var color = Sizitisi.zebraColor[0];
 		}
 		else if (s.p in pektisColor) {
 			color = pektisColor[s.p];
 		}
 		else {
-			color = (pektisColor[s.p] = zebraColor[zebraLast]);
+			color = (pektisColor[s.p] = Sizitisi.zebraColor[zebraLast]);
 			zebraLast++;
-			if (zebraLast >= zebraColor.length) { zebraLast = 1; }
+			if (zebraLast >= Sizitisi.zebraColor.length) { zebraLast = 1; }
 		}
 		html += '<div class="sizitisiPektis" style="color: #' +
 			color + ';">' + s.p + '</div>';
@@ -290,7 +290,7 @@ var Sizitisi = new function() {
 				html += '<div class="sizitisiPreviewLine"></div>';
 				html += '<div class="sizitisiSxolio sizitisiPreview">';
 				html += '<div class="sizitisiPektis" style="color: #' +
-					zebraColor[0] + ';">' + pektis.login + '</div>';
+					Sizitisi.zebraColor[0] + ';">' + pektis.login + '</div>';
 				html += Sizitisi.textDecode(fld.value);
 				html += '</div>';
 				preview.innerHTML = html;

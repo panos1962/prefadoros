@@ -101,3 +101,73 @@ function stileFunchat(ikona, titlos, zoom, sound) {
 	f.value += '@' + titlos;
 	p.Sizitisi.apostoli(f);
 }
+
+var Ikona = new function() {
+	this.keyChek = function(e, fld) {
+		var w = self.opener;
+		if (notSet(w)) { return; }
+		if (notSet(w.Sizitisi)) { return; }
+		var preview = w.getelid('sxolioPreview');
+		if (notSet(preview)) { return; }
+
+		if (window.event) { var key = e.keyCode; }
+		else if (e.which) { key = e.which; }
+		else { key = false; }
+
+		if (key) {
+			switch(key) {
+			case 13:	// Enter key
+				if (fld.value != '') {
+					fld.value = Ikona.HTML(fld);
+					w.Sizitisi.apostoli(fld);
+				}
+			case 27:	// Esc key
+				fld.value = '';
+				preview.innerHTML = '';
+			}
+		}
+	};
+
+	var width = 4;
+
+	this.previewURL = function(dw) {
+		var w = self.opener;
+		if (notSet(w)) { return; }
+		if (notSet(w.Sizitisi)) { return; }
+		var preview = w.getelid('sxolioPreview');
+		if (notSet(preview)) { return; }
+		var fld = getelid('inputURL');
+		if (notSet(fld)) { return; }
+		if (fld.value == '') { return; }
+
+		width += dw;
+		var html = '';
+		html += '<div class="sizitisiPreviewLine"></div>';
+		html += '<div class="sizitisiSxolio sizitisiPreview">';
+		html += '<div class="sizitisiPektis" style="color: #' +
+			w.Sizitisi.zebraColor[0] + ';">' + pektis.login + '</div>';
+		html += '</div>';
+		html += Ikona.HTML(fld);
+		preview.innerHTML = html;
+		w.Sizitisi.scrollBottom();
+	};
+
+	this.stileIkona = function(e, fld) {
+		var w = self.opener;
+		if (notSet(w)) { return; }
+		if (notSet(w.Sizitisi)) { return; }
+		var preview = w.getelid('sxolioPreview');
+		if (notSet(preview)) { return; }
+		var fld = getelid('inputURL');
+		if (notSet(fld)) { return; }
+		if (fld.value == '') { return; }
+		fld.value = Ikona.HTML(fld);
+		w.Sizitisi.apostoli(fld);
+		fld.value = '';
+		preview.innerHTML = '';
+	};
+
+	this.HTML = function(fld) {
+		return '<img src="' + fld.value + '" style="width: ' + width + 'cm;" alt="" />';
+	};
+};
