@@ -94,6 +94,7 @@ function stileFunchat(ikona, titlos, zoom, sound) {
 	if (notSet(f)) { return; }
 
 	if ((titlos = prompt('', titlos)) === false) { return; }
+	if (notSet(titlos)) { titlos = ''; }
 	f.value = '@FC';
 	f.value += '@' + ikona;
 	f.value += '@' + zoom;
