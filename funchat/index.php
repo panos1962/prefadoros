@@ -26,6 +26,7 @@ URL εικόνας
 <button type="button" onclick="Ikona.preview(0.5);">+</button>
 <button type="button" onclick="Ikona.preview(-0.5);">&ndash;</button>
 <button type="button" onclick="Ikona.stile();">Send!</button>
+<button type="button" onclick="Ikona.akiro();">Άκυρο</button>
 </td>
 </tr>
 <tr>
@@ -35,7 +36,7 @@ URL εικόνας
 </div>
 </td>
 <td>
-<input id="inputLezanta" type="text" value="" size="40"
+<input id="inputLezanta" type="text" value="" size="50"
 	maxlength="4096" onkeyup="Ikona.keyCheck(event, this);" />
 </td>
 </tr>
