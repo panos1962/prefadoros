@@ -3,10 +3,10 @@
 
 var Pexnidi = new function() {
 
-dianomi = [];
 dianomi = [ true ];
-pexnidi.kapikia = [ 0, 0, 0, 0 ];
+dianomi = [];
 pexnidi.kapikia = [ 0, 111, -21, -90 ];
+pexnidi.kapikia = [ 0, 0, 0, 0 ];
 
 	// Η function "setPartida" καλείται κάθε φορά που έχουμε αλλαγή δεδομένων
 	// παρτίδας και σκοπό έχει να θέσει τα στοιχεία του παιχνιδιού στα νέα

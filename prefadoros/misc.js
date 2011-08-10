@@ -149,7 +149,7 @@ var Tools = new function() {
 	};
 
 	this.miaPrefaHTML = function(space) {
-		var html = '<div style="text-align: center;';
+		var html = '<div style="text-align: center; margin-top: 0.2cm;';
 		if (isSet(space)) { html += 'padding-bottom: 0.2cm;'; }
 		html += '">';
 		html += Tools.epilogiHTML('ΜΙΑ ΠΡΕΦΑ ΠΑΡΑΚΑΛΩ!', 'Partida.neoTrapezi();',

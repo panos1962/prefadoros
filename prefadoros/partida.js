@@ -287,7 +287,7 @@ rebelos = [
 	this.noPartidaHTML = function() {
 		Partida.HTML = '<div class="partida">';
 		Partida.HTML += '<div class="partidaMinima" style="margin-top: 1.8cm;">';
-		Partida.HTML += '<div style="padding: 0.6cm;">' + Tools.xromataHTML('1.2cm') + '</div>';
+		Partida.HTML += '<div style="padding: 0.4cm;">' + Tools.xromataHTML('1.2cm') + '</div>';
 		Partida.HTML += Tools.miaPrefaHTML();
 		Partida.HTML += '<div style="width: 80%; margin-left: auto; ' +
 			'margin-right: auto; margin-top: 0.6cm;">';
