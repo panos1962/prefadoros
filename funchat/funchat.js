@@ -116,7 +116,7 @@ var Ikona = new function() {
 		else if (e.which) { key = e.which; }
 		else { key = false; }
 
-		if (key) {
+		if (key !== false) {
 			switch(key) {
 			case 13:	// Enter key
 				Ikona.stile();
@@ -126,6 +126,30 @@ var Ikona = new function() {
 				Ikona.preview();
 			}
 		}
+	};
+
+	this.akiro = function() {
+		var w = self.opener;
+		if (notSet(w)) { return; }
+		if (notSet(w.Sizitisi)) { return; }
+
+		var preview = w.getelid('sxolioPreview');
+		if (notSet(preview)) { return; }
+
+		var img = getelid('inputURL');
+		if (notSet(img)) { return; }
+		if (img.value == '') { return; }
+
+		var txt = getelid('inputLezanta');
+		if (notSet(txt)) { return; }
+
+		var fld = getelid('ikonaData');
+		if (notSet(fld)) { return; }
+
+		fld.value = '';
+		img.value = '';
+		txt.value = '';
+		preview.innerHTML = '';
 	};
 
 	var width = 4;
