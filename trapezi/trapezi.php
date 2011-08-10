@@ -202,25 +202,14 @@ class Trapezi {
 
 	public function fetch_dianomi() {
 		global $globals;
-		$errmsg = "Pektis(fetch_dianomi): ";
-		unset($this->error);
+		$errmsg = "Trapezi(fetch_dianomi): ";
 
 		$query = "SELECT * FROM `διανομή` WHERE `τραπέζι` = " .
 			$this->kodikos . " ORDER BY `κωδικός`";
-		$result = @mysqli_query($globals->db, $query);
-		if (!$result) {
-			$this->error = $errmsg . 'SQL error (' .
-				@mysqli_error($globals->db) . ')';
-			return FALSE;
-		}
+		$result = $globals->sql_query($query);
 
-		$proti = TRUE;
+		$globals->dianomi = array();
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			if ($proti) {
-				$globals->dianomi = array();
-				$proti = FALSE;
-			}
-
 			$globals->dianomi[] = new Dianomi(
 				$row['κωδικός'],
 				$row['dealer'],
@@ -232,8 +221,6 @@ class Trapezi {
 				$row['μετρητά3']
 			);
 		}
-
-		return(!$proti);
 	}
 
 	public function fetch_kinisi() {

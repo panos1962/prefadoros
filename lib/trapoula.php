@@ -15,7 +15,15 @@ class Trapoula {
 	}
 
 	public function anakatema() {
-		for ($i = 0; $i < 1000; $i++) {
+		for ($i = 0; $i < 32; $i++) {
+			$k = mt_rand(0, 31);
+			if ($k != $i) {
+				$t = $this->fila[$k];
+				$this->fila[$k] = $this->fila[$i];
+				$this->fila[$i] = $t;
+			}
+		}
+		for ($i = 0; $i < 50; $i++) {
 			$k = mt_rand(0, 31);
 			$l = mt_rand(0, 31);
 			if ($l != $k) {
