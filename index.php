@@ -18,6 +18,7 @@ if ($globals->is_pektis()) {
 	Page::javascript('prefadoros/permes');
 	Page::javascript('prefadoros/trapezi');
 	Page::javascript('prefadoros/sizitisi');
+	Page::javascript('prefadoros/pexnidi');
 	Page::javascript('lib/controlPanel');
 	Page::javascript('lib/pss');
 	Page::javascript('lib/emoticons');

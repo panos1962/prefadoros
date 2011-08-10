@@ -10,6 +10,8 @@ var kinisi = [];	// οι κινήσεις της διανομής
 var trapezi = [];	// τα ενεργά τραπέζια
 var rebelos = [];	// περιφερόμενοι παίκτες
 
+var pexnidi = {};
+
 window.onload = function() {
 	init();
 	Emoticons.setup();
