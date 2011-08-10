@@ -23,6 +23,8 @@ require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
 require_once '../trapezi/trapezi.php';
 require_once '../prefadoros/partida.php';
+require_once '../prefadoros/dianomi.php';
+require_once '../prefadoros/kinisi.php';
 require_once '../prefadoros/prosklisi.php';
 require_once '../prefadoros/sxesi.php';
 require_once '../prefadoros/permes.php';
@@ -62,7 +64,7 @@ $kafenio_apo = Globals::perastike_check('kafenioApo');
 // ελέγχου σταπλαίσια της τρέχουσας συνεδρίας.
 Prefadoros::pektis_check(Globals::perastike_check('login'));
 $globals->pektis->poll_update($sinedria, $id);
-Prefadoros::set_trapezi();
+Prefadoros::set_trapezi(TRUE);
 
 // Αν έχει περαστεί παράμετρος "freska", τότε ζητάμε όλα τα δεδομένα
 // χωρίς να μπούμε στη διαδικασία της σύγκρισης με προηγούμενα
@@ -95,7 +97,7 @@ if (!$prev->diavase()) {
 $ekinisi = time();
 do {
 	unset($globals->trapezi);
-	Prefadoros::set_trapezi();
+	Prefadoros::set_trapezi(TRUE);
 	$curr = torina_dedomena();
 	if ($curr != $prev) {
 		diaforetika_dedomena($curr, $prev);
@@ -166,6 +168,8 @@ function print_epikefalida() {
 
 class Dedomena {
 	public $partida;
+	public $dianomi;
+	public $kinisi;
 	public $prosklisi;
 	public $sxesi;
 	public $permes;
@@ -176,6 +180,8 @@ class Dedomena {
 
 	public function __construct() {
 		$this->partida = NULL;
+		$this->dianomi = array();
+		$this->kinisi = array();
 		$this->prosklisi = array();
 		$this->sxesi = array();
 		$this->permes = array();
@@ -201,6 +207,8 @@ class Dedomena {
 		while ($line = Globals::get_line($fh)) {
 			switch ($line) {
 			case '@PARTIDA@':	Partida::diavase($fh, $this->partida); break;
+			case '@DIANOMI@':	Dianomi::diavase($fh, $this->dianomi); break;
+			case '@KINISI@':	Kinisi::diavase($fh, $this->kinisi); break;
 			case '@PROSKLISI@':	Prosklisi::diavase($fh, $this->prosklisi); break;
 			case '@SXESI@':		Sxesi::diavase($fh, $this->sxesi); break;
 			case '@PERMES@':	Permes::diavase($fh, $this->permes); break;
@@ -230,6 +238,8 @@ class Dedomena {
 		}
 
 		Partida::grapse($fh, $this->partida);
+		Dianomi::grapse($fh, $this->dianomi);
+		Kinisi::grapse($fh, $this->kinisi);
 		Prosklisi::grapse($fh, $this->prosklisi);
 		Sxesi::grapse($fh, $this->sxesi);
 		Permes::grapse($fh, $this->permes);
@@ -254,6 +264,8 @@ class Dedomena {
 function torina_dedomena() {
 	$dedomena = new Dedomena();
 	$dedomena->partida = Partida::process();
+	$dedomena->dianomi = Dianomi::process();
+	$dedomena->kinisi = Kinisi::process();
 	$dedomena->prosklisi = Prosklisi::process();
 	$dedomena->sxesi = Sxesi::process();
 	$dedomena->permes = Permes::process();
@@ -272,6 +284,8 @@ function freska_dedomena($dedomena) {
 
 	Partida::set_thesi_map($dedomena->partida);
 	Partida::print_json_data($dedomena->partida);
+	Dianomi::print_json_data($dedomena->dianomi);
+	Kinisi::print_json_data($dedomena->kinisi);
 	Prosklisi::print_json_data($dedomena->prosklisi);
 	Sxesi::print_json_data($dedomena->sxesi);
 	Permes::print_json_data($dedomena->permes);
@@ -290,6 +304,8 @@ function diaforetika_dedomena($curr, $prev) {
 	Partida::set_thesi_map($curr->partida);
 	Partida::set_thesi_map($prev->partida);
 	Partida::print_json_data($curr->partida, $prev->partida);
+	Dianomi::print_json_data($curr->dianomi, $prev->dianomi);
+	Kinisi::print_json_data($curr->kinisi, $prev->kinisi);
 	Prosklisi::print_json_data($curr->prosklisi, $prev->prosklisi);
 	Sxesi::print_json_data($curr->sxesi, $prev->sxesi);
 	Permes::print_json_data($curr->permes, $prev->permes);

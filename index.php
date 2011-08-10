@@ -13,6 +13,8 @@ if ($globals->is_pektis()) {
 	Page::javascript('prefadoros/misc');
 	Page::javascript('prefadoros/prefadoros');
 	Page::javascript('prefadoros/partida');
+	Page::javascript('prefadoros/dianomi');
+	Page::javascript('prefadoros/kinisi');
 	Page::javascript('prefadoros/prosklisi');
 	Page::javascript('prefadoros/sxesi');
 	Page::javascript('prefadoros/permes');

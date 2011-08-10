@@ -135,6 +135,8 @@ var Dedomena = new function() {
 
 		monitor.freska();
 		Partida.processDedomena(dedomena);
+		Dianomi.processDedomena(dedomena);
+		Kinisi.processDedomena(dedomena);
 		Prosklisi.processDedomena(dedomena);
 		Sxesi.processDedomena(dedomena);
 		Permes.processDedomena(dedomena);
