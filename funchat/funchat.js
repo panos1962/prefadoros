@@ -151,8 +151,8 @@ var Ikona = new function() {
 		html += '<div class="sizitisiSxolio sizitisiPreview">';
 		html += '<div class="sizitisiPektis" style="color: #' +
 			w.Sizitisi.zebraColor[0] + ';">' + pektis.login + '</div>';
-		html += '</div>';
 		html += Ikona.HTML(img, txt);
+		html += '</div>';
 		preview.innerHTML = html;
 		w.Sizitisi.scrollBottom();
 	};
