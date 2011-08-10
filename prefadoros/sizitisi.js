@@ -456,6 +456,34 @@ var Sizitisi = new function() {
 		var x = getelid('sxolioInput');
 		if (isSet(x)) { x.focus(); }
 	};
+
+	this.controlsHTML = function() {
+		var html = '';
+
+		var s = getelid('sxolioInput');
+		if (notSet(s)) { return ''; }
+
+		if ((Prefadoros.show == 'kafenio') ||
+			(isPartida() && (notTheatis() || isProsklisi()))) {
+			s.disabled = false;
+			Sizitisi.sxolioFocus();
+			html += '<img id="sxolioApostoli" src="' + globals.server +
+				'images/controlPanel/talk.png" class="pssIcon" ' +
+				'title="Αποστολή σχολίου" alt="" ' +
+				'onclick="Sizitisi.apostoli(null, this);" />';
+		}
+		else {
+			s.disabled = true;
+		}
+		if (isPartida() && (Prefadoros.show == 'partida') &&
+			(notTheatis() || isProsklisi())) {
+			html += '<img id="sxolioDiagrafi" src="' + globals.server +
+				'images/Xred.png" class="pssIcon" ' +
+				'title="Διαγραφή σχολίων" alt="" ' +
+				'onclick="Sizitisi.diagrafi(this);" />';
+		}
+		return html;
+	};
 };
 
 var Kafenio = new function() {

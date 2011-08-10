@@ -168,13 +168,7 @@ function sizitisi_area() {
 			print $globals->server; ?>images/sizitisiPrompt.png');"
 			onkeyup="Sizitisi.keyCheck(event, this);" />
 		<input id="sxolioInputHidden" type="hidden" value="" maxlength="4096" size="0" />
-		<img id="sxolioApostoli" src="<?php print $globals->server;
-			?>images/controlPanel/talk.png"
-			class="pssIcon" title="Αποστολή σχολίου" alt=""
-			onclick="Sizitisi.apostoli(null, this);" />
-		<img id="sxolioDiagrafi" src="<?php print $globals->server; ?>images/Xred.png"
-			class="pssIcon" title="Διαγραφή σχολίων" alt=""
-			onclick="Sizitisi.diagrafi(this);" />
+		<span id="sizitisiControls"></span>
 		<div class="pssSizing">
 		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
 			class="pssSizingIcon" title="Μείωση περιοχής συζήτησης"

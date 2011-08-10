@@ -80,6 +80,7 @@ var Prefadoros = new function() {
 		this.show = 'partida';
 		x.style.overflowY = 'hidden';
 		x.innerHTML = Partida.HTML;
+		Prefadoros.sizitisiControls();
 
 		var s = getelid('sizitisiTrapezi');
 		if (isSet(s)) {
@@ -109,6 +110,7 @@ var Prefadoros = new function() {
 		this.show = 'kafenio';
 		x.style.overflowY = 'auto';
 		x.innerHTML = Trapezi.HTML;
+		Prefadoros.sizitisiControls();
 
 		var s = getelid('sizitisiKafenio');
 		if (isSet(s)) {
@@ -126,6 +128,12 @@ var Prefadoros = new function() {
 
 		if (isSet(fs) && fs) { Sizitisi.sxolioFocus(); }
 		return false;
+	};
+
+	this.sizitisiControls = function() {
+		var x = getelid('sizitisiControls');
+		if (notSet(x)) { return; }
+		x.innerHTML = Sizitisi.controlsHTML();
 	};
 
 	this.sviseBikeTora = function(img) {
@@ -155,7 +163,7 @@ var Prefadoros = new function() {
 }
 
 function isPektis() {
-	return(isSet(pektis) && isSet(pektis.login));
+	return(isSet(window.pektis) && isSet(pektis.login));
 }
 
 function notPektis() {
@@ -163,7 +171,7 @@ function notPektis() {
 }
 
 function isTheatis() {
-	return(isSet(partida) && isSet(partida.t) && (partida.t == 1));
+	return(isSet(window.partida) && isSet(partida.t) && (partida.t == 1));
 }
 
 function notTheatis() {
@@ -171,7 +179,7 @@ function notTheatis() {
 }
 
 function isPartida() {
-	return(isSet(partida) && isSet(partida.k));
+	return(isSet(window.partida) && isSet(partida.k));
 }
 
 function notPartida() {
@@ -179,7 +187,7 @@ function notPartida() {
 }
 
 function isPrive() {
-	return(isSet(partida) && isSet(partida.p) && (partida.p == 1));
+	return(isSet(window.partida) && isSet(partida.p) && (partida.p == 1));
 }
 
 function isPublic() {
@@ -187,7 +195,7 @@ function isPublic() {
 }
 
 function isKlisto() {
-	return(isSet(partida) && isSet(partida.b) && (partida.b == 1));
+	return(isSet(window.partida) && isSet(partida.b) && (partida.b == 1));
 }
 
 function isAnikto() {
@@ -195,7 +203,7 @@ function isAnikto() {
 }
 
 function isDianomi() {
-	return(isSet(dianomi) && isSet(dianomi.length) && (dianomi.length > 0));
+	return(isSet(window.dianomi) && isSet(dianomi.length) && (dianomi.length > 0));
 }
 
 function notDianomi() {
@@ -203,7 +211,7 @@ function notDianomi() {
 }
 
 function isApodoxi(thesi) {
-	if (notSet(partida)) { return false; }
+	if (notSet(window.partida)) { return false; }
 	var apodoxi = eval('partida.a' + thesi);
 	if (notSet(apodoxi)) { return true; }
 	return(apodoxi != 0);
@@ -214,7 +222,7 @@ function notApodoxi(thesi) {
 }
 
 function isKeniThesi() {
-	if (isSet(partida)) {
+	if (isSet(window.partida)) {
 		for (var i = 1; i <= 3; i++) {
 			if (eval('partida.p' + i) == '') {
 				return true;
@@ -226,6 +234,22 @@ function isKeniThesi() {
 
 function notKeniThesi() {
 	return(!isKeniThesi());
+}
+
+function isProsklisi() {
+	if (notPartida()) { return false; }
+	if (notPektis()) { return false; }
+	if (notSet(window.prosklisi)) { return false; }
+	for (var i = 0; i < prosklisi.length; i++) {
+		if (prosklisi[i].p != pektis.login) { continue; }
+		if (prosklisi[i].t != partida.k) { continue; }
+		return true;
+	}
+	return false;
+}
+
+function notProsklisi() {
+	return(!isProsklisi());
 }
 
 // Δέχεται μια θέση όπως εμφανίζεται στον client και επιστρέφει την
