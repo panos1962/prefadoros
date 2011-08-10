@@ -8,7 +8,7 @@ set_globals();
 
 Prefadoros::pektis_check();
 Prefadoros::trapezi_check();
-if ($globals->trapezi->theatis) {
+if ($globals->trapezi->is_theatis()) {
 	die('Δεν μπορείτε να αλλάξετε τη διάταξη των παικτών ως θεατής');
 }
 
@@ -18,7 +18,7 @@ $query = "DELETE FROM `διανομή` WHERE `τραπέζι` = " . $globals->tr
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) <= 0) {
 	Prefadoros::xeklidose_trapezi(FALSE);
-	die("Απέτυχε η διαγραφή των διανομών");
+	die("Δεν διεγράφησαν διανομές");
 }
 
 Prefadoros::xeklidose_trapezi(TRUE);
