@@ -3,7 +3,7 @@ var Partida = new function() {
 
 	this.processDedomena = function(dedomena) {
 		// Αν δεν υπάρχει πεδίο παρτίδας στα επιστρεφόμενα
-		// δεδομένα, σημαίνιε ότι δεν έχει αλλάξει κάτι.
+		// δεδομένα, σημαίνει ότι δεν έχει αλλάξει κάτι.
 		if (notSet(dedomena.partida)) {
 			return;
 		}
@@ -29,6 +29,7 @@ var Partida = new function() {
 		}
 
 		partida = dedomena.partida;
+		Pexnidi.setPartida();
 	};
 
 	this.bikeNeos = function(nea) {
@@ -107,10 +108,8 @@ var Partida = new function() {
 		html += '<div class="pektisMain';
 		html += Partida.pektisMainHTML(3);
 		html += '">';
-		html += '<div class="pektisData">';
-		html += '<div class="pektisName">' + partida.p3 + '</div>';
-		html += Partida.miposBikeTora(3);
-		html += '</div>';
+		html += Partida.onomaPektiHTML(3);
+		html += Partida.kapikiaHTML(3);
 		html += '</div>';
 		html += '</div>';
 		return html;
@@ -124,16 +123,14 @@ var Partida = new function() {
 		html += '<div class="pektisMain';
 		html += Partida.pektisMainHTML(2);
 		html += '">';
-		html += '<div class="pektisName">' + partida.p2 + '</div>';
-		html += Partida.miposBikeTora(2);
+		html += Partida.onomaPektiHTML(2);
+		html += Partida.kapikiaHTML(2);
 		html += '</div>';
 		html += '</div>';
 		return html;
 	};
 
 	this.pektis1HTML = function() {
-dianomi = [ true ];
-dianomi = [];
 		var html = '';
 		html += '<div class="pektis1';
 		if (isDianomi()) { html += ' pektis1akri'; }
@@ -142,12 +139,19 @@ dianomi = [];
 		if (isDianomi()) { html += ' pektis1MainAkri'; }
 		html += Partida.pektisMainHTML(1);
 		html += '">';
-		html += '<div class="pektisName">' + partida.p1 + '</div>';
-		html += Partida.miposBikeTora(1);
+		html += Partida.onomaPektiHTML(1);
+		html += Partida.kapikiaHTML(1);
 		html += '</div>';
 		html += '</div>';
 		return html;
 	};
+
+	this.onomaPektiHTML = function(thesi) {
+		var html = '';
+		html += '<div class="pektisName">' + pexnidi.pektis[thesi] + '</div>';
+		html += Partida.miposBikeTora(thesi);
+		return html;
+	}
 
 	this.miposBikeTora = function(thesi) {
 		if (Prefadoros.show != 'partida') { return ''; }
@@ -155,6 +159,30 @@ dianomi = [];
 		return '<img src="' + globals.server + 'images/hi.png" ' +
 			'style="position: absolute; width: 1.6cm; top: -0.8cm; right: -0.1cm;" ' +
 			'alt="" onload="Prefadoros.sviseBikeTora(this);" />';
+	};
+
+	this.kapikiaHTML = function(thesi) {
+		var html = '';
+		if (notDianomi()) { return html; }
+
+		html += '<div class="kapikiaArea">';
+		if (pexnidi.kapikia[thesi] != 0) {
+ 			html += '<span class="kapikia">καπίκια:</span>';
+ 			html += '<span class="kapikia' +
+				(pexnidi.kapikia[thesi] > 0 ? 'Sin' : 'Mion') + '">';
+			html += pexnidi.kapikia[thesi];
+ 			html += '</span>';
+		}
+		else {
+ 			html += '<img class="kapikiaIcon" src="' + globals.server +
+				'images/pare.png" alt="" />';
+ 			html += '<img class="kapikiaIcon" src="' + globals.server +
+				'images/controlPanel/kapikia.png" alt="" />';
+ 			html += '<img class="kapikiaIcon" src="' + globals.server +
+				'images/dose.png" alt="" />';
+		}
+		html += '</div>';
+		return html;
 	};
 
 	this.pektisMainHTML = function(thesi) {
