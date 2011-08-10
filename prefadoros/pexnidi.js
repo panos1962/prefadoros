@@ -3,7 +3,7 @@
 
 var Pexnidi = new function() {
 
-dianomi = [ true ];
+dianomi = [ 1 ];
 dianomi = [];
 pexnidi.kapikia = [ 0, 111, -21, -90 ];
 pexnidi.kapikia = [ 0, 0, 0, 0 ];
