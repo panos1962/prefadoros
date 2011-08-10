@@ -202,7 +202,6 @@ class Trapezi {
 
 	public function fetch_dianomi() {
 		global $globals;
-		$errmsg = "Trapezi(fetch_dianomi): ";
 
 		$query = "SELECT * FROM `διανομή` WHERE `τραπέζι` = " .
 			$this->kodikos . " ORDER BY `κωδικός`";
@@ -225,41 +224,23 @@ class Trapezi {
 
 	public function fetch_kinisi() {
 		global $globals;
-		$errmsg = "Pektis(fetch_kinisi): ";
-		unset($this->error);
 
+		$globals->kinisi = array();
 		if ($globals->is_dianomi()) {
-			$dianomi_wc = '=' . $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
-		}
-		else {
-			$dianomi_wc = 'IS NULL';
-		}
-
-		$query = "SELECT * FROM `κίνηση` WHERE `διανομή` " .
-			$dianomi_wc . " ORDER BY `κωδικός`";
-		$result = @mysqli_query($globals->db, $query);
-		if (!$result) {
-			$this->error = $errmsg . 'SQL error (' .
-				@mysqli_error($globals->db) . ')';
-			return FALSE;
-		}
-
-		$proti = TRUE;
-		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			if ($proti) {
-				$globals->kinisi = array();
-				$proti = FALSE;
+			$dianomi = $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
+			$query = "SELECT * FROM `κίνηση` WHERE `διανομή` = " .
+				$dianomi . " ORDER BY `κωδικός`";
+			$result = $globals->sql_query($query);
+			while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				$globals->kinisi[] = new Kinisi(
+					$row['κωδικός'],
+					$row['διανομή'],
+					$row['παίκτης'],
+					$row['είδος'],
+					$row['data']
+				);
 			}
-
-			$globals->kinisi[] = new Kinisi(
-				$row['κωδικός'],
-				$row['παίκτης'],
-				$row['είδος'],
-				$row['data']
-			);
 		}
-
-		return(!$proti);
 	}
 
 	public function print_raw_data($fh, $full = TRUE) {

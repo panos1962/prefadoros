@@ -38,6 +38,7 @@ class Globals {
 	public $pektis;
 	public $trapezi;
 	public $dianomi;
+	public $kinisi;
 
 	public function __construct() {
 		unset($this->server);
@@ -46,6 +47,7 @@ class Globals {
 		unset($this->pektis);
 		unset($this->trapezi);
 		unset($this->dianomi);
+		unset($this->kinisi);
 	}
 
 	public function is_administrator() {
@@ -81,13 +83,17 @@ class Globals {
 	}
 
 	public function is_dianomi() {
-		return(isset($this->dianomi));
+		return(isset($this->dianomi) && (count($this->dianomi) > 0));
 	}
 
 	public function dianomi_check() {
 		if (!$this->is_dianomi()) {
 			self::fatal('ακαθόριστη διανομή');
 		}
+	}
+
+	public function is_kinisi() {
+		return(isset($this->kinisi) && (count($this->kinsi) > 0));
 	}
 
 	public static function perastike($key) {

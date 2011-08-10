@@ -60,11 +60,11 @@ class Prefadoros {
 		return(TRUE);
 	}
 
-	public static function trapezi_check() {
+	public static function trapezi_check($all = FALSE) {
 		global $globals;
 
 		if (!$globals->is_trapezi()) {
-			self::set_trapezi();
+			self::set_trapezi($all);
 			if (!$globals->is_trapezi()) {
 				Globals::fatal(self::$errmsg . 'ακαθόριστο τραπέζι');
 			}
