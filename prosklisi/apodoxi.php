@@ -44,6 +44,13 @@ if ($row[0]) {
 	die('Το τραπέζι έχει κλείσει');
 }
 
+for ($i = 1; $i <= 3; $i++) {
+	if ($row[$i] == $globals->pektis->login) {
+		@mysqli_rollback($globals->db);
+		die("Συμμετέχετε ήδη ως παίκτης στο τραπέζι " . $trapezi);
+	}
+}
+
 $thesi = vres_simetoxi();
 for ($i = 0; $i < 3; $i++) {
 	if (!$row[$thesi]) { break; }
