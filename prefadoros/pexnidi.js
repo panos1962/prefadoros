@@ -7,24 +7,64 @@ var Pexnidi = new function() {
 	// δεδομένα.
 
 	this.setData = function() {
-		pexnidi.kasa = 0;
 		pexnidi.ipolipo = 0;
 		pexnidi.pektis = [ '', '', '', '' ];
 		pexnidi.kapikia = [ 0, 0, 0, 0 ];
+		pexnidi.elima = 0;
+		pexnidi.dealer = 0;
 		if (notPartida()) { return;}
 
 		for (var i = 1; i <= 3; i++) {
 			pexnidi.pektis[i] = eval('partida.p' + i);
+			pexnidi.kapikia[i] = -(partida.s * 10);
 		}
 
-		pexnidi.kasa = partida.s;
-		pexnidi.ipolipo = 30 * pexnidi.kasa;
+		pexnidi.ipolipo = 30 * partida.s;
 		for (var i = 0; i < dianomi.length; i++) {
-			pexnidi.ipolipo -= dianomi[i].k1;
-			pexnidi.ipolipo -= dianomi[i].k2;
-			pexnidi.ipolipo -= dianomi[i].k3;
+			pexnidi.dealer = dianomi[i].dealer;
+			for (var j = 1; j <= 3; j++) {
+				pexnidi.ipolipo -= eval('dianomi[i].k' + j);
+				pexnidi.kapikia[j] += eval('dianomi[i].m' + j);
+				pexnidi.kapikia[j] += eval('dianomi[i].k' + j);
+			}
 		}
 
+		// Τα καπίκια κάθε παίκτη πρέπει να ισούνται με το
+		// αλγεβρικό άθροισμα των καπικιών των άλλων δύο παικτών.
+		// Υπάρχει περίπτωση αυτά να μην διαιρούνται ακριβώς με
+		// το 3, επομένως μπορεί να δημιουργηθεί κάποιο έλλειμμα
+		// ενός καπικίου. Αν θέλω μπορώ αργότερα να το τυπώσω.
+
+		switch (mapThesi(1)) {
+		case 2:
+			ena = 2;
+			dio = 3;
+			tria = 1;
+			break;
+		case 3:
+			ena = 3;
+			dio = 1;
+			tria = 2;
+			break;
+		default:
+			ena = 1;
+			dio = 2;
+			tria = 3;
+			break;
+		}
+
+		var x = pexnidi.ipolipo / 3;
 		pexnidi.ipolipo = parseInt(pexnidi.ipolipo / 10);
+
+		pexnidi.kapikia[ena] = parseInt(pexnidi.kapikia[ena] + x);
+		pexnidi.kapikia[dio] = parseInt(pexnidi.kapikia[dio] + x);
+		pexnidi.kapikia[tria] = parseInt(pexnidi.kapikia[tria] + x);
+
+		var x = pexnidi.kapikia[dio] + pexnidi.kapikia[tria];
+		pexnidi.elima = pexnidi.kapikia[ena] + x;
+
+		// Θέτω τα καπίκα του πρώτου παίκτη να ισούνται με το
+		// αλγεβρικό άθροισμα των άλλων δύο.
+		pexnidi.kapikia[ena] = -x;
 	};
 }

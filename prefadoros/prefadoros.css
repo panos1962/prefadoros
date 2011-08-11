@@ -173,6 +173,13 @@
 	overflow: hidden;
 }
 
+.pektisGone {
+	margin-left: 15%;
+	margin-right: 15%;
+	width: 70%;
+	
+}
+
 .kapikiaArea {
 	position: absolute;
 	top: 0.9cm;

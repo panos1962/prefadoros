@@ -284,8 +284,8 @@ function freska_dedomena($dedomena) {
 
 	Partida::set_thesi_map($dedomena->partida);
 	Partida::print_json_data($dedomena->partida);
-	Dianomi::print_json_data($dedomena->dianomi);
-	Kinisi::print_json_data($dedomena->kinisi);
+	Dianomi::print_json_data($dedomena->dianomi, $dedomena->partida->thesi_map);
+	Kinisi::print_json_data($dedomena->kinisi, $dedomena->partida->thesi_map);
 	Prosklisi::print_json_data($dedomena->prosklisi);
 	Sxesi::print_json_data($dedomena->sxesi);
 	Permes::print_json_data($dedomena->permes);
@@ -304,8 +304,8 @@ function diaforetika_dedomena($curr, $prev) {
 	Partida::set_thesi_map($curr->partida);
 	Partida::set_thesi_map($prev->partida);
 	Partida::print_json_data($curr->partida, $prev->partida);
-	Dianomi::print_json_data($curr->dianomi, $prev->dianomi);
-	Kinisi::print_json_data($curr->kinisi, $prev->kinisi);
+	Dianomi::print_json_data($curr->dianomi, $curr->partida->thesi_map, $prev->dianomi);
+	Kinisi::print_json_data($curr->kinisi, $curr->partida->thesi_map, $prev->kinisi);
 	Prosklisi::print_json_data($curr->prosklisi, $prev->prosklisi);
 	Sxesi::print_json_data($curr->sxesi, $prev->sxesi);
 	Permes::print_json_data($curr->permes, $prev->permes);
