@@ -108,6 +108,9 @@ function control_panel() {
 	<div>
 		<img id="controlPanelIcon" class="controlPanelIcon" alt="" src="<?php
 			print $globals->server; ?>images/controlPanel/4Balls.png"
+			style="border-style: inset;"
+			onmouseover="controlPanel.mesaExo(this, true);"
+			onmouseout="controlPanel.mesaExo(this, false);"
 			title="Εναλλαγή εργαλείων" onclick="controlPanel.enalagi();" />
 		<div id="controlPanel">
 		</div>
@@ -193,8 +196,11 @@ function emoticons() {
 	global $globals;
 	?>
 	<div>
-		<img class="emoticonsIcon" alt="" src="<?php
+		<img class="controlPanelIcon" alt="" src="<?php
 			print $globals->server; ?>images/controlPanel/4Balls.png"
+			style="border-style: inset;"
+			onmouseover="controlPanel.mesaExo(this, true);"
+			onmouseout="controlPanel.mesaExo(this, false);"
 			title="Εναλλαγή emoticons" onclick="Emoticons.enalagi();" />
 		<div id="emoticons">
 		</div>

@@ -6,13 +6,12 @@ class Kinisi {
 	public $idos;
 	public $data;
 
-	public function __construct($kodikos = 0, $dianomi = 0,
-		$pektis = 0, $idos = '', $data = '') {
-		$this->kodikos = $kodikos;
-		$this->dianomi = $dianomi;
-		$this->pektis = $pektis;
-		$this->idos = $idos;
-		$this->data = $data;
+	public function __construct() {
+		unset($this->kodikos);
+		unset($this->dianomi);
+		unset($this->pektis);
+		unset($this->idos);
+		unset($this->data);
 	}
 
 	public function set_from_dbrow($row) {
@@ -50,7 +49,7 @@ class Kinisi {
 
 	public static function diavase($fh, &$klist) {
 		while ($line = Globals::get_line_end($fh)) {
-			$k = new Kinisi();
+			$k = new Kinisi;
 			if ($k->set_from_file($line)) {
 				$klist[] = $k;
 			}
@@ -78,7 +77,7 @@ class Kinisi {
 
 		// Κατασκευάζω τα arrays "cdata" και "pdata" που περιέχουν τα
 		// δεδομένα των κινήσεων δεικτοδοτημένα με τους κωδικούς
-		// των προσκλήσεων.
+		// των κινήσεων.
 
 		$cdata = array();
 		$ncurr = count($curr);
@@ -98,6 +97,7 @@ class Kinisi {
 
 		$ndif = 0;
 		$new = array();
+		$mod = array();
 		foreach($cdata as $kodikos => $data) {
 			if (!array_key_exists($kodikos, $pdata)) {
 				$new[] = &$cdata[$kodikos];
@@ -131,19 +131,20 @@ class Kinisi {
 			$koma = '';
 			foreach ($del as $i => $dummy) {
 				print $koma; $koma = ",";
-				print "'k" . $i . "':1";
+				print "'" . $i . "':1";
 			}
 			print "}";
 		}
 
 		if (($n = count($mod)) > 0) {
-			print ",kinisiMod:[";
+			print ",kinisiMod:{";
 			$koma = '';
 			foreach ($mod as $i => $dummy) {
 				print $koma; $koma = ",";
+				print "'" . $i . "':";
 				$mod[$i]->json_data();
 			}
-			print "]";
+			print "}";
 		}
 
 		if (($n = count($new)) > 0) {

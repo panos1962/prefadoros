@@ -9,17 +9,15 @@ class Dianomi {
 	public $kasa3;
 	public $metrita3;
 
-	public function __construct($kodikos = 0, $dealer = 0,
-		$kasa1 = 0, $metrita1 = 0, $kasa2 = 0, $metrita2 = 0,
-		$kasa3 = 0, $metrita3 = 0) {
-		$this->kodikos = $kodikos;
-		$this->dealer = $dealer;
-		$this->kasa1 = $kasa1;
-		$this->metrita1 = $metrita1;
-		$this->kasa2 = $kasa2;
-		$this->metrita2 = $metrita2;
-		$this->kasa3 = $kasa3;
-		$this->metrita3 = $metrita3;
+	public function __construct() {
+		unset($this->kodikos);
+		unset($this->dealer);
+		unset($this->kasa1);
+		unset($this->metrita1);
+		unset($this->kasa2);
+		unset($this->metrita2);
+		unset($this->kasa3);
+		unset($this->metrita3);
 	}
 
 	public function set_from_dbrow($row) {
@@ -68,7 +66,7 @@ class Dianomi {
 
 	public static function diavase($fh, &$dlist) {
 		while ($line = Globals::get_line_end($fh)) {
-			$d = new Dianomi();
+			$d = new Dianomi;
 			if ($d->set_from_file($line)) {
 				$dlist[] = $d;
 			}
@@ -96,7 +94,7 @@ class Dianomi {
 
 		// Κατασκευάζω τα arrays "cdata" και "pdata" που περιέχουν τα
 		// δεδομένα των διανομών δεικτοδοτημένα με τους κωδικούς
-		// των προσκλήσεων.
+		// των διανομών.
 
 		$cdata = array();
 		$ncurr = count($curr);
@@ -116,6 +114,7 @@ class Dianomi {
 
 		$ndif = 0;
 		$new = array();
+		$mod = array();
 		foreach($cdata as $kodikos => $data) {
 			if (!array_key_exists($kodikos, $pdata)) {
 				$new[] = &$cdata[$kodikos];

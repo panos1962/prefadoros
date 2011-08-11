@@ -164,6 +164,7 @@ class Trapezi {
 
 	public function klidoma() {
 		global $globals;
+		@mysqli_autocommit($globals->db, FALSE);
 		return($globals->klidoma('trapezi:' . $this->kodikos));
 	}
 
@@ -209,16 +210,9 @@ class Trapezi {
 
 		$globals->dianomi = array();
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			$globals->dianomi[] = new Dianomi(
-				$row['κωδικός'],
-				$row['dealer'],
-				$row['κάσα1'],
-				$row['μετρητά1'],
-				$row['κάσα2'],
-				$row['μετρητά2'],
-				$row['κάσα3'],
-				$row['μετρητά3']
-			);
+			$d = new Dianomi;
+			$d->set_from_dbrow($row);
+			$globals->dianomi[] = $d;
 		}
 	}
 
@@ -232,13 +226,9 @@ class Trapezi {
 				$dianomi . " ORDER BY `κωδικός`";
 			$result = $globals->sql_query($query);
 			while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				$globals->kinisi[] = new Kinisi(
-					$row['κωδικός'],
-					$row['διανομή'],
-					$row['παίκτης'],
-					$row['είδος'],
-					$row['data']
-				);
+				$k = new Kinisi;
+				$k->set_from_dbrow($row);
+				$globals->kinisi[] = $k;
 			}
 		}
 	}

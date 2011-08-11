@@ -176,7 +176,7 @@ class Globals {
 		return(fwrite($fh, $s . "\n"));
 	}
 
-	public function klidoma($tag, $autocommit = FALSE, $timeout = 2) {
+	public function klidoma($tag, $timeout = 2) {
 		$query = "SELECT GET_LOCK('" . $this->asfales($tag) . "', " . $timeout . ")";
 		$result = @mysqli_query($this->db, $query);
 		if (!$result) { return(FALSE); }
@@ -186,10 +186,6 @@ class Globals {
 
 		@mysqli_free_result($result);
 		if ($row[0] != 1) { return(FALSE); }
-
-		if ($autocommit) {
-			@mysqli_autocommit($this->db, FALSE);
-		}
 
 		return(TRUE);
 	}
