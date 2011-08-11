@@ -25,7 +25,7 @@ var Prosklisi = new function() {
 		if (isSet(dedomena.prosklisiNew)) {
 			for (var i = 0; i < dedomena.prosklisiNew.length; i++) {
 				if (dedomena.prosklisiNew[i].a != pektis.login) { nea = true; }
-				prosklisi1[prosklisi1.length] = dedomena.prosklisiNew[i];
+				prosklisi1.push(dedomena.prosklisiNew[i]);
 			}
 			if (nea && notFreska(dedomena)) { playSound('sfirigma'); }
 		}
@@ -36,7 +36,7 @@ var Prosklisi = new function() {
 		for (var i = 0; i < prosklisi.length; i++) {
 			if (notSet(dedomena.prosklisiDel) ||
 				(!(('p' + prosklisi[i].k) in dedomena.prosklisiDel))) {
-				prosklisi1[prosklisi1.length] = prosklisi[i];
+				prosklisi1.push(prosklisi[i]);
 			}
 		}
 

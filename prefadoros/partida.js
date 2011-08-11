@@ -29,7 +29,6 @@ var Partida = new function() {
 		}
 
 		partida = dedomena.partida;
-		Pexnidi.setPartida();
 	};
 
 	this.bikeNeos = function(nea) {
@@ -79,6 +78,12 @@ var Partida = new function() {
 			html += '<img class="kasaPanoKato' + tbc + '" alt="" src="' + globals.server +
 				'images/katoKasa.png" title="Μείωση κάσας κατά 300 καπίκια" ' +
 				'onclick="Partida.kasaPanoKato(-10, this);" />';
+		}
+		html += ', υπόλοιπο: <span class="partidaInfoData' + tbc + '">';
+		html += pexnidi.ipolipo + '</span>';
+		if (isDianomi()) {
+			html += ', διανομή: <span class="partidaInfoData' + tbc + '">';
+			html += dianomi[dianomi.length - 1].k + '</span>';
 		}
 		html += '</div>';
 		if (isKlisto()) {

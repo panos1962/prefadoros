@@ -28,7 +28,7 @@ var Sxesi = new function() {
 		// εγγραφές τις οποίες θα εμφανίσω πρώτες.
 		if (isSet(dedomena.sxesiNew)) {
 			for (var i = 0; i < dedomena.sxesiNew.length; i++) {
-				sxesi1[sxesi1.length] = dedomena.sxesiNew[i];
+				sxesi1.push(dedomena.sxesiNew[i]);
 			}
 		}
 
@@ -44,15 +44,14 @@ var Sxesi = new function() {
 			}
 
 			if (isSet(dedomena.sxesiMod) && (sxesi[i].l in dedomena.sxesiMod)) {
-				sxesi1[sxesi1.length] = dedomena.sxesiMod[sxesi[i].l];
+				sxesi1.push(dedomena.sxesiMod[sxesi[i].l]);
 				continue;
 			}
 
-			sxesi1[sxesi1.length] = sxesi[i];
+			sxesi1.push(sxesi[i]);
 		}
 
 		sxesi = sxesi1;
-		delete sxesi1;
 		Sxesi.updateHTML();
 	};
 

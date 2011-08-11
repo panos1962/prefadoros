@@ -15,7 +15,7 @@ var Trapezi = new function() {
 		if (isSet(dedomena.trapeziNew)) {
 			ixos = 'pop';
 			for (var i = 0; i < dedomena.trapeziNew.length; i++) {
-				trapezi1[trapezi1.length] = dedomena.trapeziNew[i];
+				trapezi1.push(dedomena.trapeziNew[i]);
 			}
 		}
 
@@ -26,22 +26,20 @@ var Trapezi = new function() {
 		// να έχουν διαγραφεί τις αγνοώ· τις υπόλοιπες εγγραφές απλώς τις
 		// αντιγράφω στο νέο array.
 		for (var i = 0; i < trapezi.length; i++) {
-			if (isSet(dedomena.trapeziDel) &&
-				(('t' + trapezi[i].k) in dedomena.trapeziDel)) {
+			var idx = 't' + trapezi[i].k;
+			if (isSet(dedomena.trapeziDel) && (idx in dedomena.trapeziDel)) {
 				continue;
 			}
 
-			if (isSet(dedomena.trapeziMod) &&
-				(('t' + trapezi[i].k) in dedomena.trapeziMod)) {
-				trapezi1[trapezi1.length] = dedomena.trapeziMod['t' + trapezi[i].k];
+			if (isSet(dedomena.trapeziMod) && (idx in dedomena.trapeziMod)) {
+				trapezi1.push(dedomena.trapeziMod[idx]);
 				continue;
 			}
 
-			trapezi1[trapezi1.length] = trapezi[i];
+			trapezi1.push(trapezi[i]);
 		}
 
 		trapezi = trapezi1;
-		delete trapezi1;
 
 		if (notSet(ixos) && isSet(dedomena.trapeziDel)) {
 			ixos = 'blioup';
@@ -104,8 +102,8 @@ var Trapezi = new function() {
 		}
 		html += '>';
 		html += '<div class="kafenioBoxData">';
-		if (isSet(t.k) && isSet(t.s)) {
-			html += (t.k + '#' + t.s);
+		if (isSet(t.k) && isSet(t.i)) {
+			html += (t.k + '#' + t.i);
 		}
 		else {
 			html += Tools.xromataHTML('0.5cm');
@@ -245,7 +243,7 @@ var Rebelos = new function() {
 		if (isSet(dedomena.rebelosNew)) {
 			ixos = 'pop';
 			for (var i = 0; i < dedomena.rebelosNew.length; i++) {
-				rebelos1[rebelos1.length] = dedomena.rebelosNew[i];
+				rebelos1.push(dedomena.rebelosNew[i]);
 			}
 		}
 
@@ -263,11 +261,11 @@ var Rebelos = new function() {
 
 			if (isSet(dedomena.rebelosMod) &&
 				(rebelos[i].l in dedomena.rebelosMod)) {
-				rebelos1[rebelos1.length] = dedomena.rebelosMod[rebelos[i].l];
+				rebelos1.push(dedomena.rebelosMod[rebelos[i].l]);
 				continue;
 			}
 
-			rebelos1[rebelos1.length] = rebelos[i];
+			rebelos1.push(rebelos[i]);
 		}
 
 		rebelos = rebelos1;

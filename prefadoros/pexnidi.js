@@ -2,25 +2,29 @@
 // "dianomi" και "kinisi".
 
 var Pexnidi = new function() {
-
-pexnidi.kapikia = [ 0, 111, -21, -90 ];
-pexnidi.kapikia = [ 0, 0, 0, 0 ];
-
-	// Η function "setPartida" καλείται κάθε φορά που έχουμε αλλαγή δεδομένων
-	// παρτίδας και σκοπό έχει να θέσει τα στοιχεία του παιχνιδιού στα νέα
+	// Η function "setData" καλείται κάθε φορά που έχουμε νέα δεδομένα
+	// και σκοπό έχει να θέσει τα στοιχεία του παιχνιδιού στα νέα
 	// δεδομένα.
 
-	this.setPartida = function() {
+	this.setData = function() {
 		pexnidi.kasa = 0;
 		pexnidi.ipolipo = 0;
 		pexnidi.pektis = [ '', '', '', '' ];
 		pexnidi.kapikia = [ 0, 0, 0, 0 ];
 		if (notPartida()) { return;}
 
-		pexnidi.kasa = partida.s;
-		pexnidi.ipolipo = 30 * pexnidi.kasa;
 		for (var i = 1; i <= 3; i++) {
 			pexnidi.pektis[i] = eval('partida.p' + i);
 		}
+
+		pexnidi.kasa = partida.s;
+		pexnidi.ipolipo = 30 * pexnidi.kasa;
+		for (var i = 0; i < dianomi.length; i++) {
+			pexnidi.ipolipo -= dianomi[i].k1;
+			pexnidi.ipolipo -= dianomi[i].k2;
+			pexnidi.ipolipo -= dianomi[i].k3;
+		}
+
+		pexnidi.ipolipo = parseInt(pexnidi.ipolipo / 10);
 	};
 }
