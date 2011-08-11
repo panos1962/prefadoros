@@ -93,13 +93,13 @@ class Partida {
 		if (isset($curr)) {
 			print "k:" . $curr->kodikos;
 			for ($i = 1; $i <= 3; $i++) {
-				$pektis = "pektis" . $curr->thesi_map[$i];
-				$apodoxi = "apodoxi" . $curr->thesi_map[$i];
-				$online = "online" . $curr->thesi_map[$i];
-				print ",p" . $i . ":'" . $curr->$pektis . "'" .
-					",a" . $i . ":" . $curr->$apodoxi;
+				$pektis = "pektis" . $i;
+				$apodoxi = "apodoxi" . $i;
+				$online = "online" . $i;
+				print ",p" . $curr->thesi_map[$i] . ":'" . $curr->$pektis . "'" .
+					",a" . $curr->thesi_map[$i] . ":" . $curr->$apodoxi;
 				if ($curr->$online) {
-					print ",o" . $i . ":1";
+					print ",o" . $curr->thesi_map[$i] . ":1";
 				}
 			}
 			print ",s:" . $curr->kasa;
@@ -146,13 +146,12 @@ class Partida {
 	}
 
 	public static function set_thesi_map($p) {
-		if (isset($p)) {
-			switch ($p->thesi) {
-			case 2:		$p->thesi_map = array(0, 2, 3, 1); break;
-			case 3:		$p->thesi_map = array(0, 3, 1, 2); break;
-			default:	$p->thesi_map = array(0, 1, 2, 3); break;
-			}
+		switch ($p->thesi) {
+		case 2:		$p->thesi_map = array(0, 3, 1, 2); break;
+		case 3:		$p->thesi_map = array(0, 2, 3, 1); break;
+		default:	$p->thesi_map = array(0, 1, 2, 3); break;
 		}
+		return $p->thesi_map;
 	}
 }
 ?>

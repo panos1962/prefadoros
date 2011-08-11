@@ -43,6 +43,10 @@ class Kinisi {
 	}
 
 	public function json_data($thesi_map) {
+		if ($thesi_map === FALSE) {
+			die("kinisi::json_data: ασαφής αντιστοίχιση θέσεων");
+		}
+
 		print "{k:" . $this->kodikos . ",p:" . $thesi_map[$this->pektis] .
 			",i:'" . $this->idos . "',d:'" . $this->data . "'}";
 	}
@@ -65,7 +69,7 @@ class Kinisi {
 		Globals::put_line($fh, "@END@");
 	}
 
-	public static function print_json_data($curr, $thesi_map, $prev = FALSE) {
+	public static function print_json_data($curr, $thesi_map = FALSE, $prev = FALSE) {
 		if ($prev === FALSE) {
 			self::print_all_json_data($curr, $thesi_map);
 			return;
