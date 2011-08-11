@@ -454,6 +454,7 @@ var Sizitisi = new function() {
 
 	this.sxolioFocus = function() {
 		var x = getelid('sxolioInput');
+		if (isSet(x.disabled) && x.disabled) { return; }
 		if (isSet(x)) { x.focus(); }
 	};
 
