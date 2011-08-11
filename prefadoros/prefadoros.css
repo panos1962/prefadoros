@@ -180,6 +180,13 @@
 	
 }
 
+.dealerProtosIcon {
+	position: absolute;
+	top: 0.1cm;
+	left: -0.3cm;
+	width: 0.8cm;
+}
+
 .kapikiaArea {
 	position: absolute;
 	top: 0.9cm;
@@ -384,7 +391,7 @@
 }
 
 .controlPanelIcon {
-	border-style: inset;
+	border-style: dotted;
 	border-width: 1px;
 	border-color: #E0E0D1;
 	width: 0.80cm;
@@ -777,4 +784,19 @@
 
 .epilogiXromaIcon {
 	height: 0.40cm;
+}
+
+.fila1Area {
+	position: absolute;
+	bottom: 0.66cm;
+	left: 4.9cm;
+	text-align: center;
+	width: 8.4cm;
+	background-color: teal;
+}
+
+.filaSira {
+	margin-left: -1.52cm;
+	width: 2.2cm;
+	height: 3.0cm;
 }
