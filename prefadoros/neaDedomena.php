@@ -282,10 +282,11 @@ function freska_dedomena($dedomena) {
 	print_epikefalida();
 	print ",f:1}";
 
-	Partida::set_thesi_map($dedomena->partida);
+	$thesi_map = isset($dedomena->partida) ? Partida::set_thesi_map($dedomena->partida) : FALSE;
+
 	Partida::print_json_data($dedomena->partida);
-	Dianomi::print_json_data($dedomena->dianomi, $dedomena->partida->thesi_map);
-	Kinisi::print_json_data($dedomena->kinisi, $dedomena->partida->thesi_map);
+	Dianomi::print_json_data($dedomena->dianomi, $thesi_map);
+	Kinisi::print_json_data($dedomena->kinisi, $thesi_map);
 	Prosklisi::print_json_data($dedomena->prosklisi);
 	Sxesi::print_json_data($dedomena->sxesi);
 	Permes::print_json_data($dedomena->permes);
@@ -301,11 +302,12 @@ function diaforetika_dedomena($curr, $prev) {
 	print_epikefalida();
 	print "}";
 
-	Partida::set_thesi_map($curr->partida);
-	Partida::set_thesi_map($prev->partida);
+	$thesi_map = isset($curr->partida) ? Partida::set_thesi_map($curr->partida) : FALSE;
+	if (isset($prev->partida)) { Partida::set_thesi_map($prev->partida); }
+
 	Partida::print_json_data($curr->partida, $prev->partida);
-	Dianomi::print_json_data($curr->dianomi, $curr->partida->thesi_map, $prev->dianomi);
-	Kinisi::print_json_data($curr->kinisi, $curr->partida->thesi_map, $prev->kinisi);
+	Dianomi::print_json_data($curr->dianomi, $thesi_map, $prev->dianomi);
+	Kinisi::print_json_data($curr->kinisi, $thesi_map, $prev->kinisi);
 	Prosklisi::print_json_data($curr->prosklisi, $prev->prosklisi);
 	Sxesi::print_json_data($curr->sxesi, $prev->sxesi);
 	Permes::print_json_data($curr->permes, $prev->permes);

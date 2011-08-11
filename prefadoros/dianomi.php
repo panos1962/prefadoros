@@ -58,6 +58,10 @@ class Dianomi {
 	}
 
 	public function json_data($thesi_map) {
+		if ($thesi_map === FALSE) {
+			die("dianomi::json_data: ασαφής αντιστοίχιση θέσεων");
+		}
+
 		print "{k:" . $this->kodikos . ",d:" . $thesi_map[$this->dealer];
 		for ($i = 1; $i <= 3; $i++) {
 			$kasa = "kasa" . $i;
@@ -86,7 +90,7 @@ class Dianomi {
 		Globals::put_line($fh, "@END@");
 	}
 
-	public static function print_json_data($curr, $thesi_map, $prev = FALSE) {
+	public static function print_json_data($curr, $thesi_map = FALSE, $prev = FALSE) {
 		if ($prev === FALSE) {
 			self::print_all_json_data($curr, $thesi_map);
 			return;
