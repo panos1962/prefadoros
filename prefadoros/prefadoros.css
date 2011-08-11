@@ -375,12 +375,16 @@
 }
 
 .controlPanelIcon {
+	border-style: inset;
+	border-width: 1px;
+	border-color: #E0E0D1;
 	width: 0.80cm;
 	margin-bottom: 0.35cm;
 	cursor: pointer;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+	background-color: #FFFFFF;
 }
 
 .emoticonsColumn {
