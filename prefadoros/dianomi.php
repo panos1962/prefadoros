@@ -57,11 +57,15 @@ class Dianomi {
 			$this->kasa3 . "\t" . $this->metrita3);
 	}
 
-	public function json_data() {
-		print "{k:" . $this->kodikos . ",d:" . $this->dealer .
-			",k1:" . $this->kasa1 . ",m1:" . $this->metrita1 .
-			",k2:" . $this->kasa2 . ",m2:" . $this->metrita2 .
-			",k3:" . $this->kasa3 . ",m3:" . $this->metrita3 . "}";
+	public function json_data($thesi_map) {
+		print "{k:" . $this->kodikos . ",d:" . $thesi_map[$this->dealer];
+		for ($i = 1; $i <= 3; $i++) {
+			$kasa = "kasa" . $i;
+			$metrita = "metrita" . $i;
+			print ",k" . $thesi_map[$i] . ":" . $this->$kasa .
+				",m" . $thesi_map[$i] . ":" . $this->$metrita;
+		}
+		print "}";
 	}
 
 	public static function diavase($fh, &$dlist) {
@@ -82,9 +86,9 @@ class Dianomi {
 		Globals::put_line($fh, "@END@");
 	}
 
-	public static function print_json_data($curr, $prev = FALSE) {
+	public static function print_json_data($curr, $thesi_map, $prev = FALSE) {
 		if ($prev === FALSE) {
-			self::print_all_json_data($curr);
+			self::print_all_json_data($curr, $thesi_map);
 			return;
 		}
 
@@ -139,7 +143,7 @@ class Dianomi {
 		// τα δεδομένα.
 
 		if ($ndif >= $ncurr) {
-			self::print_all_json_data($curr);
+			self::print_all_json_data($curr, $thesi_map);
 			return;
 		}
 
@@ -159,7 +163,7 @@ class Dianomi {
 			foreach ($mod as $i => $dummy) {
 				print $koma; $koma = ",";
 				print "'" . $i . "':";
-				$mod[$i]->json_data();
+				$mod[$i]->json_data($thesi_map);
 			}
 			print "}";
 		}
@@ -169,19 +173,19 @@ class Dianomi {
 			$koma = '';
 			for ($i = 0; $i < $n; $i++) {
 				print $koma; $koma = ",";
-				$new[$i]->json_data();
+				$new[$i]->json_data($thesi_map);
 			}
 			print "]";
 		}
 	}
 
-	private static function print_all_json_data(&$dlist) {
+	private static function print_all_json_data(&$dlist, $thesi_map) {
 		$koma = '';
 		$n = count($dlist);
 		print ",dianomi:[";
 		for ($i = 0; $i < $n; $i++) {
 			print $koma; $koma = ",";
-			$dlist[$i]->json_data();
+			$dlist[$i]->json_data($thesi_map);
 		}
 		print "]";
 	}

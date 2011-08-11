@@ -42,8 +42,8 @@ class Kinisi {
 			"\t" . $this->pektis . "\t" . $this->idos . "\t" . $this->data);
 	}
 
-	public function json_data() {
-		print "{k:" . $this->kodikos . ",p:" . $this->pektis .
+	public function json_data($thesi_map) {
+		print "{k:" . $this->kodikos . ",p:" . $thesi_map[$this->pektis] .
 			",i:'" . $this->idos . "',d:'" . $this->data . "'}";
 	}
 
@@ -65,9 +65,9 @@ class Kinisi {
 		Globals::put_line($fh, "@END@");
 	}
 
-	public static function print_json_data($curr, $prev = FALSE) {
+	public static function print_json_data($curr, $thesi_map, $prev = FALSE) {
 		if ($prev === FALSE) {
-			self::print_all_json_data($curr);
+			self::print_all_json_data($curr, $thesi_map);
 			return;
 		}
 
@@ -122,7 +122,7 @@ class Kinisi {
 		// τα δεδομένα.
 
 		if ($ndif >= $ncurr) {
-			self::print_all_json_data($curr);
+			self::print_all_json_data($curr, $thesi_map);
 			return;
 		}
 
@@ -142,7 +142,7 @@ class Kinisi {
 			foreach ($mod as $i => $dummy) {
 				print $koma; $koma = ",";
 				print "'" . $i . "':";
-				$mod[$i]->json_data();
+				$mod[$i]->json_data($thesi_map);
 			}
 			print "}";
 		}
@@ -152,19 +152,19 @@ class Kinisi {
 			$koma = '';
 			for ($i = 0; $i < $n; $i++) {
 				print $koma; $koma = ",";
-				$new[$i]->json_data();
+				$new[$i]->json_data($thesi_map);
 			}
 			print "]";
 		}
 	}
 
-	private static function print_all_json_data(&$klist) {
+	private static function print_all_json_data(&$klist, $thesi_map) {
 		$koma = '';
 		$n = count($klist);
 		print ",kinisi:[";
 		for ($i = 0; $i < $n; $i++) {
 			print $koma; $koma = ",";
-			$klist[$i]->json_data();
+			$klist[$i]->json_data($thesi_map);
 		}
 		print "]";
 	}

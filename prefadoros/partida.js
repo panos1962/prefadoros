@@ -153,8 +153,14 @@ var Partida = new function() {
 
 	this.onomaPektiHTML = function(thesi) {
 		var html = '';
-		html += '<div class="pektisName">' + pexnidi.pektis[thesi] + '</div>';
-		html += Partida.miposBikeTora(thesi);
+		if (isDianomi() && (pexnidi.pektis[thesi] == '')) {
+			html += '<img src="' + globals.server + 'images/gone.png" ' +
+				'class="pektisGone" alt="" />';
+		}
+		else {
+			html += '<div class="pektisName">' + pexnidi.pektis[thesi] + '</div>';
+			html += Partida.miposBikeTora(thesi);
+		}
 		return html;
 	}
 
