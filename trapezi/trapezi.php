@@ -115,7 +115,7 @@ class Trapezi {
 		$this->set_from_dbrow($row);
 	}
 
-	public function set_from_dbrow($row, $basic = TRUE) {
+	public function set_from_dbrow($row) {
 		$this->kodikos = $row['κωδικός'];
 		$this->pektis1 = $row['παίκτης1'];
 		$this->apodoxi1 = ($row['αποδοχή1'] == 'YES' ? 1 : 0);
@@ -126,10 +126,7 @@ class Trapezi {
 		$this->kasa = $row['κάσα'];
 		$this->prive = ($row['ιδιωτικότητα'] == 'ΔΗΜΟΣΙΟ' ? 0 : 1);
 		$this->klisto = ($row['πρόσβαση'] == 'ΑΝΟΙΚΤΟ' ? 0 : 1);
-
-		if ($basic) { return; }
-
-		// μάζεμα διανομών και θέση των υπολοίπων πεδίων.
+		$this->ipolipo = self::ipolipo($row['κωδικός'], $row['κάσα']);
 	}
 
 	public function set_energos_pektis($energos = FALSE) {
@@ -143,7 +140,7 @@ class Trapezi {
 
 	public function set_from_file($line) {
 		$cols = explode("\t", $line);
-		if (count($cols) != 13) { return(FALSE); }
+		if (count($cols) != 14) { return(FALSE); }
 
 		$nf = 0;
 		$this->kodikos = $cols[$nf++];
@@ -159,6 +156,7 @@ class Trapezi {
 		$this->kasa = $cols[$nf++];
 		$this->prive = $cols[$nf++];
 		$this->klisto = $cols[$nf++];
+		$this->ipolipo = $cols[$nf++];
 		return(TRUE);
 	}
 
@@ -247,7 +245,8 @@ class Trapezi {
 			$this->online3 . "\t" .
 			$this->kasa . "\t" .
 			$this->prive . "\t" .
-			$this->klisto);
+			$this->klisto . "\t" .
+			$this->ipolipo);
 		if ($full) {
 			fwrite($fh,
 				"\t" . $this->thesi .
@@ -271,9 +270,26 @@ class Trapezi {
 			}
 		}
 		print ",s:" . $this->kasa;
+		print ",i:" . $this->ipolipo;
 		if ($this->prive == 1) { print ",r:1"; }
 		if ($this->klisto == 1) { print ",b:1"; }
  		print "}";
+	}
+
+	public static function ipolipo($kodikos, $kasa) {
+		global $globals;
+
+		$kasa *= 30;
+		$query = "SELECT `κάσα1`, `κάσα2`, `κάσα3` FROM `διανομή` " .
+			"WHERE `τραπέζι` = " . $kodikos;
+		$result = $globals->sql_query($query);
+		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+			$kasa -= $row[0];
+			$kasa -= $row[1];
+			$kasa -= $row[2];
+		}
+
+		return intval($kasa / 10);
 	}
 }
 ?>

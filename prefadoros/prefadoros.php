@@ -109,8 +109,10 @@ class Prefadoros {
 				xronosMax:		<?php print XRONOS_DEDOMENA_MAX; ?>,
 				dedomenaTic:		<?php print XRONOS_DEDOMENA_TIC; ?>,
 				noAnswerMax:		<?php print XRONOS_NO_ANSWER_MAX; ?>,
-				xronosPolivolo:		<?php print XRONOS_POLIVOLO; ?>,
-				maxPolivolo:		<?php print MAX_POLIVOLO; ?>
+				xronosPolivolo1:	<?php print XRONOS_POLIVOLO1; ?>,
+				maxPolivolo1:		<?php print MAX_POLIVOLO1; ?>,
+				xronosPolivolo2:	<?php print XRONOS_POLIVOLO2; ?>,
+				maxPolivolo2:		<?php print MAX_POLIVOLO2; ?>
 			};
 		</script>
 		<?php

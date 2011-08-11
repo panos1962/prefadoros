@@ -13,6 +13,7 @@ class Partida {
 	public $kasa;
 	public $prive;
 	public $klisto;
+	public $ipolipo;
 	public $thesi;
 	public $theatis;
 	public $thesi_map;
@@ -31,6 +32,7 @@ class Partida {
 		unset($this->kasa);
 		unset($this->prive);
 		unset($this->klisto);
+		unset($this->ipolipo);
 		unset($this->thesi);
 		unset($this->theatis);
 		unset($this->thesi_map);
@@ -38,7 +40,7 @@ class Partida {
 
 	public function set_from_string($data) {
 		$cols = explode("\t", $data);
-		if (count($cols) != 15) {
+		if (count($cols) != 16) {
 			return(FALSE);
 		}
 			
@@ -56,6 +58,7 @@ class Partida {
 		$this->kasa = $cols[$nf++];
 		$this->prive = $cols[$nf++];
 		$this->klisto = $cols[$nf++];
+		$this->ipolipo = $cols[$nf++];
 		$this->thesi = $cols[$nf++];
 		$this->theatis = $cols[$nf++];
 		return(TRUE);
@@ -135,6 +138,7 @@ class Partida {
 		$p->kasa = $globals->trapezi->kasa;
 		$p->prive = $globals->trapezi->prive;
 		$p->klisto = $globals->trapezi->klisto;
+		$p->ipolipo = $globals->trapezi->ipolipo;
 		$p->thesi = $globals->trapezi->thesi;
 		$p->theatis = $globals->trapezi->theatis;
 

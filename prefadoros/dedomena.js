@@ -1,8 +1,10 @@
 var Dedomena = new function() {
 	var lastDataTS = 0;
 	var sessionAliveTS = 0;
-	var polivoloTS = 0;
-	var polivolo = 0;
+	var polivoloTS1 = 0;
+	var polivolo1 = 0;
+	var polivoloTS2 = 0;
+	var polivolo2 = 0;
 
 	this.kafenioApo = 0;
 
@@ -95,25 +97,47 @@ var Dedomena = new function() {
 
 		var tora = currentTimestamp();
 		lastDataTS = tora;
-		if (polivoloTS == 0) {
-			polivoloTS = tora;
+
+		if (polivoloTS1 == 0) {
+			polivoloTS1 = tora;
 		}
-		else if ((tora - polivoloTS) < parameters.xronosPolivolo) {
-			if (polivolo++ > parameters.maxPolivolo) {
+		else if ((tora - polivoloTS1) < parameters.xronosPolivolo1) {
+			if (polivolo1++ > parameters.maxPolivolo1) {
 				if (!confirm('ΠΡΟΣΟΧΗ: επαναλαμβανόμενες κλήσεις. ' +
 					'Να συνεχίσω τις προσπάθειες;')) {
 					location.href = globals.server + 'error.php?minima=' +
 						uri('Επαναλαμβανόμενες κλήσεις!');
 					return;
 				}
-				polivoloTS = currentTimestamp();
-				polivolo = 0;
+				polivoloTS1 = currentTimestamp();
+				polivolo1 = 0;
 				
 			}
 		}
 		else {
-			polivoloTS = tora;
-			polivolo = 0;
+			polivoloTS1 = tora;
+			polivolo1 = 0;
+		}
+
+		if (polivoloTS2 == 0) {
+			polivoloTS2 = tora;
+		}
+		else if ((tora - polivoloTS2) < parameters.xronosPolivolo2) {
+			if (polivolo2++ > parameters.maxPolivolo2) {
+				if (!confirm('ΠΡΟΣΟΧΗ: επαναλαμβανόμενες κλήσεις σε ευρύτερο ' +
+					'διάστημα. Να συνεχίσω τις προσπάθειες;')) {
+					location.href = globals.server + 'error.php?minima=' +
+						uri('Επαναλαμβανόμενες κλήσεις σε ευρύτερο διάστημα!');
+					return;
+				}
+				polivoloTS2 = currentTimestamp();
+				polivolo2 = 0;
+				
+			}
+		}
+		else {
+			polivoloTS2 = tora;
+			polivolo2 = 0;
 		}
 
 		if (isSet(dedomena) && isSet(dedomena.sinedria)) {
@@ -144,6 +168,8 @@ var Dedomena = new function() {
 		Trapezi.processDedomena(dedomena);
 		Sizitisi.processDedomena(dedomena);
 		Kafenio.processDedomena(dedomena);
+
+		Pexnidi.setData();
 
 		Partida.updateHTML();
 		Trapezi.updateHTML();

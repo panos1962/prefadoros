@@ -14,10 +14,14 @@ define('XRONOS_PEKTIS_IDLE_MAX', (XRONOS_DEDOMENA_MAX + 10));
 define('XRONOS_NO_ANSWER_MAX', ((XRONOS_DEDOMENA_MAX + 5) * 1000));
 
 // διάστημα στο οποίο ελέγχεται το φαινόμενο πολυβόλου (milliseconds)
-define('XRONOS_POLIVOLO', 2000);
+define('XRONOS_POLIVOLO1', 2000);
 
 // μέγιστος αριθμός δεκτών απαντήσεων σε διάστημα πολυβόλου
-define('MAX_POLIVOLO', 10);
+define('MAX_POLIVOLO1', 20);
+
+// Γίνεται παρόμοιος έλεγχος και για ευρύτερο διάστημα.
+define('XRONOS_POLIVOLO2', 20000);
+define('MAX_POLIVOLO2', 30);
 
 define('FUNCHAT_SERVER', 'http://www.pineza.info/prefa/images/gallery/');
 
