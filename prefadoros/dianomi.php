@@ -57,17 +57,13 @@ class Dianomi {
 			$this->kasa3 . "\t" . $this->metrita3);
 	}
 
-	public function json_data($thesi_map) {
-		if ($thesi_map === FALSE) {
-			die("dianomi::json_data: ασαφής αντιστοίχιση θέσεων");
-		}
-
-		print "{k:" . $this->kodikos . ",d:" . $thesi_map[$this->dealer];
+	public function json_data() {
+		print "{k:" . $this->kodikos . ",d:" . $this->dealer;
 		for ($i = 1; $i <= 3; $i++) {
 			$kasa = "kasa" . $i;
 			$metrita = "metrita" . $i;
-			print ",k" . $thesi_map[$i] . ":" . $this->$kasa .
-				",m" . $thesi_map[$i] . ":" . $this->$metrita;
+			print ",k" . $i . ":" . $this->$kasa .
+				",m" . $i . ":" . $this->$metrita;
 		}
 		print "}";
 	}
@@ -90,9 +86,9 @@ class Dianomi {
 		Globals::put_line($fh, "@END@");
 	}
 
-	public static function print_json_data($curr, $thesi_map = FALSE, $prev = FALSE) {
+	public static function print_json_data($curr, $prev = FALSE) {
 		if ($prev === FALSE) {
-			self::print_all_json_data($curr, $thesi_map);
+			self::print_all_json_data($curr);
 			return;
 		}
 
@@ -147,7 +143,7 @@ class Dianomi {
 		// τα δεδομένα.
 
 		if ($ndif >= $ncurr) {
-			self::print_all_json_data($curr, $thesi_map);
+			self::print_all_json_data($curr);
 			return;
 		}
 
@@ -167,7 +163,7 @@ class Dianomi {
 			foreach ($mod as $i => $dummy) {
 				print $koma; $koma = ",";
 				print "'" . $i . "':";
-				$mod[$i]->json_data($thesi_map);
+				$mod[$i]->json_data();
 			}
 			print "}";
 		}
@@ -177,19 +173,19 @@ class Dianomi {
 			$koma = '';
 			for ($i = 0; $i < $n; $i++) {
 				print $koma; $koma = ",";
-				$new[$i]->json_data($thesi_map);
+				$new[$i]->json_data();
 			}
 			print "]";
 		}
 	}
 
-	private static function print_all_json_data(&$dlist, $thesi_map) {
+	private static function print_all_json_data(&$dlist) {
 		$koma = '';
 		$n = count($dlist);
 		print ",dianomi:[";
 		for ($i = 0; $i < $n; $i++) {
 			print $koma; $koma = ",";
-			$dlist[$i]->json_data($thesi_map);
+			$dlist[$i]->json_data();
 		}
 		print "]";
 	}

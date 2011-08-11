@@ -113,6 +113,7 @@ var Partida = new function() {
 		html += '<div class="pektisMain';
 		html += Partida.pektisMainHTML(3);
 		html += '">';
+		html += Partida.dealerProtosHTML(3);
 		html += Partida.onomaPektiHTML(3);
 		html += Partida.kapikiaHTML(3);
 		html += '</div>';
@@ -128,6 +129,7 @@ var Partida = new function() {
 		html += '<div class="pektisMain';
 		html += Partida.pektisMainHTML(2);
 		html += '">';
+		html += Partida.dealerProtosHTML(2);
 		html += Partida.onomaPektiHTML(2);
 		html += Partida.kapikiaHTML(2);
 		html += '</div>';
@@ -144,10 +146,27 @@ var Partida = new function() {
 		if (isDianomi()) { html += ' pektis1MainAkri'; }
 		html += Partida.pektisMainHTML(1);
 		html += '">';
+		html += Partida.dealerProtosHTML(1);
 		html += Partida.onomaPektiHTML(1);
 		html += Partida.kapikiaHTML(1);
 		html += '</div>';
 		html += '</div>';
+		html += '<div class="fila1Area">';
+		html += Partida.filaHTML(pexnidi.fila[1]);
+		html += '</div>';
+		return html;
+	};
+
+	this.filaHTML = function(fila) {
+		var html = '';
+		if (fila.length <= 0) { return html; }
+
+		html += '<img class="filaSira" src="' + globals.server + 'images/trapoula/' +
+			fila[0] + '.png" style="margin-left: 0px;" alt="" />';
+		for (var i = 1; i < fila.length; i++) {
+			html += '<img class="filaSira" src="' + globals.server + 'images/trapoula/' +
+				fila[i] + '.png" alt="" />';
+		}
 		return html;
 	};
 
@@ -208,6 +227,22 @@ var Partida = new function() {
 		}
 		return html;
 	};
+
+	this.dealerProtosHTML = function(thesi) {
+		if (thesi == pexnidi.dealer) {
+			return '<img class="dealerProtosIcon" src="' + globals.server +
+				'images/dealer.png" alt="" />';
+		}
+
+		var protos = pexnidi.dealer + 1;
+		if (protos > 3) { protos = 1; }
+		if (thesi == protos) {
+			return '<img class="dealerProtosIcon" src="' + globals.server +
+				'images/protos.png" alt="" />';
+		}
+
+		return '';
+	}
 
 	this.thesiTheasisHTML = function(thesi) {
 		var html = '';
