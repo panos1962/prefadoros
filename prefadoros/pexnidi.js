@@ -11,6 +11,7 @@ var Pexnidi = new function() {
 		pexnidi.pektis = [ '', '', '', '' ];
 		pexnidi.kapikia = [ 0, 0, 0, 0 ];
 		pexnidi.fila = [ [], [], [], [] ];
+		pexnidi.mazi = [ false, false, false, false ];
 		pexnidi.elima = 0;
 		pexnidi.dealer = 0;
 		if (notPartida()) { return;}
