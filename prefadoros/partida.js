@@ -113,7 +113,7 @@ var Partida = new function() {
 		html += '<div class="pektisMain';
 		html += Partida.pektisMainHTML(3);
 		html += '">';
-		html += Partida.dealerProtosHTML(3);
+		html += Partida.dpmHTML(3);
 		html += Partida.onomaPektiHTML(3);
 		html += Partida.kapikiaHTML(3);
 		html += '</div>';
@@ -129,7 +129,7 @@ var Partida = new function() {
 		html += '<div class="pektisMain';
 		html += Partida.pektisMainHTML(2);
 		html += '">';
-		html += Partida.dealerProtosHTML(2);
+		html += Partida.dpmHTML(2);
 		html += Partida.onomaPektiHTML(2);
 		html += Partida.kapikiaHTML(2);
 		html += '</div>';
@@ -146,7 +146,7 @@ var Partida = new function() {
 		if (isDianomi()) { html += ' pektis1MainAkri'; }
 		html += Partida.pektisMainHTML(1);
 		html += '">';
-		html += Partida.dealerProtosHTML(1);
+		html += Partida.dpmHTML(1);
 		html += Partida.onomaPektiHTML(1);
 		html += Partida.kapikiaHTML(1);
 		html += '</div>';
@@ -228,20 +228,29 @@ var Partida = new function() {
 		return html;
 	};
 
-	this.dealerProtosHTML = function(thesi) {
+	this.dpmHTML = function(thesi) {
+		var html = '';
+
 		if (thesi == pexnidi.dealer) {
-			return '<img class="dealerProtosIcon" src="' + globals.server +
-				'images/dealer.png" alt="" />';
+			html += '<img class="dealerIcon" src="' + globals.server +
+				'images/dealer.png" title="Dealer" alt="" />';
 		}
 
-		var protos = pexnidi.dealer + 1;
-		if (protos > 3) { protos = 1; }
-		if (thesi == protos) {
-			return '<img class="dealerProtosIcon" src="' + globals.server +
-				'images/protos.png" alt="" />';
+		if (pexnidi.dealer) {
+			var protos = pexnidi.dealer + 1;
+			if (protos > 3) { protos = 1; }
+			if (thesi == protos) {
+				html += '<img class="protosIcon" src="' + globals.server +
+					'images/protos.png" title="Πρώτος" alt="" />';
+			}
 		}
 
-		return '';
+		if (pexnidi.mazi[thesi]) {
+			html += '<img class="maziIcon" src="' + globals.server +
+				'images/mazi.png" title="Μαζί" alt="" />';
+		}
+
+		return html;
 	}
 
 	this.thesiTheasisHTML = function(thesi) {
