@@ -8,7 +8,7 @@ set_globals();
 
 Prefadoros::pektis_check();
 Prefadoros::trapezi_check();
-if ($globals->trapezi->theatis) {
+if ($globals->trapezi->is_theatis()) {
 	die('Δεν μπορείτε να αλλάξετε τη διάταξη των παικτών ως θεατής');
 }
 
