@@ -103,6 +103,24 @@ var Partida = new function() {
 		if (partida.p) { html += ' partidaPrive'; }
 		html += '">';
 
+		html += Partida.panoInfoHTML();
+
+		html += Partida.pektis3HTML();
+		html += Partida.pektis2HTML();
+		html += Partida.pektis1HTML();
+
+		html += Partida.theatisHTML();
+
+		html += '<div class="partidaInfo partidaInfoBottom">';
+		html += 'Information area';
+		html += '</div>';
+
+		html += '</div>';
+		Partida.HTML = html;
+	};
+
+	this.panoInfoHTML = function() {
+		var html = '';
 		var tbc = isTheatis() ? ' theatis' : '';
 		html += '<div class="partidaInfo partidaInfoTop">';
 		html += 'τραπέζι: <span class="partidaInfoData' + tbc + '">';
@@ -128,19 +146,7 @@ var Partida = new function() {
 			html += '<img class="partidaKlisto" alt="" src="' + globals.server +
 				'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
 		}
-
-		html += Partida.pektis3HTML();
-		html += Partida.pektis2HTML();
-		html += Partida.pektis1HTML();
-
-		html += Partida.theatisHTML();
-
-		html += '<div class="partidaInfo partidaInfoBottom">';
-		html += 'Information area';
-		html += '</div>';
-
-		html += '</div>';
-		Partida.HTML = html;
+		return html;
 	};
 
 	this.pektis3HTML = function() {
