@@ -392,6 +392,10 @@
 	border-color: #6B8E23;
 }
 
+.epomenos {
+	border-color: #FFD700;
+}
+
 .rebelos {
 	margin-top: 0.2cm;
 }
@@ -806,11 +810,66 @@
 	left: 4.9cm;
 	text-align: center;
 	width: 8.4cm;
+/*
 	background-color: teal;
+*/
 }
 
 .filaSira {
 	margin-left: -1.44cm;
 	width: 2.1cm;
 	height: 3.0cm;
+}
+
+.gipedo {
+	position: absolute;
+	top: 4.0cm;
+	left: 3.6cm;
+
+	width: 9.66cm;
+	height: 4.6cm;
+
+	font-size: 0.46cm;
+	font-style: italic;
+	font-weight: bold;
+	text-align: left;
+/*
+	background-color: magenta;
+*/
+}
+
+.gipedoTextIcon {
+	display: inline-block;
+	width: 0.44cm;
+	margin-bottom: -0.1cm;
+}
+
+.gipedoAnamoni {
+	padding: 0.2cm 0 0.2cm 0;
+	width: 100%;
+}
+
+.tzogosIcon {
+	position: absolute;
+	top: 0.6cm;
+	left: 1.0cm;
+	width: 4.0cm;
+}
+
+.gipedoProvlimaIcon {
+	position: absolute;
+	top: 0.4cm;
+	left: -3.4cm;
+	width: 2.8cm;
+}
+
+.dilosiArea {
+	position: absolute;
+	top: 0.4cm;
+	left: 5.4cm;
+	width: 4.0cm;
+}
+
+.dilosi {
+	margin-bottom: 0.2cm;
 }

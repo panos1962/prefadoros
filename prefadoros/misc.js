@@ -108,9 +108,10 @@ var Dumprsp = new function() {
 };
 
 var Tools = new function() {
-	this.epilogiHTML = function(msg, onclick, title) {
-		var html = '<span class="epilogi" ' +
-			'onmouseover="Tools.epilogiFotise(this);" ' +
+	this.epilogiHTML = function(msg, onclick, title, cls) {
+		var html = '<div class="epilogi';
+		if (cls) { html += ' ' + cls; }
+		html += '" onmouseover="Tools.epilogiFotise(this);" ' +
 			'onmouseout="Tools.epilogiXefotise(this);"';
 		if (isSet(title) && title) {
 			html += ' title="' + title + '"';
@@ -118,7 +119,7 @@ var Tools = new function() {
 		if (isSet(onclick) && onclick) {
 			html += ' onclick="' + onclick + ';"';
 		}
-		html += '>' + msg + '</span>';
+		html += '>' + msg + '</div>';
 		return html;
 	};
 

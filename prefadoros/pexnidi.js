@@ -13,7 +13,12 @@ var Pexnidi = new function() {
 		pexnidi.fila = [ [], [], [], [] ];
 		pexnidi.mazi = [ false, false, false, false ];
 		pexnidi.elima = 0;
+		pexnidi.fasi = '';
 		pexnidi.dealer = 0;
+		pexnidi.epomenos = 0;
+		pexnidi.curdil = '';
+		pexnidi.dilosi = [ '', '', '', '' ];
+		pexnidi.paso = [ false, false, false, false ];
 		if (notPartida()) { return;}
 
 		switch (partida.h) {
@@ -54,6 +59,7 @@ var Pexnidi = new function() {
 				pexnidi.kapikia[j] += dianomi[i].kapikia[j];
 			}
 		}
+		Pexnidi.setEpomenos(pexnidi.dealer);
 
 		var x = pexnidi.ipolipo / 3;
 		pexnidi.ipolipo = parseInt(pexnidi.ipolipo / 10);
@@ -65,6 +71,27 @@ var Pexnidi = new function() {
 		var x = pexnidi.kapikia[pam[2]] + pexnidi.kapikia[pam[3]];
 		pexnidi.elima = pexnidi.kapikia[pam[1]] + x;
 		pexnidi.kapikia[pam[1]] = -x;
+
+		for (var i = 0; i < kinisi.length; i++) {
+			switch (kinisi[i].i) {
+			case 'ΔΙΑΝΟΜΗ':
+				pexnidi.fasi = 'ΔΗΛΩΣΗ';
+				Pexnidi.setEpomenos(kinisi[i].pektis);
+				pexnidi.curdil = 'TG';
+				break;
+			}
+		}
+	};
+
+	this.setEpomenos = function(thesi) {
+		if (notSet(thesi)) { thesi = pexnidi.epomenos; }
+		if (thesi) {
+			pexnidi.epomenos = thesi + 1;
+			if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
+		}
+		else {
+			pexnidi.epomenos = 0;
+		}
 	};
 
 	this.dianomiMap = function(map, pam) {
@@ -153,4 +180,115 @@ var Pexnidi = new function() {
 
 		return fila;
 	};
+
+	this.stisimoHTML = function() {
+		var html = '<div style="padding: 0.2cm;">';
+		if (isTheatis()) {
+			html += Pexnidi.anamoniHTML();
+			html += 'Καθορίζεται το ύψος της κάσας και η διάταξη των παικτών ' +
+				'στο τραπέζι. Παρακαλώ περιμένετε…';
+		}
+		else {
+			html += 'Ελέγξτε την ' + Pexnidi.lexiIconHTML('κάσα', 'controlPanel/kasa.png') +
+				' και τη ' + Pexnidi.lexiIconHTML('διάταξη', 'controlPanel/diataxi.png') +
+				' των παικτών χρησιμοποιώντας τα σχετικά εργαλεία του control panel. ';
+			html += 'Τέλος, πατήστε το πλήκτρο αποδοχής όρων του ' +
+				Pexnidi.lexiIconHTML('παιχνιδιού', 'controlPanel/check.png') +
+				' ή το πλήκτρο ' + Pexnidi.lexiIconHTML('εκκίνησης',
+				'controlPanel/go.jpg') + ' για να ξεκινήσετε την παρτίδα.';
+		}
+		html += '</div>';
+		return html;
+	};
+
+	this.dilosiHTML = function() {
+		var html = '<div style="padding: 0.2cm;">';
+		html += Pexnidi.tzogosHTML();
+
+		if (isTheatis()) {
+			html += '<div style="position: absolute; z-index: 1;">';
+			html += 'Οι παίκτες πλειοδοτούν με διαδοχικές δηλώσεις αγοράς, ' +
+				'ή αποσύρονται δηλώνοντας "πάσο". Παρακαλώ περιμένετε…';
+			html += '</div>';
+		}
+		if (pexnidi.epomenos == 1) {
+			html += '<div class="dilosiArea">';
+			if (pexnidi.curdil == 'TG') {
+				html += Tools.epilogiHTML('Άμα μείνουν',
+					'Pexnidi.epilogiDilosisi()', '', 'dilosi');
+				html += Tools.epilogiHTML('ΠΡΩΤΑ',
+					'Pexnidi.epilogiDilosisi(\'S6\')', '', 'dilosi');
+			}
+			else {
+				html += Tools.epilogiHTML(pexnidi.dilosi,
+					'Pexnidi.epilogiDilosis()', '', 'dilosi');
+			}
+			html += Tools.epilogiHTML('ΠΑΣΟ',
+				'Pexnidi.dilosiPaso()', '', 'dilosi');
+			html += '</div>';
+		}
+		else if (!pexnidi.paso[1]) {
+			html += '<div style="position: absolute; z-index: 1;">';
+			html += 'Πλειοδοτήστε για την αγορά, ή αποσυρθείτε ' +
+				'δηλώνοντας "πάσο". Περιμένετε τη σειρά σας…';
+			html += '</div>';
+		}
+		html += '</div>';
+		return html;
+	};
+
+	this.epilogiDilosis = function(dilosi) {
+		if (notSet(dilosi)) { dilosi = pexnidi.curdil; }
+	};
+
+	this.dilosiPaso = function() {
+	};
+
+	this.dianomiHTML = function() {
+		return 'ΔΙΑΝΟΜΗ';
+	};
+
+	this.lexiIconHTML = function(lexi, src, paren) {
+		if (notSet(paren)) { paren = true; }
+		var html = '';
+
+		html += '<span class="nobr">' + lexi + ' ';
+		if (paren) { html += '('; }
+		html += Pexnidi.textIcon(src);
+		html += '</span>';
+		if (paren) { html += ')'; }
+		return html;
+	};
+
+	this.textIcon = function(src) {
+		var html = '';
+		html = '<img src="' + globals.server + 'images/' + src + '" ' +
+			'class="gipedoTextIcon" alt="" />';
+		return html;
+	};
+
+	this.anamoniHTML = function() {
+		var html = '';
+		html = '<img src="' + globals.server + 'images/wormspin.gif" ' +
+			'class="gipedoAnamoni" alt="" />';
+		return html;
+	};
+
+	this.tzogosHTML = function() {
+		var html = '';
+		html += '<img class="tzogosIcon" src="' + globals.server +
+			'images/trapoula/tzogos.png" title="Τζόγος" alt="" />';
+		return html;
+	};
+
+	this.agnostiFasiHTML = function() {
+		var html = '<img class="gipedoProvlimaIcon" src="' + globals.server +
+			'images/provlima.gif" alt="" />';
+		html += '<div style="position: absolute; z-index: 1; top: 0.6cm;">';
+		html += 'Παρουσιάστηκε κάποιο πρόβλημα. Το πρόγραμμα δεν αναγνωρίζει ' +
+			'την παρούσα φάση του παιχνιδιού. Παρακαλώ ειδοποιήστε τον ' +
+			'προγραμματιστή.';
+		html += '</div>';
+		return html;
+	}
 }
