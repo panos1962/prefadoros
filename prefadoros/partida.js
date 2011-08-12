@@ -23,7 +23,7 @@ var Partida = new function() {
 					playSound('doorBell');
 				}
 				else if (dedomena.partida != partida) {
-					playSound('blioup');
+					Partida.ixosAlagis(dedomena.partida);
 				}
 			}
 		}
@@ -51,6 +51,44 @@ var Partida = new function() {
 		}
 
 		return neos;
+	};
+
+	// Εδώ κάνουμε τον κόπο να δούμε τι έχει αλλάξει στην παρτίδα και
+	// να παράξουμε τους ανάλογους ήχους. Η είσοδος νέου παίκτη έχει
+	// ήδη ελεχθεί παραπάνω.
+
+	this.ixosAlagis = function(neaPartida) {
+		if (notSet(window.partida)) { return playSound('pop'); }
+		if (notSet(neaPartida)) { return playSound('blioup'); }
+
+		var alagi = false;
+		for (var i = 1; i <= 3; i++) {
+			var n = eval('neaPartida.p' + i);
+			var p = eval('partida.p' + i);
+			if (n == p) { continue; }
+			if (n != '') { return playSound('tap', 10); }
+			alagi = true;
+		}
+		if (alagi) { return playSound('blioup'); }
+
+		if (neaPartida.s != partida.s) { return playSound('blioup'); }
+		for (var i = 1; i <= 3; i++) {
+			var n = eval('neaPartida.a' + i);
+			var p = eval('partida.a' + i);
+			if (n == p) { continue; }
+			if (n) { return playSound('pop'); }
+			return playSound('blioup');
+		}
+
+		for (var i = 1; i <= 3; i++) {
+			var n = eval('neaPartida.o' + i);
+			var p = eval('partida.o' + i);
+			if (n == p) { continue; }
+			if (n) { return playSound('pop'); }
+			return playSound('blioup');
+		}
+
+		playSound('tic');
 	};
 
 	this.updateHTML = function() {
