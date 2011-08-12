@@ -88,11 +88,12 @@ var Sxesi = new function() {
 			var title = 'Offline';
 			break;
 		}
-		html += '<img id="sxi_' + sxesi[i].l + '" alt="" ' +
-			'class="sxesiDiathesimotita" src="' +
-			globals.server + 'images/' + ball + 'Ball.png" ' +
-			'title="' + title + '. Κλικ για εργαλεία" ' +
-			'onclick="Sxesi.panel(\'' + sxesi[i].l + '\');" />';
+		html += '<div onmouseover="Sxesi.panel(\'' + sxesi[i].l + '\', \'inline-block\');" ' +
+			'onmouseout="Sxesi.panel(\'' + sxesi[i].l + '\', \'none\');" ' +
+			'onclick="Sxesi.panel(\'' + sxesi[i].l + '\');" ' +
+			'style="display: inline-block;">';
+		html += '<img id="sxi_' + sxesi[i].l + '" class="sxesiDiathesimotita" alt="" src="' +
+			globals.server + 'images/' + ball + 'Ball.png" title="' + title + '" />';
 		html += '<div id="sx_' + sxesi[i].l + '" style="display: none;">';
 		switch (sxesi[i].s) {
 		case 'F':
@@ -110,6 +111,7 @@ var Sxesi = new function() {
 		}
 		html += Sxesi.permesHTML(sxesi[i]);
 		html += '</div>';
+		html += '</div>';
 		html += '<div style="display: inline-block; cursor: pointer;" title="Πρόσκληση"' +
 			' onclick="Sxesi.addProsklisi(\'' + sxesi[i].l + '\');">';
 		html += '<div class="sxesiData">' + sxesi[i].n + '</div>';
@@ -125,23 +127,22 @@ var Sxesi = new function() {
 		return html;
 	};
 
-	this.panel = function(login, attr) {
+	this.panel = function(login, display) {
 		var x = getelid('sx_' + login);
-		if (isSet(x) && isSet(x.style) && isSet(x.style.display)) {
-			if (isSet(attr)) {
-				x.style.display = attr;
-			}
-			else {
-				switch (x.style.display) {
-				case 'inline-block':
-					x.style.display = 'none';
-					break;
-				default:
-					x.style.display = 'inline-block';
-					break;
-				}
+		if (notSet(x)) { return; }
+		if (notSet(x.style)) { return; }
+
+		if (notSet(display)) {
+			switch (x.style.display) {
+			case 'inline-block':
+				display = 'none';
+				break;
+			default:
+				display = 'inline-block';
+				break;
 			}
 		}
+		x.style.display = display;
 	};
 
 	this.addFilosHTML = function(pektis) {
