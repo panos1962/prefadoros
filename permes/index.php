@@ -53,7 +53,7 @@ function minima_pros($pros = '', $pros_fixed = FALSE) {
 				class="formaField" /><?php
 		}?>
 	</div>
-	<div style="width: 11.0cm;">
+	<div style="width: 20.0cm;">
 	<textarea id="permesInput" rows="14" cols="<?php print $pros_fixed ? 80 : 80; ?>"
 		style="font-size: 0.4cm;"><?php
 		if (Globals::perastike('minima')) {
