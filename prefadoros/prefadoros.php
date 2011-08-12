@@ -1,12 +1,10 @@
 <?php
 class Prefadoros {
-	public static $errmsg = 'Prefadoros::';
-
 	public static function set_pektis($login = FALSE) {
 		global $globals;
 
 		if ($globals->is_pektis()) {
-			Globals::fatal(self::$errmsg . 'set_pektis(): επανακαθορισμός παίκτη');
+			Globals::fatal('Επανακαθορισμός παίκτη');
 		}
 
 		if ($login) {
@@ -30,7 +28,7 @@ class Prefadoros {
 		if (!$globals->is_pektis()) {
 			self::set_pektis($login);
 			if (!$globals->is_pektis()) {
-				Globals::fatal(self::$errmsg . 'ακαθόριστος παίκτης');
+				Globals::fatal('Ακαθόριστος παίκτης');
 			}
 		}
 	}
@@ -39,7 +37,7 @@ class Prefadoros {
 		global $globals;
 
 		if ($globals->is_trapezi()) {
-			Globals::fatal(self::$errmsg . 'επανακαθορισμός τραπεζιού');
+			Globals::fatal('Επανακαθορισμός τραπεζιού');
 		}
 
 		if (!$globals->is_pektis()) {
@@ -66,8 +64,37 @@ class Prefadoros {
 		if (!$globals->is_trapezi()) {
 			self::set_trapezi($all);
 			if (!$globals->is_trapezi()) {
-				Globals::fatal(self::$errmsg . 'ακαθόριστο τραπέζι');
+				Globals::fatal('Ακαθόριστο τραπέζι');
 			}
+		}
+	}
+
+	public static function dianomi_check() {
+		global $globals;
+
+		if (!$globals->is_dianomi()) {
+			self::set_dianomi();
+			if (!$globals->is_dianomi()) {
+				Globals::fatal('Ακαθόριστη διανομή');
+			}
+		}
+	}
+
+	public static function set_dianomi() {
+		global $globals;
+
+		if (!$globals->is_trapezi()) {
+			Globals::fatal('Ακαθόριστο τραπέζι για μάζεμα διανομών');
+		}
+
+		$globals->dianomi = array();
+		$query = "SELECT * FROM `διανομή` WHERE `τραπέζι` = " .
+			$globals->trapezi->kodikos . " ORDER BY `κωδικός`";
+		$result = $globals->sql_query($query);
+		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+			$d = new Dianomi;
+			$d->set_from_dbrow($row);
+			$globals->dianomi[] = $d;
 		}
 	}
 

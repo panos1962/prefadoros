@@ -2,6 +2,19 @@
 // "dianomi" και "kinisi".
 
 var Pexnidi = new function() {
+	// Η μεταβλητή "anamoniKinisis" δείχνει αν περιμένουμε κάποια
+	// συγκεκριμένη κίνηση από τον server και μάλιστα δείχνει τον
+	// κωδικό της κίνησης αυτής. Πρόκειται για την τελευταία κίνηση
+	// που στείλαμε και μας επεστράφη ο κωδικός κατά την εισαγωγή.
+	// Αν η μεταβλητή έχει τιμή μηδέν, τότε το πεδίο είναι καθαρό
+	// και μπορούμε να στείλουμε καινούρια κίνηση. Αν έχε θετική
+	// τιμή, πρόκειται για τον κωδικό της αναμενόμενης κίνησης,
+	// ενώ αν έχει αρτνητική τιμή, βρισκόμαστε στο μικροδιάστημα
+	// μεταξύ αποστολής νέας κίνησης και παραλαβής του κωδικού
+	// της νεοεισαχθείσης κίνησης.
+
+	var anamoniKinisis = 0;
+
 	// Η function "setData" καλείται κάθε φορά που έχουμε νέα δεδομένα
 	// και σκοπό έχει να θέσει τα στοιχεία του παιχνιδιού στα νέα
 	// δεδομένα.
@@ -18,9 +31,12 @@ var Pexnidi = new function() {
 		pexnidi.epomenos = 0;
 		pexnidi.curdil = '';
 		pexnidi.dilosi = [ '', '', '', '' ];
+		pexnidi.dilosiCount = 0;
 		pexnidi.paso = [ false, false, false, false ];
+		pexnidi.dilosiPaso = [ '', '', '', '' ];
 		if (notPartida()) { return;}
 
+		pexnidi.fasi = 'ΣΤΗΣΙΜΟ';
 		switch (partida.h) {
 		case 1:
 			var map = [ 0, 1, 2, 3 ];
@@ -73,13 +89,53 @@ var Pexnidi = new function() {
 		pexnidi.kapikia[pam[1]] = -x;
 
 		for (var i = 0; i < kinisi.length; i++) {
+// alert('kinisi[' + i + '].thesi = ' + kinisi[i].thesi);
+			if (kinisi[i].k == anamoniKinisis) { anamoniKinisis = 0; }
 			switch (kinisi[i].i) {
 			case 'ΔΙΑΝΟΜΗ':
 				pexnidi.fasi = 'ΔΗΛΩΣΗ';
-				Pexnidi.setEpomenos(kinisi[i].pektis);
-				pexnidi.curdil = 'TG';
+				Pexnidi.setEpomenos(kinisi[i].thesi);
+				pexnidi.curdil = 'DTG';
+				break;
+			case 'ΔΗΛΩΣΗ':
+				Pexnidi.processKinisiDilosi(kinisi[i].thesi,
+					kinisi[i].i, kinisi[i].d);
 				break;
 			}
+		}
+	};
+
+	this.processKinisiDilosi = function(thesi, idos, data) {
+		pexnidi.dilosiCount++;
+		pexnidi.dilosi[thesi] = data;
+		pexnidi.fasi = 'ΔΗΛΩΣΗ';
+		Pexnidi.setEpomenos(thesi);
+		if (data.match(/^P/)) {
+			pexnidi.paso[thesi] = true;
+			pexnidi.dilosiPaso[thesi] = data.substr(1, 2);
+			return;
+		}
+
+		if (data == 'DTG') {
+			pexnidi.curdil = 'DS6';
+			return;
+		}
+
+		var de = data.substr(0, 1);
+		var xroma = data.substr(1, 1);
+		var bazes = parseInt(data.substr(2, 1));
+		if ((pexnidi.dilosiCount >= 3) && (de == 'D')) {
+			pexnidi.curdil = 'E' + xroma + bazes;
+		}
+		else {
+			switch (xroma) {
+			case 'S':	xroma = 'C'; break;
+			case 'C':	xroma = 'D'; break;
+			case 'D':	xroma = 'H'; break;
+			case 'H':	xroma = 'N'; break;
+			case 'N':	xroma = 'S'; bazes++; break;
+			}
+			pexnidi.curdil = 'D' + xroma + bazes;
 		}
 	};
 
@@ -88,10 +144,22 @@ var Pexnidi = new function() {
 		if (thesi) {
 			pexnidi.epomenos = thesi + 1;
 			if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
+			if (pexnidi.paso[pexnidi.epomenos]) {
+				pexnidi.epomenos++;
+				if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
+				if (pexnidi.paso[pexnidi.epomenos]) {
+					pexnidi.epomenos++;
+					if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
+					if (pexnidi.paso[pexnidi.epomenos]) {
+						pexnidi.epomenos = 0;
+					}
+				}
+			}
 		}
 		else {
 			pexnidi.epomenos = 0;
 		}
+//alert(thesi + '->' + pexnidi.epomenos);
 	};
 
 	this.dianomiMap = function(map, pam) {
@@ -112,7 +180,7 @@ var Pexnidi = new function() {
 
 	this.kinisiMap = function(map, pam) {
 		for (var i = 0; i < kinisi.length; i++) {
-			kinisi[i].pektis = pam[kinisi[i].p];
+			kinisi[i].thesi = pam[kinisi[i].p];
 			if (kinisi[i].i == 'ΔΙΑΝΟΜΗ') {
 				var x = kinisi[i].d.split(':');
 				for (var j = 1; j <= 3; j++) {
@@ -189,13 +257,14 @@ var Pexnidi = new function() {
 				'στο τραπέζι. Παρακαλώ περιμένετε…';
 		}
 		else {
-			html += 'Ελέγξτε την ' + Pexnidi.lexiIconHTML('κάσα', 'controlPanel/kasa.png') +
-				' και τη ' + Pexnidi.lexiIconHTML('διάταξη', 'controlPanel/diataxi.png') +
+			html += 'Ελέγξτε την ' + Pexnidi.lexiIconHTML('κάσα (',
+				'controlPanel/kasa.png', ')') + ' και τη ' +
+				Pexnidi.lexiIconHTML('διάταξη (', 'controlPanel/diataxi.png', ')') +
 				' των παικτών χρησιμοποιώντας τα σχετικά εργαλεία του control panel. ';
 			html += 'Τέλος, πατήστε το πλήκτρο αποδοχής όρων του ' +
-				Pexnidi.lexiIconHTML('παιχνιδιού', 'controlPanel/check.png') +
-				' ή το πλήκτρο ' + Pexnidi.lexiIconHTML('εκκίνησης',
-				'controlPanel/go.jpg') + ' για να ξεκινήσετε την παρτίδα.';
+				Pexnidi.lexiIconHTML('παιχνιδιού (', 'controlPanel/check.png', '),') +
+				' ή το πλήκτρο ' + Pexnidi.lexiIconHTML('εκκίνησης (',
+				'controlPanel/go.jpg', ')') + ' για να ξεκινήσετε την παρτίδα.';
 		}
 		html += '</div>';
 		return html;
@@ -208,55 +277,110 @@ var Pexnidi = new function() {
 		if (isTheatis()) {
 			html += '<div style="position: absolute; z-index: 1;">';
 			html += 'Οι παίκτες πλειοδοτούν με διαδοχικές δηλώσεις αγοράς, ' +
-				'ή αποσύρονται δηλώνοντας "πάσο". Παρακαλώ περιμένετε…';
+				'ή αποσύρονται δηλώνοντας «πάσο». Παρακαλώ περιμένετε…';
 			html += '</div>';
 		}
-		if (pexnidi.epomenos == 1) {
-			html += '<div class="dilosiArea">';
-			if (pexnidi.curdil == 'TG') {
+		else if (pexnidi.epomenos == 1) {
+			html += '<div class="protasiArea">';
+			if (pexnidi.curdil == 'DTG') {
 				html += Tools.epilogiHTML('Άμα μείνουν',
-					'Pexnidi.epilogiDilosisi()', '', 'dilosi');
+					'Pexnidi.epilogiDilosis(this)', '', 'protasi');
 				html += Tools.epilogiHTML('ΠΡΩΤΑ',
-					'Pexnidi.epilogiDilosisi(\'S6\')', '', 'dilosi');
+					'Pexnidi.epilogiDilosis(this, \'DS6\')', '', 'protasi');
 			}
 			else {
-				html += Tools.epilogiHTML(pexnidi.dilosi,
-					'Pexnidi.epilogiDilosis()', '', 'dilosi');
+				html += Tools.epilogiHTML(Pexnidi.xromaBazesHTML(pexnidi.curdil),
+					'Pexnidi.epilogiDilosis(this)', '', 'protasi');
 			}
 			html += Tools.epilogiHTML('ΠΑΣΟ',
-				'Pexnidi.dilosiPaso()', '', 'dilosi');
+				'Pexnidi.dilosiPaso(this)', '', 'protasi');
 			html += '</div>';
 		}
 		else if (!pexnidi.paso[1]) {
 			html += '<div style="position: absolute; z-index: 1;">';
 			html += 'Πλειοδοτήστε για την αγορά, ή αποσυρθείτε ' +
-				'δηλώνοντας "πάσο". Περιμένετε τη σειρά σας…';
+				'δηλώνοντας «πάσο». Περιμένετε τη σειρά σας…';
 			html += '</div>';
 		}
 		html += '</div>';
 		return html;
 	};
 
-	this.epilogiDilosis = function(dilosi) {
-		if (notSet(dilosi)) { dilosi = pexnidi.curdil; }
+	this.xromaBazesHTML = function(dilosi) {
+mainFyi(dilosi);
+		var html = '';
+		var de = dilosi.substr(0, 1);
+		var xroma = dilosi.substr(1, 1);
+		var bazes = dilosi.substr(2, 1);
+
+		html += '<div>';
+		html += '<div class="protasiBazes">';
+		if (de == 'E') { html += 'Έχω '; }
+		html += bazes;
+		html += '</div>';
+		html += '<img class="protasiXroma" src="' + globals.server +
+			'images/trapoula/xroma' + xroma + '.png" alt="" />';
+		html += '</div>';
+		return html;
 	};
 
-	this.dilosiPaso = function() {
+	this.epilogiDilosis = function(div, dilosi) {
+		var cls = div.getAttribute('class');
+		cls += ' epilogiAnamoni';
+		div.setAttribute('class', cls);
+		if (notSet(dilosi)) { dilosi = pexnidi.curdil; }
+		Pexnidi.addKinisi('ΔΗΛΩΣΗ', dilosi);
+	};
+
+	this.dilosiPaso = function(div) {
+		var cls = div.getAttribute('class');
+		cls += ' epilogiAnamoni';
+		div.setAttribute('class', cls);
+		Pexnidi.addKinisi('ΔΗΛΩΣΗ', 'P' + pexnidi.curdil.substr(1, 2));
+	};
+
+	this.addKinisi = function(idos, data) {
+		if (anamoniKinisis) {
+			playSound('beep');
+			mainFyi('Αναμένεται κίνηση από τον server');
+			return;
+		}
+
+		anamoniKinisis = -1;
+		var req = new Request('pexnidi/addKinisi');
+		req.xhr.onreadystatechange = function() {
+			Pexnidi.addKinisiCheck(req);
+		};
+
+		var params = 'thesi=' + uri(mapThesi(1));
+		params += '&idos=' + uri(idos);
+		params += '&data=' + uri(data);
+		req.send(params);
+	};
+
+	this.addKinisiCheck = function(req) {
+		if (req.xhr.readyState != 4) { return; }
+		var rsp = req.getResponse();
+		if (rsp.match(/^OK@/)) {
+			anamoniKinisis = parseInt(rsp.replace(/^OK/));
+		}
+		else {
+			mainFyi(rsp);
+			playSound('beep');
+			anamoniKinisis = 0;
+		}
 	};
 
 	this.dianomiHTML = function() {
 		return 'ΔΙΑΝΟΜΗ';
 	};
 
-	this.lexiIconHTML = function(lexi, src, paren) {
-		if (notSet(paren)) { paren = true; }
+	this.lexiIconHTML = function(prin, src, meta) {
 		var html = '';
-
-		html += '<span class="nobr">' + lexi + ' ';
-		if (paren) { html += '('; }
+		html += '<span class="nobr">' + prin;
 		html += Pexnidi.textIcon(src);
+		if (isSet(meta)) { html += meta; }
 		html += '</span>';
-		if (paren) { html += ')'; }
 		return html;
 	};
 
@@ -286,7 +410,9 @@ var Pexnidi = new function() {
 			'images/provlima.gif" alt="" />';
 		html += '<div style="position: absolute; z-index: 1; top: 0.6cm;">';
 		html += 'Παρουσιάστηκε κάποιο πρόβλημα. Το πρόγραμμα δεν αναγνωρίζει ' +
-			'την παρούσα φάση του παιχνιδιού. Παρακαλώ ειδοποιήστε τον ' +
+			'την παρούσα φάση ';
+		if (pexnidi.fasi) { html += '(' + pexnidi.fasi + ') '; }
+		html += 'του παιχνιδιού. Παρακαλώ ειδοποιήστε τον ' +
 			'προγραμματιστή.';
 		html += '</div>';
 		return html;

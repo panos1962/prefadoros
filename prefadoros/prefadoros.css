@@ -804,6 +804,12 @@
 	height: 0.40cm;
 }
 
+.epilogiAnamoni {
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	cursor: wait;
+}
+
 .fila1Area {
 	position: absolute;
 	bottom: 0.66cm;
@@ -829,7 +835,7 @@
 	width: 9.66cm;
 	height: 4.6cm;
 
-	font-size: 0.46cm;
+	font-size: 0.42cm;
 	font-style: italic;
 	font-weight: bold;
 	text-align: left;
@@ -842,6 +848,7 @@
 	display: inline-block;
 	width: 0.44cm;
 	margin-bottom: -0.1cm;
+	white-space: nowrap;
 }
 
 .gipedoAnamoni {
@@ -863,13 +870,50 @@
 	width: 2.8cm;
 }
 
-.dilosiArea {
+.protasiArea {
 	position: absolute;
 	top: 0.4cm;
 	left: 5.4cm;
 	width: 4.0cm;
 }
 
-.dilosi {
+.protasi {
 	margin-bottom: 0.2cm;
+	font-size: 0.6cm;
+}
+
+.protasiBazes {
+	display: inline-block;
+	font-weight: bold;
+}
+
+.protasiXroma {
+	display: inline-block;
+	width: 0.6cm;
+}
+
+.dilosiArea {
+	position: absolute;
+	top: 1.4cm;
+	left: 0;
+	width: 100%;
+	background-color: green;
+}
+
+.dilosiPekti {
+	position: absolute;
+	top: 0.2cm;
+	left: 2%;
+	width: 36%;
+	background-color: teal;
+	text-align: center;
+}
+
+.dilosiPaso {
+	position: absolute;
+	top: 0.2cm;
+	right: 2%;
+	width: 56%;
+	background-color: red;
+	text-align: center;
 }

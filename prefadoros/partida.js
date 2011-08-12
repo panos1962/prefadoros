@@ -161,6 +161,7 @@ var Partida = new function() {
 		html += Partida.dpmHTML(3);
 		html += Partida.onomaPektiHTML(3);
 		html += Partida.kapikiaHTML(3);
+		html += Partida.dilosiAgoraHTML(3);
 		html += '</div>';
 		html += '</div>';
 		return html;
@@ -177,6 +178,7 @@ var Partida = new function() {
 		html += Partida.dpmHTML(2);
 		html += Partida.onomaPektiHTML(2);
 		html += Partida.kapikiaHTML(2);
+		html += Partida.dilosiAgoraHTML(2);
 		html += '</div>';
 		html += '</div>';
 		return html;
@@ -194,6 +196,7 @@ var Partida = new function() {
 		html += Partida.dpmHTML(1);
 		html += Partida.onomaPektiHTML(1);
 		html += Partida.kapikiaHTML(1);
+		html += Partida.dilosiAgoraHTML(1);
 		html += '</div>';
 		html += '</div>';
 		html += '<div class="fila1Area">';
@@ -257,6 +260,24 @@ var Partida = new function() {
 				'images/dose.png" alt="" />';
 		}
 		html += '</div>';
+		return html;
+	};
+
+	this.dilosiAgoraHTML = function(thesi) {
+		var html = '';
+		if (pexnidi.dilosi[thesi]) {
+			html += '<div class="dilosiPekti">';
+			html += pexnidi.dilosi[thesi];
+			html += '</div>';
+		}
+		if (pexnidi.paso[thesi]) {
+			html += '<div class="dilosiPaso">';
+			html += pexnidi.dilosiPaso[thesi];
+			html += '</div>';
+		}
+		if (html) {
+			html = '<div class="dilosiArea">' + html + '</div>';
+		}
 		return html;
 	};
 
