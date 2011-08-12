@@ -135,6 +135,10 @@ var Prefadoros = new function() {
 	this.sizitisiControls = function() {
 		var x = getelid('sizitisiControls');
 		if (notSet(x)) { return; }
+
+		// Επανεμφανίζουμε τα πλήκτρα αποστολής και διαγραφής μηνυμάτων
+		// ανάλογα με τις προσβάσεις του χρήστης, αλλά δεν μεταφέρουμε
+		// το focus στο πεδίο των σχολίων.
 		x.innerHTML = Sizitisi.controlsHTML(false);
 	};
 
