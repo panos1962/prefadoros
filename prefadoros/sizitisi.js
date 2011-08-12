@@ -459,11 +459,10 @@ var Sizitisi = new function() {
 	};
 
 	this.controlsHTML = function(fs) {
-		var html = '';
-
 		var s = getelid('sxolioInput');
 		if (notSet(s)) { return ''; }
 
+		var html = '';
 		if ((Prefadoros.show == 'kafenio') ||
 			(isPartida() && (notTheatis() || isProsklisi()))) {
 			s.disabled = false;
