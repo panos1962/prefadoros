@@ -110,6 +110,7 @@ var Partida = new function() {
 		html += Partida.pektis1HTML();
 
 		html += Partida.theatisHTML();
+		html += Partida.gipedoHTML();
 
 		html += '<div class="partidaInfo partidaInfoBottom">';
 		html += 'Information area';
@@ -268,6 +269,7 @@ var Partida = new function() {
 		if (pektis != '') {
 			html += ' ' + ((isSet(apodoxi) && (apodoxi == 0)) ? 'oxiApodoxi' : 'apodoxi');
 			if (notSet(online) || (online == 0)) { html += ' offline'; }
+			if (thesi == pexnidi.epomenos) { html += ' epomenos'; }
 		}
 		return html;
 	};
@@ -333,6 +335,20 @@ var Partida = new function() {
 		}
 	};
 
+	this.gipedoHTML = function() {
+		var html = '<div class="gipedo">';
+
+		switch (pexnidi.fasi) {
+		case 'ΣΤΗΣΙΜΟ':		html += Pexnidi.stisimoHTML(); break;
+		case 'ΔΙΑΝΟΜΗ':		html += Pexnidi.dianomiHTML(); break;
+		case 'ΔΗΛΩΣΗ':		html += Pexnidi.dilosiHTML(); break;
+		default:		html += Pexnidi.agnostiFasiHTML(); break;
+		}
+
+		html += '</div>';
+		return html ;
+	};
+
 	this.theatisHTML = function() {
 		var html = '';
 		if (notSet(rebelos)) { return html; }
@@ -340,18 +356,6 @@ var Partida = new function() {
 		var protos = '<div class="theatisArea">';
 		var count = 0;
 		var more = 0;
-/*
-rebelos = [
-	{t:2217,l:'takis'},
-	{t:2217,l:'panos1962@gmail.com'},
-	{t:2217,l:'hshshs'},
-	{t:2217,l:'bolek'},
-	{t:2217,l:'panos1962@gmail.com'},
-	{t:2217,l:'lolek'},
-	{t:2217,l:'sakis'},
-	{t:2217,l:'hshshs'}
-];
-*/
 		for (var i = 0; i < rebelos.length; i++) {
 			if (isSet(rebelos[i].t) && (rebelos[i].t == partida.k) &&
 				(rebelos[i].l != pektis.login)) {
