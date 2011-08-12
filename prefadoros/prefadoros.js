@@ -135,7 +135,7 @@ var Prefadoros = new function() {
 	this.sizitisiControls = function() {
 		var x = getelid('sizitisiControls');
 		if (notSet(x)) { return; }
-		x.innerHTML = Sizitisi.controlsHTML();
+		x.innerHTML = Sizitisi.controlsHTML(false);
 	};
 
 	this.sviseBikeTora = function(img) {

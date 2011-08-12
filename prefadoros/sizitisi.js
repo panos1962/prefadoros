@@ -458,7 +458,7 @@ var Sizitisi = new function() {
 		if (isSet(x)) { x.focus(); }
 	};
 
-	this.controlsHTML = function() {
+	this.controlsHTML = function(fs) {
 		var html = '';
 
 		var s = getelid('sxolioInput');
@@ -467,7 +467,7 @@ var Sizitisi = new function() {
 		if ((Prefadoros.show == 'kafenio') ||
 			(isPartida() && (notTheatis() || isProsklisi()))) {
 			s.disabled = false;
-			Sizitisi.sxolioFocus();
+			if (notSet(fs)) { Sizitisi.sxolioFocus() };
 			html += '<img id="sxolioApostoli" src="' + globals.server +
 				'images/controlPanel/talk.png" class="pssIcon" ' +
 				'title="Αποστολή σχολίου" alt="" ' +
