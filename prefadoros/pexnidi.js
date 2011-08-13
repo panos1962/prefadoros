@@ -16,9 +16,6 @@ var Pexnidi = new function() {
 	var anamoniKinisis = 0;
 
 	this.resetData = function() {
-		pexnidi.pektis = [ '', '', '', '' ];
-		pexnidi.kasa = 0;
-
 		pexnidi.ipolipo = 0;
 		pexnidi.kapikia = [ 0, 0, 0, 0 ];
 		pexnidi.elima = 0;
@@ -50,17 +47,14 @@ var Pexnidi = new function() {
 
 		pexnidi.fasi = 'ΣΤΗΣΙΜΟ';
 
-		Pexnidi.setMapPam();
 		Pexnidi.dianomiMap();
 		Pexnidi.kinisiMap();
 
-		pexnidi.kasa = partida.s;
 		for (var i = 1; i <= 3; i++) {
-			pexnidi.pektis[i] = eval('partida.p' + i);
-			pexnidi.kapikia[i] = -(pexnidi.kasa * 10);
+			pexnidi.kapikia[i] = -(partida.kasa * 10);
 		}
 
-		pexnidi.ipolipo = 30 * pexnidi.kasa;
+		pexnidi.ipolipo = 30 * partida.kasa;
 		for (var i = 0; i < dianomi.length; i++) {
 			pexnidi.dealer = dianomi[i].dealer;
 			for (var j = 1; j <= 3; j++) {
@@ -78,9 +72,9 @@ var Pexnidi = new function() {
 			pexnidi.kapikia[i] = parseInt(pexnidi.kapikia[i] + x);
 		}
 
-		var x = pexnidi.kapikia[pexnidi.pam[2]] + pexnidi.kapikia[pexnidi.pam[3]];
-		pexnidi.elima = pexnidi.kapikia[pexnidi.pam[1]] + x;
-		pexnidi.kapikia[pexnidi.pam[1]] = -x;
+		var x = pexnidi.kapikia[partida.pam[2]] + pexnidi.kapikia[partida.pam[3]];
+		pexnidi.elima = pexnidi.kapikia[partida.pam[1]] + x;
+		pexnidi.kapikia[partida.pam[1]] = -x;
 
 		for (var i = 0; i < kinisi.length; i++) {
 // alert('kinisi[' + i + '].thesi = ' + kinisi[i].thesi);
@@ -96,28 +90,6 @@ var Pexnidi = new function() {
 					kinisi[i].i, kinisi[i].d);
 				break;
 			}
-		}
-	};
-
-	this.setMapPam = function() {
-		switch (partida.h) {
-		case 1:
-			pexnidi.map = [ 0, 1, 2, 3 ];
-			pexnidi.pam = [ 0, 1, 2, 3 ];
-			break;
-		case 2:
-			pexnidi.map = [ 0, 2, 3, 1 ];
-			pexnidi.pam = [ 0, 3, 1, 2 ];
-			break;
-		case 3:
-			pexnidi.map = [ 0, 3, 1, 2 ];
-			pexnidi.pam = [ 0, 2, 3, 1 ];
-			break;
-		default:
-			alert('pexnidi.setData: λάθος θέση παίκτη');
-			pexnidi.map = [ 0, 1, 2, 3 ];
-			pexnidi.pam = [ 0, 1, 2, 3 ];
-			break;
 		}
 	};
 
@@ -183,27 +155,27 @@ var Pexnidi = new function() {
 
 	this.dianomiMap = function() {
 		for (var i = 0; i < dianomi.length; i++) {
-			dianomi[i].dealer = pexnidi.pam[dianomi[i].d];
+			dianomi[i].dealer = partida.pam[dianomi[i].d];
 			dianomi[i].kasa = [ 0,
-				eval('dianomi[' + i + '].k' + pexnidi.map[1]),
-				eval('dianomi[' + i + '].k' + pexnidi.map[2]),
-				eval('dianomi[' + i + '].k' + pexnidi.map[3])
+				eval('dianomi[' + i + '].k' + partida.map[1]),
+				eval('dianomi[' + i + '].k' + partida.map[2]),
+				eval('dianomi[' + i + '].k' + partida.map[3])
 			];
 			dianomi[i].kapikia = [ 0,
-				eval('dianomi[' + i + '].m' + pexnidi.map[1]),
-				eval('dianomi[' + i + '].m' + pexnidi.map[2]),
-				eval('dianomi[' + i + '].m' + pexnidi.map[3])
+				eval('dianomi[' + i + '].m' + partida.map[1]),
+				eval('dianomi[' + i + '].m' + partida.map[2]),
+				eval('dianomi[' + i + '].m' + partida.map[3])
 			];
 		}
 	};
 
 	this.kinisiMap = function() {
 		for (var i = 0; i < kinisi.length; i++) {
-			kinisi[i].thesi = pexnidi.pam[kinisi[i].p];
+			kinisi[i].thesi = partida.pam[kinisi[i].p];
 			if (kinisi[i].i == 'ΔΙΑΝΟΜΗ') {
 				var x = kinisi[i].d.split(':');
 				for (var j = 1; j <= 3; j++) {
-					pexnidi.fila[j] = Pexnidi.spaseFila(x[pexnidi.map[j]]);
+					pexnidi.fila[j] = Pexnidi.spaseFila(x[partida.map[j]]);
 				}
 			}
 		}
@@ -371,7 +343,7 @@ mainFyi(dilosi);
 			Pexnidi.addKinisiCheck(req);
 		};
 
-		var params = 'thesi=' + uri(pexnidi.map[1]);
+		var params = 'thesi=' + uri(partida.map[1]);
 		params += '&idos=' + uri(idos);
 		params += '&data=' + uri(data);
 		req.send(params);

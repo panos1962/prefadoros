@@ -22,13 +22,84 @@ var Partida = new function() {
 				if (Partida.bikeNeos(dedomena.partida)) {
 					playSound('doorBell');
 				}
-				else if (dedomena.partida != partida) {
+				else if (Partida.iparxiAlagi(dedomena.partida, partida)) {
 					Partida.ixosAlagis(dedomena.partida);
+				}
+				else {
+					return;
 				}
 			}
 		}
 
 		partida = dedomena.partida;
+		Partida.setData();
+	};
+
+	// Ελέγχω για τυχόν διαφορές στα πρωτογενή δεδομένα μεταξύ
+	// νέας και τρέχουσας παρτίδας.
+
+	this.iparxiAlagi = function(nea, cur) {
+		// Ακολουθεί λίστα με τα πρωτογενή δεδομένα της παρτίδας,
+		// δηλαδή τα πεδία τα οποία επιστρέφονται από τον server,
+		// τα οποία φροντίζω να μην πειράξω, ούτε να αντιστοιχίσω
+		// στις θέσεις που εμφανίζονται στον client.
+		var attr = [
+			'p1', 'a1', 'o1',
+			'p2', 'a2', 'o2',
+			'p3', 'a3', 'o3',
+			's', 'p', 'b',
+			'h', 't'
+		];
+
+		for (var i in attr) {
+			if (isSet(nea[attr[i]]) && notSet(cur[attr[i]])) { return true; }
+			if (notSet(nea[attr[i]]) && isSet(cur[attr[i]])) { return true; }
+			if (isSet(nea[attr[i]]) && isSet(cur[attr[i]]) &&
+				(nea[attr[i]] != cur[attr[i]])) { return true; }
+		}
+
+		return false;
+	};
+
+	// Θέτω όλα τα δευτερογενή πεδία της παρτίδας λαμβάνοντας υπόψη τη
+	// θέση του παίκτη/θεατή στο τραπέζι και κάνοντας τις κατάλληλες
+	// αντιστοιχίσεις. Δεν πειράζω, όμως, τα πρωτογενή δεδομένα.
+
+	this.setData = function() {
+		if (notSet(partida.k)) { return; }
+		if (notSet(partida.h)) { return fatalError('Partida.setData: ακαθόριστη θέση παίκτη'); }
+
+		partida.kodikos = parseInt(partida.k);
+		partida.kasa = parseInt(partida.s);
+		partida.prive = (partida.p == 1);
+		partida.klisto = (partida.b == 1);
+		partida.theatis = (partida.t == 1);
+
+		switch (partida.thesi = parseInt(partida.h)) {
+		case 1:
+			partida.map = [ 0, 1, 2, 3 ];
+			partida.pam = [ 0, 1, 2, 3 ];
+			break;
+		case 2:
+			partida.map = [ 0, 2, 3, 1 ];
+			partida.pam = [ 0, 3, 1, 2 ];
+			break;
+		case 3:
+			partida.map = [ 0, 3, 1, 2 ];
+			partida.pam = [ 0, 2, 3, 1 ];
+			break;
+		default:
+			return fatalError('partida.setMapPam: λάθος θέση παίκτη');
+		}
+
+		partida.pektis = [ '', '', '', '' ];
+		partida.apodoxi = [ false, false, false, false ];
+		partida.online = [ false, false, false, false ];
+		for (var i = 1; i <= 3; i++) {
+			partida.pektis[i] = eval('partida.p' + partida.map[i]);
+			partida.apodoxi[i] = (eval('partida.a' + partida.map[i]) == 1);
+			partida.online[i] = (eval('partida.o' + partida.map[i]) == 1);
+		}
 	};
 
 	this.bikeNeos = function(nea) {
@@ -99,8 +170,8 @@ var Partida = new function() {
 
 		var html = '';
 		html = '<div class="partida';
-		if (partida.t) { html += ' partidaTheatis'; }
-		if (partida.p) { html += ' partidaPrive'; }
+		if (partida.theatis) { html += ' partidaTheatis'; }
+		if (partida.prive) { html += ' partidaPrive'; }
 		html += '">';
 
 		html += Partida.panoInfoHTML();
@@ -125,9 +196,9 @@ var Partida = new function() {
 		var tbc = isTheatis() ? ' theatis' : '';
 		html += '<div class="partidaInfo partidaInfoTop">';
 		html += 'τραπέζι: <span class="partidaInfoData' + tbc + '">';
-		html += partida.k + '</span>';
+		html += partida.kodikos + '</span>';
 		html += ', κάσα: <span class="partidaInfoData' + tbc + '">';
-		html += partida.s + '</span>';
+		html += partida.kasa + '</span>';
 		if (notTheatis()) {
 			html += '<img class="kasaPanoKato' + tbc + '" alt="" src="' + globals.server +
 				'images/panoKasa.png" title="Αύξηση κάσας κατά 300 καπίκια" ' +
@@ -220,12 +291,12 @@ var Partida = new function() {
 
 	this.onomaPektiHTML = function(thesi) {
 		var html = '';
-		if (isDianomi() && (pexnidi.pektis[thesi] == '')) {
+		if (isDianomi() && (partida.pektis[thesi] == '')) {
 			html += '<img src="' + globals.server + 'images/gone.png" ' +
 				'class="pektisGone" alt="" />';
 		}
 		else {
-			html += '<div class="pektisName">' + pexnidi.pektis[thesi] + '</div>';
+			html += '<div class="pektisName">' + partida.pektis[thesi] + '</div>';
 			html += Partida.miposBikeTora(thesi);
 		}
 		return html;
@@ -283,13 +354,10 @@ var Partida = new function() {
 
 	this.pektisMainHTML = function(thesi) {
 		var html = '';
-		var pektis = eval('partida.p' + thesi);
-		var apodoxi = eval('partida.a' + thesi);
-		var online = eval('partida.o' + thesi);
 		if (isTheatis()) { html += ' theatis'; }
-		if (pektis != '') {
-			html += ' ' + ((isSet(apodoxi) && (apodoxi == 0)) ? 'oxiApodoxi' : 'apodoxi');
-			if (notSet(online) || (online == 0)) { html += ' offline'; }
+		if (partida.pektis[thesi] != '') {
+			html += ' ' + (partida.apodoxi[thesi] ? 'apodoxi' : 'oxiApodoxi');
+			if (!partida.online[thesi]) { html += ' offline'; }
 			if (thesi == pexnidi.epomenos) { html += ' epomenos'; }
 		}
 		return html;
@@ -378,7 +446,7 @@ var Partida = new function() {
 		var count = 0;
 		var more = 0;
 		for (var i = 0; i < rebelos.length; i++) {
-			if (isSet(rebelos[i].t) && (rebelos[i].t == partida.k) &&
+			if (isSet(rebelos[i].t) && (rebelos[i].t == partida.kodikos) &&
 				(rebelos[i].l != pektis.login)) {
 				if (count > 5) {
 					if (more <= 0) { var moreProtos = rebelos[i].l; }
