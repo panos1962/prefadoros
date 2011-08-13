@@ -34,6 +34,8 @@ var Pexnidi = new function() {
 		pexnidi.paso = [ false, false, false, false ];
 		pexnidi.dilosiPaso = [ '', '', '', '' ];
 
+		pexnidi.tzogadoros = 0;
+
 		pexnidi.mazi = [ false, false, false, false ];
 	};
 
@@ -86,16 +88,17 @@ var Pexnidi = new function() {
 				pexnidi.curdil = 'DTG';
 				break;
 			case 'ΔΗΛΩΣΗ':
-				Pexnidi.processKinisiDilosi(kinisi[i].thesi,
-					kinisi[i].i, kinisi[i].d);
+				Pexnidi.processKinisiDilosi(kinisi[i].thesi, kinisi[i].d);
+				break;
+			case 'ΤΖΟΓΟΣ':
+				Pexnidi.processKinisiTzogos(kinisi[i].thesi, kinisi[i].d);
 				break;
 			}
 		}
 	};
 
-	this.processKinisiDilosi = function(thesi, idos, data) {
+	this.processKinisiDilosi = function(thesi, data) {
 		pexnidi.dilosiCount++;
-		pexnidi.dilosi[thesi] = data;
 		if (data.match(/^P/)) {
 			pexnidi.paso[thesi] = true;
 			pexnidi.dilosiPaso[thesi] = data.substr(1, 2);
@@ -108,6 +111,7 @@ var Pexnidi = new function() {
 			return;
 		}
 
+		pexnidi.dilosi[thesi] = data;
 		pexnidi.fasi = 'ΔΗΛΩΣΗ';
 		Pexnidi.setEpomenos(thesi);
 		if (data == 'DTG') {
@@ -132,6 +136,20 @@ var Pexnidi = new function() {
 			}
 			pexnidi.curdil = 'D' + xroma + Pexnidi.bazesEncode(bazes);
 		}
+	};
+
+	this.processKinisiTzogos = function(thesi, data) {
+		pexnidi.tzogadoros = thesi;
+		fila = pexnidi.fila[thesi];
+		fila.push(data.substr(0, 2));
+		fila.push(data.substr(2, 2));
+
+		var s = '';
+		for (var i = 0; i < fila.length; i++) { s += fila[i]; }
+		pexnidi.fila[thesi] = Pexnidi.spaseFila(s);
+
+		pexnidi.fasi = 'ΤΖΟΓΟΣ';
+		pexnidi.epomenos = thesi;
 	};
 
 	this.bazesDecode = function(s) {
