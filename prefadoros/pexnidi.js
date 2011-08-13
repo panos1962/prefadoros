@@ -96,14 +96,20 @@ var Pexnidi = new function() {
 	this.processKinisiDilosi = function(thesi, idos, data) {
 		pexnidi.dilosiCount++;
 		pexnidi.dilosi[thesi] = data;
-		pexnidi.fasi = 'ΔΗΛΩΣΗ';
-		Pexnidi.setEpomenos(thesi);
 		if (data.match(/^P/)) {
 			pexnidi.paso[thesi] = true;
 			pexnidi.dilosiPaso[thesi] = data.substr(1, 2);
+			Pexnidi.setEpomenos(thesi);
+			if (pexnidi.epomenos == 0) {
+				pexnidi.fasi = 'ΤΡΙΑ ΠΑΣΟ';
+				pexnidi.dealer++;
+				if (pexnidi.dealer > 3) { pexnidi.dealer = 1; }
+			}
 			return;
 		}
 
+		pexnidi.fasi = 'ΔΗΛΩΣΗ';
+		Pexnidi.setEpomenos(thesi);
 		if (data == 'DTG') {
 			pexnidi.curdil = 'DS6';
 			return;
@@ -148,9 +154,8 @@ var Pexnidi = new function() {
 				}
 			} while (pexnidi.epomenos != thesi);
 		}
-		else {
-			pexnidi.epomenos = 0;
-		}
+
+		pexnidi.epomenos = 0;
 	};
 
 	this.dianomiMap = function() {
@@ -297,16 +302,17 @@ var Pexnidi = new function() {
 		return html;
 	};
 
-	this.xromaBazesHTML = function(dilosi) {
-mainFyi(dilosi);
+	this.xromaBazesHTML = function(dilosi, bc, xc) {
 		var html = '';
 		var de = dilosi.substr(0, 1);
 		var xroma = dilosi.substr(1, 1);
 		var bazes = Pexnidi.bazesDecode(dilosi.substr(2, 1));
 
+		if (notSet(bc)) { bc = 'protasiBazes'; }
+		if (notSet(xc)) { bc = 'protasiXroma'; }
 		html += '<div>';
 		html += '<div class="protasiBazes">';
-		if (de == 'E') { html += 'Έχω '; }
+		if (de == 'E') { html += '<span style="font-size: 80%;">Έχω </span>'; }
 		html += bazes;
 		html += '</div>';
 		html += '<img class="protasiXroma" src="' + globals.server +
@@ -363,7 +369,46 @@ mainFyi(dilosi);
 	};
 
 	this.dianomiHTML = function() {
-		return 'ΔΙΑΝΟΜΗ';
+		var html = '';
+		html += Pexnidi.anamoniHTML();
+		if (isTheatis()) {
+			html += 'Και οι τρεις παίκτες δήλωσαν «πάσο». ' +
+				'Θα γίνει νέα διανομή. ';
+			switch (pexnidi.dealer) {
+			case 1:		html += 'Ο παίκτης που παρακολουθείτε μοιράζει φύλλα. '; break;
+			case 2:		html += 'Ο παίκτης δεξιά μοιράζει φύλλα. '; break;
+			case 3:		html += 'Ο παίκτης αριστερά μοιράζει φύλλα. '; break;
+			}
+		}
+		else {
+			html += 'Και οι τρεις παίκτες δηλώσατε «πάσο». ';
+			switch (pexnidi.dealer) {
+			case 1:		html += 'Μοιράζετε φύλλα. '; break;
+			case 2:		html += 'Ο παίκτης στα δεξιά σας μοιράζει φύλλα. '; break;
+			case 3:		html += 'Ο παίκτης στα αριστερά σας μοιράζει φύλλα. '; break;
+			}
+		}
+		html += 'Παρακαλώ περιμένετε…';
+		return html;
+	};
+
+	this.triaPasoHTML = function() {
+		if (!isPPP()) { return Pexnidi.dianomiHTML(); };
+		var html = '';
+		html += '<div style="position: absolute; z-index: 1;">';
+		if (isTheatis()) {
+			html += 'Και οι τρεις παίκτες δήλωσαν «πάσο». ' +
+				'Η διανομή θα παιχτεί και ο παίκτης που θα πάρει τις ' +
+				'περισσότερες μπάζες θα καταθέσει 100 καπίκια στην κάσα. ' +
+				'Παρακαλώ περιμένετε…';
+		}
+		else {
+			html += 'Και οι τρεις παίκτες δηλώσατε «πάσο». ' +
+				'Θα παίξετε τη διανομή και όποιος από σας κάνει τις ' +
+				'περισσότερες μπάζες θα καταθέσει 100 καπίκια στην κάσα.';
+		}
+		html += '</div>';
+		return html;
 	};
 
 	this.lexiIconHTML = function(prin, src, meta) {

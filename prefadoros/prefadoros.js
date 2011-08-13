@@ -209,6 +209,14 @@ function isAnikto() {
 	return(!isKlisto());
 }
 
+function isPPP() {
+	return(isSet(window.partida) && isSet(partida.ppp) && partida.ppp);
+}
+
+function notPPP() {
+	return(!isPPP());
+}
+
 function isDianomi() {
 	return(isSet(window.dianomi) && isSet(dianomi.length) && (dianomi.length > 0));
 }

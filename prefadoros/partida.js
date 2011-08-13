@@ -48,7 +48,7 @@ var Partida = new function() {
 			'p2', 'a2', 'o2',
 			'p3', 'a3', 'o3',
 			's', 'p', 'b',
-			'h', 't'
+			'ppp', 'h', 't'
 		];
 
 		for (var i in attr) {
@@ -71,6 +71,7 @@ var Partida = new function() {
 
 		partida.kodikos = parseInt(partida.k);
 		partida.kasa = parseInt(partida.s);
+		partida.ppp = (partida.ppp == 1);
 		partida.prive = (partida.p == 1);
 		partida.klisto = (partida.b == 1);
 		partida.theatis = (partida.t == 1);
@@ -214,16 +215,26 @@ var Partida = new function() {
 			html += dianomi[dianomi.length - 1].k + '</span>';
 		}
 		html += '</div>';
-		if (isKlisto()) {
-			html += '<img class="partidaKlisto" alt="" src="' + globals.server +
-				'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
+		if (isKlisto() || isPPP()) {
+			html += '<div class="partidaAttrArea">';
+			if (isKlisto()) {
+				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
+					'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
+			}
+			if (isPPP()) {
+				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
+					'images/controlPanel/ppp.png" title="Παίζεται το πάσο, πάσο, πάσο" />';
+			}
+			html += '</div>';
 		}
 		return html;
 	};
 
 	this.pektis3HTML = function() {
 		var html = '';
-		html += '<div class="pektis3"';
+		html += '<div class="pektis3';
+		if (isTheatis()) { html += ' theatis'; }
+		html += '"';
 		html += Partida.thesiTheasisHTML(3);
 		html += '>';
 		html += '<div class="pektisMain';
@@ -233,6 +244,7 @@ var Partida = new function() {
 		html += Partida.onomaPektiHTML(3);
 		html += Partida.kapikiaHTML(3);
 		html += Partida.dilosiAgoraHTML(3);
+		html += Partida.rologakiHTML(3);
 		html += '</div>';
 		html += '</div>';
 		return html;
@@ -240,7 +252,9 @@ var Partida = new function() {
 
 	this.pektis2HTML = function() {
 		var html = '';
-		html += '<div class="pektis2"';
+		html += '<div class="pektis2';
+		if (isTheatis()) { html += ' theatis'; }
+		html += '"';
 		html += Partida.thesiTheasisHTML(2);
 		html += '>';
 		html += '<div class="pektisMain';
@@ -250,6 +264,7 @@ var Partida = new function() {
 		html += Partida.onomaPektiHTML(2);
 		html += Partida.kapikiaHTML(2);
 		html += Partida.dilosiAgoraHTML(2);
+		html += Partida.rologakiHTML(2);
 		html += '</div>';
 		html += '</div>';
 		return html;
@@ -259,6 +274,7 @@ var Partida = new function() {
 		var html = '';
 		html += '<div class="pektis1';
 		if (isDianomi()) { html += ' pektis1akri'; }
+		if (isTheatis()) { html += ' theatis'; }
 		html += '">';
 		html += '<div class="pektisMain pektis1Main';
 		if (isDianomi()) { html += ' pektis1MainAkri'; }
@@ -268,6 +284,7 @@ var Partida = new function() {
 		html += Partida.onomaPektiHTML(1);
 		html += Partida.kapikiaHTML(1);
 		html += Partida.dilosiAgoraHTML(1);
+		html += Partida.rologakiHTML(1);
 		html += '</div>';
 		html += '</div>';
 		html += '<div class="fila1Area">';
@@ -336,14 +353,14 @@ var Partida = new function() {
 
 	this.dilosiAgoraHTML = function(thesi) {
 		var html = '';
-		if (pexnidi.dilosi[thesi]) {
-			html += '<div class="dilosiPekti">';
-			html += pexnidi.dilosi[thesi];
+		if (pexnidi.paso[thesi]) {
+			html += '<div class="dilosiPekti dilosiPaso">';
+			html += 'ΠΑΣΟ';
 			html += '</div>';
 		}
-		if (pexnidi.paso[thesi]) {
-			html += '<div class="dilosiPaso">';
-			html += pexnidi.dilosiPaso[thesi];
+		else if (pexnidi.dilosi[thesi]) {
+			html += '<div class="dilosiPekti">';
+			html += Pexnidi.xromaBazesHTML(pexnidi.dilosi[thesi]);
 			html += '</div>';
 		}
 		if (html) {
@@ -359,6 +376,15 @@ var Partida = new function() {
 			html += ' ' + (partida.apodoxi[thesi] ? 'apodoxi' : 'oxiApodoxi');
 			if (!partida.online[thesi]) { html += ' offline'; }
 			if (thesi == pexnidi.epomenos) { html += ' epomenos'; }
+		}
+		return html;
+	};
+
+	this.rologakiHTML = function(thesi) {
+		var html = '';
+		if (thesi == pexnidi.epomenos) {
+			html += '<img class="rologakiIcon" src="' + globals.server +
+				'images/rologaki.gif" alt="" />';
 		}
 		return html;
 	};
@@ -409,7 +435,7 @@ var Partida = new function() {
 			Partida.thesiTheasisCheck(req, ico);
 		};
 
-		var params = 'thesi=' + pexnidi.map[thesi];
+		var params = 'thesi=' + partida.map[thesi];
 		req.send(params);
 	};
 
@@ -431,6 +457,7 @@ var Partida = new function() {
 		case 'ΣΤΗΣΙΜΟ':		html += Pexnidi.stisimoHTML(); break;
 		case 'ΔΙΑΝΟΜΗ':		html += Pexnidi.dianomiHTML(); break;
 		case 'ΔΗΛΩΣΗ':		html += Pexnidi.dilosiHTML(); break;
+		case 'ΤΡΙΑ ΠΑΣΟ':	html += Pexnidi.triaPasoHTML(); break;
 		default:		html += Pexnidi.agnostiFasiHTML(); break;
 		}
 
