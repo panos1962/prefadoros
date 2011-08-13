@@ -110,9 +110,17 @@ var Trapezi = new function() {
 		}
 		html += '</div>';
 		html += '</div>';
-		if (isSet(t.b) && (t.b == 1)) {
-			html += '<img class="kafenioTrapeziKlisto" alt="" src="' + globals.server +
-				'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
+		if ((isSet(t.b) && (t.b == 1)) || (isSet(t.ppp) && (t.ppp == 1))) {
+			html += '<div class="kafenioTrapeziAttrArea">';
+			if (isSet(t.b) && (t.b == 1)) {
+				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
+					'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
+			}
+			if (isSet(t.ppp) && (t.ppp == 1)) {
+				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
+					'images/controlPanel/ppp.png" title="Παίζεται το πάσο, πάσο, πάσο" />';
+			}
+			html += '</div>';
 		}
 		for (var i = 1; i <= 3; i++) {
 			var p = eval('t.p' + i);
