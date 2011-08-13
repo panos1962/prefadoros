@@ -262,3 +262,15 @@ function isProsklisi() {
 function notProsklisi() {
 	return(!isProsklisi());
 }
+
+function isTzogadoros(thesi) {
+	if (notSet(window.pexnidi)) { return false; }
+	if (notSet(pexnidi.tzogadoros)) { return false; }
+
+	if (notSet(thesi)) { thesi = 1; }
+	return (thesi == pexnidi.tzogadoros);
+}
+
+function notTzogadoros(thesi) {
+	return (!isTzogadoros(thesi));
+}

@@ -78,7 +78,6 @@
 	max-height: 0.64cm;
 	font-size: 0.45cm;
 	font-style: italic;
-	letter-spacing: -1px;
 	overflow: hidden;
 
 	width: 12.7cm;
@@ -86,13 +85,14 @@
 
 .partidaInfoData {
 	font-weight: bold;
-	letter-spacing: 0px;
 	color: #003366;
 	background-color: #8AA886;
+	cursor: crosshair;
 }
 
 .partidaInfoTop {
 	top: 0px;
+	font-style: normal
 }
 
 .partidaInfoBottom {
@@ -100,9 +100,9 @@
 }
 
 .kasaPanoKato {
-	padding-left: 0.1cm;
-	width: 0.4cm;
-	height: 0.52cm;
+	padding-left: 0.14cm;
+	width: 0.38cm;
+	height: 0.46cm;
 	background-color: #8AA886;
 	margin-bottom: -0.14cm;
 	cursor: pointer;
@@ -841,6 +841,15 @@
 	margin-left: -1.44cm;
 	width: 2.1cm;
 	height: 3.0cm;
+	
+}
+
+.filoSteno {
+	width: 1.9cm;
+}
+
+.filaSiraSteno {
+	margin-left: -1.34cm;
 }
 
 .gipedo {
@@ -939,9 +948,57 @@
 	background-color: #FFFF99;
 }
 
+.pasoSimetoxi {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	text-align: center;
+
+	font-family: "Comic Sans MS", cursive;
+	font-size: 0.50cm;;
+	font-weight: bold;
+
+	background-color: #FF9966;
+}
+
+.pasoSimetoxi3 {
+	bottom: 0;
+}
+
+.pasoSimetoxi2 {
+	bottom: 0;
+}
+
+.pasoSimetoxi1 {
+	top: 0;
+}
+
+.simetoxi {
+	color: yellow;
+}
+
+.simetoxiMazi {
+	background-color: #5F9EA0;
+}
+
+.simetoxiMonos {
+	background-color: #CD5C5C;
+}
+
+.simetoxiPezo {
+	background-color: #70944D;
+}
+
 .rologakiIcon {
 	position: absolute;
 	bottom: 0.1cm;
 	right: 0.1cm;
 	width: 0.9cm;
+}
+
+.pektisTzogosIcon {
+	position: absolute;
+	bottom: 0.1cm;
+	left: 0.1cm;
+	width: 1.0cm;
 }

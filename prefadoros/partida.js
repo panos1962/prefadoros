@@ -196,9 +196,13 @@ var Partida = new function() {
 		var html = '';
 		var tbc = isTheatis() ? ' theatis' : '';
 		html += '<div class="partidaInfo partidaInfoTop">';
-		html += 'τραπέζι: <span class="partidaInfoData' + tbc + '">';
+		html += '[&nbsp;<span title="Κωδικός τραπεζιού" class="partidaInfoData' + tbc + '">';
 		html += partida.kodikos + '</span>';
-		html += ', κάσα: <span class="partidaInfoData' + tbc + '">';
+		if (isDianomi()) {
+			html += '#<span title="Κωδικός διανομής" class="partidaInfoData' + tbc + '">';
+			html += dianomi[dianomi.length - 1].k + '</span>';
+		}
+		html += '&nbsp;]&nbsp;<span title="Αρχική κάσα" class="partidaInfoData' + tbc + '">';
 		html += partida.kasa + '</span>';
 		if (notTheatis()) {
 			html += '<img class="kasaPanoKato' + tbc + '" alt="" src="' + globals.server +
@@ -208,12 +212,8 @@ var Partida = new function() {
 				'images/katoKasa.png" title="Μείωση κάσας κατά 300 καπίκια" ' +
 				'onclick="Partida.kasaPanoKato(-10, this);" />';
 		}
-		html += ', υπόλοιπο: <span class="partidaInfoData' + tbc + '">';
+		html += '&nbsp;<span title="Υπόλοιπο κάσας" class="partidaInfoData' + tbc + '">';
 		html += pexnidi.ipolipo + '</span>';
-		if (isDianomi()) {
-			html += ', διανομή: <span class="partidaInfoData' + tbc + '">';
-			html += dianomi[dianomi.length - 1].k + '</span>';
-		}
 		html += '</div>';
 		if (isKlisto() || isPPP()) {
 			html += '<div class="partidaAttrArea">';
@@ -246,6 +246,7 @@ var Partida = new function() {
 		html += Partida.dilosiAgoraHTML(3);
 		html += Partida.rologakiHTML(3);
 		html += '</div>';
+		html += Partida.pasoSimetoxiHTML(3);
 		html += '</div>';
 		return html;
 	};
@@ -266,6 +267,7 @@ var Partida = new function() {
 		html += Partida.dilosiAgoraHTML(2);
 		html += Partida.rologakiHTML(2);
 		html += '</div>';
+		html += Partida.pasoSimetoxiHTML(2);
 		html += '</div>';
 		return html;
 	};
@@ -276,6 +278,7 @@ var Partida = new function() {
 		if (isDianomi()) { html += ' pektis1akri'; }
 		if (isTheatis()) { html += ' theatis'; }
 		html += '">';
+		html += Partida.pasoSimetoxiHTML(1);
 		html += '<div class="pektisMain pektis1Main';
 		if (isDianomi()) { html += ' pektis1MainAkri'; }
 		html += Partida.pektisMainHTML(1);
@@ -297,10 +300,16 @@ var Partida = new function() {
 		var html = '';
 		if (fila.length <= 0) { return html; }
 
-		html += '<img class="filaSira" src="' + globals.server + 'images/trapoula/' +
+		var tzogos = ((pexnidi.fasi == 'ΤΖΟΓΟΣ') && isTzogadoros());
+
+		html += '<img class="filaSira';
+		if (tzogos) { html += ' filoSteno'; }
+		html += '" src="' + globals.server + 'images/trapoula/' +
 			fila[0] + '.png" style="margin-left: 0px;" alt="" />';
 		for (var i = 1; i < fila.length; i++) {
-			html += '<img class="filaSira" src="' + globals.server + 'images/trapoula/' +
+			html += '<img class="filaSira';
+			if (tzogos) { html += ' filaSiraSteno filoSteno'; }
+			html += '" src="' + globals.server + 'images/trapoula/' +
 				fila[i] + '.png" alt="" />';
 		}
 		return html;
@@ -353,18 +362,33 @@ var Partida = new function() {
 
 	this.dilosiAgoraHTML = function(thesi) {
 		var html = '';
-		if (pexnidi.paso[thesi]) {
-			html += '<div class="dilosiPekti dilosiPaso">';
-			html += 'ΠΑΣΟ';
-			html += '</div>';
-		}
-		else if (pexnidi.dilosi[thesi]) {
-			html += '<div class="dilosiPekti">';
+		if (pexnidi.dilosi[thesi]) {
+			html += '<div class="dilosiPekti';
+			if (pexnidi.paso[thesi]) { html += ' dilosiPaso'; }
+			html += '">';
 			html += Pexnidi.xromaBazesHTML(pexnidi.dilosi[thesi]);
 			html += '</div>';
+			if (isTzogadoros(thesi)) {
+				html += '<img class="pektisTzogosIcon" src="' + globals.server +
+					'images/trapoula/tzogos.png" alt="" />';
+			}
 		}
 		if (html) {
 			html = '<div class="dilosiArea">' + html + '</div>';
+		}
+		return html;
+	};
+
+	this.pasoSimetoxiHTML = function(thesi) {
+		var html = '';
+		switch (pexnidi.fasi) {
+		case 'ΔΗΛΩΣΗ':
+			if (pexnidi.paso[thesi]) {
+				html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi + '">';
+				html += 'ΠΑΣΟ';
+				html += '</div>';
+			};
+			break;
 		}
 		return html;
 	};

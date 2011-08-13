@@ -12,18 +12,18 @@ if ($globals->trapezi->theatis) {
 	die('Δεν μπορείτε να αλλάξετε την κάσα ως θεατής');
 }
 
+switch ($globals->trapezi->kasa) {
+case 50:	$kasa = 30; break;
+default:	$kasa = 50; break;
+}
+
+Prefadoros::klidose_trapezi();
+
 switch ($globals->trapezi->thesi) {
 case 1:		$ena = 2; $dio = 3; break;
 case 2:		$ena = 1; $dio = 3; break;
 case 3:		$ena = 1; $dio = 2; break;
 default:	die('Ακαθόριστη θέση παίκτη');
-}
-
-Prefadoros::klidose_trapezi();
-
-switch ($globals->trapezi->kasa) {
-case 50:	$kasa = 30; break;
-default:	$kasa = 50; break;
 }
 
 $query = "UPDATE `τραπέζι` SET `κάσα` = " . $kasa .
