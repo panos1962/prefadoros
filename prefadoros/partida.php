@@ -16,7 +16,6 @@ class Partida {
 	public $ipolipo;
 	public $thesi;
 	public $theatis;
-	public $thesi_map;
 
 	public function __construct() {
 		unset($this->kodikos);
@@ -35,7 +34,6 @@ class Partida {
 		unset($this->ipolipo);
 		unset($this->thesi);
 		unset($this->theatis);
-		unset($this->thesi_map);
 	}
 
 	public function set_from_string($data) {
@@ -96,10 +94,10 @@ class Partida {
 				$pektis = "pektis" . $i;
 				$apodoxi = "apodoxi" . $i;
 				$online = "online" . $i;
-				print ",p" . $curr->thesi_map[$i] . ":'" . $curr->$pektis . "'" .
-					",a" . $curr->thesi_map[$i] . ":" . $curr->$apodoxi;
+				print ",p" . $i . ":'" . $curr->$pektis . "'" .
+					",a" . $i . ":" . $curr->$apodoxi;
 				if ($curr->$online) {
-					print ",o" . $curr->thesi_map[$i] . ":1";
+					print ",o" . $i . ":1";
 				}
 			}
 			print ",s:" . $curr->kasa;
@@ -146,6 +144,7 @@ class Partida {
 	}
 
 	public static function set_thesi_map($p) {
+die('thesi_map');
 		if (isset($p)) {
 			switch ($p->thesi) {
 			case 2:		$p->thesi_map = array(0, 3, 1, 2); break;

@@ -282,8 +282,6 @@ function freska_dedomena($dedomena) {
 	print_epikefalida();
 	print ",f:1}";
 
-	Partida::set_thesi_map($dedomena->partida);
-
 	Partida::print_json_data($dedomena->partida);
 	Dianomi::print_json_data($dedomena->dianomi);
 	Kinisi::print_json_data($dedomena->kinisi);
@@ -301,9 +299,6 @@ function diaforetika_dedomena($curr, $prev) {
 	$curr->grapse();
 	print_epikefalida();
 	print "}";
-
-	Partida::set_thesi_map($curr->partida);
-	Partida::set_thesi_map($prev->partida);
 
 	Partida::print_json_data($curr->partida, $prev->partida);
 	Dianomi::print_json_data($curr->dianomi, $prev->dianomi);

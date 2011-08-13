@@ -192,7 +192,8 @@ var Dedomena = new function() {
 			return true;
 		}
 
-		if (dedomena.partida.p1 != pektis.login) {
+		if (notSet(dedomena.partida.h) ||
+			(eval('dedomena.partida.p' + dedomena.partida.h) != pektis.login)) {
 			mainFyi('Ο παίκτης δεν βρίσκεται στην πρώτη θέση');
 			return false;
 		}

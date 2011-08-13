@@ -178,7 +178,7 @@ function notPektis() {
 }
 
 function isTheatis() {
-	return(isSet(window.partida) && isSet(partida.t) && (partida.t == 1));
+	return(isSet(window.partida) && isSet(partida.theatis) && partida.theatis);
 }
 
 function notTheatis() {
@@ -186,7 +186,7 @@ function notTheatis() {
 }
 
 function isPartida() {
-	return(isSet(window.partida) && isSet(partida.k));
+	return(isSet(window.partida) && isSet(partida.kodikos));
 }
 
 function notPartida() {
@@ -194,7 +194,7 @@ function notPartida() {
 }
 
 function isPrive() {
-	return(isSet(window.partida) && isSet(partida.p) && (partida.p == 1));
+	return(isSet(window.partida) && isSet(partida.prive) && partida.prive);
 }
 
 function isPublic() {
@@ -202,7 +202,7 @@ function isPublic() {
 }
 
 function isKlisto() {
-	return(isSet(window.partida) && isSet(partida.b) && (partida.b == 1));
+	return(isSet(window.partida) && isSet(partida.klisto) && partida.klisto);
 }
 
 function isAnikto() {
@@ -219,9 +219,7 @@ function notDianomi() {
 
 function isApodoxi(thesi) {
 	if (notSet(window.partida)) { return false; }
-	var apodoxi = eval('partida.a' + thesi);
-	if (notSet(apodoxi)) { return true; }
-	return(apodoxi != 0);
+	return partida.apodoxi[thesi];
 }
 
 function notApodoxi(thesi) {
@@ -231,9 +229,7 @@ function notApodoxi(thesi) {
 function isKeniThesi() {
 	if (isSet(window.partida)) {
 		for (var i = 1; i <= 3; i++) {
-			if (eval('partida.p' + i) == '') {
-				return true;
-			}
+			if (partida.pektis[i] == '') { return true; }
 		}
 	}
 	return false;
@@ -249,7 +245,7 @@ function isProsklisi() {
 	if (notSet(window.prosklisi)) { return false; }
 	for (var i = 0; i < prosklisi.length; i++) {
 		if (prosklisi[i].p != pektis.login) { continue; }
-		if (prosklisi[i].t != partida.k) { continue; }
+		if (prosklisi[i].t != partida.kodikos) { continue; }
 		return true;
 	}
 	return false;
