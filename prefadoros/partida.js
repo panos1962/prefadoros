@@ -341,7 +341,7 @@ var Partida = new function() {
 			Partida.thesiTheasisCheck(req, ico);
 		};
 
-		var params = 'thesi=' + uri(mapThesi(thesi));
+		var params = 'thesi=' + pexnidi.map[thesi];
 		req.send(params);
 	};
 

@@ -446,9 +446,9 @@
 }
 
 .pss {
-	width: 9.5cm;
-	min-width: 9.5cm;
-	max-width: 9.5cm;
+	width: 9.6cm;
+	min-width: 9.6cm;
+	max-width: 9.6cm;
 }
 
 .pssFardi {
@@ -904,7 +904,7 @@
 	position: absolute;
 	top: 0.2cm;
 	left: 2%;
-	width: 36%;
+	width: 46%;
 	background-color: teal;
 	text-align: center;
 }
@@ -913,7 +913,7 @@
 	position: absolute;
 	top: 0.2cm;
 	right: 2%;
-	width: 56%;
+	width: 46%;
 	background-color: red;
 	text-align: center;
 }

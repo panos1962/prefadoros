@@ -10,7 +10,7 @@ var kinisi = [];	// οι κινήσεις της διανομής
 var trapezi = [];	// τα ενεργά τραπέζια
 var rebelos = [];	// περιφερόμενοι παίκτες
 
-var pexnidi = {};
+var pexnidi = {};	// Το παιχνίδι που αντιστοιχεί στην παρτίδα
 
 window.onload = function() {
 	init();
@@ -20,6 +20,7 @@ window.onload = function() {
 	Dumprsp.setup();
 	Dedomena.setup();
 	Sizitisi.sxolioFocus();
+	Pexnidi.resetData();
 };
 
 window.onunload = function() {
@@ -256,34 +257,4 @@ function isProsklisi() {
 
 function notProsklisi() {
 	return(!isProsklisi());
-}
-
-// Δέχεται μια θέση όπως εμφανίζεται στον client και επιστρέφει την
-// πραγματική θέση. Η αντιστοίχιση γίνεται με βάση τη θέση του παίκτη
-// (partida.h) ή με βάση τη θέση που περνάμε ως δεύτερη παράμετρο.
-// Δηλαδή, ως δεύτερη παράμετρο, μπορούμε να περάσουμε έναν αριθμό
-// θέσης που εμφανίζεται ως 1 (νότος) στον client.
-
-function mapThesi(thesi, ena) {
-	if (notSet(ena)) {
-		if (notPartida()) {
-			alert('mapThesi: ακαθόριστη παρτίδα');
-			ena = 1;
-		}
-		else {
-			ena = partida.h;
-		}
-	}
-			
-	switch (ena) {
-	case 1:		break;
-	case 2:		thesi += 1; break;
-	case 3:		thesi += 2; break;
-	default:
-		alert('mapThesi: ακαθόριστη θέση');
-		return 1;
-	}
-
-	while (thesi > 3) { thesi -= 3; }
-	return thesi;
 }
