@@ -367,9 +367,9 @@ var Partida = new function() {
 			html1 += '<div class="dilosiPekti';
 			if (pexnidi.paso[thesi]) { html1 += ' dilosiPaso'; }
 			html1 += '">';
-			html1 += Pexnidi.xromaBazesHTML(pexnidi.dilosi[thesi], null, null,
-				(notTzogadoros(thesi) && isSet(telkin) && (telkin.thesi == thesi) &&
-				(telkin.i == 'ΔΗΛΩΣΗ') && (telkin.d == pexnidi.dilosi[thesi])));
+			var spot = (notTzogadoros(thesi) && isSet(telkin) && (telkin.thesi == thesi) &&
+				(telkin.i == 'ΔΗΛΩΣΗ') && (telkin.d == pexnidi.dilosi[thesi]));
+			html1 += Pexnidi.xromaBazesHTML(pexnidi.dilosi[thesi], null, null, spot);
 			html1 += '</div>';
 			if (isTzogadoros(thesi)) {
 				html1 += '<img class="pektisTzogosIcon" src="' + globals.server +
