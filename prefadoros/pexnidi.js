@@ -15,6 +15,20 @@ var Pexnidi = new function() {
 
 	var anamoniKinisis = 0;
 
+	// Οι παρακάτω ιδιότητες, μέθοδοι και μεταβλητές, σκοπό έχουν
+	// κυρίως την αποφυγή της επανάληψης ενδείξεων σημαντικότητας
+	// κατά την επαναδιαμόρφωση της εικόνας. Π.χ., όταν κάποιος
+	// δηλώνει αγορά, εμφανίζεται σχετική ένδειξη σημαντικότητας
+	// στην περιοχή του. Το ίδιο συμβαίνει και όταν κάποιος κερδίζει
+	// τον τζόγο, κλπ. Αυτά πυροδοτούνται από την έλευση των
+	// σχετικών κινήσεων. Πιο συγκεκριμένα, αν η τελευταία κίνηση
+	// που παρελήφθη είναι κάποια κίνηση που απαιτεί ένδειξη
+	// σημαντικότητας, τότε γίνεται η ένδειξη, παράλληλα όμως
+	// μαρκάρουμε τις κινήσεις αυτές, ώστε να μην έχουμε
+	// ανεπιθύμητες επαναλήψεις. Το array δεικοδοτείται με
+	// tags που εμπεριέχουν τους κωδικούς των σχετικών
+	// κινήσεων και "καθαρίζει" σε κάθε νέα διανομή.
+
 	this.spotList = [];
 	var spotListDianomi = 0;
 
@@ -157,10 +171,7 @@ var Pexnidi = new function() {
 		fila.push(data.substr(0, 2));
 		fila.push(data.substr(2, 2));
 
-		var s = '';
-		for (var i = 0; i < fila.length; i++) { s += fila[i]; }
-		pexnidi.fila[thesi] = Pexnidi.spaseFila(s);
-
+		pexnidi.fila[thesi] = Pexnidi.spaseFila(Pexnidi.deseFila(fila));
 		pexnidi.fasi = 'ΤΖΟΓΟΣ';
 		pexnidi.epomenos = thesi;
 	};
@@ -227,6 +238,8 @@ var Pexnidi = new function() {
 		var kara = 0;
 		var spathia = 0;
 		var koupes = 0;
+		var ble = 0;
+		var red = 0;
 
 		var n = parseInt(s.length / 2)
 		for (var i = 0; i < n; i++) {
@@ -236,15 +249,17 @@ var Pexnidi = new function() {
 			else if (alif[i].match(/^D/)) { kara++; }
 			else if (alif[i].match(/^C/)) { spathia++; }
 			else if (alif[i].match(/^H/)) { koupes++; }
+			else if (alif[i].match(/^B/)) { ble++; }
+			else if (alif[i].match(/^R/)) { red++; }
 		}
 
 		if (pikes > 0) {
-			if (spathia == 0) { var sira = [ 'D', 'S', 'H' ]; }
-			else if (kara > 0) { sira = [ 'S', 'D', 'C', 'H' ]; }
-			else { sira = [ 'S', 'H', 'C' ]; }
+			if (spathia == 0) { var sira = [ 'D', 'S', 'H', 'B', 'R' ]; }
+			else if (kara > 0) { sira = [ 'S', 'D', 'C', 'H', 'B', 'R' ]; }
+			else { sira = [ 'S', 'H', 'C', 'B', 'R' ]; }
 		}
-		else if (spathia > 0) { var sira = [ 'D', 'C', 'H' ]; }
-		else { var sira = [ 'D', 'H' ]; }
+		else if (spathia > 0) { var sira = [ 'D', 'C', 'H', 'B', 'R' ]; }
+		else { var sira = [ 'D', 'H', 'B', 'R' ]; }
 
 		var idx = 0;
 
@@ -275,6 +290,12 @@ var Pexnidi = new function() {
 
 		return fila;
 	};
+
+	this.deseFila = function(fila) {
+		var s = '';
+		for (var i = 0; i < fila.length; i++) { s += fila[i]; }
+		return s;
+	}
 
 	this.stisimoHTML = function() {
 		var html = '<div style="padding: 0.2cm;">';
