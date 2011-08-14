@@ -781,6 +781,7 @@
 }
 
 .epilogi {
+	display: inline-block;
 	padding-left: 0.2cm;
 	padding-right: 0.2cm;
 	padding-top: 0.04cm;
@@ -899,10 +900,11 @@
 	position: absolute;
 	top: 0.4cm;
 	left: 5.4cm;
-	width: 4.0cm;
+	width: 3.8cm;
 }
 
 .protasi {
+	width: 100%;
 	margin-bottom: 0.2cm;
 	font-size: 0.6cm;
 }
