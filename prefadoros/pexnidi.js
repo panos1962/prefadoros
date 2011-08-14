@@ -320,22 +320,42 @@ var Pexnidi = new function() {
 		return html;
 	};
 
-	this.xromaBazesHTML = function(dilosi, bc, xc) {
+	this.xromaBazesHTML = function(dilosi, bc, xc, spot) {
 		var html = '';
-		var de = dilosi.substr(0, 1);
-		var xroma = dilosi.substr(1, 1);
-		var bazes = Pexnidi.bazesDecode(dilosi.substr(2, 1));
-
 		if (notSet(bc)) { bc = 'protasiBazes'; }
-		if (notSet(xc)) { bc = 'protasiXroma'; }
-		html += '<div>';
-		html += '<div class="protasiBazes">';
+		if (notSet(xc)) { xc = 'protasiXroma'; }
+
+		if (dilosi == 'DTG') {
+			var de = '';
+			var bazes = '<span style="font-size: 70%;">Άμα μείνουν</span>';
+			var xroma = null;
+		}
+		else {
+			var de = dilosi.substr(0, 1);
+			var xroma = dilosi.substr(1, 1);
+			var bazes = Pexnidi.bazesDecode(dilosi.substr(2, 1));
+		}
+
+		html += '<div class="' + bc + '">';
 		if (de == 'E') { html += '<span style="font-size: 80%;">Έχω </span>'; }
 		html += bazes;
 		html += '</div>';
-		html += '<img class="protasiXroma" src="' + globals.server +
-			'images/trapoula/xroma' + xroma + '.png" alt="" />';
-		html += '</div>';
+		if (spot) {
+			html += '<img class="' + xc + '" src="' + globals.server +
+				'images/svisimo.gif" alt="" onload="Tools.metalagi(this, ';
+			if (isSet(xroma)) {
+				html += '\'' + globals.server +
+					'images/trapoula/xroma' + xroma + '.png\'';
+			}
+			else {
+				html += 'null';
+			}
+			html += ', 400);" />';
+		}
+		else if (isSet(xroma)) {
+			html += '<img class="' + xc + '" src="' + globals.server +
+				'images/trapoula/xroma' + xroma + '.png" alt="" />';
+		}
 		return html;
 	};
 

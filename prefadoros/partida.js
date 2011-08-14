@@ -361,20 +361,28 @@ var Partida = new function() {
 	};
 
 	this.dilosiAgoraHTML = function(thesi) {
-		var html = '';
+		var html1 = '';
 		if (pexnidi.dilosi[thesi]) {
-			html += '<div class="dilosiPekti';
-			if (pexnidi.paso[thesi]) { html += ' dilosiPaso'; }
-			html += '">';
-			html += Pexnidi.xromaBazesHTML(pexnidi.dilosi[thesi]);
-			html += '</div>';
+			var telkin = kinisi[kinisi.length - 1];
+			html1 += '<div class="dilosiPekti';
+			if (pexnidi.paso[thesi]) { html1 += ' dilosiPaso'; }
+			html1 += '">';
+			html1 += Pexnidi.xromaBazesHTML(pexnidi.dilosi[thesi], null, null,
+				(notTzogadoros(thesi) && isSet(telkin) && (telkin.thesi == thesi) &&
+				(telkin.i == 'ΔΗΛΩΣΗ') && (telkin.d == pexnidi.dilosi[thesi])));
+			html1 += '</div>';
 			if (isTzogadoros(thesi)) {
-				html += '<img class="pektisTzogosIcon" src="' + globals.server +
-					'images/trapoula/tzogos.png" alt="" />';
+				html1 += '<img class="pektisTzogosIcon" src="' + globals.server +
+					'images/asteraki.gif" alt="" onload="Tools.metalagi(this, \'' +
+					globals.server + 'images/trapoula/tzogos.png\', 700);" />';
 			}
 		}
-		if (html) {
-			html = '<div class="dilosiArea">' + html + '</div>';
+
+		var html = '';
+		if (html1) {
+			html = '<div class="dilosiArea';
+			if (isTzogadoros(thesi)) { html += ' dilosiAgora'; }
+			html += '">' + html1 + '</div>';
 		}
 		return html;
 	};
@@ -384,10 +392,21 @@ var Partida = new function() {
 		switch (pexnidi.fasi) {
 		case 'ΔΗΛΩΣΗ':
 			if (pexnidi.paso[thesi]) {
-				html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi + '">';
+				html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi +
+					' simetoxiPaso">';
 				html += 'ΠΑΣΟ';
 				html += '</div>';
-			};
+			}
+			else if (thesi == pexnidi.epomenos) {
+				html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi +
+					' simetoxiDilosi">';
+				html += '<div style="display: inline-block;">';
+				html += '&hellip;';
+				html += '</div>';
+				html += Pexnidi.xromaBazesHTML(pexnidi.curdil, 'skepsiBazes',
+					'skepsiXroma');
+				html += '</div>';
+			}
 			break;
 		}
 		return html;

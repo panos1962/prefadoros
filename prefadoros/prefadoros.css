@@ -957,8 +957,6 @@
 	font-family: "Comic Sans MS", cursive;
 	font-size: 0.50cm;;
 	font-weight: bold;
-
-	background-color: #FF9966;
 }
 
 .pasoSimetoxi3 {
@@ -971,6 +969,30 @@
 
 .pasoSimetoxi1 {
 	top: 0;
+}
+
+.simetoxiPaso {
+	background-color: #FF9966;
+}
+
+/*
+Εμφανίζεται στην περιοχή δήλωσης συμμετοχής
+κατά τη διάρκεια της σκέψης στην αρχική φάση
+των δηλώσεων αγοράς.
+*/
+
+.simetoxiDilosi {
+	background-color: #66A3A3;
+}
+
+.skepsiBazes {
+	display: inline-block;
+	font: 0.4cm;
+}
+
+.skepsiXroma {
+	width: 0.5cm;
+	height: 0.45cm;
 }
 
 .simetoxi {
@@ -1001,4 +1023,7 @@
 	bottom: 0.1cm;
 	left: 0.1cm;
 	width: 1.0cm;
+}
+
+.spotDilosi {
 }

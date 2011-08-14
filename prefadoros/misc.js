@@ -157,4 +157,13 @@ var Tools = new function() {
 			'Στήστε ένα τραπέζι για να παίξετε μια νέα παρτίδα') + '</div>';
 		return html;
 	};
+
+	this.metalagi = function(img, neo, xronos) {
+		if (notSet(xronos)) { xronos = 1500; }
+		setTimeout(function() {
+			if (notSet(img)) { return; }
+			if (isSet(neo) && neo) { img.src = neo; }
+			else { img.parentNode.removeChild(img); }
+		}, xronos);
+	};
 }
