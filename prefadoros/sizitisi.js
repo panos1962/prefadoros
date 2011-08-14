@@ -155,7 +155,7 @@ var Sizitisi = new function() {
 		if (s.s == "@KN@") {
 			if (isSet(s.w)) {
 				 var t = (s.w - globals.timeDif) * 1000;
-				 if ((currentTimestamp() - t) < 1500) { controlPanel.korna(); }
+				 if ((currentTimestamp() - t) < 2000) { controlPanel.korna(); }
 			}
 			return '<img style="width: 0.8cm;" src="' + globals.server +
 				'images/controlPanel/korna.png" alt="" />';
