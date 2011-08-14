@@ -153,9 +153,9 @@ var Sizitisi = new function() {
 				'images/moliviKafenio.gif" alt="" />';
 		}
 		if (s.s == "@KN@") {
-			if (isSet(s.w) && ((currentTimestamp() - (s.w * 1000)) < 3000)) {
-				// Don't use "setTimeout" here.
-				controlPanel.korna();
+			if (isSet(s.w)) {
+				 var t = (s.w - globals.timeDif) * 1000;
+				 if ((currentTimestamp() - t) < 1500) { controlPanel.korna(); }
 			}
 			return '<img style="width: 0.8cm;" src="' + globals.server +
 				'images/controlPanel/korna.png" alt="" />';
