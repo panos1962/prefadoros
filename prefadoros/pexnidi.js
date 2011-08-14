@@ -15,6 +15,19 @@ var Pexnidi = new function() {
 
 	var anamoniKinisis = 0;
 
+	this.spotList = [];
+	var spotListDianomi = 0;
+
+	this.spotListPush = function(idx) {
+		if (notDianomi()) { return; }
+		var d = dianomi[dianomi.length - 1].k;
+		if (d != spotListDianomi) {
+			Pexnidi.spotList = [];
+			spotListDianomi = d;
+		}
+		Pexnidi.spotList[idx] = true;
+	};
+
 	this.resetData = function() {
 		pexnidi.ipolipo = 0;
 		pexnidi.kapikia = [ 0, 0, 0, 0 ];
