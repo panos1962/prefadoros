@@ -104,7 +104,7 @@ var Permes = new function() {
 			}
 		}
 
-		var params = 'timeDif=' + globals.timeDif;
+		var params = 'dummy=yes';
 		if (exer.checked) { params += '&exer=yes'; }
 		if (iser.checked) { params += '&iser=yes'; }
 
