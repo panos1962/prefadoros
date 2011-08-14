@@ -96,10 +96,12 @@ var Partida = new function() {
 		partida.pektis = [ '', '', '', '' ];
 		partida.apodoxi = [ false, false, false, false ];
 		partida.online = [ false, false, false, false ];
+		partida.molisBike = [ false, false, false, false ];
 		for (var i = 1; i <= 3; i++) {
 			partida.pektis[i] = eval('partida.p' + partida.map[i]);
 			partida.apodoxi[i] = (eval('partida.a' + partida.map[i]) == 1);
 			partida.online[i] = (eval('partida.o' + partida.map[i]) == 1);
+			if (('n' + partida.map[i]) in partida) { partida.molisBike[i] = true; }
 		}
 	};
 
@@ -330,7 +332,7 @@ var Partida = new function() {
 
 	this.miposBikeTora = function(thesi) {
 		if (Prefadoros.show != 'partida') { return ''; }
-		if (!(('n' + thesi) in partida)) { return ''; }
+		if (!partida.molisBike[thesi]) { return ''; }
 		return '<img src="' + globals.server + 'images/hi.png" ' +
 			'style="position: absolute; width: 1.6cm; top: -0.8cm; right: -0.1cm;" ' +
 			'alt="" onload="Prefadoros.sviseBikeTora(this);" />';
