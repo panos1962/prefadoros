@@ -15,11 +15,40 @@ class Kinisi {
 	}
 
 	public function set_from_dbrow($row) {
+		global $globals;
+
 		$this->kodikos = $row['κωδικός'];
 		$this->dianomi = $row['διανομή'];
 		$this->pektis = $row['παίκτης'];
 		$this->idos = $row['είδος'];
 		$this->data = $row['data'];
+		$this->prostasia();
+	}
+
+	// Η μέθοδος "prostasia" έχει σκοπό την απόκρυψη των δεδομένων
+	// κίνησης. Αυτό είναι κυρίως χρήσιμο στα κλειστά τραπέζια, όπου
+	// τα φύλλα της διανομής, αλλά και του τζόγου, έρχονται κλειστά
+	// στους θεατές.
+
+	public function prostasia() {
+		global $globals;
+
+		switch ($this->idos) {
+		case 'ΔΙΑΝΟΜΗ':
+			if ((!$globals->is_trapezi()) || (!$globals->trapezi->is_theatis()) ||
+				(!$globals->trapezi->klisto)) { return; }
+			$x = explode(":", $this->data);
+			if (count($x) != 5) { return; }
+			$fila = "";
+			for ($i = 0; $i < 10; $i++) { $fila .= "RV"; }
+			$this->data = $x[0] . ":" . $fila . ":" . $fila . ":" . $fila . ":RVRV";
+			break;
+		case 'ΤΖΟΓΟΣ':
+			if ((!$globals->is_trapezi()) || (!$globals->trapezi->is_theatis()) ||
+				(!$globals->trapezi->klisto)) { return; }
+			$this->data = "BVBV";
+			break;
+		}
 	}
 
 	public function set_from_file($line) {
