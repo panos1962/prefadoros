@@ -341,7 +341,7 @@ var Partida = new function() {
 		if (notDianomi()) { return html; }
 
 		html += '<div class="kapikiaArea">';
-		if (pexnidi.kapikia[thesi] != 0) {
+		if (isSet(pektis.kapikia) && pektis.kapikia && (pexnidi.kapikia[thesi] != 0)) {
  			html += '<span class="kapikia">καπίκια:</span>';
  			html += '<span class="kapikia' +
 				(pexnidi.kapikia[thesi] > 0 ? 'Sin' : 'Mion') + '">';
