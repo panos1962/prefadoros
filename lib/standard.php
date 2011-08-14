@@ -39,6 +39,7 @@ class Globals {
 	public $server;
 	public $db;
 	public $administrator;
+	public $time_dif;
 	public $pektis;
 	public $trapezi;
 	public $dianomi;
@@ -48,6 +49,7 @@ class Globals {
 		unset($this->server);
 		unset($this->db);
 		unset($this->administrator);
+		unset($this->time_dif);
 		unset($this->pektis);
 		unset($this->trapezi);
 		unset($this->dianomi);

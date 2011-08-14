@@ -43,9 +43,11 @@ class Prosklisi {
 	}
 
 	public function json_data() {
+		global $globals;
+
 		print "{k:" . $this->kodikos . ",a:'" . $this->pios .
 			"',p:'" . $this->pion . "',t:" . $this->trapezi .
-			",s:" . $this->pote . "}";
+			",s:" . ($this->pote - $globals->time_dif) . "}";
 	}
 
 	public static function diavase($fh, &$plist) {
