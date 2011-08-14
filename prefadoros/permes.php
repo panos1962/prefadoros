@@ -41,6 +41,8 @@ class Permes {
 	}
 
 	public function json_data() {
+		global $globals;
+
 		$minima = strip_tags($this->minima);
 		$minima = preg_replace('/\\\/', '\\\\\\', $minima);
 		$minima = preg_replace("/'/", "\'", $minima);
@@ -49,7 +51,8 @@ class Permes {
 			$minima = mb_substr($minima, 0, MAX_PERMES_STRIP_LEN) . "&#8230;";
 		}
 		print "{k:" . $this->kodikos . ",a:'" . $this->apostoleas .
-			"',m:'" . $minima .  "',d:" . $this->dimiourgia . "}";
+			"',m:'" . $minima .  "',d:" .
+			($this->dimiourgia - $globals->time_dif) . "}";
 	}
 
 	public static function diavase($fh, &$plist) {

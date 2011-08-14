@@ -33,6 +33,7 @@ require_once '../prefadoros/rebelos.php';
 require_once '../prefadoros/sizitisi.php';
 require_once '../prefadoros/prefadoros.php';
 set_globals();
+$globals->time_dif = Globals::perastike_check('timeDif');
 
 global $sinedria;
 $sinedria = Globals::perastike_check('sinedria');

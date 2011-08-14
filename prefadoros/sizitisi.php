@@ -51,10 +51,11 @@ class Sizitisi {
 	}
 
 	public function json_data() {
+		global $globals;
 		$sxolio = preg_replace('/\\\/', '\\\\\\', $this->sxolio);
 		$sxolio = preg_replace("/'/", "\'", $sxolio);
 		print "{k:" . $this->kodikos . ",p:'" . $this->pektis . "',s:'" .
-			$sxolio . "',w:" . $this->pote . "}";
+			$sxolio . "',w:" . ($this->pote - $globals->time_dif) . "}";
 	}
 
 	public static function diavase($fh, &$slist) {
