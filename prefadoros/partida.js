@@ -333,6 +333,7 @@ var Partida = new function() {
 	this.miposBikeTora = function(thesi) {
 		if (Prefadoros.show != 'partida') { return ''; }
 		if (!partida.molisBike[thesi]) { return ''; }
+		partida.molisBike[thesi] = false;
 		return '<img src="' + globals.server + 'images/hi.png" ' +
 			'style="position: absolute; width: 1.6cm; top: -0.8cm; right: -0.1cm;" ' +
 			'alt="" onload="Prefadoros.sviseBikeTora(this);" />';
