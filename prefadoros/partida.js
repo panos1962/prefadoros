@@ -369,12 +369,23 @@ var Partida = new function() {
 			html1 += '">';
 			var spot = (notTzogadoros(thesi) && isSet(telkin) && (telkin.thesi == thesi) &&
 				(telkin.i == 'ΔΗΛΩΣΗ') && (telkin.d == pexnidi.dilosi[thesi]));
+			var spotIdx = 'k' + telkin.k;
+			if (spotIdx in Pexnidi.spotList) { spot = false; }
+			else if (spot) { Pexnidi.spotListPush(spotIdx); }
 			html1 += Pexnidi.xromaBazesHTML(pexnidi.dilosi[thesi], null, null, spot);
 			html1 += '</div>';
 			if (isTzogadoros(thesi)) {
-				html1 += '<img class="pektisTzogosIcon" src="' + globals.server +
-					'images/asteraki.gif" alt="" onload="Tools.metalagi(this, \'' +
-					globals.server + 'images/trapoula/tzogos.png\', 700);" />';
+				html1 += '<img class="pektisTzogosIcon" src="' + globals.server;
+				var spotIdx = 'z' + telkin.k;
+				if (spotIdx in Pexnidi.spotList) {
+					html1 += 'images/trapoula/tzogos.png"';
+				}
+				else {
+					Pexnidi.spotListPush(spotIdx);
+					html1 += 'images/asteraki.gif" onload="Tools.metalagi(this, \'' +
+						globals.server + 'images/trapoula/tzogos.png\', 700);"';
+				}
+				html1 += ' alt="" />';
 			}
 		}
 
