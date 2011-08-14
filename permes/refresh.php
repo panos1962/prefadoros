@@ -4,11 +4,11 @@ require_once '../prefadoros/prefadoros.php';
 require_once '../pektis/pektis.php';
 Page::data();
 set_globals();
+$globals->time_dif = Globals::perastike_check('timeDif');
 
 Prefadoros::pektis_check();
 $slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
-$time_dif = Globals::perastike_check('timeDif');
 
 $query = "SELECT *, UNIX_TIMESTAMP(`δημιουργία`) AS `πότε` FROM `μήνυμα` WHERE ";
 if (Globals::perastike('exer') && Globals::perastike('iser')) {
@@ -65,7 +65,7 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 			print $minima;
 			?>
 			<span class="permesXronosArea">[<span class="permesXronos"><?php
-				print Xronos::pote($row['πότε'], $time_dif); ?></span>]</span>
+				print Xronos::pote($row['πότε'], $globals->time_dif); ?></span>]</span>
 		</div>
 	</td>
 	<td style="vertical-align: top;">
