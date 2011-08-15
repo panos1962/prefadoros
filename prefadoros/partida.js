@@ -440,8 +440,9 @@ var Partida = new function() {
 	this.rologakiHTML = function(thesi) {
 		var html = '';
 		if (thesi == pexnidi.epomenos) {
-			html += '<img class="rologakiIcon" src="' + globals.server +
-				'images/rologaki.gif" alt="" />';
+			html += '<img class="rologakiIcon" alt="" src="' + globals.server +
+				'images/rollstar.gif" onload="Tools.metalagi(this, \'' +
+				globals.server + 'images/rologaki.gif\');" />';
 		}
 		return html;
 	};
@@ -515,6 +516,7 @@ var Partida = new function() {
 		case 'ΔΙΑΝΟΜΗ':		html += Pexnidi.dianomiHTML(); break;
 		case 'ΔΗΛΩΣΗ':		html += Pexnidi.dilosiHTML(); break;
 		case 'ΤΡΙΑ ΠΑΣΟ':	html += Pexnidi.triaPasoHTML(); break;
+		case 'ΤΖΟΓΟΣ':		html += Pexnidi.alagiTzogouHTML(); break;
 		default:		html += Pexnidi.agnostiFasiHTML(); break;
 		}
 

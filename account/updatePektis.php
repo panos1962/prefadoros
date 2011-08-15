@@ -20,10 +20,14 @@ else {
 	$email = "'" . $globals->asfales($_REQUEST['email']) . "'";
 }
 
+Globals::perastike_check('plati');
+$plati = "'" . $globals->asfales($_REQUEST['plati']) . "'";
+
 Globals::perastike_check('password');
 $password = $globals->asfales($_REQUEST['password']);
 
-$query = "UPDATE `παίκτης` SET `όνομα` = '" . $onoma . "', `email` = " . $email;
+$query = "UPDATE `παίκτης` SET `όνομα` = '" . $onoma .
+	"', `email` = " . $email . ", `πλάτη` = " . $plati;
 if (Globals::perastike('password1') && ($_REQUEST['password1'])) {
 	$query .= ", `password` = '" . sha1($globals->asfales($_REQUEST['password1'])) . "'";
 }

@@ -176,6 +176,7 @@ var Dedomena = new function() {
 		Prefadoros.display();
 
 		Dedomena.schedule();
+		Pexnidi.processFasi();
 	};
 
 	this.checkPartidaPektis = function(dedomena) {

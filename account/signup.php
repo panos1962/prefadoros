@@ -67,6 +67,17 @@ Page::epikefalida($globals->is_pektis());
 			onblur="account.checkEmailValue(this);" class="formaField" />
 	</td>
 </tr>
+<tr>
+	<td class="formaPrompt tbldbg">
+		Πλάτη
+	</td>
+	<td class="tbldbg">
+		<select name="plati" class="formaField formaSelect"
+			onfocus="formaFyi('Χρώμα πλάτης παιγνιοχάρτων');">
+			<?php plati_list(); ?>
+		</select>
+	</td>
+</tr>
 <?php
 if ($globals->is_pektis()) {
 	?>
@@ -128,4 +139,34 @@ if ($globals->is_pektis()) {
 </div>
 <?php
 Page::close();
+
+function plati_list() {
+	global $globals;
+
+	$timi = array("RANDOM", "BLUE", "RED");
+	$desc = array();
+	$desc["RANDOM"] = "Τυχαία";
+	$desc["BLUE"] = "Μπλε";
+	$desc["RED"] = "Κόκκινη";
+
+	if ($globals->is_pektis()) {
+		$plati = $globals->pektis->plati;
+		?>
+		<option value="<?php print $plati; ?>" selected="selected"><?php
+			print $desc[$plati]; ?></option>
+		<?php
+	}
+	else {
+		$plati = "";
+	}
+
+	for ($i = 0; $i < 3; $i++) {
+		if ($timi[$i] != $plati) {
+			?>
+			<option value="<?php print $timi[$i]; ?>"><?php
+				print $desc[$timi[$i]]; ?></option>
+			<?php
+		}
+	}
+}
 ?>

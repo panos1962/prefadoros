@@ -139,6 +139,7 @@ account.onload = function() {
 		params = 'login=' + uri(form.login.value) +
 			'&onoma=' + uri(form.onoma.value) +
 			'&email=' + uri(form.email.value) +
+			'&plati=' + uri(form.plati.value) +
 			'&password=' + uri(form.password1.value);
 		req.send(params);
 		var rsp = req.getResponse();
@@ -185,6 +186,7 @@ account.onload = function() {
 		var req = new Request('account/updatePektis', false);
 		params = 'onoma=' + uri(form.onoma.value) +
 			'&email=' + uri(form.email.value) +
+			'&plati=' + uri(form.plati.value) +
 			'&password=' + uri(form.password.value) +
 			'&password1=' + uri(form.password1.value);
 		req.send(params);

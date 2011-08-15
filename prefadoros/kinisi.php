@@ -35,18 +35,21 @@ class Kinisi {
 
 		switch ($this->idos) {
 		case 'ΔΙΑΝΟΜΗ':
+			$plati = $globals->pektis->get_plati();
 			if ((!$globals->is_trapezi()) || (!$globals->trapezi->is_theatis()) ||
 				(!$globals->trapezi->klisto)) { return; }
 			$x = explode(":", $this->data);
 			if (count($x) != 5) { return; }
 			$fila = "";
-			for ($i = 0; $i < 10; $i++) { $fila .= "RV"; }
-			$this->data = $x[0] . ":" . $fila . ":" . $fila . ":" . $fila . ":RVRV";
+			for ($i = 0; $i < 10; $i++) { $fila .= $plati; }
+			$this->data = $x[0] . ":" . $fila . ":" . $fila . ":" . $fila .
+				":" . $plati . $plati;
 			break;
 		case 'ΤΖΟΓΟΣ':
+			$plati = $globals->pektis->get_plati(TRUE);
 			if ((!$globals->is_trapezi()) || (!$globals->trapezi->is_theatis()) ||
 				(!$globals->trapezi->klisto)) { return; }
-			$this->data = "BVBV";
+			$this->data = $plati . $plati;
 			break;
 		}
 	}
