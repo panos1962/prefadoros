@@ -6,6 +6,9 @@ class Pektis {
 	public $email;
 	public $kapikia;
 	public $katastasi;
+	public $plati;
+	public $plati_filo;
+	public $plati_other;
 	public $poll;
 	public $idle;
 	public $error;
@@ -20,6 +23,9 @@ class Pektis {
 		unset($this->email);
 		unset($this->kapikia);
 		unset($this->katastasi);
+		unset($this->plati);
+		unset($this->plati_filo);
+		unset($this->plati_other);
 		unset($this->poll);
 		unset($this->idle);
 		unset($this->error);
@@ -46,6 +52,7 @@ class Pektis {
 			$this->email = $row['email'];
 			$this->kapikia = $row['καπίκια'];
 			$this->katastasi = $row['κατάσταση'];
+			$this->plati = $row['πλάτη'];
 			$this->poll = $row['poll'];
 			$this->idle = (int)($row['idle']);
 		}
@@ -72,6 +79,33 @@ class Pektis {
 
 	public function is_online() {
 		return(Prefadoros::is_online($this->idle));
+	}
+
+	public function get_plati($other = FALSE) {
+		if (!isset($this->plati_filo)) {
+			switch ($this->plati) {
+			case 'BLUE':
+				$this->plati_filo = "BV";
+				$this->plati_other = "RV";
+				break;
+			case 'RED':
+				$this->plati_filo = "RV";
+				$this->plati_other = "BV";
+				break;
+			default:
+				if (mt_rand(0, 1) == 1) {
+					$this->plati_filo = "BV";
+					$this->plati_other = "RV";
+				}
+				else {
+					$this->plati_filo = "RV";
+					$this->plati_other = "BV";
+				}
+				break;
+			}
+		}
+
+		return ($other ? $this->plati_other : $this->plati_filo);
 	}
 }
 ?>

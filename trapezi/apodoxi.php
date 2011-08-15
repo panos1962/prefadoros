@@ -19,31 +19,36 @@ if ((!isset($globals->trapezi->$pektis)) ||
 	die('Λάθος θέση παίκτη');
 }
 
-$nea = Globals::perastike_check('apodoxi');
-
 Prefadoros::klidose_trapezi();
 
-$query = "UPDATE `τραπέζι` SET `αποδοχή" . $thesi . "` = '" .
-	$globals->asfales($nea) . "' WHERE `κωδικός` = " .
-	$globals->trapezi->kodikos;
-$globals->sql_query($query);
-if (@mysqli_affected_rows($globals->db) != 1) {
-	Prefadoros::xeklidose_trapezi(FALSE);
-	die('Απέτυχε η αλλαγή αποδοχής');
-}
+if (Globals::perastike('apodoxi')) {
+	$nea = $_REQUEST['apodoxi'];
 
-$apodoxi = "apodoxi" . $thesi;
-$globals->trapezi->$apodoxi = ($nea == "YES");
+	$query = "UPDATE `τραπέζι` SET `αποδοχή" . $thesi . "` = '" .
+		$globals->asfales($nea) . "' WHERE `κωδικός` = " .
+		$globals->trapezi->kodikos;
+	$globals->sql_query($query);
+	if (@mysqli_affected_rows($globals->db) != 1) {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		die('Απέτυχε η αλλαγή αποδοχής');
+	}
 
-$count = 0;
-for ($i = 1; $i <= 3; $i++) {
-	$apodoxi = "apodoxi" . $i;
-	if ($globals->trapezi->$apodoxi) {
-		$count++;
+	$apodoxi = "apodoxi" . $thesi;
+	$globals->trapezi->$apodoxi = ($nea == "YES");
+
+	$count = 0;
+	for ($i = 1; $i <= 3; $i++) {
+		$apodoxi = "apodoxi" . $i;
+		if ($globals->trapezi->$apodoxi) {
+			$count++;
+		}
+	}
+
+	if ($count >= 3) {
+		kane_dianomi();
 	}
 }
-
-if ($count >= 3) {
+else if (Globals::perastike('dianomi')) {
 	kane_dianomi();
 }
 

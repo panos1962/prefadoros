@@ -319,7 +319,7 @@ var Pexnidi = new function() {
 	};
 
 	this.dilosiHTML = function() {
-		var html = '<div style="padding: 0.2cm;">';
+		var html = '';
 		html += Pexnidi.tzogosHTML();
 
 		if (isTheatis()) {
@@ -350,7 +350,6 @@ var Pexnidi = new function() {
 				'δηλώνοντας «πάσο». Περιμένετε τη σειρά σας…';
 			html += '</div>';
 		}
-		html += '</div>';
 		return html;
 	};
 
@@ -442,23 +441,20 @@ var Pexnidi = new function() {
 
 	this.dianomiHTML = function() {
 		var html = '';
-		html += Pexnidi.anamoniHTML();
+		if (pexnidi.dealer == 1) {
+			html += Pexnidi.anamoniHTML('dianomi.gif', 'width: 2.0cm;');
+		}
+		else {
+			html += Pexnidi.anamoniHTML();
+		}
 		if (isTheatis()) {
 			html += 'Και οι τρεις παίκτες δήλωσαν «πάσο». ' +
 				'Θα γίνει νέα διανομή. ';
-			switch (pexnidi.dealer) {
-			case 1:		html += 'Ο παίκτης που παρακολουθείτε μοιράζει φύλλα. '; break;
-			case 2:		html += 'Ο παίκτης δεξιά μοιράζει φύλλα. '; break;
-			case 3:		html += 'Ο παίκτης αριστερά μοιράζει φύλλα. '; break;
-			}
+			html += Pexnidi.piosPektis(pexnidi.dealer) + 'μοιράζει φύλλα. ';
 		}
 		else {
 			html += 'Και οι τρεις παίκτες δηλώσατε «πάσο». ';
-			switch (pexnidi.dealer) {
-			case 1:		html += 'Μοιράζετε φύλλα. '; break;
-			case 2:		html += 'Ο παίκτης στα δεξιά σας μοιράζει φύλλα. '; break;
-			case 3:		html += 'Ο παίκτης στα αριστερά σας μοιράζει φύλλα. '; break;
-			}
+			html += Pexnidi.piosPektis(pexnidi.dealer, 'Μοιράζετε', 'μοιράζει') + 'φύλλα. ';
 		}
 		html += 'Παρακαλώ περιμένετε…';
 		return html;
@@ -467,7 +463,6 @@ var Pexnidi = new function() {
 	this.triaPasoHTML = function() {
 		if (!isPPP()) { return Pexnidi.dianomiHTML(); };
 		var html = '';
-		html += '<div style="position: absolute; z-index: 1;">';
 		if (isTheatis()) {
 			html += 'Και οι τρεις παίκτες δήλωσαν «πάσο». ' +
 				'Η διανομή θα παιχτεί και ο παίκτης που θα πάρει τις ' +
@@ -479,8 +474,45 @@ var Pexnidi = new function() {
 				'Θα παίξετε τη διανομή και όποιος από σας κάνει τις ' +
 				'περισσότερες μπάζες θα καταθέσει 100 καπίκια στην κάσα.';
 		}
-		html += '</div>';
 		return html;
+	};
+
+	this.alagiTzogouHTML = function() {
+		var msg = 'πλειοδότησε και έχει «σηκώσει» τα φύλλα του τζόγου. ' +
+			'Παρακαλώ περιμένετε την αγορά του…';
+		var html = '';
+		if (isTheatis()) {
+			if (pexnidi.tzogadoros != 1) {
+				html += Pexnidi.anamoniHTML('nevrikos.gif', 'width: 1.0cm;');
+			}
+			else {
+				html += Pexnidi.anamoniHTML('bares.gif', 'width: 0.4cm;');
+			}
+			html += Pexnidi.piosPektis(pexnidi.tzogadoros) + msg;
+		}
+		else {
+			if (pexnidi.tzogadoros != 1) {
+				html += Pexnidi.anamoniHTML('nevrikos.gif', 'width: 1.0cm;');
+			}
+			html += Pexnidi.piosPektis(pexnidi.tzogadoros,
+				'Πλειοδοτήσατε και έχετε «σηκώσει» τα φύλλα του τζόγου. ' +
+				'Ξεσκαρτάρετε δύο φύλλα και επιλέξτε την αγορά σας.', msg);
+		}
+		return html;
+	};
+
+	this.piosPektis = function(thesi, ena, dio) {
+		if (notSet(ena)) { ena = 'Ο παίκτης που παρακολουθείτε '; }
+		else { ena += ' '; }
+		if (notSet(dio)) { dio = ''; }
+		else { dio + ' '; }
+		switch (thesi) {
+		case 1:		return ena;
+		case 2:		return 'Ο παίκτης στα δεξιά σας ' + dio;
+		case 3:		return 'Ο παίκτης στα αριστερά σας ' + dio;
+		}
+
+		fataError('Αδυναμία προσανατολισμού (ακαθόριστη θέση)');
 	};
 
 	this.lexiIconHTML = function(prin, src, meta) {
@@ -499,10 +531,13 @@ var Pexnidi = new function() {
 		return html;
 	};
 
-	this.anamoniHTML = function() {
+	this.anamoniHTML = function(img, style) {
+		if (notSet(img)) { img = 'wormspin.gif'; }
 		var html = '';
-		html = '<img src="' + globals.server + 'images/wormspin.gif" ' +
-			'class="gipedoAnamoni" alt="" />';
+		html = '<div><img src="' + globals.server + 'images/' + img +
+			'" class="gipedoAnamoni" ';
+		if (isSet(style)) { html += 'style="' + style + '" '; }
+		html += 'alt="" /></div>';
 		return html;
 	};
 
@@ -525,4 +560,36 @@ var Pexnidi = new function() {
 		html += '</div>';
 		return html;
 	}
+
+	this.processFasi = function() {
+		if (isTheatis()) { return; }
+		switch (pexnidi.fasi) {
+		case 'ΤΡΙΑ ΠΑΣΟ':
+			if ((!isPPP()) && (pexnidi.dealer == 1)) {
+				setTimeout(Pexnidi.dianomi, 2000);
+			}
+			break;
+		}
+	};
+
+	this.dianomi = function() {
+		mainFyi('Γίνεται διανομή. Παρακαλώ περιμένετε…');
+		var req = new Request('trapezi/apodoxi');
+		req.xhr.onreadystatechange = function() {
+			Pexnidi.dianomiCheck(req);
+		};
+
+		params = 'dianomi=yes';
+		params += '&thesi=' + partida.map[1];
+		req.send(params);
+	};
+
+	this.dianomiCheck = function(req) {
+		if (req.xhr.readyState != 4) { return; }
+		var rsp = req.getResponse();
+		mainFyi(rsp);
+		if (rsp) {
+			playSound('beep');
+		}
+	};
 }
