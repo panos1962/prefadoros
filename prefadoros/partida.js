@@ -441,7 +441,7 @@ var Partida = new function() {
 		var html = '';
 		if (thesi == pexnidi.epomenos) {
 			html += '<img class="rologakiIcon" alt="" src="' + globals.server +
-				'images/rollstar.gif" onload="Tools.metalagi(this, \'' +
+				'images/rollStar.gif" onload="Tools.metalagi(this, \'' +
 				globals.server + 'images/rologaki.gif\');" />';
 		}
 		return html;
