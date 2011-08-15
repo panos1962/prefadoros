@@ -495,7 +495,7 @@ var Pexnidi = new function() {
 				html += Pexnidi.anamoniHTML('nevrikos.gif', 'width: 1.0cm;');
 			}
 			html += Pexnidi.piosPektis(pexnidi.tzogadoros,
-				'Πλειοδοτήσατε και έχετε «σηκώσει» τα φύλλα του τζόγου. ' +
+				'Πλειοδοτήσατε και έχετε ήδη «σηκώσει» τα φύλλα του τζόγου. ' +
 				'Ξεσκαρτάρετε δύο φύλλα και επιλέξτε την αγορά σας.', msg);
 		}
 		return html;
