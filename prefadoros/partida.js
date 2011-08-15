@@ -544,7 +544,7 @@ var Partida = new function() {
 			html += Pexnidi.triaPasoHTML();
 			break;
 		case 'ΤΖΟΓΟΣ':
-			html += Dodekada.klidomenaCount == 2 ?
+			html += (notTheatis() && Dodekada.klidomenaCount == 2) ?
 				Pexnidi.dixeAgoresHTML() : Pexnidi.alagiTzogouHTML();
 				break;
 		default:
