@@ -35,7 +35,7 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 	die('Απέτυχε η εισαγωγή κίνησης');
 }
 
-if (($idos == "ΔΗΛΩΣΗ") && preg_match("/^P/", $data)) {
+if (($idos == "ΔΗΛΩΣΗ") && preg_match("/^[PD]/", $data)) {
 	check_paso($dianomi);
 }
 

@@ -501,6 +501,57 @@ var Pexnidi = new function() {
 		return html;
 	};
 
+	this.dixeAgoresHTML = function() {
+		var xroma = [ 'S', 'C', 'D', 'H', 'N' ];
+		var html = '';
+		html = '<table style="border-collapse: collapse;">';
+		for (var i = 6; i <= 10; i++) {
+			html += '<tr>';
+			for (j = 0; j < xroma.length; j++) {
+				var dxb = 'D' + xroma[j] + (i > 9 ? 'T' : i);
+				html += '<td>';
+				html += Tools.epilogiHTML(Pexnidi.xromaBazesHTML(dxb,
+					'protasiAgoraBazes', 'protasiAgoraXroma'),
+					'Pexnidi.epilogiAgoras(this, \'' + dxb +
+					'\')', '', 'protasiAgora');
+				html += '</td>';
+			}
+			if (i == 10) {
+				html += '<td>';
+				html += Tools.epilogiHTML('<span style="color: red;">ΣΟΛΟ</span>',
+					'Pexnidi.epilogiAgoras(this)', 'Σολάρετε αξιοπρεπώς!',
+					'protasiAgora');
+				html += '</td>';
+			}
+			html += '</tr>';
+		}
+		html += '</table>';
+
+		if (Pexnidi.isAsoi()) {
+			html += '<img class="spotAsoi" src="' + globals.server;
+			if ('4A' in Pexnidi.spotList) {
+				html += 'images/trapoula/asoi.png"';
+			}
+			else {
+				Pexnidi.spotListPush('4A');
+				html += 'images/asteraki.gif" onload="Tools.metalagi(this, \'' +
+				globals.server + 'images/trapoula/asoi.png\', 700);"';
+			}
+			html += ' title="Έχετε 4 άσους!" alt="" />';
+		}
+		return html;
+	};
+
+	this.isAsoi = function() {
+		if (pexnidi.tzogadoros != 1) { return false; }
+		var fila = pexnidi.fila[1];
+		var count = 0;
+		for (var i = 0; i < fila.length; i++) {
+			if (fila[i].match(/^.A/)) { count++; }
+		}
+		return true;
+	};
+
 	this.piosPektis = function(thesi, ena, dio) {
 		if (notSet(ena)) { ena = 'Ο παίκτης που παρακολουθείτε '; }
 		else { ena += ' '; }
