@@ -229,6 +229,14 @@ function notDianomi() {
 	return(!isDianomi());
 }
 
+function isKinisi() {
+	return(isSet(window.kinisi) && isSet(kinisi.length) && (kinisi.length > 0));
+}
+
+function notKinisi() {
+	return(!isKinisi());
+}
+
 function isApodoxi(thesi) {
 	if (notSet(window.partida)) { return false; }
 	return partida.apodoxi[thesi];

@@ -303,16 +303,21 @@ var Partida = new function() {
 		if (fila.length <= 0) { return html; }
 
 		var tzogos = ((pexnidi.fasi == 'ΤΖΟΓΟΣ') && isTzogadoros());
+		if (tzogos) { Filo.resetDodekada(); }
 
-		html += '<img class="filaSira';
-		if (tzogos) { html += ' filoSteno'; }
-		html += '" src="' + globals.server + 'images/trapoula/' +
-			fila[0] + '.png" style="margin-left: 0px;" alt="" />';
-		for (var i = 1; i < fila.length; i++) {
-			html += '<img class="filaSira';
+		var proto = ' style="margin-left: 0px;"';
+		for (var i = 0; i < fila.length; i++) {
+			html += '<div class="filaSira';
 			if (tzogos) { html += ' filaSiraSteno filoSteno'; }
+			html += '"' + proto + '>';
+			proto = '';
+			html += '<img class="filaSiraIcon';
+			if (tzogos) { html += ' filoSteno'; }
 			html += '" src="' + globals.server + 'images/trapoula/' +
-				fila[i] + '.png" alt="" />';
+				fila[i] + '.png" alt="" ';
+			if (tzogos && notTheatis()) { html += Filo.dodekadaHTML(fila[i]); }
+			html += ' />';
+			html += '</div>';
 		}
 		return html;
 	};
@@ -439,10 +444,24 @@ var Partida = new function() {
 
 	this.rologakiHTML = function(thesi) {
 		var html = '';
+
+		var spot = true;
+		if (isKinisi()) {
+			var telkin = kinisi[kinisi.length - 1];
+			var spotIdx = 'r' + telkin.k + ':' + thesi;
+			if (spotIdx in Pexnidi.spotList) { var spot = false; }
+			else { Pexnidi.spotListPush(spotIdx); }
+		}
 		if (thesi == pexnidi.epomenos) {
-			html += '<img class="rologakiIcon" alt="" src="' + globals.server +
-				'images/rollStar.gif" onload="Tools.metalagi(this, \'' +
-				globals.server + 'images/rologaki.gif\');" />';
+			html += '<img class="rologakiIcon" alt="" src="' + globals.server;
+			if (spot) {
+				html += 'images/rollStar.gif" onload="Tools.metalagi(this, \'' +
+					globals.server + 'images/rologaki.gif\');"' ;
+			}
+			else {
+				html += 'images/rologaki.gif"';
+			}
+			html += ' />';
 		}
 		return html;
 	};
@@ -509,7 +528,7 @@ var Partida = new function() {
 	};
 
 	this.gipedoHTML = function() {
-		var html = '<div class="gipedo">';
+		var html = '<div id="gipedo" class="gipedo">';
 
 		switch (pexnidi.fasi) {
 		case 'ΣΤΗΣΙΜΟ':		html += Pexnidi.stisimoHTML(); break;
@@ -640,3 +659,106 @@ var Partida = new function() {
 };
 
 Partida.noPartidaHTML();
+
+var Filo = new function() {
+	this.dodekadaHTML = function(xb) {
+		var html = '';
+		html += ' onmouseover="Filo.sikose(this, true);" ';
+		html += ' onmouseout="Filo.sikose(this, false);" ';
+		html += ' onclick="Filo.klidose(this);" ';
+		return html;
+	};
+
+	this.sikose = function(img, pano) {
+		if (notSet(img)) { return; }
+		if (isSet(img.klidomeno) && img.klidomeno) { return; }
+		if (notSet(img.style)) { return; }
+		if (notSet(img.style.bottom)) { return; }
+
+		pano =  (isSet(pano) && pano) ? 0.6 : 0;
+		img.style.bottom = pano + 'cm';
+	};
+
+	var klidomena = 0;
+	var agores = false;
+
+	this.resetDodekada = function() {
+		klidomena = 0;
+		agores = false;
+	}
+
+	this.klidose = function(img) {
+		if (notSet(img)) { return; }
+		if (notSet(img.klidomeno)) {
+			var klidomeno = true;
+		}
+		else if (img.klidomeno) {
+			klidomeno = false;
+		}
+		else {
+			klidomeno = true;
+		}
+
+		img.klidomeno = false;
+		Filo.sikose(img, klidomeno);
+		img.klidomeno = klidomeno;
+		klidomena += (klidomeno ? 1 : -1);
+		if (klidomena == 2) {
+			Filo.dixeAgores();
+		}
+		else {
+			Filo.kripseAgores();
+		}
+	};
+
+	var gipedoHTML = '';
+
+	this.dixeAgores = function() {
+		if (agores) { return; }
+		var x = getelid('gipedo');
+		if (notSet(x)) { return; }
+
+		var xroma = [ 'S', 'C', 'D', 'H', 'N' ];
+		var html = '';
+		html = '<table style="border-collapse: collapse;">';
+		for (var i = 6; i <= 10; i++) {
+			html += '<tr>';
+			for (j = 0; j < xroma.length; j++) {
+				var dxb = 'D' + xroma[j] + (i > 9 ? 'T' : i);
+				html += '<td>';
+				html += Tools.epilogiHTML(Pexnidi.xromaBazesHTML(dxb,
+					'protasiAgoraBazes', 'protasiAgoraXroma'),
+					'Pexnidi.epilogiAgoras(this, \'' + dxb +
+					'\')', '', 'protasiAgora');
+				html += '</td>';
+			}
+			if (i == 10) {
+				html += '<td>';
+				html += Tools.epilogiHTML('<span style="color: red;">ΣΟΛΟ</span>',
+					'Pexnidi.epilogiAgoras(this)', 'Σολάρετε αξιοπρεπώς!',
+					'protasiAgora');
+				html += '</td>';
+			}
+			html += '</tr>';
+		}
+		html += '</table>';
+
+html += '<img class="spotAsoi" src="' + globals.server +
+	'images/asteraki.gif" onload="Tools.metalagi(this, \'' +
+	globals.server + 'images/trapoula/asoi.png\', 700);" ' +
+	'title="Έχετε 4 άσους!" alt="" />';
+
+		gipedoHTML = x.innerHTML;
+		x.innerHTML = html;
+		agores = true;
+	};
+
+	this.kripseAgores = function() {
+		if (!agores) { return; }
+		var x = getelid('gipedo');
+		if (notSet(x)) { return; }
+
+		x.innerHTML = gipedoHTML;
+		agores = false;
+	};
+}

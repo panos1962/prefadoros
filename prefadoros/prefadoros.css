@@ -839,18 +839,28 @@
 }
 
 .filaSira {
+	position: relative;
+	display: inline-block;
 	margin-left: -1.44cm;
 	width: 2.1cm;
 	height: 3.0cm;
-	
-}
-
-.filoSteno {
-	width: 1.9cm;
 }
 
 .filaSiraSteno {
 	margin-left: -1.34cm;
+}
+
+.filaSiraIcon {
+	display: inline-block;
+	position: absolute;
+	bottom: 0px;
+	width: 2.1cm;
+	height: 3.0cm;
+	cursor: pointer;
+}
+
+.filoSteno {
+	width: 1.9cm;
 }
 
 .gipedo {
@@ -1027,5 +1037,30 @@
 	width: 1.0cm;
 }
 
-.spotDilosi {
+.protasiAgora {
+	width: 1.3cm;
+	margin-bottom: 0.1cm;
+	margin-right: 0.2cm;
+	font-size: 0.4cm;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.protasiAgoraBazes {
+	display: inline-block;
+	font-weight: bold;
+}
+
+.protasiAgoraXroma {
+	display: inline-block;
+	height: 0.4cm;
+}
+
+.spotAsoi {
+	position: absolute;
+	top: 1.0cm;
+	right: 0.1cm;
+	width: 1.4cm;
 }
