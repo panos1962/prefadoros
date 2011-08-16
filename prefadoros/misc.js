@@ -175,4 +175,18 @@ var Tools = new function() {
 			else { img.parentNode.removeChild(img); }
 		}, xronos);
 	};
+
+	this.decodeAgora = function(xb, offset) {
+		var s = '';
+		if (notSet(offset)) { offset = 0; }
+		var xroma = xb.substr(offset, 1);
+		var bazes = xb.substr(offset + 1, 1);
+
+		if (bazes in globals.bazesDesc) { s += globals.bazesDesc[bazes]; }
+		else { s += '?'; }
+		s += ' ';
+		if (xroma in globals.xromaDesc) { s += globals.xromaDesc[xroma]; }
+		else { s += '?'; }
+		return s;
+	}
 }

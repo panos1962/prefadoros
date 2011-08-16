@@ -1063,6 +1063,14 @@ font-weight: bold;
 	height: 0.38cm;
 }
 
+.protasiAgoraOxi {
+	opacity: 0.4;
+	filter: alpha(opacity=40);
+	background-image: url('../images/diagrafiSmall.png');
+	background-repeat: repeat;
+	cursor: auto;
+}
+
 .spotAsoi {
 	position: absolute;
 	top: 1.0cm;
