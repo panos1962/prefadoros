@@ -303,10 +303,7 @@ var Partida = new function() {
 		if (fila.length <= 0) { return html; }
 
 		var tzogos = ((pexnidi.fasi == 'ΤΖΟΓΟΣ') && isTzogadoros());
-		if (tzogos) { Dodekada.resetDodekada(); }
-
 		var pezon = ((pexnidi.fasi == 'ΦΥΛΛΟ') && isEpomenos());
-		if (pezon) { Dekada.resetDekada(); }
 
 		var proto = ' style="margin-left: 0px;"';
 		for (var i = 0; i < fila.length; i++) {
@@ -729,10 +726,7 @@ var Dodekada = new function() {
 	this.resetDodekada = function() {
 		if (isDianomi() && isKinisi() &&
 			(dianomi[dianomi.length - 1].k == teldian) &&
-			(kinisi[kinisi.length - 1].k == telkin)) {
-			if (Dodekada.klidomenaCount == 2) { Dodekada.dixeAgores(); }
-			return;
-		}
+			(kinisi[kinisi.length - 1].k == telkin)) { return; }
 
 		teldian = isDianomi() ? dianomi[dianomi.length - 1].k : 0;
 		telkin = isKinisi() ? kinisi[kinisi.length - 1].k : 0;
