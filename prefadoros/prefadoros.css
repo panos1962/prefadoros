@@ -789,7 +789,10 @@
 	text-align: center;
 
 	font-size: 0.5cm;
-	font-weight: bold;
+/*
+font-weight: bold;
+*/
+font-weight: normal;
 	font-family: "Comic Sans MS", cursive;
 	font-style: normal;
 
@@ -1050,7 +1053,9 @@
 
 .protasiAgoraBazes {
 	display: inline-block;
-	font-weight: bold;
+/*
+font-weight: bold;
+*/
 }
 
 .protasiAgoraXroma {
