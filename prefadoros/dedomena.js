@@ -170,6 +170,8 @@ var Dedomena = new function() {
 		Kafenio.processDedomena(dedomena);
 
 		Pexnidi.setData();
+		Dodekada.resetDodekada();
+		Dekada.resetDekada();
 
 		Partida.updateHTML();
 		Trapezi.updateHTML();
