@@ -286,3 +286,15 @@ function isTzogadoros(thesi) {
 function notTzogadoros(thesi) {
 	return (!isTzogadoros(thesi));
 }
+
+function isEpomenos(thesi) {
+	if (notSet(window.pexnidi)) { return false; }
+	if (notSet(pexnidi.epomenos)) { return false; }
+
+	if (notSet(thesi)) { thesi = 1; }
+	return (thesi == pexnidi.epomenos);
+}
+
+function notEpomenos(thesi) {
+	return (!isEpomenos(thesi));
+}
