@@ -130,7 +130,7 @@ var Tools = new function() {
 		div.style.backgroundColor = '#FFFF00';
 
 		div.prevFC = div.style.color;
-		div.style.color = '#003366';
+		div.style.color = '#001429';
 
 		div.prevFW = div.style.fontWeight;
 		div.style.fontWeight = 'bold';
