@@ -502,6 +502,9 @@ var Pexnidi = new function() {
 	};
 
 	this.dixeAgoresHTML = function() {
+		var dilosi = pexnidi.dilosi[pexnidi.tzogadoros];
+		var xromaAgoras = dilosi.substr(1, 1);
+		var bazesAgoras = dilosi.substr(2, 1);
 		var xroma = [ 'S', 'C', 'D', 'H', 'N' ];
 		var html = '';
 		html = '<table style="border-collapse: collapse;">';
@@ -510,10 +513,18 @@ var Pexnidi = new function() {
 			for (j = 0; j < xroma.length; j++) {
 				var dxb = 'D' + xroma[j] + (i > 9 ? 'T' : i);
 				html += '<td>';
-				html += Tools.epilogiHTML(Pexnidi.xromaBazesHTML(dxb,
-					'protasiAgoraBazes', 'protasiAgoraXroma'),
-					'Pexnidi.epilogiAgoras(this, \'' + dxb +
-					'\')', '', 'protasiAgora');
+				if ((i < bazesAgoras) || ((i == bazesAgoras) &&
+					(globals.rankXroma[xroma[j]] < globals.rankXroma[xromaAgoras]))) {
+					html += '<div class="epilogi epilogiOxi protasiAgora">' +
+						Pexnidi.xromaBazesHTML(dxb, 'protasiAgoraBazes',
+						'protasiAgoraXroma') + '</div>';
+				}
+				else {
+					html += Tools.epilogiHTML(Pexnidi.xromaBazesHTML(dxb,
+						'protasiAgoraBazes', 'protasiAgoraXroma'),
+						'Pexnidi.epilogiAgoras(this, \'' + dxb +
+						'\')', '', 'protasiAgora');
+				}
 				html += '</td>';
 			}
 			if (i == 10) {
