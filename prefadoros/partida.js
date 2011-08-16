@@ -305,6 +305,9 @@ var Partida = new function() {
 		var tzogos = ((pexnidi.fasi == 'ΤΖΟΓΟΣ') && isTzogadoros());
 		if (tzogos) { Dodekada.resetDodekada(); }
 
+		var pezon = ((pexnidi.fasi == 'ΦΥΛΛΟ') && isEpomenos());
+		if (pezon) { Dekada.resetDekada(); }
+
 		var proto = ' style="margin-left: 0px;"';
 		for (var i = 0; i < fila.length; i++) {
 			html += '<div class="filaSira';
@@ -673,11 +676,27 @@ var Partida = new function() {
 
 Partida.noPartidaHTML();
 
+// Ακολουθούν εργαλεία χειρισμού των 12 φύλλων του τζογαδόρου
+// στη φάση της αλλαγής του τζόγου και της επιλογής αγοράς.
+
 var Dodekada = new function() {
-	var teldian = 0;
-	var telkin = 0;
-	var sikomeno = [];
-	var klidomeno = [];
+	// Επειδή οι χειρισμοί του τζογαδόρου μέχρι να δηλώσει
+	// την αγορά του δεν περνάνε στον server, υπάρχει θέμα
+	// επανασχεδίασης της οθόνης όσο ο τζογαδόρος κάνει
+	// τους χειρισμούς του. Π.χ. μπορεί ο τζογαδόρος να
+	// έχει σηκώσει 2 φύλλα και να προσπαθεί να επιλέξει
+	// την αγορά του και να έρθει ένα σχόλιο συζήτσης
+	// που θα προκαλέσει επανασχδίαση της οθόνης.
+	// Οι παρακάτω μεταβλητές και ιδιότητες χρησιμεύουν
+	// ως ένα μέσο αποθήκευσης των τοπικών χειρισμών
+	// του τζογαδόρου, ώστε με τα την πιθανή επανασχεδίαση
+	// της οθόνης, αυτοί οι χειρισμοί να εφαρμοστούν
+	// στη νέα κατάσταση.
+
+	var teldian = 0;	// κωδικός τελευταίας διανομής
+	var telkin = 0;		// κωδικός τελευταίας κίνησης
+	var sikomeno = [];	// σηκωμένα φύλλα
+	var klidomeno = [];	// επιλεγμένα φύλλα
 	this.klidomenaCount = 0;
 
 	this.dodekadaHTML = function(xb, i) {
@@ -695,8 +714,15 @@ var Dodekada = new function() {
 		if (notSet(img.style)) { return; }
 		if (notSet(img.style.bottom)) { return; }
 
-		pano =  pano ? 0.6 : 0;
-		img.style.bottom = pano + 'cm';
+		if (pano) {
+			img.style.bottom = '0.6cm';
+			img.title = 'Κλικ για επιλογή φύλλου'
+		}
+		else {
+			img.style.bottom = '0px';
+			img.title = '';
+		}
+
 		sikomeno[i] = img.style.bottom;
 	};
 
@@ -729,7 +755,13 @@ var Dodekada = new function() {
 		else {
 			Dodekada.kripseAgores();
 		}
-		klidomeno[i] = meta;
+
+		if (klidomeno[i] = meta) {
+			img.title = 'Κλικ για επαναφορά του φύλλου';
+		}
+		else {
+			img.title = '';
+		}
 	};
 
 	this.dixeAgores = function() {
@@ -743,4 +775,9 @@ var Dodekada = new function() {
 		if (notSet(x)) { return; }
 		x.innerHTML = Pexnidi.alagiTzogouHTML();
 	};
-}
+};
+
+var Dekada = new function() {
+	this.resetDekada = function() {
+	};
+};
