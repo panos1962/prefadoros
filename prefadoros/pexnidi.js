@@ -515,7 +515,7 @@ var Pexnidi = new function() {
 				html += '<td>';
 				if ((i < bazesAgoras) || ((i == bazesAgoras) &&
 					(globals.rankXroma[xroma[j]] < globals.rankXroma[xromaAgoras]))) {
-					html += '<div class="epilogi epilogiOxi protasiAgora">' +
+					html += '<div class="epilogi protasiAgora protasiAgoraOxi">' +
 						Pexnidi.xromaBazesHTML(dxb, 'protasiAgoraBazes',
 						'protasiAgoraXroma') + '</div>';
 				}
@@ -523,7 +523,8 @@ var Pexnidi = new function() {
 					html += Tools.epilogiHTML(Pexnidi.xromaBazesHTML(dxb,
 						'protasiAgoraBazes', 'protasiAgoraXroma'),
 						'Pexnidi.epilogiAgoras(this, \'' + dxb +
-						'\')', '', 'protasiAgora');
+						'\')', 'Επιλογή αγοράς: ' + Tools.decodeAgora(dxb, 1),
+						'protasiAgora');
 				}
 				html += '</td>';
 			}
@@ -560,7 +561,7 @@ var Pexnidi = new function() {
 		for (var i = 0; i < fila.length; i++) {
 			if (fila[i].match(/^.A/)) { count++; }
 		}
-		return true;
+		return (count > 3);
 	};
 
 	this.piosPektis = function(thesi, ena, dio) {
