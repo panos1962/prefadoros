@@ -78,6 +78,8 @@ var Pexnidi = new function() {
 
 		Pexnidi.dianomiMap();
 		Pexnidi.kinisiMap();
+		Dodekada.resetDodekada();
+		Dekada.resetDekada();
 
 		for (var i = 1; i <= 3; i++) {
 			pexnidi.kapikia[i] = -(partida.kasa * 10);
