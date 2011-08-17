@@ -59,7 +59,6 @@ var Pexnidi = new function() {
 		pexnidi.dilosiCount = 0;
 
 		pexnidi.paso = [ false, false, false, false ];
-		pexnidi.dilosiPaso = [ '', '', '', '' ];
 
 		pexnidi.tzogadoros = 0;
 		pexnidi.agora = '';
@@ -135,7 +134,6 @@ var Pexnidi = new function() {
 		pexnidi.dilosiCount++;
 		if (data.match(/^P/)) {
 			pexnidi.paso[thesi] = true;
-			pexnidi.dilosiPaso[thesi] = data.substr(1, 2);
 			Pexnidi.setEpomenos(thesi);
 			if (pexnidi.epomenos == 0) {
 				pexnidi.fasi = 'ΤΡΙΑ ΠΑΣΟ';
@@ -145,17 +143,36 @@ var Pexnidi = new function() {
 			return;
 		}
 
+		// Έχω δήλωση. Αν υπήρχε δήλωση "τα γράφω" βάζω τον
+		// παίκτη που τα είχε γράψει στο πάσο.
+		for (var i = 1; i <= 3; i++) {
+			if (pexnidi.dilosi[i] == 'DTG') {
+				pexnidi.paso[i] = true;
+			}
+		}
+
 		pexnidi.dilosi[thesi] = data;
 		pexnidi.fasi = 'ΔΗΛΩΣΗ';
 		Pexnidi.setEpomenos(thesi);
+
+		// Αν η δήλωση είναι "τα γράφω", τότε θέτω επόμενη
+		// δήλωση τα 6 μπαστούνια, αλλιώς θα υπολογίσω την
+		// επόμενη δήλωση αμέσως παρακάτω.
 		if (data == 'DTG') {
 			pexnidi.curdil = 'DS6';
 			return;
 		}
 
+		// Είχα κανονική δήλωση και θα υπολογίσω την επόμενη
+		// που πρέπει να προταθεί. Παίζει ρόλο το πρώτο γράμμα
+		// που είναι "D" για κανονικές δηλώσεις, ή "E" για
+		// δηλώσεις "έχω".
 		var de = data.substr(0, 1);
 		var xroma = data.substr(1, 1);
 		var bazes = data.substr(2, 1);
+
+		// Αν έχει κλείσει γύρος, τότε αρχίζουν να παίζουν
+		// δηλώσεις "έχω".
 		if ((pexnidi.dilosiCount >= 3) && (de == 'D')) {
 			pexnidi.curdil = 'E' + xroma + bazes;
 		}
