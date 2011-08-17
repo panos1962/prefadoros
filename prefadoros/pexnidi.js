@@ -62,6 +62,10 @@ var Pexnidi = new function() {
 		pexnidi.dilosiPaso = [ '', '', '', '' ];
 
 		pexnidi.tzogadoros = 0;
+		pexnidi.agora = '';
+		pexnidi.xromaAgoras = '';
+		pexnidi.xromaBazes = 0;
+		pexnidi.asoi = false;
 
 		pexnidi.mazi = [ false, false, false, false ];
 	};
@@ -120,6 +124,9 @@ var Pexnidi = new function() {
 			case 'ΤΖΟΓΟΣ':
 				Pexnidi.processKinisiTzogos(kinisi[i].thesi, kinisi[i].d);
 				break;
+			case 'ΑΓΟΡΑ':
+				Pexnidi.processKinisiAgora(kinisi[i].thesi, kinisi[i].d);
+				break;
 			}
 		}
 	};
@@ -174,6 +181,25 @@ var Pexnidi = new function() {
 		pexnidi.fila[thesi] = Pexnidi.spaseFila(Pexnidi.deseFila(fila));
 		pexnidi.fasi = 'ΤΖΟΓΟΣ';
 		pexnidi.epomenos = thesi;
+	};
+
+	this.processKinisiAgora = function(thesi, data) {
+		pexnidi.tzogadoros = thesi;
+		var x = data.split(':');
+		if ((x.length != 2) || (!x[0].match(/^[YN][SCDHN][6789T]$/)) ||
+			(!x[1].match(/^([SCDH][6789TJQKA]){10}$/))) {
+			fatalError(data + ': λάθος δεδομένα κίνησης αγοράς');
+		}
+
+		pexnidi.agora = x[0];
+		pexnidi.asoi = (pexnidi.agora).match(/^Y/);
+		pexnidi.xromaAgoras = (pexnidi.agora).substr(1, 1);
+		var bazes = (pexnidi.agora).substr(2, 1);
+		pexnidi.bazesAgoras = bazes == 'T' ? 10 : parseInt(bazes);
+
+		pexnidi.fila[thesi] = Pexnidi.spaseFila(x[1]);
+		pexnidi.fasi = 'ΣΥΜΜΕΤΟΧΗ';
+		pexnidi.epomenos = Pexnidi.setEpomenos(thesi);
 	};
 
 	this.bazesDecode = function(s) {
@@ -389,6 +415,11 @@ var Pexnidi = new function() {
 			html += '<img class="' + xc + '" src="' + globals.server +
 				'images/trapoula/xroma' + xroma + '.png" alt="" />';
 		}
+		if (de == 'Y') {
+			html += '&nbsp;+&nbsp;';
+			html += '<img class="' + xc + '" src="' + globals.server +
+				'images/trapoula/asoi.png" style="width: 0.8cm; height: 0.8cm;" alt="" />';
+		}
 		return html;
 	};
 
@@ -523,7 +554,7 @@ var Pexnidi = new function() {
 					html += Tools.epilogiHTML(Pexnidi.xromaBazesHTML(dxb,
 						'protasiAgoraBazes', 'protasiAgoraXroma'),
 						'Pexnidi.epilogiAgoras(this, \'' + dxb +
-						'\')', 'Επιλογή αγοράς: ' + Tools.decodeAgora(dxb, 1),
+						'\')', 'Επιλογή αγοράς: ' + Tools.decodeAgora(dxb),
 						'protasiAgora');
 				}
 				html += '</td>';
@@ -653,6 +684,25 @@ var Pexnidi = new function() {
 		mainFyi(rsp);
 		if (rsp) {
 			playSound('beep');
+		}
+	};
+
+	this.epilogiAgoras = function(div, dxb) {
+		var de = dxb.substr(0, 1);
+		var xroma = dxb.substr(1, 1);
+		var bazes = dxb.substr(2, 1);
+		var agora = ((Pexnidi.isAsoi() && confirm('Θα δηλώσετε τους τέσσερις άσους;')) ?
+			'Y' : 'N') + xroma + bazes;
+
+		var fila = pexnidi.fila[1];
+		var neaFila = '';
+		for (var i = 0; i < 12; i++) {
+			if ((i in Dodekada.klidomeno) && (Dodekada.klidomeno[i])) { continue; }
+			neaFila += fila[i];
+		}
+
+		if (confirm('Να γίνει αγορά ' + Tools.decodeAgora(agora) + ';')) {
+			Pexnidi.addKinisi('ΑΓΟΡΑ', agora + ':' + neaFila);
 		}
 	};
 }

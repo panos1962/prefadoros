@@ -69,23 +69,42 @@ function check_paso($dianomi) {
 		}
 	}
 
-	$tzogadoros = NULL;
 	$paso_count = 0;
+	$tzogadoros = 0;
+	$tagrafo = 0;
 	for ($thesi = 1; $thesi <= 3; $thesi++) {
 		if ($paso[$thesi]) {
 			$paso_count++;
 		}
 		else if ($dilosi[$thesi]) {
 			$tzogadoros = $thesi;
+			if ($dilosi[$thesi] == "TG") {
+				$tagrafo = $thesi;
+			}
 		}
 	}
 
-	if ($paso_count < 2) {
+	if ($paso_count == 0) {
 		return;
 	}
 
-	if (!isset($tzogadoros)) {
+	if ($paso_count == 1) {
+		if ($tzogadoros == 0) {
+			return;
+		}
+		if ($tzogadoros == $tagrafo) {
+			return;
+		}
+	}
+
+	if ($tzogadoros == 0) {
 		return;
+	}
+
+	if ($tzogadoros == $tagrafo) {
+		if ($paso_count < 2)) {
+			return;
+		}
 	}
 
 	if (!isset($data_dianomis)) {
