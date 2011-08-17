@@ -409,6 +409,11 @@ var Partida = new function() {
 				html1 += ' alt="" />';
 			}
 		}
+		else if (pexnidi.paso[thesi]) {
+			html1 += '<div class="dilosiPekti dilosiPaso">';
+			html1 += 'ΠΑΣΟ';
+			html1 += '</div>';
+		}
 
 		var html = '';
 		if (html1) {

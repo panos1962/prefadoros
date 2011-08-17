@@ -35,8 +35,10 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 	die('Απέτυχε η εισαγωγή κίνησης');
 }
 
-if (($idos == "ΔΗΛΩΣΗ") && preg_match("/^[PD]/", $data)) {
+switch ($idos) {
+case "ΔΗΛΩΣΗ":
 	check_paso($dianomi);
+	break;
 }
 
 print "OK@" . @mysqli_insert_id($globals->db);
@@ -46,8 +48,8 @@ Prefadoros::xeklidose_trapezi(TRUE);
 function check_paso($dianomi) {
 	global $globals;
 
-	$dilosi = array(FALSE, FALSE, FALSE, FALSE);
-	$paso = array('', '', '', '');
+	$dilosi = array("", "", "", "");
+	$paso = array(FALSE, FALSE, FALSE, FALSE);
 	$data_dianomis = NULL;
 
 	$query = "SELECT * FROM `κίνηση` WHERE `διανομή` = " .
@@ -60,7 +62,11 @@ function check_paso($dianomi) {
 				$paso[$row['παίκτης']] = TRUE;
 			}
 			else if (preg_match("/^[DE]/", $row['data'])) {
-				$dilosi[$row['παίκτης']] = substr($row['data'], 1, 2);
+				$dilosi[$row['παίκτης']] = $row['data'];
+			}
+			else {
+				Prefadoros::xeklidose_trapezi(FALSE);
+				die("Λανθασμένα δεδομένα δήλωσης (κίνηση " . $row['κωδικός'] . ")");
 			}
 			break;
 		case 'ΔΙΑΝΟΜΗ':
@@ -72,39 +78,35 @@ function check_paso($dianomi) {
 	$paso_count = 0;
 	$tzogadoros = 0;
 	$tagrafo = 0;
+
 	for ($thesi = 1; $thesi <= 3; $thesi++) {
 		if ($paso[$thesi]) {
 			$paso_count++;
 		}
-		else if ($dilosi[$thesi]) {
+		else if ($dilosi[$thesi] == "DTG") {
+			$tagrafo = $thesi;
+		}
+		else if ($dilosi[$thesi] != "") {
 			$tzogadoros = $thesi;
-			if ($dilosi[$thesi] == "TG") {
-				$tagrafo = $thesi;
-			}
 		}
 	}
 
-	if ($paso_count == 0) {
+	if ($tzogadoros != 0) {
+		if ($tagrafo != 0) {
+			$paso[$tagrafo] = TRUE;
+			$paso_count++;
+		}
+	}
+	else if ($tagrafo != 0) {
+		$tzogadoros = $tagrafo;
+	}
+
+	if ($paso_count < 2) {
 		return;
-	}
-
-	if ($paso_count == 1) {
-		if ($tzogadoros == 0) {
-			return;
-		}
-		if ($tzogadoros == $tagrafo) {
-			return;
-		}
 	}
 
 	if ($tzogadoros == 0) {
 		return;
-	}
-
-	if ($tzogadoros == $tagrafo) {
-		if ($paso_count < 2)) {
-			return;
-		}
 	}
 
 	if (!isset($data_dianomis)) {
