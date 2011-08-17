@@ -173,12 +173,12 @@ var Dedomena = new function() {
 		Dodekada.resetDodekada();
 		Dekada.resetDekada();
 
+		Dedomena.schedule();
+		Pexnidi.processFasi();
+
 		Partida.updateHTML();
 		Trapezi.updateHTML();
 		Prefadoros.display();
-
-		Dedomena.schedule();
-		Pexnidi.processFasi();
 	};
 
 	this.checkPartidaPektis = function(dedomena) {

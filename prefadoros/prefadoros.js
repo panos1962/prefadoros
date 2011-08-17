@@ -221,6 +221,16 @@ function notPPP() {
 	return(!isPPP());
 }
 
+function denPezoun() {
+	var paso = 0;
+	for (var i = 1; i <= 3; i++) {
+		if (pexnidi.simetoxi[i] == 'ΠΑΣΟ') {
+			paso++;
+		}
+	}
+	return (paso > 1);
+}
+
 function isDianomi() {
 	return(isSet(window.dianomi) && isSet(dianomi.length) && (dianomi.length > 0));
 }

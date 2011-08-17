@@ -191,32 +191,82 @@ var Gipedo = new function() {
 
 		var pasoCount = 0;
 		for (var i = 1; i <= 3; i++) {
-			if (isTzogadoros(i)) { continue; }
 			if (pexnidi.simetoxi[i] == 'ΠΑΣΟ') { pasoCount++; }
 		}
 
 		if (pexnidi.simetoxi[1] == '') {
-			html += Tools.epilogiHTML('ΠΑΙΖΩ', 'Pexnidi.simetoxiPezo(this)',
-				'Θα διεκδικήσετε τις μπάζες που σας αναλογούν', 'simetoxiEpilogi');
+			if (pasoCount > 0) {
+				html += Tools.epilogiHTML('ΠΑΙΖΩ',
+					'Pexnidi.epilogiSimetoxi(this, \'ΠΑΙΖΩ\')',
+					'Θα διεκδικήσετε τις μπάζες που σας αναλογούν',
+					'simetoxiEpilogi');
+				html += Tools.epilogiHTML('ΜΑΖΙ',
+					'Pexnidi.epilogiSimetoxi(this, \'ΜΑΖΙ\')',
+					'Πάμε μαζί!', 'simetoxiEpilogi');
+			}
+			else {
+				html += Tools.epilogiHTML('ΠΑΙΖΩ',
+					'Pexnidi.epilogiSimetoxi(this, \'ΠΑΙΖΩ\')',
+					'Θα διεκδικήσετε τις μπάζες που σας αναλογούν',
+					'simetoxiEpilogi');
+			}
+			html += Tools.epilogiHTML('ΠΑΣΟ',
+				'Pexnidi.epilogiSimetoxi(this, \'ΠΑΣΟ\')',
+				'Πάσο', 'simetoxiEpilogi');
 		}
-		if (pasoCount > 0) {
-			html += Tools.epilogiHTML('ΜΑΖΙ', 'Pexnidi.simetoxiMazi(this)',
+		else {
+			html += Tools.epilogiHTML('ΜΑΖΙ', 'Pexnidi.epilogiSimetoxi(this, \'ΜΑΖΙ\')',
 				'Πάμε μαζί!', 'simetoxiEpilogi');
+			if (pexnidi.simetoxi[1] == 'ΠΑΣΟ') {
+				html += Tools.epilogiHTML('ΠΑΣΟ',
+					'Pexnidi.epilogiSimetoxi(this, \'ΠΑΣΟ\')',
+					'Πάσο', 'simetoxiEpilogi');
+			}
+			else {
+				html += Tools.epilogiHTML('ΜΟΝΟΣ',
+					'Pexnidi.epilogiSimetoxi(this, \'ΜΟΝΟΣ\')',
+					'Θα διεκδικήσετε μόνος τις μπάζες που σας αναλογούν',
+					'simetoxiEpilogi');
+			}
 		}
-		html += Tools.epilogiHTML('ΠΑΣΟ', 'Pexnidi.simetoxiPaso(this)',
-			'Πάσο', 'simetoxiEpilogi');
 	
 		html += '</div>';
 		return html;
 	};
 
-	this.lexiIconHTML = function(prin, src, meta) {
+	this.pexnidiHTML = function() {
+		if (denPezoun()) { return Gipedo.denPezounHTML(); }
 		var html = '';
-		html += '<span class="nobr">' + prin;
-		html += '<img src="' + globals.server + 'images/' + src + '" ' +
-			'class="gipedoTextIcon" alt="" />';
-		if (isSet(meta)) { html += meta; }
-		html += '</span>';
+		return html;
+	};
+
+	this.denPezounHTML = function() {
+		var html = '';
+		html += Gipedo.anamoniHTML();
+		if (pexnidi.tzogadoros == 1) {
+			if (isTheatis()) {
+				html += 'Οι αμυνόμενοι επέλεξαν να μην διεκδικήσουν τις ' +
+					'μπάζες τους σ\' αυτό το παιχνίδι. Ο παίκτης ' +
+					'που παρακολουθείτε θα πληρωθεί και θα ακολουθήσει ' +
+					'νέα διανομή. Παρακαλώ περιμένετε…';
+			}
+			else {
+				html += 'Οι αμυνόμενοι επέλεξαν να μην διεκδικήσουν τις ' +
+					'μπάζες τους σ\' αυτό το παιχνίδι. Θα πληρωθείτε ' +
+					'και θα ακολουθήσει νέα διανομή. Παρακαλώ περιμένετε…';
+			}
+		}
+		else if (isTheatis()) {
+			html += 'Ο παίκτης που παρακολουθείτε και ο ευμπαίκτης του ' +
+				'επέλεξαν να μην διεκδικήσουν τις μπάζες τους σ\' αυτό ' +
+				'το παιχνίδι. Ο τζογαδόρος θα πληρωθεί και θα ακολουθήσει ' +
+				'νέα διανομή. Παρακλώ περιμένετε…';
+		}
+		else {
+			html += 'Εσείς και ο ευμπαίκτης σας επιλέξατε να μην διεκδικήσετε ' +
+				'τις μπάζες σας σ\' αυτό το παιχνίδι. Ο τζογαδόρος θα πληρωθεί ' +
+				'και θα ακολουθήσει νέα διανομή. Παρακλώ περιμένετε…';
+		}
 		return html;
 	};
 
@@ -230,6 +280,16 @@ var Gipedo = new function() {
 		html += 'του παιχνιδιού. Παρακαλώ ειδοποιήστε τον ' +
 			'προγραμματιστή.';
 		html += '</div>';
+		return html;
+	};
+
+	this.lexiIconHTML = function(prin, src, meta) {
+		var html = '';
+		html += '<span class="nobr">' + prin;
+		html += '<img src="' + globals.server + 'images/' + src + '" ' +
+			'class="gipedoTextIcon" alt="" />';
+		if (isSet(meta)) { html += meta; }
+		html += '</span>';
 		return html;
 	};
 
