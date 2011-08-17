@@ -94,13 +94,13 @@ function check_paso($dianomi) {
 	}
 
 	$x = explode(":", $data_dianomis);
-	if (count($x) != 5) {
+	if (count($x) != 4) {
 		Prefadoros::xeklidose_trapezi(FALSE);
 		die('Λανθασμένα δεδομένα κίνησης διανομής');
 	}
 
 	$query = "INSERT INTO `κίνηση` (`διανομή`, `παίκτης`, `είδος`, `data`) " .
-		"VALUES (" . $dianomi . ", " . $tzogadoros . ", 'ΤΖΟΓΟΣ', '" . $x[4] . "')";
+		"VALUES (" . $dianomi . ", " . $tzogadoros . ", 'ΤΖΟΓΟΣ', '" . $x[0] . "')";
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
 		Prefadoros::xeklidose_trapezi(FALSE);
