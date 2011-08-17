@@ -22,6 +22,7 @@ if ($globals->is_pektis()) {
 	Page::javascript('prefadoros/sizitisi');
 	Page::javascript('prefadoros/pexnidi');
 	Page::javascript('prefadoros/gipedo');
+	Page::javascript('prefadoros/pliromi');
 	Page::javascript('lib/controlPanel');
 	Page::javascript('lib/pss');
 	Page::javascript('lib/emoticons');
