@@ -4,9 +4,7 @@ var Partida = new function() {
 	this.processDedomena = function(dedomena) {
 		// Αν δεν υπάρχει πεδίο παρτίδας στα επιστρεφόμενα
 		// δεδομένα, σημαίνει ότι δεν έχει αλλάξει κάτι.
-		if (notSet(dedomena.partida)) {
-			return;
-		}
+		if (notSet(dedomena.partida)) { return; }
 
 		// Έχει επιστραφεί παρτίδα και θα ελεγθεί με την τρέχουσα.
 		// Δεν παράγω ήχους εμφάνισης ή εξαφάνισης της παρτίδας,
@@ -371,6 +369,7 @@ var Partida = new function() {
 	this.dilosiAgoraHTML = function(thesi) {
 		var html1 = '';
 		if (isTzogadoros(thesi) && (pexnidi.agora != '')) {
+			// Είμαστε στη θέση του τζογαδόρου και έχει δηλωθεί η αγορά.
 			html1 += '<div class="dilosiPekti">';
 			var telkin = kinisi[kinisi.length - 1];
 			var spotIdx = 'a' + telkin.k;
@@ -384,6 +383,9 @@ var Partida = new function() {
 			html1 += '</div>';
 		}
 		else if (pexnidi.dilosi[thesi]) {
+			// Είμαστε σε θέση όπου έχει γίνει κάποια δήλωση. Εδώ
+			// θα εμφανιστεί η δήλωση και θα είναι είτε με κανονική
+			// γραφή, είτε αχνή εφόσον ο παίκτης πήγε αργότερα πάσο.
 			var telkin = kinisi[kinisi.length - 1];
 			html1 += '<div class="dilosiPekti';
 			if (pexnidi.paso[thesi]) { html1 += ' dilosiPaso'; }
@@ -410,6 +412,7 @@ var Partida = new function() {
 			}
 		}
 		else if (pexnidi.paso[thesi]) {
+			// Δεν έχω δήλωση, αλλά έχει πάει πάσο.
 			html1 += '<div class="dilosiPekti dilosiPaso">';
 			html1 += 'ΠΑΣΟ';
 			html1 += '</div>';
@@ -443,6 +446,30 @@ var Partida = new function() {
 				html += Pexnidi.xromaBazesHTML(pexnidi.curdil, 'skepsiBazes',
 					'skepsiXroma');
 				html += '</div>';
+			}
+			break;
+		case 'ΣΥΜΜΕΤΟΧΗ':
+			switch (pexnidi.simetoxi[thesi]) {
+			case 'ΠΑΙΖΩ':
+				html += '<div class="pasoSimetoxi simetoxiPezo">';
+				html += 'ΠΑΙΖΩ';
+				html += '</div>';
+				break;
+			case 'ΠΑΣΟ':
+				html += '<div class="pasoSimetoxi simetoxiPaso">';
+				html += 'ΠΑΣΟ';
+				html += '</div>';
+				break;
+			case 'ΜΑΖΙ':
+				html += '<div class="pasoSimetoxi simetoxiMazi">';
+				html += 'ΜΑΖΙ';
+				html += '</div>';
+				break;
+			case 'ΒΟΗΘΑΩ':
+				html += '<div class="pasoSimetoxi simetoxiVoithao">';
+				html += 'ΒΟΗΘΑΩ';
+				html += '</div>';
+				break;
 			}
 			break;
 		}
@@ -501,7 +528,7 @@ var Partida = new function() {
 			}
 		}
 
-		if (pexnidi.mazi[thesi]) {
+		if (pexnidi.simetoxi[thesi] == 'ΜΑΖΙ') {
 			html += '<img class="maziIcon" src="' + globals.server +
 				'images/mazi.png" title="Μαζί" alt="" />';
 		}
@@ -550,23 +577,26 @@ var Partida = new function() {
 
 		switch (pexnidi.fasi) {
 		case 'ΣΤΗΣΙΜΟ':
-			html += Pexnidi.stisimoHTML();
+			html += Gipedo.stisimoHTML();
 			break;
 		case 'ΔΙΑΝΟΜΗ':
-			html += Pexnidi.dianomiHTML();
+			html += Gipedo.dianomiHTML();
 			break;
 		case 'ΔΗΛΩΣΗ':
-			html += Pexnidi.dilosiHTML();
+			html += Gipedo.dilosiHTML();
 			break;
 		case 'ΤΡΙΑ ΠΑΣΟ':
-			html += Pexnidi.triaPasoHTML();
+			html += Gipedo.triaPasoHTML();
 			break;
 		case 'ΤΖΟΓΟΣ':
 			html += (notTheatis() && Dodekada.klidomenaCount == 2) ?
-				Pexnidi.dixeAgoresHTML() : Pexnidi.alagiTzogouHTML();
+				Gipedo.dixeAgoresHTML() : Gipedo.alagiTzogouHTML();
 				break;
+		case 'ΣΥΜΜΕΤΟΧΗ':
+			html += Gipedo.simetoxiHTML();
+			break;
 		default:
-			html += Pexnidi.agnostiFasiHTML();
+			html += Gipedo.agnostiFasiHTML();
 			break;
 		}
 
@@ -779,13 +809,13 @@ var Dodekada = new function() {
 	this.dixeAgores = function() {
 		var x = getelid('gipedo');
 		if (notSet(x)) { return; }
-		x.innerHTML = Pexnidi.dixeAgoresHTML();
+		x.innerHTML = Gipedo.dixeAgoresHTML();
 	};
 
 	this.kripseAgores = function() {
 		var x = getelid('gipedo');
 		if (notSet(x)) { return; }
-		x.innerHTML = Pexnidi.alagiTzogouHTML();
+		x.innerHTML = Gipedo.alagiTzogouHTML();
 	};
 };
 
