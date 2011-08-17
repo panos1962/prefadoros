@@ -78,7 +78,15 @@ function kane_dianomi() {
 	}
 	$dianomi = @mysqli_insert_id($globals->db);
 
-	$data = $dealer;
+	// Εισάγεται κίνηση διανομής με data της μορφής:
+	//
+	//	ΖΖ:ΠΠΠΠΠΠΠΠΠΠ:ΔΔΔΔΔΔΔΔΔΔ:ΤΤΤΤΤΤΤΤΤΤ
+	//
+	// όπου "ΖΖ" είναι τα φύλλα του τζόγου και "ΠΠΠΠΠΠΠΠΠΠ", "ΔΔΔΔΔΔΔΔΔΔ",
+	// "ΤΤΤΤΤΤΤΤΤΤ" είναι τα φύλλα του πρώτου, δεύτερου και τρίτου παίκτη
+	// αντίστοιχα.
+
+	$data = $trapoula->fila[30] . $trapoula->fila[31];
 	for ($i = 0; $i < 3; $i++) {
 		$data .= ":";
 		$apo = $i * 10;
@@ -86,11 +94,6 @@ function kane_dianomi() {
 		for ($j = $apo; $j < $eos; $j++) {
 			$data .= $trapoula->fila[$j];
 		}
-	}
-
-	$data .= ":";
-	for ($j = 30; $j < 32; $j++) {
-		$data .= $trapoula->fila[$j];
 	}
 
 	Kinisi::insert($dianomi, $dealer, "ΔΙΑΝΟΜΗ", $data);
