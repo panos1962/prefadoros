@@ -370,7 +370,20 @@ var Partida = new function() {
 
 	this.dilosiAgoraHTML = function(thesi) {
 		var html1 = '';
-		if (pexnidi.dilosi[thesi]) {
+		if (isTzogadoros(thesi) && (pexnidi.agora != '')) {
+			html1 += '<div class="dilosiPekti">';
+			var telkin = kinisi[kinisi.length - 1];
+			var spotIdx = 'a' + telkin.k;
+			if (spotIdx in Pexnidi.spotList) { spot = false; }
+			else {
+				spot = true;
+				Pexnidi.spotListPush(spotIdx);
+			}
+
+			html1 += Pexnidi.xromaBazesHTML(pexnidi.agora, null, null, spot);
+			html1 += '</div>';
+		}
+		else if (pexnidi.dilosi[thesi]) {
 			var telkin = kinisi[kinisi.length - 1];
 			html1 += '<div class="dilosiPekti';
 			if (pexnidi.paso[thesi]) { html1 += ' dilosiPaso'; }
@@ -693,7 +706,7 @@ var Dodekada = new function() {
 	var teldian = 0;	// κωδικός τελευταίας διανομής
 	var telkin = 0;		// κωδικός τελευταίας κίνησης
 	var sikomeno = [];	// σηκωμένα φύλλα
-	var klidomeno = [];	// επιλεγμένα φύλλα
+	this.klidomeno = [];	// επιλεγμένα φύλλα
 	this.klidomenaCount = 0;
 
 	this.dodekadaHTML = function(xb, i) {
@@ -707,7 +720,7 @@ var Dodekada = new function() {
 
 	this.sikose = function(img, i, pano) {
 		if (notSet(img)) { return; }
-		if ((i in klidomeno) && klidomeno[i]) { return; }
+		if ((i in Dodekada.klidomeno) && Dodekada.klidomeno[i]) { return; }
 		if (notSet(img.style)) { return; }
 		if (notSet(img.style.bottom)) { return; }
 
@@ -731,16 +744,16 @@ var Dodekada = new function() {
 		teldian = isDianomi() ? dianomi[dianomi.length - 1].k : 0;
 		telkin = isKinisi() ? kinisi[kinisi.length - 1].k : 0;
 		sikomeno = [];
-		klidomeno = [];
+		Dodekada.klidomeno = [];
 		Dodekada.klidomenaCount = 0;
 	}
 
 	this.klidose = function(img, i) {
 		if (notSet(img)) { return; }
-		var tora = ((i in klidomeno) && klidomeno[i]);
+		var tora = ((i in Dodekada.klidomeno) && Dodekada.klidomeno[i]);
 		var meta = !tora;
 
-		klidomeno[i] = false;
+		Dodekada.klidomeno[i] = false;
 		Dodekada.sikose(img, i, meta);
 		Dodekada.klidomenaCount += (meta ? 1 : -1);
 		if (Dodekada.klidomenaCount == 2) {
@@ -750,7 +763,7 @@ var Dodekada = new function() {
 			Dodekada.kripseAgores();
 		}
 
-		if (klidomeno[i] = meta) {
+		if (Dodekada.klidomeno[i] = meta) {
 			img.title = 'Κλικ για επαναφορά του φύλλου';
 		}
 		else {

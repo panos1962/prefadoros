@@ -176,17 +176,18 @@ var Tools = new function() {
 		}, xronos);
 	};
 
-	this.decodeAgora = function(xb, offset) {
+	this.decodeAgora = function(xb) {
 		var s = '';
-		if (notSet(offset)) { offset = 0; }
-		var xroma = xb.substr(offset, 1);
-		var bazes = xb.substr(offset + 1, 1);
+		var asoi = xb.substr(0, 1);
+		var xroma = xb.substr(1, 1);
+		var bazes = xb.substr(2, 1);
 
 		if (bazes in globals.bazesDesc) { s += globals.bazesDesc[bazes]; }
 		else { s += '?'; }
 		s += ' ';
 		if (xroma in globals.xromaDesc) { s += globals.xromaDesc[xroma]; }
 		else { s += '?'; }
+		if (asoi == 'Y') { s += ' και οι άσοι'; }
 		return s;
 	}
 }
