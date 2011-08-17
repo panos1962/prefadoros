@@ -890,11 +890,6 @@ font-weight: normal;
 	white-space: nowrap;
 }
 
-.gipedoAnamoni {
-	padding: 0.2cm 0 0.2cm 0;
-	width: 100%;
-}
-
 .tzogosIcon {
 	position: absolute;
 	top: 0.6cm;
@@ -1008,6 +1003,19 @@ font-weight: normal;
 .skepsiXroma {
 	width: 0.5cm;
 	height: 0.45cm;
+}
+
+.simetoxiArea {
+	position: absolute;
+	top: 1.2cm;
+	right: 0.4cm;
+	width: 2.4cm;
+}
+
+.simetoxiEpilogi {
+	width: 100%;
+	margin-top: 0.2cm;
+	padding: 0px;
 }
 
 .simetoxi {
