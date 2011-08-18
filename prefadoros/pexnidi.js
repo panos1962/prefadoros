@@ -151,6 +151,9 @@ var Pexnidi = new function() {
 				pexnidi.dealer++;
 				if (pexnidi.dealer > 3) { pexnidi.dealer = 1; }
 			}
+			if ((pexnidi.dilosiCount == 3) && (pexnidi.curdil == "DD6")) {
+				pexnidi.curdil = "EC6";
+			}
 			return;
 		}
 
@@ -520,12 +523,18 @@ var Pexnidi = new function() {
 		fatalError('Αδυναμία προσανατολισμού (ακαθόριστη θέση)');
 	};
 
+	var epppTime = 2000;
+	var aedpTime = 4000;
+
 	this.processFasi = function() {
 		if (isTheatis()) { return; }
 		switch (pexnidi.fasi) {
 		case 'ΤΡΙΑ ΠΑΣΟ':
-			if ((!isPPP()) && (pexnidi.dealer == 1)) {
-				setTimeout(Pexnidi.dianomi, 2000);
+			if (!isPPP()) {
+				if (pexnidi.dealer == 1) {
+					setTimeout(Pexnidi.dianomi, epppTime);
+				}
+				if (epppTime >= 1300) { epppTime -= 700 }
 			}
 			return;
 		case 'ΠΑΙΧΝΙΔΙ':
@@ -535,8 +544,9 @@ var Pexnidi = new function() {
 					setTimeout(function() {
 						Pliromi.pliromiBazon();
 						Pexnidi.dianomi();
-					}, 4000);
+					}, aedpTime);
 				}
+				if (aedpTime >= 1200) { aedpTime -= 700 }
 				return;
 			}
 
