@@ -453,15 +453,18 @@ var Sxesi = new function() {
 			switch (stat) {
 			case 'ΔΙΑΘΕΣΙΜΟΙ':
 				ico.src = globals.server + 'images/greenBall.png';
-				ico.title = 'Διαθέσιμοι παίκτες';
+				ico.title = 'Βλέπετε διαθέσιμους παίκτες. ' +
+					'Κλικ για online παίκτες';
 				break
 			case 'ONLINE':
 				ico.src = globals.server + 'images/orangeBall.png';
-				ico.title = 'Online παίκτες';
+				ico.title = 'Βλέπετε online παίκτες. ' +
+					'Κλικ για παίκτες ασχέτως κατάστασης';
 				break
 			case 'ΟΛΟΙ':
 				ico.src = globals.server + 'images/blueBall.png';
-				ico.title = 'Ασχέτως κατάστασης';
+				ico.title = 'Βλέπετε παίκτες ασχέτως κατάστασης. ' +
+					'Κλικ για διαθέσιμους παίκτες';
 				break
 			}
 		}
