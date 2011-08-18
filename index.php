@@ -151,7 +151,8 @@ function sxesi_area() {
 			class="pssIcon" title="Σχετιζόμενοι" alt=""
 			onclick="Sxesi.sxetizomenoi(this);" />
 		<img id="pekstat" src="<?php print $globals->server; ?>images/blueBall.png"
-			class="pssIcon" title="Ασχέτως κατάστασης" alt=""
+			class="pssIcon" alt=""
+			title="Βλέπετε σχετιζόμενους παίκτες. Κλικ για διαθέσιμους παίκτες"
 			onclick="Sxesi.pekstat(this);" />
 		<div class="pssSizing">
 		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
