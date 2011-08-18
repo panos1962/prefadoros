@@ -166,7 +166,6 @@ var Pexnidi = new function() {
 		}
 
 		pexnidi.dilosi[thesi] = data;
-// pexnidi.fasi = 'ΔΗΛΩΣΗ';
 		Pexnidi.setEpomenosDilosi(thesi);
 
 		// Αν η δήλωση είναι "τα γράφω", τότε θέτω επόμενη
@@ -527,11 +526,10 @@ var Pexnidi = new function() {
 	var aedpTime = 4000;
 
 	this.processFasi = function() {
-		if (isTheatis()) { return; }
 		switch (pexnidi.fasi) {
 		case 'ΤΡΙΑ ΠΑΣΟ':
 			if (!isPPP()) {
-				if (pexnidi.dealer == 1) {
+				if (notTheatis() && (pexnidi.dealer == 1)) {
 					setTimeout(Pexnidi.dianomi, epppTime);
 				}
 				if (epppTime >= 1300) { epppTime -= 700 }
@@ -540,7 +538,7 @@ var Pexnidi = new function() {
 		case 'ΠΑΙΧΝΙΔΙ':
 			if (denPezoun()) {
 				pexnidi.epomenos = 0;
-				if (pexnidi.dealer == 1) {
+				if (notTheatis() && (pexnidi.dealer == 1)) {
 					setTimeout(function() {
 						Pliromi.pliromiBazon();
 						Pexnidi.dianomi();

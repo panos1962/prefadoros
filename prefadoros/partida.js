@@ -490,6 +490,7 @@ var Partida = new function() {
 	this.pektisMainHTML = function(thesi) {
 		var html = '';
 		if (isTheatis()) { html += ' theatis'; }
+		if (isVoithao(thesi)) { html += ' voithao'; }
 		if (partida.pektis[thesi] != '') {
 			html += ' ' + (partida.apodoxi[thesi] ? 'apodoxi' : 'oxiApodoxi');
 			if (!partida.online[thesi]) { html += ' offline'; }
