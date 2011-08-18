@@ -408,6 +408,11 @@
 	border-color: #6B8E23;
 }
 
+.voithao {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
 .epomenos {
 	border-color: #FFD700;
 }
@@ -1054,6 +1059,7 @@ font-weight: normal;
 
 .protasiAgora {
 	width: 1.3cm;
+	height: 0.57cm;
 	margin-bottom: 0.1cm;
 	margin-right: 0.2cm;
 	font-size: 0.42cm;

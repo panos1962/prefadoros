@@ -269,6 +269,12 @@ function notKeniThesi() {
 	return(!isKeniThesi());
 }
 
+function isVoithao(thesi) {
+	if (notSet(window.pexnidi)) { return false; }
+	if (notSet(pexnidi.simetoxi)) { return false; }
+	return(pexnidi.simetoxi[thesi] == 'ΒΟΗΘΑΩ')
+}
+
 function isProsklisi() {
 	if (notPartida()) { return false; }
 	if (notPektis()) { return false; }
