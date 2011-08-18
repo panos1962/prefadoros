@@ -21,7 +21,7 @@ var Gipedo = new function() {
 
 	this.dianomiHTML = function() {
 		var html = '';
-		if (pexnidi.dealer == 1) { html += Gipedo.anamoniHTML('dianomi.gif', 'width: 2.0cm;'); }
+		if (pexnidi.dealer == 1) { html += Gipedo.anamoniDianomiHTML(); }
 		else { html += Gipedo.anamoniHTML(); }
 		if (isTheatis()) {
 			html += 'Και οι τρεις παίκτες δήλωσαν «πάσο». Θα γίνει νέα διανομή. ';
@@ -242,7 +242,8 @@ var Gipedo = new function() {
 
 	this.denPezounHTML = function() {
 		var html = '';
-		html += Gipedo.anamoniHTML();
+		if (pexnidi.dealer == 3) { html += Gipedo.anamoniDianomiHTML(); }
+		else { html += Gipedo.anamoniHTML(); }
 		if (pexnidi.tzogadoros == 1) {
 			if (isTheatis()) {
 				html += 'Οι αμυνόμενοι επέλεξαν να μην διεκδικήσουν τις ' +
@@ -299,6 +300,10 @@ var Gipedo = new function() {
 
 	this.anamoniBaresHTML = function() {
 		return Gipedo.anamoniHTML('bares.gif', 'width: 0.4cm; height: 0.3cm;');
+	};
+
+	this.anamoniDianomiHTML = function() {
+		return Gipedo.anamoniHTML('dianomi.gif', 'width: 2.0cm;');
 	};
 
 	this.anamoniNevrikosHTML = function() {
