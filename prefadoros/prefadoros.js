@@ -275,6 +275,12 @@ function isVoithao(thesi) {
 	return(pexnidi.simetoxi[thesi] == 'ΒΟΗΘΑΩ')
 }
 
+function denPezi(thesi) {
+	if (notSet(window.pexnidi)) { return false; }
+	if (notSet(pexnidi.simetoxi)) { return false; }
+	return((pexnidi.fasi != 'ΣΥΜΜΕΤΟΧΗ') && (pexnidi.simetoxi[thesi] == 'ΠΑΣΟ'))
+}
+
 function isProsklisi() {
 	if (notPartida()) { return false; }
 	if (notPektis()) { return false; }
