@@ -77,11 +77,15 @@ var Dumprsp = new function() {
 		}
 	};
 
+	var id = 0;
+
 	this.dump = function(rsp) {
 		if (notSet(wdump)) { return; }
 
 		try {
 			var p = wdump.document.createElement('div');
+			id++;
+			p.setAttribute('id', id);
 			var d = new Date;
 			var html = strTime(d, true) +
 				' [' + d.getMilliseconds() + ']<br />' + rsp + '<hr />';
@@ -93,6 +97,28 @@ var Dumprsp = new function() {
 				scrollBottom(wdump.document.body);
 			}
 		} catch(e) { Dumprsp.reset };
+	};
+
+	this.lathos = function() {
+		if (notSet(wdump)) { return; }
+		var p = wdump.document.getElementById(id);
+		if (notSet(p)) {
+			wdump.document.writeln('Dumprsp.lathos: ' + id + ': id not found');
+		}
+		else {
+			p.style.color = '#FF0000';
+		}
+	};
+
+	this.ignore = function() {
+		if (notSet(wdump)) { return; }
+		var p = wdump.document.getElementById(id);
+		if (notSet(p)) {
+			wdump.document.writeln('Dumprsp.ignore: ' + id + ': id not found');
+		}
+		else {
+			p.style.color = '#668566';
+		}
 	};
 
 	this.close = function() {

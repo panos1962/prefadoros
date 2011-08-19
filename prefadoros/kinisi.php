@@ -2,7 +2,7 @@
 class Kinisi {
 	public $kodikos;
 	public $dianomi;
-	public $pekis;
+	public $pektis;
 	public $idos;
 	public $data;
 
@@ -35,21 +35,65 @@ class Kinisi {
 
 		switch ($this->idos) {
 		case 'ΔΙΑΝΟΜΗ':
-			$plati = $globals->pektis->get_plati();
-			if ((!$globals->is_trapezi()) || (!$globals->trapezi->is_theatis()) ||
-				(!$globals->trapezi->klisto)) { return; }
+			if (!$globals->is_trapezi()) { return; }
 			$x = explode(":", $this->data);
-			if (count($x) != 5) { return; }
+			if (count($x) != 4) { return; }
+
+			$plati = $globals->trapezi->is_theatis() ? $globals->pektis->get_plati() : "BV";
 			$fila = "";
 			for ($i = 0; $i < 10; $i++) { $fila .= $plati; }
-			$this->data = $x[0] . ":" . $fila . ":" . $fila . ":" . $fila .
-				":" . $plati . $plati;
+
+			$this->data = $plati . $plati;
+			if ($globals->trapezi->is_theatis()) {
+				if ($globals->trapezi->klisto) {
+					$this->data .= ":" . $fila . ":" . $fila . ":" . $fila;
+				}
+				else {
+					$this->data .= ":" . $x[1] . ":" . $x[2] . ":" . $x[3];
+				}
+			}
+			else {
+				$this->data .= ":" . ($globals->trapezi->thesi == 1 ? $x[1] : $fila) .
+					":" . ($globals->trapezi->thesi == 2 ? $x[2] : $fila) .
+					":" . ($globals->trapezi->thesi == 3 ? $x[3] : $fila);
+			}
 			break;
 		case 'ΤΖΟΓΟΣ':
-			$plati = $globals->pektis->get_plati(TRUE);
-			if ((!$globals->is_trapezi()) || (!$globals->trapezi->is_theatis()) ||
-				(!$globals->trapezi->klisto)) { return; }
-			$this->data = $plati . $plati;
+			if (!$globals->is_trapezi()) { return; }
+			$plati = $globals->trapezi->is_theatis() ? $globals->pektis->get_plati() : "BV";
+			if ($globals->trapezi->is_theatis()) {
+				if ($globals->trapezi->klisto) {
+					$this->data = $plati . $plati;
+				}
+			}
+			elseif ($this->pektis != $globals->trapezi->thesi) {
+				$this->data = $plati . $plati;
+			}
+			break;
+		case 'ΑΓΟΡΑ':
+			if (!$globals->is_trapezi()) { return; }
+			$x = explode(":", $this->data);
+			if (count($x) != 2) { return; }
+
+			$plati = $globals->trapezi->is_theatis() ? $globals->pektis->get_plati() : "BV";
+			$fila = "";
+			for ($i = 0; $i < 10; $i++) { $fila .= $plati; }
+
+			$this->data = $x[0] . ":";
+			if ($globals->trapezi->is_theatis()) {
+				if ($globals->trapezi->klisto) {
+					$this->data .= $fila;
+				}
+				else {
+					$this->data .= $x[1];
+				}
+			}
+			elseif ($this->pektis == $globals->trapezi->thesi) {
+				$this->data .= $x[1];
+			}
+			else {
+				$this->data .= $fila;
+			}
 			break;
 		}
 	}

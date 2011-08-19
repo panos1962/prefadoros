@@ -83,6 +83,7 @@ var Dedomena = new function() {
 			var dedomena = eval('({' + rsp + '})');
 		} catch(e) {
 			monitor.lathos();
+			Dumprsp.lathos();
 			mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 // alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
 			Dedomena.schedule(true);
@@ -92,6 +93,7 @@ var Dedomena = new function() {
 		if ((dedomena.sinedria.k < sinedria.kodikos) ||
 			(dedomena.sinedria.i < sinedria.id)) {
 			monitor.ignore();
+			Dumprsp.ignore();
 			return;
 		}
 
