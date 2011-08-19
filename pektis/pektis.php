@@ -82,6 +82,8 @@ class Pektis {
 	}
 
 	public function get_plati($other = FALSE) {
+		global $globals;
+
 		if (!isset($this->plati_filo)) {
 			switch ($this->plati) {
 			case 'BLUE':
@@ -93,7 +95,9 @@ class Pektis {
 				$this->plati_other = "BV";
 				break;
 			default:
-				if (mt_rand(0, 1) == 1) {
+				$x = $globals->is_trapezi() ?
+					($globals->trapezi->kodikos % 2) : mt_rand(0, 1);
+				if ($x == 1) {
 					$this->plati_filo = "BV";
 					$this->plati_other = "RV";
 				}
