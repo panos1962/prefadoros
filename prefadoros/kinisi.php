@@ -28,14 +28,16 @@ class Kinisi {
 	// Η μέθοδος "prostasia" έχει σκοπό την απόκρυψη των δεδομένων
 	// κίνησης. Αυτό είναι κυρίως χρήσιμο στα κλειστά τραπέζια, όπου
 	// τα φύλλα της διανομής, αλλά και του τζόγου, έρχονται κλειστά
-	// στους θεατές.
+	// στους θεατές. Πέρα, όμως, από την απόκρυψη δεδομένων από τους
+	// θεατές των κλειστών τραπεζιών, αποκρύπτονται και πληροφορίες
+	// που αφορούν στα φύλλα του τζόγου και των άλλων παικτών.
 
 	public function prostasia() {
 		global $globals;
+		if (!$globals->is_trapezi()) { return; }
 
 		switch ($this->idos) {
 		case 'ΔΙΑΝΟΜΗ':
-			if (!$globals->is_trapezi()) { return; }
 			$x = explode(":", $this->data);
 			if (count($x) != 4) { return; }
 
@@ -59,8 +61,8 @@ class Kinisi {
 			}
 			break;
 		case 'ΤΖΟΓΟΣ':
-			if (!$globals->is_trapezi()) { return; }
-			$plati = $globals->trapezi->is_theatis() ? $globals->pektis->get_plati() : "BV";
+			$plati = $globals->trapezi->is_theatis() ?
+				$globals->pektis->get_plati(TRUE) : "BV";
 			if ($globals->trapezi->is_theatis()) {
 				if ($globals->trapezi->klisto) {
 					$this->data = $plati . $plati;
@@ -71,7 +73,6 @@ class Kinisi {
 			}
 			break;
 		case 'ΑΓΟΡΑ':
-			if (!$globals->is_trapezi()) { return; }
 			$x = explode(":", $this->data);
 			if (count($x) != 2) { return; }
 
