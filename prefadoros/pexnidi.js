@@ -217,7 +217,7 @@ var Pexnidi = new function() {
 		pexnidi.tzogadoros = thesi;
 		var x = data.split(':');
 		if ((x.length != 2) || (!x[0].match(/^[YN][SCDHN][6789T]$/)) ||
-			(!x[1].match(/^([SCDH][6789TJQKA]){10}$/))) {
+			(!x[1].match(/^([SCDHBR][6789TJQKAV]){10}$/))) {
 			fatalError(data + ': λάθος δεδομένα κίνησης αγοράς');
 		}
 
