@@ -236,7 +236,10 @@ var Gipedo = new function() {
 
 	this.pexnidiHTML = function() {
 		if (denPezoun()) { return Gipedo.denPezounHTML(); }
-		var html = 'ΠΑΙΧΝΙΔΙ';
+		var html = '';
+		html += '<div id="bazaFilo3"></div>';
+		html += '<div id="bazaFilo2"></div>';
+		html += '<div id="bazaFilo1"></div>';
 		return html;
 	};
 
