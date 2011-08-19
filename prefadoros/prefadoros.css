@@ -1106,3 +1106,25 @@ font-weight: bold;
 	right: 0.1cm;
 	width: 1.4cm;
 }
+
+.bazaFilo {
+	width: 2.1cm;
+}
+
+.bazaFilo3 {
+	position: absolute;
+	top: 0.6cm;
+	left: 1.2cm;
+}
+
+.bazaFilo2 {
+	position: absolute;
+	top: 0.2cm;
+	left: 2.8cm;
+}
+
+.bazaFilo1 {
+	position: absolute;
+	top: 1.4cm;
+	left: 2.0cm;
+}

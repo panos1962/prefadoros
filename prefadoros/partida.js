@@ -301,7 +301,8 @@ var Partida = new function() {
 		if (fila.length <= 0) { return html; }
 
 		var tzogos = ((pexnidi.fasi == 'ΤΖΟΓΟΣ') && isTzogadoros());
-		var pezon = ((pexnidi.fasi == 'ΦΥΛΛΟ') && isEpomenos());
+		var pezon = ((pexnidi.fasi == 'ΠΑΙΧΝΙΔΙ') && isEpomenos());
+		if (pezon) { Dekada.setEpitrepto(fila); }
 
 		var proto = ' style="margin-left: 0px;"';
 		for (var i = 0; i < fila.length; i++) {
@@ -313,7 +314,8 @@ var Partida = new function() {
 			if (tzogos) { html += ' filoSteno'; }
 			html += '" src="' + globals.server + 'images/trapoula/' +
 				fila[i] + '.png" alt="" ';
-			if (tzogos && notTheatis()) { html += Dodekada.dodekadaHTML(fila[i], i); }
+			if (tzogos && notTheatis()) { html += Dodekada.dodekadaHTML(i); }
+			else if (pezon && notTheatis()) { html += Dekada.dekadaHTML(fila[i], i); }
 			html += ' />';
 			html += '</div>';
 		}
@@ -763,7 +765,7 @@ var Dodekada = new function() {
 	this.klidomeno = [];	// επιλεγμένα φύλλα
 	this.klidomenaCount = 0;
 
-	this.dodekadaHTML = function(xb, i) {
+	this.dodekadaHTML = function(i) {
 		var html = '';
 		html += ' onmouseover="Dodekada.sikose(this, ' + i + ', true);" ';
 		html += ' onmouseout="Dodekada.sikose(this, ' + i + ', false);" ';
@@ -840,5 +842,91 @@ var Dodekada = new function() {
 
 var Dekada = new function() {
 	this.resetDekada = function() {
+	};
+
+	var epitrepto = [];
+
+	this.setEpitrepto = function(fila) {
+		epitrepto = [];
+
+		// Αν είναι το πρώτο φύλλο της μπάζας, τότε μπορεί
+		// να παιχτεί οποιοδήποτε φύλλο.
+		if (pexnidi.bazaFilo.length <= 0) { return; }
+
+		// Έχουν παιχτεί φύλλα στην μπάζα, επομένως θα μας
+		// χρειαστεί το χρώμα του πρώτου φύλλο της μπάζας.
+		var xroma = pexnidi.bazaFilo[0].substr(0, 1);
+
+		// Αν ο παίκτης έχει φύλλα σ'αυτό το χρώμα, τότε
+		// τα μαρκάρουμε ως επιτρεπτά.
+		for (var i = 0; i < fila.length; i++) {
+			if (fila[i].match('^' + xroma)) {
+				Dekada.setEpitreptoFilo(i);
+			}
+		}
+
+		// Αν βρέθηκαν φύλλα στο χρώμα που παίχτηκε, τότε
+		// αυτά και μόνον αυτά είναι τα επιτρεπτά.
+		if (epitrepto.length > 0) { return; }
+
+		// Δεν έχουν βρεθεί φύλλα στο χρώμα που παίχτηκε.
+		// Αν η αγορά είναι αχρωμάτιστη, τότε μπορεί να
+		// παιχτεί οποιοδήποτε φύλλο.
+		if (pexnidi.xromaAgoras == 'N') { return; }
+
+		// Υπάρχουν ατού και δεν έχουν βρεθεί φύλλα στο χρώμα
+		// που παίχτηκε. Επομένως, επιτρεπτά είναι μόνο τα ατού.
+		for (var i = 0; i < fila.length; i++) {
+			if (fila[i].match('^' + pexnidi.xromaAgoras)) {
+				Dekada.setEpitreptoFilo(i);
+			}
+		}
+	};
+
+	this.setEpitreptoFilo = function(i) {
+		epitrepto[i] = true;
+	};
+
+	this.isEpitrepto = function(i) {
+		if (epitrepto.length <= 0) { return true; }
+		return (i in epitrepto);
+	};
+
+	this.dekadaHTML = function(xa, i) {
+		var html = '';
+		if (Dekada.isEpitrepto(i)) {
+			html += ' onmouseover="Dekada.sikose(this, ' + i + ', true);" ';
+			html += ' onmouseout="Dekada.sikose(this, ' + i + ', false);" ';
+			html += ' onclick="Dekada.valeFilo(this, ' + i + ', \'' + xa + '\');" ';
+			if (epitrepto.length > 0) { html += 'style="bottom: 0.4cm; "'; }
+		}
+		return html;
+	};
+
+	this.sikose = function(img, i, pano) {
+		if (pano) {
+			if (epitrepto.length > 0) {
+				img.style.bottom = '0.8cm';
+			}
+			else {
+				img.style.bottom = '0.4cm';
+			}
+		}
+		else {
+			if (epitrepto.length > 0) {
+				img.style.bottom = '0.4cm';
+			}
+			else {
+				img.style.bottom = '0px';
+			}
+		}
+	};
+
+	this.valeFilo = function(img, i, xa) {
+		var x = getelid('bazaFilo1');
+		if (notSet(x)) { fatalError('Dekada.valeFilo: bazaFilo1: not found'); }
+		x.innerHTML = '<img class="bazaFilo bazaFilo1" src="' +
+			img.src + '" alt="" />';
+		sviseNode(img, 400);
 	};
 };
