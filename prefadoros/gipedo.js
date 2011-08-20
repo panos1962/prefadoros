@@ -237,9 +237,30 @@ var Gipedo = new function() {
 	this.pexnidiHTML = function() {
 		if (denPezoun()) { return Gipedo.denPezounHTML(); }
 		var html = '';
-		html += '<div id="bazaFilo3"></div>';
-		html += '<div id="bazaFilo2"></div>';
-		html += '<div id="bazaFilo1"></div>';
+		if (pexnidi.lastBazaFilo.length > 0) {
+			html += Gipedo.dixeBazaHTML(pexnidi.lastBazaFilo, pexnidi.lastBazaPektis);
+		}
+		else {
+			html += Gipedo.dixeBazaHTML(pexnidi.bazaFilo, pexnidi.bazaPektis);
+		}
+		return html;
+	};
+
+	this.dixeBazaHTML = function(filo, pektis) {
+		var html = '';
+		for (var i = 1; i <= 3; i++) {
+			html += '<div id="bazaFilo' + i + '">';
+			for (var j = 0; j < pektis.length; j++) {
+				if (pektis[j] == i) {
+					html += '<img class="bazaFilo bazaFilo' + i + '" src="' +
+						globals.server + 'images/trapoula/' +
+						filo[j] + '.png" alt="" ' +
+						'style="z-index: ' + j + ';" />';
+					break;
+				}
+			}
+			html += '</div>';
+		}
 		return html;
 	};
 

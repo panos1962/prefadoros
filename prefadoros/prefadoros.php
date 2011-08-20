@@ -290,5 +290,19 @@ class Prefadoros {
 		}
 		return($energos);
 	}
+
+	static public function rank($filo) {
+		$rank = array();
+		$n = 0;
+		$rank["7"] = $n++;
+		$rank["8"] = $n++;
+		$rank["9"] = $n++;
+		$rank["T"] = $n++;
+		$rank["J"] = $n++;
+		$rank["Q"] = $n++;
+		$rank["K"] = $n++;
+		$rank["A"] = $n++;
+		return $rank[substr($filo, 1, 1)];
+	}
 }
 ?>
