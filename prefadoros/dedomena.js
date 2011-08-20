@@ -171,16 +171,13 @@ var Dedomena = new function() {
 		Sizitisi.processDedomena(dedomena);
 		Kafenio.processDedomena(dedomena);
 
-		Pexnidi.setData();
-		Dodekada.resetDodekada();
-		Dekada.resetDekada();
-
-		Dedomena.schedule();
-		Pexnidi.processFasi();
-
+		Pexnidi.processDedomena();
 		Partida.updateHTML();
 		Trapezi.updateHTML();
 		Prefadoros.display();
+
+		Pexnidi.processFasi();
+		Dedomena.schedule();
 	};
 
 	this.checkPartidaPektis = function(dedomena) {
