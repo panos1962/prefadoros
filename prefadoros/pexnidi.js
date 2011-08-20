@@ -53,11 +53,11 @@ var Pexnidi = new function() {
 		pexnidi.dealer = 0;
 		pexnidi.fila = [ [], [], [], [] ];
 
+		pexnidi.dilosiCount = 0;
+		pexnidi.dilosi = [ '', '', '', '' ];
 		pexnidi.curdil = '';
 
-		pexnidi.dilosi = [ '', '', '', '' ];
-		pexnidi.dilosiCount = 0;
-
+		pexnidi.pasoCount = 0;
 		pexnidi.paso = [ false, false, false, false ];
 
 		pexnidi.tzogadoros = 0;
@@ -85,18 +85,30 @@ var Pexnidi = new function() {
 	// δεδομένα.
 
 	this.setData = function() {
+		var errmsg = 'Pexnidi::setData: ';
+
+		// Αρχικά μηδενίζουμε τα πάντα.
 		Pexnidi.resetData();
 		if (notPartida()) { return;}
 
 		pexnidi.fasi = 'ΣΤΗΣΙΜΟ';
 
+		// Κάνουμε αντιστοίχιση των θέσεων, καθώς από τον
+		// server μας έρχονται δεδομένα με τις πραγματικές
+		// θέσεις, ενώ στον client ο παίκτης που βρίσκεται
+		// στο νότο έχει θέση 1.
 		Pexnidi.dianomiMap();
 		Pexnidi.kinisiMap();
 
+		// Κανονίζουμε τα οικονομικά των παικτών και της
+		// παρτίδας γενικότερα.
 		for (var i = 1; i <= 3; i++) {
 			pexnidi.kapikia[i] = -(partida.kasa * 10);
 		}
 
+		// Τώρα θα διαχειριστούμε τις διανομές της παρτίδας
+		// με σκοπό κυρίως τη διαμόρφωση των οικονομικών
+		// και τον καθορισμό του dealer.
 		pexnidi.ipolipo = 30 * partida.kasa;
 		for (var i = 0; i < dianomi.length; i++) {
 			pexnidi.dealer = dianomi[i].dealer;
@@ -118,9 +130,17 @@ var Pexnidi = new function() {
 		pexnidi.elima = pexnidi.kapikia[partida.pam[1]] + x;
 		pexnidi.kapikia[partida.pam[1]] = -x;
 
+		// Ήρθε η στιγμή να διαχειριστούμε τις κινήσεις της τελευταίας
+		// διανομής. Πρέπει να υπάρχει τουλάχιστον μια, καθώς με τη
+		// δημιουργία της διανομής, δημιουργείται και κίνηση τύπου
+		// "ΔΙΑΝΟΜΗ" που περιέχει τα φύλλα του κάθε παίκτη και τα
+		// φύλλα του τζόγου.
 		for (var i = 0; i < kinisi.length; i++) {
-//==============
-			if (i > 0) { Pexnidi.processFasi(true); }
+			// Κάνουμε batch process τη φάση που βρσικόμαστε τώρα
+			// και διαχειριζόμαστε την επόμενη κίνηση, η οποία
+			// πιθανότατα θα μας περάσει σε νέα φάση.
+			Pexnidi.processFasi(true);
+
 			if (kinisi[i].k == anamoniKinisis) { anamoniKinisis = 0; }
 			switch (kinisi[i].i) {
 			case 'ΔΙΑΝΟΜΗ':
@@ -144,6 +164,9 @@ var Pexnidi = new function() {
 			case 'ΜΠΑΖΑ':
 				Pexnidi.processKinisiBaza(kinisi[i].thesi);
 				break;
+			default:
+				fatalError(errmsg + kinisi[i].i + ': άγνωστο είδος κίνησης');
+				break;
 			}
 		}
 	};
@@ -154,25 +177,17 @@ var Pexnidi = new function() {
 			pexnidi.fila[i] = Pexnidi.spaseFila(x[partida.map[i]]);
 		}
 		pexnidi.fasi = 'ΔΗΛΩΣΗ';
-		pexnidi.epomenos = thesi + 1;
-		if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
-		pexnidi.curdil = 'DTG';
 	};
 
 	this.processKinisiDilosi = function(thesi, data) {
 		pexnidi.dilosiCount++;
 		if (data.match(/^P/)) {
+			pexnidi.pasoCount++;
 			pexnidi.paso[thesi] = true;
-			Pexnidi.setEpomenosDilosi(thesi);
-			if (pexnidi.epomenos == 0) {
-				pexnidi.fasi = 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ';
-				return;
-			}
-			if ((pexnidi.dilosiCount == 3) && (pexnidi.curdil == "DD6")) {
-				pexnidi.curdil = "EC6";
-			}
 			return;
 		}
+
+		pexnidi.dilosi[thesi] = data;
 
 		// Έχω δήλωση. Αν υπήρχε δήλωση "τα γράφω" βάζω τον
 		// παίκτη που τα είχε γράψει στο πάσο.
@@ -181,9 +196,6 @@ var Pexnidi = new function() {
 				pexnidi.paso[i] = true;
 			}
 		}
-
-		pexnidi.dilosi[thesi] = data;
-		Pexnidi.setEpomenosDilosi(thesi);
 
 		// Αν η δήλωση είναι "τα γράφω", τότε θέτω επόμενη
 		// δήλωση τα 6 μπαστούνια, αλλιώς θα υπολογίσω την
@@ -561,35 +573,18 @@ var Pexnidi = new function() {
 		fatalError('Αδυναμία προσανατολισμού (ακαθόριστη θέση)');
 	};
 
-	var epppTime = 3000;
 	var aedpTime = 4000;
 
 	this.processFasi = function(batch) {
+		var errmsg = 'Pexnidi::processFasi: ';
+
 		if (notSet(batch)) { batch = false; }
 		switch (pexnidi.fasi) {
+		case 'ΔΗΛΩΣΗ':
+			Pexnidi.processFasiDilosi(batch);
+			break;
 		case 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ':
-			if (isPPP()) {
-				if (batch) {
-					Pexnidi.setDataPasoPasoPaso();
-				}
-				else {
-					pexnidi.epomenos = 0;
-					setTimeout(function() {
-						Pexnidi.setDataPasoPasoPaso();
-						Partida.updateHTML();
-						Prefadoros.display();
-					}, epppTime);
-					if (epppTime >= 1500) { epppTime -= 700 }
-				}
-			}
-			else {
-				pexnidi.dealer++;
-				if (pexnidi.dealer > 3) { pexnidi.dealer = 1; }
-				if ((!batch) && notTheatis() && (pexnidi.dealer == 1)) {
-					setTimeout(Pexnidi.dianomi, epppTime);
-					if (epppTime >= 1500) { epppTime -= 700 }
-				}
-			}
+			Pexnidi.processFasiPasoPasoPaso(batch);
 			break;
 		case 'ΠΑΣΟ ΠΑΣΟ':
 			pexnidi.epomenos = 0;
@@ -638,7 +633,75 @@ var Pexnidi = new function() {
 				break;
 			}
 			break;
+		case 'ΣΤΗΣΙΜΟ':
+		case 'ΣΥΜΜΕΤΟΧΗ':
+		case 'ΤΖΟΓΟΣ':
+			break;
+		default:
+			fatalError(errmsg + pexnidi.fasi + ': άγνωστη φάση');
+			break;
 		}
+	};
+
+	this.processFasiDilosi = function(batch) {
+		if (pexnidi.dilosiCount <= 0) {
+			pexnidi.curdil = 'DTG';
+			pexnidi.epomenos = pexnidi.dealer + 1;
+			if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
+			return;
+		}
+
+		if (pexnidi.pasoCount > 2) {
+			pexnidi.fasi = 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ';
+			return;
+		}
+
+		for (epomenos = pexnidi.epomenos + 1;; epomenos++) {
+			if (epomenos > 3) { epomenos = 1; }
+			if (pexnidi.paso[epomenos]) { continue; }
+			if (epomenos != pexnidi.epomenos) {
+				pexnidi.epomenos = epomenos;
+				break;
+			}
+			pexnidi.tzogadoros = pexnidi.epomenos;
+			pexnidi.fasi = 'ΑΓΟΡΑ';
+			return;
+		}
+
+		if ((pexnidi.dilosiCount == 3) && (pexnidi.curdil == "DD6")) {
+			pexnidi.curdil = "EC6";
+		}
+	};
+
+	var pppDelay = 3000;
+
+	this.processFasiPasoPasoPaso = function(batch) {
+		if (isPPP()) {
+			if (batch) {
+				Pexnidi.setDataPasoPasoPaso();
+				return;
+			}
+
+			pexnidi.epomenos = 0;
+			setTimeout(function() {
+				Pexnidi.setDataPasoPasoPaso();
+				Partida.updateHTML();
+				Prefadoros.display();
+			}, pppDelay);
+			Pexnidi.miosiPppDelay();
+			return;
+		}
+
+		if ((!batch) && notTheatis() && (pexnidi.dealer == 3)) {
+alert('asdasdas');
+			setTimeout(Pexnidi.dianomi, pppDelay);
+			Pexnidi.miosiPppDelay();
+		}
+	};
+
+	this.miosiPppDelay = function() {
+		pppDelay -= 700;
+		if (pppDelay < 800) { pppDelay = 800; }
 	};
 
 	this.setDataPasoPasoPaso = function() {
