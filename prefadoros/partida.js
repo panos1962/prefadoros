@@ -603,8 +603,8 @@ var Partida = new function() {
 		case 'ΔΗΛΩΣΗ':
 			html += Gipedo.dilosiHTML();
 			break;
-		case 'ΤΡΙΑ ΠΑΣΟ':
-			html += Gipedo.triaPasoHTML();
+		case 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ':
+			html += Gipedo.pasoPasoPasoHTML();
 			break;
 		case 'ΤΖΟΓΟΣ':
 			html += (notTheatis() && Dodekada.klidomenaCount == 2) ?
@@ -612,6 +612,9 @@ var Partida = new function() {
 				break;
 		case 'ΣΥΜΜΕΤΟΧΗ':
 			html += Gipedo.simetoxiHTML();
+			break;
+		case 'ΠΑΣΟ ΠΑΣΟ':
+			html += Gipedo.pasoPasoHTML();
 			break;
 		case 'ΠΑΙΧΝΙΔΙ':
 			html += Gipedo.pexnidiHTML();

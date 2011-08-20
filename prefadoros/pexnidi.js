@@ -67,6 +67,17 @@ var Pexnidi = new function() {
 		pexnidi.asoi = false;
 
 		pexnidi.simetoxi = [ '', '', '', '' ];
+		Pexnidi.resetBaza();
+	};
+
+	this.resetBaza = function() {
+		pexnidi.bazaCount = 0;
+
+		pexnidi.bazaFilo = [];
+		pexnidi.bazaPektis = [];
+
+		pexnidi.lastBazaFilo = [];
+		pexnidi.lastBazaPektis = [];
 	};
 
 	// Η function "setData" καλείται κάθε φορά που έχουμε νέα δεδομένα
@@ -108,7 +119,8 @@ var Pexnidi = new function() {
 		pexnidi.kapikia[partida.pam[1]] = -x;
 
 		for (var i = 0; i < kinisi.length; i++) {
-// alert('kinisi[' + i + '].thesi = ' + kinisi[i].thesi);
+//==============
+			if (i > 0) { Pexnidi.processFasi(true); }
 			if (kinisi[i].k == anamoniKinisis) { anamoniKinisis = 0; }
 			switch (kinisi[i].i) {
 			case 'ΔΙΑΝΟΜΗ':
@@ -153,9 +165,8 @@ var Pexnidi = new function() {
 			pexnidi.paso[thesi] = true;
 			Pexnidi.setEpomenosDilosi(thesi);
 			if (pexnidi.epomenos == 0) {
-				pexnidi.fasi = 'ΤΡΙΑ ΠΑΣΟ';
-				pexnidi.dealer++;
-				if (pexnidi.dealer > 3) { pexnidi.dealer = 1; }
+				pexnidi.fasi = 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ';
+				return;
 			}
 			if ((pexnidi.dilosiCount == 3) && (pexnidi.curdil == "DD6")) {
 				pexnidi.curdil = "EC6";
@@ -238,65 +249,50 @@ var Pexnidi = new function() {
 		pexnidi.epomenos = thesi + 1;
 		if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
 
-		pexnidi.bazaCount = 0;
-
-		pexnidi.bazaFilo = [];
-		pexnidi.bazaPektis = [];
-
-		pexnidi.lastBazaFilo = [];
-		pexnidi.lastBazaPektis = [];
+		Pexnidi.resetBaza();
 	};
 
 	this.processKinisiSimetoxi = function(thesi, data) {
+		var errmsg = 'Pexnidi::processKinisiSimetoxi: ';
+
 		switch (pexnidi.tzogadoros) {
-		case 1:
-			var ena = 2;
-			var dio = 3;
-			break;
-		case 2:
-			var ena = 3;
-			var dio = 1;
-			break;
-		case 3:
-			var ena = 1;
-			var dio = 2;
-			break;
-		default:
-			fatalError('δεν βρέθηκε τζογαδόρος κατά την ' +
-				'επιλογή επομένου στη φάση συμμετοχής');
-			break;
+		case 1: var ena = 2; var dio = 3; break;
+		case 2: ena = 3; dio = 1; break;
+		case 3: ena = 1; dio = 2; break;
+		default: fatalError(errmsg + 'δεν βρέθηκε τζογαδόρος'); break;
 		}
 
 		switch (pexnidi.simetoxi[thesi] = data) {
 		case 'ΠΑΙΖΩ':
 			if (thesi == ena) {
 				pexnidi.epomenos = dio;
-				return;
 			}
-			if (pexnidi.simetoxi[ena] != 'ΠΑΣΟ') {
+			else if (pexnidi.simetoxi[ena] != 'ΠΑΣΟ') {
 				pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
-				return;
 			}
-			pexnidi.epomenos = ena;
-			return;
+			else {
+				pexnidi.epomenos = ena;
+			}
+			break;
 		case 'ΜΟΝΟΣ':
 			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
-			return;
+			break;
 		case 'ΠΑΣΟ':
 			if (thesi == dio) {
 				if (pexnidi.simetoxi[ena] == 'ΠΑΙΖΩ') {
 					pexnidi.epomenos = ena;
-					return;
 				}
-				pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
-				return;
+				else if (pexnidi.simetoxi[ena] == 'ΠΑΣΟ') {
+					pexnidi.fasi = 'ΠΑΣΟ ΠΑΣΟ';
+				}
 			}
-			if (pexnidi.simetoxi[dio] == '') {
+			else if (pexnidi.simetoxi[dio] == '') {
 				pexnidi.epomenos = dio;
-				return;
 			}
-			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
-			return;
+			else {
+				pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
+			}
+			break;
 		case 'ΜΑΖΙ':
 			for (var i = 1; i <= 3; i++) {
 				if (pexnidi.simetoxi[i] == 'ΠΑΣΟ') {
@@ -305,8 +301,11 @@ var Pexnidi = new function() {
 			}
 			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
 			break;
+		default:
+			fatalError('Pexnidi::processKinisiSimetoxi: ' +
+				data + ': invalid data');
+			break;
 		}
-		pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
 	};
 
 	this.processKinisiFilo = function(thesi, data) {
@@ -314,7 +313,6 @@ var Pexnidi = new function() {
 		pexnidi.lastBazaPektis = [];
 		pexnidi.bazaFilo.push(data);
 		pexnidi.bazaPektis.push(thesi);
-		Pexnidi.setEpomenosPexnidi();
 
 		var fila = Pexnidi.deseFila(pexnidi.fila[thesi]);
 		fila = fila.replace(data, '');
@@ -563,32 +561,47 @@ var Pexnidi = new function() {
 		fatalError('Αδυναμία προσανατολισμού (ακαθόριστη θέση)');
 	};
 
-	var epppTime = 2000;
+	var epppTime = 3000;
 	var aedpTime = 4000;
 
-	this.processFasi = function() {
+	this.processFasi = function(batch) {
+		if (notSet(batch)) { batch = false; }
 		switch (pexnidi.fasi) {
-		case 'ΤΡΙΑ ΠΑΣΟ':
-			if (!isPPP()) {
-				if (notTheatis() && (pexnidi.dealer == 1)) {
-					setTimeout(Pexnidi.dianomi, epppTime);
+		case 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ':
+			if (isPPP()) {
+				if (batch) {
+					Pexnidi.setDataPasoPasoPaso();
 				}
-				if (epppTime >= 1300) { epppTime -= 700 }
-			}
-			return;
-		case 'ΠΑΙΧΝΙΔΙ':
-			if (denPezoun()) {
-				pexnidi.epomenos = 0;
-				if (notTheatis() && (pexnidi.dealer == 1)) {
+				else {
+					pexnidi.epomenos = 0;
 					setTimeout(function() {
-						Pliromi.pliromiBazon();
-						Pexnidi.dianomi();
-					}, aedpTime);
+						Pexnidi.setDataPasoPasoPaso();
+						Partida.updateHTML();
+						Prefadoros.display();
+					}, epppTime);
+					if (epppTime >= 1500) { epppTime -= 700 }
 				}
-				if (aedpTime >= 1200) { aedpTime -= 700 }
-				return;
 			}
-
+			else {
+				pexnidi.dealer++;
+				if (pexnidi.dealer > 3) { pexnidi.dealer = 1; }
+				if ((!batch) && notTheatis() && (pexnidi.dealer == 1)) {
+					setTimeout(Pexnidi.dianomi, epppTime);
+					if (epppTime >= 1500) { epppTime -= 700 }
+				}
+			}
+			break;
+		case 'ΠΑΣΟ ΠΑΣΟ':
+			pexnidi.epomenos = 0;
+			if (notTheatis() && (pexnidi.dealer == 1)) {
+				setTimeout(function() {
+					Pliromi.pliromiBazon();
+					Pexnidi.dianomi();
+				}, aedpTime);
+			}
+			if (aedpTime >= 1200) { aedpTime -= 700 }
+			break;
+		case 'ΠΑΙΧΝΙΔΙ':
 			Pexnidi.setEpomenosPexnidi();
 			var telkin = kinisi[kinisi.length - 1];
 			switch (telkin.i) {
@@ -628,7 +641,24 @@ var Pexnidi = new function() {
 		}
 	};
 
+	this.setDataPasoPasoPaso = function() {
+		Pexnidi.resetBaza();
+		pexnidi.agora = 'NNN';
+		pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
+		for (var i = 1; i <= 3; i++) { pexnidi.simetoxi[i] = 'ΠΑΙΖΩ'; }
+		pexnidi.epomenos = pexnidi.dealer + 1;
+		if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
+	};
+
 	this.setEpomenosPexnidi = function() {
+		// Αν παίζεται το πάσο πάσο πάσο, τότε δεν υπάρχει τζογαδόρος
+		// και επόμενος είναι ο επόμενος παίκτης.
+		if (pexnidi.tzogadoros == 0) {
+			pexnidi.epomenos++;
+			if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
+			return;
+		}
+
 		var telkin = kinisi[kinisi.length - 1];
 		if (telkin.i == 'ΣΥΜΜΕΤΟΧΗ') {
 			pexnidi.epomenos = pexnidi.dealer + 1;
@@ -636,7 +666,6 @@ var Pexnidi = new function() {
 		else if (telkin.i == 'ΦΥΛΛΟ') {
 			pexnidi.epomenos = telkin.thesi + 1;
 		}
-//=====================
 		for (var i = 0; i <= 3; i++) {
 			if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
 			if ((pexnidi.epomenos == pexnidi.tzogadoros) ||
