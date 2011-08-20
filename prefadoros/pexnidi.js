@@ -182,8 +182,11 @@ var Pexnidi = new function() {
 	this.processKinisiDilosi = function(thesi, data) {
 		pexnidi.dilosiCount++;
 		if (data.match(/^P/)) {
-			pexnidi.pasoCount++;
 			pexnidi.paso[thesi] = true;
+			pexnidi.pasoCount++;
+			if (pexnidi.pasoCount > 2) {
+				pexnidi.fasi = 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ';
+			}
 			return;
 		}
 
@@ -321,8 +324,6 @@ var Pexnidi = new function() {
 	};
 
 	this.processKinisiFilo = function(thesi, data) {
-		pexnidi.lastBazaFilo = [];
-		pexnidi.lastBazaPektis = [];
 		pexnidi.bazaFilo.push(data);
 		pexnidi.bazaPektis.push(thesi);
 
@@ -333,13 +334,7 @@ var Pexnidi = new function() {
 
 	this.processKinisiBaza = function(thesi) {
 		pexnidi.bazaCount++;
-		for (var i = 0; i < pexnidi.bazaFilo.length; i++) {
-			pexnidi.lastBazaFilo[i] = pexnidi.bazaFilo[i];
-			pexnidi.lastBazaPektis[i] = pexnidi.bazaPektis[i];
-		}
-
-		pexnidi.bazaFilo = [];
-		pexnidi.bazaPektis = [];
+		pexnidi.fasi = 'ΜΠΑΖΑ';
 	};
 
 	this.bazesDecode = function(s) {
@@ -610,28 +605,40 @@ var Pexnidi = new function() {
 					}, 1500);
 				}
 				break;
-			case 'ΜΠΑΖΑ':
-				pexnidi.epomenos = 0;
-				if (notTheatis() && (pexnidi.bazaCount > 9) && (pexnidi.dealer == 1)) {
-					setTimeout(function() {
-						Pliromi.pliromiBazon();
-						Pexnidi.dianomi();
-					}, aedpTime);
-					if (aedpTime >= 1200) { aedpTime -= 700 }
-					return;
-				}
-
-				setTimeout(function() {
-					if (telkin.thesi == 1) {
-						pexnidi.epomenos = telkin.thesi;
-					}
-					pexnidi.lastBazaFilo = [];
-					pexnidi.lastBazaPektis = [];
-					Partida.updateHTML();
-					Prefadoros.display();
-				}, 1200);
-				break;
 			}
+			break;
+		case 'ΜΠΑΖΑ':
+			if (batch) {
+				pexnidi.bazaFilo = [];
+				pexnidi.bazaPektis = [];
+				if (pexnidi.bazaCount > 9) {
+					pexnidi.fasi = 'ΔΙΑΝΟΜΗ';
+				}
+				else {
+					pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
+				}
+				return;
+			}
+
+			pexnidi.epomenos = 0;
+			if (notTheatis() && (pexnidi.bazaCount > 9) && (pexnidi.dealer == 1)) {
+				setTimeout(function() {
+					Pliromi.pliromiBazon();
+					Pexnidi.dianomi();
+				}, aedpTime);
+				if (aedpTime >= 1200) { aedpTime -= 700 }
+				return;
+			}
+
+			setTimeout(function() {
+				var telkin = kinisi[kinisi.length - 1];
+				pexnidi.epomenos = telkin.thesi;
+				pexnidi.bazaFilo = [];
+				pexnidi.bazaPektis = [];
+				pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
+				Partida.updateHTML();
+				Prefadoros.display();
+			}, 1200);
 			break;
 		case 'ΣΤΗΣΙΜΟ':
 		case 'ΣΥΜΜΕΤΟΧΗ':
@@ -648,11 +655,6 @@ var Pexnidi = new function() {
 			pexnidi.curdil = 'DTG';
 			pexnidi.epomenos = pexnidi.dealer + 1;
 			if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
-			return;
-		}
-
-		if (pexnidi.pasoCount > 2) {
-			pexnidi.fasi = 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ';
 			return;
 		}
 
@@ -692,8 +694,10 @@ var Pexnidi = new function() {
 			return;
 		}
 
-		if ((!batch) && notTheatis() && (pexnidi.dealer == 3)) {
-alert('asdasdas');
+		pexnidi.epomenos = 0;
+		pexnidi.dealer++;
+		if (pexnidi.dealer > 3) { pexnidi.dealer = 1; }
+		if ((!batch) && notTheatis() && (pexnidi.dealer == 1)) {
 			setTimeout(Pexnidi.dianomi, pppDelay);
 			Pexnidi.miosiPppDelay();
 		}
@@ -723,13 +727,18 @@ alert('asdasdas');
 		}
 
 		var telkin = kinisi[kinisi.length - 1];
+		if (telkin.i == 'ΜΠΑΖΑ') {
+			pexnidi.epomenos = telkin.thesi;
+			return;
+		}
+
 		if (telkin.i == 'ΣΥΜΜΕΤΟΧΗ') {
 			pexnidi.epomenos = pexnidi.dealer + 1;
 		}
 		else if (telkin.i == 'ΦΥΛΛΟ') {
 			pexnidi.epomenos = telkin.thesi + 1;
 		}
-		for (var i = 0; i <= 3; i++) {
+		for (var i = 0; i < 3; i++) {
 			if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
 			if ((pexnidi.epomenos == pexnidi.tzogadoros) ||
 				(pexnidi.simetoxi[pexnidi.epomenos] != 'ΠΑΣΟ')) {
