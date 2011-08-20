@@ -39,6 +39,9 @@ switch ($idos) {
 case "ΔΗΛΩΣΗ":
 	check_paso($dianomi);
 	break;
+case "ΦΥΛΛΟ":
+	check_baza($dianomi, $data);
+	break;
 }
 
 print "OK@" . @mysqli_insert_id($globals->db);
@@ -126,6 +129,112 @@ function check_paso($dianomi) {
 	if (@mysqli_affected_rows($globals->db) != 1) {
 		Prefadoros::xeklidose_trapezi(FALSE);
 		die('Απέτυχε εισαγωγή κίνησης τζόγου');
+	}
+}
+
+function check_baza($dianomi, $filo) {
+	global $globals;
+
+	$tzogadoros = 0;
+	$simetoxi = array("", "", "", "");
+	$baza_filo = array();
+	$baza_pektis = array();
+	$filo_count = 0;
+
+	$query = "SELECT * FROM `κίνηση` WHERE `διανομή` = " .
+		$dianomi . " ORDER BY `κωδικός`";
+	$result = $globals->sql_query($query);
+	while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		switch ($row['είδος']) {
+		case 'ΑΓΟΡΑ':
+			$xroma_agoras = substr($row['data'], 1, 1);
+			$tzogadoros = $row['παίκτης'];
+			break;
+		case 'ΣΥΜΜΕΤΟΧΗ':
+			$simetoxi[$row['παίκτης']] = $row['data'];
+			break;
+		case 'ΦΥΛΛΟ':
+			$baza_filo[] = $row['data'];
+			$baza_pektis[] = $row['παίκτης'];
+			$filo_count++;
+			break;
+		case 'ΜΠΑΖΑ':
+			$baza_filo = array();
+			$baza_pektis = array();
+			$filo_count = 0;
+			break;
+		}
+	}
+
+	switch ($tzogadoros) {
+	case 1:
+		$ena = 2;
+		$dio = 3;
+		break;
+	case 2:
+		$ena = 3;
+		$dio = 1;
+		break;
+	default:
+		$ena = 1;
+		$dio = 2;
+		break;
+	}
+
+	if (($simetoxi[$ena] == 'ΠΑΣΟ') || ($simetoxi[$dio] == 'ΠΑΣΟ')) {
+		$baza_filo_count = 2;
+	}
+	else {
+		$baza_filo_count = 3;
+	}
+
+	if ($filo_count < $baza_filo_count) {
+		return;
+	}
+
+	$xroma_bazas = substr($baza_filo[0], 0, 1);
+	$max_rank = Prefadoros::rank($baza_filo[0]);
+	$perni = 0;
+	$tsaka = FALSE;
+
+	for ($i = 1; $i < $filo_count; $i++) {
+		$xroma_filo = substr($baza_filo[$i], 0, 1);
+		if ($xroma_filo == $xroma_bazas) {
+			if ($tsaka) {
+				continue;
+			}
+
+			$rank = Prefadoros::rank($baza_filo[$i]);
+			if ($rank > $max_rank) {
+				$max_rank = $rank;
+				$perni = $i;
+			}
+			continue;
+		}
+
+		if ($xroma_filo == $xroma_agoras) {
+			if (!$tsaka) {
+				$tsaka = TRUE;
+				$max_rank = Prefadoros::rank($baza_filo[$i]);
+				$perni = $i;
+				continue;
+			}
+
+			$rank = Prefadoros::rank($baza_filo[$i]);
+			if ($rank > $max_rank) {
+				$max_rank = $rank;
+				$perni = $i;
+			}
+			continue;
+		}
+	}
+
+	$query = "INSERT INTO `κίνηση` (`διανομή`, `παίκτης`, `είδος`, `data`) " .
+		"VALUES (" . $dianomi . ", " . $baza_pektis[$perni] . ", 'ΜΠΑΖΑ', '')";
+	$globals->sql_query($query);
+	if (@mysqli_affected_rows($globals->db) != 1) {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		die('Απέτυχε η εισαγωγή κίνησης τύπου μπάζας');
 	}
 }
 ?>

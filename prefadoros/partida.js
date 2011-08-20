@@ -867,7 +867,7 @@ var Dekada = new function() {
 
 		// Αν βρέθηκαν φύλλα στο χρώμα που παίχτηκε, τότε
 		// αυτά και μόνον αυτά είναι τα επιτρεπτά.
-		if (epitrepto.length > 0) { return; }
+		if (epitrepto.length > 0) { return Dekada.fixEpitrepto(fila); }
 
 		// Δεν έχουν βρεθεί φύλλα στο χρώμα που παίχτηκε.
 		// Αν η αγορά είναι αχρωμάτιστη, τότε μπορεί να
@@ -881,15 +881,24 @@ var Dekada = new function() {
 				Dekada.setEpitreptoFilo(i);
 			}
 		}
+		Dekada.fixEpitrepto(fila);
 	};
 
 	this.setEpitreptoFilo = function(i) {
 		epitrepto[i] = true;
 	};
 
+	this.fixEpitrepto = function(fila) {
+		var n = 0;
+		for (var i = 0; i < epitrepto.length; i++) {
+			if (epitrepto[i] === true) { n++; }
+		}
+		if (n >= fila.length) { epitrepto = []; }
+	};
+
 	this.isEpitrepto = function(i) {
 		if (epitrepto.length <= 0) { return true; }
-		return (i in epitrepto);
+		return ((i in epitrepto) && (epitrepto[i] === true));
 	};
 
 	this.dekadaHTML = function(xa, i) {
@@ -926,7 +935,8 @@ var Dekada = new function() {
 		var x = getelid('bazaFilo1');
 		if (notSet(x)) { fatalError('Dekada.valeFilo: bazaFilo1: not found'); }
 		x.innerHTML = '<img class="bazaFilo bazaFilo1" src="' +
-			img.src + '" alt="" />';
+			img.src + '" alt="" style="z-index: 3;" />';
 		sviseNode(img, 400);
+		Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
 	};
 };
