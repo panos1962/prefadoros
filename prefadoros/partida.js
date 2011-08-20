@@ -619,6 +619,9 @@ var Partida = new function() {
 		case 'ΠΑΙΧΝΙΔΙ':
 			html += Gipedo.pexnidiHTML();
 			break;
+		case 'ΜΠΑΖΑ':
+			html += Gipedo.pexnidiHTML();
+			break;
 		default:
 			html += Gipedo.agnostiFasiHTML();
 			break;
