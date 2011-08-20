@@ -70,7 +70,7 @@ var Gipedo = new function() {
 		return html;
 	};
 
-	this.triaPasoHTML = function() {
+	this.pasoPasoPasoHTML = function() {
 		if (!isPPP()) { return Gipedo.dianomiHTML(); };
 		var html = '';
 		if (isTheatis()) {
@@ -84,6 +84,21 @@ var Gipedo = new function() {
 				'Θα παίξετε τη διανομή και όποιος από σας κάνει τις ' +
 				'περισσότερες μπάζες θα καταθέσει 100 καπίκια στην κάσα.';
 		}
+		return html;
+	};
+
+	this.pasoPasoHTML = function() {
+		var html = '';
+		if (pexnidi.dealer == 3) { html += Gipedo.anamoniDianomiHTML(); }
+		else { html += Gipedo.anamoniHTML(); }
+		if (isTheatis()) {
+			html += 'Οι αμυνόμενοι δεν θα διεκδικήσουν τις μπάζες τους.';
+		}
+		else {
+			html += 'Εσείς και ο συμπαίκτης σας δηλώσατε «πάσο».';
+		}
+		html += ' Ο τζογαδόρος θα πληρωθεί και θα γίνει νέα διανομή. ' +
+				'Παρακαλώ περιμένετε…';
 		return html;
 	};
 
