@@ -604,6 +604,15 @@ var Pexnidi = new function() {
 				break;
 			case 'ΜΠΑΖΑ':
 				pexnidi.epomenos = 0;
+				if (notTheatis() && (pexnidi.bazaCount > 9) && (pexnidi.dealer == 1)) {
+					setTimeout(function() {
+						Pliromi.pliromiBazon();
+						Pexnidi.dianomi();
+					}, aedpTime);
+					if (aedpTime >= 1200) { aedpTime -= 700 }
+					return;
+				}
+
 				setTimeout(function() {
 					if (telkin.thesi == 1) {
 						pexnidi.epomenos = telkin.thesi;
