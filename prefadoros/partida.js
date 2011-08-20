@@ -798,7 +798,7 @@ var Dodekada = new function() {
 		sikomeno[i] = img.style.bottom;
 	};
 
-	this.resetDodekada = function() {
+	this.reset = function() {
 		if (isDianomi() && isKinisi() &&
 			(dianomi[dianomi.length - 1].k == teldian) &&
 			(kinisi[kinisi.length - 1].k == telkin)) { return; }
@@ -847,7 +847,7 @@ var Dodekada = new function() {
 };
 
 var Dekada = new function() {
-	this.resetDekada = function() {
+	this.reset = function() {
 	};
 
 	var epitrepto = [];
