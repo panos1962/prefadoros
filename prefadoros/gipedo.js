@@ -21,15 +21,17 @@ var Gipedo = new function() {
 
 	this.dianomiHTML = function() {
 		var html = '';
-		if (pexnidi.dealer == 1) { html += Gipedo.anamoniDianomiHTML(); }
+		var dealer = pexnidi.dealer + 1;
+		if (dealer > 3) { dealer = 1; }
+		if (dealer == 1) { html += Gipedo.anamoniDianomiHTML(); }
 		else { html += Gipedo.anamoniHTML(); }
 		if (isTheatis()) {
 			html += 'Και οι τρεις παίκτες δήλωσαν «πάσο». Θα γίνει νέα διανομή. ';
-			html += Pexnidi.piosPektis(pexnidi.dealer) + 'μοιράζει φύλλα. ';
+			html += Pexnidi.piosPektis(dealer) + 'μοιράζει φύλλα. ';
 		}
 		else {
 			html += 'Και οι τρεις παίκτες δηλώσατε «πάσο». ';
-			html += Pexnidi.piosPektis(pexnidi.dealer, 'Μοιράζετε', 'μοιράζει') + 'φύλλα. ';
+			html += Pexnidi.piosPektis(dealer, 'Μοιράζετε', 'μοιράζει') + 'φύλλα. ';
 		}
 		html += 'Παρακαλώ περιμένετε…';
 		return html;

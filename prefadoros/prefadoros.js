@@ -20,7 +20,7 @@ window.onload = function() {
 	Dumprsp.setup();
 	Dedomena.setup();
 	Sizitisi.sxolioFocus();
-	Pexnidi.resetData();
+	Pexnidi.reset();
 };
 
 window.onunload = function() {

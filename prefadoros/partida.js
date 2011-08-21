@@ -592,6 +592,7 @@ var Partida = new function() {
 
 	this.gipedoHTML = function() {
 		var html = '<div id="gipedo" class="gipedo">';
+html += pexnidi.fasi;
 
 		switch (pexnidi.fasi) {
 		case 'ΣΤΗΣΙΜΟ':

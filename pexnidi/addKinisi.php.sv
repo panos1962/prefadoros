@@ -36,6 +36,9 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 }
 
 switch ($idos) {
+case "ΔΗΛΩΣΗ":
+	check_paso($dianomi);
+	break;
 case "ΦΥΛΛΟ":
 	check_baza($dianomi, $data);
 	break;
