@@ -215,13 +215,13 @@ var Partida = new function() {
 		html += '&nbsp;<span title="Υπόλοιπο κάσας" class="partidaInfoData' + tbc + '">';
 		html += pexnidi.ipolipo + '</span>';
 		html += '</div>';
-		if (isKlisto() || isPPP()) {
+		if (isKlisto() || isPasoPasoPaso()) {
 			html += '<div class="partidaAttrArea">';
 			if (isKlisto()) {
 				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
 					'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
 			}
-			if (isPPP()) {
+			if (isPasoPasoPaso()) {
 				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
 					'images/controlPanel/ppp.png" title="Παίζεται το πάσο, πάσο, πάσο" />';
 			}
@@ -300,7 +300,7 @@ var Partida = new function() {
 		var html = '';
 		if (fila.length <= 0) { return html; }
 
-		var tzogos = ((pexnidi.fasi == 'ΤΖΟΓΟΣ') && isTzogadoros());
+		var tzogos = ((pexnidi.fasi == 'ΑΛΛΑΓΗ') && isTzogadoros());
 		var pezon = ((pexnidi.fasi == 'ΠΑΙΧΝΙΔΙ') && isEpomenos());
 		if (pezon) { Dekada.setEpitrepto(fila); }
 
@@ -375,10 +375,10 @@ var Partida = new function() {
 			html1 += '<div class="dilosiPekti">';
 			var telkin = kinisi[kinisi.length - 1];
 			var spotIdx = 'a' + telkin.k;
-			if (spotIdx in Pexnidi.spotList) { spot = false; }
+			if (spotIdx in Spot.spotList) { spot = false; }
 			else {
 				spot = true;
-				Pexnidi.spotListPush(spotIdx);
+				Spot.spotListPush(spotIdx);
 			}
 
 			html1 += Pexnidi.xromaBazesHTML(pexnidi.agora, null, null, spot);
@@ -395,20 +395,26 @@ var Partida = new function() {
 			var spot = (notTzogadoros(thesi) && isSet(telkin) && (telkin.thesi == thesi) &&
 				(telkin.i == 'ΔΗΛΩΣΗ') && (telkin.d == pexnidi.dilosi[thesi]));
 			var spotIdx = 'k' + telkin.k;
-			if (spotIdx in Pexnidi.spotList) { spot = false; }
-			else if (spot) { Pexnidi.spotListPush(spotIdx); }
+			if (spotIdx in Spot.spotList) { spot = false; }
+			else if (spot) { Spot.spotListPush(spotIdx); }
 			html1 += Pexnidi.xromaBazesHTML(pexnidi.dilosi[thesi], null, null, spot);
 			html1 += '</div>';
 			if (isTzogadoros(thesi)) {
-				html1 += '<img class="pektisTzogosIcon" src="' + globals.server;
-				var spotIdx = 'z' + telkin.k;
-				if (spotIdx in Pexnidi.spotList) {
-					html1 += 'images/trapoula/tzogos.png"';
+				if (pexnidi.fasi == 'ΤΖΟΓΟΣ') {
+					html1 += '<img class="anamoniTzogosIcon" src="' +
+						globals.server + 'images/fotorithmiko.gif"';
 				}
 				else {
-					Pexnidi.spotListPush(spotIdx);
-					html1 += 'images/asteraki.gif" onload="Tools.metalagi(this, \'' +
-						globals.server + 'images/trapoula/tzogos.png\', 700);"';
+					html1 += '<img class="pektisTzogosIcon" src="' + globals.server;
+					var spotIdx = 'z' + telkin.k;
+					if (spotIdx in Spot.spotList) {
+						html1 += 'images/trapoula/tzogos.png"';
+					}
+					else {
+						Spot.spotListPush(spotIdx);
+						html1 += 'images/asteraki.gif" onload="Tools.metalagi(this, \'' +
+							globals.server + 'images/trapoula/tzogos.png\', 700);"';
+					}
 				}
 				html1 += ' alt="" />';
 			}
@@ -512,8 +518,8 @@ var Partida = new function() {
 		if (isKinisi()) {
 			var telkin = kinisi[kinisi.length - 1];
 			var spotIdx = 'r' + telkin.k + ':' + thesi;
-			if (spotIdx in Pexnidi.spotList) { var spot = false; }
-			else { Pexnidi.spotListPush(spotIdx); }
+			if (spotIdx in Spot.spotList) { var spot = false; }
+			else { Spot.spotListPush(spotIdx); }
 		}
 		if (thesi == pexnidi.epomenos) {
 			html += '<img class="rologakiIcon" alt="" src="' + globals.server;
@@ -592,7 +598,7 @@ var Partida = new function() {
 
 	this.gipedoHTML = function() {
 		var html = '<div id="gipedo" class="gipedo">';
-html += pexnidi.fasi;
+html += '<div style="color: red; background-color: yellow;">' + pexnidi.fasi + '</div>';
 
 		switch (pexnidi.fasi) {
 		case 'ΣΤΗΣΙΜΟ':
@@ -608,6 +614,9 @@ html += pexnidi.fasi;
 			html += Gipedo.pasoPasoPasoHTML();
 			break;
 		case 'ΤΖΟΓΟΣ':
+			html += Gipedo.tzogosHTML();
+			break;
+		case 'ΑΛΛΑΓΗ':
 			html += (notTheatis() && Dodekada.klidomenaCount == 2) ?
 				Gipedo.dixeAgoresHTML() : Gipedo.alagiTzogouHTML();
 				break;
@@ -945,5 +954,34 @@ var Dekada = new function() {
 			img.src + '" alt="" style="z-index: 3;" />';
 		sviseNode(img, 400);
 		Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
+	};
+};
+
+var Spot = new function() {
+	// Οι παρακάτω ιδιότητες, μέθοδοι και μεταβλητές, σκοπό έχουν
+	// κυρίως την αποφυγή της επανάληψης ενδείξεων σημαντικότητας
+	// κατά την επαναδιαμόρφωση της εικόνας. Π.χ., όταν κάποιος
+	// δηλώνει αγορά, εμφανίζεται σχετική ένδειξη σημαντικότητας
+	// στην περιοχή του. Το ίδιο συμβαίνει και όταν κάποιος κερδίζει
+	// τον τζόγο, κλπ. Αυτά πυροδοτούνται από την έλευση των
+	// σχετικών κινήσεων. Πιο συγκεκριμένα, αν η τελευταία κίνηση
+	// που παρελήφθη είναι κάποια κίνηση που απαιτεί ένδειξη
+	// σημαντικότητας, τότε γίνεται η ένδειξη, παράλληλα όμως
+	// μαρκάρουμε τις κινήσεις αυτές, ώστε να μην έχουμε
+	// ανεπιθύμητες επαναλήψεις. Το array δεικοδοτείται με
+	// tags που εμπεριέχουν τους κωδικούς των σχετικών
+	// κινήσεων και "καθαρίζει" σε κάθε νέα διανομή.
+
+	this.spotList = [];
+	var spotListDianomi = 0;
+
+	this.spotListPush = function(idx) {
+		if (notDianomi()) { return; }
+		var d = dianomi[dianomi.length - 1].k;
+		if (d != spotListDianomi) {
+			Spot.spotList = [];
+			spotListDianomi = d;
+		}
+		Spot.spotList[idx] = true;
 	};
 };
