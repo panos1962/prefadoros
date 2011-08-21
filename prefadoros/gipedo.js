@@ -27,11 +27,11 @@ var Gipedo = new function() {
 		else { html += Gipedo.anamoniHTML(); }
 		if (isTheatis()) {
 			html += 'Και οι τρεις παίκτες δήλωσαν «πάσο». Θα γίνει νέα διανομή. ';
-			html += Pexnidi.piosPektis(dealer) + 'μοιράζει φύλλα. ';
+			html += Gipedo.piosPektis(dealer) + 'μοιράζει φύλλα. ';
 		}
 		else {
 			html += 'Και οι τρεις παίκτες δηλώσατε «πάσο». ';
-			html += Pexnidi.piosPektis(dealer, 'Μοιράζετε', 'μοιράζει') + 'φύλλα. ';
+			html += Gipedo.piosPektis(dealer, 'Μοιράζετε', 'μοιράζει') + 'φύλλα. ';
 		}
 		html += 'Παρακαλώ περιμένετε…';
 		return html;
@@ -73,7 +73,7 @@ var Gipedo = new function() {
 	};
 
 	this.pasoPasoPasoHTML = function() {
-		if (!isPPP()) { return Gipedo.dianomiHTML(); };
+		if (!isPasoPasoPaso()) { return Gipedo.dianomiHTML(); };
 		var html = '';
 		if (isTheatis()) {
 			html += 'Και οι τρεις παίκτες δήλωσαν «πάσο». ' +
@@ -89,18 +89,28 @@ var Gipedo = new function() {
 		return html;
 	};
 
-	this.pasoPasoHTML = function() {
+	this.tzogosHTML = function() {
+		var msg = 'πλειοδότησε και έχει «κερδίσει» τα φύλλα του τζόγου. ' +
+			'Παρακαλώ περιμένετε…';
 		var html = '';
-		if (pexnidi.dealer == 3) { html += Gipedo.anamoniDianomiHTML(); }
-		else { html += Gipedo.anamoniHTML(); }
+		html += '<img class="tzogosIcon" src="' + globals.server +
+			'images/trapoula/tzogos.png" title="Τζόγος" alt="" />';
+		html += '<div style="position: absolute; z-index: 1;">';
 		if (isTheatis()) {
-			html += 'Οι αμυνόμενοι δεν θα διεκδικήσουν τις μπάζες τους.';
+			if (pexnidi.tzogadoros != 1) { html += Gipedo.anamoniNevrikosHTML(); }
+			else { html += Gipedo.anamoniBaresHTML(); }
+			html += Gipedo.piosPektis(pexnidi.tzogadoros) + msg;
+		}
+		else if (pexnidi.tzogadoros == 1) {
+			html += Gipedo.anamoniBaresHTML();
+			html += 'Πλειοδοτήσατε και έχετε «κερδίσει» τα φύλλα του τζόγου ' +
+				'τα οποία θα παραλάβετε σύντομα. Παρακαλώ περιμένετε…';
 		}
 		else {
-			html += 'Εσείς και ο συμπαίκτης σας δηλώσατε «πάσο».';
+			html += Gipedo.anamoniNevrikosHTML();
+			html += Gipedo.piosPektis(pexnidi.tzogadoros) + msg;
 		}
-		html += ' Ο τζογαδόρος θα πληρωθεί και θα γίνει νέα διανομή. ' +
-				'Παρακαλώ περιμένετε…';
+		html += '</div>';
 		return html;
 	};
 
@@ -111,11 +121,11 @@ var Gipedo = new function() {
 		if (isTheatis()) {
 			if (pexnidi.tzogadoros != 1) { html += Gipedo.anamoniNevrikosHTML(); }
 			else { html += Gipedo.anamoniBaresHTML(); }
-			html += Pexnidi.piosPektis(pexnidi.tzogadoros) + msg;
+			html += Gipedo.piosPektis(pexnidi.tzogadoros) + msg;
 		}
 		else {
 			if (pexnidi.tzogadoros != 1) { html += Gipedo.anamoniNevrikosHTML(); }
-			html += Pexnidi.piosPektis(pexnidi.tzogadoros,
+			html += Gipedo.piosPektis(pexnidi.tzogadoros,
 				'Πλειοδοτήσατε και έχετε ήδη «σηκώσει» τα φύλλα του τζόγου. ' +
 				'Ξεσκαρτάρετε δύο φύλλα και επιλέξτε την αγορά σας.', msg);
 		}
@@ -182,12 +192,12 @@ var Gipedo = new function() {
 		if (isTheatis()) {
 			if (pexnidi.epomenos == 1) { html += Gipedo.anamoniBaresHTML(); }
 			else { html += Gipedo.anamoniNevrikosHTML(); }
-			html += Pexnidi.piosPektis(pexnidi.epomenos) + msg;
+			html += Gipedo.piosPektis(pexnidi.epomenos) + msg;
 		}
 		else {
 			if (pexnidi.tzogadoros == 1) {
 				html += Gipedo.anamoniNevrikosHTML();
-				html += Pexnidi.piosPektis(pexnidi.epomenos) + msg;
+				html += Gipedo.piosPektis(pexnidi.epomenos) + msg;
 			}
 			else if (pexnidi.epomenos == 1) {
 				html += 'Αποφασίστε αν και με ποιο τρόπο θα διεκδικήσετε ' +
@@ -251,15 +261,25 @@ var Gipedo = new function() {
 		return html;
 	};
 
+	this.pasoPasoHTML = function() {
+		var html = '';
+		if (pexnidi.dealer == 3) { html += Gipedo.anamoniDianomiHTML(); }
+		else { html += Gipedo.anamoniHTML(); }
+		if (isTheatis()) {
+			html += 'Οι αμυνόμενοι δεν θα διεκδικήσουν τις μπάζες τους.';
+		}
+		else {
+			html += 'Εσείς και ο συμπαίκτης σας δηλώσατε «πάσο».';
+		}
+		html += ' Ο τζογαδόρος θα πληρωθεί και θα γίνει νέα διανομή. ' +
+				'Παρακαλώ περιμένετε…';
+		return html;
+	};
+
 	this.pexnidiHTML = function() {
 		if (denPezoun()) { return Gipedo.denPezounHTML(); }
 		var html = '';
-		if (pexnidi.lastBazaFilo.length > 0) {
-			html += Gipedo.dixeBazaHTML(pexnidi.lastBazaFilo, pexnidi.lastBazaPektis);
-		}
-		else {
-			html += Gipedo.dixeBazaHTML(pexnidi.bazaFilo, pexnidi.bazaPektis);
-		}
+		html += Gipedo.dixeBazaHTML(pexnidi.bazaFilo, pexnidi.bazaPektis);
 		return html;
 	};
 
@@ -361,5 +381,20 @@ var Gipedo = new function() {
 		html += 'alt="" />';
 		html += '</div>';
 		return html;
+	};
+
+	this.piosPektis = function(thesi, ena, dio) {
+		if (notSet(ena)) { ena = 'Ο παίκτης που παρακολουθείτε '; }
+		else { ena += ' '; }
+		if (notSet(dio)) { dio = ''; }
+		else { dio + ' '; }
+		switch (thesi) {
+		case 1:		return ena;
+		case 2:		return 'Ο παίκτης στα δεξιά σας ' + dio;
+		case 3:		return 'Ο παίκτης στα αριστερά σας ' + dio;
+		}
+
+		mainFyi('Αδυναμία προσανατολισμού (ακαθόριστη θέση)');
+		return 'Κάποιος παίκτης ';
 	};
 };

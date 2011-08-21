@@ -216,4 +216,12 @@ var Tools = new function() {
 		if (asoi == 'Y') { s += ' και οι άσοι'; }
 		return s;
 	}
+
+	this.bazesDecode = function(s) {
+		return s == 'T' ? 10 : parseInt(s);
+	};
+
+	this.bazesEncode = function(b) {
+		return b == 10 ? 'T' : b;
+	};
 }

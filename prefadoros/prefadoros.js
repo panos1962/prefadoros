@@ -213,12 +213,12 @@ function isAnikto() {
 	return(!isKlisto());
 }
 
-function isPPP() {
+function isPasoPasoPaso() {
 	return(isSet(window.partida) && isSet(partida.ppp) && partida.ppp);
 }
 
-function notPPP() {
-	return(!isPPP());
+function notPasoPasoPaso() {
+	return(!isPasoPasoPaso());
 }
 
 function denPezoun() {
