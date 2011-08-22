@@ -922,7 +922,7 @@ font-weight: normal;
 
 .protasiArea {
 	position: absolute;
-	top: 0.4cm;
+	top: 1.0cm;
 	left: 5.4cm;
 	width: 3.8cm;
 }
@@ -931,6 +931,10 @@ font-weight: normal;
 	width: 100%;
 	margin-bottom: 0.2cm;
 	font-size: 0.6cm;
+}
+
+.protasiKeno {
+	margin-top: -0.4cm;
 }
 
 .protasiBazes {
