@@ -471,6 +471,8 @@ var Partida = new function() {
 			html += Partida.velosHTML(thesi);
 			break;
 		case 'ΠΛΗΡΩΜΗ':
+			if (pexnidi.bazaCount < 1) { html += Partida.simetoxiHTML(thesi); }
+			else { html += Partida.pektisBazesHTML(thesi); }
 			break;
 		}
 		return html;
