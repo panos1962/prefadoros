@@ -373,8 +373,13 @@ var Partida = new function() {
 		if (isTzogadoros(thesi) && (pexnidi.agora != '')) {
 			// Είμαστε στη θέση του τζογαδόρου και έχει δηλωθεί η αγορά.
 			html1 += '<div class="dilosiPekti">';
-			var telkin = kinisi[kinisi.length - 1];
-			var spotIdx = 'a' + telkin.k;
+			var spotIdx = '';
+			for (var i = kinisi.length - 1; i > 0; i--) {
+				if (kinisi[i].i == 'ΑΓΟΡΑ') {
+					spotIdx = 'a' + kinisi[i].k;
+					break;
+				}
+			}
 			if (spotIdx in Spot.spotList) { spot = false; }
 			else {
 				spot = true;
@@ -888,12 +893,12 @@ var Dekada = new function() {
 		// Δεν έχουν βρεθεί φύλλα στο χρώμα που παίχτηκε.
 		// Αν η αγορά είναι αχρωμάτιστη, τότε μπορεί να
 		// παιχτεί οποιοδήποτε φύλλο.
-		if (pexnidi.xromaAgoras == 'N') { return; }
+		if (pexnidi.agoraXroma == 'N') { return; }
 
 		// Υπάρχουν ατού και δεν έχουν βρεθεί φύλλα στο χρώμα
 		// που παίχτηκε. Επομένως, επιτρεπτά είναι μόνο τα ατού.
 		for (var i = 0; i < fila.length; i++) {
-			if (fila[i].match('^' + pexnidi.xromaAgoras)) {
+			if (fila[i].match('^' + pexnidi.agoraXroma)) {
 				Dekada.setEpitreptoFilo(i);
 			}
 		}
@@ -968,7 +973,7 @@ var Spot = new function() {
 	// που παρελήφθη είναι κάποια κίνηση που απαιτεί ένδειξη
 	// σημαντικότητας, τότε γίνεται η ένδειξη, παράλληλα όμως
 	// μαρκάρουμε τις κινήσεις αυτές, ώστε να μην έχουμε
-	// ανεπιθύμητες επαναλήψεις. Το array δεικοδοτείται με
+	// ανεπιθύμητες επαναλήψεις. Το array δεικτοδοτείται με
 	// tags που εμπεριέχουν τους κωδικούς των σχετικών
 	// κινήσεων και "καθαρίζει" σε κάθε νέα διανομή.
 
