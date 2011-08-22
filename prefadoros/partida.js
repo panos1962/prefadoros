@@ -462,39 +462,47 @@ var Partida = new function() {
 			}
 			break;
 		case 'ΣΥΜΜΕΤΟΧΗ':
+			html += Partida.simetoxiHTML(thesi);
+			break;
 		case 'ΠΑΙΧΝΙΔΙ':
-			switch (pexnidi.simetoxi[thesi]) {
-			case 'ΠΑΙΖΩ':
-				html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi +
-					' simetoxi simetoxiPezo">';
-				html += 'ΠΑΙΖΩ';
-				html += '</div>';
-				break;
-			case 'ΠΑΣΟ':
-				html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi +
-					' simetoxi simetoxiPaso">';
-				html += 'ΠΑΣΟ';
-				html += '</div>';
-				break;
-			case 'ΜΑΖΙ':
-				html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi +
-					' simetoxi simetoxiMazi">';
-				html += 'ΜΑΖΙ';
-				html += '</div>';
-				break;
-			case 'ΜΟΝΟΣ':
-				html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi +
-					' simetoxi simetoxiMonos">';
-				html += 'ΜΟΝΟΣ';
-				html += '</div>';
-				break;
-			case 'ΒΟΗΘΑΩ':
-				html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi +
-					' simetoxi simetoxiVoithao">';
-				html += 'ΒΟΗΘΑΩ';
-				html += '</div>';
-				break;
-			}
+			if (pexnidi.bazaCount < 1) { html += Partida.simetoxiHTML(thesi); }
+			break;
+		}
+		return html;
+	};
+
+	this.simetoxiHTML = function(thesi) {
+		var html = '';
+		switch (pexnidi.simetoxi[thesi]) {
+		case 'ΠΑΙΖΩ':
+			html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi +
+				' simetoxi simetoxiPezo">';
+			html += 'ΠΑΙΖΩ';
+			html += '</div>';
+			break;
+		case 'ΠΑΣΟ':
+			html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi +
+				' simetoxi simetoxiPaso">';
+			html += 'ΠΑΣΟ';
+			html += '</div>';
+			break;
+		case 'ΜΑΖΙ':
+			html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi +
+				' simetoxi simetoxiMazi">';
+			html += 'ΜΑΖΙ';
+			html += '</div>';
+			break;
+		case 'ΜΟΝΟΣ':
+			html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi +
+				' simetoxi simetoxiMonos">';
+			html += 'ΜΟΝΟΣ';
+			html += '</div>';
+			break;
+		case 'ΒΟΗΘΑΩ':
+			html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi +
+				' simetoxi simetoxiVoithao">';
+			html += 'ΒΟΗΘΑΩ';
+			html += '</div>';
 			break;
 		}
 		return html;
@@ -636,6 +644,9 @@ html += '<div style="color: red; background-color: yellow;">' + pexnidi.fasi + '
 			break;
 		case 'ΜΠΑΖΑ':
 			html += Gipedo.pexnidiHTML();
+			break;
+		case 'ΠΛΗΡΩΜΗ':
+			html += Gipedo.pliromiHTML();
 			break;
 		default:
 			html += Gipedo.agnostiFasiHTML();

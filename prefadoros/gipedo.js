@@ -283,6 +283,23 @@ var Gipedo = new function() {
 		return html;
 	};
 
+	this.pliromiHTML = function() {
+		var html = '';
+		var dealer = pexnidi.dealer + 1;
+		if (dealer > 3) { dealer = 1; }
+		if (dealer == 1) { html += Gipedo.anamoniDianomiHTML(); }
+		else { html += Gipedo.anamoniHTML(); }
+		html += 'Γίνεται πληρωμή και θα ακολουθήσει νέα διανομή. ';
+		if (isTheatis()) {
+			html += Gipedo.piosPektis(dealer) + 'μοιράζει φύλλα.';
+		}
+		else {
+			html += Gipedo.piosPektis(dealer, 'Μοιράζετε', 'μοιράζει') + 'φύλλα.';
+		}
+		html += ' Παρακαλώ περιμένετε…';
+		return html;
+	};
+
 	this.dixeBazaHTML = function(filo, pektis) {
 		var html = '';
 		for (var i = 1; i <= 3; i++) {

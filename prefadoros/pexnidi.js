@@ -307,6 +307,9 @@ var Pexnidi = new function() {
 		case 'ΜΠΑΖΑ':
 			ProcessFasi.baza();
 			break;
+		case 'ΠΛΗΡΩΜΗ':
+			ProcessFasi.pliromi();
+			break;
 		default:
 			mainFyi(errmsg + pexnidi.fasi + ': άγνωστη φάση');
 			break;
@@ -478,6 +481,12 @@ var ProcessFasi = new function() {
 			setTimeout(function() {
 				Pexnidi.addKinisi('ΜΠΑΖΑ');
 			}, 2000);
+		}
+	};
+
+	this.pliromi = function() {
+		if (notTheatis() && (pexnidi.dealer == 3)) {
+			setTimeout(Pexnidi.dianomi, 2000);
 		}
 	};
 };
@@ -747,28 +756,43 @@ var ProcessKinisi = new function() {
 			return;
 		}
 
+		var atou = pexnidi.agoraXroma;
 		var xroma = pexnidi.bazaFilo[0].substr(0, 1);
+
+		// Αν η μπάζα παίζεται στο χρώμα των ατού, τότε
+		// είναι σαν παίζουμε μπάζα χωρίς ατού.
+		if (xroma == atou) { atou = 'N'; }
+
 		var axia = globals.rankFila[pexnidi.bazaFilo[0].substr(1, 1)];
-		var pios = pexnidi.bazaPektis[0];
-		var tsaka = 0;
+		var pios = 0;
+		var tsaka = 0;	// αξία μεγαλύτερου φύλλου τσάκας
+
 		for (var i = 1; i < pexnidi.bazaFilo.length; i++) {
 			var x = pexnidi.bazaFilo[i].substr(0, 1);
 			var a = globals.rankFila[pexnidi.bazaFilo[i].substr(1, 1)];
+
+			// Ελέγχουμε πρώτα την περίπτωση που είχε γίνει τσάκα.
 			if (tsaka > 0) {
-				if (x != pexnidi.agoraXroma) { continue; }
+				if (x != atou) { continue; }
 				if (a < tsaka) { continue; }
 				tsaka = a;
 				pios = i;
 				continue;
 			}
+
+			// Δεν είχε γίνει τσάκα και ελέγχουμε αν ακολουθούμε
+			// στο χρώμα της μπάζας.
 			if (x == xroma) {
 				if (a < axia) { continue; }
 				axia = a;
 				pios = i;
 				continue;
 			}
-//======================================================================
-			if (x != pexnidi.agoraXroma) { continue; }
+
+			// Δεν ακολουθούμε και το χρώμα που βάζουμε είναι άσχετο.
+			if (x != atou) { continue; }
+
+			// Έχουμε την πρώτη τσάκα.
 			tsaka = a;
 			pios = i;
 		}
@@ -777,8 +801,14 @@ var ProcessKinisi = new function() {
 	};
 
 	this.baza = function(thesi) {
-		pexnidi.epomenos = thesi;
-		pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
 		Pexnidi.resetBaza();
+		pexnidi.bazaCount++;
+		pexnidi.epomenos = thesi;
+		if (pexnidi.bazaCount < 10) {
+			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
+		}
+		else {
+			pexnidi.fasi = 'ΠΛΗΡΩΜΗ';
+		}
 	};
 };
