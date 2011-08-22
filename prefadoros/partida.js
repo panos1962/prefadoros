@@ -465,9 +465,58 @@ var Partida = new function() {
 			html += Partida.simetoxiHTML(thesi);
 			break;
 		case 'ΠΑΙΧΝΙΔΙ':
+		case 'ΜΠΑΖΑ':
+		case 'ΠΛΗΡΩΜΗ':
 			if (pexnidi.bazaCount < 1) { html += Partida.simetoxiHTML(thesi); }
+			else { html += Partida.pektisBazesHTML(thesi); }
 			break;
 		}
+		return html;
+	};
+
+	this.pektisBazesHTML = function(thesi) {
+		var plati = [
+			'R', 'R', 'R',
+			'B', 'B', 'B',
+			'R', 'R', 'R', 
+			'B', 'B', 'B',
+			'R'
+		];
+		if ((thesi == pexnidi.epomenos) && (pexnidi.fasi == 'ΜΠΑΖΑ')) {
+			var spot = '<img class="pektisBazaIcon" src="' + globals.server +
+				'images/svisimo.gif" alt="" />';
+		}
+		else { spot = ''; }
+
+		var html = '';
+		html += '<div class="pasoSimetoxi pasoSimetoxi' + thesi + '">';
+		html += '<div class="pektisBazaArea pektisBazaArea' + thesi + '">';
+		if (thesi == 2) {
+			html += spot;
+			for (var i = pexnidi.baza[thesi] - 1; i >= 0; i--) {
+				html += '<img class="pektisBazaIcon" src="' + globals.server +
+					'images/trapoula/' + plati[i] + 'V.png" alt="" ' +
+					'style="margin-left: 0.1cm;" />';
+			}
+		}
+		else if (thesi == 3) {
+			for (var i = 0; i < pexnidi.baza[thesi]; i++) {
+				html += '<img class="pektisBazaIcon" src="' + globals.server +
+					'images/trapoula/' + plati[i] + 'V.png" alt="" ' +
+					'style="margin-right: 0.1cm;" />';
+			}
+			html += spot;
+		}
+		else {
+			for (var i = 0; i < pexnidi.baza[thesi]; i++) {
+				html += '<img class="pektisBazaIcon" src="' + globals.server +
+					'images/trapoula/' + plati[i] + 'V.png" alt="" ' +
+					'style="margin-right: 0.1cm; width: 0.36cm;" />';
+			}
+			html += spot;
+		}
+		html += '</div>';
+		html += '</div>';
 		return html;
 	};
 

@@ -57,6 +57,7 @@ var Pexnidi = new function() {
 		pexnidi.simetoxi = [ '', '', '', '' ];
 
 		pexnidi.bazaCount = 0;
+		pexnidi.baza = [ 0, 0, 0, 0 ];
 		Pexnidi.resetBaza();
 
 		Dodekada.reset();
@@ -806,6 +807,7 @@ var ProcessKinisi = new function() {
 	this.baza = function(thesi) {
 		Pexnidi.resetBaza();
 		pexnidi.bazaCount++;
+		pexnidi.baza[thesi]++;
 		pexnidi.epomenos = thesi;
 		if (pexnidi.bazaCount < 10) {
 			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
