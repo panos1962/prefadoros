@@ -5,6 +5,8 @@ var Pexnidi = new function() {
 	this.delay = {
 		'pasoPasoPaso':		3000,
 		'megistiAgora':		3000,
+		'baza':			1200,
+		'pliromi':		1500,
 		'tzogos':		3000
 	};
 
@@ -480,13 +482,14 @@ var ProcessFasi = new function() {
 		if (notTheatis() && (pexnidi.epomenos == 1)) {
 			setTimeout(function() {
 				Pexnidi.addKinisi('ΜΠΑΖΑ');
-			}, 2000);
+			}, Pexnidi.delay['baza']);
 		}
 	};
 
 	this.pliromi = function() {
 		if (notTheatis() && (pexnidi.dealer == 3)) {
-			setTimeout(Pexnidi.dianomi, 2000);
+			setTimeout(Pexnidi.dianomi, Pexnidi.delay['pliromi']);
+			Pexnidi.miosiDelay('pliromi');
 		}
 	};
 };

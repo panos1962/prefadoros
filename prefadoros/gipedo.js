@@ -56,6 +56,7 @@ var Gipedo = new function() {
 					'Pexnidi.epilogiDilosis(this, \'DS6\')', '', 'protasi');
 			}
 			else {
+				html += '<div class="protasiKeno">&#8203;</div>';
 				html += Tools.epilogiHTML(Pexnidi.xromaBazesHTML(pexnidi.curdil),
 					'Pexnidi.epilogiDilosis(this)', '', 'protasi');
 			}
