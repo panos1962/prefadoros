@@ -703,7 +703,7 @@ var ProcessKinisi = new function() {
 			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
 			Pexnidi.setEpomenos(pexnidi.dealer);
 			if (pexnidi.simetoxi[pexnidi.epomenos] == 'ΠΑΣΟ') {
-				pexnidi.setEpomenos(pexnidi.epomenos);
+				Pexnidi.setEpomenos(pexnidi.epomenos);
 			}
 			break;
 		case 'ΠΑΣΟ':
@@ -725,7 +725,7 @@ var ProcessKinisi = new function() {
 				pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
 				Pexnidi.setEpomenos(pexnidi.dealer);
 				if (pexnidi.simetoxi[pexnidi.epomenos] == 'ΠΑΣΟ') {
-					pexnidi.setEpomenos(pexnidi.epomenos);
+					Pexnidi.setEpomenos(pexnidi.epomenos);
 				}
 			}
 			break;
