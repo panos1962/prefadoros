@@ -1139,3 +1139,27 @@ font-weight: bold;
 	top: 1.4cm;
 	left: 2.0cm;
 }
+
+.pektisBazaArea {
+	position: absolute;
+	display: inline-block;
+}
+
+.pektisBazaArea1 {
+	left: 0px;
+	top: 0.14cm;
+}
+
+.pektisBazaArea2 {
+	right: 0px;
+	bottom: 0.12cm;
+}
+
+.pektisBazaArea3 {
+	left: 0px;
+	bottom: 0.12cm;
+}
+
+.pektisBazaIcon {
+	width: 0.44cm;
+}
