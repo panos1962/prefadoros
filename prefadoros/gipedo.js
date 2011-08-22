@@ -173,11 +173,11 @@ var Gipedo = new function() {
 
 		if (Pexnidi.isAsoi()) {
 			html += '<img class="spotAsoi" src="' + globals.server;
-			if ('4A' in Pexnidi.spotList) {
+			if ('4A' in Spot.spotList) {
 				html += 'images/trapoula/asoi.png"';
 			}
 			else {
-				Pexnidi.spotListPush('4A');
+				Spot.spotListPush('4A');
 				html += 'images/asteraki.gif" onload="Tools.metalagi(this, \'' +
 				globals.server + 'images/trapoula/asoi.png\', 700);"';
 			}

@@ -466,13 +466,31 @@ var Partida = new function() {
 			break;
 		case 'ΠΑΙΧΝΙΔΙ':
 		case 'ΜΠΑΖΑ':
-		case 'ΠΛΗΡΩΜΗ':
 			if (pexnidi.bazaCount < 1) { html += Partida.simetoxiHTML(thesi); }
 			else { html += Partida.pektisBazesHTML(thesi); }
+			html += Partida.velosHTML(thesi);
+			break;
+		case 'ΠΛΗΡΩΜΗ':
 			break;
 		}
 		return html;
 	};
+
+	this.velosHTML = function(thesi) {
+		var html = '';
+		for (var i = 0; i < pexnidi.bazaPektis.length; i++) {
+			if (pexnidi.bazaPektis[i] == thesi) {
+				html += '<img class="velos' + thesi + '" src="' +
+					globals.server + 'images/velos' + thesi;
+				if ((pexnidi.fasi == 'ΜΠΑΖΑ') && (thesi == pexnidi.epomenos)) {
+					html += 'pare';
+				}
+				html += '.png" alt="" />';
+				break;
+			}
+		}
+		return html;
+	}
 
 	this.pektisBazesHTML = function(thesi) {
 		var plati = [
@@ -482,6 +500,7 @@ var Partida = new function() {
 			'B', 'B', 'B',
 			'R'
 		];
+
 		if ((thesi == pexnidi.epomenos) && (pexnidi.fasi == 'ΜΠΑΖΑ')) {
 			var spot = '<img class="pektisBazaIcon" src="' + globals.server +
 				'images/svisimo.gif" alt="" />';
@@ -660,7 +679,10 @@ var Partida = new function() {
 
 	this.gipedoHTML = function() {
 		var html = '<div id="gipedo" class="gipedo">';
-html += '<div style="color: red; background-color: yellow;">' + pexnidi.fasi + '</div>';
+		if (globals.server.match(/http:\/\/127/)) {
+			html += '<div style="color: red; background-color: yellow;">' +
+				pexnidi.fasi + '</div>';
+		}
 
 		switch (pexnidi.fasi) {
 		case 'ΣΤΗΣΙΜΟ':
@@ -1017,7 +1039,7 @@ var Dekada = new function() {
 		if (notSet(x)) { fatalError('Dekada.valeFilo: bazaFilo1: not found'); }
 		x.innerHTML = '<img class="bazaFilo bazaFilo1" src="' +
 			img.src + '" alt="" style="z-index: 3;" />';
-		sviseNode(img, 400);
+		sviseNode(img, 100);
 		Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
 	};
 };
