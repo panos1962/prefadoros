@@ -1039,7 +1039,7 @@ var Dekada = new function() {
 		if (notSet(x)) { fatalError('Dekada.valeFilo: bazaFilo1: not found'); }
 		x.innerHTML = '<img class="bazaFilo bazaFilo1" src="' +
 			img.src + '" alt="" style="z-index: 3;" />';
-		sviseNode(img, 100);
+		sviseNode(img);
 		Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
 	};
 };
