@@ -313,6 +313,9 @@ var Pexnidi = new function() {
 		case 'ΠΛΗΡΩΜΗ':
 			ProcessFasi.pliromi();
 			break;
+		case 'ΠΑΣΟ ΠΑΣΟ':
+			ProcessFasi.pliromi();
+			break;
 		default:
 			mainFyi(errmsg + pexnidi.fasi + ': άγνωστη φάση');
 			break;
@@ -402,13 +405,14 @@ var Pexnidi = new function() {
 	};
 
 	this.isAsoi = function() {
+		if (notAsoiKolos()) { return false; }
 		if (pexnidi.tzogadoros != 1) { return false; }
 		var fila = pexnidi.fila[1];
 		var count = 0;
 		for (var i = 0; i < fila.length; i++) {
 			if (fila[i].match(/^.A/)) { count++; }
 		}
-		return (count > 3);
+		return (count >= 4);
 	};
 
 	this.epilogiAgoras = function(div, dxb) {
