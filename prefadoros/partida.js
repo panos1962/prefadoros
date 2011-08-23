@@ -1030,18 +1030,22 @@ var Dekada = new function() {
 	};
 
 	this.dekadaHTML = function(xa, i) {
+		if (pexnidi.akirosi != 0) { return ''; }
+		if (pexnidi.anamoniKinisis) { return ''; }
+		if (!Dekada.isEpitrepto(i)) { return ''; }
+
 		var html = '';
-		if (Dekada.isEpitrepto(i)) {
-			html += ' onmouseover="Dekada.sikose(this, ' + i + ', true);" ';
-			html += ' onmouseout="Dekada.sikose(this, ' + i + ', false);" ';
-			html += ' onclick="Dekada.valeFilo(this, ' + i + ', \'' + xa + '\');" ';
-			if (epitrepto.length > 0) { html += 'style="bottom: 0.4cm; "'; }
-		}
+		html += ' onmouseover="Dekada.sikose(this, ' + i + ', true);" ';
+		html += ' onmouseout="Dekada.sikose(this, ' + i + ', false);" ';
+		html += ' onclick="Dekada.valeFilo(this, ' + i + ', \'' + xa + '\');" ';
+		if (epitrepto.length > 0) { html += 'style="bottom: 0.4cm; "'; }
 		return html;
 	};
 
 	this.sikose = function(img, i, pano) {
+		if (pexnidi.akirosi != 0) { return; }
 		if (pexnidi.anamoniKinisis) { return; }
+
 		if (pano) {
 			if (epitrepto.length > 0) {
 				img.style.bottom = '0.8cm';
@@ -1061,7 +1065,9 @@ var Dekada = new function() {
 	};
 
 	this.valeFilo = function(img, i, xa) {
+		if (pexnidi.akirosi != 0) { return; }
 		if (pexnidi.anamoniKinisis) { return; }
+
 		Sizitisi.sxolioFocus();
 		var x = getelid('bazaFilo1');
 		if (notSet(x)) { fatalError('Dekada.valeFilo: bazaFilo1: not found'); }
