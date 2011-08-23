@@ -17,7 +17,7 @@ var Pexnidi = new function() {
 		}
 	};
 
-	// Η μεταβλητή "anamoniKinisis" δείχνει αν περιμένουμε κάποια
+	// Η ιδιότητα "anamoniKinisis" δείχνει αν περιμένουμε κάποια
 	// συγκεκριμένη κίνηση από τον server και μάλιστα δείχνει τον
 	// κωδικό της κίνησης αυτής. Πρόκειται για την τελευταία κίνηση
 	// που στείλαμε και μας επεστράφη ο κωδικός κατά την εισαγωγή.
@@ -28,7 +28,7 @@ var Pexnidi = new function() {
 	// μεταξύ αποστολής νέας κίνησης και παραλαβής του κωδικού
 	// της νεοεισαχθείσης κίνησης.
 
-	var anamoniKinisis = 0;
+	this.anamoniKinisis = 0;
 
 	this.reset = function() {
 		pexnidi.ipolipo = 0;
@@ -120,7 +120,7 @@ var Pexnidi = new function() {
 		// Ήρθε η στιγμή να διαχειριστούμε τις κινήσεις της
 		// τελευταίας διανομής.
 		for (var i = 0; i < kinisi.length; i++) {
-			if (kinisi[i].k == anamoniKinisis) { anamoniKinisis = 0; }
+			if (kinisi[i].k == Pexnidi.anamoniKinisis) { Pexnidi.anamoniKinisis = 0; }
 			switch (kinisi[i].i) {
 			case 'ΔΙΑΝΟΜΗ':
 				ProcessKinisi.dianomi(kinisi[i].thesi, kinisi[i].d);
@@ -242,13 +242,13 @@ var Pexnidi = new function() {
 	}
 
 	this.addKinisi = function(idos, data, thesi) {
-		if (anamoniKinisis) {
+		if (Pexnidi.anamoniKinisis) {
 			playSound('beep');
 			mainFyi('Αναμένεται κίνηση από τον server');
 			return;
 		}
 
-		anamoniKinisis = -1;
+		Pexnidi.anamoniKinisis = -1;
 		var req = new Request('pexnidi/addKinisi');
 		req.xhr.onreadystatechange = function() {
 			Pexnidi.addKinisiCheck(req);
@@ -272,12 +272,12 @@ var Pexnidi = new function() {
 		if (req.xhr.readyState != 4) { return; }
 		var rsp = req.getResponse();
 		if (rsp.match(/^OK@/)) {
-			anamoniKinisis = parseInt(rsp.replace(/^OK/));
+			Pexnidi.anamoniKinisis = parseInt(rsp.replace(/^OK/));
 		}
 		else {
 			mainFyi(rsp);
 			playSound('beep');
-			anamoniKinisis = 0;
+			Pexnidi.anamoniKinisis = 0;
 		}
 	};
 
@@ -394,12 +394,14 @@ var Pexnidi = new function() {
 	};
 
 	this.epilogiDilosis = function(div, dilosi) {
+		Sizitisi.sxolioFocus();
 		Pexnidi.anamoniEpilogis(div);
 		if (notSet(dilosi)) { dilosi = pexnidi.curdil; }
 		Pexnidi.addKinisi('ΔΗΛΩΣΗ', dilosi);
 	};
 
 	this.dilosiPaso = function(div) {
+		Sizitisi.sxolioFocus();
 		Pexnidi.anamoniEpilogis(div);
 		Pexnidi.addKinisi('ΔΗΛΩΣΗ', 'P' + pexnidi.curdil.substr(1, 2));
 	};
@@ -416,6 +418,7 @@ var Pexnidi = new function() {
 	};
 
 	this.epilogiAgoras = function(div, dxb) {
+		Sizitisi.sxolioFocus();
 		var de = dxb.substr(0, 1);
 		var xroma = dxb.substr(1, 1);
 		var bazes = dxb.substr(2, 1);
@@ -436,6 +439,7 @@ var Pexnidi = new function() {
 	};
 
 	this.epilogiSimetoxi = function(div, data) {
+		Sizitisi.sxolioFocus();
 		Pexnidi.anamoniEpilogis(div);
 		Pexnidi.addKinisi('ΣΥΜΜΕΤΟΧΗ', data);
 	};

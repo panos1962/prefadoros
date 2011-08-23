@@ -1025,6 +1025,7 @@ var Dekada = new function() {
 	};
 
 	this.sikose = function(img, i, pano) {
+		if (Pexnidi.anamoniKinisis) { return; }
 		if (pano) {
 			if (epitrepto.length > 0) {
 				img.style.bottom = '0.8cm';
@@ -1044,6 +1045,8 @@ var Dekada = new function() {
 	};
 
 	this.valeFilo = function(img, i, xa) {
+		if (Pexnidi.anamoniKinisis) { return; }
+		Sizitisi.sxolioFocus();
 		var x = getelid('bazaFilo1');
 		if (notSet(x)) { fatalError('Dekada.valeFilo: bazaFilo1: not found'); }
 		x.innerHTML = '<img class="bazaFilo bazaFilo1" src="' +
