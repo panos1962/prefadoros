@@ -186,9 +186,7 @@ var Partida = new function() {
 		html += Partida.theatisHTML();
 		html += Partida.gipedoHTML();
 
-		html += '<div class="partidaInfo partidaInfoBottom">';
-		html += 'Information area';
-		html += '</div>';
+		html += Partida.katoInfoHTML();
 
 		html += '</div>';
 		Partida.HTML = html;
@@ -234,6 +232,24 @@ var Partida = new function() {
 			}
 			html += '</div>';
 		}
+		return html;
+	};
+
+	this.katoInfoHTML = function() {
+		html = '';
+		html += '<div class="partidaInfo partidaInfoBottom';
+		if ((pexnidi.akirosi in partida.pektis) && (pexnidi.akirosi > 0)) {
+			var pektis = partida.pektis[pexnidi.akirosi];
+			if (pektis == '') { pektis = 'στη θέση ' + pexnidi.akirosi; }
+			else { pektis = '"' + partida.pektis[pexnidi.akirosi] + '"'; }
+			html += ' partidaInfoSimantiko">';
+			html += 'Ο παίκτης ' + pektis + ' ακυρώνει κινήσεις';
+		}
+		else {
+			html += '">';
+			html += 'Information area';
+		}
+		html += '</div>';
 		return html;
 	};
 
@@ -1025,7 +1041,7 @@ var Dekada = new function() {
 	};
 
 	this.sikose = function(img, i, pano) {
-		if (Pexnidi.anamoniKinisis) { return; }
+		if (pexnidi.anamoniKinisis) { return; }
 		if (pano) {
 			if (epitrepto.length > 0) {
 				img.style.bottom = '0.8cm';
@@ -1045,7 +1061,7 @@ var Dekada = new function() {
 	};
 
 	this.valeFilo = function(img, i, xa) {
-		if (Pexnidi.anamoniKinisis) { return; }
+		if (pexnidi.anamoniKinisis) { return; }
 		Sizitisi.sxolioFocus();
 		var x = getelid('bazaFilo1');
 		if (notSet(x)) { fatalError('Dekada.valeFilo: bazaFilo1: not found'); }
