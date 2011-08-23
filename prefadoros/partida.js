@@ -1074,7 +1074,9 @@ var Dekada = new function() {
 		x.innerHTML = '<img class="bazaFilo bazaFilo1" src="' +
 			img.src + '" alt="" style="z-index: 3;" />';
 		sviseNode(img);
-		Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
+		setTimeout(function() {
+			Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
+		}, 10);
 	};
 };
 
