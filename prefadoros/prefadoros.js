@@ -221,6 +221,14 @@ function notPasoPasoPaso() {
 	return(!isPasoPasoPaso());
 }
 
+function isAsoiKolos() {
+	return(isSet(window.partida) && isSet(partida.asoi) && partida.asoi);
+}
+
+function notAsoiKolos() {
+	return(!isAsoiKolos());
+}
+
 function denPezoun() {
 	var paso = 0;
 	for (var i = 1; i <= 3; i++) {
