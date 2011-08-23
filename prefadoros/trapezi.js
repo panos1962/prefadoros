@@ -110,7 +110,8 @@ var Trapezi = new function() {
 		}
 		html += '</div>';
 		html += '</div>';
-		if ((isSet(t.b) && (t.b == 1)) || (isSet(t.ppp) && (t.ppp == 1))) {
+		if ((isSet(t.b) && (t.b == 1)) || (isSet(t.ppp) && (t.ppp == 1)) ||
+			(notSet(t.asoi) || (t.asoi == 0))) {
 			html += '<div class="kafenioTrapeziAttrArea">';
 			if (isSet(t.b) && (t.b == 1)) {
 				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
@@ -119,6 +120,10 @@ var Trapezi = new function() {
 			if (isSet(t.ppp) && (t.ppp == 1)) {
 				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
 					'images/controlPanel/ppp.png" title="Παίζεται το πάσο, πάσο, πάσο" />';
+			}
+			if (notSet(t.asoi) || (t.asoi == 0)) {
+				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
+					'images/trapoula/asoi.png" title="Δεν μετράνε οι άσοι" />';
 			}
 			html += '</div>';
 		}

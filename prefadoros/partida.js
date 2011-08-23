@@ -46,7 +46,8 @@ var Partida = new function() {
 			'p2', 'a2', 'o2',
 			'p3', 'a3', 'o3',
 			's', 'p', 'b',
-			'ppp', 'h', 't'
+			'ppp', 'asoi',
+			'h', 't'
 		];
 
 		for (var i in attr) {
@@ -70,6 +71,7 @@ var Partida = new function() {
 		partida.kodikos = parseInt(partida.k);
 		partida.kasa = parseInt(partida.s);
 		partida.ppp = (partida.ppp == 1);
+		partida.asoi = (partida.asoi == 1);
 		partida.prive = (partida.p == 1);
 		partida.klisto = (partida.b == 1);
 		partida.theatis = (partida.t == 1);
@@ -215,7 +217,7 @@ var Partida = new function() {
 		html += '&nbsp;<span title="Υπόλοιπο κάσας" class="partidaInfoData' + tbc + '">';
 		html += pexnidi.ipolipo + '</span>';
 		html += '</div>';
-		if (isKlisto() || isPasoPasoPaso()) {
+		if (isKlisto() || isPasoPasoPaso() || notAsoiKolos()) {
 			html += '<div class="partidaAttrArea">';
 			if (isKlisto()) {
 				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
@@ -224,6 +226,11 @@ var Partida = new function() {
 			if (isPasoPasoPaso()) {
 				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
 					'images/controlPanel/ppp.png" title="Παίζεται το πάσο, πάσο, πάσο" />';
+			}
+			if (notAsoiKolos()) {
+				html += '<img class="partidaAttrIcon" alt="" src="' +
+					globals.server + 'images/trapoula/asoi.png" ' +
+					'title="Δεν μετράνε οι άσοι" />';
 			}
 			html += '</div>';
 		}
