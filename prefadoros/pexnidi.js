@@ -521,10 +521,7 @@ var ProcessFasi = new function() {
 
 var ProcessKinisi = new function() {
 	this.dianomi = function(thesi, data) {
-		if (thesi != pexnidi.dealer) {
-			fatalError('ProcessKinisi::dianomi: λάθος θέση dealer');
-			return;
-		}
+		if (thesi != pexnidi.dealer) { return; }
 
 		var x = data.split(':');
 		for (var i = 1; i <= 3; i++) {
