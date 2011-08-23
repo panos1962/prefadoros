@@ -1,0 +1,43 @@
+body {
+	max-width: none;
+}
+
+.funchat {
+	float: left;
+	margin-top: 0.1cm;
+	margin-right: 0.1cm;
+	width: 2.8cm;
+	max-width: 2.8cm;
+	min-width: 2.8cm;
+	height: 2.8cm;
+	max-height: 2.8cm;
+	min-height: 2.8cm;
+	border-style: double;
+	border-width: 1px;
+	border-color: #FF6666;
+	padding: 0.2cm;
+	cursor: pointer;
+}
+
+.funchatSound {
+	position: absolute;
+	margin-left: 2.4cm;
+	width: 0.6cm;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+}
+
+.funchatImage {
+	max-width: 2.4cm;
+	max-height: 2.4cm;
+}
+
+.funchatTitle {
+	font-size: 60%;
+}
+
+.funchatPrompt {
+	font-style: italic;
+	text-align: right;
+	padding-right: 0.1cm;
+}

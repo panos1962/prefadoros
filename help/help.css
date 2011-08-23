@@ -1,0 +1,50 @@
+.helpArea {
+	min-height: 14.4cm;
+	margin-left: 1.5cm;
+	max-width: 21cm;
+}
+
+li {
+	background-color: #FFFFFF;
+	margin-top: 0.1cm;
+	line-height: 150%;
+}
+
+.helpPeriexomena {
+	background-color: #FFFFFF;
+	line-height: 150%;
+}
+
+.helpTitlos {
+	background-color: #FFFFFF;
+	font-weight: bold;
+	font-size: 120%;
+	margin-bottom: 0.4cm;
+}
+
+.helpKimeno {
+	background-color: #FFFFFF;
+	line-height: 150%;
+	text-align: justify;
+	margin-bottom: 0.4cm;
+	vertical-align: top;
+}
+
+.helpIcon {
+	background-color: #FFFFFF;
+	width: 1.2cm;
+	margin-top: 0.2cm;
+	display: inline;
+}
+
+.helpIconInline {
+	background-color: #FFFFFF;
+	width: 1.2em;
+	max-height: 0.6cm;
+	margin-bottom: -0.1cm;
+}
+
+.helpIconColumn {
+	width: 2.2cm;
+	vertical-align: top;
+}
