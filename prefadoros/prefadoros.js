@@ -156,7 +156,7 @@ var Prefadoros = new function() {
 	this.sviseBikeTora2 = function(img) {
 		var x = parseFloat(img.style.width);
 		if (x < 0.4) {
-			img.parentNode.removeChild(img);
+			try { img.parentNode.removeChild(img); } catch(e) {};
 			return;
 		}
 
