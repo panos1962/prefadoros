@@ -663,11 +663,7 @@ var ProcessKinisi = new function() {
 	};
 
 	this.tzogos = function(thesi, data) {
-		if (thesi != pexnidi.tzogadoros) {
-			fatalError('ProcessKinisi::tzogos: λάθος θέση τζογαδόρου');
-			return;
-		}
-
+		if (thesi != pexnidi.tzogadoros) { return; }
 		var fila = Pexnidi.deseFila(pexnidi.fila[thesi]) + data;
 		pexnidi.fila[thesi] = Pexnidi.spaseFila(fila);
 		pexnidi.fasi = 'ΑΛΛΑΓΗ';
