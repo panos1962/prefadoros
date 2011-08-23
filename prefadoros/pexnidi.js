@@ -31,6 +31,7 @@ var Pexnidi = new function() {
 	var anamoniKinisis = 0;
 
 	this.reset = function() {
+		pexnidi.akirosi = 0;
 		pexnidi.ipolipo = 0;
 		pexnidi.kapikia = [ 0, 0, 0, 0 ];
 		pexnidi.elima = 0;
@@ -142,6 +143,9 @@ var Pexnidi = new function() {
 				break;
 			case 'ΜΠΑΖΑ':
 				ProcessKinisi.baza(kinisi[i].thesi);
+				break;
+			case 'ΑΚΥΡΩΣΗ':
+				ProcessKinisi.akirosi(kinisi[i].thesi);
 				break;
 			default:
 				mainFyi(errmsg + kinisi[i].i + ': άγνωστο είδος κίνησης');
@@ -445,7 +449,7 @@ var Pexnidi = new function() {
 		cls += ' epilogiAnamoni';
 		div.setAttribute('class', cls);
 	};
-}
+};
 
 var ProcessFasi = new function() {
 	this.stisimo = function() {
@@ -819,5 +823,9 @@ var ProcessKinisi = new function() {
 		else {
 			pexnidi.fasi = 'ΠΛΗΡΩΜΗ';
 		}
+	};
+
+	this.akirosi = function(thesi) {
+		pexnidi.akirosi = thesi in partida.pektis ? thesi : 0;
 	};
 };
