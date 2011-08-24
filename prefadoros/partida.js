@@ -663,6 +663,11 @@ var Partida = new function() {
 				'images/mazi.png" title="Μαζί" alt="" />';
 		}
 
+		if (pexnidi.claim[thesi]) {
+			html += '<img class="claimIcon" alt="" src="' + globals.server +
+				'images/controlPanel/claim.png" title="Τις δίνω όλες…" />';
+		}
+
 		return html;
 	}
 
@@ -743,6 +748,9 @@ var Partida = new function() {
 			break;
 		case 'ΠΛΗΡΩΜΗ':
 			html += Gipedo.pliromiHTML();
+			break;
+		case 'CLAIM':
+			html += Gipedo.claimHTML();
 			break;
 		default:
 			html += Gipedo.agnostiFasiHTML();

@@ -350,6 +350,30 @@ var Gipedo = new function() {
 		return html;
 	};
 
+	this.claimHTML = function() {
+		var html = '';
+		html += '<div>';
+		if (isTheatis()) {
+			html += 'Ο τζογαδόρος ισχυρίζεται ότι δεν χάνει άλλη μπάζα.';
+		}
+		else if (pexnidi.tzogadoros == 1) {
+			html += 'Δεν δίνω άλλη μπάζα!'
+		}
+		else {
+			html += 'Θέλω τις υπόλοιπες!';
+		}
+		html += '</div>';
+		html += Partida.filaHTML(pexnidi.fila[pexnidi.tzogadoros]);
+		if (isTheatis()) { return html; }
+		if (pexnidi.tzogadoros == 1) { return html; }
+		if (pexnidi.epomenos != 1) { return html; }
+		html += Tools.epilogiHTML('ΝΑΙ', 'Pexnidi.claim(this, true)',
+			'Συμφωνώ, τις δίνω όλες…', 'claim claimYes');
+		html += Tools.epilogiHTML('ΟΧΙ', 'Pexnidi.claim(this, false)',
+			'Διαφωνώ. Μάζεψε τα φύλλα σου!', 'claim claimNo');
+		return html;
+	};
+
 	this.agnostiFasiHTML = function() {
 		var html = '<img class="gipedoProvlimaIcon" src="' + globals.server +
 			'images/provlima.gif" alt="" />';
