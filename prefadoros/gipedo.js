@@ -363,6 +363,7 @@ var Gipedo = new function() {
 			html += 'Θέλω τις υπόλοιπες!';
 		}
 		html += '</div>';
+		html += '<div style="position: relative;">';
 		html += Partida.filaHTML(pexnidi.fila[pexnidi.tzogadoros]);
 		if (isTheatis()) { return html; }
 		if (pexnidi.tzogadoros == 1) { return html; }
@@ -371,6 +372,7 @@ var Gipedo = new function() {
 			'Συμφωνώ, τις δίνω όλες…', 'claim claimYes');
 		html += Tools.epilogiHTML('ΟΧΙ', 'Pexnidi.claim(this, false)',
 			'Διαφωνώ. Μάζεψε τα φύλλα σου!', 'claim claimNo');
+		html += '</div>';
 		return html;
 	};
 
