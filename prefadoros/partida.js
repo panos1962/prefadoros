@@ -324,7 +324,14 @@ var Partida = new function() {
 		if (fila.length <= 0) { return html; }
 
 		var tzogos = ((pexnidi.fasi == 'ΑΛΛΑΓΗ') && isTzogadoros());
-		var pezon = ((pexnidi.fasi == 'ΠΑΙΧΝΙΔΙ') && isEpomenos());
+		var pezon = false;
+		if (isEpomenos()) {
+			switch (pexnidi.fasi) {
+			case 'ΠΑΙΧΝΙΔΙ':
+			case 'ΜΠΑΖΑ':
+				pezon = true;
+			}
+		}
 		if (pezon) { Dekada.setEpitrepto(fila); }
 
 		var proto = ' style="margin-left: 0px;"';
