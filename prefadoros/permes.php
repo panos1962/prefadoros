@@ -18,6 +18,7 @@ class Permes {
 		$this->kodikos = $row['κωδικός'];
 		$this->apostoleas = $row['αποστολέας'];
 		$this->minima = preg_replace("/\n/", "&#10;", $row['μήνυμα']);
+		$this->minima = preg_replace("/\r/", "", $this->minima);
 		$this->dimiourgia = $row['δημιουργία'];
 	}
 
