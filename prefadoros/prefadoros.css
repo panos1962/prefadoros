@@ -1206,13 +1206,13 @@ font-weight: bold;
 
 .claimYes {
 	position: absolute;
-	top: 1.4cm;
+	top: 0.4cm;
 	right: 0.2cm;
 }
 
 .claimNo {
 	position: absolute;
-	top: 2.8cm;
+	top: 1.8cm;
 	right: 0.2cm;
 	color: #FF0000;
 }
