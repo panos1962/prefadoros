@@ -69,15 +69,9 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 		</div>
 	</td>
 	<td style="vertical-align: top;">
-		<?php
-		if ($row['παραλήπτης'] == $globals->pektis->login) {
-			?>
-			<img class="permesIcon" title="Διαγραφή" src="<?php
-				print $globals->server; ?>images/Xred.png" alt=""
-				onclick="Permes.diagrafi(this, <?php print $row['κωδικός']; ?>);" />
-			<?php
-		}
-		?>
+		<img class="permesIcon" title="Διαγραφή" src="<?php
+			print $globals->server; ?>images/Xred.png" alt=""
+			onclick="Permes.diagrafi(this, <?php print $row['κωδικός']; ?>);" />
 	</td>
 	<td style="vertical-align: top;">
 		<?php
