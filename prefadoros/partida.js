@@ -324,14 +324,7 @@ var Partida = new function() {
 		if (fila.length <= 0) { return html; }
 
 		var tzogos = ((pexnidi.fasi == 'ΑΛΛΑΓΗ') && isTzogadoros());
-		var pezon = false;
-		if (isEpomenos()) {
-			switch (pexnidi.fasi) {
-			case 'ΠΑΙΧΝΙΔΙ':
-			case 'ΜΠΑΖΑ':
-				pezon = true;
-			}
-		}
+		var pezon = ((pexnidi.fasi == 'ΠΑΙΧΝΙΔΙ') && isEpomenos());
 		if (pezon) { Dekada.setEpitrepto(fila); }
 
 		var proto = ' style="margin-left: 0px;"';
@@ -1037,9 +1030,13 @@ var Dekada = new function() {
 	};
 
 	this.dekadaHTML = function(xa, i) {
+mainFyi('before akirosi');
 		if (pexnidi.akirosi != 0) { return ''; }
+mainFyi('before anamoniKinisis');
 		if (pexnidi.anamoniKinisis) { return ''; }
+mainFyi('before isEpitrepto');
 		if (!Dekada.isEpitrepto(i)) { return ''; }
+mainFyi('after isEpitrepto');
 
 		var html = '';
 		html += ' onmouseover="Dekada.sikose(this, ' + i + ', true);" ';
