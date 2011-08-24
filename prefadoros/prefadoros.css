@@ -219,6 +219,13 @@
 	width: 1.1cm;
 }
 
+.claimIcon {
+	position: absolute;
+	top: 0.0cm;
+	right: -0.4cm;
+	width: 1.1cm;
+}
+
 .kapikiaArea {
 	position: absolute;
 	top: 0.9cm;
@@ -1189,4 +1196,23 @@ font-weight: bold;
 	bottom: 2.7cm;
 	left: 4.2cm;
 	z-index: 1;
+}
+
+.claim {
+	margin-bottom: 0.2cm;
+	font-size: 0.6cm;
+	border-width: 2px;
+}
+
+.claimYes {
+	position: absolute;
+	top: 1.4cm;
+	right: 0.2cm;
+}
+
+.claimNo {
+	position: absolute;
+	top: 2.8cm;
+	right: 0.2cm;
+	color: #FF0000;
 }

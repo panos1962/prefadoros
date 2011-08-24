@@ -56,6 +56,7 @@ var Pexnidi = new function() {
 		pexnidi.asoi = false;
 
 		pexnidi.simetoxi = [ '', '', '', '' ];
+		pexnidi.claim = [ false, false, false, false ];
 
 		pexnidi.bazaCount = 0;
 		pexnidi.baza = [ 0, 0, 0, 0 ];
@@ -146,6 +147,9 @@ var Pexnidi = new function() {
 				break;
 			case 'ΑΚΥΡΩΣΗ':
 				ProcessKinisi.akirosi(kinisi[i].thesi);
+				break;
+			case 'CLAIM':
+				ProcessKinisi.claim(kinisi[i].thesi, kinisi[i].d);
 				break;
 			default:
 				mainFyi(errmsg + kinisi[i].i + ': άγνωστο είδος κίνησης');
@@ -319,6 +323,9 @@ var Pexnidi = new function() {
 		case 'ΠΑΣΟ ΠΑΣΟ':
 			ProcessFasi.pliromi();
 			break;
+		case 'CLAIM':
+			ProcessFasi.claim();
+			break;
 		default:
 			mainFyi(errmsg + pexnidi.fasi + ': άγνωστη φάση');
 			break;
@@ -340,6 +347,7 @@ var Pexnidi = new function() {
 	};
 
 	this.setEpomenos = function(thesi) {
+		if (notSet(thesi)) { thesi = pexnidi.epomenos; }
 		pexnidi.epomenos = thesi + 1;
 		if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
 		return pexnidi.epomenos;
@@ -445,6 +453,28 @@ var Pexnidi = new function() {
 		cls += ' epilogiAnamoni';
 		div.setAttribute('class', cls);
 	};
+
+	this.claim = function(div, apodoxi) {
+		Sizitisi.sxolioFocus();
+		if (pexnidi.akirosi != 0) { return; }
+		if (isTheatis()) { return; }
+
+		var cls = div.getAttribute('class');
+		cls += ' epilogiAnamoni';
+		div.setAttribute('class', cls);
+		if (apodoxi) {
+			Pexnidi.addKinisi('CLAIM', 'YES');
+			return;
+		}
+
+		var req = new Request('pexnidi/akirosiClaim', false);
+		req.send();
+		var rsp = req.getResponse();
+		if (rsp) {
+			mainFyi(rsp);
+			playSound('beep');
+		}
+	};
 };
 
 var ProcessFasi = new function() {
@@ -511,6 +541,9 @@ var ProcessFasi = new function() {
 			toBeDone = null;
 		}, Pexnidi.delay['pliromi']);
 		Pexnidi.miosiDelay('pliromi');
+	};
+
+	this.claim = function() {
 	};
 };
 
@@ -878,5 +911,26 @@ var ProcessKinisi = new function() {
 
 	this.akirosi = function(thesi) {
 		pexnidi.akirosi = thesi in partida.pektis ? thesi : 0;
+	};
+
+	this.claim = function(thesi, data) {
+		Pexnidi.setEpomenos(thesi);
+		if (pexnidi.simetoxi[pexnidi.epomenos] == 'ΠΑΣΟ') { Pexnidi.setEpomenos(); }
+		if (data == 'YES') {
+			pexnidi.claim[thesi] = true;
+			if (pexnidi.epomenos == pexnidi.tzogadoros) {
+				pexnidi.fasi = 'ΠΛΗΡΩΜΗ';
+				var b = 0;
+				for (var i = 1; i <= 3; i++) {
+					if (i != pexnidi.tzogadoros) { b += pexnidi.baza[i]; }
+				}
+				pexnidi.baza[pexnidi.tzogadoros] = 10 - b;
+			}
+			return;
+		}
+
+		pexnidi.claim = [];
+		pexnidi.fila[thesi] = Pexnidi.spaseFila(data);
+		pexnidi.fasi = 'CLAIM';
 	};
 };

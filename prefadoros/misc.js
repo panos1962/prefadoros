@@ -155,9 +155,6 @@ var Tools = new function() {
 		div.prevBC = div.style.backgroundColor;
 		div.style.backgroundColor = '#FFFF00';
 
-		div.prevFC = div.style.color;
-		div.style.color = '#001429';
-
 		div.prevFW = div.style.fontWeight;
 		div.style.fontWeight = 'bold';
 	};
@@ -165,7 +162,6 @@ var Tools = new function() {
 	this. epilogiXefotise = function(div) {
 		div.style.borderStyle = 'solid';
 		div.style.backgroundColor = div.prevBC;
-		div.style.color = div.prevFC;
 		div.style.fontWeight = div.prevFW;
 	};
 
