@@ -260,11 +260,6 @@ var Pexnidi = new function() {
 
 		pexnidi.anamoniKinisis = -1;
 		var req = new Request('pexnidi/addKinisi', false);
-/*
-		req.xhr.onreadystatechange = function() {
-			Pexnidi.addKinisiCheck(req);
-		};
-*/
 
 		if (isSet(thesi)) {
 			if (thesi != 0) { thesi = partida.map[thesi]; }
@@ -521,7 +516,10 @@ var ProcessFasi = new function() {
 
 var ProcessKinisi = new function() {
 	this.dianomi = function(thesi, data) {
-		if (thesi != pexnidi.dealer) { return; }
+		if (thesi != pexnidi.dealer) {
+			mainFyi('ProcessKinisi::dianomi: λάθος θέση dealer');
+			return;
+		}
 
 		var x = data.split(':');
 		for (var i = 1; i <= 3; i++) {
@@ -660,7 +658,11 @@ var ProcessKinisi = new function() {
 	};
 
 	this.tzogos = function(thesi, data) {
-		if (thesi != pexnidi.tzogadoros) { return; }
+		if (thesi != pexnidi.tzogadoros) {
+			mainFyi('ProcessKinisi::tzogos: λάθος θέση τζογαδόρου');
+			return;
+		}
+
 		var fila = Pexnidi.deseFila(pexnidi.fila[thesi]) + data;
 		pexnidi.fila[thesi] = Pexnidi.spaseFila(fila);
 		pexnidi.fasi = 'ΑΛΛΑΓΗ';
@@ -669,7 +671,7 @@ var ProcessKinisi = new function() {
 
 	this.agora = function(thesi, data) {
 		if (thesi != pexnidi.tzogadoros) {
-			fatalError('ProcessKinisi::tzogos: λάθος θέση τζογαδόρου');
+			mainFyi('ProcessKinisi::agora: λάθος θέση τζογαδόρου');
 			return;
 		}
 
