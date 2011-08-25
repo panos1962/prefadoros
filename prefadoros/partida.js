@@ -489,6 +489,7 @@ var Partida = new function() {
 			break;
 		case 'ΠΑΙΧΝΙΔΙ':
 		case 'ΜΠΑΖΑ':
+		case 'ΣΟΛΟ':
 			if (pexnidi.bazaCount < 1) { html += Partida.simetoxiHTML(thesi); }
 			else { html += Partida.pektisBazesHTML(thesi); }
 			html += Partida.velosHTML(thesi);

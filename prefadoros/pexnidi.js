@@ -986,8 +986,50 @@ var ProcessKinisi = new function() {
 	};
 
 	this.solo = function(thesi, data) {
+		var errmsg = 'ProcessKinisi::solo: ';
+
+		switch (pexnidi.tzogadoros) {
+		case 1: var ena = 2; var dio = 3; break;
+		case 2: ena = 3; dio = 1; break;
+		case 3: ena = 1; dio = 2; break;
+		default:
+			mainFyi(errmsg + 'ακαθόριστη θέση τζογαδόρου');
+			return;
+		}
+
+		var xroma = data.substr(0, 1);
+		var bazes = data.substr(1, 1);
+		switch (bazes) {
+		case 7:
+			pexnidi.baza[pexnidi.tzogadoros] = 5;
+			pexnidi.baza[ena] = 3;
+			pexnidi.baza[dio] = 2;
+			break;
+		case 8:
+			pexnidi.baza[pexnidi.tzogadoros] = 6;
+			pexnidi.baza[ena] = 2;
+			pexnidi.baza[dio] = 2;
+			break;
+		case 9:
+			pexnidi.baza[pexnidi.tzogadoros] = 7;
+			pexnidi.baza[ena] = 2;
+			pexnidi.baza[dio] = 1;
+			break;
+		case 'T':
+			pexnidi.baza[pexnidi.tzogadoros] = 8;
+			pexnidi.baza[ena] = 1;
+			pexnidi.baza[dio] = 1;
+			break;
+		default:
+			pexnidi.baza[pexnidi.tzogadoros] = 4;
+			pexnidi.baza[ena] = 3;
+			pexnidi.baza[dio] = 3;
+			break;
+		}
+
 		pexnidi.epomenos = 0;
 		pexnidi.fasi = 'ΣΟΛΟ';
 		pexnidi.fila = [ [], [], [], [] ];
+		pexnidi.bazaCount = 10;
 	};
 };
