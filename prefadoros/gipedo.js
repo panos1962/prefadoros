@@ -266,7 +266,7 @@ var Gipedo = new function() {
 		var html = '';
 		if (pexnidi.dealer == 3) { html += Gipedo.anamoniDianomiHTML(); }
 		else { html += Gipedo.anamoniHTML(); }
-		if (isTheatis()) {
+		if (isTheatis() || (pexnidi.tzogadoros == 1)) {
 			html += 'Οι αμυνόμενοι δεν θα διεκδικήσουν τις μπάζες τους.';
 		}
 		else {
