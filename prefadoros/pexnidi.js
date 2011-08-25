@@ -249,7 +249,13 @@ var Pexnidi = new function() {
 		return s;
 	}
 
-	this.addKinisi = function(idos, data, thesi, did) {
+	// Η τελευταία παράμετρος είναι by default false και δείχνει αν πρόκειται
+	// για δρομολογημένη κίνηση. Στην περίπτωση της δρομολογημένης κίνησης
+	// λαμβάνουμε μέριμνα κατά την επιστροφή, ώστε να καθαρίσουμε την αντίστοιχη
+	// ιδιότητα που χρησιμοποιείται ως flag για να μην δρομολογηθεί παραπάνω
+	// από μια φορά η ίδια ενέργεια.
+
+	this.addKinisi = function(idos, data, thesi, dromologimeno) {
 		if (pexnidi.akirosi) {
 			playSound('beep');
 			mainFyi('Ακύρωση κίνησης σε εξέλιξη');
@@ -270,8 +276,9 @@ var Pexnidi = new function() {
 
 		pexnidi.anamoniKinisis = -1;
 		var req = new Request('pexnidi/addKinisi');
+		if (notSet(dromologimeno)) { dromologimeno = false; }
 		req.xhr.onreadystatechange = function() {
-			Pexnidi.addKinisiCheck(req);
+			Pexnidi.addKinisiCheck(req, dromologimeno);
 		};
 
 		if (isSet(thesi)) {
@@ -281,7 +288,7 @@ var Pexnidi = new function() {
 			thesi = partida.map[1];
 		}
 
-		var params = 'dianomi=' + uri(dianomi[0].k);
+		var params = 'dianomi=' + uri(dianomi[dianomi.length - 1].k);
 		params += '&thesi=' + uri(thesi);
 		params += '&idos=' + uri(idos);
 		if (notSet(data)) { data = ''; }
@@ -289,8 +296,9 @@ var Pexnidi = new function() {
 		req.send(params);
 	};
 
-	this.addKinisiCheck = function(req) {
+	this.addKinisiCheck = function(req, dromologimeno) {
 		if (req.xhr.readyState != 4) { return; }
+		if (dromologimeno) { ProcessFasi.clearDromologimeno(); }
 		var rsp = req.getResponse();
 		if (rsp.match(/^OK@/)) {
 			pexnidi.anamoniKinisis = parseInt(rsp.replace(/^OK/));
@@ -346,11 +354,12 @@ var Pexnidi = new function() {
 		}
 	};
 
-	this.dianomi = function() {
+	this.dianomi = function(dromologimeno) {
+		if (notSet(dromologimeno)) { dromologimeno = false; }
 		mainFyi('Γίνεται διανομή. Παρακαλώ περιμένετε…');
 		var req = new Request('trapezi/apodoxi');
 		req.xhr.onreadystatechange = function() {
-			Pexnidi.dianomiCheck(req);
+			Pexnidi.dianomiCheck(req, dromologimeno);
 		};
 
 		params = 'dianomi=yes';
@@ -358,8 +367,9 @@ var Pexnidi = new function() {
 		req.send(params);
 	};
 
-	this.dianomiCheck = function(req) {
+	this.dianomiCheck = function(req, dromologimeno) {
 		if (req.xhr.readyState != 4) { return; }
+		if (dromologimeno) { ProcessFasi.clearDromologimeno(); }
 		var rsp = req.getResponse();
 		mainFyi(rsp);
 		if (rsp) {
@@ -499,6 +509,16 @@ var Pexnidi = new function() {
 };
 
 var ProcessFasi = new function() {
+	this.dromologimeno = null;
+
+	this.isDromologimeno = function() {
+		return isSet(ProcessFasi.dromologimeno);
+	};
+
+	this.clearDromologimeno = function() {
+		ProcessFasi.dromologimeno = null;
+	};
+
 	this.stisimo = function() {
 		pexnidi.epomenos = 0;
 	};
@@ -507,22 +527,24 @@ var ProcessFasi = new function() {
 	};
 
 	this.pasoPasoPaso = function() {
-		if (pexnidi.dealer != 3) { return; }
+		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		setTimeout(function() {
-			if (isPasoPasoPaso()) { Pexnidi.addKinisi('ΑΓΟΡΑ', 'NNN', 0); }
-			else { Pexnidi.dianomi(); }
+		if (ProcessFasi.isDromologimeno()) { return; }
+		ProcessFasi.dromologimeno = setTimeout(function() {
+			if (isPasoPasoPaso()) { Pexnidi.addKinisi('ΑΓΟΡΑ', 'NNN', 0, true); }
+			else { Pexnidi.dianomi(true); }
 		}, Pexnidi.delay['pasoPasoPaso']);
 		Pexnidi.miosiDelay('pasoPasoPaso');
 	};
 
 	this.tzogos = function() {
-		if (pexnidi.dealer != 3) { return; }
+		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		setTimeout(function() {
-			Pexnidi.addKinisi('ΤΖΟΓΟΣ', '', pexnidi.tzogadoros);
+		if (ProcessFasi.isDromologimeno()) { return; }
+		ProcessFasi.dromologimeno = setTimeout(function() {
+			Pexnidi.addKinisi('ΤΖΟΓΟΣ', '', pexnidi.tzogadoros, true);
 		}, Pexnidi.delay['tzogos']);
 		Pexnidi.miosiDelay('tzogos');
 	};
@@ -537,21 +559,22 @@ var ProcessFasi = new function() {
 	};
 
 	this.baza = function() {
-		if (pexnidi.dealer != 3) { return; }
+		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
+		if (ProcessFasi.isDromologimeno()) { return; }
 		var epomenos = pexnidi.epomenos;
-		toBeDone = setTimeout(function() {
-			Pexnidi.addKinisi('ΜΠΑΖΑ', '', epomenos);
+		ProcessFasi.dromologimeno = setTimeout(function() {
+			Pexnidi.addKinisi('ΜΠΑΖΑ', '', epomenos, true);
 		}, Pexnidi.delay['baza']);
 	};
 
 	this.pliromi = function() {
-		if (pexnidi.dealer != 3) { return; }
-		if (isSet(toBeDone)) { return; }
+		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
-		toBeDone = setTimeout(function() {
-			Pexnidi.dianomi();
+		if (ProcessFasi.isDromologimeno()) { return; }
+		ProcessFasi.dromologimeno = setTimeout(function() {
+			Pexnidi.dianomi(true);
 		}, Pexnidi.delay['pliromi']);
 		Pexnidi.miosiDelay('pliromi');
 	};

@@ -7,6 +7,11 @@ require_once '../prefadoros/prefadoros.php';
 Page::data();
 set_globals();
 
+// Τεχνητή καθυστέρηση για τις δοκιμές στο τοπικό.
+if (preg_match("@^http://127@", $globals->server)) {
+	usleep(500000);
+}
+
 Prefadoros::pektis_check();
 Prefadoros::trapezi_check();
 if ($globals->trapezi->is_theatis()) {

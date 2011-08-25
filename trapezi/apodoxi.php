@@ -49,6 +49,10 @@ if (Globals::perastike('apodoxi')) {
 	}
 }
 else if (Globals::perastike('dianomi')) {
+	// Τεχνητή καθυστέρηση για τις δοκιμές στο τοπικό.
+	if (preg_match("@^http://127@", $globals->server)) {
+		usleep(500000);
+	}
 	kane_dianomi();
 }
 

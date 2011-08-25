@@ -1038,13 +1038,9 @@ var Dekada = new function() {
 	};
 
 	this.dekadaHTML = function(xa, i) {
-mainFyi('before akirosi');
 		if (pexnidi.akirosi != 0) { return ''; }
-mainFyi('before anamoniKinisis');
 		if (pexnidi.anamoniKinisis) { return ''; }
-mainFyi('before isEpitrepto');
 		if (!Dekada.isEpitrepto(i)) { return ''; }
-mainFyi('after isEpitrepto');
 
 		var html = '';
 		html += ' onmouseover="Dekada.sikose(this, ' + i + ', true);" ';
