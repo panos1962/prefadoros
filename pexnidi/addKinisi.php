@@ -15,16 +15,17 @@ if ($globals->trapezi->is_theatis()) {
 
 Prefadoros::dianomi_check();
 $dianomi = $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
-
-$thesi = $globals->asfales(Globals::perastike_check('thesi'));
-if (($thesi != 0) && ($thesi != $globals->trapezi->thesi)) {
-	die("Λάθος θέση παίκτη");
+if ($dianomi != Globals::perastike_check('dianomi')) {
+	die('Λάθος διανομή κίνησης');
 }
 
 $idos = Globals::perastike_check('idos');
 $data = Globals::perastike_check('data');
 if (Globals::perastike('thesi')) {
 	$thesi = $_REQUEST['thesi'];
+}
+else {
+	$thesi = $globals->trapezi->thesi;
 }
 
 switch ($idos) {

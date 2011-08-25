@@ -2,52 +2,41 @@
 // αντικείμενα "pexnidi", "dianomi" και "kinisi".
 
 var Pexnidi = new function() {
-	// Η μεταβλητή "anamoniKinisis" δείχνει αν περιμένουμε κάποια
+	this.delay = {
+		'pasoPasoPaso':		3000,
+		'megistiAgora':		3000,
+		'baza':			1200,
+		'pliromi':		1500,
+		'tzogos':		3000
+	};
+
+	this.miosiDelay = function(code) {
+		if (code in Pexnidi.delay) {
+			Pexnidi.delay[code] -= 700;
+			if (Pexnidi.delay[code] < 1000) { Pexnidi.delay[code] = 1000; }
+		}
+	};
+
+	// Η ιδιότητα "anamoniKinisis" δείχνει αν περιμένουμε κάποια
 	// συγκεκριμένη κίνηση από τον server και μάλιστα δείχνει τον
 	// κωδικό της κίνησης αυτής. Πρόκειται για την τελευταία κίνηση
 	// που στείλαμε και μας επεστράφη ο κωδικός κατά την εισαγωγή.
 	// Αν η μεταβλητή έχει τιμή μηδέν, τότε το πεδίο είναι καθαρό
-	// και μπορούμε να στείλουμε καινούρια κίνηση. Αν έχε θετική
+	// και μπορούμε να στείλουμε καινούρια κίνηση. Αν έχει θετική
 	// τιμή, πρόκειται για τον κωδικό της αναμενόμενης κίνησης,
 	// ενώ αν έχει αρτνητική τιμή, βρισκόμαστε στο μικροδιάστημα
 	// μεταξύ αποστολής νέας κίνησης και παραλαβής του κωδικού
 	// της νεοεισαχθείσης κίνησης.
 
-	var anamoniKinisis = 0;
-
-	// Οι παρακάτω ιδιότητες, μέθοδοι και μεταβλητές, σκοπό έχουν
-	// κυρίως την αποφυγή της επανάληψης ενδείξεων σημαντικότητας
-	// κατά την επαναδιαμόρφωση της εικόνας. Π.χ., όταν κάποιος
-	// δηλώνει αγορά, εμφανίζεται σχετική ένδειξη σημαντικότητας
-	// στην περιοχή του. Το ίδιο συμβαίνει και όταν κάποιος κερδίζει
-	// τον τζόγο, κλπ. Αυτά πυροδοτούνται από την έλευση των
-	// σχετικών κινήσεων. Πιο συγκεκριμένα, αν η τελευταία κίνηση
-	// που παρελήφθη είναι κάποια κίνηση που απαιτεί ένδειξη
-	// σημαντικότητας, τότε γίνεται η ένδειξη, παράλληλα όμως
-	// μαρκάρουμε τις κινήσεις αυτές, ώστε να μην έχουμε
-	// ανεπιθύμητες επαναλήψεις. Το array δεικοδοτείται με
-	// tags που εμπεριέχουν τους κωδικούς των σχετικών
-	// κινήσεων και "καθαρίζει" σε κάθε νέα διανομή.
-
-	this.spotList = [];
-	var spotListDianomi = 0;
-
-	this.spotListPush = function(idx) {
-		if (notDianomi()) { return; }
-		var d = dianomi[dianomi.length - 1].k;
-		if (d != spotListDianomi) {
-			Pexnidi.spotList = [];
-			spotListDianomi = d;
-		}
-		Pexnidi.spotList[idx] = true;
-	};
+	this.anamoniKinisis = 0;
 
 	this.reset = function() {
+		pexnidi.akirosi = 0;
 		pexnidi.ipolipo = 0;
 		pexnidi.kapikia = [ 0, 0, 0, 0 ];
 		pexnidi.elima = 0;
 
-		pexnidi.fasi = '';
+		pexnidi.fasi = 'ΣΤΗΣΙΜΟ';
 		pexnidi.epomenos = 0;
 
 		pexnidi.dealer = 0;
@@ -55,36 +44,36 @@ var Pexnidi = new function() {
 
 		pexnidi.dilosiCount = 0;
 		pexnidi.dilosi = [ '', '', '', '' ];
-		pexnidi.curdil = '';
+		pexnidi.curdil = 'DTG';
 
 		pexnidi.pasoCount = 0;
 		pexnidi.paso = [ false, false, false, false ];
 
 		pexnidi.tzogadoros = 0;
 		pexnidi.agora = '';
-		pexnidi.xromaAgoras = '';
-		pexnidi.xromaBazes = 0;
+		pexnidi.agoraXroma = '';
+		pexnidi.agoraBazes = 0;
 		pexnidi.asoi = false;
 
 		pexnidi.simetoxi = [ '', '', '', '' ];
+		pexnidi.claim = [ false, false, false, false ];
+
+		pexnidi.bazaCount = 0;
+		pexnidi.baza = [ 0, 0, 0, 0 ];
 		Pexnidi.resetBaza();
+
 		Dodekada.reset();
 		Dekada.reset();
 	};
 
 	this.resetBaza = function() {
-		pexnidi.bazaCount = 0;
-
 		pexnidi.bazaFilo = [];
 		pexnidi.bazaPektis = [];
-
-		pexnidi.lastBazaFilo = [];
-		pexnidi.lastBazaPektis = [];
 	};
 
-	// Η function "processDedomena" καλείται κάθε φορά που έχουμε νέα δεδομένα
-	// και σκοπό έχει να θέσει τα στοιχεία του παιχνιδιού στα νέα
-	// δεδομένα.
+	// Η function "processDedomena" καλείται κάθε φορά που έχουμε
+	// νέα δεδομένα και σκοπό έχει να θέσει τα στοιχεία του παιχνιδιού
+	// στα νέα δεδομένα.
 
 	this.processDedomena = function() {
 		var errmsg = 'Pexnidi::processDedomena: ';
@@ -92,8 +81,6 @@ var Pexnidi = new function() {
 		// Αρχικά μηδενίζουμε τα πάντα.
 		Pexnidi.reset();
 		if (notPartida()) { return;}
-
-		pexnidi.fasi = 'ΣΤΗΣΙΜΟ';
 
 		// Κάνουμε αντιστοίχιση των θέσεων, καθώς από τον
 		// server μας έρχονται δεδομένα με τις πραγματικές
@@ -132,251 +119,43 @@ var Pexnidi = new function() {
 		pexnidi.elima = pexnidi.kapikia[partida.pam[1]] + x;
 		pexnidi.kapikia[partida.pam[1]] = -x;
 
-		// Ήρθε η στιγμή να διαχειριστούμε τις κινήσεις της τελευταίας
-		// διανομής. Πρέπει να υπάρχει τουλάχιστον μια, καθώς με τη
-		// δημιουργία της διανομής, δημιουργείται και κίνηση τύπου
-		// "ΔΙΑΝΟΜΗ" που περιέχει τα φύλλα του κάθε παίκτη και τα
-		// φύλλα του τζόγου.
+		// Ήρθε η στιγμή να διαχειριστούμε τις κινήσεις της
+		// τελευταίας διανομής.
 		for (var i = 0; i < kinisi.length; i++) {
-			// Κάνουμε batch process τη φάση που βρισκόμαστε τώρα
-			// και διαχειριζόμαστε την επόμενη κίνηση, η οποία
-			// πιθανότατα θα μας περάσει σε νέα φάση.
-			Pexnidi.processFasi(true);
-
-			if (kinisi[i].k == anamoniKinisis) { anamoniKinisis = 0; }
-
+			if (kinisi[i].k == pexnidi.anamoniKinisis) { pexnidi.anamoniKinisis = 0; }
 			switch (kinisi[i].i) {
 			case 'ΔΙΑΝΟΜΗ':
-				Pexnidi.processKinisiDianomi(kinisi[i].thesi, kinisi[i].d);
+				ProcessKinisi.dianomi(kinisi[i].thesi, kinisi[i].d);
 				break;
 			case 'ΔΗΛΩΣΗ':
-				Pexnidi.processKinisiDilosi(kinisi[i].thesi, kinisi[i].d);
+				ProcessKinisi.dilosi(kinisi[i].thesi, kinisi[i].d);
 				break;
 			case 'ΤΖΟΓΟΣ':
-				Pexnidi.processKinisiTzogos(kinisi[i].thesi, kinisi[i].d);
+				ProcessKinisi.tzogos(kinisi[i].thesi, kinisi[i].d);
 				break;
 			case 'ΑΓΟΡΑ':
-				Pexnidi.processKinisiAgora(kinisi[i].thesi, kinisi[i].d);
+				ProcessKinisi.agora(kinisi[i].thesi, kinisi[i].d);
 				break;
 			case 'ΣΥΜΜΕΤΟΧΗ':
-				Pexnidi.processKinisiSimetoxi(kinisi[i].thesi, kinisi[i].d);
+				ProcessKinisi.simetoxi(kinisi[i].thesi, kinisi[i].d);
 				break;
 			case 'ΦΥΛΛΟ':
-				Pexnidi.processKinisiFilo(kinisi[i].thesi, kinisi[i].d);
+				ProcessKinisi.filo(kinisi[i].thesi, kinisi[i].d);
 				break;
 			case 'ΜΠΑΖΑ':
-				Pexnidi.processKinisiBaza(kinisi[i].thesi);
+				ProcessKinisi.baza(kinisi[i].thesi);
+				break;
+			case 'ΑΚΥΡΩΣΗ':
+				ProcessKinisi.akirosi(kinisi[i].thesi);
+				break;
+			case 'CLAIM':
+				ProcessKinisi.claim(kinisi[i].thesi, kinisi[i].d);
 				break;
 			default:
-				fatalError(errmsg + kinisi[i].i + ': άγνωστο είδος κίνησης');
+				mainFyi(errmsg + kinisi[i].i + ': άγνωστο είδος κίνησης');
 				break;
 			}
 		}
-	};
-
-	this.processKinisiDianomi = function(thesi, data) {
-		var x = data.split(':');
-		for (var i = 1; i <= 3; i++) {
-			pexnidi.fila[i] = Pexnidi.spaseFila(x[partida.map[i]]);
-		}
-	};
-
-	this.processKinisiDilosi = function(thesi, data) {
-		pexnidi.dilosiCount++;
-		pexnidi.dilosi[thesi] = data;
-		if (data.match(/^P/)) {
-			pexnidi.paso[thesi] = true;
-			pexnidi.pasoCount++;
-			if (pexnidi.pasoCount > 2) {
-				if (isPPP()) {
-					pexnidi.agora = 'NNN';
-					pexnidi.tzogadoros = 0;
-					for (var i = 1; i <= 3; i++) {
-						pexnidi.simetoxi[i] = 'ΠΑΙΖΩ';
-					}
-					pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
-					return;
-				}
-				pexnidi.fasi = 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ';
-			}
-
-			pexnidi.fasi = 'ΔΗΛΩΣΗ':
-			Pexnidi.setEpomenosDilosi(thesi);
-			if (pexnidi.epomenos == 0) {
-				pexnidi.fasi = 'ΑΓΟΡΑ';
-				pexnidi.epomenos = pexnidi.dealer + 1;
-				if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
-			return;
-		}
-
-		pexnidi.fasi = 'ΔΗΛΩΣΗ';
-		pexnidi.dilosi[thesi] = data;
-
-		// Έχω δήλωση. Αν υπήρχε δήλωση "τα γράφω" βάζω τον
-		// παίκτη που τα είχε γράψει στο πάσο.
-		for (var i = 1; i <= 3; i++) {
-			if (pexnidi.dilosi[i] == 'DTG') {
-				pexnidi.paso[i] = true;
-			}
-		}
-
-		// Αν η δήλωση είναι "τα γράφω", τότε θέτω επόμενη
-		// δήλωση τα 6 μπαστούνια, αλλιώς θα υπολογίσω την
-		// επόμενη δήλωση αμέσως παρακάτω.
-		if (data == 'DTG') {
-			pexnidi.curdil = 'DS6';
-			return;
-		}
-
-		// Είχα κανονική δήλωση και θα υπολογίσω την επόμενη
-		// που πρέπει να προταθεί. Παίζει ρόλο το πρώτο γράμμα
-		// που είναι "D" για κανονικές δηλώσεις, ή "E" για
-		// δηλώσεις "έχω".
-		var de = data.substr(0, 1);
-		var xroma = data.substr(1, 1);
-		var bazes = data.substr(2, 1);
-
-		// Αν έχει κλείσει γύρος, τότε αρχίζουν να παίζουν
-		// δηλώσεις "έχω".
-		if ((pexnidi.dilosiCount >= 3) && (de == 'D')) {
-			pexnidi.curdil = 'E' + xroma + bazes;
-		}
-		else {
-			bazes = Pexnidi.bazesDecode(bazes);
-			switch (xroma) {
-			case 'S':	xroma = 'C'; break;
-			case 'C':	xroma = 'D'; break;
-			case 'D':	xroma = 'H'; break;
-			case 'H':	xroma = 'N'; break;
-			case 'N':	xroma = 'S'; bazes++; break;
-			}
-			pexnidi.curdil = 'D' + xroma + Pexnidi.bazesEncode(bazes);
-		}
-	};
-
-	this.processKinisiTzogos = function(thesi, data) {
-		pexnidi.tzogadoros = thesi;
-		fila = pexnidi.fila[thesi];
-		fila.push(data.substr(0, 2));
-		fila.push(data.substr(2, 2));
-
-		pexnidi.fila[thesi] = Pexnidi.spaseFila(Pexnidi.deseFila(fila));
-		pexnidi.fasi = 'ΤΖΟΓΟΣ';
-		pexnidi.epomenos = thesi;
-	};
-
-	this.processKinisiAgora = function(thesi, data) {
-		pexnidi.tzogadoros = thesi;
-		var x = data.split(':');
-		if ((x.length != 2) || (!x[0].match(/^[YN][SCDHN][6789T]$/)) ||
-			(!x[1].match(/^([SCDHBR][6789TJQKAV]){10}$/))) {
-			fatalError(data + ': λάθος δεδομένα κίνησης αγοράς');
-		}
-
-		pexnidi.agora = x[0];
-		pexnidi.asoi = (pexnidi.agora).match(/^Y/);
-		pexnidi.xromaAgoras = (pexnidi.agora).substr(1, 1);
-		var bazes = (pexnidi.agora).substr(2, 1);
-		pexnidi.bazesAgoras = bazes == 'T' ? 10 : parseInt(bazes);
-
-		pexnidi.fila[thesi] = Pexnidi.spaseFila(x[1]);
-		pexnidi.fasi = 'ΣΥΜΜΕΤΟΧΗ';
-		pexnidi.epomenos = thesi + 1;
-		if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
-
-		Pexnidi.resetBaza();
-	};
-
-	this.processKinisiSimetoxi = function(thesi, data) {
-		var errmsg = 'Pexnidi::processKinisiSimetoxi: ';
-
-		switch (pexnidi.tzogadoros) {
-		case 1: var ena = 2; var dio = 3; break;
-		case 2: ena = 3; dio = 1; break;
-		case 3: ena = 1; dio = 2; break;
-		default: fatalError(errmsg + 'δεν βρέθηκε τζογαδόρος'); break;
-		}
-
-		switch (pexnidi.simetoxi[thesi] = data) {
-		case 'ΠΑΙΖΩ':
-			if (thesi == ena) {
-				pexnidi.epomenos = dio;
-			}
-			else if (pexnidi.simetoxi[ena] != 'ΠΑΣΟ') {
-				pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
-			}
-			else {
-				pexnidi.epomenos = ena;
-			}
-			break;
-		case 'ΜΟΝΟΣ':
-			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
-			break;
-		case 'ΠΑΣΟ':
-			if (thesi == dio) {
-				if (pexnidi.simetoxi[ena] == 'ΠΑΙΖΩ') {
-					pexnidi.epomenos = ena;
-				}
-				else if (pexnidi.simetoxi[ena] == 'ΠΑΣΟ') {
-					pexnidi.fasi = 'ΠΑΣΟ ΠΑΣΟ';
-				}
-			}
-			else if (pexnidi.simetoxi[dio] == '') {
-				pexnidi.epomenos = dio;
-			}
-			else {
-				pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
-			}
-			break;
-		case 'ΜΑΖΙ':
-			for (var i = 1; i <= 3; i++) {
-				if (pexnidi.simetoxi[i] == 'ΠΑΣΟ') {
-					pexnidi.simetoxi[i] = 'ΒΟΗΘΑΩ';
-				}
-			}
-			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
-			break;
-		default:
-			fatalError('Pexnidi::processKinisiSimetoxi: ' +
-				data + ': invalid data');
-			break;
-		}
-	};
-
-	this.processKinisiFilo = function(thesi, data) {
-		pexnidi.bazaFilo.push(data);
-		pexnidi.bazaPektis.push(thesi);
-
-		var fila = Pexnidi.deseFila(pexnidi.fila[thesi]);
-		fila = fila.replace(data, '');
-		pexnidi.fila[thesi] = Pexnidi.spaseFila(fila);
-	};
-
-	this.processKinisiBaza = function(thesi) {
-		pexnidi.bazaCount++;
-		pexnidi.fasi = 'ΜΠΑΖΑ';
-	};
-
-	this.bazesDecode = function(s) {
-		return s == 'T' ? 10 : parseInt(s);
-	};
-
-	this.bazesEncode = function(b) {
-		return b == 10 ? 'T' : b;
-	};
-
-	this.setEpomenosDilosi = function(thesi) {
-		epomenos = thesi;
-		for (var i = 0; i < 2; i++) {
-			epomenos++;
-			if (epomenos > 3) { epomenos = 1; }
-			if ((!paso[epomenos]) &&
-				(pexnidi.dilosi[epomenos] != 'DTG')) {
-				pexnidi.epomenos = epomenos;
-				return;
-			}
-		}
-		pexnidi.epomenos = 0;
 	};
 
 	this.dianomiMap = function() {
@@ -470,11 +249,111 @@ var Pexnidi = new function() {
 		return s;
 	}
 
-	this.xromaBazesHTML = function(dilosi, bc, xc, spot) {
-		switch (pexnidi.fasi) {
-		case 'ΠΑΙΧΝΙΔΙ':
-			spot = false;
+	this.addKinisi = function(idos, data, thesi) {
+		if (pexnidi.akirosi) {
+			playSound('beep');
+			mainFyi('Ακύρωση κίνησης σε εξέλιξη');
+			return;
 		}
+
+		if (pexnidi.anamoniKinisis) {
+			playSound('beep');
+			mainFyi('Αναμένεται κίνηση από τον server');
+			return;
+		}
+
+		pexnidi.anamoniKinisis = -1;
+		var req = new Request('pexnidi/addKinisi', false);
+
+		if (isSet(thesi)) {
+			if (thesi != 0) { thesi = partida.map[thesi]; }
+		}
+		else {
+			thesi = partida.map[1];
+		}
+
+		var params = 'thesi=' + uri(thesi);
+		params += '&idos=' + uri(idos);
+		if (notSet(data)) { data = ''; }
+		params += '&data=' + uri(data);
+		req.send(params);
+		var rsp = req.getResponse();
+		if (rsp.match(/^OK@/)) {
+			pexnidi.anamoniKinisis = parseInt(rsp.replace(/^OK/));
+		}
+		else {
+			mainFyi(rsp);
+			playSound('beep');
+			pexnidi.anamoniKinisis = 0;
+		}
+	};
+
+	this.processFasi = function(batch) {
+		var errmsg = 'Pexnidi::processFasi: ';
+
+		if (notSet(batch)) { batch = false; }
+		switch (pexnidi.fasi) {
+		case 'ΣΤΗΣΙΜΟ':
+			ProcessFasi.stisimo();
+			break;
+		case 'ΔΗΛΩΣΗ':
+			ProcessFasi.dilosi();
+			break;
+		case 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ':
+			ProcessFasi.pasoPasoPaso();
+			break;
+		case 'ΤΖΟΓΟΣ':
+			ProcessFasi.tzogos();
+			break;
+		case 'ΑΛΛΑΓΗ':
+			ProcessFasi.alagi();
+			break;
+		case 'ΣΥΜΜΕΤΟΧΗ':
+			ProcessFasi.simetoxi();
+			break;
+		case 'ΠΑΙΧΝΙΔΙ':
+			ProcessFasi.pexnidi();
+			break;
+		case 'ΜΠΑΖΑ':
+			ProcessFasi.baza();
+			break;
+		case 'ΠΛΗΡΩΜΗ':
+			ProcessFasi.pliromi();
+			break;
+		case 'ΠΑΣΟ ΠΑΣΟ':
+			ProcessFasi.pliromi();
+			break;
+		case 'CLAIM':
+			ProcessFasi.claim();
+			break;
+		default:
+			mainFyi(errmsg + pexnidi.fasi + ': άγνωστη φάση');
+			break;
+		}
+	};
+
+	this.dianomi = function() {
+		mainFyi('Γίνεται διανομή. Παρακαλώ περιμένετε…');
+		var req = new Request('trapezi/apodoxi', false);
+
+		params = 'dianomi=yes';
+		params += '&thesi=' + partida.map[1];
+		req.send(params);
+		var rsp = req.getResponse();
+		mainFyi(rsp);
+		if (rsp) {
+			playSound('beep');
+		}
+	};
+
+	this.setEpomenos = function(thesi) {
+		if (notSet(thesi)) { thesi = pexnidi.epomenos; }
+		pexnidi.epomenos = thesi + 1;
+		if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
+		return pexnidi.epomenos;
+	}
+
+	this.xromaBazesHTML = function(dilosi, bc, xc, spot) {
 		var html = '';
 		if (notSet(bc)) { bc = 'protasiBazes'; }
 		if (notSet(xc)) { xc = 'protasiXroma'; }
@@ -487,7 +366,7 @@ var Pexnidi = new function() {
 		else {
 			var de = dilosi.substr(0, 1);
 			var xroma = dilosi.substr(1, 1);
-			var bazes = Pexnidi.bazesDecode(dilosi.substr(2, 1));
+			var bazes = Tools.bazesDecode(dilosi.substr(2, 1));
 		}
 
 		html += '<div class="' + bc + '">';
@@ -519,281 +398,31 @@ var Pexnidi = new function() {
 	};
 
 	this.epilogiDilosis = function(div, dilosi) {
-		var cls = div.getAttribute('class');
-		cls += ' epilogiAnamoni';
-		div.setAttribute('class', cls);
+		Sizitisi.sxolioFocus();
+		Pexnidi.anamoniEpilogis(div);
 		if (notSet(dilosi)) { dilosi = pexnidi.curdil; }
 		Pexnidi.addKinisi('ΔΗΛΩΣΗ', dilosi);
 	};
 
 	this.dilosiPaso = function(div) {
-		var cls = div.getAttribute('class');
-		cls += ' epilogiAnamoni';
-		div.setAttribute('class', cls);
+		Sizitisi.sxolioFocus();
+		Pexnidi.anamoniEpilogis(div);
 		Pexnidi.addKinisi('ΔΗΛΩΣΗ', 'P' + pexnidi.curdil.substr(1, 2));
 	};
 
-	this.addKinisi = function(idos, data) {
-		if (anamoniKinisis) {
-			playSound('beep');
-			mainFyi('Αναμένεται κίνηση από τον server');
-			return;
-		}
-
-		anamoniKinisis = -1;
-		var req = new Request('pexnidi/addKinisi');
-		req.xhr.onreadystatechange = function() {
-			Pexnidi.addKinisiCheck(req);
-		};
-
-		var params = 'thesi=' + uri(partida.map[1]);
-		params += '&idos=' + uri(idos);
-		params += '&data=' + uri(data);
-		req.send(params);
-	};
-
-	this.addKinisiCheck = function(req) {
-		if (req.xhr.readyState != 4) { return; }
-		var rsp = req.getResponse();
-		if (rsp.match(/^OK@/)) {
-			anamoniKinisis = parseInt(rsp.replace(/^OK/));
-		}
-		else {
-			mainFyi(rsp);
-			playSound('beep');
-			anamoniKinisis = 0;
-		}
-	};
-
 	this.isAsoi = function() {
+		if (notAsoiKolos()) { return false; }
 		if (pexnidi.tzogadoros != 1) { return false; }
 		var fila = pexnidi.fila[1];
 		var count = 0;
 		for (var i = 0; i < fila.length; i++) {
 			if (fila[i].match(/^.A/)) { count++; }
 		}
-		return (count > 3);
-	};
-
-	this.piosPektis = function(thesi, ena, dio) {
-		if (notSet(ena)) { ena = 'Ο παίκτης που παρακολουθείτε '; }
-		else { ena += ' '; }
-		if (notSet(dio)) { dio = ''; }
-		else { dio + ' '; }
-		switch (thesi) {
-		case 1:		return ena;
-		case 2:		return 'Ο παίκτης στα δεξιά σας ' + dio;
-		case 3:		return 'Ο παίκτης στα αριστερά σας ' + dio;
-		}
-
-		fatalError('Αδυναμία προσανατολισμού (ακαθόριστη θέση)');
-	};
-
-	var aedpTime = 4000;
-
-	this.processFasi = function(batch) {
-		var errmsg = 'Pexnidi::processFasi: ';
-
-		if (notSet(batch)) { batch = false; }
-		switch (pexnidi.fasi) {
-		case 'ΔΗΛΩΣΗ':
-			Pexnidi.processFasiDilosi(batch);
-			break;
-		case 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ':
-			Pexnidi.processFasiPasoPasoPaso(batch);
-			break;
-		case 'ΠΑΣΟ ΠΑΣΟ':
-			pexnidi.epomenos = 0;
-			if (notTheatis() && (pexnidi.dealer == 1)) {
-				setTimeout(function() {
-					Pliromi.pliromiBazon();
-					Pexnidi.dianomi();
-				}, aedpTime);
-			}
-			if (aedpTime >= 1200) { aedpTime -= 700 }
-			break;
-		case 'ΠΑΙΧΝΙΔΙ':
-			Pexnidi.setEpomenosPexnidi();
-			var telkin = kinisi[kinisi.length - 1];
-			switch (telkin.i) {
-			case 'ΣΥΜΜΕΤΟΧΗ':
-				if (pexnidi.epomenos == 1) {
-					pexnidi.epomenos = 0;
-					setTimeout(function() {
-						Pexnidi.setEpomenosPexnidi();
-						Partida.updateHTML();
-						Prefadoros.display();
-					}, 1500);
-				}
-				break;
-			}
-			break;
-		case 'ΜΠΑΖΑ':
-			if (batch) {
-				pexnidi.bazaFilo = [];
-				pexnidi.bazaPektis = [];
-				if (pexnidi.bazaCount > 9) {
-					pexnidi.fasi = 'ΔΙΑΝΟΜΗ';
-				}
-				else {
-					pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
-				}
-				return;
-			}
-
-			pexnidi.epomenos = 0;
-			if (notTheatis() && (pexnidi.bazaCount > 9) && (pexnidi.dealer == 1)) {
-				setTimeout(function() {
-					Pliromi.pliromiBazon();
-					Pexnidi.dianomi();
-				}, aedpTime);
-				if (aedpTime >= 1200) { aedpTime -= 700 }
-				return;
-			}
-
-			setTimeout(function() {
-				var telkin = kinisi[kinisi.length - 1];
-				pexnidi.epomenos = telkin.thesi;
-				pexnidi.bazaFilo = [];
-				pexnidi.bazaPektis = [];
-				pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
-				Partida.updateHTML();
-				Prefadoros.display();
-			}, 1200);
-			break;
-		case 'ΣΤΗΣΙΜΟ':
-		case 'ΣΥΜΜΕΤΟΧΗ':
-		case 'ΤΖΟΓΟΣ':
-			break;
-		default:
-			fatalError(errmsg + pexnidi.fasi + ': άγνωστη φάση');
-			break;
-		}
-	};
-
-	this.processFasiDilosi = function(batch) {
-		if (pexnidi.dilosiCount <= 0) {
-			pexnidi.curdil = 'DTG';
-			pexnidi.epomenos = pexnidi.dealer + 1;
-			if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
-			return;
-		}
-
-		for (epomenos = pexnidi.epomenos + 1;; epomenos++) {
-			if (epomenos > 3) { epomenos = 1; }
-			if (pexnidi.paso[epomenos]) { continue; }
-			if (epomenos != pexnidi.epomenos) {
-				pexnidi.epomenos = epomenos;
-				break;
-			}
-			pexnidi.tzogadoros = pexnidi.epomenos;
-			pexnidi.fasi = 'ΑΓΟΡΑ';
-			return;
-		}
-
-		if ((pexnidi.dilosiCount == 3) && (pexnidi.curdil == "DD6")) {
-			pexnidi.curdil = "EC6";
-		}
-	};
-
-	var pppDelay = 3000;
-
-	this.processFasiPasoPasoPaso = function(batch) {
-		if (isPPP()) {
-			if (batch) {
-				Pexnidi.setDataPasoPasoPaso();
-				return;
-			}
-
-			pexnidi.epomenos = 0;
-			setTimeout(function() {
-				Pexnidi.setDataPasoPasoPaso();
-				Partida.updateHTML();
-				Prefadoros.display();
-			}, pppDelay);
-			Pexnidi.miosiPppDelay();
-			return;
-		}
-
-		pexnidi.epomenos = 0;
-		pexnidi.dealer++;
-		if (pexnidi.dealer > 3) { pexnidi.dealer = 1; }
-		if ((!batch) && notTheatis() && (pexnidi.dealer == 1)) {
-			setTimeout(Pexnidi.dianomi, pppDelay);
-			Pexnidi.miosiPppDelay();
-		}
-	};
-
-	this.miosiPppDelay = function() {
-		pppDelay -= 700;
-		if (pppDelay < 800) { pppDelay = 800; }
-	};
-
-	this.setDataPasoPasoPaso = function() {
-		Pexnidi.resetBaza();
-		pexnidi.agora = 'NNN';
-		pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
-		for (var i = 1; i <= 3; i++) { pexnidi.simetoxi[i] = 'ΠΑΙΖΩ'; }
-		pexnidi.epomenos = pexnidi.dealer + 1;
-		if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
-	};
-
-	this.setEpomenosPexnidi = function() {
-		// Αν παίζεται το πάσο πάσο πάσο, τότε δεν υπάρχει τζογαδόρος
-		// και επόμενος είναι ο επόμενος παίκτης.
-		if (pexnidi.tzogadoros == 0) {
-			pexnidi.epomenos++;
-			if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
-			return;
-		}
-
-		var telkin = kinisi[kinisi.length - 1];
-		if (telkin.i == 'ΜΠΑΖΑ') {
-			pexnidi.epomenos = telkin.thesi;
-			return;
-		}
-
-		if (telkin.i == 'ΣΥΜΜΕΤΟΧΗ') {
-			pexnidi.epomenos = pexnidi.dealer + 1;
-		}
-		else if (telkin.i == 'ΦΥΛΛΟ') {
-			pexnidi.epomenos = telkin.thesi + 1;
-		}
-		for (var i = 0; i < 3; i++) {
-			if (pexnidi.epomenos > 3) { pexnidi.epomenos = 1; }
-			if ((pexnidi.epomenos == pexnidi.tzogadoros) ||
-				(pexnidi.simetoxi[pexnidi.epomenos] != 'ΠΑΣΟ')) {
-				return;	
-			}
-			pexnidi.epomenos++;
-		}
-
-		fatalError('αδυναμία καθορισμού επόμενου παίκτη ' +
-			'κατά τη φάση εκκίνησης του παιχνιδιού');
-	};
-
-	this.dianomi = function() {
-		mainFyi('Γίνεται διανομή. Παρακαλώ περιμένετε…');
-		var req = new Request('trapezi/apodoxi');
-		req.xhr.onreadystatechange = function() {
-			Pexnidi.dianomiCheck(req);
-		};
-
-		params = 'dianomi=yes';
-		params += '&thesi=' + partida.map[1];
-		req.send(params);
-	};
-
-	this.dianomiCheck = function(req) {
-		if (req.xhr.readyState != 4) { return; }
-		var rsp = req.getResponse();
-		mainFyi(rsp);
-		if (rsp) {
-			playSound('beep');
-		}
+		return (count >= 4);
 	};
 
 	this.epilogiAgoras = function(div, dxb) {
+		Sizitisi.sxolioFocus();
 		var de = dxb.substr(0, 1);
 		var xroma = dxb.substr(1, 1);
 		var bazes = dxb.substr(2, 1);
@@ -808,14 +437,500 @@ var Pexnidi = new function() {
 		}
 
 		if (confirm('Να γίνει αγορά ' + Tools.decodeAgora(agora) + ';')) {
-			var cls = div.getAttribute('class');
-			cls += ' epilogiAnamoni';
-			div.setAttribute('class', cls);
+			Pexnidi.anamoniEpilogis(div);
 			Pexnidi.addKinisi('ΑΓΟΡΑ', agora + ':' + neaFila);
 		}
 	};
 
 	this.epilogiSimetoxi = function(div, data) {
+		Sizitisi.sxolioFocus();
+		Pexnidi.anamoniEpilogis(div);
 		Pexnidi.addKinisi('ΣΥΜΜΕΤΟΧΗ', data);
 	};
-}
+
+	this.anamoniEpilogis = function(div) {
+		var cls = div.getAttribute('class');
+		cls += ' epilogiAnamoni';
+		div.setAttribute('class', cls);
+	};
+
+	this.claim = function(div, apodoxi) {
+		Sizitisi.sxolioFocus();
+		if (pexnidi.akirosi != 0) { return; }
+		if (isTheatis()) { return; }
+
+		var cls = div.getAttribute('class');
+		cls += ' epilogiAnamoni';
+		div.setAttribute('class', cls);
+		if (apodoxi) {
+			Pexnidi.addKinisi('CLAIM', 'YES');
+			return;
+		}
+
+		var req = new Request('pexnidi/akirosiClaim', false);
+		req.send();
+		var rsp = req.getResponse();
+		if (rsp) {
+			mainFyi(rsp);
+			playSound('beep');
+		}
+	};
+};
+
+var ProcessFasi = new function() {
+	var toBeDone = null;
+
+	this.stisimo = function() {
+		pexnidi.epomenos = 0;
+	};
+
+	this.dilosi = function() {
+	};
+
+	this.pasoPasoPaso = function() {
+		if (isSet(toBeDone)) { return; }
+		if (isTheatis()) { return; }
+		if (pexnidi.dealer != 3) { return; }
+		if (pexnidi.akirosi != 0) { return; }
+		toBeDone = setTimeout(function() {
+			if (isPasoPasoPaso()) { Pexnidi.addKinisi('ΑΓΟΡΑ', 'NNN', 0); }
+			else { Pexnidi.dianomi(); }
+			toBeDone = null;
+		}, Pexnidi.delay['pasoPasoPaso']);
+		Pexnidi.miosiDelay('pasoPasoPaso');
+	};
+
+	this.tzogos = function() {
+		if (isSet(toBeDone)) { return; }
+		if (isTheatis()) { return; }
+		if (notTzogadoros()) { return; }
+		if (pexnidi.akirosi != 0) { return; }
+		toBeDone = setTimeout(function() {
+			Pexnidi.addKinisi('ΤΖΟΓΟΣ');
+			toBeDone = null;
+		}, Pexnidi.delay['tzogos']);
+		Pexnidi.miosiDelay('tzogos');
+	};
+
+	this.alagi = function() {
+	};
+
+	this.simetoxi = function() {
+	};
+
+	this.pexnidi = function() {
+	};
+
+	this.baza = function() {
+		if (isSet(toBeDone)) { return; }
+		if (isTheatis()) { return; }
+		if (pexnidi.epomenos != 1) { return; }
+		if (pexnidi.akirosi != 0) { return; }
+		toBeDone = setTimeout(function() {
+			Pexnidi.addKinisi('ΜΠΑΖΑ');
+			toBeDone = null;
+		}, Pexnidi.delay['baza']);
+	};
+
+	this.pliromi = function() {
+		if (isSet(toBeDone)) { return; }
+		if (isTheatis()) { return; }
+		if (pexnidi.dealer != 3) { return; }
+		toBeDone = setTimeout(function() {
+			Pexnidi.dianomi();
+			toBeDone = null;
+		}, Pexnidi.delay['pliromi']);
+		Pexnidi.miosiDelay('pliromi');
+	};
+
+	this.claim = function() {
+	};
+};
+
+var ProcessKinisi = new function() {
+	this.dianomi = function(thesi, data) {
+		if (thesi != pexnidi.dealer) {
+			alert('ProcessKinisi::dianomi: λάθος θέση dealer');
+			return;
+		}
+
+		var x = data.split(':');
+		for (var i = 1; i <= 3; i++) {
+			pexnidi.fila[i] = Pexnidi.spaseFila(x[partida.map[i]]);
+		}
+		pexnidi.fasi = 'ΔΗΛΩΣΗ';
+		Pexnidi.setEpomenos(thesi);
+	};
+
+	this.dilosi = function(thesi, data) {
+		if (thesi != pexnidi.epomenos) {
+			alert('ProcessKinisi::dilosi: λάθος θέση δηλούντος');
+			return;
+		}
+
+		pexnidi.dilosiCount++;
+		if (data.match(/^P/)) {
+			ProcessKinisi.dilosiPaso(thesi);
+			return;
+		}
+
+		pexnidi.dilosi[thesi] = data;
+
+		if (data == 'DTG') {
+			if (pexnidi.pasoCount == 2) {
+				pexnidi.tzogadoros = thesi;
+				pexnidi.fasi = 'ΤΖΟΓΟΣ';
+				pexnidi.epomenos = 0;
+				return;
+			}
+			pexnidi.curdil = 'DS6';
+			ProcessKinisi.setEpomenosDilosi(thesi);
+			return;
+		}
+
+		for (var i = 1; i <= 3; i++) {
+			if (pexnidi.dilosi[i] == 'DTG') {
+				pexnidi.paso[i] = true;
+				pexnidi.pasoCount++;
+			}
+		}
+
+		if (pexnidi.pasoCount == 2) {
+			pexnidi.tzogadoros = thesi;
+			pexnidi.fasi = 'ΤΖΟΓΟΣ';
+			pexnidi.epomenos = 0;
+			return;
+		}
+
+		// Είχα κανονική δήλωση και θα υπολογίσω την επόμενη
+		// που πρέπει να προταθεί. Παίζει ρόλο το πρώτο γράμμα
+		// που είναι "D" για κανονικές δηλώσεις, ή "E" για
+		// δηλώσεις "έχω".
+		var de = data.substr(0, 1);
+		var xroma = data.substr(1, 1);
+		var bazes = data.substr(2, 1);
+
+		// Αν έχει κλείσει γύρος, τότε αρχίζουν να παίζουν
+		// δηλώσεις "έχω".
+		if ((pexnidi.dilosiCount >= 3) && (de == 'D')) {
+			pexnidi.curdil = 'E' + xroma + bazes;
+			ProcessKinisi.setEpomenosDilosi(thesi);
+		}
+		else {
+			bazes = Tools.bazesDecode(bazes);
+			switch (xroma) {
+			case 'S':	xroma = 'C'; break;
+			case 'C':	xroma = 'D'; break;
+			case 'D':	xroma = 'H'; break;
+			case 'H':	xroma = 'N'; break;
+			case 'N':	xroma = 'S'; bazes++; break;
+			}
+			if (bazes <= 10) {
+				pexnidi.curdil = 'D' + xroma + Tools.bazesEncode(bazes);
+				pexnidi.fasi = 'ΔΗΛΩΣΗ';
+				ProcessKinisi.setEpomenosDilosi(thesi);
+				return;
+			}
+			pexnidi.tzogadoros = thesi;
+			thesi++;
+			if (thesi > 3) { thesi = 1; }
+			pexnidi.paso[thesi] = true;
+			thesi++
+			if (thesi > 3) { thesi = 1; }
+			pexnidi.paso[thesi] = true;
+			pexnidi.fasi = 'ΤΖΟΓΟΣ';
+			pexnidi.epomenos = 0;
+		}
+	};
+
+	this.setEpomenosDilosi = function(thesi) {
+		epomenos = thesi;
+		for (var i = 0; i < 2; i++) {
+			epomenos++;
+			if (epomenos > 3) { epomenos = 1; }
+			if (pexnidi.paso[epomenos]) { continue; }
+			if (pexnidi.dilosi[epomenos] == 'DTG') { continue; }
+			pexnidi.epomenos = epomenos;
+			return;
+		}
+		pexnidi.epomenos = 0;
+	};
+
+	this.dilosiPaso = function(thesi) {
+		pexnidi.paso[thesi] = true;
+		pexnidi.pasoCount++;
+		if (pexnidi.pasoCount >= 3) {
+			pexnidi.fasi = 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ';
+			pexnidi.epomenos = 0;
+			return;
+		}
+
+		Pexnidi.setEpomenos(thesi);
+		var methepomenos = pexnidi.epomenos + 1;
+		if (methepomenos > 3) { methepomenos = 1; }
+
+		if (pexnidi.paso[pexnidi.epomenos]) {
+			if (pexnidi.dilosi[methepomenos] == '') {
+				pexnidi.fasi = 'ΔΗΛΩΣΗ';
+				pexnidi.epomenos = methepomenos;
+				return;
+			}
+			pexnidi.fasi = 'ΤΖΟΓΟΣ';
+			pexnidi.tzogadoros = methepomenos;
+			pexnidi.epomenos = 0;
+			return;
+		}
+
+		if (pexnidi.paso[methepomenos]) {
+			if (pexnidi.dilosi[pexnidi.epomenos] == '') {
+				pexnidi.fasi = 'ΔΗΛΩΣΗ';
+				return;
+			}
+			pexnidi.fasi = 'ΤΖΟΓΟΣ';
+			pexnidi.tzogadoros = pexnidi.epomenos;
+			pexnidi.epomenos = 0;
+			return;
+		}
+
+		pexnidi.fasi = 'ΔΗΛΩΣΗ';
+	};
+
+	this.tzogos = function(thesi, data) {
+		var errmsg = 'ProcessKinisi::tzogos: ';
+		if (thesi != pexnidi.tzogadoros) {
+			alert(errmsg + 'λάθος θέση τζογαδόρου');
+			return;
+		}
+
+		if (pexnidi.epomenos != 0) {
+			alert(errmsg + 'λάθος θέση επομένου');
+			return;
+		}
+
+		var fila = Pexnidi.deseFila(pexnidi.fila[thesi]) + data;
+		pexnidi.fila[thesi] = Pexnidi.spaseFila(fila);
+		pexnidi.fasi = 'ΑΛΛΑΓΗ';
+		pexnidi.epomenos = thesi;
+	};
+
+	this.agora = function(thesi, data) {
+		var errmsg = 'ProcessKinisi::agora: ';
+		if (thesi != pexnidi.tzogadoros) {
+			alert(errmsg + 'λάθος θέση τζογαδόρου (θέση: ' +
+				thesi + ', επόμενος: ' + pexnidi.tzogadoros + ')');
+			return;
+		}
+
+		if (thesi != pexnidi.epomenos) {
+			alert(errmsg + 'λάθος θέση επομένου (θέση: ' +
+				thesi + ', επόμενος: ' + pexnidi.epomenos + ')');
+			return;
+		}
+
+		var x = data.split(':');
+		pexnidi.agora = x[0];
+		pexnidi.agoraXroma = x[0].substr(1, 1);
+		pexnidi.agoraBazes = parseInt(x[0].substr(2, 1));
+		pexnidi.asoi = (x[0].substr(0, 1) == 'Y');
+		if (pexnidi.tzogadoros != 0) {
+			if (thesi == pexnidi.tzogadoros) {
+				pexnidi.fila[thesi] = Pexnidi.spaseFila(x[1]);
+			}
+			pexnidi.fasi = 'ΣΥΜΜΕΤΟΧΗ';
+			Pexnidi.setEpomenos(thesi);
+		}
+		else {
+			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
+			Pexnidi.setEpomenos(pexnidi.dealer);
+		}
+	};
+
+	this.simetoxi = function(thesi, data) {
+		var errmsg = 'ProcessKinisi::simetoxi: ';
+
+		if (thesi != pexnidi.epomenos) {
+			alert(errmsg + 'λάθος θέση τζογαδόρου');
+			return;
+		}
+
+		switch (pexnidi.tzogadoros) {
+		case 1: var ena = 2; var dio = 3; break;
+		case 2: ena = 3; dio = 1; break;
+		case 3: ena = 1; dio = 2; break;
+		default:
+			alert(errmsg + 'δεν βρέθηκε τζογαδόρος');
+			return;
+		}
+
+		switch (pexnidi.simetoxi[thesi] = data) {
+		case 'ΠΑΙΖΩ':
+			if (thesi == ena) {
+				pexnidi.fasi = 'ΣΥΜΜΕΤΟΧΗ';
+				pexnidi.epomenos = dio;
+			}
+			else if (pexnidi.simetoxi[ena] != 'ΠΑΣΟ') {
+				pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
+				Pexnidi.setEpomenos(pexnidi.dealer);
+			}
+			else {
+				pexnidi.fasi = 'ΣΥΜΜΕΤΟΧΗ';
+				pexnidi.epomenos = ena;
+			}
+			break;
+		case 'ΜΟΝΟΣ':
+			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
+			Pexnidi.setEpomenos(pexnidi.dealer);
+			if (pexnidi.simetoxi[pexnidi.epomenos] == 'ΠΑΣΟ') {
+				Pexnidi.setEpomenos(pexnidi.epomenos);
+			}
+			break;
+		case 'ΠΑΣΟ':
+			if (thesi == dio) {
+				if (pexnidi.simetoxi[ena] == 'ΠΑΙΖΩ') {
+					pexnidi.fasi = 'ΣΥΜΜΕΤΟΧΗ';
+					pexnidi.epomenos = ena;
+				}
+				else if (pexnidi.simetoxi[ena] == 'ΠΑΣΟ') {
+					pexnidi.fasi = 'ΠΑΣΟ ΠΑΣΟ';
+					pexnidi.epomenos = 0;
+				}
+			}
+			else if (pexnidi.simetoxi[dio] == '') {
+				pexnidi.fasi = 'ΣΥΜΜΕΤΟΧΗ';
+				pexnidi.epomenos = dio;
+			}
+			else {
+				pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
+				Pexnidi.setEpomenos(pexnidi.dealer);
+				if (pexnidi.simetoxi[pexnidi.epomenos] == 'ΠΑΣΟ') {
+					Pexnidi.setEpomenos(pexnidi.epomenos);
+				}
+			}
+			break;
+		case 'ΜΑΖΙ':
+			for (var i = 1; i <= 3; i++) {
+				if (pexnidi.simetoxi[i] == 'ΠΑΣΟ') {
+					pexnidi.simetoxi[i] = 'ΒΟΗΘΑΩ';
+				}
+			}
+			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
+			Pexnidi.setEpomenos(pexnidi.dealer);
+			break;
+		default:
+			mainFyi(errmsg + data + ': invalid data');
+			break;
+		}
+	};
+
+	this.filo = function(thesi, data) {
+		var errmsg = 'ProcessKinisi::filo: ';
+
+		if (thesi != pexnidi.epomenos) {
+			alert(errmsg + 'λάθος θέση επομένου');
+			return;
+		}
+
+		pexnidi.bazaFilo.push(data);
+		pexnidi.bazaPektis.push(thesi);
+
+		var fila = Pexnidi.deseFila(pexnidi.fila[thesi]);
+		fila = fila.replace(data, '');
+		pexnidi.fila[thesi] = Pexnidi.spaseFila(fila);
+		Pexnidi.setEpomenos(thesi);
+		if (pexnidi.simetoxi[pexnidi.epomenos] == 'ΠΑΣΟ') {
+			Pexnidi.setEpomenos(pexnidi.epomenos);
+		}
+		if (pexnidi.epomenos != pexnidi.bazaPektis[0]) {
+			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
+			return;
+		}
+
+		var atou = pexnidi.agoraXroma;
+		var xroma = pexnidi.bazaFilo[0].substr(0, 1);
+
+		// Αν η μπάζα παίζεται στο χρώμα των ατού, τότε
+		// είναι σαν παίζουμε μπάζα χωρίς ατού.
+		if (xroma == atou) { atou = 'N'; }
+
+		var axia = globals.rankFila[pexnidi.bazaFilo[0].substr(1, 1)];
+		var pios = 0;
+		var tsaka = 0;	// αξία μεγαλύτερου φύλλου τσάκας
+
+		for (var i = 1; i < pexnidi.bazaFilo.length; i++) {
+			var x = pexnidi.bazaFilo[i].substr(0, 1);
+			var a = globals.rankFila[pexnidi.bazaFilo[i].substr(1, 1)];
+
+			// Ελέγχουμε πρώτα την περίπτωση που είχε γίνει τσάκα.
+			if (tsaka > 0) {
+				if (x != atou) { continue; }
+				if (a < tsaka) { continue; }
+				tsaka = a;
+				pios = i;
+				continue;
+			}
+
+			// Δεν είχε γίνει τσάκα και ελέγχουμε αν ακολουθούμε
+			// στο χρώμα της μπάζας.
+			if (x == xroma) {
+				if (a < axia) { continue; }
+				axia = a;
+				pios = i;
+				continue;
+			}
+
+			// Δεν ακολουθούμε και το χρώμα που βάζουμε είναι άσχετο.
+			if (x != atou) { continue; }
+
+			// Έχουμε την πρώτη τσάκα.
+			tsaka = a;
+			pios = i;
+		}
+		pexnidi.fasi = 'ΜΠΑΖΑ';
+		pexnidi.epomenos = pexnidi.bazaPektis[pios];
+	};
+
+	this.baza = function(thesi) {
+		var errmsg = 'ProcessKinisi::baza: ';
+
+		if (thesi != pexnidi.epomenos) {
+			alert(errmsg + 'λάθος θέση επομένου');
+			return;
+		}
+
+		Pexnidi.resetBaza();
+		pexnidi.bazaCount++;
+		pexnidi.baza[thesi]++;
+		pexnidi.epomenos = thesi;
+		if (pexnidi.bazaCount < 10) {
+			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
+		}
+		else {
+			pexnidi.fasi = 'ΠΛΗΡΩΜΗ';
+		}
+	};
+
+	this.akirosi = function(thesi) {
+		pexnidi.akirosi = thesi in partida.pektis ? thesi : 0;
+	};
+
+	this.claim = function(thesi, data) {
+		Pexnidi.setEpomenos(thesi);
+		if (pexnidi.simetoxi[pexnidi.epomenos] == 'ΠΑΣΟ') { Pexnidi.setEpomenos(); }
+		if (data == 'YES') {
+			pexnidi.claim[thesi] = true;
+			if (pexnidi.epomenos == pexnidi.tzogadoros) {
+				pexnidi.fasi = 'ΠΛΗΡΩΜΗ';
+				var b = 0;
+				for (var i = 1; i <= 3; i++) {
+					if (i != pexnidi.tzogadoros) { b += pexnidi.baza[i]; }
+				}
+				pexnidi.baza[pexnidi.tzogadoros] = 10 - b;
+			}
+			return;
+		}
+
+		pexnidi.claim = [];
+		pexnidi.fila[thesi] = Pexnidi.spaseFila(data);
+		pexnidi.fasi = 'CLAIM';
+	};
+};
