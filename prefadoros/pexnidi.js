@@ -800,7 +800,7 @@ var ProcessKinisi = new function() {
 		var errmsg = 'ProcessKinisi::simetoxi: ';
 
 		if (thesi != pexnidi.epomenos) {
-			alert(errmsg + 'λάθος θέση τζογαδόρου');
+			alert(errmsg + 'λάθος θέση επομένου');
 			return;
 		}
 
