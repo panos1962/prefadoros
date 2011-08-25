@@ -163,8 +163,8 @@ var Gipedo = new function() {
 			if (i == 10) {
 				html += '<td>';
 				html += Tools.epilogiHTML('<span style="color: red;">ΣΟΛΟ</span>',
-					'Pexnidi.epilogiAgoras(this)', 'Σολάρετε αξιοπρεπώς!',
-					'protasiAgora');
+					'Pexnidi.epilogiSolo(this, \'' + dilosi + '\')',
+					'Σολάρετε αξιοπρεπώς!', 'protasiAgora');
 				html += '</td>';
 			}
 			html += '</tr>';
@@ -372,6 +372,21 @@ var Gipedo = new function() {
 				'Διαφωνώ. Μάζεψε τα φύλλα σου!', 'claim claimNo');
 		}
 		html += '</div>';
+		return html;
+	};
+
+	this.soloHTML = function() {
+		var html = '';
+		if (notTheatis() && (pexnidi.tzogadoros == 1)) {
+			if (notTheatis()) { html += Gipedo.anamoniBaresHTML(); }
+			else { html += Gipedo.anamoniHTML(); }
+			html += 'Σολάρατε αξιοπρεπώς.';
+		}
+		else {
+			html += Gipedo.anamoniHTML();
+			html += 'Ο τζογαδόρος σολάρισε με αξιοπρέπεια.';
+		}
+		html += ' Γίνεται πληρωμή. Παρακαλώ περιμένετε…';
 		return html;
 	};
 
