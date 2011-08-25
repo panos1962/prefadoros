@@ -1216,3 +1216,8 @@ font-weight: bold;
 	right: 0.2cm;
 	color: #FF0000;
 }
+
+.axno {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}

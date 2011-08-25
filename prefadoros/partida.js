@@ -752,6 +752,9 @@ var Partida = new function() {
 		case 'CLAIM':
 			html += Gipedo.claimHTML();
 			break;
+		case 'ΣΟΛΟ':
+			html += Gipedo.soloHTML();
+			break;
 		default:
 			html += Gipedo.agnostiFasiHTML();
 			break;

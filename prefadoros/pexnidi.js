@@ -151,6 +151,9 @@ var Pexnidi = new function() {
 			case 'CLAIM':
 				ProcessKinisi.claim(kinisi[i].thesi, kinisi[i].d);
 				break;
+			case 'ΣΟΛΟ':
+				ProcessKinisi.solo(kinisi[i].thesi, kinisi[i].d);
+				break;
 			default:
 				mainFyi(errmsg + kinisi[i].i + ': άγνωστο είδος κίνησης');
 				break;
@@ -340,9 +343,8 @@ var Pexnidi = new function() {
 			ProcessFasi.baza();
 			break;
 		case 'ΠΛΗΡΩΜΗ':
-			ProcessFasi.pliromi();
-			break;
 		case 'ΠΑΣΟ ΠΑΣΟ':
+		case 'ΣΟΛΟ':
 			ProcessFasi.pliromi();
 			break;
 		case 'CLAIM':
@@ -470,6 +472,19 @@ var Pexnidi = new function() {
 		if (confirm('Να γίνει αγορά ' + Tools.decodeAgora(agora) + ';')) {
 			Pexnidi.anamoniEpilogis(div);
 			Pexnidi.addKinisi('ΑΓΟΡΑ', agora + ':' + neaFila);
+		}
+	};
+
+	this.epilogiSolo = function(div, dxb) {
+		Sizitisi.sxolioFocus();
+		if (dxb == 'DTG') { dxb = 'DS6'; }
+		var xroma = dxb.substr(1, 1);
+		var bazes = dxb.substr(2, 1);
+		var agora = 'N' + xroma + bazes;
+		if (confirm('Θέλετε, πράγματι, να τα γράψτε σόλο στα ' +
+			Tools.decodeAgora(agora) + ';')) {
+			Pexnidi.anamoniEpilogis(div);
+			Pexnidi.addKinisi('ΣΟΛΟ', xroma + bazes);
 		}
 	};
 
@@ -968,5 +983,11 @@ var ProcessKinisi = new function() {
 		pexnidi.claim = [];
 		pexnidi.fila[thesi] = Pexnidi.spaseFila(data);
 		pexnidi.fasi = 'CLAIM';
+	};
+
+	this.solo = function(thesi, data) {
+		pexnidi.epomenos = 0;
+		pexnidi.fasi = 'ΣΟΛΟ';
+		pexnidi.fila = [ [], [], [], [] ];
 	};
 };
