@@ -313,10 +313,12 @@ var Pexnidi = new function() {
 		}
 	};
 
-	this.processFasi = function(batch) {
+	this.processFasi = function() {
 		var errmsg = 'Pexnidi::processFasi: ';
 
-		if (notSet(batch)) { batch = false; }
+		if (pexnidi.epomenos == 1) { Xipnitiri.vale(0); }
+		else { Xipnitiri.vgale(); }
+
 		switch (pexnidi.fasi) {
 		case 'ΣΤΗΣΙΜΟ':
 			ProcessFasi.stisimo();
@@ -807,6 +809,8 @@ var ProcessKinisi = new function() {
 				}
 				else if (pexnidi.simetoxi[ena] == 'ΠΑΣΟ') {
 					pexnidi.fasi = 'ΠΑΣΟ ΠΑΣΟ';
+					pexnidi.baza[pexnidi.tzogadoros] = 10;
+					pexnidi.bazaCount = 10;
 					pexnidi.epomenos = 0;
 				}
 			}
@@ -981,5 +985,30 @@ var ProcessKinisi = new function() {
 		pexnidi.fasi = 'ΣΟΛΟ';
 		pexnidi.fila = [ [], [], [], [] ];
 		pexnidi.bazaCount = 10;
+	};
+};
+
+var Xipnitiri = new function() {
+	var timer = null;
+	var xronos = [ 10000, 10000, 10000 ];
+	var ixos = [ 'kanarini', 'korna', 'dalika' ];
+	var skala = 0;
+
+	this.vale = function(n) {
+		if (isSet(timer)) { clearTimeout(timer); }
+		timer = null;
+		skala = isSet(n) ? n : (skala + 1);
+		if (skala >= xronos.length) { skala = 0; }
+		timer = setTimeout(Xipnitiri.vara, xronos[0]);
+	};
+
+	this.vgale = function() {
+		if (isSet(timer)) { clearTimeout(timer); }
+		timer = null;
+	};
+
+	this.vara = function() {
+		playSound(ixos[skala]);
+		Xipnitiri.vale(skala + 1);
 	};
 };

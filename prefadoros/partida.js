@@ -314,7 +314,9 @@ var Partida = new function() {
 		html += '</div>';
 		html += '</div>';
 		html += '<div class="fila1Area">';
-		html += Partida.filaHTML(pexnidi.fila[1]);
+		if ((pexnidi.fasi != 'CLAIM') || (pexnidi.tzogadoros != 1)) {
+			html += Partida.filaHTML(pexnidi.fila[1]);
+		}
 		html += '</div>';
 		return html;
 	};
@@ -487,9 +489,10 @@ var Partida = new function() {
 		case 'ΣΥΜΜΕΤΟΧΗ':
 			html += Partida.simetoxiHTML(thesi);
 			break;
+		case 'ΣΟΛΟ':
+		case 'ΠΑΣΟ ΠΑΣΟ':
 		case 'ΠΑΙΧΝΙΔΙ':
 		case 'ΜΠΑΖΑ':
-		case 'ΣΟΛΟ':
 			if (pexnidi.bazaCount < 1) { html += Partida.simetoxiHTML(thesi); }
 			else { html += Partida.pektisBazesHTML(thesi); }
 			html += Partida.velosHTML(thesi);
@@ -556,7 +559,7 @@ var Partida = new function() {
 			for (var i = 0; i < pexnidi.baza[thesi]; i++) {
 				html += '<img class="pektisBazaIcon" src="' + globals.server +
 					'images/trapoula/' + plati[i] + 'V.png" alt="" ' +
-					'style="margin-right: 0.1cm; width: 0.36cm;" />';
+					'style="margin-right: 0.1cm; width: 0.34cm;" />';
 			}
 			html += spot;
 		}
