@@ -281,7 +281,9 @@ var Gipedo = new function() {
 		if (denPezoun()) { return Gipedo.denPezounHTML(); }
 		var html = '';
 		if (pexnidi.bazaFilo.length <= 0) {
-			if (pexnidi.epomenos == 1) { html += 'Παίξτε ένα φύλλο…'; }
+			if (notTheatis() && (pexnidi.epomenos == 1)) {
+				html += 'Παίξτε ένα φύλλο…';
+			}
 		}
 		html += Gipedo.dixeBazaHTML(pexnidi.bazaFilo, pexnidi.bazaPektis);
 		return html;

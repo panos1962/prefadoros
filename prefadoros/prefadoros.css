@@ -99,6 +99,12 @@
 	bottom: 0px;
 }
 
+.warningBottom {
+	color: #FF0000;
+	background-color: #FFFF00;
+	padding-left: 0.1cm;
+}
+
 .partidaInfoSimantiko {
 	background-color: #FFFF80;
 	color: #003366;
