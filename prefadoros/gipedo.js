@@ -136,7 +136,7 @@ var Gipedo = new function() {
 	this.dixeAgoresHTML = function() {
 		var dilosi = pexnidi.dilosi[pexnidi.tzogadoros];
 		var xromaAgoras = dilosi.substr(1, 1);
-		var bazesAgoras = dilosi.substr(2, 1);
+		var bazesAgoras = Tools.bazesDecode(dilosi.substr(2, 1));
 		var xroma = [ 'S', 'C', 'D', 'H', 'N' ];
 		var html = '';
 		html = '<table style="border-collapse: collapse;">';
