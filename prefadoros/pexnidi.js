@@ -55,6 +55,8 @@ var Pexnidi = new function() {
 		pexnidi.agoraBazes = 0;
 		pexnidi.asoi = false;
 
+		pexnidi.prepiBazes = [ 0, 0, 0, 0 ];
+
 		pexnidi.simetoxi = [ '', '', '', '' ];
 		pexnidi.claim = [ false, false, false, false ];
 
@@ -525,6 +527,12 @@ var Pexnidi = new function() {
 			playSound('beep');
 		}
 	};
+
+	this.bamBoum = function(ixos, idx) {
+		if (idx in Spot.spotList) { return; }
+		Spot.spotListPush(idx);
+		playSound(ixos);
+	};
 };
 
 var ProcessFasi = new function() {
@@ -754,7 +762,7 @@ var ProcessKinisi = new function() {
 		var x = data.split(':');
 		pexnidi.agora = x[0];
 		pexnidi.agoraXroma = x[0].substr(1, 1);
-		pexnidi.agoraBazes = parseInt(x[0].substr(2, 1));
+		pexnidi.agoraBazes = Tools.bazesDecode(x[0].substr(2, 1));
 		pexnidi.asoi = (x[0].substr(0, 1) == 'Y');
 		if (pexnidi.tzogadoros != 0) {
 			if (thesi == pexnidi.tzogadoros) {
@@ -841,6 +849,10 @@ var ProcessKinisi = new function() {
 			mainFyi(errmsg + data + ': invalid data');
 			break;
 		}
+
+		if (pexnidi.fasi == 'ΠΑΙΧΝΙΔΙ') {
+			Pliromi.setPrepiBazes();
+		}
 	};
 
 	this.filo = function(thesi, data) {
@@ -914,6 +926,7 @@ var ProcessKinisi = new function() {
 		else {
 			pexnidi.fasi = 'ΠΛΗΡΩΜΗ';
 		}
+		Pliromi.checkMesa();
 	};
 
 	this.akirosi = function(thesi) {
@@ -952,6 +965,8 @@ var ProcessKinisi = new function() {
 			mainFyi(errmsg + 'ακαθόριστη θέση τζογαδόρου');
 			return;
 		}
+
+		Pexnidi.bamBoum('kanoni', 'ts');
 
 		var xroma = data.substr(0, 1);
 		var bazes = data.substr(1, 1);
@@ -1020,5 +1035,76 @@ var Xipnitiri = new function() {
 	this.vara = function(skala) {
 		playSound(ixos[skala]);
 		Xipnitiri.vale(skala + 1);
+	};
+};
+
+var Pliromi = new function() {
+	this.setPrepiBazes = function() {
+		pexnidi.prepiBazes = [ 0, 0, 0, 0 ];
+		if (pexnidi.agoraBazes <= 0) { return; }
+
+		switch (pexnidi.tzogadoros) {
+		case 1: var ena = 2; var dio = 3; break;
+		case 2: ena = 3; dio = 1; break;
+		case 3: ena = 1; dio = 2; break;
+		default: return;
+		}
+
+		if (pexnidi.simetoxi[ena] == 'ΠΑΣΟ') {
+			if (pexnidi.simetoxi[dio] == 'ΠΑΣΟ') { return; }
+			ena = dio;
+			dio = 0;
+		}
+
+		switch (pexnidi.agoraBazes) {
+		case 6:
+			pexnidi.prepiBazes[ena] = 2;
+			pexnidi.prepiBazes[dio] = 2;
+			break;
+		case 7:
+			pexnidi.prepiBazes[ena] = 2;
+			pexnidi.prepiBazes[dio] = 1;
+			break;
+		case 8:
+			pexnidi.prepiBazes[ena] = 1;
+			pexnidi.prepiBazes[dio] = 1;
+			break;
+		case 9:
+			pexnidi.prepiBazes[ena] = 1;
+			break;
+		}
+	};
+
+	this.checkMesa = function() {
+		var menoun = 10 - pexnidi.bazaCount;
+		var dif = pexnidi.agoraBazes - (pexnidi.baza[pexnidi.tzogadoros] + menoun);
+		if (dif > 0) {
+			switch (dif) {
+			case 1: var ixos = 'kanoni'; var spot = 'ta'; break;
+			case 2: ixos = 'kanoni'; spot = 'ts'; break;
+			default: ixos = 'tzamia'; spot = 'tt'; break;
+			}
+			Pexnidi.bamBoum(ixos, spot);
+			return;
+		}
+
+		var amina = 0;
+		var prepi = 0;
+		for (var i = 1; i <= 3; i++) {
+			amina += pexnidi.baza[i];
+			prepi += pexnidi.prepiBazes[i];
+		}
+		amina -= pexnidi.baza[pexnidi.tzogadoros];
+		amina += menoun;
+		dif = prepi - amina;
+
+		if (dif > 0) {
+			switch (dif) {
+			case 1: ixos = 'balothia'; spot = 'aa'; break;
+			case 2: ixos = 'pistolia'; spot = 'as'; break;
+			default: ixos = 'polivolo'; spot = 'at'; break;
+			}
+			Pexnidi.bamBoum(ixos, spot);
+		}
 	};
 };
