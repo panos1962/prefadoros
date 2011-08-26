@@ -148,6 +148,11 @@ var Pliromi = new function() {
 		this.kapikia = [ null, 0, 0, 0 ];
 		this.taPoulia = [ null, 0, 0, 0 ];
 
+		if (pexnidi.agora == 'NNN') {
+			this.pasoPasoPaso();
+			return;
+		}
+
 		if (pexnidi.agoraBazes < 7) {
 			this.axiaTaPoulia = 25;
 			this.axiaBazas = globals.rankXroma[pexnidi.agoraXroma];
@@ -160,6 +165,9 @@ var Pliromi = new function() {
 				this.axiaBazas++;
 			}
 		}
+
+		// Αν δεν μετράνε οι άσοι μηδενίζω την αξία των άσων.
+		if (notAsoiKolos()) { this.axiaTaPoulia = 0; }
 
 		// Πρέπει, οπωσδήποτε, να γνωρίζουμε ποιος από τους δύο αντιπάλους
 		// είναι ο πρώτος μετά τον τζογαδόρο και ποιος ο δεύτερος. Αυτό
@@ -212,6 +220,19 @@ var Pliromi = new function() {
 		this.pareTaPoulia();
 		this.kataxorisi();
 	};
+
+	this.pasoPasoPaso = function() {
+		var minBazes = 10;
+		for (var i = 1; i <= 3; i++) {
+			if (pexnidi.baza[i] < minBazes) { minBazes = pexnidi.baza[i]; }
+		}
+
+		for (i = 1; i <= 3; i++) {
+			this.kasa[i] = (pexnidi.baza[i] - minBazes) * 10;
+		}
+
+		this.kataxorisi();
+	}
 
 	this.pliromiBazon = function() {
 		if (pexnidi.baza[pexnidi.tzogadoros] < pexnidi.agoraBazes) {
@@ -636,8 +657,8 @@ var Pliromi = new function() {
 		params = 'dianomi=' + uri(dianomi[dianomi.length - 1].k);
 		params += '&pliromi=';
 		for (var i = 1; i <= 3; i++) {
-			params += ':' + this.kasa[partida.map[i]] +
-				':' + this.kapikia[partida.map[i]];
+			params += ':' + this.kasa[partida.pam[i]] +
+				':' + this.kapikia[partida.pam[i]];
 		}
 //alert(params);
 		req.send(params);
@@ -683,7 +704,7 @@ var Pliromi = new function() {
 	};
 
 	this.fixTaPoulia = function() {
-		if (pexnidi.taPoulia) {
+		if (pexnidi.asoi) {
 			for (var i = 1; i <= 3; i++) {
 				this.kapikia[i] += this.taPoulia[i];
 			}
