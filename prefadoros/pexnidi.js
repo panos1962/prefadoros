@@ -316,8 +316,10 @@ var Pexnidi = new function() {
 	this.processFasi = function() {
 		var errmsg = 'Pexnidi::processFasi: ';
 
-		if (pexnidi.epomenos == 1) { Xipnitiri.vale(0); }
-		else { Xipnitiri.vgale(); }
+		if (notTheatis()) {
+			if (pexnidi.epomenos == 1) { Xipnitiri.vale(0); }
+			else { Xipnitiri.vgale(); }
+		}
 
 		switch (pexnidi.fasi) {
 		case 'ΣΤΗΣΙΜΟ':
@@ -990,16 +992,24 @@ var ProcessKinisi = new function() {
 
 var Xipnitiri = new function() {
 	var timer = null;
-	var xronos = [ 10000, 10000, 10000 ];
-	var ixos = [ 'kanarini', 'korna', 'dalika' ];
-	var skala = 0;
+	var xronos = [ 10000, 20000, 10000, 15000 ];
+	var ixos = [ 'kanarini', 'korna2', 'korna3', 'dalika' ];
 
-	this.vale = function(n) {
+	this.vale = function(skala) {
 		if (isSet(timer)) { clearTimeout(timer); }
 		timer = null;
-		skala = isSet(n) ? n : (skala + 1);
-		if (skala >= xronos.length) { skala = 0; }
-		timer = setTimeout(Xipnitiri.vara, xronos[0]);
+		if (skala < xronos.length) {
+			timer = setTimeout(function() {
+				Xipnitiri.vara(skala);
+			}, xronos[skala]);
+			return;
+		}
+		var x = getelid('infoBottom');
+		if (isSet(x)) {
+			x.innerHTML = '<div class="warningBottom">' +
+				'Οι συμπαίκτες σας περιμένουν…' +
+				'</div>';
+		}
 	};
 
 	this.vgale = function() {
@@ -1007,7 +1017,7 @@ var Xipnitiri = new function() {
 		timer = null;
 	};
 
-	this.vara = function() {
+	this.vara = function(skala) {
 		playSound(ixos[skala]);
 		Xipnitiri.vale(skala + 1);
 	};

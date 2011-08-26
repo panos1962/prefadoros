@@ -237,7 +237,7 @@ var Partida = new function() {
 
 	this.katoInfoHTML = function() {
 		html = '';
-		html += '<div class="partidaInfo partidaInfoBottom';
+		html += '<div id="infoBottom" class="partidaInfo partidaInfoBottom';
 		if ((pexnidi.akirosi in partida.pektis) && (pexnidi.akirosi > 0)) {
 			var pektis = partida.pektis[pexnidi.akirosi];
 			if (pektis == '') { pektis = 'στη θέση ' + pexnidi.akirosi; }
@@ -247,7 +247,7 @@ var Partida = new function() {
 		}
 		else {
 			html += '">';
-			html += 'Information area';
+			// Information area
 		}
 		html += '</div>';
 		return html;
