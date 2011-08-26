@@ -607,8 +607,14 @@ var ProcessFasi = new function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (ProcessFasi.isDromologimeno()) { return; }
+		Pliromi.pliromi();
 		ProcessFasi.dromologimeno = setTimeout(function() {
-			Pexnidi.dianomi(true);
+			if (Pliromi.apotixia) {
+				mainFyi('Απέτυχε η πληρωμή. Κάντε επαναφόρτωση της σελίδας');
+			}
+			else {
+				Pexnidi.dianomi(true);
+			}
 		}, Pexnidi.delay['pliromi']);
 		Pexnidi.miosiDelay('pliromi');
 	};
@@ -1042,76 +1048,5 @@ var Xipnitiri = new function() {
 	this.vara = function(skala) {
 		playSound(ixos[skala]);
 		Xipnitiri.vale(skala + 1);
-	};
-};
-
-var Pliromi = new function() {
-	this.setPrepiBazes = function() {
-		pexnidi.prepiBazes = [ 0, 0, 0, 0 ];
-		if (pexnidi.agoraBazes <= 0) { return; }
-
-		switch (pexnidi.tzogadoros) {
-		case 1: var ena = 2; var dio = 3; break;
-		case 2: ena = 3; dio = 1; break;
-		case 3: ena = 1; dio = 2; break;
-		default: return;
-		}
-
-		if (pexnidi.simetoxi[ena] == 'ΠΑΣΟ') {
-			if (pexnidi.simetoxi[dio] == 'ΠΑΣΟ') { return; }
-			ena = dio;
-			dio = 0;
-		}
-
-		switch (pexnidi.agoraBazes) {
-		case 6:
-			pexnidi.prepiBazes[ena] = 2;
-			pexnidi.prepiBazes[dio] = 2;
-			break;
-		case 7:
-			pexnidi.prepiBazes[ena] = 2;
-			pexnidi.prepiBazes[dio] = 1;
-			break;
-		case 8:
-			pexnidi.prepiBazes[ena] = 1;
-			pexnidi.prepiBazes[dio] = 1;
-			break;
-		case 9:
-			pexnidi.prepiBazes[ena] = 1;
-			break;
-		}
-	};
-
-	this.checkMesa = function(kinisi) {
-		var menoun = 10 - pexnidi.bazaCount;
-		var dif = pexnidi.agoraBazes - (pexnidi.baza[pexnidi.tzogadoros] + menoun);
-		if (dif > 0) {
-			switch (dif) {
-			case 1: var ixos = 'kanoni'; var spot = 'ta'; break;
-			case 2: ixos = 'kanoni'; spot = 'ts'; break;
-			default: ixos = 'tzamia'; spot = 'tt'; break;
-			}
-			Pexnidi.bamBoum(ixos, spot, kinisi);
-			return;
-		}
-
-		var amina = 0;
-		var prepi = 0;
-		for (var i = 1; i <= 3; i++) {
-			amina += pexnidi.baza[i];
-			prepi += pexnidi.prepiBazes[i];
-		}
-		amina -= pexnidi.baza[pexnidi.tzogadoros];
-		amina += menoun;
-		dif = prepi - amina;
-
-		if (dif > 0) {
-			switch (dif) {
-			case 1: ixos = 'balothia'; spot = 'aa'; break;
-			case 2: ixos = 'pistolia'; spot = 'as'; break;
-			default: ixos = 'polivolo'; spot = 'at'; break;
-			}
-			Pexnidi.bamBoum(ixos, spot, kinisi);
-		}
 	};
 };
