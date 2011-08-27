@@ -21,6 +21,7 @@ var Gipedo = new function() {
 
 	this.dianomiHTML = function() {
 		var html = '';
+		html += '<div>';
 		var dealer = pexnidi.dealer + 1;
 		if (dealer > 3) { dealer = 1; }
 		if (dealer == 1) { html += Gipedo.anamoniDianomiHTML(); }
@@ -34,6 +35,13 @@ var Gipedo = new function() {
 			html += Gipedo.piosPektis(dealer, 'Μοιράζετε', 'μοιράζει') + 'φύλλα. ';
 		}
 		html += 'Παρακαλώ περιμένετε…';
+		html += '</div>';
+		html += '<div class="dixeTzogo">';
+		html += '<img class="dixeTzogoIcon" src="' + globals.server +
+			'images/trapoula/' + pexnidi.tzogos.substr(0, 2) + '.png" alt="" />';
+		html += '<img class="dixeTzogoIcon" src="' + globals.server +
+			'images/trapoula/' + pexnidi.tzogos.substr(2, 2) + '.png" alt="" />';
+		html += '</div>';
 		return html;
 	};
 

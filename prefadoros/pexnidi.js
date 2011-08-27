@@ -49,6 +49,7 @@ var Pexnidi = new function() {
 		pexnidi.pasoCount = 0;
 		pexnidi.paso = [ false, false, false, false ];
 
+		pexnidi.tzogos = '';
 		pexnidi.tzogadoros = 0;
 		pexnidi.agora = '';
 		pexnidi.agoraXroma = '';
@@ -637,7 +638,7 @@ var ProcessKinisi = new function() {
 	this.dilosi = function(thesi, data) {
 		pexnidi.dilosiCount++;
 		if (data.match(/^P/)) {
-			ProcessKinisi.dilosiPaso(thesi);
+			ProcessKinisi.dilosiPaso(thesi, data);
 			return;
 		}
 
@@ -723,12 +724,14 @@ var ProcessKinisi = new function() {
 		pexnidi.epomenos = 0;
 	};
 
-	this.dilosiPaso = function(thesi) {
+	this.dilosiPaso = function(thesi, data) {
 		pexnidi.paso[thesi] = true;
 		pexnidi.pasoCount++;
 		if (pexnidi.pasoCount >= 3) {
 			pexnidi.fasi = 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ';
 			pexnidi.epomenos = 0;
+			var x = data.split(':');
+			pexnidi.tzogos = x.length > 1 ? x[1] : 'RVRV';
 			return;
 		}
 

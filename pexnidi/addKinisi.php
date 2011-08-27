@@ -34,6 +34,9 @@ else {
 }
 
 switch ($idos) {
+case 'ΔΗΛΩΣΗ':
+	$data = check_trito_paso($dianomi, $data);
+	break;
 case 'ΤΖΟΓΟΣ':
 	$data = fila_tzogou($dianomi);
 	break;
@@ -68,5 +71,38 @@ function fila_tzogou($dianomi) {
 
 	$x = explode(":", $row[0]);
 	return $x[0];
+}
+
+// Σε περίπτωση που εισάγουμε κίνηση τύπου "ΔΗΛΩΣΗ" και αυτή είναι πάσο,
+// τότε ελέγχουμε αν πρόκειται για το τρίτο πάσο και σ'αυτήν την περίπτωση
+// προσθέτουμε στα δεδομένα και τα φύλλα του τζόγου ώστε να τα παραλάβουν
+// οι clients και να μπορέσουν να τα προβάλουν.
+
+function check_trito_paso($dianomi, $data) {
+	global $globals;
+
+	if (!preg_match("/^P/", $data)) {
+		return $data;
+	}
+
+	$tzogos = "";
+	$paso_count = 0;
+	$query = "SELECT `είδος`, `data` FROM `κίνηση` WHERE `διανομή` = " . $dianomi;
+	$result = $globals->sql_query($query);
+	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		switch ($row[0]) {
+		case 'ΔΙΑΝΟΜΗ':
+			$x = explode(":", $row[1]);
+			$tzogos = $x[0];
+			break;
+		case 'ΔΗΛΩΣΗ':
+			if (preg_match("/^P/", $row[1])) {
+				$paso_count++;
+			}
+			break;
+		}
+	}
+
+	return ($paso_count < 2 ? $data : $data . ":" . $tzogos);
 }
 ?>
