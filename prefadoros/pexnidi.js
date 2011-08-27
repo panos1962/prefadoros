@@ -5,7 +5,7 @@ var Pexnidi = new function() {
 	this.delay = {
 		'pasoPasoPaso':		3000,
 		'megistiAgora':		3000,
-		'baza':			1200,
+		'baza':			1000,
 		'pliromi':		1500,
 		'tzogos':		3000
 	};
