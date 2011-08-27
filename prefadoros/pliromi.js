@@ -141,7 +141,7 @@ var Pliromi = new function() {
 	// για τα 7 αχρωμάτιστα κλπ.
 
 	this.pliromi = function() {
-		var errmsg = 'Pliromi::reset(): ';
+		var errmsg = 'Pliromi::pliromi(): ';
 
 		this.apotixia = false;
 		this.kasa = [ null, 0, 0, 0 ];
@@ -687,20 +687,15 @@ var Pliromi = new function() {
 		var alos = null;
 
 		for (var i = 1; i <= 3; i++) {
-			if (i != pexnidi.tzogadoros) {
-				if (pexnidi.simetoxi[i] == 'ΜΑΖΙ') { mazi = i; }
-				else { alos = i; }
-			}
+			if (i == pexnidi.tzogadoros) { continue; }
+			else if (pexnidi.simetoxi[i] == 'ΜΑΖΙ') { mazi = i; }
+			else { alos = i; }
 		}
 
-		if (notSet(mazi)) { return; }
-		if (notSet(alos)) {
-			mainFyi(errmsg + 'ακαθόριστη συμμετοχή βοηθητικού παίκτη');
-			return;
+		if (isSet(mazi) && isSet(alos)) {
+			this.kapikia[mazi] += this.kapikia[alos];
+			this.kapikia[alos] = 0;
 		}
-
-		this.kapikia[mazi] += this.kapikia[alos];
-		this.kapikia[alos] = 0;
 	};
 
 	this.fixTaPoulia = function() {
