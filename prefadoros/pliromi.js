@@ -38,6 +38,7 @@ var Pliromi = new function() {
 			ena = dio;
 			dio = 0;
 		}
+		else if (pexnidi.simetoxi[dio] == 'ΠΑΣΟ') { dio = 0; }
 
 		switch (pexnidi.agoraBazes) {
 		case 6:
