@@ -1227,3 +1227,14 @@ font-weight: bold;
 	opacity: 0.5;
 	filter: alpha(opacity=50);
 }
+
+.dixeTzogo {
+	position: absolute;
+	bottom: 0;
+	left: 3.0cm;
+}
+
+.dixeTzogoIcon {
+	width: 2.1cm;
+	margin-right: 0.2cm;
+}
