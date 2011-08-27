@@ -1,6 +1,13 @@
 var Partida = new function() {
 	this.HTML = '';
 
+	// Συνήθως το ρολογάκι εμφανίζεται μετά από 1-2 περιστροφής του
+	// μεταλλικού περιστρεφόμενου άστρου. Σε κάποιες περιπτώσεις,
+	// όμως, αυτό είναι πολύ φορτωμένο, π.χ. όταν ο τζογαδόρος
+	// παραλαμβάνει τον τζόγο. Θέτοντας false τη flag "rologakiRoll"
+	// μπορούμε να εμφανίσουμε το ρολογάκι χωρίς φιοριτούρες.
+	var rologakiRoll = true;
+
 	this.processDedomena = function(dedomena) {
 		// Αν δεν υπάρχει πεδίο παρτίδας στα επιστρεφόμενα
 		// δεδομένα, σημαίνει ότι δεν έχει αλλάξει κάτι.
@@ -441,9 +448,11 @@ var Partida = new function() {
 						html1 += 'images/trapoula/tzogos.png"';
 					}
 					else {
+						rologakiRoll = false;
 						Spot.spotListPush(spotIdx);
-						html1 += 'images/asteraki.gif" onload="Tools.metalagi(this, \'' +
-							globals.server + 'images/trapoula/tzogos.png\', 700);"';
+						html1 += 'images/asteraki.gif" onload="Tools.metalagi' +
+							'(this, \'' + globals.server +
+							'images/trapoula/tzogos.png\', 700);"';
 					}
 				}
 				html1 += ' alt="" />';
@@ -607,6 +616,7 @@ var Partida = new function() {
 
 	this.pektisMainHTML = function(thesi) {
 		var html = '';
+		rologakiRoll = true;
 		if (isTheatis()) { html += ' theatis'; }
 		if (denPezi(thesi)) {
 			html += ' paso';
@@ -633,7 +643,7 @@ var Partida = new function() {
 		}
 		if (thesi == pexnidi.epomenos) {
 			html += '<img class="rologakiIcon" alt="" src="' + globals.server;
-			if (spot) {
+			if (spot && rologakiRoll) {
 				html += 'images/rollStar.gif" onload="Tools.metalagi(this, \'' +
 					globals.server + 'images/rologaki.gif\');"' ;
 			}
