@@ -507,6 +507,7 @@ var Partida = new function() {
 			html += Partida.velosHTML(thesi);
 			break;
 		case 'ΠΛΗΡΩΜΗ':
+		case 'CLAIM':
 			if (pexnidi.bazaCount < 1) { html += Partida.simetoxiHTML(thesi); }
 			else { html += Partida.pektisBazesHTML(thesi); }
 			break;

@@ -734,6 +734,11 @@ var ProcessKinisi = new function() {
 			pexnidi.tzogos = x.length > 1 ? x[1] : 'RVRV';
 			return;
 		}
+		else if ((pexnidi.pasoCount >= 2) && (pexnidi.curdil == 'DTG')) {
+			pexnidi.curdil = 'DS6';
+		}
+		else if ((pexnidi.pasoCount == 1) && (pexnidi.dilosiCount == 3) &&
+			(pexnidi.curdil == 'DD6')) { pexnidi.curdil = 'EC6'; }
 
 		Pexnidi.setEpomenos(thesi);
 		var methepomenos = pexnidi.epomenos + 1;
@@ -972,6 +977,15 @@ var ProcessKinisi = new function() {
 
 	this.solo = function(thesi, kodikos, data) {
 		var errmsg = 'ProcessKinisi::solo: ';
+
+		// Η κίνηση τύπου "ΣΟΛΟ" περιέχει ως data την
+		// αγορά π.χ. S6, D7 κλπ. Επειδή ο τζογαδόρος
+		// δεν δήλωσε αγορά, τίθενται τώρα τα στοιχεία
+		// της αγοράς, ώστε να μπορέσει να γίνει η
+		// πληρωμή.
+		pexnidi.agora = 'N' + data;
+		pexnidi.agoraXroma = data.substr(0, 1);
+		pexnidi.agoraBazes = data.substr(1, 1);
 
 		switch (pexnidi.tzogadoros) {
 		case 1: var ena = 2; var dio = 3; break;

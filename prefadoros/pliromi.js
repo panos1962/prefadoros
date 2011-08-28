@@ -229,7 +229,7 @@ var Pliromi = new function() {
 		}
 
 		for (i = 1; i <= 3; i++) {
-			this.kasa[i] = (pexnidi.baza[i] - minBazes) * 10;
+			this.kasa[i] = (minBazes - pexnidi.baza[i]) * 10;
 		}
 
 		this.kataxorisi();
@@ -289,7 +289,7 @@ var Pliromi = new function() {
 		case 8: this.mesa8(this.protos, this.defteros); break;
 		case 9: this.mesa9(this.protos); break;
 		default:
-			mainFyilert(errmsg + 'λάθος αριθμός μπαζών τζογαδόρου');
+			mainFyi(errmsg + 'λάθος αριθμός μπαζών τζογαδόρου');
 			return;
 		}
 	};
