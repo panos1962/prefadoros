@@ -93,7 +93,7 @@ function stileFunchat(ikona, titlos, zoom, sound) {
 	var f = p.document.getElementById('sxolioInputHidden');
 	if (notSet(f)) { return; }
 
-	if ((titlos = prompt('', titlos)) === false) { return; }
+	if ((titlos = prompt('', titlos)) === null) { return; }
 	if (notSet(titlos)) { titlos = ''; }
 	f.value = '@FC';
 	f.value += '@' + ikona;
