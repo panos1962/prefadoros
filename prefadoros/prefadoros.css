@@ -191,7 +191,7 @@
 }
 
 .pektisName {
-	font-size: 0.8cm;
+	font-size: 0.76cm;
 	font-weight: bold;
 	text-align: center;
 	overflow: hidden;
@@ -234,11 +234,12 @@
 
 .kapikiaArea {
 	position: absolute;
-	top: 0.8cm;
-	font-size: 0.46cm;
+	top: 0.84cm;
+	font-size: 0.40cm;
 	text-align: center;
 	overflow: hidden;
 	width: 100%;
+	padding-top: 0.05cm;
 /*
 	background-color: teal;
 */

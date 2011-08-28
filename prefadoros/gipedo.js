@@ -58,14 +58,14 @@ var Gipedo = new function() {
 		else if (pexnidi.epomenos == 1) {
 			html += '<div class="protasiArea">';
 			if (pexnidi.curdil == 'DTG') {
-				html += Tools.epilogiHTML('Άμα μείνουν',
+				html += Tools.epilogiHTML(Gipedo.dilosiPerigrafiHTML('DTG'),
 					'Pexnidi.epilogiDilosis(this)', '', 'protasi');
-				html += Tools.epilogiHTML('ΠΡΩΤΑ',
+				html += Tools.epilogiHTML(Gipedo.dilosiPerigrafiHTML('DS6'),
 					'Pexnidi.epilogiDilosis(this, \'DS6\')', '', 'protasi');
 			}
 			else {
 				html += '<div class="protasiKeno">&#8203;</div>';
-				html += Tools.epilogiHTML(Pexnidi.xromaBazesHTML(pexnidi.curdil),
+				html += Tools.epilogiHTML(Gipedo.dilosiPerigrafiHTML(pexnidi.curdil),
 					'Pexnidi.epilogiDilosis(this)', '', 'protasi');
 			}
 			html += Tools.epilogiHTML('ΠΑΣΟ',
@@ -79,6 +79,16 @@ var Gipedo = new function() {
 			html += '</div>';
 		}
 		return html;
+	};
+
+	this.dilosiPerigrafiHTML = function(dilosi) {
+		switch (dilosi) {
+		case 'DTG': return 'Άμα μείνουν';
+		case 'DS6': return 'ΠΡΩΤΑ';
+		case 'DC6': return 'ΔΕΥΤΕΡΑ';
+		case 'DD6': return 'ΤΡΙΤΑ';
+		default: return Pexnidi.xromaBazesHTML(dilosi);
+		}
 	};
 
 	this.pasoPasoPasoHTML = function() {
@@ -370,10 +380,10 @@ var Gipedo = new function() {
 			html += 'Ο τζογαδόρος ισχυρίζεται ότι δεν χάνει άλλη μπάζα.';
 		}
 		else if (pexnidi.tzogadoros == 1) {
-			html += 'Δεν δίνω άλλη μπάζα!'
+			html += 'Ζητώ τις υπόλοιπες μπάζες…';
 		}
 		else {
-			html += 'Θέλω τις υπόλοιπες!';
+			html += 'Δεν δίνω άλλη μπάζα!'
 		}
 		html += '</div>';
 		html += '<div style="position: relative;">';
