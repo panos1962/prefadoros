@@ -370,9 +370,9 @@ var Pexnidi = new function() {
 	};
 
 	this.dianomi = function(dromologimeno) {
-		if (notSet(dromologimeno)) { dromologimeno = false; }
 		mainFyi('Γίνεται διανομή. Παρακαλώ περιμένετε…');
 		var req = new Request('trapezi/apodoxi');
+		if (notSet(dromologimeno)) { dromologimeno = false; }
 		req.xhr.onreadystatechange = function() {
 			Pexnidi.dianomiCheck(req, dromologimeno);
 		};
@@ -546,11 +546,10 @@ var Pexnidi = new function() {
 var ProcessFasi = new function() {
 	this.dromologimeno = null;
 
-	this.isDromologimeno = function() {
-		return isSet(ProcessFasi.dromologimeno);
-	};
-
 	this.clearDromologimeno = function() {
+		if (isSet(ProcessFasi.dromologimeno)) {
+			clearTimeout(ProcessFasi.dromologimeno);
+		}
 		ProcessFasi.dromologimeno = null;
 	};
 
@@ -565,7 +564,7 @@ var ProcessFasi = new function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		if (ProcessFasi.isDromologimeno()) { return; }
+		ProcessFasi.clearDromologimeno();
 		ProcessFasi.dromologimeno = setTimeout(function() {
 			if (isPasoPasoPaso()) { Pexnidi.addKinisi('ΑΓΟΡΑ', 'NNN', 0, true); }
 			else { Pexnidi.dianomi(true); }
@@ -577,7 +576,7 @@ var ProcessFasi = new function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		if (ProcessFasi.isDromologimeno()) { return; }
+		ProcessFasi.clearDromologimeno();
 		ProcessFasi.dromologimeno = setTimeout(function() {
 			Pexnidi.addKinisi('ΤΖΟΓΟΣ', '', pexnidi.tzogadoros, true);
 		}, Pexnidi.delay['tzogos']);
@@ -597,7 +596,7 @@ var ProcessFasi = new function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		if (ProcessFasi.isDromologimeno()) { return; }
+		ProcessFasi.clearDromologimeno();
 		var epomenos = pexnidi.epomenos;
 		ProcessFasi.dromologimeno = setTimeout(function() {
 			Pexnidi.addKinisi('ΜΠΑΖΑ', '', epomenos, true);
@@ -607,7 +606,8 @@ var ProcessFasi = new function() {
 	this.pliromi = function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
-		if (ProcessFasi.isDromologimeno()) { return; }
+		if (pexnidi.akirosi != 0) { return; }
+		ProcessFasi.clearDromologimeno();
 		Pliromi.pliromi();
 		ProcessFasi.dromologimeno = setTimeout(function() {
 			if (Pliromi.apotixia) {
