@@ -1037,8 +1037,8 @@ var ProcessKinisi = new function() {
 
 var Xipnitiri = new function() {
 	var timer = null;
-	var xronos = [ 10000, 20000, 10000, 15000 ];
-	var ixos = [ 'kanarini', 'korna2', 'korna3', 'dalika' ];
+	var xronos = [ 10000, 15000, 10000, 15000, 20000, 20000 ];
+	var ixos = [ 'kanarini', 'kabanaki', 'sfirixtra', 'korna2', 'korna3', 'dalika' ];
 
 	this.vale = function(skala) {
 		if (isSet(timer)) { clearTimeout(timer); }

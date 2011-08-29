@@ -271,6 +271,11 @@ var Sxesi = new function() {
 
 	this.addProsklisi = function(pektis, img) {
 		if (isSet(window.Sizitisi)) { Sizitisi.sxolioFocus(); }
+		if (isTheatis()) {
+			playSound('beep');
+			mainFyi('Δεν μπορείτε να αποστείλετε πρόσκληση ως θεατής');
+			return;
+		}
 		if (notSet(img)) { img = getelid('sxi_' + pektis); }
 		if (notSet(img)) { return; }
 		img.prevSrc = img.src;
