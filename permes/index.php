@@ -9,6 +9,7 @@ Page::stylesheet('lib/forma');
 Page::javascript('lib/forma');
 Page::javascript('permes/permes');
 Page::javascript('prefadoros/sxesi');
+Page::javascript('prefadoros/prefadoros');
 Page::javascript('lib/soundmanager');
 Page::body();
 Prefadoros::pektis_check();
