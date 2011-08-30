@@ -25,13 +25,24 @@ var Gipedo = new function() {
 		if (dealer > 3) { dealer = 1; }
 		if (dealer == 1) { html += Gipedo.anamoniDianomiHTML(); }
 		else { html += Gipedo.anamoniHTML(); }
-		if (isTheatis()) {
-			html += 'Και οι τρεις παίκτες δήλωσαν «πάσο». Θα γίνει νέα διανομή. ';
-			html += Gipedo.piosPektis(dealer) + 'μοιράζει φύλλα. ';
+		if (pexnidi.fasi == 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ') {
+			if (isTheatis()) {
+				html += 'Και οι τρεις παίκτες δήλωσαν «πάσο». Θα γίνει νέα διανομή. ';
+				html += Gipedo.piosPektis(dealer) + 'μοιράζει φύλλα. ';
+			}
+			else {
+				html += 'Και οι τρεις παίκτες δηλώσατε «πάσο». ';
+				html += Gipedo.piosPektis(dealer, 'Μοιράζετε', 'μοιράζει') + 'φύλλα. ';
+			}
 		}
 		else {
-			html += 'Και οι τρεις παίκτες δηλώσατε «πάσο». ';
-			html += Gipedo.piosPektis(dealer, 'Μοιράζετε', 'μοιράζει') + 'φύλλα. ';
+			if (isTheatis()) {
+				html += 'Γίνεται νέα διανομή. ';
+				html += Gipedo.piosPektis(dealer) + 'μοιράζει φύλλα. ';
+			}
+			else {
+				html += Gipedo.piosPektis(dealer, 'Μοιράζετε', 'μοιράζει') + 'φύλλα. ';
+			}
 		}
 		html += 'Παρακαλώ περιμένετε…';
 		return html;
