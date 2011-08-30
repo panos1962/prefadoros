@@ -321,6 +321,8 @@ var Pexnidi = new function() {
 	this.processFasi = function() {
 		var errmsg = 'Pexnidi::processFasi: ';
 
+		ProcessFasi.clearDromologimeno();
+
 		if (notTheatis()) {
 			if (pexnidi.epomenos == 1) { Xipnitiri.vale(0); }
 			else { Xipnitiri.vgale(); }
@@ -564,7 +566,6 @@ var ProcessFasi = new function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		ProcessFasi.clearDromologimeno();
 		ProcessFasi.dromologimeno = setTimeout(function() {
 			if (isPasoPasoPaso()) { Pexnidi.addKinisi('ΑΓΟΡΑ', 'NNN', 0, true); }
 			else { Pexnidi.dianomi(true); }
@@ -576,11 +577,7 @@ var ProcessFasi = new function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		ProcessFasi.clearDromologimeno();
-		ProcessFasi.dromologimeno = setTimeout(function() {
-			Pexnidi.addKinisi('ΤΖΟΓΟΣ', '', pexnidi.tzogadoros, true);
-		}, Pexnidi.delay['tzogos']);
-		Pexnidi.miosiDelay('tzogos');
+		Pexnidi.addKinisi('ΤΖΟΓΟΣ', '', pexnidi.tzogadoros);
 	};
 
 	this.alagi = function() {
@@ -596,7 +593,8 @@ var ProcessFasi = new function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		ProcessFasi.clearDromologimeno();
+		// Ο επόμενος μπορεί να αλλάξει μέχρι να έρθει η ώρα
+		// της εισαγωγής της κίνησης μπάζας.
 		var epomenos = pexnidi.epomenos;
 		ProcessFasi.dromologimeno = setTimeout(function() {
 			Pexnidi.addKinisi('ΜΠΑΖΑ', '', epomenos, true);
@@ -607,7 +605,6 @@ var ProcessFasi = new function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		ProcessFasi.clearDromologimeno();
 		Pliromi.pliromi();
 		ProcessFasi.dromologimeno = setTimeout(function() {
 			if (Pliromi.apotixia) {
