@@ -2,6 +2,7 @@
 require_once '../lib/standard.php';
 require_once '../prefadoros/prefadoros.php';
 require_once '../pektis/pektis.php';
+require_once '../trapezi/trapezi.php';
 set_globals();
 Page::head();
 Page::stylesheet('permes/permes');
@@ -9,10 +10,10 @@ Page::stylesheet('lib/forma');
 Page::javascript('lib/forma');
 Page::javascript('permes/permes');
 Page::javascript('prefadoros/sxesi');
-Page::javascript('prefadoros/prefadoros');
 Page::javascript('lib/soundmanager');
 Page::body();
 Prefadoros::pektis_check();
+Prefadoros::set_trapezi();
 Page::epikefalida(Globals::perastike('pedi'));
 Page::fyi();
 ?>
@@ -66,8 +67,14 @@ function minima_pros($pros = '', $pros_fixed = FALSE) {
 			?>, getelid('emailIcon'));" />
 	<img id="emailIcon" src="<?php print $globals->server; ?>images/email.png"
 		style="width: 0.7cm; margin-bottom: -0.18cm; margin-left: -0.4cm;" alt="" />
-	<input class="button formaButton" type="submit" value="Πρόσκληση"
-		onclick="return Permes.prosklisi(getelid('emailIcon'));" />
+	<?php
+	if (pezi_sto_trapezi()) {
+		?>
+		<input class="button formaButton" type="submit" value="Πρόσκληση"
+			onclick="return Permes.prosklisi(getelid('emailIcon'));" />
+		<?php
+	}
+	?>
 	<input class="button formaButton" type="reset" value="Reset"
 		onclick="return Permes.reset();" />
 	<input class="button formaButton" type="submit" value="Άκυρο"
@@ -95,5 +102,15 @@ function minimata() {
 	<div id="minimata" style="margin-top: 0px;">
 	</div>
 	<?php
+}
+
+function pezi_sto_trapezi() {
+	global $globals;
+
+	if (!$globals->is_trapezi()) {
+		return(FALSE);
+	}
+
+	return(!$globals->trapezi->is_theatis());
 }
 ?>
