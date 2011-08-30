@@ -269,9 +269,10 @@ var Sxesi = new function() {
 			'pedi=yes&pros=' + uri(login) + msg);
 	};
 
-	this.addProsklisi = function(pektis, img) {
+	this.addProsklisi = function(pektis, img, checkTheatis) {
 		if (isSet(window.Sizitisi)) { Sizitisi.sxolioFocus(); }
-		if (isTheatis()) {
+		if (notSet(checkTheatis)) { checkTheatis = true; }
+		if (checkTheatis && isTheatis()) {
 			playSound('beep');
 			mainFyi('Δεν μπορείτε να αποστείλετε πρόσκληση ως θεατής');
 			return;
