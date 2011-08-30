@@ -6,7 +6,7 @@ var Pexnidi = new function() {
 		'pasoPasoPaso':		3000,
 		'megistiAgora':		3000,
 		'baza':			1000,
-		'pliromi':		1500,
+		'dianomi':		1500,
 		'tzogos':		3000
 	};
 
@@ -158,6 +158,9 @@ var Pexnidi = new function() {
 				break;
 			case 'ΣΟΛΟ':
 				ProcessKinisi.solo(kinisi[i].thesi, kinisi[i].k, kinisi[i].d);
+				break;
+			case 'ΠΛΗΡΩΜΗ':
+				ProcessKinisi.pliromi();
 				break;
 			default:
 				mainFyi(errmsg + kinisi[i].i + ': άγνωστο είδος κίνησης');
@@ -333,26 +336,14 @@ var Pexnidi = new function() {
 			playSound(pexnidi.mesaIxos);
 		}
 		switch (pexnidi.fasi) {
-		case 'ΣΤΗΣΙΜΟ':
-			ProcessFasi.stisimo();
-			break;
-		case 'ΔΗΛΩΣΗ':
-			ProcessFasi.dilosi();
+		case 'ΔΙΑΝΟΜΗ':
+			ProcessFasi.dianomi();
 			break;
 		case 'ΠΑΣΟ ΠΑΣΟ ΠΑΣΟ':
 			ProcessFasi.pasoPasoPaso();
 			break;
 		case 'ΤΖΟΓΟΣ':
 			ProcessFasi.tzogos();
-			break;
-		case 'ΑΛΛΑΓΗ':
-			ProcessFasi.alagi();
-			break;
-		case 'ΣΥΜΜΕΤΟΧΗ':
-			ProcessFasi.simetoxi();
-			break;
-		case 'ΠΑΙΧΝΙΔΙ':
-			ProcessFasi.pexnidi();
 			break;
 		case 'ΜΠΑΖΑ':
 			ProcessFasi.baza();
@@ -362,8 +353,12 @@ var Pexnidi = new function() {
 		case 'ΣΟΛΟ':
 			ProcessFasi.pliromi();
 			break;
+		case 'ΣΤΗΣΙΜΟ':
+		case 'ΔΗΛΩΣΗ':
+		case 'ΑΛΛΑΓΗ':
+		case 'ΣΥΜΜΕΤΟΧΗ':
+		case 'ΠΑΙΧΝΙΔΙ':
 		case 'CLAIM':
-			ProcessFasi.claim();
 			break;
 		default:
 			mainFyi(errmsg + pexnidi.fasi + ': άγνωστη φάση');
@@ -555,20 +550,17 @@ var ProcessFasi = new function() {
 		ProcessFasi.dromologimeno = null;
 	};
 
-	this.stisimo = function() {
-		pexnidi.epomenos = 0;
-	};
-
-	this.dilosi = function() {
-	};
-
 	this.pasoPasoPaso = function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
 		ProcessFasi.dromologimeno = setTimeout(function() {
-			if (isPasoPasoPaso()) { Pexnidi.addKinisi('ΑΓΟΡΑ', 'NNN', 0, true); }
-			else { Pexnidi.dianomi(true); }
+			if (isPasoPasoPaso()) {
+				Pexnidi.addKinisi('ΑΓΟΡΑ', 'NNN', 0, true);
+			}
+			else {
+				Pexnidi.dianomi(true);
+			}
 		}, Pexnidi.delay['pasoPasoPaso']);
 		Pexnidi.miosiDelay('pasoPasoPaso');
 	};
@@ -578,15 +570,6 @@ var ProcessFasi = new function() {
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
 		Pexnidi.addKinisi('ΤΖΟΓΟΣ', '', pexnidi.tzogadoros);
-	};
-
-	this.alagi = function() {
-	};
-
-	this.simetoxi = function() {
-	};
-
-	this.pexnidi = function() {
 	};
 
 	this.baza = function() {
@@ -606,18 +589,16 @@ var ProcessFasi = new function() {
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
 		Pliromi.pliromi();
-		ProcessFasi.dromologimeno = setTimeout(function() {
-			if (Pliromi.apotixia) {
-				mainFyi('Απέτυχε η πληρωμή. Κάντε επαναφόρτωση της σελίδας');
-			}
-			else {
-				Pexnidi.dianomi(true);
-			}
-		}, Pexnidi.delay['pliromi']);
-		Pexnidi.miosiDelay('pliromi');
 	};
 
-	this.claim = function() {
+	this.dianomi = function() {
+		if (pexnidi.dealer != 1) { return; }
+		if (isTheatis()) { return; }
+		if (pexnidi.akirosi != 0) { return; }
+		ProcessFasi.dromologimeno = setTimeout(function() {
+			Pexnidi.dianomi(true);
+		}, Pexnidi.delay['dianomi']);
+		Pexnidi.miosiDelay('dianomi');
 	};
 };
 
@@ -1029,6 +1010,11 @@ var ProcessKinisi = new function() {
 		pexnidi.fasi = 'ΣΟΛΟ';
 		pexnidi.fila = [ [], [], [], [] ];
 		pexnidi.bazaCount = 10;
+	};
+
+	this.pliromi = function() {
+		pexnidi.fasi = 'ΔΙΑΝΟΜΗ';
+		Pexnidi.setEpomenos(pexnidi.dealer);
 	};
 };
 
