@@ -33,6 +33,8 @@ else {
 	$thesi = $globals->trapezi->thesi;
 }
 
+Prefadoros::klidose_trapezi();
+
 switch ($idos) {
 case 'ΔΗΛΩΣΗ':
 	$data = check_trito_paso($dianomi, $data);
@@ -40,9 +42,11 @@ case 'ΔΗΛΩΣΗ':
 case 'ΤΖΟΓΟΣ':
 	$data = fila_tzogou($dianomi);
 	break;
+case 'ΠΛΗΡΩΜΗ':
+	kane_pliromi($dianomi, $data);
+	break;
 }
 
-Prefadoros::klidose_trapezi();
 
 $query = "INSERT INTO `κίνηση` (`διανομή`, `παίκτης`, `είδος`, `data`) " .
 	"VALUES (" . $dianomi . ", " . $thesi . ", '" .
@@ -104,5 +108,36 @@ function check_trito_paso($dianomi, $data) {
 	}
 
 	return ($paso_count < 2 ? $data : $data . ":" . $tzogos);
+}
+
+function kane_pliromi($dianomi, $data) {
+	global $globals;
+
+	$posa = explode(':', $data);
+	if (count($posa) != 7) {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		die($data . ': λανθασμένα data πληρωμής');
+	}
+
+	$query = "UPDATE `διανομή` SET " .
+		"`κάσα1` = " . $posa[1] . ", `μετρητά1` = " . $posa[2] . ", " .
+		"`κάσα2` = " . $posa[3] . ", `μετρητά2` = " . $posa[4] . ", " .
+		"`κάσα3` = " . $posa[5] . ", `μετρητά3` = " . $posa[6] . " " .
+		"WHERE `κωδικός` = " . $dianomi;
+	$globals->sql_query($query);
+
+	$query = "SELECT `κάσα1`, `μετρητά1`, `κάσα2`, `μετρητά2`, `κάσα3`, `μετρητά3` " .
+		"FROM `διανομή` WHERE `κωδικός` = " . $dianomi;
+	$result = $globals->sql_query($query);
+	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
+	$data1 = '';
+	for ($i = 0; $i < 6; $i++) {
+		$data1 .= ":" . $row[$i];
+	}
+
+	if ($data1 != $data) {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		die('Απέτυχε η πληρωμή της διανομής');
+	}
 }
 ?>

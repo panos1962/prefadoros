@@ -144,7 +144,6 @@ var Pliromi = new function() {
 	this.pliromi = function() {
 		var errmsg = 'Pliromi::pliromi(): ';
 
-		this.apotixia = false;
 		this.kasa = [ null, 0, 0, 0 ];
 		this.kapikia = [ null, 0, 0, 0 ];
 		this.taPoulia = [ null, 0, 0, 0 ];
@@ -650,30 +649,12 @@ var Pliromi = new function() {
 	this.kataxorisi = function() {
 		this.fixMazi();
 		this.fixTaPoulia();
-		var req = new Request('pexnidi/pliromi');
-		req.xhr.onreadystatechange = function() {
-			Pliromi.kataxorisiCheck(req);
-		};
-
-		params = 'dianomi=' + uri(dianomi[dianomi.length - 1].k);
-		params += '&pliromi=';
+		var data = '';
 		for (var i = 1; i <= 3; i++) {
-			params += ':' + this.kasa[partida.pam[i]] +
+			data += ':' + this.kasa[partida.pam[i]] +
 				':' + this.kapikia[partida.pam[i]];
 		}
-//alert(params);
-		req.send(params);
-	};
-
-	this.kataxorisiCheck = function(req, img) {
-		if (req.xhr.readyState != 4) { return; }
-		//tektenomena.kitapiDirty = true;
-		var rsp = req.getResponse();
-		mainFyi(rsp);
-		if (rsp) {
-			Pliromi.apotixia = true;
-			playSound('beep');
-		}
+		Pexnidi.addKinisi('ΠΛΗΡΩΜΗ', data);
 	};
 
 	// Η μέθοδος "fixMazi" καλείται ακριβώς πριν την καταχώρηση των

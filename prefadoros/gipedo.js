@@ -21,7 +21,6 @@ var Gipedo = new function() {
 
 	this.dianomiHTML = function() {
 		var html = '';
-		html += '<div>';
 		var dealer = pexnidi.dealer + 1;
 		if (dealer > 3) { dealer = 1; }
 		if (dealer == 1) { html += Gipedo.anamoniDianomiHTML(); }
@@ -35,13 +34,6 @@ var Gipedo = new function() {
 			html += Gipedo.piosPektis(dealer, 'Μοιράζετε', 'μοιράζει') + 'φύλλα. ';
 		}
 		html += 'Παρακαλώ περιμένετε…';
-		html += '</div>';
-		html += '<div class="dixeTzogo">';
-		html += '<img class="dixeTzogoIcon" src="' + globals.server +
-			'images/trapoula/' + pexnidi.tzogos.substr(0, 2) + '.png" alt="" />';
-		html += '<img class="dixeTzogoIcon" src="' + globals.server +
-			'images/trapoula/' + pexnidi.tzogos.substr(2, 2) + '.png" alt="" />';
-		html += '</div>';
 		return html;
 	};
 
@@ -92,19 +84,31 @@ var Gipedo = new function() {
 	};
 
 	this.pasoPasoPasoHTML = function() {
-		if (!isPasoPasoPaso()) { return Gipedo.dianomiHTML(); };
 		var html = '';
+		if (notPasoPasoPaso()) {
+			html += '<div>';
+			html += Gipedo.dianomiHTML();
+			html += '</div>';
+			html += '<div class="dixeTzogo">';
+			html += '<img class="dixeTzogoIcon" src="' + globals.server +
+				'images/trapoula/' + pexnidi.tzogos.substr(0, 2) + '.png" alt="" />';
+			html += '<img class="dixeTzogoIcon" src="' + globals.server +
+				'images/trapoula/' + pexnidi.tzogos.substr(2, 2) + '.png" alt="" />';
+			html += '</div>';
+			return html;
+		}
+
 		if (isTheatis()) {
 			html += 'Και οι τρεις παίκτες δήλωσαν «πάσο». ' +
 				'Η διανομή θα παιχτεί και οι παίκτες θα προσπαθήσουν ' +
 				'να κάνουν όσο το δυνατόν λιγότερες μπάζες. ' +
 				'Παρακαλώ περιμένετε…';
+			return html;
 		}
-		else {
-			html += 'Και οι τρεις παίκτες δηλώσατε «πάσο». ' +
-				'Θα παίξετε τη διανομή προσπαθώντας να κάνετε όσο το ' +
-				'δυνατόν λιγότερες μπάζες. Περιμένετε τη σειρά σας…';
-		}
+
+		html += 'Και οι τρεις παίκτες δηλώσατε «πάσο». ' +
+			'Θα παίξετε τη διανομή προσπαθώντας να κάνετε όσο το ' +
+			'δυνατόν λιγότερες μπάζες. Περιμένετε τη σειρά σας…';
 		return html;
 	};
 
