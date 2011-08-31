@@ -87,9 +87,9 @@ var Gipedo = new function() {
 	this.dilosiPerigrafiHTML = function(dilosi) {
 		switch (dilosi) {
 		case 'DTG': return 'Άμα μείνουν';
-		case 'DS6': return 'ΠΡΩΤΑ';
-		case 'DC6': return 'ΔΕΥΤΕΡΑ';
-		case 'DD6': return 'ΤΡΙΤΑ';
+		case 'DS6': return 'Πρώτα';
+		case 'DC6': return 'Δεύτερα';
+		case 'DD6': return 'Τρίτα';
 		default: return Pexnidi.xromaBazesHTML(dilosi);
 		}
 	};
