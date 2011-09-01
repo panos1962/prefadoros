@@ -172,6 +172,15 @@ class Kafenio {
 			@mysqli_rollback($globals->db);
 			return;
 		}
+
+		$query = "DELETE FROM `συζήτηση` WHERE `τραπέζι` IN " .
+			"(SELECT `κωδικός` FROM `τραπέζι` WHERE `τέλος` IS NOT NULL)";
+		$result = mysqli_query($globals->db, $query);
+		if (!$result) {
+			@mysqli_rollback($globals->db);
+			return;
+		}
+
 		@mysqli_commit($globals->db);
 		@mysqli_autocommit($globals->db, TRUE);
 	}

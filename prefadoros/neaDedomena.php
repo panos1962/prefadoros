@@ -95,6 +95,7 @@ if (!$prev->diavase()) {
 // τα δεδομένα της προηγούμενης αποστολής της τρέχουσας συνεδρίας και
 // ξεκινάμε τον κύκλο ελέγχου με τα τρέχοντα στοιχεία της database.
 
+$count = 0;
 $ekinisi = time();
 do {
 	unset($globals->trapezi);
@@ -119,7 +120,15 @@ do {
 		die(0);
 	}
 
-	usleep(XRONOS_DEDOMENA_TIC);
+	if ($count++ < 10)
+		usleep(XRONOS_DEDOMENA_TIC);
+	}
+	elseif ($count < 20) {
+		usleep(2 * XRONOS_DEDOMENA_TIC);
+	}
+	else {
+		usleep(4 * XRONOS_DEDOMENA_TIC);
+	}
 
 	// Πριν προχωρήσουμε στο μάζεμα των στοιχείων και στον
 	// συνακόλουθο έλεγχο, ελέγχουμε μήπως έχει δρομολογηθεί
