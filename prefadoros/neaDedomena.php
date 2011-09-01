@@ -120,7 +120,7 @@ do {
 		die(0);
 	}
 
-	if ($count++ < 10)
+	if ($count++ < 10) {
 		usleep(XRONOS_DEDOMENA_TIC);
 	}
 	elseif ($count < 20) {
