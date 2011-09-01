@@ -123,7 +123,7 @@ do {
 	if ($elapsed < 4) {
 		usleep(XRONOS_DEDOMENA_TIC);
 	}
-	elseif ($count < 10) {
+	elseif ($elapsed < 10) {
 		usleep(XRONOS_DEDOMENA_TIC2);
 	}
 	else {

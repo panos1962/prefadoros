@@ -75,6 +75,8 @@ var Dedomena = new function() {
 		req.send(params);
 	};
 
+	var refreshErrorCount = 0;
+
 	this.neaDedomenaCheck = function(req) {
 		if (req.xhr.readyState != 4) { return; }
 		rsp = req.getResponse();
@@ -84,8 +86,18 @@ var Dedomena = new function() {
 		} catch(e) {
 			monitor.lathos();
 			Dumprsp.lathos();
-			mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
-// alert(rsp + ': λανθασμένα δεδομένα (' + e + ')');
+
+			// Κατά την έξοδο, ή κατά το refresh παραλαμβάνονται ελλιπή
+			// δεδομένα. Αυτά δεν πρέπει να τα δείξω στον παίκτη, εκτός
+			// και αν επεναληφθούν.
+			var refreshError = (rsp == 'prefadoros/neaDedomena (status = 0)');
+			if (!refreshError) { var showError = true; }
+			else if (refreshErrorCount++ > 0) { showError = true; }
+			else { showError = false; }
+
+			if (showError) {
+				mainFyi(rsp + ': λανθασμένα δεδομένα (' + e + ')');
+			}
 			Dedomena.schedule(true);
 			return;
 		}
