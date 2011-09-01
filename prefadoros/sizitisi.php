@@ -3,14 +3,13 @@
 // Η σταθερά "WRITING_ACTIVE" είναι ο χρόνος που ένα σχόλιο ένδειξης
 // γραφής σχολίου ("@WP", ή "@WK@") θεωρείται ενεργό. Ο χρόνος αυτός
 // ορίζεται σε δευτερόλεπτα.
-define('WRITING_ACTIVE', 60);
+define('WRITING_ACTIVE', 20);
 
-// 60 * 60 * 24 = 86400
+// Ένα 24ωρο = 60 * 60 * 24 = 86400
 define('WRITING_CLEANUP', 86400);
 
 // Η σταθερά "KAFENIO_TREXONTA_SXOLIA" δείχνει το πλήθος των σχολίων της
 // δημόσιας συζήτησης που επιστρέφονται αρχικά στον παίκτη.
-
 define('KAFENIO_TREXONTA_SXOLIA', 50);
 
 class Sizitisi {
@@ -294,6 +293,8 @@ class Sizitisi {
 
 		$sizitisi = array();
 		if ($globals->is_trapezi()) {
+			// Μαζεύουμε σχόλια του τραπεζιού και τυχόν σχόλια ένδειξης
+			// συγγραφής σχολίων στο καφενείο.
 			$writing = time() - WRITING_ACTIVE;
 			$query = self:: select_clause() .
 				"WHERE (`τραπέζι` = " . $globals->trapezi->kodikos . ") " .
@@ -325,9 +326,35 @@ class Sizitisi {
 		return(FALSE);
 	}
 
+	public static function cleanup_kafenio() {
+		global $globals;
+
+		if (mt_rand(1, 30) != 1) {
+			return;
+		}
+
+		$query = "SELECT `κωδικός` FROM `συζήτηση` WHERE `τραπέζι` IS NULL " .
+			"ORDER BY `κωδικός` DESC LIMIT " . KAFENIO_TREXONTA_SXOLIA;
+		$result = $globals->sql_query($query);
+		$count = 0;
+		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+			$proto = $row[0];
+			$count++;
+		}
+		if ($count < KAFENIO_TREXONTA_SXOLIA) {
+			return;
+		}
+
+		$query = "DELETE FROM `συζήτηση` " .
+			"WHERE (`τραπέζι` IS NULL) AND (`κωδικός` < " . $proto . ")";
+		$globals->sql_query($query);
+	}
+
 	public static function process_kafenio() {
 		global $globals;
 		global $kafenio_apo;
+
+		self::cleanup_kafenio();
 
 		// Η global μεταβλητή "kafenio_apo" είναι κοινή εδώ και στο βασικό
 		// πρόγραμμα ελέγχου εμφάνισης νέων δεδομένων ("prefadoros/neaDedomena.php").
@@ -335,7 +362,7 @@ class Sizitisi {
 		// για το πρώτο μάζεμα σχολίων της δημόσιας συζήτησης (ΔΣ), οπότε σε αυτήν
 		// την περίπτωση θα μαζευτούν τα τρέχοντα σχόλια της ΔΣ και η μεταβλητή
 		// "kafenio_apo" θα πάρει τιμή από το πρώτο από αυτά τα σχόλια. Αυτή
-		// η τιμή θα χρησιμοποιηθεί με΄χρι να λήξει ο τρέχων κύκλος ελέγχου,
+		// η τιμή θα χρησιμοποιηθεί μέχρι να λήξει ο τρέχων κύκλος ελέγχου,
 		// ενώ για τους επόμενους κύκλους θα μας έρχεται ως παράμετρος από
 		// τον client.
 
