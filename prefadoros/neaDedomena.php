@@ -95,7 +95,6 @@ if (!$prev->diavase()) {
 // τα δεδομένα της προηγούμενης αποστολής της τρέχουσας συνεδρίας και
 // ξεκινάμε τον κύκλο ελέγχου με τα τρέχοντα στοιχεία της database.
 
-$count = 0;
 $ekinisi = time();
 do {
 	unset($globals->trapezi);
@@ -114,20 +113,21 @@ do {
 	// δεδομένα που δείχνουν ότι τα δεδομένα παρέμειναν ίδια.
 	// Ο client θα δρομολογήσει νέο κύκλο ελέγχου/αποστολής
 	// στοιχείων.
-	if ((time() - $ekinisi) > XRONOS_DEDOMENA_MAX) {
+	$elapsed = time() - $ekinisi;
+	if ($elapsed > XRONOS_DEDOMENA_MAX) {
 		print_epikefalida();
 		print ",s:1}";
 		die(0);
 	}
 
-	if ($count++ < 10) {
+	if ($elapsed < 4) {
 		usleep(XRONOS_DEDOMENA_TIC);
 	}
-	elseif ($count < 20) {
-		usleep(2 * XRONOS_DEDOMENA_TIC);
+	elseif ($count < 10) {
+		usleep(XRONOS_DEDOMENA_TIC2);
 	}
 	else {
-		usleep(4 * XRONOS_DEDOMENA_TIC);
+		usleep(XRONOS_DEDOMENA_TIC3);
 	}
 
 	// Πριν προχωρήσουμε στο μάζεμα των στοιχείων και στον
