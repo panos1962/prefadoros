@@ -136,8 +136,9 @@ class Kafenio {
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$t = new Trapezi(FALSE);
 			$t->set_from_dbrow($row);
-			$t->set_energos_pektis($energos);
-			$trapezi[] = $t;
+			if ($t->set_energos_pektis($energos)) {
+				$trapezi[] = $t;
+			}
 		}
 
 		return($trapezi);
