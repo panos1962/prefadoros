@@ -136,12 +136,34 @@ class Trapezi {
 	}
 
 	public function set_energos_pektis($energos = FALSE) {
+		global $globals;
+
 		if ($energos === FALSE) { $energos = Prefadoros::energos_pektis(); }
+		$kapios = FALSE;
 		for ($i = 1; $i <= 3; $i++) {
 			$pektis = "pektis" . $i;
 			$online = "online" . $i;
-			$this->$online = array_key_exists($this->$pektis, $energos) ? 1 : 0;
+			if (array_key_exists($this->$pektis, $energos)) {
+				$this->$online = 1;
+				$kapios = TRUE;
+			}
+			else {
+				$this->$online = 0;
+			}
 		}
+		if ($kapios) {
+			return(TRUE);
+		}
+
+		$query = "SELECT `παίκτης` FROM `θεατής` " .
+			"WHERE `τραπέζι` = " . $this->kodikos;
+		$result = $globals->sql_query($query);
+		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+			if (array_key_exists($row[0], $energos)) {
+				$kapios = TRUE;
+			}
+		}
+		return $kapios;
 	}
 
 	public function set_from_file($line) {

@@ -1046,7 +1046,9 @@ var Xipnitiri = new function() {
 	};
 
 	this.vara = function(skala) {
-		playSound(ixos[skala]);
+		if (notTheatis()) {
+			playSound(ixos[skala]);
+		}
 		Xipnitiri.vale(skala + 1);
 	};
 };
