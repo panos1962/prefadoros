@@ -34,7 +34,7 @@ Page::body();
 // Page::motd();
 if ($globals->is_pektis()) {
 	Prefadoros::pektis_check();
-	// Page::diafimisi();
+	Page::diafimisi();
 }
 Page::toolbar();
 ?>
