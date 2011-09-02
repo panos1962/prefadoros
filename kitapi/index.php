@@ -96,10 +96,6 @@ body {
 	color: #191970;
 	text-align: center;
 }
-
-.enimerosi {
-	text-align: center;
-}
 </style>
 </head>
 <body id="selida">
@@ -116,7 +112,7 @@ function kitapi() {
 	global $globals;
 	fix_arnitika();
 	?>
-	<table width="100%" style="border-collapse: collapse;">
+	<table width="100%" style="border-spacing: 0px;">
 	<tr>
 		<td class="kitapi kitapi3">
 			<?php print_pektis($globals->trapezi->pektis3, 3, 'bottom', 'top'); ?>
@@ -127,7 +123,6 @@ function kitapi() {
 	</tr>
 	<tr>
 		<td class="kitapi kitapi1" colspan="3">
-			<div id="enimerosi" class="enimerosi"></div>
 			<?php print_pektis($globals->trapezi->pektis1, 1); ?>
 		</td>
 	</tr>
