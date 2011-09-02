@@ -25,6 +25,7 @@ window.onload = function() {
 
 window.onunload = function() {
 	try { controlPanel.funchatClose(); } catch(e) {};
+	try { controlPanel.kitapiClose(); } catch(e) {};
 	try { Dumprsp.close(); } catch(e) {};
 	try { offline(); } catch(e) {};
 };

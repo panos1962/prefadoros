@@ -1,12 +1,12 @@
 window.onload = function() {
+	var w = window.opener;
+	if (isSet(w) && isSet(w.controlPanel)) { w.controlPanel.kitapiWindow = window; }
 	stixisi();
 }
 
 window.onunload = function() {
 	var w = window.opener;
-	if (notSet(w)) { return; }
-	if (notSet(w.controlPanel)) { return; }
-	w.controlPanel.kliseKitapi();
+	if (isSet(w) && isSet(w.controlPanel)) { w.controlPanel.kitapiWindow = null; }
 }
 
 // Μετά την εμφάνιση του φύλλου αγώνα, υπάρχει περίπτωση σε κάποια
@@ -24,13 +24,6 @@ window.onunload = function() {
 // αυτές.
 
 function stixisi() {
-	var w = window.opener;
-	if (notSet(w) || notSet(w.controlPanel)) {
-		window.close();
-		return;
-	}
-
-	w.controlPanel.kitapiWindow = window;
 	var maxh = -1;
 	for (var i = 0; i < 6; i++) {
 		var k = getelid('ks' + i);
