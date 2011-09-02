@@ -369,10 +369,12 @@ class Sizitisi {
 		if ((!isset($kafenio_apo)) || ($kafenio_apo < 1)) {
 			$kafenio_apo = 1;
 			$query = self::select_clause() . "WHERE (`τραπέζι` IS NULL) " .
-				"ORDER BY `κωδικός` DESC LIMIT " . KAFENIO_TREXONTA_SXOLIA;
+				"ORDER BY `κωδικός` LIMIT " . KAFENIO_TREXONTA_SXOLIA;
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				$kafenio_apo = $row['κωδικός'];
+				@mysqli_free_result($result);
+				break;
 			}
 		}
 
