@@ -11,18 +11,20 @@ var Dedomena = new function() {
 	this.setup = function() {
 		sessionAliveTS = (lastDataTS = currentTimestamp());
 		setTimeout(function() { Dedomena.neaDedomena(true); }, 200);
-		setTimeout(Dedomena.checkAlive, 1000);
+// setTimeout(Dedomena.checkAlive, 1000);
+		setTimeout(Dedomena.checkAlive, 5000);
 		Dedomena.kafenioApo = 0;
 	};
 
 	this.schedule = function(freska) {
 		if (notSet(freska)) { freska = false; }
-		setTimeout(function() { Dedomena.neaDedomena(freska); }, 100);
+// setTimeout(function() { Dedomena.neaDedomena(freska); }, 100);
+		setTimeout(function() { Dedomena.neaDedomena(freska); }, 1000);
 	};
 
 	// Η μέθοδος "keepAlive" τρέχει σε τακτά χρονικά διαστήματα και ελέγχει
 	// αν η επικοινωνία μας με τον server είναι ζωντανή. Πράγματι, κάθε φορά
-	// που επιστρέφονται δεδομένα από τον server καρατάμε το χρόνο στη
+	// που επιστρέφονται δεδομένα από τον server κρατάμε το χρόνο στη
 	// μεταβλητή "lastDataTS" (σε milliseconds). Η "keepAlive" ελέγχει αν
 	// ο χρόνος που έχει παρέλθει από την τελευταία παραλαβή, έχει υπερβεί
 	// τον μέγιστο επιτρεπτό χρόνο απραξίας ("parameters.noAnswerMax"), και
