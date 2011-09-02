@@ -1013,6 +1013,7 @@ var ProcessKinisi = new function() {
 	};
 
 	this.pliromi = function() {
+		controlPanel.refreshKitapi();
 		pexnidi.fasi = 'ΔΙΑΝΟΜΗ';
 		Pexnidi.setEpomenos(pexnidi.dealer);
 	};

@@ -885,10 +885,13 @@ var Partida = new function() {
 		if (req.xhr.readyState != 4) { return; }
 		var rsp = req.getResponse();
 		mainFyi(rsp);
-		ico.src = ico.prevSrc;
 		if (rsp) {
+			ico.src = ico.prevSrc;
 			errorIcon(ico);
 			playSound('beep');
+		}
+		else {
+			controlPanel.refreshKitapi();
 		}
 	};
 		
