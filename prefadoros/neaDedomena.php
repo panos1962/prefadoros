@@ -120,14 +120,17 @@ do {
 		die(0);
 	}
 
-	if ($elapsed < 4) {
+	if ($elapsed < 2) {
 		usleep(XRONOS_DEDOMENA_TIC);
 	}
-	elseif ($elapsed < 10) {
+	elseif ($elapsed < 5) {
 		usleep(XRONOS_DEDOMENA_TIC2);
 	}
-	else {
+	elseif ($elapsed < 10) {
 		usleep(XRONOS_DEDOMENA_TIC3);
+	}
+	else {
+		usleep(XRONOS_DEDOMENA_TIC4);
 	}
 
 	// Πριν προχωρήσουμε στο μάζεμα των στοιχείων και στον
