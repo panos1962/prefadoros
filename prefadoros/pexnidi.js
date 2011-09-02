@@ -45,6 +45,7 @@ var Pexnidi = new function() {
 		pexnidi.dilosiCount = 0;
 		pexnidi.dilosi = [ '', '', '', '' ];
 		pexnidi.curdil = 'DTG';
+		pexnidi.taGrafoSePaso = true;
 
 		pexnidi.pasoCount = 0;
 		pexnidi.paso = [ false, false, false, false ];
@@ -634,10 +635,13 @@ var ProcessKinisi = new function() {
 			return;
 		}
 
-		for (var i = 1; i <= 3; i++) {
-			if (pexnidi.dilosi[i] == 'DTG') {
-				pexnidi.paso[i] = true;
-				pexnidi.pasoCount++;
+		if (pexnidi.taGrafoSePaso) {
+			for (var i = 1; i <= 3; i++) {
+				if (pexnidi.dilosi[i] == 'DTG') {
+					pexnidi.paso[i] = true;
+					pexnidi.pasoCount++;
+					pexnidi.taGrafoSePaso = false;
+				}
 			}
 		}
 
