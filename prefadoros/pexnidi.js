@@ -975,6 +975,8 @@ var ProcessKinisi = new function() {
 			return;
 		}
 
+		// Βαράω τώρα το κανόνι, διότι αν το αφήσω στην πληρωμή
+		// (όπως βαράει κανονικά), ακούγεται λίγο ετεροχρονισμένα.
 		Pexnidi.bamBoum('kanoni', 'ts', kodikos);
 
 		var xroma = data.substr(0, 1);
