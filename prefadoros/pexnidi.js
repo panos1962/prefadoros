@@ -45,7 +45,6 @@ var Pexnidi = new function() {
 		pexnidi.dilosiCount = 0;
 		pexnidi.dilosi = [ '', '', '', '' ];
 		pexnidi.curdil = 'DTG';
-		pexnidi.taGrafoSePaso = true;
 
 		pexnidi.pasoCount = 0;
 		pexnidi.paso = [ false, false, false, false ];
@@ -161,7 +160,7 @@ var Pexnidi = new function() {
 				ProcessKinisi.solo(kinisi[i].thesi, kinisi[i].k, kinisi[i].d);
 				break;
 			case 'ΠΛΗΡΩΜΗ':
-				ProcessKinisi.pliromi();
+				ProcessKinisi.pliromi(kinisi[i].k);
 				break;
 			default:
 				mainFyi(errmsg + kinisi[i].i + ': άγνωστο είδος κίνησης');
@@ -635,13 +634,10 @@ var ProcessKinisi = new function() {
 			return;
 		}
 
-		if (pexnidi.taGrafoSePaso) {
-			for (var i = 1; i <= 3; i++) {
-				if (pexnidi.dilosi[i] == 'DTG') {
-					pexnidi.paso[i] = true;
-					pexnidi.pasoCount++;
-					pexnidi.taGrafoSePaso = false;
-				}
+		for (var i = 1; i <= 3; i++) {
+			if ((pexnidi.dilosi[i] == 'DTG') && (!pexnidi.paso[i])) {
+				pexnidi.paso[i] = true;
+				pexnidi.pasoCount++;
 			}
 		}
 
@@ -948,6 +944,7 @@ var ProcessKinisi = new function() {
 					if (i != pexnidi.tzogadoros) { b += pexnidi.baza[i]; }
 				}
 				pexnidi.baza[pexnidi.tzogadoros] = 10 - b;
+				pexnidi.bazaCount = 10;
 			}
 			return;
 		}
@@ -1016,7 +1013,8 @@ var ProcessKinisi = new function() {
 		pexnidi.bazaCount = 10;
 	};
 
-	this.pliromi = function() {
+	this.pliromi = function(kinisi) {
+		Pliromi.checkMesa(kinisi);
 		controlPanel.refreshKitapi();
 		pexnidi.fasi = 'ΔΙΑΝΟΜΗ';
 		Pexnidi.setEpomenos(pexnidi.dealer);
