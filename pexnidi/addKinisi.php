@@ -15,7 +15,7 @@ if (preg_match("@^http://127@", $globals->server)) {
 Prefadoros::pektis_check();
 Prefadoros::trapezi_check();
 if ($globals->trapezi->is_theatis()) {
-	die("Δεν μπορείτε να εισάγετε κινήσεις ως θεατής");
+	die("Δεν μπορείτε να εισαγάγετε κινήσεις ως θεατής");
 }
 
 Prefadoros::dianomi_check();
@@ -36,6 +36,15 @@ else {
 Prefadoros::klidose_trapezi();
 
 switch ($idos) {
+case 'ΜΠΑΖΑ':
+	check_baza($dianomi);
+	break;
+case 'ΔΙΑΝΟΜΗ':
+	check_dianomi($dianomi);
+	break;
+case 'ΑΓΟΡΑ':
+	check_agora($dianomi);
+	break;
 case 'ΔΗΛΩΣΗ':
 	$data = check_trito_paso($dianomi, $data);
 	break;
@@ -140,4 +149,72 @@ function kane_pliromi($dianomi, $data) {
 		die('Απέτυχε η πληρωμή της διανομής');
 	}
 }
+
+function check_baza($dianomi) {
+	global $globals;
+
+	// Η προηγούμενη (τελευταία) κίνηση πρέπει να είναι
+	// τύπου "ΦΥΛΛΟ". Ψάχνουμε, λοιπόν, το είδος της
+	// τελευταίας κίνησης της διανομής.
+	$last = '';
+	$query = "SELECT `είδος` FROM `κίνηση` WHERE `διανομή` = " .
+		$dianomi . " ORDER BY `κωδικός` DESC LIMIT 1";
+	$result = $globals->sql_query($query);
+	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		$prev = $row[0];
+	}
+	if ($prev != 'ΦΥΛΛΟ') {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		die('Απόπειρα μπάζας μετά από "'. $prev . '"');
+	}
+}
+
+function check_dianomi($dianomi) {
+	global $globals;
+
+	// Πρέπει να είναι η πρώτη κίνηση της διανομής.
+	$found = FALSE;
+	$query = "SELECT `κωδικός` FROM `κίνηση` WHERE `διανομή` = " .
+		$dianomi . " LIMIT 1";
+	$result = $globals->sql_query($query);
+	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		$found = TRUE;
+	}
+	if ($found) {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		die('Απόπειρα διπλοδιανομής');
+	}
+}
+
+function check_agora($dianomi) {
+	global $globals;
+
+	// Αν το τραπέζι έχει ΠΠΠ πρέπει να προηγούνται τρεις
+	// δηλώσεις πάσο, αλλιώς πρέπει να προηγείται κίνηση
+	// τύπου "ΤΖΟΓΟΣ".
+	$paso = 0;
+	$last = '';
+	$query = "SELECT `είδος`, `data` FROM `κίνηση` WHERE `διανομή` = " .
+		$dianomi . " ORDER BY `κωδικός`";
+	$result = $globals->sql_query($query);
+	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		$last = $row[0];
+		if (($last == 'ΔΗΛΩΣΗ') && preg_match('/^P/', $row[1])) {
+			$paso++;
+		}
+	}
+
+	if ($globals->trapezi->ppp == 1) {
+		if ($paso >= 3) {
+			return;
+		}
+	}
+	elseif ($last == 'ΤΖΟΓΟΣ') {
+		return;
+	}
+
+	Prefadoros::xeklidose_trapezi(FALSE);
+	die('Απόπειρα διπλής αγοράς');
+}
+
 ?>
