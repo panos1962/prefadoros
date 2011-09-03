@@ -59,6 +59,9 @@ var Pliromi = new function() {
 		}
 	};
 
+	// Η μέθοδος "checkMesa" δέχεται ως παράμετρο τον κωδικό της
+	// τελευταίας (τρέχουσας) κίνησης και ελέγχει αν κάποιος πάει
+	// μέσα με μοναδικό σκοπό να βαρέσει τα κανόνια.
 	this.checkMesa = function(kinisi) {
 		var menoun = 10 - pexnidi.bazaCount;
 		var dif = pexnidi.agoraBazes - (pexnidi.baza[pexnidi.tzogadoros] + menoun);
