@@ -204,13 +204,14 @@ function check_agora($dianomi) {
 		}
 	}
 
+	if ($last == 'ΤΖΟΓΟΣ') {
+		return;
+	}
+
 	if ($globals->trapezi->ppp == 1) {
 		if ($paso >= 3) {
 			return;
 		}
-	}
-	elseif ($last == 'ΤΖΟΓΟΣ') {
-		return;
 	}
 
 	Prefadoros::xeklidose_trapezi(FALSE);
