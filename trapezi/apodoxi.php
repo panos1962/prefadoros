@@ -44,8 +44,10 @@ if (Globals::perastike('apodoxi')) {
 		}
 	}
 
+	// Αν και οι τρεις παίκτες έχουν κάνει αποδοχή των όρων
+	// του τραπεζιού, γίνεται η πρώτη διανομή από τυχαίο dealer.
 	if ($count >= 3) {
-		kane_dianomi();
+		kane_dianomi(mt_rand(1, 3));
 	}
 }
 else if (Globals::perastike('dianomi')) {
@@ -53,31 +55,22 @@ else if (Globals::perastike('dianomi')) {
 	if (preg_match("@^http://127@", $globals->server)) {
 		usleep(500000);
 	}
-	kane_dianomi();
+	kane_dianomi(find_the_dealer());
 }
 
 Prefadoros::xeklidose_trapezi(TRUE);
 
-function kane_dianomi() {
+function kane_dianomi($dealer) {
 	global $globals;
 
 	$trapoula = new Trapoula();
 	$trapoula->anakatema();
 
-	$globals->trapezi->fetch_dianomi();
-	$nd = count($globals->dianomi);
-	if ($nd > 0) {
-		$dealer = $globals->dianomi[$nd - 1]->dealer + 1;
-		if ($dealer > 3) { $dealer = 1; }
-	}
-	else {
-		$dealer = mt_rand(1, 3);
-	}
-
 	$query = "INSERT INTO `διανομή` (`τραπέζι`, `dealer`) VALUES " .
 		"(" . $globals->trapezi->kodikos . ", " . $dealer . ")";
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
+		Prefadoros::xeklidose_trapezi(FALSE);
 		die("Απέτυχε η διανομή");
 	}
 	$dianomi = @mysqli_insert_id($globals->db);
@@ -102,4 +95,47 @@ function kane_dianomi() {
 
 	Kinisi::insert($dianomi, $dealer, "ΔΙΑΝΟΜΗ", $data);
 }
+
+function find_the_dealer() {
+	global $globals;
+
+	// Προσπελαύνω την τελευταία (προηγούμενη) διανομή.
+	$dealer = 0;
+	$query = "SELECT `κωδικός`, `dealer` FROM `διανομή` WHERE `τραπέζι` = " .
+		$globals->trapezi->kodikos . " ORDER BY `κωδικός` DESC LIMIT 1";
+	$result = $globals->sql_query($query);
+	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		$dianomi = $row[0];
+		$dealer = $row[1];
+	}
+
+	if ($dealer == 0) {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		die('Ακαθόριστος dealer προηγούμενης διανομής');
+	}
+
+	// Στην προηγούμενη διανομή πρέπει να έχουν γίνει τουλάχιστον
+	// τρεις δηλώσεις.
+	$dilosi = 0;
+	$query = "SELECT `κωδικός` FROM `κίνηση` WHERE (`διανομή` = " .
+		$dianomi . ") AND (`είδος` = 'ΔΗΛΩΣΗ')";
+	$result = $globals->sql_query($query);
+	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		$dilosi++;
+	}
+
+	if ($dilosi < 3) {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		die('Απόπειρα διπλοδιανομής');
+	}
+
+	// Καθορίζουμε τον dealer της διανομής που θα γίνει να είναι
+	// ο επόμενος της τελευταίας (προηγούμενης) διανομής.
+	$dealer++;
+	if ($dealer > 3) {
+		$dealer = 1;
+	}
+	return($dealer);
+}
+
 ?>
