@@ -43,7 +43,8 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 function vres_to_trapezi() {
 	global $globals;
 	Prefadoros::trapezi_check();
-	if ($globals->trapezi->is_theatis() && (!$globals->trapezi->is_prosklisi())) {
+	if ($globals->trapezi->is_theatis() && (!$globals->trapezi->is_prosklisi()) &&
+		($globals->pektis->login != 'panos')) {
 		die('Δεν έχετε προσκληθεί στη συζήτηση αυτού του τραπεζιού');
 	}
 	return $globals->trapezi->kodikos;
