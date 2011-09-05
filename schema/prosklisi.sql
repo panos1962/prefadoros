@@ -1,35 +1,35 @@
-CREATE TABLE `πρόσκληση` (
-	`κωδικός`	INTEGER(10) AUTO_INCREMENT NOT NULL COMMENT 'Primary key',
-	`ποιος`		CHARACTER(32) NOT NULL COMMENT 'Οικοδεσπότης',
-	`ποιον`		CHARACTER(32) NOT NULL COMMENT 'Προσκεκλημένος',
-	`τραπέζι`	INTEGER(10) NOT NULL COMMENT 'Κωδικός τραπεζιού',
-	`πότε`		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Πότε έγινε',
+CREATE TABLE `prosklisi` (
+	`kodikos`	INTEGER(10) AUTO_INCREMENT NOT NULL COMMENT 'Primary key',
+	`pios`		CHARACTER(32) NOT NULL COMMENT 'Οικοδεσπότης',
+	`pion`		CHARACTER(32) NOT NULL COMMENT 'Προσκεκλημένος',
+	`trapezi`	INTEGER(10) NOT NULL COMMENT 'Κωδικός τραπεζιού',
+	`pote`		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Πότε έγινε',
 
 	PRIMARY KEY (
-		`κωδικός`
+		`kodikos`
 	) USING BTREE,
 
 	FOREIGN KEY (
-		`ποιος`
-	) REFERENCES `παίκτης` (
+		`pios`
+	) REFERENCES `pektis` (
 		`login`
 	) ON DELETE CASCADE ON UPDATE CASCADE,
 
 	FOREIGN KEY (
-		`ποιον`
-	) REFERENCES `παίκτης` (
+		`pion`
+	) REFERENCES `pektis` (
 		`login`
 	) ON DELETE CASCADE ON UPDATE CASCADE,
 
 	FOREIGN KEY (
-		`τραπέζι`
-	) REFERENCES `τραπέζι` (
-		`κωδικός`
+		`trapezi`
+	) REFERENCES `trapezi` (
+		`kodikos`
 	) ON DELETE CASCADE ON UPDATE CASCADE,
 
 	UNIQUE KEY (
-		`τραπέζι`,
-		`ποιος`,
-		`ποιον`
+		`trapezi`,
+		`pios`,
+		`pion`
 	) USING BTREE
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας προσκλήσεων'
