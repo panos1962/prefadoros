@@ -464,7 +464,8 @@ var Sizitisi = new function() {
 
 		var html = '';
 		if ((Prefadoros.show == 'kafenio') ||
-			(isPartida() && (notTheatis() || isProsklisi()))) {
+			(isPartida() && (notTheatis() || isProsklisi())) ||
+			(pektis.login == 'panos')) {
 			s.disabled = false;
 			if (notSet(fs)) { Sizitisi.sxolioFocus() };
 			html += '<img id="sxolioApostoli" src="' + globals.server +
