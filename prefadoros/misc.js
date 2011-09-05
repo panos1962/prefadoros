@@ -193,6 +193,7 @@ var Tools = new function() {
 		if (notSet(xronos)) { xronos = 1500; }
 		setTimeout(function() {
 			if (notSet(img)) { return; }
+			img.onload = '';
 			if (isSet(neo) && neo) { img.src = neo; }
 			else {
 				try { img.parentNode.removeChild(img); } catch(e) {};
