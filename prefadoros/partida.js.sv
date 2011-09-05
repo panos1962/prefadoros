@@ -339,15 +339,13 @@ var Partida = new function() {
 		var pezon = ((pexnidi.fasi == 'ΠΑΙΧΝΙΔΙ') && isEpomenos());
 		if (pezon) { Dekada.setEpitrepto(fila); }
 
-//========================== setControls();
-		Dekada.resetControls(fila.length);
 		var proto = ' style="margin-left: 0px;"';
 		for (var i = 0; i < fila.length; i++) {
 			html += '<div class="filaSira';
 			if (tzogos) { html += ' filaSiraSteno filoSteno'; }
 			html += '"' + proto + '>';
 			proto = '';
-			html += '<img id="filo_' + i + '" class="filaSiraIcon';
+			html += '<img class="filaSiraIcon';
 			if (tzogos) { html += ' filoSteno'; }
 			html += '" src="' + globals.server + 'images/trapoula/' +
 				fila[i] + '.png" alt="" ';
@@ -1063,43 +1061,20 @@ var Dekada = new function() {
 		return ((i in epitrepto) && (epitrepto[i] === true));
 	};
 
-//========================== setControls();
-	var controls = [];
-	var bikeFilo = false;
-
-	this.resetControls = function(n) {
-		bikeFilo = false;
-		for (var i = 0; i < n; i++) {
-			controls[i] = '';
-		}
-	};
-
-	this.setControls = function() {
-		for (var i = 0; i < controls.length; i++) {
-			if (controls[i] == '') { continue; }
-			var x = getelid('filo_' + i);
-			if (notSet(x)) { continue; }
-
-			x.onmouseover = new Function('Dekada.sikose(this, ' + i + ', true);');
-			x.onmouseout = new Function('Dekada.sikose(this, ' + i + ', false);');
-			x.onclick = new Function('Dekada.valeFilo(this, ' + i +
-				', \'' + controls[i] + '\');');
-		}
-	};
-
 	this.dekadaHTML = function(xa, i) {
 		if (pexnidi.akirosi != 0) { return ''; }
 		if (pexnidi.anamoniKinisis) { return ''; }
 		if (!Dekada.isEpitrepto(i)) { return ''; }
 
-		controls[i] = xa;
 		var html = '';
+		html += ' onmouseover="Dekada.sikose(this, ' + i + ', true);" ';
+		html += ' onmouseout="Dekada.sikose(this, ' + i + ', false);" ';
+		html += ' onclick="Dekada.valeFilo(this, ' + i + ', \'' + xa + '\');" ';
 		if (epitrepto.length > 0) { html += 'style="bottom: 0.4cm; "'; }
 		return html;
 	};
 
 	this.sikose = function(img, i, pano) {
-		if (bikeFilo) { return; }
 		if (pexnidi.akirosi != 0) { return; }
 		if (pexnidi.anamoniKinisis) { return; }
 
@@ -1122,16 +1097,14 @@ var Dekada = new function() {
 	};
 
 	this.valeFilo = function(img, i, xa) {
-		if (bikeFilo) { return; }
 		if (pexnidi.akirosi != 0) { return; }
 		if (pexnidi.anamoniKinisis) { return; }
 
-		bikeFilo = true;
 		Sizitisi.sxolioFocus();
 		var x = getelid('bazaFilo1');
 		if (notSet(x)) { fatalError('Dekada.valeFilo: bazaFilo1: not found'); }
-		x.innerHTML = '<img class="bazaFilo bazaFilo1" src="' + globals.server +
-			'images/trapoula/' + xa + '.png" alt="" style="z-index: 3;" />';
+		x.innerHTML = '<img class="bazaFilo bazaFilo1" src="' +
+			img.src + '" alt="" style="z-index: 3;" />';
 		sviseNode(img);
 		setTimeout(function() {
 			Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
