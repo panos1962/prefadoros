@@ -4,7 +4,7 @@ Page::data();
 set_globals();
 
 Globals::perastike_check('login');
-$query = "SELECT * FROM `παίκτης` WHERE `login` LIKE '" .
+$query = "SELECT * FROM `pektis` WHERE `login` LIKE '" .
 	$globals->asfales($_REQUEST['login']) . "'";
 $result = $globals->sql_query($query, 'account/loginAvaileable.php');
 $row = @mysqli_fetch_array($result);

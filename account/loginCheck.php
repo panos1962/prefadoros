@@ -6,7 +6,7 @@ set_globals();
 
 Globals::perastike_check('login');
 Globals::perastike_check('password');
-$query = "SELECT * FROM `παίκτης` WHERE `login` LIKE '" .
+$query = "SELECT * FROM `pektis` WHERE `login` LIKE '" .
 	$globals->asfales($_REQUEST['login']) . "' AND `password` LIKE '" .
 	$globals->asfales(sha1($_REQUEST['password'])) . "'";
 $result = $globals->sql_query($query);

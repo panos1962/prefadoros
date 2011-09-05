@@ -25,16 +25,16 @@ default:
 // Πρώτα δοκιμάζουμε να ενημερώσουμε τυχόν υπάρχοντα writing
 // σχόλια για τον παίκτη.
 $prosfata = time() - WRITING_CLEANUP;
-$query = "UPDATE `συζήτηση` SET `σχόλιο` = '" . $globals->asfales($sxolio) .
- 	"', `τραπέζι` = " . $trapezi . " WHERE (`παίκτης` LIKE " .
-	$globals->pektis->slogin . ") AND (`σχόλιο` REGEXP '^@W[PK]@$') " .
-	"AND (UNIX_TIMESTAMP(`πότε`) > " . $prosfata . ")";
+$query = "UPDATE `sizitisi` SET `sxolio` = '" . $globals->asfales($sxolio) .
+ 	"', `trapezi` = " . $trapezi . " WHERE (`pektis` LIKE " .
+	$globals->pektis->slogin . ") AND (`sxolio` REGEXP '^@W[PK]@$') " .
+	"AND (UNIX_TIMESTAMP(`pote`) > " . $prosfata . ")";
 @mysqli_query($globals->db, $query);
 if (@mysqli_affected_rows($globals->db) > 0) { die(0); }
 
 // Εφόσον δεν ενημερώθηκαν υπάρχοντα writing σχόλια για τον
 // παίκτη, εισάγουμε νέο writing σχόλιο.
-$query = "INSERT INTO `συζήτηση` (`παίκτης`, `τραπέζι`, `σχόλιο`) " .
+$query = "INSERT INTO `sizitisi` (`pektis`, `trapezi`, `sxolio`) " .
 	"VALUES (" . $globals->pektis->slogin . ", " . $trapezi . ", '" .
 	$globals->asfales($sxolio) . "')";
 $globals->sql_query($query);

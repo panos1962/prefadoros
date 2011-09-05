@@ -32,7 +32,7 @@ class Pektis {
 
 		$query = "SELECT *, UNIX_TIMESTAMP(`poll`) AS `poll`, " .
 			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
-			"FROM `παίκτης` WHERE `login` LIKE '" . $globals->asfales($login) . "'";
+			"FROM `pektis` WHERE `login` LIKE '" . $globals->asfales($login) . "'";
 		if (isset($password)) {
 			$query .= " AND `password` LIKE '" . $globals->asfales($password) . "'";
 		}
@@ -48,11 +48,11 @@ class Pektis {
 			@mysqli_free_result($result);
 			$this->login = $row['login'];
 			$this->slogin = "'" . $globals->asfales($this->login) . "'";
-			$this->onoma = $row['όνομα'];
+			$this->onoma = $row['onoma'];
 			$this->email = $row['email'];
-			$this->kapikia = $row['καπίκια'];
-			$this->katastasi = $row['κατάσταση'];
-			$this->plati = $row['πλάτη'];
+			$this->kapikia = $row['kapikia'];
+			$this->katastasi = $row['katastasi'];
+			$this->plati = $row['plati'];
 			$this->poll = $row['poll'];
 			$this->idle = (int)($row['idle']);
 		}
@@ -68,12 +68,12 @@ class Pektis {
 	public function poll_update($sinedria, $id) {
 		global $globals;
 
-		$query = "UPDATE `παίκτης` SET `poll` = NOW() WHERE `login` LIKE " .
+		$query = "UPDATE `pektis` SET `poll` = NOW() WHERE `login` LIKE " .
 			"'" . $this->login . "'";
 		$globals->sql_query($query);
 
-		$query = "UPDATE `συνεδρία` SET `ενημέρωση` = " . $id .
-			" WHERE `κωδικός` = " . $sinedria;
+		$query = "UPDATE `sinedria` SET `enimerosi` = " . $id .
+			" WHERE `kodikos` = " . $sinedria;
 		$globals->sql_query($query);
 	}
 

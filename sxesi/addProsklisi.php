@@ -17,7 +17,7 @@ check_katastasi($pion, $filos);
 
 $trapezi = vres_to_trapezi();
 
-$query = "INSERT INTO `πρόσκληση` (`ποιος`, `ποιον`, `τραπέζι`) " .
+$query = "INSERT INTO `prosklisi` (`pios`, `pion`, `trapezi`) " .
 	"VALUES (" . $slogin . ", '" . $globals->asfales($pion) .  "', " .
 	$globals->asfales($trapezi) . ")";
 @mysqli_query($globals->db, $query);
@@ -52,8 +52,8 @@ function check_katastasi($pion, $filos) {
 function check_apoklismos($pion) {
 	global $globals;
 	global $slogin;
-	$query = "SELECT `status` FROM `σχέση` WHERE `παίκτης` LIKE '" .
-		$globals->asfales($pion) . "' AND `σχετιζόμενος` LIKE " . $slogin;
+	$query = "SELECT `status` FROM `sxesi` WHERE `pektis` LIKE '" .
+		$globals->asfales($pion) . "' AND `sxetizomenos` LIKE " . $slogin;
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) { return(FALSE); }

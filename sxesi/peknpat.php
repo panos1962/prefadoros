@@ -10,11 +10,11 @@ $sinedria = $globals->asfales($_REQUEST['sinedria']);
 Globals::perastike_check('peknpat');
 $peknpat = $globals->asfales($_REQUEST['peknpat']);
 
-$query = "UPDATE `συνεδρία` SET `peknpat` = '" . $peknpat . "'";
+$query = "UPDATE `sinedria` SET `peknpat` = '" . $peknpat . "'";
 if (Globals::perastike('pekstat')) {
 	$query .= ", `pekstat` = '" . $globals->asfales($_REQUEST['pekstat']) . "'";
 }
 
-$query .= " WHERE `κωδικός` = " . $sinedria;
+$query .= " WHERE `kodikos` = " . $sinedria;
 $globals->sql_query($query);
 ?>

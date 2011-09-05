@@ -70,10 +70,10 @@ $pektis2 = $globals->trapezi->$pektis2;
 if ($pektis2 == '') { $pektis2 = 'NULL'; }
 else { $pektis2 = "'" . $globals->asfales($pektis2) . "'"; }
 
-$query = "UPDATE `τραπέζι` SET `παίκτης" . $ena . "` = " . $pektis2 .
-	", `αποδοχή" . $ena . "` = 'NO', `παίκτης" . $dio . "` = " .
-	$pektis1 . ", `αποδοχή" . $dio . "` = 'NO' " .
-	"WHERE `κωδικός` = " . $globals->trapezi->kodikos;
+$query = "UPDATE `trapezi` SET `pektis" . $ena . "` = " . $pektis2 .
+	", `apodoxi" . $ena . "` = 'NO', `pektis" . $dio . "` = " .
+	$pektis1 . ", `apodoxi" . $dio . "` = 'NO' " .
+	"WHERE `kodikos` = " . $globals->trapezi->kodikos;
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(FALSE);

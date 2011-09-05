@@ -55,7 +55,7 @@ Page::close();
 function prefadoros() {
 	global $globals;
 	$trapoula = new Trapoula;
-	$query = "INSERT INTO `συνεδρία` (`παίκτης`) VALUES ('" .
+	$query = "INSERT INTO `sinedria` (`pektis`) VALUES ('" .
 		$globals->asfales($globals->pektis->login) . "')";
 	$globals->sql_query($query);
 	?>

@@ -23,7 +23,7 @@ $partida = FALSE;
 check_pektis();
 
 // Εντοπίζουμε τυχόν υπάρχουσα εγγραφή του παίκτη ως θεατή.
-$query = "SELECT `τραπέζι` FROM `θεατής` WHERE `παίκτης` LIKE " .
+$query = "SELECT `trapezi` FROM `theatis` WHERE `pektis` LIKE " .
 	$globals->pektis->slogin;
 $result = $globals->sql_query($query);
 $row = @mysqli_fetch_array($result, MYSQLI_NUM);
@@ -35,13 +35,13 @@ if ($row) {
 	// κάνουμε θεατή στο επιθυμητό τραπέζι.
 
 	if ($row[0] == $trapezi) {
-		$query = "DELETE FROM `θεατής` WHERE `παίκτης` LIKE " .
+		$query = "DELETE FROM `theatis` WHERE `pektis` LIKE " .
 			$globals->pektis->slogin;
 	}
 	else {
 		check_prosvasi();
-		$query = "UPDATE `θεατής` SET `τραπέζι` = " . $strapezi .
-			" WHERE `παίκτης` LIKE " . $globals->pektis->slogin;
+		$query = "UPDATE `theatis` SET `trapezi` = " . $strapezi .
+			" WHERE `pektis` LIKE " . $globals->pektis->slogin;
 		$partida = TRUE;
 	}
 }
@@ -50,7 +50,7 @@ else {
 	// τον τοποθετούμε ως θεατή στο επιθυμητό τραπέζι.
 
 	check_prosvasi();
-	$query = "INSERT INTO `θεατής` (`παίκτης`, `τραπέζι`, `θέση`) " .
+	$query = "INSERT INTO `theatis` (`pektis`, `trapezi`, `thesi`) " .
 		"VALUES (" . $globals->pektis->slogin . ", " . $strapezi . ", 1)";
 	$partida = TRUE;
 }
@@ -71,8 +71,8 @@ function check_pektis() {
 	global $trapezi;
 	global $strapezi;
 
-	$query = "SELECT `κωδικός`, `παίκτης1`, `παίκτης2`, `παίκτης3` " .
-		"FROM `τραπέζι` WHERE `κωδικός` = " . $strapezi;
+	$query = "SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3` " .
+		"FROM `trapezi` WHERE `kodikos` = " . $strapezi;
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) {
@@ -82,7 +82,7 @@ function check_pektis() {
 	@mysqli_free_result($result);
 	for ($i = 1; $i <= 3; $i++) {
 		if ($row[$i] == $globals->pektis->login) {
-			$query = "DELETE FROM `θεατής` WHERE `παίκτης` LIKE " .
+			$query = "DELETE FROM `theatis` WHERE `pektis` LIKE " .
 				$globals->pektis->slogin;
 			$globals->sql_query($query);
 			@mysqli_commit($globals->db);
@@ -96,9 +96,9 @@ function check_prosvasi() {
 	global $trapezi;
 	global $strapezi;
 
-	$query = "SELECT * FROM `πρόσκληση` WHERE " .
-		"(`ποιον` LIKE " . $globals->pektis->slogin . ") AND " .
-		"(`τραπέζι` = " . $strapezi . ")";
+	$query = "SELECT * FROM `prosklisi` WHERE " .
+		"(`pion` LIKE " . $globals->pektis->slogin . ") AND " .
+		"(`trapezi` = " . $strapezi . ")";
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if ($row) {
@@ -106,8 +106,8 @@ function check_prosvasi() {
 		return;
 	}
 
-	$query = "SELECT `ιδιωτικότητα` FROM `τραπέζι` " .
-		"WHERE `κωδικός` = " . $strapezi;
+	$query = "SELECT `idiotikotita` FROM `trapezi` " .
+		"WHERE `kodikos` = " . $strapezi;
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) {

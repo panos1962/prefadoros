@@ -17,8 +17,8 @@ if (!$globals->trapezi->is_pektis()) {
 $idiotikotita = Globals::perastike_check('idiotikotita');
 @mysqli_autocommit($globals->db, FALSE);
 
-$query = "UPDATE `τραπέζι` SET `ιδιωτικότητα` = '" . $globals->asfales($idiotikotita) .
-	"' WHERE `κωδικός` = " . $globals->trapezi->kodikos;
+$query = "UPDATE `trapezi` SET `idiotikotita` = '" . $globals->asfales($idiotikotita) .
+	"' WHERE `kodikos` = " . $globals->trapezi->kodikos;
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	@mysqli_rollback($globals->db);
@@ -26,8 +26,8 @@ if (mysqli_affected_rows($globals->db) != 1) {
 }
 
 if ($idiotikotita != 'ΔΗΜΟΣΙΟ') {
-	$query = "DELETE FROM `θεατής` WHERE (`τραπέζι` = " . $globals->trapezi->kodikos .
-		") AND (`παίκτης` NOT IN (SELECT `ποιον` FROM `πρόσκληση` WHERE `τραπέζι` = " .
+	$query = "DELETE FROM `theatis` WHERE (`trapezi` = " . $globals->trapezi->kodikos .
+		") AND (`pektis` NOT IN (SELECT `pion` FROM `prosklisi` WHERE `trapezi` = " .
 		$globals->trapezi->kodikos . "))";
 	$result = @mysqli_query($globals->db, $query);
 	if (!$result) {

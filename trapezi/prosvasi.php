@@ -15,8 +15,8 @@ if (!$globals->trapezi->is_pektis()) {
 }
 
 $prosvasi = Globals::perastike_check('prosvasi');
-$query = "UPDATE `τραπέζι` SET `πρόσβαση` = '" . $globals->asfales($prosvasi) .
-	"' WHERE `κωδικός` = " . $globals->trapezi->kodikos;
+$query = "UPDATE `trapezi` SET `prosvasi` = '" . $globals->asfales($prosvasi) .
+	"' WHERE `kodikos` = " . $globals->trapezi->kodikos;
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	die('Δεν άλλαξε η ιδιωτικότητα του τραπεζιού');

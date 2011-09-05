@@ -24,8 +24,8 @@ Prefadoros::klidose_trapezi();
 if (Globals::perastike('apodoxi')) {
 	$nea = $_REQUEST['apodoxi'];
 
-	$query = "UPDATE `τραπέζι` SET `αποδοχή" . $thesi . "` = '" .
-		$globals->asfales($nea) . "' WHERE `κωδικός` = " .
+	$query = "UPDATE `trapezi` SET `apodoxi" . $thesi . "` = '" .
+		$globals->asfales($nea) . "' WHERE `kodikos` = " .
 		$globals->trapezi->kodikos;
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
@@ -66,7 +66,7 @@ function kane_dianomi($dealer) {
 	$trapoula = new Trapoula();
 	$trapoula->anakatema();
 
-	$query = "INSERT INTO `διανομή` (`τραπέζι`, `dealer`) VALUES " .
+	$query = "INSERT INTO `dianomi` (`trapezi`, `dealer`) VALUES " .
 		"(" . $globals->trapezi->kodikos . ", " . $dealer . ")";
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
@@ -101,8 +101,8 @@ function find_the_dealer() {
 
 	// Προσπελαύνω την τελευταία (προηγούμενη) διανομή.
 	$dealer = 0;
-	$query = "SELECT `κωδικός`, `dealer` FROM `διανομή` WHERE `τραπέζι` = " .
-		$globals->trapezi->kodikos . " ORDER BY `κωδικός` DESC LIMIT 1";
+	$query = "SELECT `kodikos`, `dealer` FROM `dianomi` WHERE `trapezi` = " .
+		$globals->trapezi->kodikos . " ORDER BY `kodikos` DESC LIMIT 1";
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 		$dianomi = $row[0];
@@ -117,8 +117,8 @@ function find_the_dealer() {
 	// Στην προηγούμενη διανομή πρέπει να έχουν γίνει τουλάχιστον
 	// τρεις δηλώσεις.
 	$dilosi = 0;
-	$query = "SELECT `κωδικός` FROM `κίνηση` WHERE (`διανομή` = " .
-		$dianomi . ") AND (`είδος` = 'ΔΗΛΩΣΗ')";
+	$query = "SELECT `kodikos` FROM `kinisi` WHERE (`dianomi` = " .
+		$dianomi . ") AND (`idos` = 'ΔΗΛΩΣΗ')";
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 		$dilosi++;
