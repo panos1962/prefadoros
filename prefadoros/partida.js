@@ -219,6 +219,9 @@ var Partida = new function() {
 				'images/katoKasa.png" title="Μείωση κάσας κατά 300 καπίκια" ' +
 				'onclick="Partida.kasaPanoKato(-10, this);" />';
 		}
+		else {
+			html += '#';
+		}
 		html += '&nbsp;<span title="Υπόλοιπο κάσας" class="partidaInfoData' + tbc + '">';
 		html += pexnidi.ipolipo + '</span>';
 		html += '</div>';
