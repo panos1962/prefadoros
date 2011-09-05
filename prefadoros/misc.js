@@ -194,7 +194,9 @@ var Tools = new function() {
 		setTimeout(function() {
 			if (notSet(img)) { return; }
 			if (isSet(neo) && neo) { img.src = neo; }
-			else { img.parentNode.removeChild(img); }
+			else {
+				try { img.parentNode.removeChild(img); } catch(e) {};
+			}
 		}, xronos);
 	};
 
