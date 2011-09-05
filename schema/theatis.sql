@@ -1,21 +1,21 @@
-CREATE TABLE `θεατής` (
-	`παίκτης`	CHARACTER(32) NOT NULL COMMENT 'Παίκτης',
-	`τραπέζι`	INTEGER(10) NOT NULL COMMENT 'Κωδικός τραπεζιού',
-	`θέση`		INTEGER(1) NOT NULL DEFAULT 1 COMMENT 'Θέση θέασης',
+CREATE TABLE `theatis` (
+	`pektis`	CHARACTER(32) NOT NULL COMMENT 'Παίκτης',
+	`trapezi`	INTEGER(10) NOT NULL COMMENT 'Κωδικός τραπεζιού',
+	`thesi`		INTEGER(1) NOT NULL DEFAULT 1 COMMENT 'Θέση θέασης',
 
 	PRIMARY KEY (
-		`παίκτης`
+		`pektis`
 	) USING BTREE,
 
 	FOREIGN KEY (
-		`παίκτης`
-	) REFERENCES `παίκτης` (
+		`pektis`
+	) REFERENCES `pektis` (
 		`login`
 	) ON DELETE CASCADE ON UPDATE CASCADE,
 
 	FOREIGN KEY (
-		`τραπέζι`
-	) REFERENCES `τραπέζι` (
-		`κωδικός`
+		`trapezi`
+	) REFERENCES `trapezi` (
+		`kodikos`
 	) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας θεατών'

@@ -1,6 +1,6 @@
-CREATE TABLE `dianomi` (
-	`kodikos`	INTEGER(10) AUTO_INCREMENT NOT NULL COMMENT 'Primary key',
-	`trapezi`	INTEGER(10) NOT NULL COMMENT 'Κωδικός τραπεζιού',
+CREATE TABLE `διανομή` (
+	`κωδικός`	INTEGER(10) AUTO_INCREMENT NOT NULL COMMENT 'Primary key',
+	`τραπέζι`	INTEGER(10) NOT NULL COMMENT 'Κωδικός τραπεζιού',
 	-- Η θέση του παίκτη που μοιράζει. Παίρνει τιμές 1, 2, 3 και στην πρώτη
 	-- διανομή του τραπεζιού δίνεται στην τύχη, ενώ στην επόμενες μοράζει κάθε
 	-- φορά ο επόμενος παίκτης.
@@ -53,22 +53,22 @@ CREATE TABLE `dianomi` (
 	--	μετρητά2	14	(παίρνει 2 Χ 7 = 14 καπίκια μετρητά)
 	--	κάσα3		0	(δεν έχει πάρε δώσε με την κάσα)
 	--	μετρητά3	14	(παίρνει 2 Χ 7 = 14 καπίκια μετρητά)
-	`kasa1`		INTEGER(3) NOT NULL DEFAULT 0 COMMENT 'Καπίκια κάσας πρώτου παίκτη',
-	`metrita1`	INTEGER(3) NOT NULL DEFAULT 0 COMMENT 'Καπίκια μετρητά πρώτου παίκτη',
-	`kasa2`		INTEGER(3) NOT NULL DEFAULT 0 COMMENT 'Καπίκια κάσας δεύτερου παίκτη',
-	`metrita2`	INTEGER(3) NOT NULL DEFAULT 0 COMMENT 'Καπίκια μετρητά δεύτερου παίκτη',
-	`kasa3`		INTEGER(3) NOT NULL DEFAULT 0 COMMENT 'Καπίκια κάσας τρίτου παίκτη',
-	`metrita3`	INTEGER(3) NOT NULL DEFAULT 0 COMMENT 'Καπίκια μετρητά τρίτου παίκτη',
-	`enarxi`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Μοίρασμα διανομής',
-	`telos`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Τέλος διανομής',
+	`κάσα1`		INTEGER(3) NOT NULL DEFAULT 0 COMMENT 'Καπίκια κάσας πρώτου παίκτη',
+	`μετρητά1`	INTEGER(3) NOT NULL DEFAULT 0 COMMENT 'Καπίκια μετρητά πρώτου παίκτη',
+	`κάσα2`		INTEGER(3) NOT NULL DEFAULT 0 COMMENT 'Καπίκια κάσας δεύτερου παίκτη',
+	`μετρητά2`	INTEGER(3) NOT NULL DEFAULT 0 COMMENT 'Καπίκια μετρητά δεύτερου παίκτη',
+	`κάσα3`		INTEGER(3) NOT NULL DEFAULT 0 COMMENT 'Καπίκια κάσας τρίτου παίκτη',
+	`μετρητά3`	INTEGER(3) NOT NULL DEFAULT 0 COMMENT 'Καπίκια μετρητά τρίτου παίκτη',
+	`έναρξη`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Μοίρασμα διανομής',
+	`τέλος`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Τέλος διανομής',
 
 	PRIMARY KEY (
-		`kodikos`
+		`κωδικός`
 	) USING BTREE,
 
 	FOREIGN KEY (
-		`trapezi`
-	) REFERENCES `trapezi` (
-		`kodikos`
+		`τραπέζι`
+	) REFERENCES `τραπέζι` (
+		`κωδικός`
 	) ON DELETE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας διανομών'

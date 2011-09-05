@@ -1,29 +1,29 @@
-CREATE TABLE `συζήτηση` (
-	`κωδικός`	INTEGER(10) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
-	`παίκτης`	CHARACTER(32) NOT NULL COMMENT 'Ομιλών παίκτης',
+CREATE TABLE `sizitisi` (
+	`kodikos`	INTEGER(10) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+	`pektis`	CHARACTER(32) NOT NULL COMMENT 'Ομιλών παίκτης',
 	-- Αν ο κωδικός τραπεζιού είναι κενός, τότε πρόκειται για σχόλιο
 	-- που αφορά στη συζήτηση του καφενείου.
-	`τραπέζι`	INTEGER(10) NULL COMMENT 'Κωδικός τραπεζιού',
-	`σχόλιο`	VARCHAR(16384) NOT NULL COMMENT 'Κείμενο σχολίου',
-	`πότε`		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Πότε ειπώθηκε',
+	`trapezi`	INTEGER(10) NULL COMMENT 'Κωδικός τραπεζιού',
+	`sxolio`	VARCHAR(16384) NOT NULL COMMENT 'Κείμενο σχολίου',
+	`pote`		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Πότε ειπώθηκε',
 
 	PRIMARY KEY (
-		`κωδικός`
+		`kodikos`
 	) USING BTREE,
 
 	FOREIGN KEY (
-		`παίκτης`
-	) REFERENCES `παίκτης` (
+		`pektis`
+	) REFERENCES `pektis` (
 		`login`
 	) ON DELETE CASCADE ON UPDATE CASCADE,
 
 	FOREIGN KEY (
-		`τραπέζι`
-	) REFERENCES `τραπέζι` (
-		`κωδικός`
+		`trapezi`
+	) REFERENCES `trapezi` (
+		`kodikos`
 	) ON DELETE CASCADE ON UPDATE CASCADE,
 
 	KEY (
-		`πότε`
+		`pote`
 	) USING BTREE
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας συζητήσεων'
