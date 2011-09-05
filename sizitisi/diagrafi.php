@@ -9,10 +9,10 @@ set_globals();
 Prefadoros::pektis_check();
 $trapezi = vres_trapezi();
 
-$query = "DELETE FROM `συζήτηση` WHERE (`τραπέζι` = " . $trapezi . ")";
+$query = "DELETE FROM `sizitisi` WHERE (`trapezi` = " . $trapezi . ")";
 if (!Globals::perastike('delall')) {
-	$query .= " AND (`σχόλιο` NOT REGEXP '^@W[PK]@$') ".
-		"ORDER BY `κωδικός` DESC LIMIT 1";
+	$query .= " AND (`sxolio` NOT REGEXP '^@W[PK]@$') ".
+		"ORDER BY `kodikos` DESC LIMIT 1";
 }
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) < 1) {

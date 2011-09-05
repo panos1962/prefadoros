@@ -18,19 +18,19 @@ $dianomi = $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
 
 Prefadoros::klidose_trapezi();
 
-$query = "DELETE FROM `κίνηση` WHERE (`διανομή` = " . $dianomi .
-	") AND (`είδος` LIKE 'ΑΚΥΡΩΣΗ')";
+$query = "DELETE FROM `kinisi` WHERE (`dianomi` = " . $dianomi .
+	") AND (`idos` LIKE 'ΑΚΥΡΩΣΗ')";
 $globals->sql_query($query);
 
-$query = "DELETE FROM `κίνηση` WHERE (`διανομή` = " . $dianomi .
-	") AND (`είδος` NOT LIKE 'ΔΙΑΝΟΜΗ') ORDER BY `κωδικός` DESC LIMIT 1";
+$query = "DELETE FROM `kinisi` WHERE (`dianomi` = " . $dianomi .
+	") AND (`idos` NOT LIKE 'ΔΙΑΝΟΜΗ') ORDER BY `kodikos` DESC LIMIT 1";
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(TRUE);
 	die('Δεν υπάχει κίνηση προς ακύρωση');
 }
 
-$query = "INSERT INTO `κίνηση` (`διανομή`, `παίκτης`, `είδος`, `data`) " .
+$query = "INSERT INTO `kinisi` (`dianomi`, `pektis`, `idos`, `data`) " .
 	"VALUES (" . $dianomi . ", " . $globals->trapezi->thesi . ", 'ΑΚΥΡΩΣΗ', '')";
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {

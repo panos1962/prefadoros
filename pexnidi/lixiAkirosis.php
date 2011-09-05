@@ -18,8 +18,8 @@ $dianomi = $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
 
 Prefadoros::klidose_trapezi();
 
-$query = "DELETE FROM `κίνηση` WHERE (`διανομή` = " . $dianomi .
-	") AND (`είδος` LIKE 'ΑΚΥΡΩΣΗ')";
+$query = "DELETE FROM `kinisi` WHERE (`dianomi` = " . $dianomi .
+	") AND (`idos` LIKE 'ΑΚΥΡΩΣΗ')";
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(FALSE);

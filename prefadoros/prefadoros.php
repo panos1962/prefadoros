@@ -88,8 +88,8 @@ class Prefadoros {
 		}
 
 		$globals->dianomi = array();
-		$query = "SELECT * FROM `διανομή` WHERE `τραπέζι` = " .
-			$globals->trapezi->kodikos . " ORDER BY `κωδικός`";
+		$query = "SELECT * FROM `dianomi` WHERE `trapezi` = " .
+			$globals->trapezi->kodikos . " ORDER BY `kodikos`";
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$d = new Dianomi;
@@ -171,7 +171,7 @@ class Prefadoros {
 		// πρόσκληση από άλλο τραπέζι).
 
 		if ($trapezi->is_theatis()) {
-			$query = "DELETE FROM `θεατής` WHERE `παίκτης` LIKE " . $slogin;
+			$query = "DELETE FROM `theatis` WHERE `pektis` LIKE " . $slogin;
 			$globals->sql_query($query);
 			if (mysqli_affected_rows($globals->db) != 1) {
 				print 'Απέτυχε η έξοδος του παίκτη "' . $pektis->login .
@@ -191,8 +191,8 @@ class Prefadoros {
 		}
 
 		// Εκκενώνουμε τη θέση του παίκτη στο τραπέζι.
-		$query = "UPDATE `τραπέζι` SET `παίκτης" . $trapezi->thesi .
-			"` = NULL WHERE `κωδικός` = " . $trapezi->kodikos;
+		$query = "UPDATE `trapezi` SET `pektis" . $trapezi->thesi .
+			"` = NULL WHERE `kodikos` = " . $trapezi->kodikos;
 		$globals->sql_query($query);
 		if (mysqli_affected_rows($globals->db) != 1) {
 			print 'Απέτυχε η εκκένωση της θέσης του παίκτη "' . $pektis->login .
@@ -203,12 +203,12 @@ class Prefadoros {
 		// Κρατάμε τη θέση στην οποία έπαιζε ο παίκτης στο τραπέζι.
 		// Καλού κακού διαγράφουμε πρώτα τυχόν άλλη συμμετοχή αυτού
 		// του τραπεζιού για την ίδια θέση ή για τον ίδιο παίκτη.
-		$query = "DELETE FROM `συμμετοχή` WHERE (`τραπέζι` = " .
-			$trapezi->kodikos . ") AND ((`παίκτης` LIKE " . $slogin .
-			") OR (`θέση` = " . $trapezi->thesi . "))";
+		$query = "DELETE FROM `simetoxi` WHERE (`trapezi` = " .
+			$trapezi->kodikos . ") AND ((`pektis` LIKE " . $slogin .
+			") OR (`thesi` = " . $trapezi->thesi . "))";
 		$globals->sql_query($query);
 
-		$query = "INSERT INTO `συμμετοχή` (`τραπέζι`, `θέση`, `παίκτης`) " .
+		$query = "INSERT INTO `simetoxi` (`trapezi`, `thesi`, `pektis`) " .
 			"VALUES (" . $trapezi->kodikos . ", " . $trapezi->thesi .
 			", " . $slogin . ")";
 		$globals->sql_query($query);
@@ -220,9 +220,9 @@ class Prefadoros {
 
 		// Επιχειρούμε να κλείσουμε το τραπέζι, εφόσον όλες οι θέσεις
 		// είναι πλέον κενές.
-		$query = "UPDATE `τραπέζι` SET `τέλος` = NOW() WHERE (`κωδικός` = " .
-			$trapezi->kodikos .  ") AND (`παίκτης1` IS NULL) AND " .
-			"(`παίκτης2` IS NULL) AND (`παίκτης3` IS NULL)";
+		$query = "UPDATE `trapezi` SET `telos` = NOW() WHERE (`kodikos` = " .
+			$trapezi->kodikos .  ") AND (`pektis1` IS NULL) AND " .
+			"(`pektis2` IS NULL) AND (`pektis3` IS NULL)";
 		$globals->sql_query($query);
 
 		// Αν δεν ενημερωθεί το τραπέζι σημαίνει ότι δεν έχουν ακόμη
@@ -233,7 +233,7 @@ class Prefadoros {
 
 		// Το τραπέζι μόλις έχει κλείσει, οπότε επαναφέρω τους τελευταίους
 		// συμμετέχοντες παίκτες.
-		$query = "SELECT * FROM `συμμετοχή` WHERE `τραπέζι` = " . $trapezi->kodikos;
+		$query = "SELECT * FROM `simetoxi` WHERE `trapezi` = " . $trapezi->kodikos;
 		$result = $globals->sql_query($query);
 		if (!$result) {
 			print 'Απέτυχε το μάζεμα συμμετοχών για το τραπέζι ' . $trapezi->kodikos;
@@ -244,16 +244,16 @@ class Prefadoros {
 		$pektis2 = 'NULL';
 		$pektis3 = 'NULL';
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			$p = "pektis" . $row['θέση'];
-			$$p = "'" . $globals->asfales($row['παίκτης']) . "'";
+			$p = "pektis" . $row['thesi'];
+			$$p = "'" . $globals->asfales($row['pektis']) . "'";
 		}
 
 		// Αν έχουμε μαζέψει έστω και μια εγγραφή συμμετοχής, προχωρούμε στην
 		// επανατοποθέτηση των παικτών.
 		if (($pektis1 != 'NULL') || ($pektis2 != 'NULL') || ($pektis3 != 'NULL')) {
-			$query = "UPDATE `τραπέζι` SET `παίκτης1` = " . $pektis1 .
-				", `παίκτης2` = " . $pektis2 . ", " .  "`παίκτης3` = " .
-				$pektis3 . " WHERE `κωδικός` = " . $trapezi->kodikos;
+			$query = "UPDATE `trapezi` SET `pektis1` = " . $pektis1 .
+				", `pektis2` = " . $pektis2 . ", " .  "`pektis3` = " .
+				$pektis3 . " WHERE `kodikos` = " . $trapezi->kodikos;
 			$globals->sql_query($query);
 			if (mysqli_affected_rows($globals->db) != 1) {
 				print 'Απέτυχε η επανατοποθέτηση των παικτών στο τραπέζι ' .
@@ -266,13 +266,13 @@ class Prefadoros {
 		// τελευταίων παικτών, οπότε διαγράφουμε όλες τις περιφερειακές
 		// εγγραφές που αφορούν στο τραπέζι (συμμετοχές, θεατές, προσκλήσεις).
 
-		$query = "DELETE FROM `συμμετοχή` WHERE `τραπέζι` = " . $trapezi->kodikos;
+		$query = "DELETE FROM `simetoxi` WHERE `trapezi` = " . $trapezi->kodikos;
 		$globals->sql_query($query);
 
-		$query = "DELETE FROM `θεατής` WHERE `τραπέζι` = " . $trapezi->kodikos;
+		$query = "DELETE FROM `theatis` WHERE `trapezi` = " . $trapezi->kodikos;
 		$globals->sql_query($query);
 
-		$query = "DELETE FROM `πρόσκληση` WHERE `τραπέζι` = " . $trapezi->kodikos;
+		$query = "DELETE FROM `prosklisi` WHERE `trapezi` = " . $trapezi->kodikos;
 		$globals->sql_query($query);
 		return(TRUE);
 	}
@@ -281,7 +281,7 @@ class Prefadoros {
 		global $globals;
 
 		$energos = array();
-		$query = "SELECT `login` FROM `παίκτης` WHERE " .
+		$query = "SELECT `login` FROM `pektis` WHERE " .
 			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
 			XRONOS_PEKTIS_IDLE_MAX;
 		$result = $globals->sql_query($query);

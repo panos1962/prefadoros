@@ -15,11 +15,11 @@ class Permes {
 	}
 
 	public function set_from_dbrow($row) {
-		$this->kodikos = $row['κωδικός'];
-		$this->apostoleas = $row['αποστολέας'];
-		$this->minima = preg_replace("/\n/", "&#10;", $row['μήνυμα']);
+		$this->kodikos = $row['kodikos'];
+		$this->apostoleas = $row['apostoleas'];
+		$this->minima = preg_replace("/\n/", "&#10;", $row['minima']);
 		$this->minima = preg_replace("/\r/", "", $this->minima);
-		$this->dimiourgia = $row['δημιουργία'];
+		$this->dimiourgia = $row['dimiourgia'];
 	}
 
 	public function set_from_file($line) {
@@ -138,10 +138,10 @@ class Permes {
 		$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
 		$permes = array();
-		$query = "SELECT `κωδικός`, `αποστολέας`, `μήνυμα`, `κατάσταση`, " .
-			"UNIX_TIMESTAMP(`δημιουργία`) AS `δημιουργία` " .
-			"FROM `μήνυμα` WHERE (`παραλήπτης` LIKE " . $slogin .
-			") AND (`κατάσταση` LIKE 'ΝΕΟ') ORDER BY `κωδικός`";
+		$query = "SELECT `kodikos`, `apostoleas`, `minima`, `katastasi`, " .
+			"UNIX_TIMESTAMP(`dimiourgia`) AS `dimiourgia` " .
+			"FROM `minima` WHERE (`paraliptis` LIKE " . $slogin .
+			") AND (`katastasi` LIKE 'ΝΕΟ') ORDER BY `kodikos`";
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$p = new Permes;

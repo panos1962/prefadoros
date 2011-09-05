@@ -26,9 +26,9 @@ case 3:		$ena = 1; $dio = 2; break;
 default:	die('Ακαθόριστη θέση παίκτη');
 }
 
-$query = "UPDATE `τραπέζι` SET `κάσα` = " . $kasa .
-	", `αποδοχή" . $ena . "` = 'NO', `αποδοχή" . $dio . "` = 'NO' " .
-	"WHERE `κωδικός` = " . $globals->trapezi->kodikos;
+$query = "UPDATE `trapezi` SET `kasa` = " . $kasa .
+	", `apodoxi" . $ena . "` = 'NO', `apodoxi" . $dio . "` = 'NO' " .
+	"WHERE `kodikos` = " . $globals->trapezi->kodikos;
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(FALSE);

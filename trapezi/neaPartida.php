@@ -14,7 +14,7 @@ if ($globals->trapezi->is_theatis()) {
 
 Prefadoros::klidose_trapezi();
 
-$query = "DELETE FROM `διανομή` WHERE `τραπέζι` = " . $globals->trapezi->kodikos;
+$query = "DELETE FROM `dianomi` WHERE `trapezi` = " . $globals->trapezi->kodikos;
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) <= 0) {
 	Prefadoros::xeklidose_trapezi(FALSE);

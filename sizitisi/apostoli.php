@@ -29,7 +29,7 @@ default:
 Sizitisi::cleanup_writing();
 
 $sxolio = Globals::perastike_check('sxolio');
-$query = "INSERT INTO `συζήτηση` (`παίκτης`, `τραπέζι`, `σχόλιο`) " .
+$query = "INSERT INTO `sizitisi` (`pektis`, `trapezi`, `sxolio`) " .
 	"VALUES (" . $globals->pektis->slogin . ", " . $trapezi . ", '" .
 	$globals->asfales($sxolio) . "')";
 $globals->sql_query($query);

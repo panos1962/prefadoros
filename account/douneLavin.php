@@ -11,7 +11,7 @@ $login = $globals->asfales($globals->pektis->login);
 Globals::perastike_check('kapikia');
 $kapikia = $globals->asfales($_REQUEST['kapikia']);
 
-$query = "UPDATE `παίκτης` SET `καπίκια` = '" . $kapikia . "' " .
+$query = "UPDATE `pektis` SET `kapikia` = '" . $kapikia . "' " .
 	"WHERE `login` LIKE '" . $login . "'";
 $result = $globals->sql_query($query);
 ?>

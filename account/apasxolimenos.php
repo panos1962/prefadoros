@@ -9,7 +9,7 @@ Prefadoros::pektis_check();
 $login = $globals->asfales($globals->pektis->login);
 $katastasi = $globals->asfales(Globals::perastike_check('katastasi'));
 
-$query = "UPDATE `παίκτης` SET `κατάσταση` = '" . $katastasi .
+$query = "UPDATE `pektis` SET `katastasi` = '" . $katastasi .
 	"' WHERE `login` LIKE '" . $login . "'";
 $globals->sql_query($query);
 /*

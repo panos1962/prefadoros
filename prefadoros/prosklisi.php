@@ -15,11 +15,11 @@ class Prosklisi {
 	}
 
 	public function set_from_dbrow($row) {
-		$this->kodikos = $row['κωδικός'];
-		$this->pios = $row['ποιος'];
-		$this->pion = $row['ποιον'];
-		$this->trapezi = $row['τραπέζι'];
-		$this->pote = $row['πότε'];
+		$this->kodikos = $row['kodikos'];
+		$this->pios = $row['pios'];
+		$this->pion = $row['pion'];
+		$this->trapezi = $row['trapezi'];
+		$this->pote = $row['pote'];
 	}
 
 	public function set_from_file($line) {
@@ -162,10 +162,10 @@ class Prosklisi {
 		$prosklisi = array();
 
 		$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
-		$query = "SELECT `κωδικός`, `ποιος`, `ποιον`, `τραπέζι`, " .
-			"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `πρόσκληση` " .
-			"WHERE (`ποιος` LIKE " . $slogin . ") OR " .
-			"(`ποιον` LIKE " . $slogin . ") ORDER BY `κωδικός` DESC"; 
+		$query = "SELECT `kodikos`, `pios`, `pion`, `trapezi`, " .
+			"UNIX_TIMESTAMP(`pote`) AS `pote` FROM `prosklisi` " .
+			"WHERE (`pios` LIKE " . $slogin . ") OR " .
+			"(`pion` LIKE " . $slogin . ") ORDER BY `kodikos` DESC"; 
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$p = new Prosklisi;

@@ -14,10 +14,10 @@ if (Prefadoros::set_trapezi()) {
 
 @mysqli_autocommit($globals->db, FALSE);
 
-$query = "DELETE FROM `θεατής` WHERE `παίκτης` LIKE " . $slogin;
+$query = "DELETE FROM `theatis` WHERE `pektis` LIKE " . $slogin;
 $globals->sql_query($query);
 
-$query = "INSERT INTO `τραπέζι` (`παίκτης1`) VALUES (" . $slogin . ")";
+$query = "INSERT INTO `trapezi` (`pektis1`) VALUES (" . $slogin . ")";
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	@mysqli_rollback($globals->db);
@@ -25,7 +25,7 @@ if (mysqli_affected_rows($globals->db) != 1) {
 }
 
 $trapezi = @mysqli_insert_id($globals->db);
-$query = "INSERT INTO `πρόσκληση` (`ποιος`, `ποιον`, `τραπέζι`) " .
+$query = "INSERT INTO `prosklisi` (`pios`, `pion`, `trapezi`) " .
 	"VALUES (" . $slogin . ", " . $slogin . ", " . $trapezi . ")";
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {

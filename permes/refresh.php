@@ -10,34 +10,34 @@ Prefadoros::pektis_check();
 $slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
 
-$query = "SELECT *, UNIX_TIMESTAMP(`δημιουργία`) AS `πότε` FROM `μήνυμα` WHERE ";
+$query = "SELECT *, UNIX_TIMESTAMP(`dimiourgia`) AS `pote` FROM `minima` WHERE ";
 if (Globals::perastike('exer') && Globals::perastike('iser')) {
-	$query .= "(`αποστολέας` LIKE " . $slogin . ") OR " .
-		"(`παραλήπτης` LIKE " . $slogin . ")";
+	$query .= "(`apostoleas` LIKE " . $slogin . ") OR " .
+		"(`paraliptis` LIKE " . $slogin . ")";
 }
 elseif (Globals::perastike('exer')) {
-	$query .= "(`αποστολέας` LIKE " . $slogin . ")";
+	$query .= "(`apostoleas` LIKE " . $slogin . ")";
 }
 elseif (Globals::perastike('iser')) {
-	$query .= "(`παραλήπτης` LIKE " . $slogin . ")";
+	$query .= "(`paraliptis` LIKE " . $slogin . ")";
 }
 else {
 	die(0);
 }
-$query .= " ORDER BY `κωδικός` DESC LIMIT 30";
+$query .= " ORDER BY `kodikos` DESC LIMIT 30";
 $result = $globals->sql_query($query);
 ?>
 <table width="100%" cellspacing="10 0 0 0">
 <?php
 for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
-	$apostoleas = $row['αποστολέας'] == $globals->pektis->login ? '' : $row['αποστολέας'];
-	$paraliptis = $row['παραλήπτης'] == $globals->pektis->login ? '' : $row['παραλήπτης'];
+	$apostoleas = $row['apostoleas'] == $globals->pektis->login ? '' : $row['apostoleas'];
+	$paraliptis = $row['paraliptis'] == $globals->pektis->login ? '' : $row['paraliptis'];
 	if (($apostoleas == '') && ($paraliptis == '')) {
-		$apostoleas = $row['αποστολέας'];
+		$apostoleas = $row['apostoleas'];
 	}
-	$diavasmeno = $row['κατάσταση'] == 'ΔΙΑΒΑΣΜΕΝΟ' ? 'permesDiavasmeno' : '';
+	$diavasmeno = $row['katastasi'] == 'ΔΙΑΒΑΣΜΕΝΟ' ? 'permesDiavasmeno' : '';
 	?>
-	<tr id="minima<?php print $row['κωδικός']; ?>">
+	<tr id="minima<?php print $row['kodikos']; ?>">
 	<td class="permesApo" <?php
 		if ($apostoleas != '') {
 			?>
@@ -59,24 +59,24 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 		<?php print $paraliptis; ?>
 	</td>
 	<td class="zebra<?php print $i % 2; ?> permesMinima">
-		<div id="text<?php print $row['κωδικός']; ?>" class="<?php print $diavasmeno; ?>">
+		<div id="text<?php print $row['kodikos']; ?>" class="<?php print $diavasmeno; ?>">
 			<?php
-			$minima = preg_replace("/\n/", "<br />", $row['μήνυμα']);
+			$minima = preg_replace("/\n/", "<br />", $row['minima']);
 			print $minima;
 			?>
 			<span class="permesXronosArea">[<span class="permesXronos"><?php
-				print Xronos::pote($row['πότε'], $globals->time_dif); ?></span>]</span>
+				print Xronos::pote($row['pote'], $globals->time_dif); ?></span>]</span>
 		</div>
 	</td>
 	<td style="vertical-align: top;">
 		<img class="permesIcon" title="Διαγραφή" src="<?php
 			print $globals->server; ?>images/Xred.png" alt=""
-			onclick="Permes.diagrafi(this, <?php print $row['κωδικός']; ?>);" />
+			onclick="Permes.diagrafi(this, <?php print $row['kodikos']; ?>);" />
 	</td>
 	<td style="vertical-align: top;">
 		<?php
-		if ($row['παραλήπτης'] == $globals->pektis->login) {
-			katastasi_panel($row['κωδικός'], $row['κατάσταση']);
+		if ($row['paraliptis'] == $globals->pektis->login) {
+			katastasi_panel($row['kodikos'], $row['katastasi']);
 		}
 		?>
 	</td>

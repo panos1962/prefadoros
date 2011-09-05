@@ -148,7 +148,7 @@ function check_neotero_id() {
 	global $sinedria;
 	global $id;
 
-	$query = "SELECT `ενημέρωση` FROM `συνεδρία` WHERE `κωδικός` = " . $sinedria;
+	$query = "SELECT `enimerosi` FROM `sinedria` WHERE `kodikos` = " . $sinedria;
 	$result = $globals->sql_query($query);
 	$row = mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) {

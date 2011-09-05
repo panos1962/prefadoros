@@ -57,7 +57,7 @@ case 'ΠΛΗΡΩΜΗ':
 }
 
 
-$query = "INSERT INTO `κίνηση` (`διανομή`, `παίκτης`, `είδος`, `data`) " .
+$query = "INSERT INTO `kinisi` (`dianomi`, `pektis`, `idos`, `data`) " .
 	"VALUES (" . $dianomi . ", " . $thesi . ", '" .
 	$globals->asfales($idos) . "', '" . $globals->asfales($data) . "')";
 $globals->sql_query($query);
@@ -73,8 +73,8 @@ Prefadoros::xeklidose_trapezi(TRUE);
 function fila_tzogou($dianomi) {
 	global $globals;
 
-	$query = "SELECT `data` FROM `κίνηση` WHERE (`διανομή` = " .
-		$dianomi . ") AND (`είδος` LIKE 'ΔΙΑΝΟΜΗ')";
+	$query = "SELECT `data` FROM `kinisi` WHERE (`dianomi` = " .
+		$dianomi . ") AND (`idos` LIKE 'ΔΙΑΝΟΜΗ')";
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) {
@@ -100,7 +100,7 @@ function check_trito_paso($dianomi, $data) {
 
 	$tzogos = "";
 	$paso_count = 0;
-	$query = "SELECT `είδος`, `data` FROM `κίνηση` WHERE `διανομή` = " . $dianomi;
+	$query = "SELECT `idos`, `data` FROM `kinisi` WHERE `dianomi` = " . $dianomi;
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 		switch ($row[0]) {
@@ -128,15 +128,15 @@ function kane_pliromi($dianomi, $data) {
 		die($data . ': λανθασμένα data πληρωμής');
 	}
 
-	$query = "UPDATE `διανομή` SET " .
-		"`κάσα1` = " . $posa[1] . ", `μετρητά1` = " . $posa[2] . ", " .
-		"`κάσα2` = " . $posa[3] . ", `μετρητά2` = " . $posa[4] . ", " .
-		"`κάσα3` = " . $posa[5] . ", `μετρητά3` = " . $posa[6] . " " .
-		"WHERE `κωδικός` = " . $dianomi;
+	$query = "UPDATE `dianomi` SET " .
+		"`kasa1` = " . $posa[1] . ", `metrita1` = " . $posa[2] . ", " .
+		"`kasa2` = " . $posa[3] . ", `metrita2` = " . $posa[4] . ", " .
+		"`kasa3` = " . $posa[5] . ", `metrita3` = " . $posa[6] . " " .
+		"WHERE `kodikos` = " . $dianomi;
 	$globals->sql_query($query);
 
-	$query = "SELECT `κάσα1`, `μετρητά1`, `κάσα2`, `μετρητά2`, `κάσα3`, `μετρητά3` " .
-		"FROM `διανομή` WHERE `κωδικός` = " . $dianomi;
+	$query = "SELECT `kasa1`, `metrita1`, `kasa2`, `metrita2`, `kasa3`, `metrita3` " .
+		"FROM `dianomi` WHERE `kodikos` = " . $dianomi;
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	$data1 = '';
@@ -157,8 +157,8 @@ function check_baza($dianomi) {
 	// τύπου "ΦΥΛΛΟ". Ψάχνουμε, λοιπόν, το είδος της
 	// τελευταίας κίνησης της διανομής.
 	$last = '';
-	$query = "SELECT `είδος` FROM `κίνηση` WHERE `διανομή` = " .
-		$dianomi . " ORDER BY `κωδικός` DESC LIMIT 1";
+	$query = "SELECT `idos` FROM `kinisi` WHERE `dianomi` = " .
+		$dianomi . " ORDER BY `kodikos` DESC LIMIT 1";
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 		$prev = $row[0];
@@ -174,7 +174,7 @@ function check_dianomi($dianomi) {
 
 	// Πρέπει να είναι η πρώτη κίνηση της διανομής.
 	$found = FALSE;
-	$query = "SELECT `κωδικός` FROM `κίνηση` WHERE `διανομή` = " .
+	$query = "SELECT `kodikos` FROM `kinisi` WHERE `dianomi` = " .
 		$dianomi . " LIMIT 1";
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
@@ -194,8 +194,8 @@ function check_agora($dianomi) {
 	// τύπου "ΤΖΟΓΟΣ".
 	$paso = 0;
 	$last = '';
-	$query = "SELECT `είδος`, `data` FROM `κίνηση` WHERE `διανομή` = " .
-		$dianomi . " ORDER BY `κωδικός`";
+	$query = "SELECT `idos`, `data` FROM `kinisi` WHERE `dianomi` = " .
+		$dianomi . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 		$last = $row[0];

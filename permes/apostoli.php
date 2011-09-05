@@ -14,7 +14,7 @@ $pros = $globals->asfales($_REQUEST['pros']);
 Globals::perastike_check('minima');
 $minima = $globals->asfales($_REQUEST['minima']);
 
-$query = "INSERT INTO `μήνυμα` (`αποστολέας`, `παραλήπτης`, `μήνυμα`) " .
+$query = "INSERT INTO `minima` (`apostoleas`, `paraliptis`, `minima`) " .
 	"VALUES ('" . $login . "', '" . $pros . "', '" . $minima . "')";
 $result = @mysqli_query($globals->db, $query);
 if ((!$result) || (mysqli_affected_rows($globals->db) != 1)) {

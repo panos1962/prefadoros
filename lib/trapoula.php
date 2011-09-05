@@ -88,7 +88,7 @@ function dianomi($dealer = NULL) {
 		$dealer = mt_rand(1, 3);
 	}
 
-	$query = "INSERT INTO `διανομή` (`τραπέζι`, `dealer`) VALUES " .
+	$query = "INSERT INTO `dianomi` (`trapezi`, `dealer`) VALUES " .
 		"(" . $globals->trapezi->kodikos . ", " . $dealer . ")";
 	$result = @mysqli_query($globals->db, $query);
 	if (!$result) {
@@ -96,7 +96,7 @@ function dianomi($dealer = NULL) {
 	}
 
 	$dianomi = @mysqli_insert_id($globals->db);
-	$query = "INSERT INTO `κίνηση` (`διανομή`, `παίκτης`, `είδος`, `data`) " .
+	$query = "INSERT INTO `kinisi` (`dianomi`, `pektis`, `idos`, `data`) " .
 		"VALUES (" . $dianomi . ", " . $dealer . ", 'ΔΙΑΝΟΜΗ', '";
 	for ($i = 0; $i < 32; $i++) {
 		$query .= $trapoula->fila[$i];

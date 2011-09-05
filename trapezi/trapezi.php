@@ -63,15 +63,15 @@ class Trapezi {
 		// συμμετέχει ο παίκτης.
 
 		Prefadoros::pektis_check();
-		$query = "SELECT `τραπέζι`, `θέση` FROM `θεατής` " .
-			"WHERE `παίκτης` LIKE " .  $globals->pektis->slogin;
+		$query = "SELECT `trapezi`, `thesi` FROM `theatis` " .
+			"WHERE `pektis` LIKE " .  $globals->pektis->slogin;
 		$result = $globals->sql_query($query);
 		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 		if ($row) {
 			@mysqli_free_result($result);
 			$this->thesi = $row[1];
 			$this->theatis = 1;
-			$query = "SELECT * FROM `τραπέζι` WHERE `κωδικός` = " . $row[0];
+			$query = "SELECT * FROM `trapezi` WHERE `kodikos` = " . $row[0];
 			$result = $globals->sql_query($query);
 			$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
 			if ($row) {
@@ -86,17 +86,17 @@ class Trapezi {
 		// Αν δεν έχω εντοπίσει τον παίκτη ως θεατή σε κάποιο τραπέζι, τότε
 		// προσπαθώ να τον εντοπίσω ως παίκτη.
 		if (!$row) {
-			$query = "SELECT * FROM `τραπέζι` WHERE " .
-				"((`παίκτης1` LIKE " . $globals->pektis->slogin . ") " .
-				"OR (`παίκτης2` LIKE " . $globals->pektis->slogin . ") " .
-				"OR (`παίκτης3` LIKE " . $globals->pektis->slogin . ")) " .
-				"AND (`τέλος` IS NULL) ORDER BY `κωδικός` DESC LIMIT 1";
+			$query = "SELECT * FROM `trapezi` WHERE " .
+				"((`pektis1` LIKE " . $globals->pektis->slogin . ") " .
+				"OR (`pektis2` LIKE " . $globals->pektis->slogin . ") " .
+				"OR (`pektis3` LIKE " . $globals->pektis->slogin . ")) " .
+				"AND (`telos` IS NULL) ORDER BY `kodikos` DESC LIMIT 1";
 			$result = $globals->sql_query($query);
 			$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
 			if ($row) {
 				@mysqli_free_result($result);
 				for ($i = 1; $i <= 3; $i++) {
-					if ($row["παίκτης" . $i] == $globals->pektis->login) {
+					if ($row["pektis" . $i] == $globals->pektis->login) {
 						$this->thesi = $i;
 						$this->theatis = 0;
 						break;
@@ -120,19 +120,19 @@ class Trapezi {
 	}
 
 	public function set_from_dbrow($row) {
-		$this->kodikos = $row['κωδικός'];
-		$this->pektis1 = $row['παίκτης1'];
-		$this->apodoxi1 = ($row['αποδοχή1'] == 'YES' ? 1 : 0);
-		$this->pektis2 = $row['παίκτης2'];
-		$this->apodoxi2 = ($row['αποδοχή2'] == 'YES' ? 1 : 0);
-		$this->pektis3 = $row['παίκτης3'];
-		$this->apodoxi3 = ($row['αποδοχή3'] == 'YES' ? 1 : 0);
-		$this->kasa = $row['κάσα'];
-		$this->ppp = ($row['πάσοπάσοπάσο'] == 'YES' ? 1 : 0);
-		$this->asoi = ($row['άσοι'] == 'YES' ? 1 : 0);
-		$this->prive = ($row['ιδιωτικότητα'] == 'ΔΗΜΟΣΙΟ' ? 0 : 1);
-		$this->klisto = ($row['πρόσβαση'] == 'ΑΝΟΙΚΤΟ' ? 0 : 1);
-		$this->ipolipo = self::ipolipo($row['κωδικός'], $row['κάσα']);
+		$this->kodikos = $row['kodikos'];
+		$this->pektis1 = $row['pektis1'];
+		$this->apodoxi1 = ($row['apodoxi1'] == 'YES' ? 1 : 0);
+		$this->pektis2 = $row['pektis2'];
+		$this->apodoxi2 = ($row['apodoxi2'] == 'YES' ? 1 : 0);
+		$this->pektis3 = $row['pektis3'];
+		$this->apodoxi3 = ($row['apodoxi3'] == 'YES' ? 1 : 0);
+		$this->kasa = $row['kasa'];
+		$this->ppp = ($row['pasopasopaso'] == 'YES' ? 1 : 0);
+		$this->asoi = ($row['asoi'] == 'YES' ? 1 : 0);
+		$this->prive = ($row['idiotikotita'] == 'ΔΗΜΟΣΙΟ' ? 0 : 1);
+		$this->klisto = ($row['prosvasi'] == 'ΑΝΟΙΚΤΟ' ? 0 : 1);
+		$this->ipolipo = self::ipolipo($row['kodikos'], $row['kasa']);
 	}
 
 	public function set_energos_pektis($energos = FALSE) {
@@ -155,8 +155,8 @@ class Trapezi {
 			return(TRUE);
 		}
 
-		$query = "SELECT `παίκτης` FROM `θεατής` " .
-			"WHERE `τραπέζι` = " . $this->kodikos;
+		$query = "SELECT `pektis` FROM `theatis` " .
+			"WHERE `trapezi` = " . $this->kodikos;
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 			if (array_key_exists($row[0], $energos)) {
@@ -216,8 +216,8 @@ class Trapezi {
 			$pektis = $globals->pektis->login;
 		}
 
-		$query = "SELECT * FROM `πρόσκληση` WHERE (`τραπέζι` = " .
-			$this->kodikos . ") AND (`ποιον` LIKE '" .
+		$query = "SELECT * FROM `prosklisi` WHERE (`trapezi` = " .
+			$this->kodikos . ") AND (`pion` LIKE '" .
 			$globals->asfales($pektis) . "')";
 		$result = $globals->sql_query($query);
 		if (!$result) { return(FALSE); }
@@ -232,8 +232,8 @@ class Trapezi {
 	public function fetch_dianomi() {
 		global $globals;
 
-		$query = "SELECT * FROM `διανομή` WHERE `τραπέζι` = " .
-			$this->kodikos . " ORDER BY `κωδικός`";
+		$query = "SELECT * FROM `dianomi` WHERE `trapezi` = " .
+			$this->kodikos . " ORDER BY `kodikos`";
 		$result = $globals->sql_query($query);
 
 		$globals->dianomi = array();
@@ -250,8 +250,8 @@ class Trapezi {
 		$globals->kinisi = array();
 		if ($globals->is_dianomi()) {
 			$dianomi = $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
-			$query = "SELECT * FROM `κίνηση` WHERE `διανομή` = " .
-				$dianomi . " ORDER BY `κωδικός`";
+			$query = "SELECT * FROM `kinisi` WHERE `dianomi` = " .
+				$dianomi . " ORDER BY `kodikos`";
 			$result = $globals->sql_query($query);
 			while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				$k = new Kinisi;
@@ -314,8 +314,8 @@ class Trapezi {
 		global $globals;
 
 		$kasa *= 30;
-		$query = "SELECT `κάσα1`, `κάσα2`, `κάσα3` FROM `διανομή` " .
-			"WHERE `τραπέζι` = " . $kodikos;
+		$query = "SELECT `kasa1`, `kasa2`, `kasa3` FROM `dianomi` " .
+			"WHERE `trapezi` = " . $kodikos;
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 			$kasa -= $row[0];

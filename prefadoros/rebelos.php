@@ -174,9 +174,9 @@ class Rebelos {
 
 		$theatis = array();
 
-		$query = "SELECT `παίκτης`, `τραπέζι` FROM `θεατής` " .
-			"WHERE `τραπέζι` IN (SELECT `κωδικός` FROM `τραπέζι` " .
-			"WHERE `τέλος` IS NULL)";
+		$query = "SELECT `pektis`, `trapezi` FROM `theatis` " .
+			"WHERE `trapezi` IN (SELECT `kodikos` FROM `trapezi` " .
+			"WHERE `telos` IS NULL)";
 		$result = @mysqli_query($globals->db, $query);
 		if ($result) {
 			while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
@@ -187,8 +187,8 @@ class Rebelos {
 		// Θα θέσω τιμή FALSE σε όσους παίκτες του array "energos" συμμετέχουν
 		// ως παίκτες σε ενεργά τραπέζια.
 
-		$query = "SELECT `παίκτης1`, `παίκτης2`, `παίκτης3` FROM `τραπέζι` " .
-			"WHERE `τέλος` IS NULL";
+		$query = "SELECT `pektis1`, `pektis2`, `pektis3` FROM `trapezi` " .
+			"WHERE `telos` IS NULL";
 		$result = @mysqli_query($globals->db, $query);
 		if (!$result) { return($rebelos); }
 

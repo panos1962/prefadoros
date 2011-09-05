@@ -25,7 +25,7 @@ $plati = "'" . $globals->asfales($_REQUEST['plati']) . "'";
 Globals::perastike_check('password');
 $password = $globals->asfales($_REQUEST['password']);
 
-$query = "INSERT INTO `παίκτης` (`login`, `όνομα`, `email`, `πλάτη`, " .
+$query = "INSERT INTO `pektis` (`login`, `onoma`, `email`, `plati`, " .
 	"`poll`, `password`) VALUES ('" . $login . "', '" . $onoma . "', "
 	. $email . ", " . $plati . ", NOW(), '" . sha1($password) . "')";
 $result = $globals->sql_query($query);

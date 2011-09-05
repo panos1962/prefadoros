@@ -29,8 +29,8 @@ if ($globals->is_trapezi()) {
 	}
 }
 
-$query = "SELECT `τέλος`, `παίκτης1`, `παίκτης2`, `παίκτης3` " .
-	"FROM `τραπέζι` WHERE `κωδικός` = " . $strapezi;
+$query = "SELECT `telos`, `pektis1`, `pektis2`, `pektis3` " .
+	"FROM `trapezi` WHERE `kodikos` = " . $strapezi;
 $result = $globals->sql_query($query);
 $row = @mysqli_fetch_array($result, MYSQLI_NUM);
 if (!$row) {
@@ -71,10 +71,10 @@ function gine_theatis() {
 	global $trapezi;
 	global $strapezi;
 
-	$query = "DELETE FROM `θεατής` WHERE `παίκτης` LIKE " . $slogin;
+	$query = "DELETE FROM `theatis` WHERE `pektis` LIKE " . $slogin;
 	$globals->sql_query($query);
 
-	$query = "INSERT INTO `θεατής` (`τραπέζι`, `θέση`, `παίκτης`) " .
+	$query = "INSERT INTO `theatis` (`trapezi`, `thesi`, `pektis`) " .
 		"VALUES (" . $strapezi . ", 1, " . $slogin . ")";
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
@@ -90,9 +90,9 @@ function gine_pektis($thesi) {
 	global $trapezi;
 	global $strapezi;
 
-	$query = "UPDATE `τραπέζι` SET `παίκτης" . $thesi . "` = " .
-		$slogin . " WHERE (`κωδικός` = " . $strapezi .
-		") AND (`παίκτης" . $thesi . "` IS NULL)";
+	$query = "UPDATE `trapezi` SET `pektis" . $thesi . "` = " .
+		$slogin . " WHERE (`kodikos` = " . $strapezi .
+		") AND (`pektis" . $thesi . "` IS NULL)";
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
 		@mysqli_rollback($globals->db);
@@ -104,7 +104,7 @@ function gine_pektis($thesi) {
 function trapezi_prosklisis() {
 	global $globals;
 	$prosklisi = Globals::perastike_check('prosklisi');
-	$query = "SELECT * FROM `πρόσκληση` WHERE `κωδικός` = " .
+	$query = "SELECT * FROM `prosklisi` WHERE `kodikos` = " .
 		$globals->asfales($_REQUEST['prosklisi']);
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
@@ -113,11 +113,11 @@ function trapezi_prosklisis() {
 	}
 
 	@mysqli_free_result($result);
-	if ($row['ποιον'] != $globals->pektis->login) {
+	if ($row['pion'] != $globals->pektis->login) {
 		die('Η πρόσκληση δεν σας αφορά');
 	}
 
-	return($row['τραπέζι']);
+	return($row['trapezi']);
 }
 
 function vres_simetoxi() {
@@ -125,9 +125,9 @@ function vres_simetoxi() {
 	global $slogin;
 	global $strapezi;
 
-	$query = "SELECT `θέση` FROM `συμμετοχή` WHERE " .
-		"(`τραπέζι` = " . $strapezi . ") AND " .
-		"(`παίκτης` LIKE " . $slogin . ")";
+	$query = "SELECT `thesi` FROM `simetoxi` WHERE " .
+		"(`trapezi` = " . $strapezi . ") AND " .
+		"(`pektis` LIKE " . $slogin . ")";
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result);
 	if (!$row) { return 1; }

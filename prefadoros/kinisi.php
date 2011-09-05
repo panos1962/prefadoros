@@ -17,10 +17,10 @@ class Kinisi {
 	public function set_from_dbrow($row) {
 		global $globals;
 
-		$this->kodikos = $row['κωδικός'];
-		$this->dianomi = $row['διανομή'];
-		$this->pektis = $row['παίκτης'];
-		$this->idos = $row['είδος'];
+		$this->kodikos = $row['kodikos'];
+		$this->dianomi = $row['dianomi'];
+		$this->pektis = $row['pektis'];
+		$this->idos = $row['idos'];
 		$this->data = $row['data'];
 		$this->prostasia();
 	}
@@ -253,8 +253,8 @@ class Kinisi {
 
 		if ($globals->is_dianomi()) {
 			$dianomi = $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
-			$query = "SELECT * FROM `κίνηση` WHERE `διανομή` = " .
-				$dianomi . " ORDER BY `κωδικός`"; 
+			$query = "SELECT * FROM `kinisi` WHERE `dianomi` = " .
+				$dianomi . " ORDER BY `kodikos`"; 
 			$result = $globals->sql_query($query);
 			while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				$k = new Kinisi;
@@ -271,7 +271,7 @@ class Kinisi {
 
 		self::check_data($idos, $data);
 
-		$query = "INSERT INTO `κίνηση` (`διανομή`, `παίκτης`, `είδος`, `data`) VALUES (" .
+		$query = "INSERT INTO `kinisi` (`dianomi`, `pektis`, `idos`, `data`) VALUES (" .
 			$dianomi . ", " . $pektis . ", '" . $idos . "', '" . $data . "')";
 		$globals->sql_query($query);
 		if (@mysqli_affected_rows($globals->db) != 1) {

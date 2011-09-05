@@ -11,15 +11,15 @@ Globals::perastike_check('pektis');
 $pektis = "'" . $globals->asfales($_REQUEST['pektis']) . "'";
 
 @mysqli_autocommit($globals->db, FALSE);
-$query = "DELETE FROM `σχέση` WHERE (`παίκτης` LIKE " . $login .
-	") AND (`σχετιζόμενος` LIKE " . $pektis . ")";
+$query = "DELETE FROM `sxesi` WHERE (`pektis` LIKE " . $login .
+	") AND (`sxetizomenos` LIKE " . $pektis . ")";
 $result = @mysqli_query($globals->db, $query);
 if (!$result) {
 	@mysqli_rollback($globals->db);
 	die('Απέτυχε η διαγραφή σχέσης (' . @mysqli_error($globals->db) . ')');
 }
 
-$query = "INSERT INTO `σχέση` (`παίκτης`, `σχετιζόμενος`, `status`) " .
+$query = "INSERT INTO `sxesi` (`pektis`, `sxetizomenos`, `status`) " .
 	"VALUES (" . $login . ", " . $pektis . ", 'ΦΙΛΟΣ')";
 $result = @mysqli_query($globals->db, $query);
 if ((!$result) || (@mysqli_affected_rows($globals->db) != 1)) {

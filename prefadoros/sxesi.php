@@ -20,7 +20,7 @@ class Sxesi {
 
 	public function set_from_dbrow($row, $energos, $status = '') {
 		$this->login = $row['login'];
-		$this->onoma = $row['όνομα'];
+		$this->onoma = $row['onoma'];
 		$this->online = self::is_online($row['idle']);
 		$this->diathesimos = array_key_exists($row['login'], $energos);
 		$this->status = $status;
@@ -65,8 +65,8 @@ class Sxesi {
 	public static function energos_pektis() {
 		global $globals;
 		$pektis = array();
-		$query = "SELECT `παίκτης1`, `παίκτης2`, `παίκτης3` " .
-			"FROM `τραπέζι` WHERE `τέλος` IS NULL";
+		$query = "SELECT `pektis1`, `pektis2`, `pektis3` " .
+			"FROM `trapezi` WHERE `telos` IS NULL";
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
 			for ($i = 0; $i < 3; $i++) {
@@ -205,8 +205,8 @@ class Sxesi {
 		$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
 		$peknpat = NULL;
-		$query = "SELECT `peknpat`, `pekstat` FROM `συνεδρία` " .
-			"WHERE `κωδικός` = " . $sinedria;
+		$query = "SELECT `peknpat`, `pekstat` FROM `sinedria` " .
+			"WHERE `kodikos` = " . $sinedria;
 		$result = $globals->sql_query($query);
 		if ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 			@mysqli_free_result($result);
@@ -216,12 +216,12 @@ class Sxesi {
 			$pekstat = $globals->asfales($row[1]);
 		}
 
-		$query1 = "SELECT `login`, `όνομα`, " .
+		$query1 = "SELECT `login`, `onoma`, " .
 			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
-			"FROM `παίκτης` WHERE 1 ";
+			"FROM `pektis` WHERE 1 ";
 
 		if (isset($peknpat)) {
-			$query1 .= "AND ((`όνομα` LIKE '" . $peknpat . "') OR " .
+			$query1 .= "AND ((`onoma` LIKE '" . $peknpat . "') OR " .
 				"(`login` LIKE '" . $peknpat . "')) ";
 		}
 
@@ -249,8 +249,8 @@ class Sxesi {
 
 		// Πρώτα θα εμφανιστούν οι παίκτες που σχετίζονται ως "φίλοι" με
 		// τον παίκτη.
-		$query = $query1 . "AND (`login` IN (SELECT `σχετιζόμενος` FROM `σχέση` WHERE " .
-			"(`παίκτης` LIKE " . $slogin . ") AND " .
+		$query = $query1 . "AND (`login` IN (SELECT `sxetizomenos` FROM `sxesi` WHERE " .
+			"(`pektis` LIKE " . $slogin . ") AND " .
 			"(`status` LIKE 'ΦΙΛΟΣ')))" . $query2;
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -264,8 +264,8 @@ class Sxesi {
 		// Αν έχει δοθεί name pattern ή κατάσταση online/available, τότε επιλέγω και
 		// μη σχετιζόμενους παίκτες.
 		if (isset($peknpat) || $online) {
-			$query = $query1 . "AND (`login` NOT IN (SELECT `σχετιζόμενος` FROM `σχέση` WHERE " .
-				"(`παίκτης` LIKE " . $slogin . ")))" . $query2;
+			$query = $query1 . "AND (`login` NOT IN (SELECT `sxetizomenos` FROM `sxesi` WHERE " .
+				"(`pektis` LIKE " . $slogin . ")))" . $query2;
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if ($online && ($row['idle'] > XRONOS_PEKTIS_IDLE_MAX)) { continue; }
@@ -277,8 +277,8 @@ class Sxesi {
 		}
 
 		// Τέλος, εμφανίζονται οι παίκτες που έχουν "αποκλειστεί" από τον παίκτη.
-		$query = $query1 . "AND (`login` IN (SELECT `σχετιζόμενος` FROM `σχέση` WHERE " .
-			"(`παίκτης` LIKE " . $slogin . ") AND " .
+		$query = $query1 . "AND (`login` IN (SELECT `sxetizomenos` FROM `sxesi` WHERE " .
+			"(`pektis` LIKE " . $slogin . ") AND " .
 			"(`status` LIKE 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ')))" . $query2;
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {

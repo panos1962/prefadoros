@@ -21,14 +21,14 @@ class Dianomi {
 	}
 
 	public function set_from_dbrow($row) {
-		$this->kodikos = $row['κωδικός'];
+		$this->kodikos = $row['kodikos'];
 		$this->dealer = $row['dealer'];
-		$this->kasa1 = $row['κάσα1'];
-		$this->metrita1 = $row['μετρητά1'];
-		$this->kasa2 = $row['κάσα2'];
-		$this->metrita2 = $row['μετρητά2'];
-		$this->kasa3 = $row['κάσα3'];
-		$this->metrita3 = $row['μετρητά3'];
+		$this->kasa1 = $row['kasa1'];
+		$this->metrita1 = $row['metrita1'];
+		$this->kasa2 = $row['kasa2'];
+		$this->metrita2 = $row['metrita2'];
+		$this->kasa3 = $row['kasa3'];
+		$this->metrita3 = $row['metrita3'];
 	}
 
 	public function set_from_file($line) {
@@ -196,8 +196,8 @@ class Dianomi {
 		$dianomi = array();
 
 		if ($globals->is_trapezi()) {
-			$query = "SELECT * FROM `διανομή` WHERE `τραπέζι` = " .
-				$globals->trapezi->kodikos . " ORDER BY `κωδικός`"; 
+			$query = "SELECT * FROM `dianomi` WHERE `trapezi` = " .
+				$globals->trapezi->kodikos . " ORDER BY `kodikos`"; 
 			$result = $globals->sql_query($query);
 			while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				$d = new Dianomi;

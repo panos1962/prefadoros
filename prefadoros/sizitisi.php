@@ -26,10 +26,10 @@ class Sizitisi {
 	}
 
 	public function set_from_dbrow($row) {
-		$this->kodikos = $row['κωδικός'];
-		$this->pektis = $row['παίκτης'];
-		$this->sxolio = $row['σχόλιο'];
-		$this->pote = $row['πότε'];
+		$this->kodikos = $row['kodikos'];
+		$this->pektis = $row['pektis'];
+		$this->sxolio = $row['sxolio'];
+		$this->pote = $row['pote'];
 	}
 
 	public function set_from_file($line) {
@@ -284,8 +284,8 @@ class Sizitisi {
 	}
 
 	public static function select_clause() {
-		return "SELECT `κωδικός`, `παίκτης`, `σχόλιο`, " .
-			"UNIX_TIMESTAMP(`πότε`) AS `πότε` FROM `συζήτηση` ";
+		return "SELECT `kodikos`, `pektis`, `sxolio`, " .
+			"UNIX_TIMESTAMP(`pote`) AS `pote` FROM `sizitisi` ";
 	}
 
 	public static function process_sizitisi() {
@@ -297,10 +297,10 @@ class Sizitisi {
 			// συγγραφής σχολίων στο καφενείο.
 			$writing = time() - WRITING_ACTIVE;
 			$query = self:: select_clause() .
-				"WHERE (`τραπέζι` = " . $globals->trapezi->kodikos . ") " .
-				"OR ((UNIX_TIMESTAMP(`πότε`) > " . $writing . ") " .
-				"AND (`σχόλιο` LIKE '@WK@')) " .
-				"ORDER BY `κωδικός`";
+				"WHERE (`trapezi` = " . $globals->trapezi->kodikos . ") " .
+				"OR ((UNIX_TIMESTAMP(`pote`) > " . $writing . ") " .
+				"AND (`sxolio` LIKE '@WK@')) " .
+				"ORDER BY `kodikos`";
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				if (self::my_notice($row)) { continue; }
@@ -315,8 +315,8 @@ class Sizitisi {
 
 	public static function my_notice($row) {
 		global $globals;
-		if ($row['παίκτης'] != $globals->pektis->login) { return(FALSE); }
-		switch ($row['σχόλιο']) {
+		if ($row['pektis'] != $globals->pektis->login) { return(FALSE); }
+		switch ($row['sxolio']) {
 		case "@WP@":
 		case "@WK@":
 		case "@KN@":
@@ -333,8 +333,8 @@ class Sizitisi {
 			return;
 		}
 
-		$query = "SELECT `κωδικός` FROM `συζήτηση` WHERE `τραπέζι` IS NULL " .
-			"ORDER BY `κωδικός` DESC LIMIT " . KAFENIO_TREXONTA_SXOLIA;
+		$query = "SELECT `kodikos` FROM `sizitisi` WHERE `trapezi` IS NULL " .
+			"ORDER BY `kodikos` DESC LIMIT " . KAFENIO_TREXONTA_SXOLIA;
 		$result = $globals->sql_query($query);
 		$count = 0;
 		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
@@ -345,8 +345,8 @@ class Sizitisi {
 			return;
 		}
 
-		$query = "DELETE FROM `συζήτηση` " .
-			"WHERE (`τραπέζι` IS NULL) AND (`κωδικός` < " . $proto . ")";
+		$query = "DELETE FROM `sizitisi` " .
+			"WHERE (`trapezi` IS NULL) AND (`kodikos` < " . $proto . ")";
 		$globals->sql_query($query);
 	}
 
@@ -368,19 +368,19 @@ class Sizitisi {
 
 		if ((!isset($kafenio_apo)) || ($kafenio_apo < 1)) {
 			$kafenio_apo = 1;
-			$query = self::select_clause() . "WHERE (`τραπέζι` IS NULL) " .
-				"ORDER BY `κωδικός` LIMIT " . KAFENIO_TREXONTA_SXOLIA;
+			$query = self::select_clause() . "WHERE (`trapezi` IS NULL) " .
+				"ORDER BY `kodikos` LIMIT " . KAFENIO_TREXONTA_SXOLIA;
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				$kafenio_apo = $row['κωδικός'];
+				$kafenio_apo = $row['kodikos'];
 				@mysqli_free_result($result);
 				break;
 			}
 		}
 
 		$sizitisi = array();
-		$query = self::select_clause() . "WHERE (`τραπέζι` IS NULL) " .
-			"AND (`κωδικός` >= " . $kafenio_apo . ") ORDER BY `κωδικός`";
+		$query = self::select_clause() . "WHERE (`trapezi` IS NULL) " .
+			"AND (`kodikos` >= " . $kafenio_apo . ") ORDER BY `kodikos`";
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			if (self::my_notice($row)) { continue; }
@@ -403,10 +403,10 @@ class Sizitisi {
 		if ($globals->not_pektis()) { return; }
 
 		$prosfata = time() - WRITING_CLEANUP;
-		$query = "DELETE FROM `συζήτηση` " .
-			"WHERE (`παίκτης` LIKE " . $globals->pektis->slogin . ") " .
-			"AND (`σχόλιο` REGEXP '^@W[PK]@$') " .
-			"AND (UNIX_TIMESTAMP(`πότε`) > " . $prosfata . ")";
+		$query = "DELETE FROM `sizitisi` " .
+			"WHERE (`pektis` LIKE " . $globals->pektis->slogin . ") " .
+			"AND (`sxolio` REGEXP '^@W[PK]@$') " .
+			"AND (UNIX_TIMESTAMP(`pote`) > " . $prosfata . ")";
 		$globals->sql_query($query);
 	}
 }

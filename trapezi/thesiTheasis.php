@@ -8,8 +8,8 @@ set_globals();
 $thesi = $globals->asfales(Globals::perastike_check('thesi'));
 Prefadoros::pektis_check();
 
-$query = "UPDATE `θεατής` SET `θέση` = " . $thesi .
-	" WHERE `παίκτης` LIKE " . $globals->pektis->slogin;
+$query = "UPDATE `theatis` SET `thesi` = " . $thesi .
+	" WHERE `pektis` LIKE " . $globals->pektis->slogin;
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	die('Απέτυχε η αλλαγή θέσης θέασης');
