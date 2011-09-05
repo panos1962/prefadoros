@@ -85,8 +85,6 @@ var Prefadoros = new function() {
 		if (Partida.HTML != x.innerHTML) {
 			x.style.overflowY = 'hidden';
 			x.innerHTML = Partida.HTML;
-//========================== setControls();
-			setTimeout(Dekada.setControls, 100);
 		}
 		Prefadoros.sizitisiControls();
 
