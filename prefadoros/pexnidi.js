@@ -584,11 +584,25 @@ var ProcessFasi = new function() {
 		}, Pexnidi.delay['baza']);
 	};
 
-	this.pliromi = function() {
+	var timerPliromis = null;
+
+	this.pliromi = function(dromologimeni) {
+		if (notSet(dromologimeni)) { dromologimeni = false; }
+		if (timerPliromis && (!dromologimeni)) { return; }
+
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		Pliromi.pliromi();
+		if (pexnidi.anamoniKinisis) {
+			mainFyi('Δρομολογήθηκε πληρωμή');
+			timerPliromis = setTimeout(function() {
+				ProcessFasi.pliromi(true);
+			}, 1000);
+		}
+		else {
+			timerPliromis = null;
+			Pliromi.pliromi();
+		}
 	};
 
 	this.dianomi = function() {
