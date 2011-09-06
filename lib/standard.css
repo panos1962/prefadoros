@@ -53,6 +53,11 @@ a img {
 	height: 1px;
 }
 
+.motdKimeno {
+	text-align: justify;
+	padding: 0.2cm 0.5cm 0px 0.5cm;
+}
+
 .toolbarArea {
 	border-style: solid;
 	border-width: 0 0 2px 0;

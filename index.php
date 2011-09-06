@@ -31,10 +31,14 @@ if ($globals->is_pektis()) {
 	Prefadoros::set_params();
 }
 Page::body();
-// Page::motd();
+if (!Globals::perastike('motd')) {
+	Page::motd();
+}
 if ($globals->is_pektis()) {
 	Prefadoros::pektis_check();
-	Page::diafimisi();
+	if (!Globals::perastike('diafimisi')) {
+		Page::diafimisi();
+	}
 }
 Page::toolbar();
 ?>
