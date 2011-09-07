@@ -555,12 +555,12 @@ var ProcessFasi = new function() {
 	};
 
 	this.baza = function() {
-		if (pexnidi.dealer != 1) { return; }
+		if (pexnidi.epomenos != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
 		setTimeout(function() {
 			Pexnidi.addKinisi('ΜΠΑΖΑ', '', pexnidi.epomenos);
-		}, 500);
+		}, 600);
 	};
 
 	this.pliromi = function() {
