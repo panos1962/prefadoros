@@ -165,12 +165,12 @@ var Prosklisi = new function() {
 			playSound('beep');
 			img.src = globals.server + 'images/X.png';
 			setTimeout(function() {
-				img.src = img.prevSrc;
+				try { img.src = img.prevSrc; } catch(e) {};
 			}, globals.duration.errorIcon);
 		}
 		else {
 			playSound('skisimo');
-			img.src = img.prevSrc;
+			try { img.src = img.prevSrc; } catch(e) {};
 		}
 	};
 };

@@ -163,7 +163,9 @@ var Permes = new function() {
 			mainFyi(rsp);
 			img.src = globals.server + 'images/X.png';
 			playSound('beep');
-			setTimeout(function() { img.src = img.prevSrc; }, 1000);
+			setTimeout(function() {
+				try { img.src = img.prevSrc; } catch(e) {};
+			}, 1000);
 		}
 		else {
 			var x = getelid('minima' + minima);
@@ -193,7 +195,9 @@ var Permes = new function() {
 			mainFyi(rsp);
 			img.src = globals.server + 'images/X.png';
 			playSound('beep');
-			setTimeout(function() { img.src = img.prevSrc; }, 1000);
+			setTimeout(function() {
+				try { img.src = img.prevSrc; } catch(e) {};
+			}, 1000);
 		}
 		else {
 			var t = getelid('text' + minima);

@@ -554,15 +554,12 @@ var ProcessFasi = new function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		ProcessFasi.dromologimeno = setTimeout(function() {
-			if (isPasoPasoPaso()) {
-				Pexnidi.addKinisi('ΑΓΟΡΑ', 'NNN', 0, true);
-			}
-			else {
-				Pexnidi.dianomi(true);
-			}
-		}, Pexnidi.delay['pasoPasoPaso']);
-		Pexnidi.miosiDelay('pasoPasoPaso');
+		if (isPasoPasoPaso()) {
+			Pexnidi.addKinisi('ΑΓΟΡΑ', 'NNN', 0, true);
+		}
+		else {
+			Pexnidi.dianomi();
+		}
 	};
 
 	this.tzogos = function() {
@@ -576,43 +573,21 @@ var ProcessFasi = new function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		// Ο επόμενος μπορεί να αλλάξει μέχρι να έρθει η ώρα
-		// της εισαγωγής της κίνησης μπάζας.
-		var epomenos = pexnidi.epomenos;
-		ProcessFasi.dromologimeno = setTimeout(function() {
-			Pexnidi.addKinisi('ΜΠΑΖΑ', '', epomenos, true);
-		}, Pexnidi.delay['baza']);
+		Pexnidi.addKinisi('ΜΠΑΖΑ', '', pexnidi.epomenos, true);
 	};
 
-	var timerPliromis = null;
-
-	this.pliromi = function(dromologimeni) {
-		if (notSet(dromologimeni)) { dromologimeni = false; }
-		if (timerPliromis && (!dromologimeni)) { return; }
-
+	this.pliromi = function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		if (pexnidi.anamoniKinisis) {
-			mainFyi('Δρομολογήθηκε πληρωμή');
-			timerPliromis = setTimeout(function() {
-				ProcessFasi.pliromi(true);
-			}, 1000);
-		}
-		else {
-			timerPliromis = null;
-			Pliromi.pliromi();
-		}
+		Pliromi.pliromi();
 	};
 
 	this.dianomi = function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		ProcessFasi.dromologimeno = setTimeout(function() {
-			Pexnidi.dianomi(true);
-		}, Pexnidi.delay['dianomi']);
-		Pexnidi.miosiDelay('dianomi');
+		Pexnidi.dianomi(true);
 	};
 };
 

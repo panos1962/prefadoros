@@ -244,7 +244,7 @@ var Sizitisi = new function() {
 		var x = getelid('sizitisiArea');
 		if (notSet(x)) { return; }
 		scrollBottomTimer = setTimeout(function() {
-			x.scrollTop = x.scrollHeight;
+			try { x.scrollTop = x.scrollHeight; } catch(e) {};
 			scrollBottomTimer = null;
 		}, 300);
 	};
