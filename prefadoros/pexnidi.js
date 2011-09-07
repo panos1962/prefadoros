@@ -67,6 +67,8 @@ var Pexnidi = new function() {
 		pexnidi.baza = [ 0, 0, 0, 0 ];
 		pexnidi.bazaFilo = [];
 		pexnidi.bazaPektis = [];
+		pexnidi.prevBazaFilo = [];
+		pexnidi.prevBazaPektis = [];
 		Pexnidi.resetBaza();
 
 		Dodekada.reset();
@@ -74,8 +76,11 @@ var Pexnidi = new function() {
 	};
 
 	this.resetBaza = function() {
-		pexnidi.prevBazaFilo = pexnidi.bazaFilo;
-		pexnidi.prevBazaPektis = pexnidi.bazaPektis;
+		if (pexnidi.bazaFilo.length > 0) {
+			pexnidi.prevBazaFilo = pexnidi.bazaFilo;
+			pexnidi.prevBazaPektis = pexnidi.bazaPektis;
+		}
+
 		pexnidi.bazaFilo = [];
 		pexnidi.bazaPektis = [];
 	};

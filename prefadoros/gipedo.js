@@ -360,8 +360,8 @@ var Gipedo = new function() {
 	};
 
 	this.telefteaBazaHTML = function() {
-		if (pexnidi.prevBazaFilo.length <= 0) { return; }
 		var html = '';
+		if (pexnidi.prevBazaFilo.length <= 0) { return html; }
 		for (var i = 1; i <= 3; i++) {
 			html += '<div>';
 			for (var j = 0; j < pexnidi.prevBazaFilo.length; j++) {
