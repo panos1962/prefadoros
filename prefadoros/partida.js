@@ -1133,9 +1133,7 @@ var Dekada = new function() {
 		x.innerHTML = '<img class="bazaFilo bazaFilo1" src="' + globals.server +
 			'images/trapoula/' + xa + '.png" alt="" style="z-index: 3;" />';
 		sviseNode(img);
-		setTimeout(function() {
-			Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
-		}, 10);
+		Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
 	};
 };
 

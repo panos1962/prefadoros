@@ -172,11 +172,11 @@ var Sxesi = new function() {
 			mainFyi(rsp);
 			img.src = globals.server + 'images/X.png';
 			setTimeout(function() {
-				img.src = img.prevSrc;
+				try { img.src = img.prevSrc; } catch(e) {};
 			}, globals.duration.errorIcon);
 		}
 		else {
-			img.src = img.prevSrc;
+			try { img.src = img.prevSrc; } catch(e) {};
 			mainFyi('Ο παίκτης "' + pektis + '" εντάχθηκε στους φίλους');
 		}
 		return false;
@@ -209,11 +209,11 @@ var Sxesi = new function() {
 			mainFyi(rsp);
 			img.src = globals.server + 'images/X.png';
 			setTimeout(function() {
-				img.src = img.prevSrc;
+				try { img.src = img.prevSrc; } catch(e) {};
 			}, globals.duration.errorIcon);
 		}
 		else {
-			img.src = img.prevSrc;
+			try { img.src = img.prevSrc; } catch(e) {};
 			mainFyi('Ο παίκτης "' + pektis + '" έχει αποκλειστεί');
 		}
 		return false;
@@ -250,7 +250,7 @@ var Sxesi = new function() {
 			}, globals.duration.errorIcon);
 		}
 		else {
-			img.src = img.prevSrc;
+			try { img.src = img.prevSrc; } catch(e) {};
 			mainFyi('Αποσυσχετίστηκε ο παίκτης "' + pektis + '"');
 		}
 		return false;
@@ -302,9 +302,9 @@ var Sxesi = new function() {
 		else if (rsp) {
 			playSound('beep');
 			mainFyi(rsp);
-			img.src = globals.server + 'images/X.png';
+			try { img.src = globals.server + 'images/X.png'; } catch(e) {};
 			setTimeout(function() {
-				img.src = img.prevSrc;
+				try { img.src = img.prevSrc; } catch(e) {};
 			}, globals.duration.errorIcon);
 		}
 	};
@@ -406,13 +406,15 @@ var Sxesi = new function() {
 		if (rsp) {
 			playSound('beep');
 			mainFyi(rsp);
-			ico.src = globals.server + 'images/X.png';
+			try { ico.src = globals.server + 'images/X.png'; } catch(e) {};
 			setTimeout(function() {
-				ico.src = globals.server + 'images/sxetikos.png';
+				try { ico.src = globals.server + 'images/sxetikos.png'; }
+					catch(e) {};
 			}, globals.duration.errorIcon);
 		}
 		else {
-			ico.src = globals.server + 'images/sxetikos.png';
+			try { ico.src = globals.server + 'images/sxetikos.png'; }
+				catch(e) {};
 		}
 		return false;
 	};
@@ -452,7 +454,7 @@ var Sxesi = new function() {
 			mainFyi(rsp);
 			ico.src = globals.server + 'images/X.png';
 			setTimeout(function() {
-				ico.src = oldIco;
+				try { ico.src = oldIco; } catch(e) {};
 			}, globals.duration.errorIcon);
 		}
 		else {

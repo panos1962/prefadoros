@@ -11,14 +11,12 @@ var Dedomena = new function() {
 	this.setup = function() {
 		sessionAliveTS = (lastDataTS = currentTimestamp());
 		setTimeout(function() { Dedomena.neaDedomena(true); }, 200);
-// setTimeout(Dedomena.checkAlive, 1000);
 		setTimeout(Dedomena.checkAlive, 5000);
 		Dedomena.kafenioApo = 0;
 	};
 
 	this.schedule = function(freska) {
 		if (notSet(freska)) { freska = false; }
-// setTimeout(function() { Dedomena.neaDedomena(freska); }, 100);
 		setTimeout(function() { Dedomena.neaDedomena(freska); }, 1000);
 	};
 
