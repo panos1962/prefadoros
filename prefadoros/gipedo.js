@@ -359,6 +359,25 @@ var Gipedo = new function() {
 		return html;
 	};
 
+	this.telefteaBazaHTML = function() {
+		if (pexnidi.prevBazaFilo.length <= 0) { return; }
+		var html = '';
+		for (var i = 1; i <= 3; i++) {
+			html += '<div>';
+			for (var j = 0; j < pexnidi.prevBazaFilo.length; j++) {
+				if (pexnidi.prevBazaPektis[j] == i) {
+					html += '<img class="bazaFilo bazaFilo' + i + '" src="' +
+						globals.server + 'images/trapoula/' +
+						pexnidi.prevBazaFilo[j] + '.png" alt="" ' +
+						'style="z-index: 1' + j + ';" />';
+					break;
+				}
+			}
+			html += '</div>';
+		}
+		return html;
+	};
+
 	this.denPezounHTML = function() {
 		var html = '';
 		if (pexnidi.dealer == 3) { html += Gipedo.anamoniDianomiHTML(); }

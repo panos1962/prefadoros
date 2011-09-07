@@ -65,6 +65,8 @@ var Pexnidi = new function() {
 
 		pexnidi.bazaCount = 0;
 		pexnidi.baza = [ 0, 0, 0, 0 ];
+		pexnidi.bazaFilo = [];
+		pexnidi.bazaPektis = [];
 		Pexnidi.resetBaza();
 
 		Dodekada.reset();
@@ -72,6 +74,8 @@ var Pexnidi = new function() {
 	};
 
 	this.resetBaza = function() {
+		pexnidi.prevBazaFilo = pexnidi.bazaFilo;
+		pexnidi.prevBazaPektis = pexnidi.bazaPektis;
 		pexnidi.bazaFilo = [];
 		pexnidi.bazaPektis = [];
 	};

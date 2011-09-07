@@ -781,6 +781,7 @@ var Partida = new function() {
 		}
 
 		html += '</div>';
+		html += '<div id="telefteaBaza" class="telefteaBaza"></div>';
 		return html ;
 	};
 
