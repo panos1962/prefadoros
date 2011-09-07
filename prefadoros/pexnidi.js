@@ -558,7 +558,9 @@ var ProcessFasi = new function() {
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		Pexnidi.addKinisi('ΜΠΑΖΑ', '', pexnidi.epomenos);
+		setTimeout(function() {
+			Pexnidi.addKinisi('ΜΠΑΖΑ', '', pexnidi.epomenos);
+		}, 500);
 	};
 
 	this.pliromi = function() {
@@ -893,13 +895,13 @@ var ProcessKinisi = new function() {
 		pexnidi.bazaCount++;
 		pexnidi.baza[thesi]++;
 		pexnidi.epomenos = thesi;
+		Pliromi.checkMesa(kodikos);
 		if (pexnidi.bazaCount < 10) {
 			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
 		}
 		else {
 			pexnidi.fasi = 'ΠΛΗΡΩΜΗ';
 		}
-		Pliromi.checkMesa(kodikos);
 	};
 
 	this.akirosi = function(thesi) {
