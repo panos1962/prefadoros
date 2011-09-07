@@ -30,6 +30,14 @@ var Pexnidi = new function() {
 
 	this.anamoniKinisis = 0;
 
+	// Τα arrays "prevBazaFilo" και "prevBazaPektis" χρησιμοποιούνται
+	// στην επανεμφάνιση της προηγούμενης (τελευταίας) μπάζας. Ο παίκτης
+	// μπορεί να δει ακόμη και μπάζα από την προηγούμενη διανομή, εφόσον
+	// βρίσκεται στην αρχή νέας διανομής.
+
+	pexnidi.prevBazaFilo = [];
+	pexnidi.prevBazaPektis = [];
+
 	this.reset = function() {
 		pexnidi.akirosi = 0;
 		pexnidi.ipolipo = 0;
@@ -67,8 +75,6 @@ var Pexnidi = new function() {
 		pexnidi.baza = [ 0, 0, 0, 0 ];
 		pexnidi.bazaFilo = [];
 		pexnidi.bazaPektis = [];
-		pexnidi.prevBazaFilo = [];
-		pexnidi.prevBazaPektis = [];
 		Pexnidi.resetBaza();
 
 		Dodekada.reset();
