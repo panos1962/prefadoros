@@ -341,6 +341,7 @@ var Gipedo = new function() {
 
 	this.dixeBazaHTML = function(filo, pektis) {
 		var html = '';
+		html += '<div id="baza" style="position: relative;">';
 		for (var i = 1; i <= 3; i++) {
 			html += '<div id="bazaFilo' + i + '">';
 			for (var j = 0; j < pektis.length; j++) {
@@ -354,6 +355,7 @@ var Gipedo = new function() {
 			}
 			html += '</div>';
 		}
+		html += '</div>';
 		return html;
 	};
 

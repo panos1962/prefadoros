@@ -559,6 +559,7 @@ var ProcessFasi = new function() {
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
 		setTimeout(function() {
+			mainFyi('Μπάζα');
 			Pexnidi.addKinisi('ΜΠΑΖΑ', '', pexnidi.epomenos);
 		}, 600);
 	};
