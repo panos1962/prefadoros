@@ -781,7 +781,15 @@ var Partida = new function() {
 		}
 
 		html += '</div>';
-		html += '<div id="telefteaBaza" class="telefteaBaza"></div>';
+		if (controlPanel.xanaBazaOn) {
+			html += '<div id="telefteaBaza" class="telefteaBaza" ' +
+				'style="z-index: 10;">';
+			html += Gipedo.telefteaBazaHTML();
+		}
+		else {
+			html += '<div id="telefteaBaza" class="telefteaBaza">';
+		}
+		html += '</div>';
 		return html ;
 	};
 
