@@ -366,7 +366,7 @@ var Gipedo = new function() {
 			html += '<div>';
 			for (var j = 0; j < pexnidi.prevBazaFilo.length; j++) {
 				if (pexnidi.prevBazaPektis[j] == i) {
-					html += '<img class="bazaFilo bazaFilo' + i + '" src="' +
+					html += '<img class="bazaFilo telefteaBazaFilo' + i + '" src="' +
 						globals.server + 'images/trapoula/' +
 						pexnidi.prevBazaFilo[j] + '.png" alt="" ' +
 						'style="z-index: 1' + j + ';" />';
