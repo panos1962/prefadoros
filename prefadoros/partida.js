@@ -781,13 +781,13 @@ var Partida = new function() {
 		}
 
 		html += '</div>';
+		html += '<div id="telefteaBaza" class="telefteaBaza" title="Προηγούμενη μπάζα"';
 		if (controlPanel.xanaBazaOn) {
-			html += '<div id="telefteaBaza" class="telefteaBaza" ' +
-				'style="z-index: 10;">';
+			html += ' style="z-index: 10;" title="Προηγούμενη μπάζα">';
 			html += Gipedo.telefteaBazaHTML();
 		}
 		else {
-			html += '<div id="telefteaBaza" class="telefteaBaza">';
+			html += '">';
 		}
 		html += '</div>';
 		return html ;
