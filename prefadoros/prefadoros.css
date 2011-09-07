@@ -1239,3 +1239,15 @@ font-weight: bold;
 	width: 2.1cm;
 	margin-right: 0.2cm;
 }
+
+.telefteaBaza {
+	position: relative;
+	top: 4.4cm;
+	left: 3.5cm;
+	border-style: solid;
+	border-color: #61767A;
+	background-image: url('../images/telefteaBaza.jpg');
+	width: 6.0cm;
+	height: 4.4cm;
+	z-index: -1;
+}
