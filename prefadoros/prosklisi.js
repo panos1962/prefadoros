@@ -173,4 +173,36 @@ var Prosklisi = new function() {
 			try { img.src = img.prevSrc; } catch(e) {};
 		}
 	};
+
+	this.diagrafiOlon = function(img) {
+		Sizitisi.sxolioFocus();
+		if (!confirm('Θέλετε πράγματι να διαγράψετε ΟΛΕΣ τις προσκλήσεις;')) { return; }
+
+		img.prevSrc = img.src;
+		img.src = globals.server + 'images/working.gif';
+		var req = new Request('prosklisi/delProsklisi');
+		req.xhr.onreadystatechange = function() {
+			skisimoCheck(req, img);
+		};
+
+		params = 'oles=yes';
+		req.send(params);
+	};
+
+	function diagrafiOlonCheck(req, img) {
+		if (req.xhr.readyState != 4) { return; }
+		rsp = req.getResponse();
+		mainFyi(rsp);
+		if (rsp) {
+			playSound('beep');
+			img.src = globals.server + 'images/X.png';
+			setTimeout(function() {
+				try { img.src = img.prevSrc; } catch(e) {};
+			}, globals.duration.errorIcon);
+		}
+		else {
+			playSound('skisimo');
+			try { img.src = img.prevSrc; } catch(e) {};
+		}
+	};
 };
