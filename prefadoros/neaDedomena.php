@@ -309,6 +309,9 @@ function freska_dedomena($dedomena) {
 
 function diaforetika_dedomena($curr, $prev) {
 	global $globals;
+
+	Kinisi::fix_baza_filo($curr->kinisi, $prev->kinisi);
+
 	$curr->grapse();
 	print_epikefalida();
 	print "}";
