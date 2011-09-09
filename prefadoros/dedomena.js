@@ -20,7 +20,7 @@ var Dedomena = new function() {
 		if (!reschedule) { return; }
 		if (notSet(freska)) { freska = false; }
 		// setTimeout(function() { Dedomena.neaDedomena(freska); }, 1000);
-		setTimeout(function() { Dedomena.neaDedomena(freska); }, 200);
+		setTimeout(function() { Dedomena.neaDedomena(freska); }, 600);
 	};
 
 	// Η μέθοδος "keepAlive" τρέχει σε τακτά χρονικά διαστήματα και ελέγχει
