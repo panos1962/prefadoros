@@ -5,6 +5,7 @@ var Dedomena = new function() {
 	var polivolo1 = 0;
 	var polivoloTS2 = 0;
 	var polivolo2 = 0;
+	var reschedule = true;
 
 	this.kafenioApo = 0;
 
@@ -16,6 +17,7 @@ var Dedomena = new function() {
 	};
 
 	this.schedule = function(freska) {
+		if (!reschedule) { return; }
 		if (notSet(freska)) { freska = false; }
 		setTimeout(function() { Dedomena.neaDedomena(freska); }, 1000);
 	};
@@ -83,6 +85,12 @@ var Dedomena = new function() {
 		Dumprsp.dump(rsp);
 		try {
 			var dedomena = eval('({' + rsp + '})');
+			if (notSet(dedomena.sinedria) || isSet(dedomena.sinedria.fatalError)) {
+				reschedule = false;
+				mainFyi(dedomena.sinedria.fatalError, -1);
+				playSound('beep');
+				return;
+			}
 		} catch(e) {
 			monitor.lathos();
 			Dumprsp.lathos();

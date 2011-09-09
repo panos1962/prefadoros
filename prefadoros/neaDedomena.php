@@ -152,7 +152,10 @@ function check_neotero_id() {
 	$result = $globals->sql_query($query);
 	$row = mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) {
-		Globals::fatal('ακαθόριστη συνεδρία');
+		print_epikefalida($sinedria, $id);
+		print ",fatalError: 'Ακαθόριστη συνεδρία (" . $sinedria .
+			"). Δοκιμάστε επαναφόρτωση της σελίδας'}";
+		die(0);
 	}
 
 	mysqli_free_result($result);
