@@ -86,14 +86,9 @@ var Prefadoros = new function() {
 			x.style.overflowY = 'hidden';
 			x.innerHTML = Partida.HTML;
 //========================== setControls();
-			// setTimeout(Dekada.setControls, 100);
-			// Από δω και κάτω είναι κανούριο.========>
 			if (pexnidi.epomenos == 1) {
-				var delay = ((kinisi.length > 0) &&
-					(kinisi[kinisi.length - 1].i == 'ΜΠΑΖΑ')) ? 300 : 100;
-				setTimeout(Dekada.setControls, delay);
+				setTimeout(Dekada.setControls, 100);
 			}
-			// Έως εδώ!===============================>
 		}
 		Prefadoros.sizitisiControls();
 
