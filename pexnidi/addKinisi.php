@@ -46,7 +46,7 @@ case 'ΑΓΟΡΑ':
 	check_agora($dianomi);
 	break;
 case 'ΔΗΛΩΣΗ':
-	$data = check_trito_paso($dianomi, $data);
+	$data = check_trito_paso($dianomi, $data, $thesi);
 	break;
 case 'ΤΖΟΓΟΣ':
 	$data = fila_tzogou($dianomi);
@@ -90,17 +90,20 @@ function fila_tzogou($dianomi) {
 // τότε ελέγχουμε αν πρόκειται για το τρίτο πάσο και σ'αυτήν την περίπτωση
 // προσθέτουμε στα δεδομένα και τα φύλλα του τζόγου ώστε να τα παραλάβουν
 // οι clients και να μπορέσουν να τα προβάλουν.
+//
+// Παράλληλα ελέγχω για διπλοδηλώσεις, δηλαδή να μην περαστεί η δήλωση
+// του παίκτη δύο φορές, π.χ. από διπλό κλικ. Αυτό γίνεται με έλεγχο
+// της τελευταίας δήλωσης, όπου πρέπει ο παίκτης να μην είναι ο ίδιος.
 
-function check_trito_paso($dianomi, $data) {
+function check_trito_paso($dianomi, $data, $pektis) {
 	global $globals;
-
-	if (!preg_match("/^P/", $data)) {
-		return $data;
-	}
 
 	$tzogos = "";
 	$paso_count = 0;
-	$query = "SELECT `idos`, `data` FROM `kinisi` WHERE `dianomi` = " . $dianomi;
+	$pektis_telefteas_dilosis = 0;
+
+	$query = "SELECT `idos`, `data`, `pektis` FROM `kinisi` " .
+		"WHERE `dianomi` = " . $dianomi . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 		switch ($row[0]) {
@@ -109,14 +112,29 @@ function check_trito_paso($dianomi, $data) {
 			$tzogos = $x[0];
 			break;
 		case 'ΔΗΛΩΣΗ':
-			if (preg_match("/^P/", $row[1])) {
+			$pektis_telefteas_dilosis = $row[2];
+			if (Prefadoros::is_dilosi_paso($row[1])) {
 				$paso_count++;
 			}
 			break;
 		}
 	}
 
-	return ($paso_count < 2 ? $data : $data . ":" . $tzogos);
+	// Ελέγχω τώρα μήπως επαναλαμβάνεται δήλωση από τον ίδιο παίκτη.
+	if ($pektis == $pektis_telefteas_dilosis) {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		die('Απόπειρα διπλοδήλωσης');
+	}
+
+	// Αν πρόκειται για δήλωση πάσο, ελέγχω αν έχω ήδη δύο προηγούμενα
+	// πάσο. Αν, όντως, έχω δύο προηγούμενα πάσο, τότε στα δεδομένα
+	// της δήλωσης θα "κολλήσω" και τα φύλλα του τζόγου, ώστε να
+	// είναι εύκολα τα αποκαλυπτήρια.
+	if (Prefadoros::is_dilosi_paso($data) && ($paso_count >= 2)) {
+		$data .= ":" . $tzogos;
+	}
+
+	return($data);
 }
 
 function kane_pliromi($dianomi, $data) {
@@ -199,7 +217,7 @@ function check_agora($dianomi) {
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 		$last = $row[0];
-		if (($last == 'ΔΗΛΩΣΗ') && preg_match('/^P/', $row[1])) {
+		if (($last == 'ΔΗΛΩΣΗ') && Prefadoros::is_dilosi_paso($row[1])) {
 			$paso++;
 		}
 	}
@@ -208,10 +226,8 @@ function check_agora($dianomi) {
 		return;
 	}
 
-	if ($globals->trapezi->ppp == 1) {
-		if ($paso >= 3) {
-			return;
-		}
+	if (($globals->trapezi->ppp == 1) && ($paso >= 3)) {
+		return;
 	}
 
 	Prefadoros::xeklidose_trapezi(FALSE);

@@ -13,7 +13,7 @@ class Prefadoros {
 				unset($globals->pektis);
 			}
 		}
-		elseif (Session::is_set('ps_login')) {
+		elseif (Globals::session_set('ps_login')) {
 			$globals->pektis = new Pektis($_SESSION['ps_login']);
 			if (!isset($globals->pektis->login)) {
 				unset($_SESSION['ps_login']);
@@ -303,6 +303,16 @@ class Prefadoros {
 		$rank["K"] = $n++;
 		$rank["A"] = $n++;
 		return $rank[substr($filo, 1, 1)];
+	}
+
+	// Η μέθοδος "is_dilosi_paso" δέχεται ως παράμετρο δεδομένα
+	// κίνησης τύπου "ΔΗΛΩΣΗ" και ελέγχει αν πρόκειται για δήλωση
+	// πάσο. Οι δηλώσεις πάσο είναι της μορφής "PXA", όπου "X"
+	// είναι το χρώμα και "A" η αξία της τρέχουσας αγοράς. Σημασία,
+	// πάντως, εδώ, έχει ότι το πρώτο γράμμα είναι "P".
+
+	static public function is_dilosi_paso($data) {
+		return(substr($data, 0, 1) == "P");
 	}
 }
 ?>

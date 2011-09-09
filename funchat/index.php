@@ -44,7 +44,7 @@ URL εικόνας
 <input id="ikonaData" type="hidden" value="" />
 </div>
 <?php
-if (Session::is_set('ps_whlt')) {
+if (Globals::session_set('ps_whlt')) {
 	if (preg_match('/^[0-9]+:[0-9]+:[0-9]+:[0-9]+$/', $_SESSION['ps_whlt'])) {
 		$whlt = explode(':', $_SESSION['ps_whlt']);
 		?>

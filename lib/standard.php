@@ -32,8 +32,13 @@ if (isset($no_session)) {
 	$_SESSION['ps_login'] = $_REQUEST['login'];
 }
 else {
-	Session::init();
+	// 24 * 7 * 3600 = 604800
+	ini_set('session.gc_maxlifetime', '604800');
+	session_set_cookie_params(604800);
+	session_start();
 }
+mb_internal_encoding('UTF-8');
+mb_regex_encoding('UTF-8');
 global $globals;
 unset($globals);
 
@@ -116,6 +121,14 @@ class Globals {
 
 		print isset($msg) ? $msg : $key . ': δεν περάστηκε παράμετρος';
 		die(1);
+	}
+
+	public static function session_set($tag) {
+		if ((!isset($_SESSION)) || (!is_array($_SESSION))) {
+			Globals::fatal('_SESSION: not set or not an array');
+		}
+
+		return (array_key_exists($tag, $_SESSION));
 	}
 
 	public static function email_check($email, $msg = NULL) {
@@ -213,25 +226,6 @@ class Globals {
 	}
 }
 
-class Session {
-	public static function init() {
-		// 24 * 7 * 3600 = 604800
-		ini_set('session.gc_maxlifetime', '604800');
-		session_set_cookie_params(604800);
-		session_start();
-		mb_internal_encoding('UTF-8');
-		mb_regex_encoding('UTF-8');
-	}
-
-	public static function is_set($tag) {
-		if ((!isset($_SESSION)) || (!is_array($_SESSION))) {
-			Globals::fatal('_SESSION: not set or not an array');
-		}
-
-		return (array_key_exists($tag, $_SESSION));
-	}
-}
-
 function set_globals($anonima = FALSE) {
 	global $globals;
 
@@ -282,7 +276,7 @@ function set_globals($anonima = FALSE) {
 		Globals::fatal($_SERVER['SERVER_NAME'] . ': unknown server');	
 	}
 
-	if (Session::is_set('ps_administrator')) {
+	if (Globals::session_set('ps_administrator')) {
 		$globals->administrator = TRUE;
 	}
 
@@ -340,12 +334,12 @@ class Page {
 		globals.administrator = <?php print $globals->is_administrator() ? 'true' : 'false'; ?>;
 		var pektis = {};
 		<?php
-		if (Session::is_set('ps_login')) {
+		if (Globals::session_set('ps_login')) {
 			?>
 			pektis.login = '<?php print $_SESSION['ps_login']; ?>';
 			<?php
 		}
-		if (Session::is_set('ps_whlt') &&
+		if (Globals::session_set('ps_whlt') &&
 			preg_match('/^[0-9]+:[0-9]+:[0-9]+:[0-9]+$/', $_SESSION['ps_whlt'])) {
 				?>
 				globals.funchatWhlt = '<?php print $_SESSION['ps_whlt']; ?>';
