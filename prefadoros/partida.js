@@ -648,13 +648,26 @@ var Partida = new function() {
 			else { Spot.spotListPush(spotIdx); }
 		}
 		if (thesi == pexnidi.epomenos) {
+			var ikona = 'rologaki.gif';
+			if (pexnidi.epomenos != 1) {
+				switch (pexnidi.fasi) {
+				case 'ΠΑΙΧΝΙΔΙ': ikona = 'balitsa.gif'; break;
+				case 'ΣΥΜΜΕΤΟΧΗ': ikona = 'erotimatiko.gif'; break;
+				case 'ΜΠΑΖΑ': ikona = 'baza.gif'; break;
+				}
+			}
+			else {
+				switch (pexnidi.fasi) {
+				case 'ΜΠΑΖΑ': ikona = 'baza.gif'; break;
+				}
+			}
 			html += '<img class="rologakiIcon" alt="" src="' + globals.server;
 			if (spot && rologakiRoll) {
 				html += 'images/rollStar.gif" onload="Tools.metalagi(this, \'' +
-					globals.server + 'images/rologaki.gif\');"' ;
+					globals.server + 'images/' + ikona + '\');"';
 			}
 			else {
-				html += 'images/rologaki.gif"';
+				html += 'images/' + ikona + '"';
 			}
 			html += ' />';
 		}
