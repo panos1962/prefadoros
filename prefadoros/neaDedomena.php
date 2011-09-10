@@ -101,6 +101,9 @@ do {
 	Prefadoros::set_trapezi(TRUE);
 	$curr = torina_dedomena();
 	if ($curr != $prev) {
+		// Αποφεύγουμε κινήσεις τύπου "ΦΥΛΛΟ" και "ΠΛΗΡΩΜΗ" μετά
+		// από κίνηση τύπου "ΜΠΑΖΑ" μαζί στην ίδια αποστολή.
+		Kinisi::fix_baza_filo($curr->kinisi, $prev->kinisi);
 		diaforetika_dedomena($curr, $prev);
 		die(0);
 	}
@@ -312,8 +315,6 @@ function freska_dedomena($dedomena) {
 
 function diaforetika_dedomena($curr, $prev) {
 	global $globals;
-
-	Kinisi::fix_baza_filo($curr->kinisi, $prev->kinisi);
 
 	$curr->grapse();
 	print_epikefalida();
