@@ -154,10 +154,6 @@ class Kinisi {
 	// στην αμέσως επόμενη αποστολή.
 
 	public static function fix_baza_filo(&$curr, $prev) {
-		if ($curr == $prev) {
-			return;
-		}
-
 		$ncurr = count($curr);
 		if ($ncurr < 2) {
 			return;
