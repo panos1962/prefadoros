@@ -284,7 +284,7 @@ class Sizitisi {
 	}
 
 	public static function select_clause() {
-		return "SELECT `kodikos`, `pektis`, `sxolio`, " .
+		return "SELECT `kodikos`, `trapezi`, `pektis`, `sxolio`, " .
 			"UNIX_TIMESTAMP(`pote`) AS `pote` FROM `sizitisi` ";
 	}
 
@@ -303,7 +303,15 @@ class Sizitisi {
 				"ORDER BY `kodikos`";
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				if (self::my_notice($row)) { continue; }
+				if (self::my_notice($row)) {
+					continue;
+				}
+				if (($row['trapezi'] != $globals->trapezi->kodikos) &&
+					($row['pektis'] != $globals->trapezi->pektis1) &&
+					($row['pektis'] != $globals->trapezi->pektis2) &&
+					($row['pektis'] != $globals->trapezi->pektis3)) {
+					continue;
+				}
 				$s = new Sizitisi;
 				$s->set_from_dbrow($row);
 				$sizitisi[] = $s;

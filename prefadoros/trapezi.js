@@ -167,7 +167,7 @@ var Trapezi = new function() {
 	};
 
 	this.permesHTML = function(p, msg) {
-		if (notSet(msg)) { msg = 'Γεια χαρά!'; }
+		if (notSet(msg)) { msg = ''; }
 		var html = '';
 		html += ' onmouseover="Trapezi.fotise(this);"';
 		html += ' onmouseout="Trapezi.xefotise(this);"';
