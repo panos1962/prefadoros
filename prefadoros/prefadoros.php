@@ -280,9 +280,13 @@ class Prefadoros {
 	}
 
 	static private function copy_data($trapezi) {
+		global $globals;
+
 		// Αντιγραφή των δεδομένων του τραπεζιού (διανομές, κινήσεις)
 		// σε παράλληλους πίνακες ("trapeziLog", "dianomiLog", "kinisiLog").
-		return;
+
+		$query = "DELETE FROM `trapezi` WHERE `kodikos` = " . $trapezi;
+		$globals->sql_query($query);
 	}
 
 	static public function energos_pektis() {
