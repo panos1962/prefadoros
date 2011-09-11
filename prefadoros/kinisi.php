@@ -180,7 +180,7 @@ class Kinisi {
 		// Πρέπει να περικοπεί η τελευταία κίνηση, ώστε η κίνηση τύπου
 		// ΜΠΑΖΑ να αποσταλεί χωρίς επόμενη κίνηση, για να γίνει κανονικά
 		// το κλείσιμο της μπάζας στην οθόνη του client.
-		array_splice($curr, -1, 1);
+		$curr = array_slice($curr, 0, $ncurr - 1, TRUE);
 	}
 
 	public static function print_json_data($curr, $prev = FALSE) {
