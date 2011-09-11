@@ -153,20 +153,20 @@ class Kinisi {
 	// της μπάζας αυτής. Η κίνηση που περικόπτεται θα επιστραφεί, προφανώς
 	// στην αμέσως επόμενη αποστολή.
 
-	public static function fix_baza_filo(&$curr, $prev) {
+	public static function fix_baza_filo($curr, $prev) {
 		if ($curr == $prev) {
-			return;
+			return $curr;
 		}
 
 		$ncurr = count($curr);
 		if ($ncurr < 2) {
-			return;
+			return $curr;
 		}
 
 		// Αν η προτελευταία κίνηση δεν είναι τύπου ΜΠΑΖΑ, τότε
 		// δεν υπάρχει πρόβλημα.
 		if ($curr[$ncurr - 2]->idos != 'ΜΠΑΖΑ') {
-			return;
+			return $curr;
 		}
 
 		// Το array κινήσεων της προηγούμενης αποστολής πρέπει να
@@ -174,13 +174,13 @@ class Kinisi {
 		// στην κίνηση τύπου ΜΠΑΖΑ της τρέχουσας αποστολής.
 		$nprev = count($prev);
 		if (($nprev == ($ncurr - 1)) && ($prev[$nprev - 1]->idos == 'ΜΠΑΖΑ')) {
-			return;
+			return $curr;
 		}
 
 		// Πρέπει να περικοπεί η τελευταία κίνηση, ώστε η κίνηση τύπου
 		// ΜΠΑΖΑ να αποσταλεί χωρίς επόμενη κίνηση, για να γίνει κανονικά
 		// το κλείσιμο της μπάζας στην οθόνη του client.
-		$curr = array_slice($curr, 0, $ncurr - 1, TRUE);
+		return array_slice($curr, 0, $ncurr - 1, TRUE);
 	}
 
 	public static function print_json_data($curr, $prev = FALSE) {
