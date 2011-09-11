@@ -274,7 +274,15 @@ class Prefadoros {
 
 		$query = "DELETE FROM `prosklisi` WHERE `trapezi` = " . $trapezi->kodikos;
 		$globals->sql_query($query);
+
+		self::copy_data($trapezi->kodikos);
 		return(TRUE);
+	}
+
+	static private function copy_data($trapezi) {
+		// Αντιγραφή των δεδομένων του τραπεζιού (διανομές, κινήσεις)
+		// σε παράλληλους πίνακες ("trapeziLog", "dianomiLog", "kinisiLog").
+		return;
 	}
 
 	static public function energos_pektis() {
