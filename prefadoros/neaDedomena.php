@@ -103,7 +103,7 @@ do {
 	if ($curr != $prev) {
 		// Αποφεύγουμε κινήσεις τύπου "ΦΥΛΛΟ" και "ΠΛΗΡΩΜΗ" μετά
 		// από κίνηση τύπου "ΜΠΑΖΑ" μαζί στην ίδια αποστολή.
-		Kinisi::fix_baza_filo($curr->kinisi, $prev->kinisi);
+		$curr->kinisi = Kinisi::fix_baza_filo($curr->kinisi, $prev->kinisi);
 		diaforetika_dedomena($curr, $prev);
 		die(0);
 	}
