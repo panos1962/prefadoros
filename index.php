@@ -58,10 +58,12 @@ Page::close();
 
 function prefadoros() {
 	global $globals;
-	$trapoula = new Trapoula;
-	$query = "INSERT INTO `sinedria` (`pektis`) VALUES ('" .
-		$globals->asfales($globals->pektis->login) . "')";
+
+	Prefadoros::klise_sinedria();
+	$query = "INSERT INTO `sinedria` (`pektis`) VALUES (" . $globals->pektis->slogin . ")";
 	$globals->sql_query($query);
+
+	$trapoula = new Trapoula;
 	?>
 	<script type="text/javascript">
 	//<![CDATA[

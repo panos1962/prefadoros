@@ -173,7 +173,7 @@ class Prefadoros {
 		if ($trapezi->is_theatis()) {
 			$query = "DELETE FROM `theatis` WHERE `pektis` LIKE " . $slogin;
 			$globals->sql_query($query);
-			if (mysqli_affected_rows($globals->db) != 1) {
+			if (@mysqli_affected_rows($globals->db) != 1) {
 				print 'Απέτυχε η έξοδος του παίκτη "' . $pektis->login .
 					'" από το τραπέζι ' . $trapezi->kodikos .
 					' ως θεατή';
@@ -194,7 +194,7 @@ class Prefadoros {
 		$query = "UPDATE `trapezi` SET `pektis" . $trapezi->thesi .
 			"` = NULL WHERE `kodikos` = " . $trapezi->kodikos;
 		$globals->sql_query($query);
-		if (mysqli_affected_rows($globals->db) != 1) {
+		if (@mysqli_affected_rows($globals->db) != 1) {
 			print 'Απέτυχε η εκκένωση της θέσης του παίκτη "' . $pektis->login .
 				'" στο τραπέζι ' . $trapezi->kodikos;
 			return(FALSE);
@@ -212,7 +212,7 @@ class Prefadoros {
 			"VALUES (" . $trapezi->kodikos . ", " . $trapezi->thesi .
 			", " . $slogin . ")";
 		$globals->sql_query($query);
-		if (mysqli_affected_rows($globals->db) != 1) {
+		if (@mysqli_affected_rows($globals->db) != 1) {
 			print 'Απέτυχε η εισαγωγή συμμετοχής του παίκτη "' +
 				$pektis->login . '" για το τραπέζι ' . $trapezi->kodikos;
 			return(FALSE);
@@ -227,7 +227,7 @@ class Prefadoros {
 
 		// Αν δεν ενημερωθεί το τραπέζι σημαίνει ότι δεν έχουν ακόμη
 		// εκκενωθεί όλες οι θέσεις, οπότε επιστρέφουμε.
-		if (mysqli_affected_rows($globals->db) != 1) {
+		if (@mysqli_affected_rows($globals->db) != 1) {
 			return(TRUE);
 		}
 
@@ -255,7 +255,7 @@ class Prefadoros {
 				", `pektis2` = " . $pektis2 . ", " .  "`pektis3` = " .
 				$pektis3 . " WHERE `kodikos` = " . $trapezi->kodikos;
 			$globals->sql_query($query);
-			if (mysqli_affected_rows($globals->db) != 1) {
+			if (@mysqli_affected_rows($globals->db) != 1) {
 				print 'Απέτυχε η επανατοποθέτηση των παικτών στο τραπέζι ' .
 					$trapezi->kodikos;
 				return(FALSE);
@@ -286,7 +286,7 @@ class Prefadoros {
 	static private function copy_data($trapezi) {
 		global $globals;
 
-		// Αντιγραφή των δεδομένων του τραπεζιού (διανομές, κινήσεις)
+		// Αντιγραφή των δεδομένων του τραπεζιού (τραπέζι, διανομές, κινήσεις)
 		// σε παράλληλους πίνακες ("trapezi_log", "dianomi_log", "kinisi_log").
 
 		$query = "INSERT INTO `trapezi_log` (`kodikos`, `pektis1`, `pektis2`, " .
@@ -295,6 +295,12 @@ class Prefadoros {
 			"`kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos` " .
 			"FROM `trapezi` WHERE `kodikos` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
+
+		// Αντιμετωπίζουμε χαλαρά την αποτυχία καταγραφής των στοιχείων του
+		// τραπεζιού σε πίνακες αποθήκευσης.
+		if (@mysqli_affected_rows($globals->db) != 1) {
+			return(FALSE);
+		}
 
 		$query = "INSERT INTO `dianomi_log` (`kodikos`, `trapezi`, `dealer`, `kasa1`, " .
 			"`metrita1`, `kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi`) " .
@@ -346,6 +352,14 @@ class Prefadoros {
 
 	static public function is_dilosi_paso($data) {
 		return(substr($data, 0, 1) == "P");
+	}
+
+	static public function klise_sinedria() {
+		global $globals;
+
+		if ($globals->not_pektis()) { return; }
+		$query = "DELETE FROM `sinedria` WHERE `pektis` LIKE " . $globals->pektis->slogin;
+		$globals->sql_query($query);
 	}
 }
 ?>
