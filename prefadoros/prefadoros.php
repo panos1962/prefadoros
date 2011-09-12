@@ -358,6 +358,13 @@ class Prefadoros {
 		global $globals;
 
 		if ($globals->not_pektis()) { return; }
+
+		$query = "INSERT INTO `sinedria_log` (`kodikos`, `pektis`, `ip`, " .
+			"`dimiourgia`, `enimerosi`, `telos`) SELECT `kodikos`, `pektis`, `ip`, " .
+			"`dimiourgia`, `enimerosi`, NOW() FROM `sinedria` WHERE `pektis` LIKE " .
+			$globals->pektis->slogin;
+		@mysqli_query($globals->db, $query);
+
 		$query = "DELETE FROM `sinedria` WHERE `pektis` LIKE " . $globals->pektis->slogin;
 		$globals->sql_query($query);
 	}

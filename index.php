@@ -59,8 +59,13 @@ Page::close();
 function prefadoros() {
 	global $globals;
 
+	$ip = (isset($_SERVER) && is_array($_SERVER) &&
+		array_key_exists("REMOTE_ADDR", $_SERVER)) ?
+		$_SERVER["REMOTE_ADDR"] : "";
+
 	Prefadoros::klise_sinedria();
-	$query = "INSERT INTO `sinedria` (`pektis`) VALUES (" . $globals->pektis->slogin . ")";
+	$query = "INSERT INTO `sinedria` (`pektis`, `ip`) VALUES (" .
+		$globals->pektis->slogin . ", '" . $ip . "')";
 	$globals->sql_query($query);
 
 	$trapoula = new Trapoula;
