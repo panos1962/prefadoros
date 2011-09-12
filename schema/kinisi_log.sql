@@ -1,4 +1,4 @@
-CREATE TABLE `kinisiLog` (
+CREATE TABLE `kinisi_log` (
 	`kodikos`	INTEGER(10) NOT NULL COMMENT 'Primary key',
 	`dianomi`	INTEGER(10) NOT NULL COMMENT 'Κωδικός διανομής',
 	`pektis`	INTEGER(1) NOT NULL COMMENT 'Παίκτης που εκτελεί την κίνηση',
@@ -24,7 +24,7 @@ CREATE TABLE `kinisiLog` (
 
 	FOREIGN KEY (
 		`dianomi`
-	) REFERENCES `dianomi` (
+	) REFERENCES `dianomi_log` (
 		`kodikos`
 	) ON DELETE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας κρατημένων κινήσεων'
