@@ -276,6 +276,10 @@ class Prefadoros {
 		$globals->sql_query($query);
 
 		self::copy_data($trapezi->kodikos);
+
+		$query = "DELETE FROM `trapezi` WHERE `kodikos` = " . $trapezi->kodikos;
+		$globals->sql_query($query);
+
 		return(TRUE);
 	}
 
@@ -285,8 +289,27 @@ class Prefadoros {
 		// Αντιγραφή των δεδομένων του τραπεζιού (διανομές, κινήσεις)
 		// σε παράλληλους πίνακες ("trapeziLog", "dianomiLog", "kinisiLog").
 
-		$query = "DELETE FROM `trapezi` WHERE `kodikos` = " . $trapezi;
-		$globals->sql_query($query);
+		$query = "INSERT INTO `trapeziLog` (`kodikos`, `pektis1`, `pektis2`, " .
+			"`pektis3`, `kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos`) " .
+			"SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3`, " .
+			"`kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos` " .
+			"FROM `trapezi` WHERE `kodikos` = " . $trapezi;
+		@mysqli_query($globals->db, $query);
+
+		$query = "INSERT INTO `dianomiLog` (`kodikos`, `trapezi`, `dealer`, `kasa1`, " .
+			"`metrita1`, `kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi`) " .
+			"SELECT `kodikos`, `trapezi`, `dealer`, `kasa1`, `metrita1`, " .
+			"`kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi` " .
+			"FROM `dianomi` WHERE `trapezi` = " . $trapezi;
+		@mysqli_query($globals->db, $query);
+/*
+
+		$query = "INSERT INTO `kinisiLog` (`kodikos`, `dianomi`, `pektis`, " .
+			"`idos`, `data`, `pote`) SELECT `kodikos`, `dianomi`, `pektis`, " .
+			"`idos`, `data`, `pote` FROM `kinisi` WHERE `dianomi` IN " .
+			"(SELECT `kodikos` FROM `dianomi` WHERE `trapezi` = " . $trapezi . ")";
+		@mysqli_query($globals->db, $query);
+*/
 	}
 
 	static public function energos_pektis() {
