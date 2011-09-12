@@ -547,7 +547,7 @@ var Partida = new function() {
 
 		if ((thesi == pexnidi.epomenos) && (pexnidi.fasi == 'ΜΠΑΖΑ')) {
 			var spot = '<img class="pektisBazaIcon" src="' + globals.server +
-				'images/svisimo.gif" alt="" />';
+				'images/baza.gif" alt="" />';
 		}
 		else { spot = ''; }
 
@@ -651,14 +651,14 @@ var Partida = new function() {
 			var ikona = 'rologaki.gif';
 			if (pexnidi.epomenos != 1) {
 				switch (pexnidi.fasi) {
-				case 'ΠΑΙΧΝΙΔΙ': ikona = 'balitsa.gif'; break;
+				case 'ΠΑΙΧΝΙΔΙ': ikona = 'balitsa.gif'; rologakiRoll = false; break;
 				case 'ΣΥΜΜΕΤΟΧΗ': ikona = 'erotimatiko.gif'; break;
-				case 'ΜΠΑΖΑ': ikona = 'baza.gif'; break;
+				case 'ΜΠΑΖΑ': ikona = 'rollStar.gif'; rologakiRoll = false; break;
 				}
 			}
 			else {
 				switch (pexnidi.fasi) {
-				case 'ΜΠΑΖΑ': ikona = 'baza.gif'; break;
+				case 'ΜΠΑΖΑ': ikona = 'rollStar.gif'; rologakiRoll = false; break;
 				}
 			}
 			html += '<img class="rologakiIcon" alt="" src="' + globals.server;
