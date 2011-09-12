@@ -1,4 +1,4 @@
-CREATE TABLE `trapeziLog` (
+CREATE TABLE `trapezi_log` (
 	`kodikos`	INTEGER(10) NOT NULL COMMENT 'Primary key',
 	`pektis1`	CHARACTER(32) NULL COMMENT 'Πρώτος παίκτης',
 	`pektis2`	CHARACTER(32) NULL COMMENT 'Δεύτερος παίκτης',

@@ -1,4 +1,4 @@
-CREATE TABLE `dianomiLog` (
+CREATE TABLE `dianomi_log` (
 	`kodikos`	INTEGER(10) NOT NULL COMMENT 'Primary key',
 	`trapezi`	INTEGER(10) NOT NULL COMMENT 'Κωδικός τραπεζιού',
 	`dealer`	INTEGER(1) NOT NULL COMMENT 'Ποιος μοιράζει',
@@ -16,7 +16,7 @@ CREATE TABLE `dianomiLog` (
 
 	FOREIGN KEY (
 		`trapezi`
-	) REFERENCES `trapezi` (
+	) REFERENCES `trapezi_log` (
 		`kodikos`
 	) ON DELETE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας κρατημένων διανομών'

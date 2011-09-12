@@ -287,29 +287,27 @@ class Prefadoros {
 		global $globals;
 
 		// Αντιγραφή των δεδομένων του τραπεζιού (διανομές, κινήσεις)
-		// σε παράλληλους πίνακες ("trapeziLog", "dianomiLog", "kinisiLog").
+		// σε παράλληλους πίνακες ("trapezi_log", "dianomi_log", "kinisi_log").
 
-		$query = "INSERT INTO `trapeziLog` (`kodikos`, `pektis1`, `pektis2`, " .
+		$query = "INSERT INTO `trapezi_log` (`kodikos`, `pektis1`, `pektis2`, " .
 			"`pektis3`, `kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos`) " .
 			"SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3`, " .
 			"`kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos` " .
 			"FROM `trapezi` WHERE `kodikos` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
 
-		$query = "INSERT INTO `dianomiLog` (`kodikos`, `trapezi`, `dealer`, `kasa1`, " .
+		$query = "INSERT INTO `dianomi_log` (`kodikos`, `trapezi`, `dealer`, `kasa1`, " .
 			"`metrita1`, `kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi`) " .
 			"SELECT `kodikos`, `trapezi`, `dealer`, `kasa1`, `metrita1`, " .
 			"`kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi` " .
 			"FROM `dianomi` WHERE `trapezi` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
-/*
 
-		$query = "INSERT INTO `kinisiLog` (`kodikos`, `dianomi`, `pektis`, " .
+		$query = "INSERT INTO `kinisi_log` (`kodikos`, `dianomi`, `pektis`, " .
 			"`idos`, `data`, `pote`) SELECT `kodikos`, `dianomi`, `pektis`, " .
 			"`idos`, `data`, `pote` FROM `kinisi` WHERE `dianomi` IN " .
 			"(SELECT `kodikos` FROM `dianomi` WHERE `trapezi` = " . $trapezi . ")";
 		@mysqli_query($globals->db, $query);
-*/
 	}
 
 	static public function energos_pektis() {
