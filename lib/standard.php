@@ -324,6 +324,8 @@ class Page {
 		<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="description" content="<?php print $titlos; ?>" />
+		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="<?php
+			print $globals->server; ?>favicon.ico" />
 		<title><?php print $titlos; ?></title>
 		<?php self::stylesheet('lib/standard'); ?>
 		<script type="text/javascript">
