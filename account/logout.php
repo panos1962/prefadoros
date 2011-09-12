@@ -7,10 +7,6 @@ Page::data();
 set_globals();
 
 Prefadoros::set_pektis();
-if (!Globals::perastike('offlineOnly')) {
-	unset($_SESSION['ps_login']);
-}
-
 if (isset($globals->pektis->login)) {
 	$query = "UPDATE `pektis` SET `poll` = DATE_SUB(NOW(), INTERVAL " .
 		XRONOS_PEKTIS_IDLE_MAX . " SECOND) WHERE `login` LIKE " .
@@ -19,9 +15,9 @@ if (isset($globals->pektis->login)) {
 	Sizitisi::cleanup_writing();
 }
 
-// Μια στις 20 φορές σβήσε τις παλιές συνεδρίες.
-if (mt_rand(0, 20) == 0) {
-	$query = "DELETE FROM `sinedria` WHERE `dimiourgia` < DATE_SUB(NOW(), INTERVAL 1 DAY)";
-	$globals->sql_query($query);
+if (!Globals::perastike('offlineOnly')) {
+	unset($_SESSION['ps_login']);
+	Prefadoros::klise_sinedria();
 }
+
 ?>
