@@ -3,7 +3,7 @@
 
 var Pexnidi = new function() {
 	this.delay = {
-		'baza':			600,
+		'baza':			1000,
 		'tzogos':		1500
 	};
 
