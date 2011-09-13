@@ -319,7 +319,7 @@ var Pexnidi = new function() {
 		}
 		else {
 			mainFyi(rsp);
-			playSound('beep');
+			playSound('felos');
 			pexnidi.anamoniKinisis = 0;
 		}
 	};
