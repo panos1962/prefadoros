@@ -3,18 +3,8 @@
 
 var Pexnidi = new function() {
 	this.delay = {
-		'pasoPasoPaso':		3000,
-		'megistiAgora':		3000,
-		'baza':			1000,
-		'dianomi':		1500,
-		'tzogos':		3000
-	};
-
-	this.miosiDelay = function(code) {
-		if (code in Pexnidi.delay) {
-			Pexnidi.delay[code] -= 700;
-			if (Pexnidi.delay[code] < 1000) { Pexnidi.delay[code] = 1000; }
-		}
+		'baza':			600,
+		'tzogos':		1500
 	};
 
 	// Η ιδιότητα "anamoniKinisis" δείχνει αν περιμένουμε κάποια
@@ -558,7 +548,7 @@ var ProcessFasi = new function() {
 			Pexnidi.addKinisi('ΑΓΟΡΑ', 'NNN', 0);
 		}
 		else {
-			Pexnidi.dianomi();
+			setTimeout(Pexnidi.dianomi, Pexnidi.delay['tzogos']);
 		}
 	};
 
@@ -576,7 +566,7 @@ var ProcessFasi = new function() {
 		setTimeout(function() {
 			mainFyi('Μπάζα');
 			Pexnidi.addKinisi('ΜΠΑΖΑ', '', pexnidi.epomenos);
-		}, 600);
+		}, Pexnidi.delay['baza']);
 	};
 
 	this.pliromi = function() {
