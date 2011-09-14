@@ -110,6 +110,9 @@ var Sxesi = new function() {
 			break;
 		}
 		html += Sxesi.permesHTML(sxesi[i]);
+		if (isPektis() && globals.superUser.hasOwnProperty(pektis.login)) {
+			html += Sxesi.dixeTopoHTML(sxesi[i].l);
+		}
 		html += '</div>';
 		html += '</div>';
 		html += '<div style="display: inline-block; cursor: pointer;" title="Πρόσκληση"' +
@@ -166,7 +169,7 @@ var Sxesi = new function() {
 
 	function addFilosCheck(req, img, pektis) {
 		if (req.xhr.readyState != 4) { return; }
-		rsp = req.getResponse();
+		var rsp = req.getResponse();
 		if (rsp) {
 			playSound('beep');
 			mainFyi(rsp);
@@ -203,7 +206,7 @@ var Sxesi = new function() {
 
 	function apoklismosCheck(req, img, pektis) {
 		if (req.xhr.readyState != 4) { return; }
-		rsp = req.getResponse();
+		var rsp = req.getResponse();
 		if (rsp) {
 			playSound('beep');
 			mainFyi(rsp);
@@ -240,7 +243,7 @@ var Sxesi = new function() {
 
 	function aposisxetisiCheck(req, img, pektis) {
 		if (req.xhr.readyState != 4) { return; }
-		rsp = req.getResponse();
+		var rsp = req.getResponse();
 		if (rsp) {
 			playSound('beep');
 			mainFyi(rsp);
@@ -269,6 +272,53 @@ var Sxesi = new function() {
 			'pedi=yes&pros=' + uri(login) + msg);
 	};
 
+	this.dixeTopoHTML = function(pektis) {
+		var html = '<img alt="" title="Εντοπισμός παίκτη" class="sxesiIcon" src="' +
+			globals.server + 'images/iplocator.png" onclick="Sxesi.dixeTopo(event, this, \'' +
+			pektis + '\');" />';
+		return html;
+	};
+
+	this.dixeTopo = function(e, img, pektis) {
+		if (!e) var e = window.event;
+		e.cancelBubble = true;
+		if (e.stopPropagation) e.stopPropagation();
+		if (isSet(window.Sizitisi)) { Sizitisi.sxolioFocus(); }
+		img.prevSrc = img.src;
+		img.src = globals.server + 'images/working.gif';
+		var req = new Request('account/getIpAddress');
+		req.xhr.onreadystatechange = function() {
+			dixeTopoCheck(req, img, pektis);
+		};
+
+		req.send('pektis=' + uri(pektis));
+	};
+
+	var wiplocator = null;
+
+	function dixeTopoCheck(req, img, pektis) {
+		if (req.xhr.readyState != 4) { return; }
+		var rsp = req.getResponse();
+		if (rsp.match(/^OK@/)) {
+			try { img.src = img.prevSrc; } catch(e) {};
+			var href = 'http://www.infosniper.net?ip_address=' + rsp.replace(/^OK@/, '');
+			if (isSet(wiplocator)) { wiplocator.close(); }
+			wiplocator = window.open(href);
+		}
+		else {
+			playSound('beep');
+			mainFyi(rsp);
+			try {
+				try { img.src = globals.server + 'images/X.png'; } catch(e) {
+					return;
+				}
+				setTimeout(function() {
+					try { img.src = img.prevSrc; } catch(e) {};
+				}, globals.duration.errorIcon);
+			} catch(e) {};
+		}
+	};
+
 	this.addProsklisi = function(pektis, img, checkTheatis) {
 		if (isSet(window.Sizitisi)) { Sizitisi.sxolioFocus(); }
 		if (notSet(checkTheatis)) { checkTheatis = true; }
@@ -292,7 +342,7 @@ var Sxesi = new function() {
 
 	function addProsklisiCheck(req, img, pektis) {
 		if (req.xhr.readyState != 4) { return; }
-		rsp = req.getResponse();
+		var rsp = req.getResponse();
 		if (rsp.match(/^OK@/)) {
 			playSound('pop');
 			img.src = img.prevSrc;
@@ -402,7 +452,7 @@ var Sxesi = new function() {
 
 	function peknpatCheck(req, ico) {
 		if (req.xhr.readyState != 4) { return; }
-		rsp = req.getResponse();
+		var rsp = req.getResponse();
 		if (rsp) {
 			playSound('beep');
 			mainFyi(rsp);
@@ -448,7 +498,7 @@ var Sxesi = new function() {
 
 	this.pekstatCheck = function(req, ico, stat, oldIco) {
 		if (req.xhr.readyState != 4) { return; }
-		rsp = req.getResponse();
+		var rsp = req.getResponse();
 		if (rsp) {
 			playSound('beep');
 			mainFyi(rsp);
