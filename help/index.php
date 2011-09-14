@@ -90,9 +90,15 @@ Page::epikefalida(Globals::perastike('pedi'));
 	Μπορείτε να παίξετε μέχρι να μηδενίσετε κάσα,
 	ή να συνεχίσετε ακόμη και με αρνητικό υπόλοιπο κάσας
 	(είναι σαν να έχετε προσθέσει νέα καπίκια στην κάσα).
-	Όποτε θέλετε μπορείτε να αποχωρήσετε από το τραπέζι,
-	να ανοίξετε νέο τραπέζι, να επανεκκινήσετε την παρτίδα κλπ,
-	χρησιμοποιώντας τα σχετικά εικονίδια.
+	Όποτε θέλετε μπορείτε να αποχωρήσετε από το τραπέζι
+	<span class="nobr">(<img src="<?php
+		print $globals->server; ?>images/controlPanel/exodos.png"
+		class="helpIconInline" alt = "" />),</span>
+	να ανοίξετε νέο τραπέζι, να επανεκκινήσετε την παρτίδα
+	<span class="nobr">(<img src="<?php
+		print $globals->server; ?>images/controlPanel/neaPartida.png"
+		class="helpIconInline" alt = "" />)</span>
+	κλπ, χρησιμοποιώντας τα σχετικά εικονίδια.
 	Καλή διασκέδαση!
 </p>
 
