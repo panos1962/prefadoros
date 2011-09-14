@@ -1805,7 +1805,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 </li>
 <li>
 	<p class="helpKimeno">
-		Πατήστε την πράσινη <span class="nobr">πασχαλίτσα
+		Κάντε κλικ στην <span class="nobr">πασχαλίτσα
 		(<img src="<?php print $globals->server; ?>images/controlPanel/bugFix.png"
 			class="helpIconInline" alt = "" />)</span>
 		στο κάτω μέρος του control panel
@@ -1817,7 +1817,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 	<p class="helpKimeno">
 		Κάντε ανανέωση (επαναφόρτωση) της σελίδας με το αντίστοιχο κουμπί
 		του browser (συνήθως είναι ένα στρογγυλεμένο βέλος στο επάνω μέρος
-		του browser). Κάνοντας ανανέωση της σελίδας θα υπάρξει μια
+		της οθόνης του browser). Κάνοντας ανανέωση της σελίδας θα υπάρξει μια
 		παρενέργεια· εφόσον βρίσκεστε στο μέσον της εκτέλεσης κάποιας αγοράς,
 		θα δείτε εκ νέου (replay) όλες τις μπάζες που παίχτηκαν μέχρι τη στιγμή
 		του προβλήματος. Κάποια στιγμή η κατάσταση θα σταθεροποιηθεί στην
