@@ -301,7 +301,8 @@ var Sxesi = new function() {
 		var rsp = req.getResponse();
 		if (rsp.match(/^OK@/)) {
 			try { img.src = img.prevSrc; } catch(e) {};
-			var href = 'http://www.infosniper.net?ip_address=' + rsp.replace(/^OK@/, '');
+			var href = 'http://www.infosniper.net?ip_address=' + rsp.replace(/^OK@/, '') +
+				'&map_source=1&overview_map=1&lang=1&map_type=1&zoom_level=7';
 			if (isSet(wiplocator)) { wiplocator.close(); }
 			wiplocator = window.open(href);
 		}
