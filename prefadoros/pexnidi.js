@@ -265,6 +265,16 @@ var Pexnidi = new function() {
 		return s;
 	}
 
+	// Ορισμένες φορές παρατηρείται το φαινόμενο της απόπειρας επανεισαγωγής
+	// της τελευταίας κίνησης. Για να το αποφύγουμε χρησιμοποιούμε διάφορες
+	// τεχνικές, πρώτη από τις οποίες είναι η καταγραφή του κωδικού της
+	// τελευταίας κίνησης πριν την εισαγωγή στη μεταβλητή "telkinPrinAdd"
+	// και η θέση εκ νέου σε null της ίδιας μεταβλητής μετά την εισαγωγή
+	// (είτε πέτυχε αυτή, είτε όχι). Αν κατά την εισαγωγή, ο κωδικός
+	// τελευταίας κίνησης παραμένει ο ίδιος, τότε πρόκειται για απόπειρα
+	// διπλής εισαγωγής κίνησης και ακυρώνουμε την ενέργεια.
+	var telkinPrinAdd = null;
+
 	// Η τελευταία παράμετρος είναι by default false και δείχνει αν πρόκειται
 	// για δρομολογημένη κίνηση. Στην περίπτωση της δρομολογημένης κίνησης
 	// λαμβάνουμε μέριμνα κατά την επιστροφή, ώστε να καθαρίσουμε την αντίστοιχη
@@ -289,6 +299,13 @@ var Pexnidi = new function() {
 			mainFyi('Ακαθόριστη διανομή κίνησης');
 			return;
 		}
+
+		var telkin = kinisi.length > 0 ? kinisi[kinisi.length - 1].k : 0;
+		if (isSet(telkinPrinAdd) && (telkin == telkinPrinAdd)) {
+			mainFyi('Απόπειρα διπλοκίνησης');
+			return;
+		}
+		telkinPrinAdd = telkin;
 
 		pexnidi.anamoniKinisis = -1;
 		var req = new Request('pexnidi/addKinisi');
@@ -322,6 +339,7 @@ var Pexnidi = new function() {
 			playSound('felos');
 			pexnidi.anamoniKinisis = 0;
 		}
+		telkinPrinAdd = null;
 	};
 
 	this.processFasi = function() {
