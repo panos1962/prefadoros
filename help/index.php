@@ -1805,7 +1805,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </li>
 <li>
 	<p class="helpKimeno">
-		Κοινοποιήστε στους συμπαίκτες σας το πρόβλημα που αντιμετωπίζετε,
 		Πατήστε την πράσινη <span class="nobr">πασχαλίτσα
 		(<img src="<?php print $globals->server; ?>images/controlPanel/bugFix.png"
 			class="helpIconInline" alt = "" />)</span>
