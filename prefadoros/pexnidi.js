@@ -295,6 +295,13 @@ var Pexnidi = new function() {
 			return;
 		}
 
+		if ((kinisi.length > 0) && (idos == 'ΜΠΑΖΑ') &&
+			(kinisi[kinisi.length - 1].i == 'ΜΠΑΖΑ')) {
+			playSound('felos');
+			mainFyi('Απόπειρα διπλομπάζας');
+			return;
+		}
+
 		if (isSet(kinisiCountPrinAdd) && (kinisi.length == kinisiCountPrinAdd)) {
 			playSound('felos');
 			mainFyi('Απόπειρα διπλοκίνησης');
