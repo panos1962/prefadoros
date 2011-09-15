@@ -267,19 +267,14 @@ var Pexnidi = new function() {
 
 	// Ορισμένες φορές παρατηρείται το φαινόμενο της απόπειρας επανεισαγωγής
 	// της τελευταίας κίνησης. Για να το αποφύγουμε χρησιμοποιούμε διάφορες
-	// τεχνικές, πρώτη από τις οποίες είναι η καταγραφή του κωδικού της
-	// τελευταίας κίνησης πριν την εισαγωγή στη μεταβλητή "telkinPrinAdd"
-	// και η θέση εκ νέου σε null της ίδιας μεταβλητής μετά την εισαγωγή
-	// (είτε πέτυχε αυτή, είτε όχι). Αν κατά την εισαγωγή, ο κωδικός
-	// τελευταίας κίνησης παραμένει ο ίδιος, τότε πρόκειται για απόπειρα
-	// διπλής εισαγωγής κίνησης και ακυρώνουμε την ενέργεια.
-	var telkinPrinAdd = null;
+	// τεχνικές, πρώτη από τις οποίες είναι η καταγραφή του πλήθους των
+	// μέχρι τώρα κινήσεων στη μεταβλητή "kinisiCountPrinAdd" και η θέση
+	// εκ νέου σε null της ίδιας μεταβλητής μετά την εισαγωγή (είτε πέτυχε
+	// αυτή, είτε όχι). Αν κατά την εισαγωγή, το πλήθος των μέχρι τώρα κινήσεων
+	// παραμένει το ίδιο, τότε πρόκειται για απόπειρα διπλής εισαγωγής κίνησης
+	// και ακυρώνουμε την ενέργεια.
 
-	// Η τελευταία παράμετρος είναι by default false και δείχνει αν πρόκειται
-	// για δρομολογημένη κίνηση. Στην περίπτωση της δρομολογημένης κίνησης
-	// λαμβάνουμε μέριμνα κατά την επιστροφή, ώστε να καθαρίσουμε την αντίστοιχη
-	// ιδιότητα που χρησιμοποιείται ως flag για να μην δρομολογηθεί παραπάνω
-	// από μια φορά η ίδια ενέργεια.
+	var kinisiCountPrinAdd = null;
 
 	this.addKinisi = function(idos, data, thesi) {
 		if (pexnidi.akirosi) {
@@ -300,12 +295,12 @@ var Pexnidi = new function() {
 			return;
 		}
 
-		var telkin = kinisi.length > 0 ? kinisi[kinisi.length - 1].k : 0;
-		if (isSet(telkinPrinAdd) && (telkin == telkinPrinAdd)) {
+		if (isSet(kinisiCountPrinAdd) && (kinisi.length == kinisiCountPrinAdd)) {
+			playSound('felos');
 			mainFyi('Απόπειρα διπλοκίνησης');
 			return;
 		}
-		telkinPrinAdd = telkin;
+		kinisiCountPrinAdd = kinisi.length;
 
 		pexnidi.anamoniKinisis = -1;
 		var req = new Request('pexnidi/addKinisi');
@@ -339,7 +334,7 @@ var Pexnidi = new function() {
 			playSound('felos');
 			pexnidi.anamoniKinisis = 0;
 		}
-		telkinPrinAdd = null;
+		kinisiCountPrinAdd = null;
 	};
 
 	this.processFasi = function() {
