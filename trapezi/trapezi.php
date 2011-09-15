@@ -351,7 +351,7 @@ class Trapezi {
 		$query = "INSERT INTO `kinisi_log` (`kodikos`, `dianomi`, `pektis`, " .
 			"`idos`, `data`, `pote`) SELECT `kodikos`, `dianomi`, `pektis`, " .
 			"`idos`, `data`, `pote` FROM `kinisi` WHERE `dianomi` IN " .
-			"(SELECT `kodikos` FROM `dianomi` WHERE `trapezi` = " . $trapezi . ")";
+			"(SELECT `kodikos` FROM `dianomi` WHERE `trapezi` = " . $this->kodikos . ")";
 		@mysqli_query($globals->db, $query);
 
 		$query = "DELETE FROM `trapezi` WHERE `kodikos` = " . $this->kodikos;
