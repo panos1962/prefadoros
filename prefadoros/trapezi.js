@@ -224,7 +224,7 @@ var Trapezi = new function() {
 		html += '"';
 		html += Trapezi.permesHTML(t);
 		html += '>';
-		html += t;
+		html += '<div class="kafenioBoxData">' + t + '</div>';
 		html += '</div>';
 		return html;
 	};
