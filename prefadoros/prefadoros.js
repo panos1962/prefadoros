@@ -138,7 +138,13 @@ var Prefadoros = new function() {
 				'Τραπέζι</a>&nbsp;]';
 		}
 
-		if (isSet(fs) && fs) { Sizitisi.sxolioFocus(); }
+		if (isSet(fs) && fs) {
+			var x = getelid('galleryPhoto');
+			if (isSet(x)) {
+				x.src = globals.server + 'images/gallery/' + Trapezi.randomPhoto();
+			}
+			Sizitisi.sxolioFocus();
+		}
 		return false;
 	};
 
