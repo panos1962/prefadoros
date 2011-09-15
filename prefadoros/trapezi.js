@@ -60,6 +60,12 @@ var Trapezi = new function() {
 			Trapezi.HTML += '</div>';
 		}
 
+		if ((trapezi.length <= 0) && (rebelos.length <= 8)) {
+			Trapezi.HTML += '<img src="' + globals.server + 'images/kafenio.jpg" ' +
+				'alt="" style="width: 12.4cm; position: absolute; ' +
+				'top: 5.4cm; left: 1.0cm;" />';
+		}
+
 		for (var i = 0; i < trapezi.length; i++) {
 			Trapezi.HTML += Trapezi.trapeziHTML(trapezi[i]);
 			var protos = '<div class="kafenioRebels" style="margin-top: 0.2cm;">';
