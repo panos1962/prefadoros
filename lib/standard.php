@@ -248,20 +248,15 @@ function set_globals($anonima = FALSE) {
 		$dbuser = 'root';
 		$dbpassword = '';
 		break;
-	case 'tessa.gen6dns.net':
-		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/~panos/new/';
-		$dbname = 'panos_prefadoros';
-		$dbuser = 'panos_prefadoros';
-		$dbpassword = $dpass;
-		break;
+	case 'www.prefadoros.gr':
 	case '178.21.171.4':
-		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/prefadoros/';
+		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/';
 		$dbname = 'prefadoros';
 		$dbuser = 'prefadoros';
 		$dbpassword = $dpass;
 		break;
-	case 'www.prefadoros.gr':
-		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/new/';
+	case 'tessa.gen6dns.net':
+		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/~panos/new/';
 		$dbname = 'panos_prefadoros';
 		$dbuser = 'panos_prefadoros';
 		$dbpassword = $dpass;
