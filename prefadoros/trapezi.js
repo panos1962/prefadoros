@@ -69,6 +69,7 @@ var Trapezi = new function() {
 	this.randomPhoto = function() {
 		var n = parseInt(Math.random() * photoGallery.length);
 		if (n >= photoGallery.length) { n = 0; }
+n = 0;
 		return photoGallery[n];
 	};
 
