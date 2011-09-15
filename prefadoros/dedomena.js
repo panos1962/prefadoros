@@ -1,6 +1,7 @@
 var Dedomena = new function() {
 	var lastDataTS = 0;
 	var sessionAliveTS = 0;
+	var galleryPhotoTS = 0;
 	var polivoloTS1 = 0;
 	var polivolo1 = 0;
 	var polivoloTS2 = 0;
@@ -10,7 +11,9 @@ var Dedomena = new function() {
 	this.kafenioApo = 0;
 
 	this.setup = function() {
-		sessionAliveTS = (lastDataTS = currentTimestamp());
+		lastDataTS = currentTimestamp();
+		sessionAliveTS = lastDataTS;
+		galleryPhotoTS = lastDataTS;
 		setTimeout(function() { Dedomena.neaDedomena(true); }, 200);
 		setTimeout(Dedomena.checkAlive, 5000);
 		Dedomena.kafenioApo = 0;
@@ -51,6 +54,14 @@ var Dedomena = new function() {
 		if ((tora - sessionAliveTS) > 300000) {
 			Dedomena.sessionAlive();
 			sessionAliveTS = tora;
+		}
+
+		// Κάθε 10 δευτερόλεπτα, ανανεώνουμε τη φωτογραφία
+		// του καφενείου. Ο χρόνος δεν είναι ασφαλής, καθώς
+		// ο κύκλος ελέγχου μπορεί να είναι μεγαλύτερος.
+		if ((tora - galleryPhotoTS) > 10000) {
+			Trapezi.randomPhoto();
+			galleryPhotoTS = tora;
 		}
 	};
 

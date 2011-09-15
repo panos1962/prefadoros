@@ -66,11 +66,12 @@ var Trapezi = new function() {
 		"tzamaria.jpg"
 	];
 
+	var currentPhoto = null;
+
 	this.randomPhoto = function() {
 		var n = parseInt(Math.random() * photoGallery.length);
 		if (n >= photoGallery.length) { n = 0; }
-n = 0;
-		return photoGallery[n];
+		currentPhoto = photoGallery[n];
 	};
 
 	this.updateHTML = function() {
@@ -87,9 +88,9 @@ n = 0;
 		}
 
 		if ((trapezi.length <= 0) && (rebelos.length <= 8)) {
-			Trapezi.HTML += '<img id="galleryPhoto" src="' + globals.server +
-				'images/gallery/' + Trapezi.randomPhoto() +
-				'" alt="" style="width: 12.4cm; ' +
+			if (notSet(currentPhoto)) { Trapezi.randomPhoto(); }
+			Trapezi.HTML += '<img src="' + globals.server +
+				'images/gallery/' + currentPhoto + '" alt="" style="width: 12.4cm; ' +
 				'position: absolute; top: 5.4cm; left: 1.0cm;" />';
 		}
 
