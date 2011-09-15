@@ -47,6 +47,31 @@ var Trapezi = new function() {
 		if (isSet(ixos) && (Prefadoros.show == 'kafenio')) { playSound(ixos); }
 	};
 
+	var photoGallery = [
+		"kafenio.jpg",
+		"apostolis.jpg",
+		"douneLavin.jpg",
+		"kafe.jpg",
+		"timokatalogos.jpg",
+		"karagiozis.jpg",
+		"karekles.jpg",
+		"kastelorizo.jpg",
+		"limni.jpg",
+		"metalikes.jpg",
+		"ouzaki.jpg",
+		"papoudes.jpg",
+		"platanos.jpg",
+		"toPalio.jpg",
+		"toSteki.jpg",
+		"tzamaria.jpg"
+	];
+
+	this.randomPhoto = function() {
+		var n = parseInt(Math.random() * photoGallery.length);
+		if (n >= photoGallery.length) { n = 0; }
+		return photoGallery[n];
+	};
+
 	this.updateHTML = function() {
 		Trapezi.HTML = '<div class="kafenio">';
 		if (notPartida()) { Trapezi.HTML += Tools.miaPrefaHTML(true); }
@@ -61,9 +86,10 @@ var Trapezi = new function() {
 		}
 
 		if ((trapezi.length <= 0) && (rebelos.length <= 8)) {
-			Trapezi.HTML += '<img src="' + globals.server + 'images/kafenio.jpg" ' +
-				'alt="" style="width: 12.4cm; position: absolute; ' +
-				'top: 5.4cm; left: 1.0cm;" />';
+			Trapezi.HTML += '<img id="galleryPhoto" src="' + globals.server +
+				'images/gallery/' + Trapezi.randomPhoto() +
+				'" alt="" style="width: 12.4cm; ' +
+				'position: absolute; top: 5.4cm; left: 1.0cm;" />';
 		}
 
 		for (var i = 0; i < trapezi.length; i++) {
