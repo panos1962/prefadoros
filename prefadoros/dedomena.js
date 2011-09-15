@@ -56,10 +56,10 @@ var Dedomena = new function() {
 			sessionAliveTS = tora;
 		}
 
-		// Κάθε 10 δευτερόλεπτα, ανανεώνουμε τη φωτογραφία
+		// Κάθε 120 δευτερόλεπτα, ανανεώνουμε τη φωτογραφία
 		// του καφενείου. Ο χρόνος δεν είναι ασφαλής, καθώς
 		// ο κύκλος ελέγχου μπορεί να είναι μεγαλύτερος.
-		if ((tora - galleryPhotoTS) > 10000) {
+		if ((tora - galleryPhotoTS) > 120000) {
 			Trapezi.randomPhoto();
 			galleryPhotoTS = tora;
 		}
