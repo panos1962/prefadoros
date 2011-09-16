@@ -74,6 +74,36 @@ var Trapezi = new function() {
 		currentPhoto = photoGallery[n];
 	};
 
+	var prevPhoto = '';
+	var photoOpacity = 0;
+
+	this.loadPhoto = function(img) {
+		if (prevPhoto == currentPhoto) {
+			try { img.style.opacity = 1.0; } catch(e) {};
+			try { img.filters.alpha.opacity = 100; } catch(e) { };
+		}
+		else {
+			Trapezi.miosiPhotoOpacity(img);
+		}
+	};
+
+	this.miosiPhotoOpacity = function(img) {
+		photoOpacity += 5;
+		var err = 0;
+		try { img.style.opacity = photoOpacity / 100; } catch(e) { err++; };
+		try { img.filters.alpha.opacity = photoOpacity; } catch(e) { err++; };
+		if (err >= 2) { return; }
+		if (photoOpacity >= 100) {
+			prevPhoto = currentPhoto;
+			photoOpacity = 0;
+		}
+		else {
+			setTimeout(function() {
+				Trapezi.miosiPhotoOpacity(img);
+			}, 50);
+		}
+	};
+
 	this.updateHTML = function() {
 		Trapezi.HTML = '<div class="kafenio">';
 		if (notPartida()) { Trapezi.HTML += Tools.miaPrefaHTML(true); }
@@ -89,9 +119,10 @@ var Trapezi = new function() {
 
 		if ((trapezi.length <= 0) && (rebelos.length <= 8)) {
 			if (notSet(currentPhoto)) { Trapezi.randomPhoto(); }
-			Trapezi.HTML += '<img src="' + globals.server +
-				'images/gallery/' + currentPhoto + '" alt="" style="width: 12.4cm; ' +
-				'position: absolute; top: 5.4cm; left: 1.0cm;" />';
+			Trapezi.HTML += '<img class="galleryPhoto" src="' + globals.server +
+				'images/gallery/' + currentPhoto + '" ' +
+				'style="opacity: 0.0; filter: alpha(opacity=0);" ' +
+				'onload="Trapezi.loadPhoto(this);" alt="" />';
 		}
 
 		for (var i = 0; i < trapezi.length; i++) {
