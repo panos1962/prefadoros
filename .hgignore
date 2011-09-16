@@ -3,4 +3,4 @@ glob:*.swp
 glob:data/*.txt
 glob:dedomena/*
 glob:*.zip
-glob:images/*
+glob:images/gallery/*
