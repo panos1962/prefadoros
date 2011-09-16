@@ -63,6 +63,8 @@ var Trapezi = new function() {
 		"platanos.jpg",
 		"toPalio.jpg",
 		"toSteki.jpg",
+		"klimataria.jpg",
+		"preferans.png",
 		"tzamaria.jpg"
 	];
 
