@@ -1271,3 +1271,12 @@ font-weight: bold;
 	top: 1.4cm;
 	left: 1.0cm;
 }
+
+.galleryPhoto {
+	position: absolute;
+	top: 5.4cm;
+	left: 1.0cm;
+	width: 12.4cm;
+	opacity: 0.0;
+	filter: alpha(opacity=0);
+}
