@@ -65,7 +65,7 @@ var Trapezi = new function() {
 		"toSteki.jpg",
 		"klimataria.jpg",
 		"preferans.png",
-		"padopoulos.jpg",
+		"papadopoulos.jpg",
 		"stremenos.jpg",
 		"porta.jpg",
 		"trapezaki.jpg",
