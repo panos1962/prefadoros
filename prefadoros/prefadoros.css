@@ -1277,6 +1277,7 @@ font-weight: bold;
 	top: 5.4cm;
 	left: 1.0cm;
 	width: 12.4cm;
+	cursor: pointer;
 	opacity: 0.0;
 	filter: alpha(opacity=0);
 }

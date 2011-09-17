@@ -74,6 +74,7 @@ var Trapezi = new function() {
 		var n = parseInt(Math.random() * photoGallery.length);
 		if (n >= photoGallery.length) { n = 0; }
 		currentPhoto = photoGallery[n];
+		return currentPhoto;
 	};
 
 	var prevPhoto = '';
@@ -87,6 +88,12 @@ var Trapezi = new function() {
 		else {
 			Trapezi.miosiPhotoOpacity(img);
 		}
+	};
+
+	this.alaxePhoto = function(img) {
+		try {
+			img.src = globals.server + 'images/gallery/' + Trapezi.randomPhoto();
+		} catch(e) {};
 	};
 
 	this.miosiPhotoOpacity = function(img) {
@@ -124,6 +131,7 @@ var Trapezi = new function() {
 			Trapezi.HTML += '<img class="galleryPhoto" src="' + globals.server +
 				'images/gallery/' + currentPhoto + '" ' +
 				'style="opacity: 0.0; filter: alpha(opacity=0);" ' +
+				'title="Αλλαγή εικόνας" onclick="Trapezi.alaxePhoto(this);" ' +
 				'onload="Trapezi.loadPhoto(this);" alt="" />';
 		}
 
