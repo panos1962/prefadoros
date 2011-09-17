@@ -40,6 +40,7 @@ CREATE TABLE `trapezi` (
 		'ΚΛΕΙΣΤΟ'
 	)		NOT NULL DEFAULT 'ΑΝΟΙΚΤΟ' COMMENT 'Θέαση παιγνιοχάρτων',
 	`stisimo`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Πότε δημιουργήθηκε',
+	`poll`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Last poll time',
 	`telos`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Πότε τελείωσε',
 
 	PRIMARY KEY (
