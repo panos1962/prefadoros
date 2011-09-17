@@ -185,6 +185,7 @@ function print_panel() {
 	$item_list[] = new Item("tinEstisa.gif", "Την έστησα…", 4.0);
 	$item_list[] = new Item("koronaGramata.gif", "Το 'παιξα στην τύχη.", 1.0);
 	$item_list[] = new Item("gemisaKapikia.gif", "Γέμισα καπίκια!");
+	$item_list[] = new Item("karabinas.jpg", "", 3.8);
 	$item_list[] = new Item("telia.gif");
 	$item_list[] = new Item("thaVgaloMati.gif", "Θα βγει κανένα μάτι;");
 	$item_list[] = new Item("gavosEmoticon.gif", "Θα στραβωθώ ρε!");
