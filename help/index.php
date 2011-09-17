@@ -2,6 +2,18 @@
 require_once '../lib/standard.php';
 set_globals(TRUE);
 Page::head();
+?>
+<script type="text/javascript">
+//<![CDATA[
+setTimeout(function() {
+	var x = getelid('simantiko');
+	if (notSet(x)) { return; }
+	if (isSet(x.pineza) && x.pineza) {return; }
+	sviseNode(x, 2200);
+}, 30000);
+//]]>
+</script>
+<?php
 Page::stylesheet('help/help');
 Page::body();
 Page::epikefalida(Globals::perastike('pedi'));
@@ -29,6 +41,30 @@ Page::epikefalida(Globals::perastike('pedi'));
 <li><?php periexomena('Τεχνικά θέματα'); ?></li>
 <li><?php periexomena('Αντιμετώπιση προβλημάτων'); ?></li>
 </ul>
+<div id="simantiko" class="simantiko"
+	onmouseover="getelid('apokripsisimantiko').style.visibility='visible';"
+	onmouseout="getelid('apokripsisimantiko').style.visibility='hidden';">
+<?php Page::apokripsi('simantiko'); ?>
+<div style="text-align: center; margin-bottom: 0.2cm;">
+<div class="simantikoHeader">ΣΗΜΑΝΤΙΚΟ</div>
+</div>
+Φίλοι πρεφαδόροι, μετά το τέλος κάθε παρτίδας
+<span class="simantikoEntono">
+μην αμελείτε την έξοδό σας από το τραπέζι</span>.
+Πράγματι, κάθε ενεργό τραπέζι,
+όπως εξάλλου και κάθε ενεργός παίκτης, καταναλώνουν πόρους του server,
+επομένως όσο λιγότερα τα ενεργά τραπέζια και οι ενεργοί
+παίκτες τόσο καλύτερη η συμπεριφορά του προγράμματος
+για τις παρτίδες που βρίσκονται σε εξέλιξη.
+Επίσης,
+μην παραμένετε άσκοπα στο χώρο το καφενείου
+για μεγάλα χρονικά διαστήματα, αλλά
+<span class="simantikoEntono">
+βγαίνετε από το πρόγραμμα</span>,
+καθώς η παραμονή σας στον πρεφαδόρο καταναλώνει πόρους
+του server που θα ήταν προτιμότερο να διατεθούν
+στους ενεργούς παίκτες.
+</div>
 
 <?php titlos('Εισαγωγή'); ?>
 
