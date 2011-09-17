@@ -72,6 +72,12 @@ class Pektis {
 			"'" . $this->login . "'";
 		$globals->sql_query($query);
 
+		if ($globals->is_trapezi()) {
+			$query = "UPDATE `trapezi` SET `poll` = NOW() WHERE `kodikos` = " .
+				$globals->trapezi->kodikos;
+			@mysqli_query($globals->db, $query);
+		}
+
 		$query = "UPDATE `sinedria` SET `enimerosi` = " . $id .
 			" WHERE `kodikos` = " . $sinedria;
 		$globals->sql_query($query);

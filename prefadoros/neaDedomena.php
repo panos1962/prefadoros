@@ -64,8 +64,8 @@ $kafenio_apo = Globals::perastike_check('kafenioApo');
 // πεδίο "id" της συνεδρίας, που δείχνει τον τελευταίο κύκλο
 // ελέγχου σταπλαίσια της τρέχουσας συνεδρίας.
 Prefadoros::pektis_check(Globals::perastike_check('login'));
-$globals->pektis->poll_update($sinedria, $id);
 Prefadoros::set_trapezi(TRUE);
+$globals->pektis->poll_update($sinedria, $id);
 
 // Αν έχει περαστεί παράμετρος "freska", τότε ζητάμε όλα τα δεδομένα
 // χωρίς να μπούμε στη διαδικασία της σύγκρισης με προηγούμενα
