@@ -56,6 +56,7 @@ class Globals {
 		unset($this->server);
 		unset($this->db);
 		unset($this->administrator);
+		unset($this->phpmyadmin);
 		unset($this->time_dif);
 		unset($this->pektis);
 		unset($this->trapezi);
@@ -247,6 +248,7 @@ function set_globals($anonima = FALSE) {
 		$dbname = 'prefadoros';
 		$dbuser = 'root';
 		$dbpassword = '';
+		$globals->phpmyadmin = 'http://127.0.0.1/phpmyadmin/index.php?db=prefadoros';
 		break;
 	case 'www.prefadoros.gr':
 	case '178.21.171.4':
@@ -254,6 +256,7 @@ function set_globals($anonima = FALSE) {
 		$dbname = 'prefadoros';
 		$dbuser = 'prefadoros';
 		$dbpassword = $dpass;
+		$globals->phpmyadmin = 'http://178.21.171.4/phpym/index.php?db=prefadoros';
 		break;
 	case 'tessa.gen6dns.net':
 		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/~panos/new/';
