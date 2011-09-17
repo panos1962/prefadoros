@@ -48,3 +48,28 @@ li {
 	width: 2.2cm;
 	vertical-align: top;
 }
+
+.simantiko {
+	position: absolute;
+	top: 2.0cm;
+	right: 1.0cm;
+	width: 14.0cm;
+	text-align: justify;
+	background-color: #FFFFCC;
+	color: #303233;
+	padding: 0.4cm 0.6cm 0.8cm 0.6cm;
+	border-style: double;
+	border-width: 3px;
+	border-color: #FCBF30;
+}
+
+.simantikoEntono {
+	color: #FF3300;
+}
+
+.simantikoHeader {
+	display: inline-block;
+	background-color: #D44837;
+	color: #FCBF30;
+	padding: 0.1cm 0.2cm 0.1cm 0.2cm;
+}
