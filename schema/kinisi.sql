@@ -22,7 +22,7 @@ CREATE TABLE `kinisi` (
 	-- συντακτικό και περιεχόμενο, ανάλογα με το είδος της κίνησης, π.χ.
 	-- σε είδος κίνησης "ΔΙΑΝΟΜΗ" είναι τα φύλλα των παικτών 1, 2 και 3 με
 	-- αυτή τη σειρά και ακολουθούν τα φύλα του τζόγου.
-	`data`		VARCHAR(256) NOT NULL COMMENT 'Δεδομένα κίνησης',
+	`data`		CHAR(70) NOT NULL COMMENT 'Δεδομένα κίνησης',
 	`pote`		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Χρονική στιγμή',
 
 	PRIMARY KEY (
