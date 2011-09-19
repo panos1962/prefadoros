@@ -214,7 +214,7 @@ class Dedomena {
 		global $globals;
 
 		if (!$globals->klidoma($globals->pektis->login)) {
-			Globals::fatal('cannot lock in order to write data file');
+			Globals::fatal('cannot lock in order to read data file');
 		}
 
 		$fh = self::open_file('r');
