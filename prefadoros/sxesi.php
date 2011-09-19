@@ -231,15 +231,6 @@ class Sxesi {
 			$pekstat = $globals->asfales($row[1]);
 		}
 
-		$query = "SELECT `login`, `onoma`, " .
-			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
-			"FROM `pektis` ";
-		if (isset($peknpat)) {
-			$query .= "WHERE ((`onoma` LIKE '" . $peknpat . "') OR " .
-				"(`login` LIKE '" . $peknpat . "')) ";
-		}
-		$query .= "ORDER BY `login`";
-
 		$available = FALSE;
 		switch ($pekstat) {
 		case 'ΔΙΑΘΕΣΙΜΟΙ':
@@ -251,6 +242,23 @@ class Sxesi {
 			$online = FALSE;
 			break;
 		}
+
+		$query = "SELECT `login`, `onoma`, " .
+			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
+			"FROM `pektis` ";
+		if (isset($peknpat)) {
+			$query .= "WHERE (`onoma` LIKE '" . $peknpat . "') OR " .
+				"(`login` LIKE '" . $peknpat . "') ";
+		}
+		elseif ($online) {
+			$query .= "WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) <= " .
+				XRONOS_PEKTIS_IDLE_MAX . " ";
+		}
+		else {
+			$query .= "WHERE (`login` IN (SELECT `sxetizomenos` FROM `sxesi` " .
+				"WHERE `pektis` LIKE " . $globals->pektis->slogin . "))";
+		}
+		$query .= "ORDER BY `login`";
 
 		// Δημιουργούμε λίστα όλων των ενεργών παικτών, ώστε να μπορούμε
 		// να μαρκάρουμε τους ενεργούς παίκτες.
