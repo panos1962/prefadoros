@@ -291,9 +291,13 @@ class Sxesi {
 					$sxesi[] = $sxesi1[$i];
 				}
 			}
-			for ($i = 0; $i < $n; $i++) {
-				if ($sxesi1[$i]->status == '') {
-					$sxesi[] = $sxesi1[$i];
+			// Αν έχει δοθεί name pattern, ή κατάσταση online/available
+			// τότε επιλέγω και μη σχετιζόμενους παίκτες.
+			if (isset($peknpat) || $online) {
+				for ($i = 0; $i < $n; $i++) {
+					if ($sxesi1[$i]->status == '') {
+						$sxesi[] = $sxesi1[$i];
+					}
 				}
 			}
 			for ($i = 0; $i < $n; $i++) {
