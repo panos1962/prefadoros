@@ -59,6 +59,23 @@ class Sxesi {
 			"',o:" . $ol . ",s:'" . $this->status . "'}";
 	}
 
+	// Η παρακάτω (static) μέθοδος δημιουργεί λίστα που περιέχει τους φίλους
+	// και τους αποκλεισμένους του παίκτη. Η λίστα είναι δεικτοδοτημένη με
+	// με τα login names των σχετιζομένων με αντίστοιχη τιμή το είδος σχέσης.
+
+	private static function sxetizomenos() {
+		global $globals;
+		$sxetizomenos = array();
+		$query = "SELECT `sxetizomenos`, `status` FROM `sxesi` " .
+			"WHERE `pektis` LIKE " . $globals->pektis->slogin;
+		$result = $globals->sql_query($query);
+		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+			$sxetizomenos[$row[0]] = $row[1];
+		}
+
+		return($sxetizomenos);
+	}
+
 	// Η παρακάτω (static) μέθοδος δημιουργεί λίστα όλων των παικτών
 	// που φαίνονται να συμμετέχουν ως παίκτες σε ενεργά τραπέζια.
 
@@ -202,8 +219,6 @@ class Sxesi {
 		global $globals;
 		global $sinedria;
 
-		$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
-
 		$peknpat = NULL;
 		$query = "SELECT `peknpat`, `pekstat` FROM `sinedria` " .
 			"WHERE `kodikos` = " . $sinedria;
@@ -216,14 +231,14 @@ class Sxesi {
 			$pekstat = $globals->asfales($row[1]);
 		}
 
-		$query1 = "SELECT `login`, `onoma`, " .
+		$query = "SELECT `login`, `onoma`, " .
 			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
-			"FROM `pektis` WHERE 1 ";
-
+			"FROM `pektis` ";
 		if (isset($peknpat)) {
-			$query1 .= "AND ((`onoma` LIKE '" . $peknpat . "') OR " .
+			$query .= "WHERE ((`onoma` LIKE '" . $peknpat . "') OR " .
 				"(`login` LIKE '" . $peknpat . "')) ";
 		}
+		$query .= "ORDER BY `login`";
 
 		$available = FALSE;
 		switch ($pekstat) {
@@ -237,56 +252,55 @@ class Sxesi {
 			break;
 		}
 
-		$query2 = " ORDER BY `login`";
-
 		// Δημιουργούμε λίστα όλων των ενεργών παικτών, ώστε να μπορούμε
 		// να μαρκάρουμε τους ενεργούς παίκτες.
 		$energos = Sxesi::energos_pektis();
+
+		// Δημιουργούμε λίστες φίλων και αποκλεισμένων του παίκτη.
+		$sxetizomenos = Sxesi::sxetizomenos();
 
 		// Δημιουργούμε λίστα των παικτών που πρόκειται να επιστραφεί.
 		// Η λίστα θα "γεμίσει" με δεδομένα αμέσως μετά.
 		$sxesi = array();
 
-		// Πρώτα θα εμφανιστούν οι παίκτες που σχετίζονται ως "φίλοι" με
-		// τον παίκτη.
-		$query = $query1 . "AND (`login` IN (SELECT `sxetizomenos` FROM `sxesi` WHERE " .
-			"(`pektis` LIKE " . $slogin . ") AND " .
-			"(`status` LIKE 'ΦΙΛΟΣ')))" . $query2;
+		// Θα μας χρειαστεί και μια ενδιάμεση λίστα όπου θα μαζέψουμε
+		// προσωρινά τους παίκτες που μας ενδιαφέρουν. Κατόπιν διατρέχουμε
+		// αυτή τη λίστα 3 φορές με σκοπό να δώσουμε πρώτα τους φίλους,
+		// μετά τους ασχέτους, και, τέλος, τους αποκλεισμένους.
+		$sxesi1 = array();
+
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			if ($online && ($row['idle'] > XRONOS_PEKTIS_IDLE_MAX)) { continue; }
 			if ($available && array_key_exists($row['login'], $energos)) { continue; }
 			$s = new Sxesi;
-			$s->set_from_dbrow($row, $energos, 'F');
-			$sxesi[] = $s;
-		}
-
-		// Αν έχει δοθεί name pattern ή κατάσταση online/available, τότε επιλέγω και
-		// μη σχετιζόμενους παίκτες.
-		if (isset($peknpat) || $online) {
-			$query = $query1 . "AND (`login` NOT IN (SELECT `sxetizomenos` FROM `sxesi` WHERE " .
-				"(`pektis` LIKE " . $slogin . ")))" . $query2;
-			$result = $globals->sql_query($query);
-			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				if ($online && ($row['idle'] > XRONOS_PEKTIS_IDLE_MAX)) { continue; }
-				if ($available && array_key_exists($row['login'], $energos)) { continue; }
-				$s = new Sxesi;
-				$s->set_from_dbrow($row, $energos);
-				$sxesi[] = $s;
+			if (array_key_exists($row['login'], $sxetizomenos)) {
+				$fb = $sxetizomenos[$row['login']] == 'ΦΙΛΟΣ' ? 'F' : 'B';
 			}
+			else {
+				$fb = '';
+			}
+			$s->set_from_dbrow($row, $energos, $fb);
+			$sxesi1[] = $s;
 		}
 
-		// Τέλος, εμφανίζονται οι παίκτες που έχουν "αποκλειστεί" από τον παίκτη.
-		$query = $query1 . "AND (`login` IN (SELECT `sxetizomenos` FROM `sxesi` WHERE " .
-			"(`pektis` LIKE " . $slogin . ") AND " .
-			"(`status` LIKE 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ')))" . $query2;
-		$result = $globals->sql_query($query);
-		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			if ($online && ($row['idle'] > XRONOS_PEKTIS_IDLE_MAX)) { continue; }
-			if ($available && array_key_exists($row['login'], $energos)) { continue; }
-			$s = new Sxesi;
-			$s->set_from_dbrow($row, $energos, 'B');
-			$sxesi[] = $s;
+		$n = count($sxesi1);
+		if ($n > 0) {
+			for ($i = 0; $i < $n; $i++) {
+				if ($sxesi1[$i]->status == 'F') {
+					$sxesi[] = $sxesi1[$i];
+				}
+			}
+			for ($i = 0; $i < $n; $i++) {
+				if ($sxesi1[$i]->status == '') {
+					$sxesi[] = $sxesi1[$i];
+				}
+			}
+			for ($i = 0; $i < $n; $i++) {
+				if ($sxesi1[$i]->status == 'B') {
+					$sxesi[] = $sxesi1[$i];
+				}
+			}
 		}
 
 		return $sxesi;
