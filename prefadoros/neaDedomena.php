@@ -32,6 +32,10 @@ require_once '../prefadoros/trapezi.php';
 require_once '../prefadoros/rebelos.php';
 require_once '../prefadoros/sizitisi.php';
 require_once '../prefadoros/prefadoros.php';
+
+global $monitor_fh;
+open_monitor_file();
+
 set_globals();
 $globals->time_dif = Globals::perastike_check('timeDif');
 
@@ -71,8 +75,10 @@ $globals->pektis->poll_update($sinedria, $id);
 // χωρίς να μπούμε στη διαδικασία της σύγκρισης με προηγούμενα
 // δεδομένα της ίδιας συνεδρίας, οπότε μαζεύουμε τα τρέχοντα
 // δεδομένα και τα επιστρέφουμε στον client.
+monitor_write("freska");
 if (Globals::perastike('freska')) {
 	freska_dedomena(torina_dedomena());
+	monitor_write("exit");
 	die(0);
 }
 
@@ -85,9 +91,11 @@ if (Globals::perastike('freska')) {
 // στην περίπτωση αιτήματος "φρέσκων" δεδομένων. Τα αρχεία καταγραφής
 // δεδομένων βρίσκονται στο directory "dedomena" και φέρουν το login
 // name του παίκτη.
+monitor_write("read");
 $prev = new Dedomena();
 if (!$prev->diavase()) {
 	freska_dedomena(torina_dedomena());
+	monitor_write("exit");
 	die(0);
 }
 
@@ -101,11 +109,13 @@ do {
 	unset($globals->trapezi);
 	Prefadoros::set_trapezi(TRUE);
 	$curr = torina_dedomena();
+	monitor_write("compare");
 	if ($curr != $prev) {
 		// Αποφεύγουμε κινήσεις τύπου "ΦΥΛΛΟ" και "ΠΛΗΡΩΜΗ" μετά
 		// από κίνηση τύπου "ΜΠΑΖΑ" μαζί στην ίδια αποστολή.
 		$curr->kinisi = Kinisi::fix_baza_filo($curr->kinisi, $prev->kinisi);
 		diaforetika_dedomena($curr, $prev);
+		monitor_write("exit");
 		die(0);
 	}
 
@@ -121,11 +131,12 @@ do {
 	if ($elapsed > XRONOS_DEDOMENA_MAX) {
 		print_epikefalida();
 		print ",s:1}";
+		monitor_write("exit (timeout)");
 		die(0);
 	}
 
 	$kiklos++;
-	if ($kiklos < 10) {
+	if ($kiklos < 5) {
 		usleep(XRONOS_DEDOMENA_TIC);
 	}
 	elseif ($elapsed < 5) {
@@ -332,5 +343,26 @@ function diaforetika_dedomena($curr, $prev) {
 	Rebelos::print_json_data($curr->rebelos, $prev->rebelos);
 	Sizitisi::sizitisi_json_data($curr->sizitisi, $prev->sizitisi);
 	Sizitisi::kafenio_json_data($curr->kafenio, $prev->kafenio);
+}
+
+function open_monitor_file() {
+	global $monitor_fh;
+	$pektis = Globals::perastike_check('login');
+	if ($pektis != 'panos') {
+		$monitor_fh = NULL;
+		return;
+	}
+
+	$fname = '../dedomena/' . $pektis . ".mon";
+	$monitor_fh = fopen($fname, "a");
+	monitor_write("START");
+}
+
+function monitor_write($data = "") {
+	global $monitor_fh;
+	if (isset($monitor_fh)) {
+		fwrite($monitor_fh, microtime(TRUE) . ": " . $data . "\n");
+		fflush($monitor_fh);
+	}
 }
 ?>
