@@ -259,7 +259,7 @@ function set_globals($anonima = FALSE) {
 		$globals->phpmyadmin = 'http://178.21.171.4/phpym/index.php?db=prefadoros';
 		break;
 	case 'tessa.gen6dns.net':
-		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/~panos/new/';
+		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/~panos/';
 		$dbname = 'panos_prefadoros';
 		$dbuser = 'panos_prefadoros';
 		$dbpassword = $dpass;
