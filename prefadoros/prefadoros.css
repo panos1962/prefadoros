@@ -1138,6 +1138,12 @@ font-weight: bold;
 	width: 1.4cm;
 }
 
+.baza {
+	position: absolute;
+	top: 0.0cm;
+	left: 0.0cm;
+}
+
 .bazaFilo {
 	width: 2.1cm;
 }

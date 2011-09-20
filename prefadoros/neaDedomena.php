@@ -95,6 +95,7 @@ if (!$prev->diavase()) {
 // τα δεδομένα της προηγούμενης αποστολής της τρέχουσας συνεδρίας και
 // ξεκινάμε τον κύκλο ελέγχου με τα τρέχοντα στοιχεία της database.
 
+$kiklos = 0;
 $ekinisi = time();
 do {
 	unset($globals->trapezi);
@@ -123,7 +124,8 @@ do {
 		die(0);
 	}
 
-	if ($elapsed < 2) {
+	$kiklos++;
+	if ($kiklos < 10) {
 		usleep(XRONOS_DEDOMENA_TIC);
 	}
 	elseif ($elapsed < 5) {
