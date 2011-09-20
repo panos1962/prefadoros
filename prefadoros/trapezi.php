@@ -128,7 +128,11 @@ class Kafenio {
 		$energos = Prefadoros::energos_pektis();
 		$trapezi = array();
 
-		self::klise_palia_trapezia();
+		// Για λόγους οικονομίας κλείνω παλιά τραπέζι μια στις 100 φορές.
+		if (mt_rand(0, 100) == 0) {
+			self::klise_palia_trapezia();
+		}
+
 		$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 		$query = "SELECT * FROM `trapezi` WHERE (`telos` IS NULL) " .
 			"AND ((UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
