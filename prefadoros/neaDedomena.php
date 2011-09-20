@@ -105,6 +105,7 @@ if (!$prev->diavase()) {
 
 $kiklos = 0;
 $ekinisi = time();
+usleep(XRONOS_DEDOMENA_TIC);
 do {
 	unset($globals->trapezi);
 	Prefadoros::set_trapezi(TRUE);
