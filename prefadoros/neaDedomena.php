@@ -347,9 +347,10 @@ function diaforetika_dedomena($curr, $prev) {
 
 function open_monitor_file() {
 	global $monitor_fh;
+	$monitor_fh = NULL;
+return;
 	$pektis = Globals::perastike_check('login');
 	if ($pektis != 'panos') {
-		$monitor_fh = NULL;
 		return;
 	}
 
