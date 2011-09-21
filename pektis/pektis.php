@@ -11,6 +11,10 @@ class Pektis {
 	public $plati_other;
 	public $poll;
 	public $idle;
+	public $superuser;
+	public $melos;
+	public $minimadirty;
+	public $prosklidirty;
 	public $error;
 
 	public function __construct($login, $password = NULL) {
@@ -28,6 +32,10 @@ class Pektis {
 		unset($this->plati_other);
 		unset($this->poll);
 		unset($this->idle);
+		unset($this->superuser);
+		unset($this->melos);
+		unset($this->minimadirty);
+		unset($this->prosklidirty);
 		unset($this->error);
 
 		$query = "SELECT *, UNIX_TIMESTAMP(`poll`) AS `poll`, " .
@@ -55,6 +63,10 @@ class Pektis {
 			$this->plati = $row['plati'];
 			$this->poll = $row['poll'];
 			$this->idle = (int)($row['idle']);
+			$this->superuser = $row['superuser'] == 'YES' ? 1 : 0;
+			$this->melos = $row['melos'] == 'YES' ? 1 : 0;
+			$this->minimadirty = ($row['minimadirty'] == 'YES');
+			$this->prosklidirty = ($row['prosklidirty'] == 'YES');
 		}
 		else {
 			$this->error = (isset($password) ?
@@ -116,6 +128,27 @@ class Pektis {
 		}
 
 		return ($other ? $this->plati_other : $this->plati_filo);
+	}
+
+	public function check_dirty() {
+		global $globals;
+
+		$query = "SELECT `minimadirty`, `prosklidirty` FROM `pektis` WHERE `login` LIKE " .
+			$this->slogin;
+		$result = $globals->sql_query($query);
+		if (!$result) {
+			return;
+		}
+		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+			$this->minimadirty = ($row['minimadirty'] == 'YES');
+			$this->prosklidirty = ($row['prosklidirty'] == 'YES');
+		}
+
+		if ($this->minimadirty || $this->prosklidirty) {
+			$query = "UPDATE `pektis` SET `minimadirty` = 'NO', `prosklidirty` = 'NO' " .
+				"WHERE `login` LIKE " . $this->slogin;
+			$globals->sql_query($query);
+		}
 	}
 }
 ?>

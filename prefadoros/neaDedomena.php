@@ -109,7 +109,8 @@ usleep(XRONOS_DEDOMENA_TIC);
 do {
 	unset($globals->trapezi);
 	Prefadoros::set_trapezi();
-	$curr = torina_dedomena();
+	$globals->pektis->check_dirty();
+	$curr = torina_dedomena($prev);
 	monitor_write("compare");
 	if ($curr != $prev) {
 		// Αποφεύγουμε κινήσεις τύπου "ΦΥΛΛΟ" και "ΠΛΗΡΩΜΗ" μετά
@@ -294,18 +295,34 @@ class Dedomena {
 	}
 }
 
-function torina_dedomena() {
+function torina_dedomena($prev = NULL) {
 	global $globals;
 
 	$dedomena = new Dedomena();
+
 	$dedomena->partida = Partida::process();
+
 	$dedomena->dianomi = Dianomi::process();
 	$globals->dianomi = $dedomena->dianomi;
+
 	$dedomena->kinisi = Kinisi::process();
 	$globals->kinisi = $dedomena->kinisi;
-	$dedomena->prosklisi = Prosklisi::process();
+
+	if (($prev == NULL) || $globals->pektis->prosklidirty) {
+		$dedomena->prosklisi = Prosklisi::process();
+	}
+	else {
+		$dedomena->prosklisi = $prev->prosklisi;
+	}
+
+	if (($prev == NULL) || $globals->pektis->minimadirty) {
+		$dedomena->permes = Permes::process();
+	}
+	else {
+		$dedomena->permes = $prev->permes;
+	}
+
 	$dedomena->sxesi = Sxesi::process();
-	$dedomena->permes = Permes::process();
 	$dedomena->trapezi = Kafenio::process();
 	$dedomena->rebelos = Rebelos::process();
 	$dedomena->sizitisi = Sizitisi::process_sizitisi();
