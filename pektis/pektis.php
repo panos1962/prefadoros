@@ -133,6 +133,9 @@ class Pektis {
 	public function check_dirty() {
 		global $globals;
 
+		$this->minimadirty = FALSE;
+		$this->prosklidirty = FALSE;
+
 		$query = "SELECT `minimadirty`, `prosklidirty` FROM `pektis` WHERE `login` LIKE " .
 			$this->slogin;
 		$result = $globals->sql_query($query);
