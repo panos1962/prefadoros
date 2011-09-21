@@ -21,6 +21,8 @@ window.onload = function() {
 	Dedomena.setup();
 	Sizitisi.sxolioFocus();
 	Pexnidi.reset();
+	mainFyi('Απενεργοποιήστε το <span style="color: ' + globals.color.error +
+		';">torrent</span> όσο είστε στον Πρεφαδόρο!');
 };
 
 window.onunload = function() {
