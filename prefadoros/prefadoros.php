@@ -33,7 +33,7 @@ class Prefadoros {
 		}
 	}
 
-	public static function set_trapezi($all = FALSE) {
+	public static function set_trapezi() {
 		global $globals;
 
 		if ($globals->is_trapezi()) {
@@ -50,19 +50,14 @@ class Prefadoros {
 			return(FALSE);
 		}
 
-		if ($all) {
-			$globals->trapezi->fetch_dianomi();
-			$globals->trapezi->fetch_kinisi();
-		}
-
 		return(TRUE);
 	}
 
-	public static function trapezi_check($all = FALSE) {
+	public static function trapezi_check() {
 		global $globals;
 
 		if (!$globals->is_trapezi()) {
-			self::set_trapezi($all);
+			self::set_trapezi();
 			if (!$globals->is_trapezi()) {
 				Globals::fatal('Ακαθόριστο τραπέζι');
 			}

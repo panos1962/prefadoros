@@ -68,7 +68,7 @@ $kafenio_apo = Globals::perastike_check('kafenioApo');
 // πεδίο "id" της συνεδρίας, που δείχνει τον τελευταίο κύκλο
 // ελέγχου σταπλαίσια της τρέχουσας συνεδρίας.
 Prefadoros::pektis_check(Globals::perastike_check('login'));
-Prefadoros::set_trapezi(TRUE);
+Prefadoros::set_trapezi();
 $globals->pektis->poll_update($sinedria, $id);
 
 // Αν έχει περαστεί παράμετρος "freska", τότε ζητάμε όλα τα δεδομένα
@@ -108,7 +108,7 @@ $ekinisi = time();
 usleep(XRONOS_DEDOMENA_TIC);
 do {
 	unset($globals->trapezi);
-	Prefadoros::set_trapezi(TRUE);
+	Prefadoros::set_trapezi();
 	$curr = torina_dedomena();
 	monitor_write("compare");
 	if ($curr != $prev) {
@@ -295,10 +295,14 @@ class Dedomena {
 }
 
 function torina_dedomena() {
+	global $globals;
+
 	$dedomena = new Dedomena();
 	$dedomena->partida = Partida::process();
 	$dedomena->dianomi = Dianomi::process();
+	$globals->dianomi = $dedomena->dianomi;
 	$dedomena->kinisi = Kinisi::process();
+	$globals->kinisi = $dedomena->kinisi;
 	$dedomena->prosklisi = Prosklisi::process();
 	$dedomena->sxesi = Sxesi::process();
 	$dedomena->permes = Permes::process();
@@ -310,7 +314,6 @@ function torina_dedomena() {
 }
 
 function freska_dedomena($dedomena) {
-	global $globals;
 	$dedomena->grapse();
 	print_epikefalida();
 	print ",f:1}";
@@ -328,8 +331,6 @@ function freska_dedomena($dedomena) {
 }
 
 function diaforetika_dedomena($curr, $prev) {
-	global $globals;
-
 	$curr->grapse();
 	print_epikefalida();
 	print "}";
