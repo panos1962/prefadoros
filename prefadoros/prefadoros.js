@@ -22,7 +22,7 @@ window.onload = function() {
 	Sizitisi.sxolioFocus();
 	Pexnidi.reset();
 	mainFyi('Απενεργοποιήστε το <span style="color: ' + globals.color.error +
-		';">torrent</span> όσο είστε στον Πρεφαδόρο!');
+		';">torrent</span> όσο είστε στον Πρεφαδόρο!', 7000);
 };
 
 window.onunload = function() {
