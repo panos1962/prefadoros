@@ -152,6 +152,11 @@ class Kafenio {
 	private static function svise_palia_trapezia() {
 		global $globals;
 
+		$query = "DELETE FROM `trapezi` WHERE ((`pektis1` IS NULL) OR " .
+			"(`pektis2` IS NULL) OR (`pektis3` IS NULL)) AND " .
+			"(`poll` < DATE_SUB(NOW(), INTERVAL 10 MINUTE))";
+		@mysqli_query($globals->db, $query);
+
 		$query = "DELETE FROM `trapezi` WHERE (`pektis1` IS NULL) AND " .
 			"(`pektis2` IS NULL) AND (`pektis3` IS NULL) AND " .
 			"(`stisimo` < DATE_SUB(NOW(), INTERVAL 30 MINUTE))";
