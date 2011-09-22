@@ -271,6 +271,7 @@ function print_panel() {
 	$item_list[] = new Item("lolEmoticon.gif");
 	$item_list[] = new Item("no.gif", "", 3.0);
 	$item_list[] = new Item("nop.gif");
+	$item_list[] = new Item("oxiOxi.gif");
 	$item_list[] = new Item("alwaysSmile.gif");
 	$item_list[] = new Item("vgikaPapaki.gif", "Εγώ βγήκα πάντως…");
 	$item_list[] = new Item("bingoPokemon.gif", "Σωστόοοοστ!");
@@ -301,6 +302,7 @@ function print_panel() {
 	$item_list[] = new Item("prasiniGlosa.gif");
 	$item_list[] = new Item("youCanDoIt.gif", "", 1.6);
 	$item_list[] = new Item("tirakiEmoticon.gif", "Το τυράκι το είδες. Τη φάκα όμως;");
+	$item_list[] = new Item("faka.jpg", "", 4.4);
 	$item_list[] = new Item("victoryEmoticon.gif", "Με τη νίκη!", 1.0);
 	$item_list[] = new Item("goodLuck.gif", "");
 	$item_list[] = new Item("nistaxa.gif", "Νύσταξα, ρε σεις…");
