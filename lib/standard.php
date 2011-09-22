@@ -595,6 +595,8 @@ class Page {
 			title="GNU Affero General Public License"><img
 			src="<?php print $globals->server; ?>images/agplv3.png"
 			alt="GNU Affero General Public License" height="24" /></a>
+		<?php
+		/*
 		<a href="http://validator.w3.org/check?uri=referer"
 			title="Validate XHTML for this page"><img
 			src="<?php print $globals->server; ?>images/valid-xhtml10.png"
@@ -603,6 +605,18 @@ class Page {
 			title="Validate CSS for this page"><img
 			src="<?php print $globals->server; ?>images/vcss.gif"
 			alt="Valid CSS!" height="24" /></a>
+		*/
+		?>
+		<div style="display: inline-block;">
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="hosted_button_id" value="7UGXKWGRM5TXU">
+		<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"
+			border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+		<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif"
+			width="1" height="1" >
+		</form>
+		</div>
 		<?php
 		// self::statCounter();
 	}
