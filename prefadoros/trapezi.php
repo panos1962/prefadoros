@@ -128,9 +128,9 @@ class Kafenio {
 		$energos = Prefadoros::energos_pektis();
 		$trapezi = array();
 
-		// Για λόγους οικονομίας κλείνω παλιά τραπέζι μια στις 100 φορές.
+		// Για λόγους οικονομίας διαγράφω παλιά τραπέζι μια στις 100 φορές.
 		if (mt_rand(0, 100) == 0) {
-			self::klise_palia_trapezia();
+			self::svise_palia_trapezia();
 		}
 
 		$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
@@ -149,46 +149,18 @@ class Kafenio {
 		return($trapezi);
 	}
 
-	private static function klise_palia_trapezia() {
+	private static function svise_palia_trapezia() {
 		global $globals;
 
-		@mysqli_autocommit($globals->db, FALSE);
-		$query = "UPDATE `trapezi` SET `telos` = NOW() " .
-			"WHERE (`pektis1` IS NULL) AND (`pektis2` IS NULL) AND " .
-			"(`pektis3` IS NULL) AND (`telos` IS NULL) AND " .
+		$query = "DELETE FROM `trapezi` WHERE (`pektis1` IS NULL) AND " .
+			"(`pektis2` IS NULL) AND (`pektis3` IS NULL) AND " .
 			"(`stisimo` < DATE_SUB(NOW(), INTERVAL 30 MINUTE))";
-		$result = mysqli_query($globals->db, $query);
-		if (!$result) {
-			@mysqli_rollback($globals->db);
-			return;
-		}
+		@mysqli_query($globals->db, $query);
 
-		$query = "DELETE FROM `prosklisi` WHERE `trapezi` IN " .
-			"(SELECT `kodikos` FROM `trapezi` WHERE `telos` IS NOT NULL)";
-		$result = mysqli_query($globals->db, $query);
-		if (!$result) {
-			@mysqli_rollback($globals->db);
-			return;
-		}
-
-		$query = "DELETE FROM `theatis` WHERE `trapezi` IN " .
-			"(SELECT `kodikos` FROM `trapezi` WHERE `telos` IS NOT NULL)";
-		$result = mysqli_query($globals->db, $query);
-		if (!$result) {
-			@mysqli_rollback($globals->db);
-			return;
-		}
-
-		$query = "DELETE FROM `sizitisi` WHERE `trapezi` IN " .
-			"(SELECT `kodikos` FROM `trapezi` WHERE `telos` IS NOT NULL)";
-		$result = mysqli_query($globals->db, $query);
-		if (!$result) {
-			@mysqli_rollback($globals->db);
-			return;
-		}
-
-		@mysqli_commit($globals->db);
-		@mysqli_autocommit($globals->db, TRUE);
+		$query = "DELETE FROM `trapezi` " .
+			"WHERE (`stisimo` < DATE_SUB(NOW(), INTERVAL 1 DAY)) " .
+			"AND (`poll` < DATE_SUB(NOW(), INTERVAL 1 DAY))";
+		@mysqli_query($globals->db, $query);
 	}
 }
 ?>
