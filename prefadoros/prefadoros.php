@@ -226,7 +226,7 @@ class Prefadoros {
 			return(TRUE);
 		}
 
-		$trapezi->diagrafi();
+		Trapezi::diagrafi($trapezi->kodikos);
 		return(TRUE);
 	}
 
