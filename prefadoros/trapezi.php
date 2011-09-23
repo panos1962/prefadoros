@@ -128,7 +128,7 @@ class Kafenio {
 		$energos = Prefadoros::energos_pektis();
 		$trapezi = array();
 
-		// Για λόγους οικονομίας διαγράφω παλιά τραπέζι μια στις 100 φορές.
+		// Για λόγους οικονομίας διαγράφω παλιά τραπέζια μια στις 100 φορές.
 		if (mt_rand(0, 100) == 0) {
 			self::svise_palia_trapezia();
 		}
@@ -152,20 +152,22 @@ class Kafenio {
 	private static function svise_palia_trapezia() {
 		global $globals;
 
-		$query = "DELETE FROM `trapezi` WHERE ((`pektis1` IS NULL) OR " .
-			"(`pektis2` IS NULL) OR (`pektis3` IS NULL)) AND " .
-			"(`poll` < DATE_SUB(NOW(), INTERVAL 10 MINUTE))";
-		@mysqli_query($globals->db, $query);
+		$query = "SELECT `kodikos` FROM `trapezi` WHERE ";
 
-		$query = "DELETE FROM `trapezi` WHERE (`pektis1` IS NULL) AND " .
-			"(`pektis2` IS NULL) AND (`pektis3` IS NULL) AND " .
-			"(`stisimo` < DATE_SUB(NOW(), INTERVAL 30 MINUTE))";
-		@mysqli_query($globals->db, $query);
+		// Τραπέζια όπου ένας τουλάχιστον παίκτης είναι φευγάτος και
+		// δεν έχουν επικοινωνία για πάνω από 5 λεπτά.
+		$query .= "(((`pektis1` IS NULL) OR (`pektis2` IS NULL) OR (`pektis3` IS NULL)) " .
+			"AND (`poll` < DATE_SUB(NOW(), INTERVAL 5 MINUTE))) ";
 
-		$query = "DELETE FROM `trapezi` " .
-			"WHERE (`stisimo` < DATE_SUB(NOW(), INTERVAL 1 DAY)) " .
-			"AND (`poll` < DATE_SUB(NOW(), INTERVAL 1 DAY))";
-		@mysqli_query($globals->db, $query);
+		// Τραπέζια που δεν έχουν επικοινωνία για πάνω από μια μέρα.
+		$query .= "OR (`poll` < DATE_SUB(NOW(), INTERVAL 1 DAY))";
+
+		$result = @mysqli_query($globals->db, $query);
+		if ($result) {
+			while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+				Trapezi::diagrafi($row[0]);
+			}
+		}
 	}
 }
 ?>

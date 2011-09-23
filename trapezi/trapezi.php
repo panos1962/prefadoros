@@ -310,11 +310,11 @@ class Trapezi {
  		print "}";
 	}
 
-	public function diagrafi() {
+	public static function diagrafi($trapezi) {
 		global $globals;
 
 		// Επαναφέρω τους τελευταίους συμμετέχοντες παίκτες.
-		$query = "SELECT * FROM `simetoxi` WHERE `trapezi` = " . $this->kodikos;
+		$query = "SELECT * FROM `simetoxi` WHERE `trapezi` = " . $trapezi;
 		$result = @mysqli_query($globals->db, $query);
 		if ($result) {
 			$pektis1 = '`pektis1`';
@@ -327,7 +327,7 @@ class Trapezi {
 
 			$query = "UPDATE `trapezi` SET `pektis1` = " . $pektis1 .
 				", `pektis2` = " . $pektis2 . ", " .  "`pektis3` = " .
-				$pektis3 . " WHERE `kodikos` = " . $this->kodikos;
+				$pektis3 . " WHERE `kodikos` = " . $trapezi;
 			@mysqli_query($globals->db, $query);
 		}
 
@@ -338,23 +338,23 @@ class Trapezi {
 			"`pektis3`, `kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos`) " .
 			"SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3`, " .
 			"`kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos` " .
-			"FROM `trapezi` WHERE `kodikos` = " . $this->kodikos;
+			"FROM `trapezi` WHERE `kodikos` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
 
 		$query = "INSERT INTO `dianomi_log` (`kodikos`, `trapezi`, `dealer`, `kasa1`, " .
 			"`metrita1`, `kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi`) " .
 			"SELECT `kodikos`, `trapezi`, `dealer`, `kasa1`, `metrita1`, " .
 			"`kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi` " .
-			"FROM `dianomi` WHERE `trapezi` = " . $this->kodikos;
+			"FROM `dianomi` WHERE `trapezi` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
 
 		$query = "INSERT INTO `kinisi_log` (`kodikos`, `dianomi`, `pektis`, " .
 			"`idos`, `data`, `pote`) SELECT `kodikos`, `dianomi`, `pektis`, " .
 			"`idos`, `data`, `pote` FROM `kinisi` WHERE `dianomi` IN " .
-			"(SELECT `kodikos` FROM `dianomi` WHERE `trapezi` = " . $this->kodikos . ")";
+			"(SELECT `kodikos` FROM `dianomi` WHERE `trapezi` = " . $trapezi . ")";
 		@mysqli_query($globals->db, $query);
 
-		$query = "DELETE FROM `trapezi` WHERE `kodikos` = " . $this->kodikos;
+		$query = "DELETE FROM `trapezi` WHERE `kodikos` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
 	}
 
