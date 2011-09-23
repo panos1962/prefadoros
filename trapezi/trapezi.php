@@ -354,6 +354,12 @@ class Trapezi {
 			"(SELECT `kodikos` FROM `dianomi` WHERE `trapezi` = " . $trapezi . ")";
 		@mysqli_query($globals->db, $query);
 
+		// Υπάρχει λόγος που έχω χωριστά τη διαγραφή των προσκλήσεων.
+		// Πρόκειται για bug που αφορά στο σχετικό trigger διαγραφής
+		// των προσκλήσεων.
+		$query = "DELETE FROM `prosklisi` WHERE `trapezi` = " . $trapezi;
+		@mysqli_query($globals->db, $query);
+
 		$query = "DELETE FROM `trapezi` WHERE `kodikos` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
 	}
