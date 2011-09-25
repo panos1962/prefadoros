@@ -647,6 +647,8 @@ class Page {
 			class="data">Ιστολόγιο</a>&nbsp;]
 		[&nbsp;<a target="_blank" href="http://prefadoros.forumgreek.com"
 			class="data">Φόρουμ</a>&nbsp;]
+		[&nbsp;<a target="_blank" href="<?php print $globals->server;
+			?>dorea/index.php?pedi=yes">Δωρεές</a>&nbsp;]
 		<?php
 	}
 
