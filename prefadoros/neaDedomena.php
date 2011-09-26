@@ -40,7 +40,8 @@ set_globals();
 $globals->time_dif = Globals::perastike_check('timeDif');
 
 global $sinedria;
-$sinedria = Globals::perastike_check('sinedria');
+$sinedria = new Sinedria();
+$sinedria->kodikos = Globals::perastike_check('sinedria');
 
 global $id;
 $id = Globals::perastike_check('id');
@@ -69,7 +70,8 @@ $kafenio_apo = Globals::perastike_check('kafenioApo');
 // ελέγχου σταπλαίσια της τρέχουσας συνεδρίας.
 Prefadoros::pektis_check(Globals::perastike_check('login'));
 Prefadoros::set_trapezi();
-$globals->pektis->poll_update($sinedria, $id);
+$globals->pektis->poll_update($sinedria->kodikos, $id);
+check_neotero_id();
 
 // Αν έχει περαστεί παράμετρος "freska", τότε ζητάμε όλα τα δεδομένα
 // χωρίς να μπούμε στη διαδικασία της σύγκρισης με προηγούμενα
@@ -166,19 +168,15 @@ function check_neotero_id() {
 	global $sinedria;
 	global $id;
 
-	$query = "SELECT `enimerosi` FROM `sinedria` WHERE `kodikos` = " . $sinedria;
-	$result = $globals->sql_query($query);
-	$row = mysqli_fetch_array($result, MYSQLI_NUM);
-	if (!$row) {
-		print_epikefalida($sinedria, $id);
+	if ($sinedria->fetch()) {
+		print_epikefalida();
 		print ",fatalError: 'Ακαθόριστη συνεδρία (" . $sinedria .
 			"). Δοκιμάστε επαναφόρτωση της σελίδας'}";
 		die(0);
 	}
 
-	mysqli_free_result($result);
-	if ($row[0] != $id) {
-		print_epikefalida($sinedria, $id);
+	if ($sinedria->enimerosi != $id) {
+		print_epikefalida();
 		print "}";
 		die(0);
 	}
@@ -195,7 +193,7 @@ function print_epikefalida() {
 	Prefadoros::pektis_check();
 
 	header('Content-type: application/json; charset=utf-8');
-	print "sinedria:{k:{$sinedria},i:{$id}";
+	print "sinedria:{k:{$sinedria->kodikos},i:{$id}";
 	if ($globals->pektis->kapikia != 'YES') { print ",p:0"; }
 	if ($globals->pektis->katastasi != 'AVAILABLE') { print ",b:0"; }
 }
@@ -383,6 +381,45 @@ function monitor_write($data = "") {
 	if (isset($monitor_fh)) {
 		fwrite($monitor_fh, microtime(TRUE) . ": " . $data . "\n");
 		fflush($monitor_fh);
+	}
+}
+
+class Sinedria {
+	public $this->kodikos;
+	public $this->enimerosi;
+	public $this->peknpat;
+	public $this->pekstat;
+
+	public function __construct() {
+		unset($this->kodikos);
+		unset($this->enimerosi);
+		unset($this->peknpat);
+		unset($this->pekstat);
+	}
+
+	public fetch($kodikos) {
+		global $globals;
+
+		unset($this->enimerosi);
+		unset($this->peknpat);
+		unset($this->pekstat);
+
+		$query = "SELECT `enimerosi`, `peknpat`, `pekstat` FROM `sinedria` " .
+			"WHERE `kodikos` = " . $this->kodikos;
+		$result = @mysqli_query($globals->db, $query);
+		if (!$result) {
+			return(FALSE);
+		}
+		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
+		if (!$row) {
+			return(FALSE);
+		}
+
+		@mysqli_free_result($reslut);
+		$this->enimerosi = $row[0];
+		$this->peknpat = $row[1] == '' ? NULL : "%" . $globals->asfales($row[1]) . "%";
+		$this->pekstat = $row[2];
+		return(TRUE);
 	}
 }
 ?>

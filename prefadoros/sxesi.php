@@ -219,18 +219,6 @@ class Sxesi {
 		global $globals;
 		global $sinedria;
 
-		$peknpat = NULL;
-		$query = "SELECT `peknpat`, `pekstat` FROM `sinedria` " .
-			"WHERE `kodikos` = " . $sinedria;
-		$result = $globals->sql_query($query);
-		if ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
-			@mysqli_free_result($result);
-			if ($row[0] != '') {
-				$peknpat = "%" . $globals->asfales($row[0]) . "%";
-			}
-			$pekstat = $globals->asfales($row[1]);
-		}
-
 		$available = FALSE;
 		switch ($pekstat) {
 		case 'ΔΙΑΘΕΣΙΜΟΙ':
