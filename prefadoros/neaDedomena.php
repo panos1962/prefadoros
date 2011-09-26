@@ -168,9 +168,9 @@ function check_neotero_id() {
 	global $sinedria;
 	global $id;
 
-	if ($sinedria->fetch()) {
+	if (!$sinedria->fetch()) {
 		print_epikefalida();
-		print ",fatalError: 'Ακαθόριστη συνεδρία (" . $sinedria .
+		print ",fatalError: 'Ακαθόριστη συνεδρία (" . $sinedria->kodikos .
 			"). Δοκιμάστε επαναφόρτωση της σελίδας'}";
 		die(0);
 	}
@@ -385,10 +385,10 @@ function monitor_write($data = "") {
 }
 
 class Sinedria {
-	public $this->kodikos;
-	public $this->enimerosi;
-	public $this->peknpat;
-	public $this->pekstat;
+	public $kodikos;
+	public $enimerosi;
+	public $peknpat;
+	public $pekstat;
 
 	public function __construct() {
 		unset($this->kodikos);
@@ -397,7 +397,7 @@ class Sinedria {
 		unset($this->pekstat);
 	}
 
-	public fetch($kodikos) {
+	public function fetch() {
 		global $globals;
 
 		unset($this->enimerosi);

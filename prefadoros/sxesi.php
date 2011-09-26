@@ -220,7 +220,7 @@ class Sxesi {
 		global $sinedria;
 
 		$available = FALSE;
-		switch ($pekstat) {
+		switch ($sinedria->pekstat) {
 		case 'ΔΙΑΘΕΣΙΜΟΙ':
 			$available = TRUE;
 		case 'ONLINE':
@@ -234,9 +234,9 @@ class Sxesi {
 		$query = "SELECT `login`, `onoma`, " .
 			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
 			"FROM `pektis` ";
-		if (isset($peknpat)) {
-			$query .= "WHERE (`onoma` LIKE '" . $peknpat . "') OR " .
-				"(`login` LIKE '" . $peknpat . "') ";
+		if (isset($sinedria->peknpat)) {
+			$query .= "WHERE (`onoma` LIKE '" . $sinedria->peknpat . "') OR " .
+				"(`login` LIKE '" . $sinedria->peknpat . "') ";
 		}
 		elseif ($online) {
 			$query .= "WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) <= " .
@@ -289,7 +289,7 @@ class Sxesi {
 			}
 			// Αν έχει δοθεί name pattern, ή κατάσταση online/available
 			// τότε επιλέγω και μη σχετιζόμενους παίκτες.
-			if (isset($peknpat) || $online) {
+			if (isset($sinedria->peknpat) || $online) {
 				for ($i = 0; $i < $n; $i++) {
 					if ($sxesi1[$i]->status == '') {
 						$sxesi[] = $sxesi1[$i];
