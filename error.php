@@ -1,4 +1,5 @@
 <?php
+
 require_once 'lib/standard.php';
 set_globals();
 Page::head('Πρεφαδόρος &mdash; Σφάλμα');
