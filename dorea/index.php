@@ -32,7 +32,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 ?>
 <div class="mainArea">
 <p class="dexia">
-Θεσσαλοννίκη, 25 Σεπτεμβρίου 2011
+Θεσσαλονίκη, 25 Σεπτεμβρίου 2011
 </p>
 <p>
 Ο ιστότοπος της διαδικτυακής πρέφας στήθηκε και
