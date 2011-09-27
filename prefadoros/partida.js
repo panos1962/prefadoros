@@ -184,6 +184,7 @@ var Partida = new function() {
 		if (partida.prive) { html += ' partidaPrive'; }
 		html += '">';
 
+		if (pexnidi.ipolipo <= 0) { html += Partida.telosHTML(); }
 		html += Partida.panoInfoHTML();
 
 		html += Partida.pektis3HTML();
@@ -197,6 +198,13 @@ var Partida = new function() {
 
 		html += '</div>';
 		Partida.HTML = html;
+	};
+
+	this.telosHTML = function() {
+		var html = '';
+		html += '<img class="telos" alt="" src="' + globals.server + 'images/telos.png" ';
+		html += 'onclick="sviseNode(this);" title="Η παρτίδα έχει τελειώσει" />'
+		return html;
 	};
 
 	this.panoInfoHTML = function() {
