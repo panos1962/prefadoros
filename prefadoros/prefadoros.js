@@ -87,7 +87,6 @@ var Prefadoros = new function() {
 		if (Partida.HTML != x.innerHTML) {
 			x.style.overflowY = 'hidden';
 			x.innerHTML = Partida.HTML;
-//========================== setControls();
 			if (pexnidi.epomenos == 1) {
 				setTimeout(Dekada.setControls, 100);
 			}
