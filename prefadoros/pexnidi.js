@@ -590,9 +590,10 @@ var ProcessFasi = new function() {
 	};
 
 	this.pliromi = function() {
+		if (pexnidi.akirosi != 0) { return; }
+		pexnidi.ixeIpolipo = (pexnidi.ipolipo > 0);
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
-		if (pexnidi.akirosi != 0) { return; }
 		Pliromi.pliromi();
 	};
 
