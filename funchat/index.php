@@ -104,15 +104,8 @@ class Item {
 			}
 			?>
 			<div>
-				<img src="<?php
-					if (preg_match('/^user\//', $this->image)) {
-						print $globals->server . "funchat/" . $this->image;
-					}
-					else {
-						print FUNCHAT_SERVER . $this->image;
-					}
-					?>" class="funchatImage" alt="<?php
-					print $this->title; ?>" />
+				<img src="<?php print FUNCHAT_SERVER . $this->image;
+					?>" class="funchatImage" alt="<?php print $this->title; ?>" />
 			</div>
 			<div class="funchatTitle">
 				<?php print $this->title; ?>
