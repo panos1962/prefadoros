@@ -184,7 +184,14 @@ var Partida = new function() {
 		if (partida.prive) { html += ' partidaPrive'; }
 		html += '">';
 
-		if (pexnidi.ipolipo <= 0) { html += Partida.telosHTML(); }
+		if (pexnidi.ipolipo <= 0) {
+			html += Partida.telosHTML();
+			if (isSet(pexnidi.ixeIpolipo) && pexnidi.ixeIpolipo) {
+				pexnidi.ixeIpolipo = false;
+				playSound('applause');
+			}
+		}
+
 		html += Partida.panoInfoHTML();
 
 		html += Partida.pektis3HTML();
