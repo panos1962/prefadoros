@@ -657,6 +657,8 @@ var Pliromi = new function() {
 			data += ':' + this.kasa[partida.pam[i]] +
 				':' + this.kapikia[partida.pam[i]];
 		}
+
+		pexnidi.ixeIpolipo = (pexnidi.ipolipo > 0);
 		Pexnidi.addKinisi('ΠΛΗΡΩΜΗ', data);
 	};
 
