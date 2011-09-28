@@ -318,15 +318,9 @@ function print_panel() {
 	$item_list[] = new Item("vivlioEmoticon.gif",
 		"Κάτσε να δω τι λέει ο Σαραντάκος γι αυτή την περίπτωση…");
 
-	if ($globals->is_pektis() && is_dir($dir = "user/" . $globals->pektis->login)) {
-		$ikona = scandir($dir);
-		$cnt = count($ikona);
-		for ($i = 0; $i < $cnt; $i++) {
-			if (is_file($image = $dir . "/" . $ikona[$i]) &&
-				preg_match('/.(gif|png|jpg)$/i', $image)) {
-				$item_list[] = new Item($image);
-			}
-		}
+	if ($globals->is_pektis() && is_file($ufile = "user/" .
+		$globals->pektis->login . "/katalogos.php")) {
+		include $ufile;
 	}
 
 	?>
