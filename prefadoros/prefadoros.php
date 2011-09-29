@@ -234,8 +234,7 @@ class Prefadoros {
 		global $globals;
 
 		$energos = array();
-		$query = "SELECT `login` FROM `pektis` WHERE " .
-			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
+		$query = "SELECT `login` FROM `pektis` WHERE `paleotita`(`poll`) < " .
 			XRONOS_PEKTIS_IDLE_MAX;
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {

@@ -39,7 +39,7 @@ class Pektis {
 		unset($this->error);
 
 		$query = "SELECT *, UNIX_TIMESTAMP(`poll`) AS `poll`, " .
-			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
+			"`paleotita`(`poll`) AS `idle` " .
 			"FROM `pektis` WHERE `login` LIKE '" . $globals->asfales($login) . "'";
 		if (isset($password)) {
 			$query .= " AND `password` LIKE '" . $globals->asfales($password) . "'";

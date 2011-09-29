@@ -135,8 +135,8 @@ class Kafenio {
 
 		$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 		$query = "SELECT * FROM `trapezi` WHERE (`telos` IS NULL) " .
-			"AND ((UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
-				XRONOS_PEKTIS_IDLE_MAX . ") ORDER BY `kodikos` DESC"; 
+			"AND (`paleotita`(`poll`) < " . XRONOS_PEKTIS_IDLE_MAX .
+			") ORDER BY `kodikos` DESC"; 
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$t = new Trapezi(FALSE);
