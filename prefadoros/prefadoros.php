@@ -233,10 +233,10 @@ class Prefadoros {
 	static public function energos_pektis() {
 		global $globals;
 		static $energos = NULL;
-		static $etrexe_ts = 0;
+		static $etrexe_ts = 0.0;
 
-		$tora_ts = time();
-		if (($tora_ts - $etrexe_ts) > 1) {
+		$tora_ts = microtime(TRUE);
+		if (($tora_ts - $etrexe_ts) > 1.5) {
 			$etrexe_ts = $tora_ts;
 			$energos = array();
 			$query = "SELECT `login` FROM `pektis` " .
