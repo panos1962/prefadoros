@@ -230,16 +230,19 @@ class Prefadoros {
 		return(TRUE);
 	}
 
-	static public function energos_pektis() {
+	static public function energos_pektis($reset = FALSE) {
 		global $globals;
+		static $energos = NULL;
 
-		$energos = array();
-		$query = "SELECT `login` FROM `pektis` " .
-			"WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
-			XRONOS_PEKTIS_IDLE_MAX;
-		$result = $globals->sql_query($query);
-		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
-			$energos[$row[0]] = TRUE;
+		if ($reset || (!isset($energos))) {
+			$energos = array();
+			$query = "SELECT `login` FROM `pektis` " .
+				"WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
+				XRONOS_PEKTIS_IDLE_MAX;
+			$result = $globals->sql_query($query);
+			while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+				$energos[$row[0]] = TRUE;
+			}
 		}
 		return($energos);
 	}

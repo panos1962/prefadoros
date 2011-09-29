@@ -109,6 +109,7 @@ $kiklos = 0;
 $ekinisi = time();
 usleep(XRONOS_DEDOMENA_TIC);
 do {
+	Prefadoros::energos_pektis(TRUE);
 	unset($globals->trapezi);
 	Prefadoros::set_trapezi();
 	$globals->pektis->check_dirty();
