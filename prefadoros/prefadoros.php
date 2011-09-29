@@ -230,11 +230,14 @@ class Prefadoros {
 		return(TRUE);
 	}
 
-	static public function energos_pektis($reset = FALSE) {
+	static public function energos_pektis() {
 		global $globals;
 		static $energos = NULL;
+		static $etrexe_ts = 0;
 
-		if ($reset || (!isset($energos))) {
+		$tora_ts = time();
+		if (($tora_ts - $etrexe_ts) > 1) {
+			$etrexe_ts = $tora_ts;
 			$energos = array();
 			$query = "SELECT `login` FROM `pektis` " .
 				"WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
