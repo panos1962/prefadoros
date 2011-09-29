@@ -231,13 +231,15 @@ class Sxesi {
 			break;
 		}
 
-		$query = "SELECT `login`, `onoma`, `paleotita`(`poll`) AS `idle` FROM `pektis` ";
+		$query = "SELECT `login`, `onoma`, " .
+			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` FROM `pektis` ";
 		if (isset($sinedria->peknpat)) {
 			$query .= "WHERE (`onoma` LIKE '" . $sinedria->peknpat . "') OR " .
 				"(`login` LIKE '" . $sinedria->peknpat . "') ";
 		}
 		elseif ($online) {
-			$query .= "WHERE `paleotita`(`poll`) <= " . XRONOS_PEKTIS_IDLE_MAX . " ";
+			$query .= "WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) <= " .
+				XRONOS_PEKTIS_IDLE_MAX . " ";
 		}
 		else {
 			$query .= "WHERE (`login` IN (SELECT `sxetizomenos` FROM `sxesi` " .
