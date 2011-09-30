@@ -366,15 +366,27 @@ class Trapezi {
 
 	public static function ipolipo($kodikos, $kasa) {
 		global $globals;
+		static $stmnt = NULL;
+		$errmsg = "Trapezi::ipolipo(): ";
 
 		$kasa *= 30;
-		$query = "SELECT `kasa1`, `kasa2`, `kasa3` FROM `dianomi` " .
-			"WHERE `trapezi` = " . $kodikos;
-		$result = $globals->sql_query($query);
-		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
-			$kasa -= $row[0];
-			$kasa -= $row[1];
-			$kasa -= $row[2];
+
+		if ($stmnt == NULL) {
+			$query = "SELECT `kasa1`, `kasa2`, `kasa3` " .
+				"FROM `dianomi` WHERE `trapezi` = ?";
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
+			}
+		}
+
+		$stmnt->bind_param("i", $kodikos);
+		$stmnt->execute();
+		$stmnt->bind_result($kasa1, $kasa2, $kasa3);
+		while ($stmnt->fetch()) {
+			$kasa -= $kasa1;
+			$kasa -= $kasa2;
+			$kasa -= $kasa3;
 		}
 
 		return intval($kasa / 10);
