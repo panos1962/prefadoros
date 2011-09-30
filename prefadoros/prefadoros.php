@@ -237,7 +237,6 @@ class Prefadoros {
 
 		$tora_ts = microtime(TRUE);
 		if (($tora_ts - $etrexe_ts) > 1.5) {
-			$etrexe_ts = $tora_ts;
 			$energos = array();
 			$query = "SELECT `login` FROM `pektis` " .
 				"WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
@@ -246,7 +245,10 @@ class Prefadoros {
 			while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
 				$energos[$row[0]] = TRUE;
 			}
+
+			$etrexe_ts = microtime(TRUE);
 		}
+
 		return($energos);
 	}
 
