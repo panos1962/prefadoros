@@ -43,8 +43,8 @@ Page::epikefalida(Globals::perastike('pedi'));
 	Το όλο project συντηρείται με το
 	<a target="_blank" href="http://mercurial.selenic.com/">Mercurial</a>
 	SCM, ενώ ως κεντρικό repository χρησιμοποιείται το project
-	<a target="_blank" href="http://code.google.com/p/prefa/"
-		style="font-style: italic;">prefa</a>,
+	<a target="_blank" href="http://code.google.com/p/prefadoros/"
+		style="font-style: italic;">prefadoros</a>,
 	που φιλοξενείται απο το
 	<a target="_blank" href="http://code.google.com/hosting/">Google code</a>.
 </p>
