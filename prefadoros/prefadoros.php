@@ -230,25 +230,32 @@ class Prefadoros {
 		return(TRUE);
 	}
 
+	// Η παρακάτω (static) μέθοδος δημιουργεί λίστα όλων των παικτών που
+	// βρίσκονται online στο σύστημα. Online θεωρούνται οι παίκτες οι οποίοι
+	// έχουν κάνει poll μέσα στο διάστημα ενός πλήρους, ήρεμου κύκλου ελέγχου
+	// που καθορίζεται από τη σταθερά "XRONOS_PEKTIS_IDLE_MAX" (τάξη μεγέθους
+	// λεπτού και άνω).
+
 	public static function energos_pektis() {
 		global $globals;
 		static $energos = NULL;
 		static $etrexe_ts = 0.0;
 
 		$tora_ts = microtime(TRUE);
-		if (($tora_ts - $etrexe_ts) > 1.5) {
-			$energos = array();
-			$query = "SELECT `login` FROM `pektis` " .
-				"WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
-				XRONOS_PEKTIS_IDLE_MAX;
-			$result = $globals->sql_query($query);
-			while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
-				$energos[$row[0]] = TRUE;
-			}
-
-			$etrexe_ts = microtime(TRUE);
+		if (($tora_ts - $etrexe_ts) <= 1.5) {
+			return($energos);
 		}
 
+		$energos = array();
+		$query = "SELECT `login` FROM `pektis` " .
+			"WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
+			XRONOS_PEKTIS_IDLE_MAX;
+		$result = $globals->sql_query($query);
+		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+			$energos[$row[0]] = TRUE;
+		}
+
+		$etrexe_ts = microtime(TRUE);
 		return($energos);
 	}
 
