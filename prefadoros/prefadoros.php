@@ -258,7 +258,14 @@ class Prefadoros {
 	public static function pezon_pektis() {
 		global $globals;
 		static $stmnt = NULL;
+		static $pezon = NULL;
+		static $etrexe_ts = 0.0;
 		$errmsg = "Prefadoros::pezon_pektis(): ";
+
+		$tora_ts = microtime(TRUE);
+		if (($tora_ts - $etrexe_ts) <= 1.5) {
+			return($pezon);
+		}
 
 		if ($stmnt == NULL) {
 			$query = "SELECT `pektis1`, `pektis2`, `pektis3` " .
@@ -279,6 +286,7 @@ class Prefadoros {
 			if (!empty($pektis3)) { $pezon[$pektis3] = TRUE; }
 		}
 
+		$etrexe_ts = microtime(TRUE);
 		return($pezon);
 	}
 
