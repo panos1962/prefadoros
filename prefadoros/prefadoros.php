@@ -230,7 +230,7 @@ class Prefadoros {
 		return(TRUE);
 	}
 
-	static public function energos_pektis() {
+	public static function energos_pektis() {
 		global $globals;
 		static $energos = NULL;
 		static $etrexe_ts = 0.0;
@@ -250,6 +250,36 @@ class Prefadoros {
 		}
 
 		return($energos);
+	}
+
+	// Η παρακάτω (static) μέθοδος δημιουργεί λίστα όλων των παικτών
+	// που φαίνονται να συμμετέχουν ως παίκτες σε ενεργά τραπέζια.
+
+	public static function pezon_pektis() {
+		global $globals;
+		static $stmnt = NULL;
+		$errmsg = "Prefadoros::pezon_pektis(): ";
+
+		if ($stmnt == NULL) {
+			$query = "SELECT `pektis1`, `pektis2`, `pektis3` " .
+				"FROM `trapezi` WHERE `telos` IS NULL";
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
+			}
+		}
+
+		$stmnt->execute();
+		$stmnt->bind_result($pektis1, $pektis2, $pektis3);
+
+		$pezon = array();
+		while ($stmnt->fetch()) {
+			if (!empty($pektis1)) { $pezon[$pektis1] = TRUE; }
+			if (!empty($pektis2)) { $pezon[$pektis2] = TRUE; }
+			if (!empty($pektis3)) { $pezon[$pektis3] = TRUE; }
+		}
+
+		return($pezon);
 	}
 
 	static public function rank($filo) {

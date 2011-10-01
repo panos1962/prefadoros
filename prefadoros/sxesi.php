@@ -18,11 +18,11 @@ class Sxesi {
 		$this->status = '';
 	}
 
-	public function set_from_dbrow($row, $energos, $status = '') {
+	public function set_from_dbrow($row, $pezon, $status = '') {
 		$this->login = $row['login'];
 		$this->onoma = $row['onoma'];
 		$this->online = self::is_online($row['idle']);
-		$this->diathesimos = array_key_exists($row['login'], $energos);
+		$this->diathesimos = array_key_exists($row['login'], $pezon);
 		$this->status = $status;
 	}
 
@@ -74,24 +74,6 @@ class Sxesi {
 		}
 
 		return($sxetizomenos);
-	}
-
-	// Η παρακάτω (static) μέθοδος δημιουργεί λίστα όλων των παικτών
-	// που φαίνονται να συμμετέχουν ως παίκτες σε ενεργά τραπέζια.
-
-	public static function energos_pektis() {
-		global $globals;
-		$pektis = array();
-		$query = "SELECT `pektis1`, `pektis2`, `pektis3` " .
-			"FROM `trapezi` WHERE `telos` IS NULL";
-		$result = $globals->sql_query($query);
-		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
-			for ($i = 0; $i < 3; $i++) {
-				$pektis[$row[$i]] = TRUE;
-			}
-		}
-
-		return($pektis);
 	}
 
 	public static function diavase($fh, &$slist) {
@@ -247,9 +229,9 @@ class Sxesi {
 		}
 		$query .= "ORDER BY `login`";
 
-		// Δημιουργούμε λίστα όλων των ενεργών παικτών, ώστε να μπορούμε
-		// να μαρκάρουμε τους ενεργούς παίκτες.
-		$energos = self::energos_pektis();
+		// Δημιουργούμε λίστα όλων των παικτών που τώρα παίζουν, ώστε να μπορούμε
+		// να μαρκάρουμε τους παίζοντες παίκτες.
+		$pezon = Prefadoros::pezon_pektis();
 
 		// Δημιουργούμε λίστες φίλων και αποκλεισμένων του παίκτη.
 		$sxetizomenos = self::sxetizomenos();
@@ -267,7 +249,7 @@ class Sxesi {
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			if ($online && ($row['idle'] > XRONOS_PEKTIS_IDLE_MAX)) { continue; }
-			if ($available && array_key_exists($row['login'], $energos)) { continue; }
+			if ($available && array_key_exists($row['login'], $pezon)) { continue; }
 			$s = new Sxesi;
 			if (array_key_exists($row['login'], $sxetizomenos)) {
 				$fb = $sxetizomenos[$row['login']] == 'ΦΙΛΟΣ' ? 'F' : 'B';
@@ -275,7 +257,7 @@ class Sxesi {
 			else {
 				$fb = '';
 			}
-			$s->set_from_dbrow($row, $energos, $fb);
+			$s->set_from_dbrow($row, $pezon, $fb);
 			$sxesi1[] = $s;
 		}
 
