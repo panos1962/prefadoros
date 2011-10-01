@@ -187,16 +187,10 @@ class Rebelos {
 		// Θα θέσω τιμή FALSE σε όσους παίκτες του array "energos" συμμετέχουν
 		// ως παίκτες σε ενεργά τραπέζια.
 
-		$query = "SELECT `pektis1`, `pektis2`, `pektis3` FROM `trapezi` " .
-			"WHERE `telos` IS NULL";
-		$result = @mysqli_query($globals->db, $query);
-		if (!$result) { return($rebelos); }
-
-		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
-			for ($i = 0; $i < 3; $i++) {
-				if (array_key_exists($row[$i], $energos)) {
-					$energos[$row[$i]] = FALSE;
-				}
+		$pezon = Prefadoros::pezon_pektis();
+		foreach ($pezon as $ppk => $ppv) {
+			if (array_key_exists($ppk, $energos)) {
+				$energos[$ppk] = FALSE;
 			}
 		}
 
