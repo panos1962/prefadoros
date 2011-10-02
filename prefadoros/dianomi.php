@@ -192,18 +192,40 @@ class Dianomi {
 
 	public static function process() {
 		global $globals;
+		static $stmnt = NULL;
+		$errmsg = "Sxesi::process(): ";
 
 		$dianomi = array();
 
-		if ($globals->is_trapezi()) {
-			$query = "SELECT * FROM `dianomi` WHERE `trapezi` = " .
-				$globals->trapezi->kodikos . " ORDER BY `kodikos`"; 
-			$result = $globals->sql_query($query);
-			while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				$d = new Dianomi;
-				$d->set_from_dbrow($row);
-				$dianomi[] = $d;
+		if ($globals->not_trapezi()) {
+			return $dianomi;
+		}
+
+		if ($stmnt == NULL) {
+			$query = "SELECT `kodikos`, `dealer`, `kasa1`, `metrita1`, " .
+				"`kasa2`, `metrita2`, `kasa3`, `metrita3` " .
+				"FROM `dianomi` WHERE `trapezi` = ? ORDER BY `kodikos`"; 
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
 			}
+		}
+
+		$stmnt->bind_param("i", $globals->trapezi->kodikos);
+		$stmnt->bind_result($kodikos, $dealer, $kasa1, $metrita1,
+			$kasa2, $metrita2, $kasa3, $metrita3);
+		$stmnt->execute();
+		while ($stmnt->fetch()) {
+			$d = new Dianomi;
+			$d->kodikos = $kodikos;
+			$d->dealer = $dealer;
+			$d->kasa1 = $kasa1;
+			$d->metrita1 = $metrita1;
+			$d->kasa2 = $kasa2;
+			$d->metrita2 = $metrita2;
+			$d->kasa3 = $kasa3;
+			$d->metrita3 = $metrita3;
+			$dianomi[] = $d;
 		}
 
 		return $dianomi;
