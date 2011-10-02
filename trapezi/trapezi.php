@@ -28,6 +28,7 @@ class Trapezi {
 
 	public function __construct($trexon = TRUE) {
 		global $globals;
+		static $stmnt = NULL;
 		$errmsg = "Trapezi::construct(): ";
 
 		unset($this->kodikos);
@@ -63,57 +64,63 @@ class Trapezi {
 		// συμμετέχει ο παίκτης.
 
 		Prefadoros::pektis_check();
-		$query = "SELECT `trapezi`, `thesi` FROM `theatis` " .
-			"WHERE `pektis` LIKE " .  $globals->pektis->slogin;
-		$result = $globals->sql_query($query);
-		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
-		if ($row) {
-			@mysqli_free_result($result);
-			$this->thesi = $row[1];
-			$this->theatis = 1;
-			$query = "SELECT * FROM `trapezi` WHERE `kodikos` = " . $row[0];
-			$result = $globals->sql_query($query);
-			$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
-			if ($row) {
-				@mysqli_free_result($result);
-			}
-			else {
-				unset($this->thesi);
-				unset($this->theatis);
+		if ($stmnt == NULL) {
+			$query = "SELECT `trapezi`, `thesi` FROM `theatis` WHERE `pektis` LIKE ?";
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
 			}
 		}
 
-		// Αν δεν έχω εντοπίσει τον παίκτη ως θεατή σε κάποιο τραπέζι, τότε
-		// προσπαθώ να τον εντοπίσω ως παίκτη.
-		if (!$row) {
-			$query = "SELECT * FROM `trapezi` WHERE " .
-				"((`pektis1` LIKE " . $globals->pektis->slogin . ") " .
-				"OR (`pektis2` LIKE " . $globals->pektis->slogin . ") " .
-				"OR (`pektis3` LIKE " . $globals->pektis->slogin . ")) " .
-				"AND (`telos` IS NULL) ORDER BY `kodikos` DESC LIMIT 1";
+		// Εντοπίζουμε τραπέζι στο οποίο συμμετέχει ο παίκτης ως θεατής.
+		unset($trapezi);
+		$stmnt->bind_param("s", $globals->pektis->login);
+		$stmnt->execute();
+		$stmnt->bind_result($tt, $thesi);
+		while ($stmnt->fetch()) {
+			$this->thesi = $thesi;
+			$this->theatis = 1;
+			$trapezi = $tt;
+		}
+
+		if (isset($trapezi)) {
+			$query = "SELECT * FROM `trapezi` WHERE `kodikos` = " . $trapezi;
 			$result = $globals->sql_query($query);
 			$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
 			if ($row) {
 				@mysqli_free_result($result);
-				for ($i = 1; $i <= 3; $i++) {
-					if ($row["pektis" . $i] == $globals->pektis->login) {
-						$this->thesi = $i;
-						$this->theatis = 0;
-						break;
-					}
-				}
-				if ($i > 3) {
-					$this->error = $errmsg . 'βρέθηκε τραπέζι για τον παίκτη "' .
-						$globals->pektis->login . '", αλλά η θέση είναι ' .
-						'ακαθόριστη';
-					return;
-				}
-			}
-			else {
-				$this->error = $errmsg . 'δεν βρέθηκε τραπέζι για τον παίκτη "' .
-					$globals->pektis->login . '"';
+				$this->set_from_dbrow($row);
 				return;
 			}
+		}
+
+		$query = "SELECT * FROM `trapezi` WHERE " .
+			"((`pektis1` LIKE " . $globals->pektis->slogin . ") " .
+			"OR (`pektis2` LIKE " . $globals->pektis->slogin . ") " .
+			"OR (`pektis3` LIKE " . $globals->pektis->slogin . ")) " .
+			"AND (`telos` IS NULL) ORDER BY `kodikos` DESC LIMIT 1";
+		$result = $globals->sql_query($query);
+		$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
+		if ($row) {
+			@mysqli_free_result($result);
+			for ($i = 1; $i <= 3; $i++) {
+				if ($row["pektis" . $i] == $globals->pektis->login) {
+					$this->thesi = $i;
+					$this->theatis = 0;
+					break;
+				}
+			}
+			if ($i > 3) {
+				$this->error = $errmsg . 'βρέθηκε τραπέζι για τον παίκτη "' .
+					$globals->pektis->login . '", αλλά η θέση είναι ' .
+					'ακαθόριστη';
+				return;
+			}
+		}
+		else {
+			$this->error = $errmsg . 'δεν βρέθηκε τραπέζι για τον παίκτη "' .
+				$globals->pektis->login . '"';
+			return;
 		}
 
 		$this->set_from_dbrow($row);
