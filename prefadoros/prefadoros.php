@@ -240,8 +240,14 @@ class Prefadoros {
 		global $globals;
 		static $stmnt = NULL;
 		static $etrexe_ts = 0.0;
+		global $kiklos;
+		static $etrexe_kiklos = -1;
 		static $energos = NULL;
 		$errmsg = "Prefadoros::energos_pektis(): ";
+
+		if ($etrexe_kiklos == $kiklos) {
+			return($energos);
+		}
 
 		$tora_ts = microtime(TRUE);
 		if (($tora_ts - $etrexe_ts) <= 1.2) {
@@ -267,6 +273,7 @@ class Prefadoros {
 		}
 
 		$etrexe_ts = microtime(TRUE);
+		$etrexe_kiklos = $kiklos;
 		return($energos);
 	}
 
@@ -278,7 +285,13 @@ class Prefadoros {
 		static $stmnt = NULL;
 		static $pezon = NULL;
 		static $etrexe_ts = 0.0;
+		global $kiklos;
+		static $etrexe_kiklos = -1;
 		$errmsg = "Prefadoros::pezon_pektis(): ";
+
+		if ($etrexe_kiklos == $kiklos) {
+			return($pezon);
+		}
 
 		$tora_ts = microtime(TRUE);
 		if (($tora_ts - $etrexe_ts) <= 1.5) {
@@ -304,6 +317,7 @@ class Prefadoros {
 			if (!empty($pektis3)) { $pezon[$pektis3] = TRUE; }
 		}
 
+		$etrexe_kiklos = $kiklos;
 		$etrexe_ts = microtime(TRUE);
 		return($pezon);
 	}
