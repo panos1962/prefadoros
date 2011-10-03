@@ -290,6 +290,13 @@ class Sizitisi {
 
 	public static function process_sizitisi() {
 		global $globals;
+		static $sizitisi = NULL;
+		static $etrexe_ts = 0.0;
+
+		$tora_ts = microtime(TRUE);
+		if ($tora_ts - $etrexe_ts <= 1.5) {
+			return($sizitisi);
+		}
 
 		$sizitisi = array();
 		if ($globals->is_trapezi()) {
@@ -318,6 +325,7 @@ class Sizitisi {
 			}
 		}
 
+		$etrexe_ts = microtime(TRUE);
 		return $sizitisi;
 	}
 
@@ -361,6 +369,13 @@ class Sizitisi {
 	public static function process_kafenio() {
 		global $globals;
 		global $kafenio_apo;
+		static $sizitisi = NULL;
+		static $etrexe_ts = 0.0;
+
+		$tora_ts = microtime(TRUE);
+		if ($tora_ts - $etrexe_ts <= 1.5) {
+			return($sizitisi);
+		}
 
 		self::cleanup_kafenio();
 
@@ -397,6 +412,7 @@ class Sizitisi {
 			$sizitisi[] = $s;
 		}
 
+		$etrexe_ts = microtime(TRUE);
 		return $sizitisi;
 	}
 
