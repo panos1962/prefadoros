@@ -100,12 +100,6 @@ class Globals {
 		return(isset($this->dianomi) && (count($this->dianomi) > 0));
 	}
 
-	public function dianomi_check() {
-		if (!$this->is_dianomi()) {
-			self::fatal('ακαθόριστη διανομή');
-		}
-	}
-
 	public function is_kinisi() {
 		return(isset($this->kinisi) && (count($this->kinsi) > 0));
 	}
