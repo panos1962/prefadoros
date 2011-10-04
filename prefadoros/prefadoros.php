@@ -289,7 +289,7 @@ class Prefadoros {
 
 	// Η παρακάτω (static) μέθοδος δημιουργεί λίστα όλων των θεατών,
 	// δεικτοδοτημένη με το login name των θεατών και με τιμή τον
-	// κωδικό τραπεζιού.
+	// κωδικό τραπεζιού και τη θέση θέασης.
 
 	public static function lista_theaton() {
 		global $globals;

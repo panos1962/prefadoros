@@ -154,12 +154,18 @@ class Trapezi {
 			return(TRUE);
 		}
 
-		$query = "SELECT `pektis` FROM `theatis` " .
-			"WHERE `trapezi` = " . $this->kodikos;
-		$result = $globals->sql_query($query);
-		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
-			if (array_key_exists($row[0], $energos)) {
+		// Το τραπέζι δεν έχει ενεργούς παίκτες. Ψάχνουμε μήπως έχει
+		// ενεργούς θεατές.
+
+		$tlist = Prefadoros::lista_theaton();
+		foreach ($tlist as $pektis => $theatis) {
+			if ($theatis->trapezi != $this->kodikos) {
+				continue;
+			}
+
+			if (array_key_exists($pektis, $energos)) {
 				$kapios = TRUE;
+				break;
 			}
 		}
 		return $kapios;
