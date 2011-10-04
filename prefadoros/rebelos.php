@@ -172,15 +172,7 @@ class Rebelos {
 		// σε ενεργά τραπέζια, δεικτοδοτημένο με τα login names
 		// και τιμή τον κωδικό του θεώμενου τραπεζιού.
 
-		$theatis = array();
-
-		$query = "SELECT `pektis`, `trapezi` FROM `theatis`";
-		$result = @mysqli_query($globals->db, $query);
-		if ($result) {
-			while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
-				$theatis[$row[0]] = $row[1];
-			}
-		}
+		$theatis = Prefadoros::lista_theaton();
 
 		// Θα θέσω τιμή FALSE σε όσους παίκτες του array "energos" συμμετέχουν
 		// ως παίκτες σε ενεργά τραπέζια.

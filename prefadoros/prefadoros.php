@@ -277,6 +277,49 @@ class Prefadoros {
 		return($energos);
 	}
 
+	// Η παρακάτω (static) μέθοδος δημιουργεί λίστα όλων των θεατών,
+	// δεικτοδοτημένη με το login name των θεατών και με τιμή τον
+	// κωδικό τραπεζιού.
+
+	public static function lista_theaton() {
+		global $globals;
+		static $stmnt = NULL;
+		static $etrexe_ts = 0.0;
+		global $kiklos;
+		static $etrexe_kiklos = -1;
+		static $theatis = NULL;
+		$errmsg = "Prefadoros::lista_theaton(): ";
+
+		if ($etrexe_kiklos == $kiklos) {
+			return($theatis);
+		}
+
+		$tora_ts = microtime(TRUE);
+		if (($tora_ts - $etrexe_ts) <= 1.2) {
+			return($theatis);
+		}
+
+		if ($stmnt == NULL) {
+			$query = "SELECT `pektis`, `trapezi` FROM `theatis`";
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
+			}
+		}
+
+		$stmnt->execute();
+		$stmnt->bind_result($pektis, $trapezi);
+
+		$theatis = array();
+		while ($stmnt->fetch()) {
+			$theatis[$pektis] = $trapezi;
+		}
+
+		$etrexe_ts = microtime(TRUE);
+		$etrexe_kiklos = $kiklos;
+		return($theatis);
+	}
+
 	// Η παρακάτω (static) μέθοδος δημιουργεί λίστα όλων των παικτών
 	// που φαίνονται να συμμετέχουν ως παίκτες σε ενεργά τραπέζια.
 
