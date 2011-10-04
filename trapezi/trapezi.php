@@ -28,7 +28,6 @@ class Trapezi {
 
 	public function __construct($trexon = TRUE) {
 		global $globals;
-		static $stmnt = NULL;
 		$errmsg = "Trapezi::construct(): ";
 
 		unset($this->kodikos);
@@ -62,25 +61,15 @@ class Trapezi {
 		// Αν υπάρχει εγγραφή στον πίνακα "θεατής", τότε αυτό υπερισχύει,
 		// αλλιώς ψάχνουμε το τελευταίο ενεργό τραπέζι στο οποίο
 		// συμμετέχει ο παίκτης.
-
 		Prefadoros::pektis_check();
-		if ($stmnt == NULL) {
-			$query = "SELECT `trapezi`, `thesi` FROM `theatis` WHERE `pektis` LIKE ?";
-			$stmnt = $globals->db->prepare($query);
-			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
-			}
-		}
 
 		// Εντοπίζουμε τραπέζι στο οποίο συμμετέχει ο παίκτης ως θεατής.
 		unset($trapezi);
-		$stmnt->bind_param("s", $globals->pektis->login);
-		$stmnt->execute();
-		$stmnt->bind_result($tt, $thesi);
-		while ($stmnt->fetch()) {
-			$this->thesi = $thesi;
+		$theatis = Prefadoros::lista_theaton();
+		if (array_key_exists($globals->pektis->login, $theatis)) {
+			$trapezi = $theatis[$globals->pektis->login]->trapezi;
+			$this->thesi = $theatis[$globals->pektis->login]->thesi;
 			$this->theatis = 1;
-			$trapezi = $tt;
 		}
 
 		if (isset($trapezi)) {
