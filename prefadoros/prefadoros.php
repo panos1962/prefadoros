@@ -1,4 +1,14 @@
 <?php
+class Theatis {
+	public $trapezi;
+	public $thesi;
+
+	public function __construct($trapezi, $thesi) {
+		$this->trapezi = $trapezi;
+		$this->thesi = $thesi;
+	}
+}
+
 class Prefadoros {
 	public static function set_pektis($login = FALSE) {
 		global $globals;
@@ -300,7 +310,7 @@ class Prefadoros {
 		}
 
 		if ($stmnt == NULL) {
-			$query = "SELECT `pektis`, `trapezi` FROM `theatis`";
+			$query = "SELECT `pektis`, `trapezi`, `thesi` FROM `theatis`";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
 				die($errmsg . $query . ": failed to prepare");
@@ -308,11 +318,11 @@ class Prefadoros {
 		}
 
 		$stmnt->execute();
-		$stmnt->bind_result($pektis, $trapezi);
+		$stmnt->bind_result($pektis, $trapezi, $thesi);
 
 		$theatis = array();
 		while ($stmnt->fetch()) {
-			$theatis[$pektis] = $trapezi;
+			$theatis[$pektis] = new Theatis($trapezi, $thesi);
 		}
 
 		$etrexe_ts = microtime(TRUE);

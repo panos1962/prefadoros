@@ -170,7 +170,7 @@ class Rebelos {
 
 		// Θα δημιουργήσουμε array "theatis" με όλους τους θεατές
 		// σε ενεργά τραπέζια, δεικτοδοτημένο με τα login names
-		// και τιμή τον κωδικό του θεώμενου τραπεζιού.
+		// και τιμή τον κωδικό του θεώμενου τραπεζιού και τη θέση.
 
 		$theatis = Prefadoros::lista_theaton();
 
@@ -196,7 +196,7 @@ class Rebelos {
 
 		foreach ($energos as $login => $reb) {
 			if (array_key_exists($login, $theatis)) {
-				$rebelos[] = new Rebelos($login, $theatis[$login]);
+				$rebelos[] = new Rebelos($login, $theatis[$login]->trapezi);
 			}
 			elseif ($reb) {
 				$rebelos[] = new Rebelos($login, 0);
