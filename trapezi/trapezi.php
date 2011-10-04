@@ -145,7 +145,10 @@ class Trapezi {
 	public function set_energos_pektis($energos = FALSE) {
 		global $globals;
 
-		if ($energos === FALSE) { $energos = Prefadoros::energos_pektis(); }
+		if ($energos === FALSE) {
+			$energos = Prefadoros::energos_pektis();
+		}
+
 		$kapios = FALSE;
 		for ($i = 1; $i <= 3; $i++) {
 			$pektis = "pektis" . $i;
