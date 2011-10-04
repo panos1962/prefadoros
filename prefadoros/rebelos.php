@@ -174,9 +174,7 @@ class Rebelos {
 
 		$theatis = array();
 
-		$query = "SELECT `pektis`, `trapezi` FROM `theatis` " .
-			"WHERE `trapezi` IN (SELECT `kodikos` FROM `trapezi` " .
-			"WHERE `telos` IS NULL)";
+		$query = "SELECT `pektis`, `trapezi` FROM `theatis`";
 		$result = @mysqli_query($globals->db, $query);
 		if ($result) {
 			while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
