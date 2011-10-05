@@ -100,6 +100,10 @@ class Globals {
 		return(isset($this->dianomi) && (count($this->dianomi) > 0));
 	}
 
+	public function not_dianomi() {
+		return(!$this->is_dianomi());
+	}
+
 	public function is_kinisi() {
 		return(isset($this->kinisi) && (count($this->kinsi) > 0));
 	}

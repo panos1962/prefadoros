@@ -289,19 +289,36 @@ class Kinisi {
 
 	public static function process() {
 		global $globals;
+		static $stmnt = NULL;
+		$errmsg = "Kinisi::process(): ";
 
 		$kinisi = array();
+		if ($globals->not_dianomi()) {
+			return($kinisi);
+		}
 
-		if ($globals->is_dianomi()) {
-			$dianomi = $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
-			$query = "SELECT * FROM `kinisi` WHERE `dianomi` = " .
-				$dianomi . " ORDER BY `kodikos`"; 
-			$result = $globals->sql_query($query);
-			while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				$k = new Kinisi;
-				$k->set_from_dbrow($row);
-				$kinisi[] = $k;
+		if ($stmnt == NULL) {
+			$query = "SELECT `kodikos`, `pektis`, `idos`, `data` " .
+				"FROM `kinisi` WHERE `dianomi` = ? ORDER BY `kodikos`";
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
 			}
+		}
+
+		$dianomi = $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
+		$stmnt->bind_param("i", $dianomi);
+		$stmnt->execute();
+		$stmnt->bind_result($kodikos, $pektis, $idos, $data);
+		while ($stmnt->fetch()) {
+			$k = new Kinisi;
+			$k->kodikos = $kodikos;
+			$k->dianomi = $dianomi;
+			$k->pektis = $pektis;
+			$k->idos = $idos;
+			$k->data = $data;
+			$k->prostasia();
+			$kinisi[] = $k;
 		}
 
 		return $kinisi;
