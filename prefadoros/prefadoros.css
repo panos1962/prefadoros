@@ -415,6 +415,12 @@
 	background-color: #FFFF99;
 }
 
+.katazitoumenos {
+	color: #003366;
+	font-weight: bold;
+	background-color: #FFF0D1;
+}
+
 .offline {
 	border-style: dotted;
 }

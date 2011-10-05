@@ -209,6 +209,8 @@ var Trapezi = new function() {
 			}
 			html += '</div>';
 		}
+		var peknpat = getelid('peknpat');
+		peknpat = (isSet(peknpat) && isSet(peknpat.value)) ? peknpat.value : null;
 		for (var i = 1; i <= 3; i++) {
 			var p = eval('t.p' + i);
 			html += '<div class="kafenioBox kafenioPektis';
@@ -221,6 +223,7 @@ var Trapezi = new function() {
 				html += ' ' + ((isSet(eval('t.a' + i)) && (eval('t.a' + i) != 1)) ?
 					'oxiApodoxi' : 'apodoxi');
 				if (isPektis() && (p == pektis.login)) { html += ' ego'; }
+				else if (p == peknpat) { html += ' katazitoumenos'; }
 			}
 			html += '"';
 			if (p) { html += Trapezi.permesHTML(p); }
