@@ -132,19 +132,27 @@ class Pektis {
 
 	public function check_dirty() {
 		global $globals;
+		static $stmnt = NULL;
+		$errmsg = "Pektis::check_dirty(): ";
 
 		$this->minimadirty = FALSE;
 		$this->prosklidirty = FALSE;
 
-		$query = "SELECT `minimadirty`, `prosklidirty` FROM `pektis` WHERE `login` LIKE " .
-			$this->slogin;
-		$result = $globals->sql_query($query);
-		if (!$result) {
-			return;
+		if ($stmnt == NULL) {
+			$query = "SELECT `minimadirty`, `prosklidirty` " .
+				"FROM `pektis` WHERE `login` LIKE ?";
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
+			}
 		}
-		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			$this->minimadirty = ($row['minimadirty'] == 'YES');
-			$this->prosklidirty = ($row['prosklidirty'] == 'YES');
+
+		$stmnt->bind_param("s", $this->login);
+		$stmnt->execute();
+		$stmnt->bind_result($minimadirty, $prosklidirty);
+		while ($stmnt->fetch()) {
+			$this->minimadirty = ($minimadirty == 'YES');
+			$this->prosklidirty = ($prosklidirty == 'YES');
 		}
 
 		if ($this->minimadirty || $this->prosklidirty) {
