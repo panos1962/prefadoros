@@ -249,23 +249,6 @@ class Trapezi {
 		}
 	}
 
-	public function fetch_kinisi() {
-		global $globals;
-
-		$globals->kinisi = array();
-		if ($globals->is_dianomi()) {
-			$dianomi = $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
-			$query = "SELECT * FROM `kinisi` WHERE `dianomi` = " .
-				$dianomi . " ORDER BY `kodikos`";
-			$result = $globals->sql_query($query);
-			while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				$k = new Kinisi;
-				$k->set_from_dbrow($row);
-				$globals->kinisi[] = $k;
-			}
-		}
-	}
-
 	public function print_raw_data($fh, $full = TRUE) {
 		fwrite($fh,
 			$this->kodikos . "\t" .
