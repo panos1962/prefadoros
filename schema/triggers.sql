@@ -50,4 +50,33 @@ CREATE TRIGGER `proskli_del` AFTER DELETE ON `prosklisi` FOR EACH ROW BEGIN
 	WHERE (`login` LIKE OLD.`pios`) OR (`login` LIKE OLD.`pion`);
 END//
 
+DROP TRIGGER /*!50033 IF EXISTS */ `sxesi_ins`//
+
+CREATE TRIGGER `sxesi_ins` AFTER INSERT ON `sxesi` FOR EACH ROW BEGIN
+	UPDATE `pektis` SET `sxesidirty` = 'YES'
+	WHERE (`login` LIKE NEW.`pektis`) OR (`login` LIKE NEW.`sxetizomenos`);
+END//
+
+DROP TRIGGER /*!50033 IF EXISTS */ `sxesi_upd`//
+
+CREATE TRIGGER `sxesi_upd` AFTER UPDATE ON `sxesi` FOR EACH ROW BEGIN
+	UPDATE `pektis` SET `sxesidirty` = 'YES'
+	WHERE (`login` LIKE NEW.`pektis`) OR (`login` LIKE NEW.`sxetizomenos`);
+	IF NEW.`pektis` <> OLD.`pektis` THEN
+		UPDATE `pektis` SET `sxesidirty` = 'YES'
+		WHERE `login` LIKE OLD.`pektis`;
+	END IF;
+	IF NEW.`sxetizomenos` <> OLD.`sxetizomenos` THEN
+		UPDATE `pektis` SET `sxesidirty` = 'YES'
+		WHERE `login` LIKE OLD.`sxetizomenos`;
+	END IF;
+END//
+
+DROP TRIGGER /*!50033 IF EXISTS */ `sxesi_del`//
+
+CREATE TRIGGER `sxesi_del` AFTER DELETE ON `sxesi` FOR EACH ROW BEGIN
+	UPDATE `pektis` SET `sxesidirty` = 'YES'
+	WHERE (`login` LIKE OLD.`pektis`) OR (`login` LIKE OLD.`sxetizomenos`);
+END//
+
 DELIMITER ;

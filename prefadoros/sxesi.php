@@ -65,12 +65,17 @@ class Sxesi {
 
 	private static function sxetizomenos() {
 		global $globals;
-		$sxetizomenos = array();
-		$query = "SELECT `sxetizomenos`, `status` FROM `sxesi` " .
-			"WHERE `pektis` LIKE " . $globals->pektis->slogin;
-		$result = $globals->sql_query($query);
-		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
-			$sxetizomenos[$row[0]] = $row[1];
+		static $sxetizomenos = NULL;
+
+		if ((!isset($sxetizomenos)) || $globals->pektis->sxesidirty) {
+			$sxetizomenos = array();
+			$query = "SELECT `sxetizomenos`, `status` FROM `sxesi` " .
+				"WHERE `pektis` LIKE " . $globals->pektis->slogin;
+			$result = $globals->sql_query($query);
+			while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+				$sxetizomenos[$row[0]] = $row[1];
+			}
+			$globals->pektis->sxesidirty = FALSE;
 		}
 
 		return($sxetizomenos);
