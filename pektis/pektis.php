@@ -162,7 +162,7 @@ class Pektis {
 
 		if ($this->minimadirty || $this->prosklidirty || $this->sxesidirty) {
 			$query = "UPDATE `pektis` SET `minimadirty` = 'NO', `prosklidirty` = 'NO', " .
-				"`sxesidirty = 'NO' WHERE `login` LIKE " . $this->slogin;
+				"`sxesidirty` = 'NO' WHERE `login` LIKE " . $this->slogin;
 			$globals->sql_query($query);
 		}
 	}
