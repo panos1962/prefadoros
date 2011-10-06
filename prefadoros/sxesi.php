@@ -65,12 +65,17 @@ class Sxesi {
 
 	private static function sxetizomenos() {
 		global $globals;
-		$sxetizomenos = array();
-		$query = "SELECT `sxetizomenos`, `status` FROM `sxesi` " .
-			"WHERE `pektis` LIKE " . $globals->pektis->slogin;
-		$result = $globals->sql_query($query);
-		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
-			$sxetizomenos[$row[0]] = $row[1];
+		static $sxetizomenos = NULL;
+
+		if ((!isset($sxetizomenos)) || $globals->pektis->sxesidirty) {
+			$sxetizomenos = array();
+			$query = "SELECT `sxetizomenos`, `status` FROM `sxesi` " .
+				"WHERE `pektis` LIKE " . $globals->pektis->slogin;
+			$result = $globals->sql_query($query);
+			while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+				$sxetizomenos[$row[0]] = $row[1];
+			}
+			$globals->pektis->sxesidirty = FALSE;
 		}
 
 		return($sxetizomenos);
@@ -200,6 +205,10 @@ class Sxesi {
 	public static function process() {
 		global $globals;
 		global $sinedria;
+		static $stmnt = NULL;
+		static $np = NULL;
+		static $ol = NULL;
+		$errmsg = "Sxesi::process(): ";
 
 		$available = FALSE;
 		switch ($sinedria->pekstat) {
@@ -213,21 +222,50 @@ class Sxesi {
 			break;
 		}
 
-		$query = "SELECT `login`, `onoma`, " .
-			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` FROM `pektis` ";
+		// Θα τσεκάρουμε αν χρειάζεται έτσι κι αλλιώς να ξαναπροετοιμαστεί
+		// το query. Αν έχει αλλάξει κάτι από τα δεδομένα που καθορίζουν
+		// το query, τότε θα πρέπει να ξαναγίνει η προετοιμασία.
+
 		if (isset($sinedria->peknpat)) {
-			$query .= "WHERE (`onoma` LIKE '" . $sinedria->peknpat . "') OR " .
-				"(`login` LIKE '" . $sinedria->peknpat . "') ";
+			if (!isset($np)) {
+				$stmnt = NULL;
+			}
+			elseif ($sinedria->peknpat != $np) {
+				$stmnt = NULL;
+			}
 		}
-		elseif ($online) {
-			$query .= "WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) <= " .
-				XRONOS_PEKTIS_IDLE_MAX . " ";
+		elseif (isset($np)) {
+			$stmnt = NULL;
 		}
-		else {
-			$query .= "WHERE (`login` IN (SELECT `sxetizomenos` FROM `sxesi` " .
-				"WHERE `pektis` LIKE " . $globals->pektis->slogin . "))";
+
+		if ((!isset($ol)) || ($online != $ol)) {
+			$stmnt = NULL;
 		}
-		$query .= "ORDER BY `login`";
+
+		if ($stmnt == NULL) {
+			$np = NULL;
+			$ol = $online;
+			$query = "SELECT `login`, `onoma`, " .
+				"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` FROM `pektis` ";
+			if (isset($sinedria->peknpat)) {
+				$np = $sinedria->peknpat;
+				$query .= "WHERE (`onoma` LIKE '" . $sinedria->peknpat . "') OR " .
+					"(`login` LIKE '" . $sinedria->peknpat . "') ";
+			}
+			elseif ($online) {
+				$query .= "WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) <= " .
+					XRONOS_PEKTIS_IDLE_MAX . " ";
+			}
+			else {
+				$query .= "WHERE (`login` IN (SELECT `sxetizomenos` FROM `sxesi` " .
+					"WHERE `pektis` LIKE " . $globals->pektis->slogin . "))";
+			}
+			$query .= "ORDER BY `login`";
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
+			}
+		}
 
 		// Δημιουργούμε λίστα όλων των παικτών που τώρα παίζουν, ώστε να μπορούμε
 		// να μαρκάρουμε τους παίζοντες παίκτες.
@@ -246,18 +284,19 @@ class Sxesi {
 		// μετά τους ασχέτους, και, τέλος, τους αποκλεισμένους.
 		$sxesi1 = array();
 
-		$result = $globals->sql_query($query);
-		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			if ($online && ($row['idle'] > XRONOS_PEKTIS_IDLE_MAX)) { continue; }
-			if ($available && array_key_exists($row['login'], $pezon)) { continue; }
+		$stmnt->execute();
+		$stmnt->bind_result($login, $onoma, $idle);
+		while ($stmnt->fetch()) {
+			if ($online && ($idle > XRONOS_PEKTIS_IDLE_MAX)) { continue; }
+			if ($available && array_key_exists($login, $pezon)) { continue; }
 			$s = new Sxesi;
-			if (array_key_exists($row['login'], $sxetizomenos)) {
-				$fb = $sxetizomenos[$row['login']] == 'ΦΙΛΟΣ' ? 'F' : 'B';
+			$s->login = $login;
+			$s->onoma = $onoma;
+			$s->online = self::is_online($idle);
+			$s->diathesimos = array_key_exists($login, $pezon);
+			if (array_key_exists($login, $sxetizomenos)) {
+				$s->status = $sxetizomenos[$login] == 'ΦΙΛΟΣ' ? 'F' : 'B';
 			}
-			else {
-				$fb = '';
-			}
-			$s->set_from_dbrow($row, $pezon, $fb);
 			$sxesi1[] = $s;
 		}
 

@@ -13,6 +13,7 @@ CREATE TABLE `pektis` (
 	`melos`		ENUM('NO', 'YES') NOT NULL DEFAULT 'NO' COMMENT 'Μέλος στο πριβέ',
 	`minimadirty`	ENUM('NO', 'YES') NOT NULL DEFAULT 'NO' COMMENT 'Αλλαγές στα PM',
 	`prosklidirty`	ENUM('NO', 'YES') NOT NULL DEFAULT 'NO' COMMENT 'Αλλαγές στις προσκλήσεις',
+	`sxesidirty`	ENUM('NO', 'YES') NOT NULL DEFAULT 'NO' COMMENT 'Αλλαγές στις σχέσεις',
 	PRIMARY KEY (
 		`login`
 	) USING BTREE,

@@ -15,6 +15,7 @@ class Pektis {
 	public $melos;
 	public $minimadirty;
 	public $prosklidirty;
+	public $sxesidirty;
 	public $error;
 
 	public function __construct($login, $password = NULL) {
@@ -36,6 +37,7 @@ class Pektis {
 		unset($this->melos);
 		unset($this->minimadirty);
 		unset($this->prosklidirty);
+		unset($this->sxesidirty);
 		unset($this->error);
 
 		$query = "SELECT *, UNIX_TIMESTAMP(`poll`) AS `poll`, " .
@@ -67,6 +69,7 @@ class Pektis {
 			$this->melos = $row['melos'] == 'YES' ? 1 : 0;
 			$this->minimadirty = ($row['minimadirty'] == 'YES');
 			$this->prosklidirty = ($row['prosklidirty'] == 'YES');
+			$this->sxesidirty = ($row['sxesidirty'] == 'YES');
 		}
 		else {
 			$this->error = (isset($password) ?
@@ -137,9 +140,10 @@ class Pektis {
 
 		$this->minimadirty = FALSE;
 		$this->prosklidirty = FALSE;
+		$this->sxesidirty = FALSE;
 
 		if ($stmnt == NULL) {
-			$query = "SELECT `minimadirty`, `prosklidirty` " .
+			$query = "SELECT `minimadirty`, `prosklidirty`, `sxesidirty` " .
 				"FROM `pektis` WHERE `login` LIKE ?";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
@@ -149,15 +153,16 @@ class Pektis {
 
 		$stmnt->bind_param("s", $this->login);
 		$stmnt->execute();
-		$stmnt->bind_result($minimadirty, $prosklidirty);
+		$stmnt->bind_result($minimadirty, $prosklidirty, $sxesidirty);
 		while ($stmnt->fetch()) {
 			$this->minimadirty = ($minimadirty == 'YES');
 			$this->prosklidirty = ($prosklidirty == 'YES');
+			$this->sxesidirty = ($sxesidirty == 'YES');
 		}
 
-		if ($this->minimadirty || $this->prosklidirty) {
-			$query = "UPDATE `pektis` SET `minimadirty` = 'NO', `prosklidirty` = 'NO' " .
-				"WHERE `login` LIKE " . $this->slogin;
+		if ($this->minimadirty || $this->prosklidirty || $this->sxesidirty) {
+			$query = "UPDATE `pektis` SET `minimadirty` = 'NO', `prosklidirty` = 'NO', " .
+				"`sxesidirty` = 'NO' WHERE `login` LIKE " . $this->slogin;
 			$globals->sql_query($query);
 		}
 	}
