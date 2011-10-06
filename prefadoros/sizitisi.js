@@ -143,6 +143,8 @@ var Sizitisi = new function() {
 		return html;
 	};
 
+	var epexeIxos = [];
+
 	this.decode = function(s) {
 		if (s.s == "@WP@") {
 			return '<img class="moliviPartida" src="' + globals.server +
@@ -154,8 +156,13 @@ var Sizitisi = new function() {
 		}
 		if (s.s == "@KN@") {
 			if (isSet(s.w)) {
-				 var t = (s.w - globals.timeDif) * 1000;
-				 if ((currentTimestamp() - t) < 2000) { controlPanel.korna(); }
+				var t = (s.w - globals.timeDif) * 1000;
+				var k = 'k' + s.k;
+				if ((!epexeIxos.hasOwnProperty(k)) &&
+					((currentTimestamp() - t) < 5000)) {
+					controlPanel.korna();
+					epexeIxos[k] = true;
+				}
 			}
 			return '<img style="width: 0.8cm;" src="' + globals.server +
 				'images/controlPanel/korna.png" alt="" />';
@@ -181,8 +188,11 @@ var Sizitisi = new function() {
 		for (var i = 6; i < x.length; i++) { titlos += x[i]; }
 		if (titlos != '') { html += '<div>' + titlos + '</div>'; }
 
-		if (x[4] && isSet(s.w) && ((currentTimestamp() - (s.w * 1000)) < 3000)) {
+		var k = 'k' + s.k;
+		if (x[4] && (!epexeIxos.hasOwnProperty(k)) && isSet(s.w) &&
+			((currentTimestamp() - (s.w * 1000)) < 5000)) {
 			playSound(x[4]);
+			epexeIxos[k] = true;
 		}
 
 		return html;
