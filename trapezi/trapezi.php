@@ -28,6 +28,8 @@ class Trapezi {
 
 	public function __construct($trexon = TRUE) {
 		global $globals;
+		static $stmnt1 = NULL;
+		static $stmnt2 = NULL;
 		$errmsg = "Trapezi::construct(): ";
 
 		unset($this->kodikos);
@@ -72,43 +74,75 @@ class Trapezi {
 			$this->theatis = 1;
 		}
 
+		$row = array();
+		$select_clause = "SELECT `kodikos`, `pektis1`, `apodoxi1`, `pektis2`, " .
+				"`apodoxi2`, `pektis3`, `apodoxi3`, `kasa`, `pasopasopaso`, " .
+				"`asoi`, `idiotikotita`, `prosvasi` FROM `trapezi` WHERE ";
+
 		if (isset($trapezi)) {
-			$query = "SELECT * FROM `trapezi` WHERE `kodikos` = " . $trapezi;
-			$result = $globals->sql_query($query);
-			$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
-			if ($row) {
-				@mysqli_free_result($result);
+			if ($stmnt1 == NULL) {
+				$query = $select_clause . "`kodikos` = ?";
+				$stmnt1 = $globals->db->prepare($query);
+				if (!$stmnt1) {
+					die($errmsg . $query . ": failed to prepare");
+				}
+			}
+
+			$stmnt1->bind_param("i", $trapezi);
+			$stmnt1->execute();
+			$stmnt1->bind_result($row['kodikos'], $row['pektis1'], $row['apodoxi1'],
+				$row['pektis2'], $row['apodoxi2'], $row['pektis3'], $row['apodoxi3'],
+				$row['kasa'], $row['pasopasopaso'], $row['asoi'],
+				$row['idiotikotita'], $row['prosvasi']);
+			$found = FALSE;
+			while ($stmnt1->fetch()) {
+				$found = TRUE;
+			}
+			if ($found) {
 				$this->set_from_dbrow($row);
 				return;
 			}
 		}
 
-		$query = "SELECT * FROM `trapezi` WHERE " .
-			"((`pektis1` LIKE " . $globals->pektis->slogin . ") " .
-			"OR (`pektis2` LIKE " . $globals->pektis->slogin . ") " .
-			"OR (`pektis3` LIKE " . $globals->pektis->slogin . ")) " .
-			"AND (`telos` IS NULL) ORDER BY `kodikos` DESC LIMIT 1";
-		$result = $globals->sql_query($query);
-		$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
-		if ($row) {
-			@mysqli_free_result($result);
-			for ($i = 1; $i <= 3; $i++) {
-				if ($row["pektis" . $i] == $globals->pektis->login) {
-					$this->thesi = $i;
-					$this->theatis = 0;
-					break;
-				}
-			}
-			if ($i > 3) {
-				$this->error = $errmsg . 'βρέθηκε τραπέζι για τον παίκτη "' .
-					$globals->pektis->login . '", αλλά η θέση είναι ' .
-					'ακαθόριστη';
-				return;
+		if ($stmnt2 == NULL) {
+			$query = $select_clause . "((`pektis1` LIKE ?) OR (`pektis2` LIKE ?) " .
+				"OR (`pektis3` LIKE ?)) AND (`telos` IS NULL) " .
+				"ORDER BY `kodikos` DESC LIMIT 1";
+			$stmnt2 = $globals->db->prepare($query);
+			if (!$stmnt2) {
+				die($errmsg . $query . ": failed to prepare");
 			}
 		}
-		else {
+
+		$stmnt2->bind_param("sss", $globals->pektis->login,
+			$globals->pektis->login, $globals->pektis->login);
+		$stmnt2->execute();
+		$stmnt2->bind_result($row['kodikos'], $row['pektis1'], $row['apodoxi1'],
+			$row['pektis2'], $row['apodoxi2'], $row['pektis3'], $row['apodoxi3'],
+			$row['kasa'], $row['pasopasopaso'], $row['asoi'],
+			$row['idiotikotita'], $row['prosvasi']);
+		$not_found = TRUE;
+		while ($stmnt2->fetch()) {
+			$not_found = FALSE;
+		}
+
+		if ($not_found) {
 			$this->error = $errmsg . 'δεν βρέθηκε τραπέζι για τον παίκτη "' .
 				$globals->pektis->login . '"';
+			return;
+		}
+
+		for ($i = 1; $i <= 3; $i++) {
+			if ($row["pektis" . $i] == $globals->pektis->login) {
+				$this->thesi = $i;
+				$this->theatis = 0;
+				break;
+			}
+		}
+		if ($i > 3) {
+			$this->error = $errmsg . 'βρέθηκε τραπέζι για τον παίκτη "' .
+				$globals->pektis->login . '", αλλά η θέση είναι ' .
+				'ακαθόριστη';
 			return;
 		}
 
