@@ -156,10 +156,10 @@ var Sizitisi = new function() {
 		}
 		if (s.s == "@KN@") {
 			if (isSet(s.w)) {
-				var t = (s.w - globals.timeDif) * 1000;
+				var t = s.w * 1000;
 				var k = 'k' + s.k;
 				if ((!epexeIxos.hasOwnProperty(k)) &&
-					((currentTimestamp() - t) < 10000)) {
+					((currentTimestamp() - t) < 3000)) {
 					controlPanel.korna();
 					epexeIxos[k] = true;
 				}
@@ -231,7 +231,7 @@ var Sizitisi = new function() {
 		if (t == 0) { return ''; }
 
 		var tora = new Date();
-		var pote = new Date((t - globals.timeDif) * 1000);
+		var pote = new Date(t * 1000);
 
 		var html = '<div id="sxp_' + k + '" class="sizitisiOra">';
 		if (pote.getDate() != tora.getDate()) {
