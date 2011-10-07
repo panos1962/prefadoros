@@ -152,7 +152,7 @@ class Trapezi {
 		$this->set_from_dbrow($row);
 	}
 
-	public function set_from_dbrow($row) {
+	public function set_from_dbrow($row, $ipolipo = TRUE) {
 		$this->kodikos = $row['kodikos'];
 		$this->pektis1 = $row['pektis1'];
 		$this->apodoxi1 = ($row['apodoxi1'] == 'YES' ? 1 : 0);
@@ -165,7 +165,9 @@ class Trapezi {
 		$this->asoi = ($row['asoi'] == 'YES' ? 1 : 0);
 		$this->prive = ($row['idiotikotita'] == 'ΔΗΜΟΣΙΟ' ? 0 : 1);
 		$this->klisto = ($row['prosvasi'] == 'ΑΝΟΙΚΤΟ' ? 0 : 1);
-		$this->ipolipo = self::ipolipo($row['kodikos'], $row['kasa']);
+		if ($ipolipo) {
+			$this->ipolipo = self::ipolipo($row['kodikos'], $row['kasa']);
+		}
 	}
 
 	public function set_energos_pektis($energos = FALSE) {

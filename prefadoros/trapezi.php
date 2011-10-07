@@ -159,10 +159,15 @@ class Kafenio {
 			$row['idiotikotita'], $row['prosvasi']);
 		while ($stmnt->fetch()) {
 			$t = new Trapezi(FALSE);
-			$t->set_from_dbrow($row);
+			$t->set_from_dbrow($row, FALSE);
 			if ($t->set_energos_pektis($energos)) {
 				$trapezi[] = $t;
 			}
+		}
+
+		for ($i = count($trapezi) - 1; $i >= 0; $i--) {
+			$trapezi[$i]->ipolipo = Trapezi::ipolipo
+				($trapezi[$i]->kodikos, $trapezi[$i]->kasa);
 		}
 
 		$etrexe_ts = microtime(TRUE);
