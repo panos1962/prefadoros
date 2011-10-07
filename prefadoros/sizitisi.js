@@ -159,7 +159,7 @@ var Sizitisi = new function() {
 				var t = (s.w - globals.timeDif) * 1000;
 				var k = 'k' + s.k;
 				if ((!epexeIxos.hasOwnProperty(k)) &&
-					((currentTimestamp() - t) < 5000)) {
+					((currentTimestamp() - t) < 10000)) {
 					controlPanel.korna();
 					epexeIxos[k] = true;
 				}
