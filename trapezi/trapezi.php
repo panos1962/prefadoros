@@ -26,6 +26,12 @@ class Trapezi {
 
 	public $error;
 
+	public static function select_clause() {
+		return("SELECT `kodikos`, `pektis1`, `apodoxi1`, `pektis2`, " .
+			"`apodoxi2`, `pektis3`, `apodoxi3`, `kasa`, `pasopasopaso`, " .
+			"`asoi`, `idiotikotita`, `prosvasi` FROM `trapezi` WHERE ");
+	}
+
 	public function __construct($trexon = TRUE) {
 		global $globals;
 		static $stmnt1 = NULL;
@@ -75,13 +81,10 @@ class Trapezi {
 		}
 
 		$row = array();
-		$select_clause = "SELECT `kodikos`, `pektis1`, `apodoxi1`, `pektis2`, " .
-				"`apodoxi2`, `pektis3`, `apodoxi3`, `kasa`, `pasopasopaso`, " .
-				"`asoi`, `idiotikotita`, `prosvasi` FROM `trapezi` WHERE ";
 
 		if (isset($trapezi)) {
 			if ($stmnt1 == NULL) {
-				$query = $select_clause . "`kodikos` = ?";
+				$query = self::select_clause() . "`kodikos` = ?";
 				$stmnt1 = $globals->db->prepare($query);
 				if (!$stmnt1) {
 					die($errmsg . $query . ": failed to prepare");
@@ -105,7 +108,7 @@ class Trapezi {
 		}
 
 		if ($stmnt2 == NULL) {
-			$query = $select_clause . "((`pektis1` LIKE ?) OR (`pektis2` LIKE ?) " .
+			$query = self::select_clause() . "((`pektis1` LIKE ?) OR (`pektis2` LIKE ?) " .
 				"OR (`pektis3` LIKE ?)) AND (`telos` IS NULL) " .
 				"ORDER BY `kodikos` DESC LIMIT 1";
 			$stmnt2 = $globals->db->prepare($query);

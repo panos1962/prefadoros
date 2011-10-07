@@ -126,32 +126,46 @@ class Kafenio {
 		global $globals;
 		static $trapezi = NULL;
 		static $etrexe_ts = 0.0;
+		static $stmnt = NULL;
 
 		$tora_ts = microtime(TRUE);
-		if (($tora_ts - $etrexe_ts) > 1.5) {
-			// Για λόγους οικονομίας διαγράφω παλιά τραπέζια μια στις 100 φορές.
-			if (mt_rand(0, 100) == 0) {
-				self::svise_palia_trapezia();
-			}
-
-			$trapezi = array();
-			$energos = Prefadoros::energos_pektis();
-
-			$query = "SELECT * FROM `trapezi` WHERE (`telos` IS NULL) " .
-				"AND ((UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
-				XRONOS_PEKTIS_IDLE_MAX . ") ORDER BY `kodikos` DESC"; 
-			$result = $globals->sql_query($query);
-			while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				$t = new Trapezi(FALSE);
-				$t->set_from_dbrow($row);
-				if ($t->set_energos_pektis($energos)) {
-					$trapezi[] = $t;
-				}
-			}
-
-			$etrexe_ts = microtime(TRUE);
+		if (($tora_ts - $etrexe_ts) <= 1.5) {
+			return($trapezi);
 		}
 
+		// Για λόγους οικονομίας διαγράφω παλιά τραπέζια μια στις 100 φορές.
+		if (mt_rand(0, 100) == 0) {
+			self::svise_palia_trapezia();
+		}
+
+		$trapezi = array();
+		$energos = Prefadoros::energos_pektis();
+
+		if ($stmnt == NULL) {
+			$query = Trapezi::select_clause() . "(`telos` IS NULL) " .
+				"AND ((UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
+				XRONOS_PEKTIS_IDLE_MAX . ") ORDER BY `kodikos` DESC"; 
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
+			}
+		}
+
+		$stmnt->execute();
+		$row = array();
+		$stmnt->bind_result($row['kodikos'], $row['pektis1'], $row['apodoxi1'],
+			$row['pektis2'], $row['apodoxi2'], $row['pektis3'], $row['apodoxi3'],
+			$row['kasa'], $row['pasopasopaso'], $row['asoi'],
+			$row['idiotikotita'], $row['prosvasi']);
+		while ($stmnt->fetch()) {
+			$t = new Trapezi(FALSE);
+			$t->set_from_dbrow($row);
+			if ($t->set_energos_pektis($energos)) {
+				$trapezi[] = $t;
+			}
+		}
+
+		$etrexe_ts = microtime(TRUE);
 		return($trapezi);
 	}
 
