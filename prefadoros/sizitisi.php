@@ -285,13 +285,14 @@ class Sizitisi {
 
 	public static function select_clause() {
 		return "SELECT `kodikos`, `trapezi`, `pektis`, `sxolio`, " .
-			"UNIX_TIMESTAMP(`pote`) AS `pote` FROM `sizitisi` ";
+			"UNIX_TIMESTAMP(`pote`) AS `pote` FROM `sizitisi` WHERE ";
 	}
 
 	public static function process_sizitisi() {
 		global $globals;
 		static $sizitisi = NULL;
 		static $etrexe_ts = 0.0;
+		static $stmnt = NULL;
 
 		$tora_ts = microtime(TRUE);
 		if ($tora_ts - $etrexe_ts <= 1.5) {
@@ -299,30 +300,41 @@ class Sizitisi {
 		}
 
 		$sizitisi = array();
-		if ($globals->is_trapezi()) {
-			// Μαζεύουμε σχόλια του τραπεζιού και τυχόν σχόλια ένδειξης
-			// συγγραφής σχολίων στο καφενείο.
-			$writing = time() - WRITING_ACTIVE;
+		if ($globals->not_trapezi()) {
+			return($sizitisi);
+		}
+
+		// Μαζεύουμε σχόλια του τραπεζιού και τυχόν σχόλια ένδειξης
+		// συγγραφής σχολίων στο καφενείο.
+		if (!isset($stmnt)) {
 			$query = self:: select_clause() .
-				"WHERE (`trapezi` = " . $globals->trapezi->kodikos . ") " .
-				"OR ((UNIX_TIMESTAMP(`pote`) > " . $writing . ") " .
-				"AND (`sxolio` LIKE '@WK@')) " .
-				"ORDER BY `kodikos`";
-			$result = $globals->sql_query($query);
-			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				if (self::my_notice($row)) {
-					continue;
-				}
-				if (($row['trapezi'] != $globals->trapezi->kodikos) &&
-					($row['pektis'] != $globals->trapezi->pektis1) &&
-					($row['pektis'] != $globals->trapezi->pektis2) &&
-					($row['pektis'] != $globals->trapezi->pektis3)) {
-					continue;
-				}
-				$s = new Sizitisi;
-				$s->set_from_dbrow($row);
-				$sizitisi[] = $s;
+				"(`trapezi` = ?) OR ((UNIX_TIMESTAMP(`pote`) > ?) " .
+				"AND (`sxolio` LIKE '@WK@')) ORDER BY `kodikos`";
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
 			}
+		}
+
+		$writing = time() - WRITING_ACTIVE;
+		$stmnt->bind_param("ii", $globals->trapezi->kodikos, $writing);
+		$stmnt->execute();
+		$row = array();
+		$stmnt->bind_result($row['kodikos'], $row['trapezi'], $row['pektis'],
+				$row['sxolio'], $row['pote']);
+		while ($stmnt->fetch()) {
+			if (self::my_notice($row)) {
+				continue;
+			}
+			if (($row['trapezi'] != $globals->trapezi->kodikos) &&
+				($row['pektis'] != $globals->trapezi->pektis1) &&
+				($row['pektis'] != $globals->trapezi->pektis2) &&
+				($row['pektis'] != $globals->trapezi->pektis3)) {
+				continue;
+			}
+			$s = new Sizitisi;
+			$s->set_from_dbrow($row);
+			$sizitisi[] = $s;
 		}
 
 		$etrexe_ts = microtime(TRUE);
@@ -391,7 +403,7 @@ class Sizitisi {
 
 		if ((!isset($kafenio_apo)) || ($kafenio_apo < 1)) {
 			$kafenio_apo = 1;
-			$query = self::select_clause() . "WHERE (`trapezi` IS NULL) " .
+			$query = self::select_clause() . "(`trapezi` IS NULL) " .
 				"ORDER BY `kodikos` LIMIT " . KAFENIO_TREXONTA_SXOLIA;
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -402,7 +414,7 @@ class Sizitisi {
 		}
 
 		$sizitisi = array();
-		$query = self::select_clause() . "WHERE (`trapezi` IS NULL) " .
+		$query = self::select_clause() . "(`trapezi` IS NULL) " .
 			"AND (`kodikos` >= " . $kafenio_apo . ") ORDER BY `kodikos`";
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
