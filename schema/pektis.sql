@@ -10,6 +10,7 @@ CREATE TABLE `pektis` (
 	`password`	CHARACTER(40) NOT NULL COMMENT 'Password',
 	`egrafi`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Ημερομηνία εγγραφής',
 	`superuser`	ENUM('NO', 'YES') NOT NULL DEFAULT 'NO' COMMENT 'Super user',
+	`proxy`		ENUM('NO', 'YES') NOT NULL DEFAULT 'NO' COMMENT 'Allow via proxy',
 	`melos`		ENUM('NO', 'YES') NOT NULL DEFAULT 'NO' COMMENT 'Μέλος στο πριβέ',
 	`minimadirty`	ENUM('NO', 'YES') NOT NULL DEFAULT 'NO' COMMENT 'Αλλαγές στα PM',
 	`prosklidirty`	ENUM('NO', 'YES') NOT NULL DEFAULT 'NO' COMMENT 'Αλλαγές στις προσκλήσεις',
