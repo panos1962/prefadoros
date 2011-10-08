@@ -12,6 +12,7 @@ class Pektis {
 	public $poll;
 	public $idle;
 	public $superuser;
+	public $proxy;
 	public $melos;
 	public $minimadirty;
 	public $prosklidirty;
@@ -34,6 +35,7 @@ class Pektis {
 		unset($this->poll);
 		unset($this->idle);
 		unset($this->superuser);
+		unset($this->proxy);
 		unset($this->melos);
 		unset($this->minimadirty);
 		unset($this->prosklidirty);
@@ -66,6 +68,7 @@ class Pektis {
 			$this->poll = $row['poll'];
 			$this->idle = (int)($row['idle']);
 			$this->superuser = $row['superuser'] == 'YES' ? 1 : 0;
+			$this->proxy = $row['proxy'] == 'YES' ? 1 : 0;
 			$this->melos = $row['melos'] == 'YES' ? 1 : 0;
 			$this->minimadirty = ($row['minimadirty'] == 'YES');
 			$this->prosklidirty = ($row['prosklidirty'] == 'YES');
