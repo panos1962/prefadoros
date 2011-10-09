@@ -40,10 +40,12 @@ URL εικόνας
 	maxlength="4096" onkeyup="Ikona.keyCheck(event, this);" />
 <div id="inputSxolioArea" class="funchatSxolioArea">
 	<input id="inputSxolio" type="text" value="" size="50"
-		maxlength="4096" onkeyup="Funchat.keyCheck(event, this);" />
+		maxlength="4096" onkeyup="Funchat.keyCheck(event, this);"
+		style="margin-bottom: 0.4cm;" />
 	<div>
-	<button type="button">Ok</button>
-	<button type="button">Cancel</button>
+	<button type="button" onclick="return Funchat.apostoli();"
+		style="margin-right: 1.0cm;">Ok</button>
+	<button type="button" onclick="return Funchat.clear();">Cancel</button>
 	</div>
 </div>
 </td>
@@ -96,7 +98,7 @@ class Item {
 			}
 			if ($globals->is_trapezi()) {
 				?>
-				onclick="Funchat.stile(this, '<?php print $this->image; ?>', '<?php
+				onclick="Funchat.stile(event, this, '<?php print $this->image; ?>', '<?php
 					print $title; ?>', '<?php print $this->zoom;
 					?>', '<?php print $this->sound; ?>');" style="cursor: pointer;"
 				<?php

@@ -51,5 +51,6 @@ body {
 	border-width: 1px;
 	border-color: #999966;
 	padding: 0.4cm 0.2cm 0.2cm 0.2cm;
-	background-color: #FFFFFF;
+	background-color: #FFFFCC;
+	z-index: 1;
 }

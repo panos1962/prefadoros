@@ -91,7 +91,7 @@ var Funchat = new function() {
 	this.zoom = null;
 	this.sound = null;
 
-	this.stile = function(div, ikona, titlos, zoom, sound) {
+	this.stile = function(e, div, ikona, titlos, zoom, sound) {
 		var p = self.opener;
 		if (notSet(p)) { return; }
 		if (notSet(p.document)) { return; }
@@ -109,11 +109,16 @@ var Funchat = new function() {
 		this.titlos = titlos;
 		this.zoom = zoom;
 		this.sound = sound;
-		sxolio.value = '';
+		sxolio.value = titlos;
 
-alert(div);
-		sxolioArea.style.top = div.style.top;
+		if (notSet(e)) { e = window.event; }
+		var xy = mouseXY(e);
+		if ((xy.x -= 300) < 0) { xy.x = 40; }
+		if ((xy.y -= 100) < 0) { xy.x = 100; }
+		sxolioArea.style.left = xy.x + 'px';
+		sxolioArea.style.top = xy.y + 'px';
 		sxolioArea.style.visibility = 'visible';
+		sxolio.focus();
 	};
 
 	this.keyCheck = function(e, fld) {
@@ -133,19 +138,37 @@ alert(div);
 			}
 		}
 
+		this.apostoli(fld.value);
+	};
+
+	this.apostoli = function(titlos) {
+		if (notSet(titlos)) {
+			var sxolio = getelid('inputSxolio');
+			if (notSet(sxolio)) { return this.clear(); }
+			titlos = sxolio.value;
+		}
+
 		var p = self.opener;
-		if (notSet(p)) { return; }
-		if (notSet(p.document)) { return; }
-		if (notSet(p.Sizitisi)) { return; }
+		if (notSet(p)) { return this.clear(); }
+		if (notSet(p.document)) { return this.clear(); }
+		if (notSet(p.Sizitisi)) { return this.clear(); }
 		var f = p.document.getElementById('sxolioInputHidden');
-		if (notSet(f)) { return; }
+		if (notSet(f)) { return this.clear(); }
 
 		f.value = '@FC';
 		f.value += '@' + this.ikona;
 		f.value += '@' + this.zoom;
 		f.value += '@' + this.sound;
-		f.value += '@' + fld.value;
+		f.value += '@' + titlos;
 		p.Sizitisi.apostoli(f);
+		return this.clear();
+	};
+
+	this.clear = function() {
+		var sxolioArea = getelid('inputSxolioArea');
+		if (notSet(sxolioArea)) { return; }
+		sxolioArea.style.visibility = 'hidden';
+		return false;
 	};
 };
 
