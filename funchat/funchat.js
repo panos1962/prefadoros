@@ -119,6 +119,7 @@ var Funchat = new function() {
 		sxolioArea.style.top = xy.y + 'px';
 		sxolioArea.style.visibility = 'visible';
 		sxolio.focus();
+		sxolio.select();
 	};
 
 	this.keyCheck = function(e, fld) {
