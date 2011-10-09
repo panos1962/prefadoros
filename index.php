@@ -32,7 +32,7 @@ if ($globals->is_pektis()) {
 }
 Page::body();
 if (!Globals::perastike('motd')) {
-	// Page::motd();
+	Page::motd();
 }
 if ($globals->is_pektis()) {
 	Prefadoros::pektis_check();
