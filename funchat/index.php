@@ -38,6 +38,14 @@ URL εικόνας
 <td>
 <input id="inputLezanta" type="text" value="" size="50"
 	maxlength="4096" onkeyup="Ikona.keyCheck(event, this);" />
+<div id="inputSxolioArea" class="funchatSxolioArea">
+	<input id="inputSxolio" type="text" value="" size="50"
+		maxlength="4096" onkeyup="Funchat.keyCheck(event, this);" />
+	<div>
+	<button type="button">Ok</button>
+	<button type="button">Cancel</button>
+	</div>
+</div>
 </td>
 </tr>
 </table>
@@ -88,7 +96,7 @@ class Item {
 			}
 			if ($globals->is_trapezi()) {
 				?>
-				onclick="stileFunchat('<?php print $this->image; ?>', '<?php
+				onclick="Funchat.stile(this, '<?php print $this->image; ?>', '<?php
 					print $title; ?>', '<?php print $this->zoom;
 					?>', '<?php print $this->sound; ?>');" style="cursor: pointer;"
 				<?php
@@ -134,6 +142,7 @@ function print_panel() {
 	$item_list[] = new Item("lesNaBgo.gif", "Λές να βγω;");
 	$item_list[] = new Item("ouReKole.gif", "Ου, ρε κώλε!", 5.2);
 	$item_list[] = new Item("exeteXesti.gif", "Έχετε χεστεί, ρε σεις!", 4.2);
+/*
 	$item_list[] = new Item("etsiKeBoMesa.gif", "Έτσι και μπω μέσα…", 4.2);
 	$item_list[] = new Item("deGinonteAfta.gif", "Ε, όχι, ρε σεις! Δεν γίνονται αυτά…", 3.2);
 	$item_list[] = new Item("anteGamithiteRe.gif", "Ε, άντε γαμηθείτε, ρε κουφάλες…", 4.8);
@@ -303,6 +312,7 @@ function print_panel() {
 	$item_list[] = new Item("flag.gif", "Μοιράζω και φεύγω!", 2.4);
 	$item_list[] = new Item("bye.gif");
 	$item_list[] = new Item("ouranosSfontili.gif", "Ωχ!", "", "doing");
+*/
 	$item_list[] = new Item("klania.gif", "Σόρι παιδιά…", "", "klania");
 	$item_list[] = new Item("laptopEmoticon.gif");
 	$item_list[] = new Item("piramaEmoticon.gif", "Λέω να κάνω ένα πείραμα…", 3.2);
