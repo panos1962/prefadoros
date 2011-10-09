@@ -144,7 +144,6 @@ function print_panel() {
 	$item_list[] = new Item("lesNaBgo.gif", "Λές να βγω;");
 	$item_list[] = new Item("ouReKole.gif", "Ου, ρε κώλε!", 5.2);
 	$item_list[] = new Item("exeteXesti.gif", "Έχετε χεστεί, ρε σεις!", 4.2);
-/*
 	$item_list[] = new Item("etsiKeBoMesa.gif", "Έτσι και μπω μέσα…", 4.2);
 	$item_list[] = new Item("deGinonteAfta.gif", "Ε, όχι, ρε σεις! Δεν γίνονται αυτά…", 3.2);
 	$item_list[] = new Item("anteGamithiteRe.gif", "Ε, άντε γαμηθείτε, ρε κουφάλες…", 4.8);
@@ -314,7 +313,6 @@ function print_panel() {
 	$item_list[] = new Item("flag.gif", "Μοιράζω και φεύγω!", 2.4);
 	$item_list[] = new Item("bye.gif");
 	$item_list[] = new Item("ouranosSfontili.gif", "Ωχ!", "", "doing");
-*/
 	$item_list[] = new Item("klania.gif", "Σόρι παιδιά…", "", "klania");
 	$item_list[] = new Item("laptopEmoticon.gif");
 	$item_list[] = new Item("piramaEmoticon.gif", "Λέω να κάνω ένα πείραμα…", 3.2);
