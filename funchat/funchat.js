@@ -85,23 +85,69 @@ window.onbeforeunload = function() {
 	}
 };
 
-function stileFunchat(ikona, titlos, zoom, sound) {
-	var p = self.opener;
-	if (notSet(p)) { return; }
-	if (notSet(p.document)) { return; }
-	if (notSet(p.Sizitisi)) { return; }
-	var f = p.document.getElementById('sxolioInputHidden');
-	if (notSet(f)) { return; }
+var Funchat = new function() {
+	this.ikona = null;
+	this.titlos = null;
+	this.zoom = null;
+	this.sound = null;
 
-	if ((titlos = prompt('', titlos)) === null) { return; }
-	if (notSet(titlos)) { titlos = ''; }
-	f.value = '@FC';
-	f.value += '@' + ikona;
-	f.value += '@' + zoom;
-	f.value += '@' + sound;
-	f.value += '@' + titlos;
-	p.Sizitisi.apostoli(f);
-}
+	this.stile = function(div, ikona, titlos, zoom, sound) {
+		var p = self.opener;
+		if (notSet(p)) { return; }
+		if (notSet(p.document)) { return; }
+		if (notSet(p.Sizitisi)) { return; }
+		var f = p.document.getElementById('sxolioInputHidden');
+		if (notSet(f)) { return; }
+
+		var sxolioArea = getelid('inputSxolioArea');
+		if (notSet(sxolioArea)) { return; }
+
+		var sxolio = getelid('inputSxolio');
+		if (notSet(sxolio)) { return; }
+
+		this.ikona = ikona;
+		this.titlos = titlos;
+		this.zoom = zoom;
+		this.sound = sound;
+		sxolio.value = '';
+
+alert(div);
+		sxolioArea.style.top = div.style.top;
+		sxolioArea.style.visibility = 'visible';
+	};
+
+	this.keyCheck = function(e, fld) {
+		if (window.event) { var key = e.keyCode; }
+		else if (e.which) { key = e.which; }
+		else { key = false; }
+
+		if (key !== false) {
+			switch(key) {
+			case 13:	// Enter key
+				break;
+			case 27:	// Esc key();
+				alert('Cancel');
+				break;
+			default:
+				return;
+			}
+		}
+
+		var p = self.opener;
+		if (notSet(p)) { return; }
+		if (notSet(p.document)) { return; }
+		if (notSet(p.Sizitisi)) { return; }
+		var f = p.document.getElementById('sxolioInputHidden');
+		if (notSet(f)) { return; }
+
+		f.value = '@FC';
+		f.value += '@' + this.ikona;
+		f.value += '@' + this.zoom;
+		f.value += '@' + this.sound;
+		f.value += '@' + fld.value;
+		p.Sizitisi.apostoli(f);
+	};
+};
 
 var Ikona = new function() {
 	this.keyCheck = function(e, fld) {
