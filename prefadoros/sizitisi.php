@@ -10,7 +10,12 @@ define('WRITING_CLEANUP', 86400);
 
 // Η σταθερά "KAFENIO_TREXONTA_SXOLIA" δείχνει το πλήθος των σχολίων της
 // δημόσιας συζήτησης που επιστρέφονται αρχικά στον παίκτη.
-define('KAFENIO_TREXONTA_SXOLIA', 50);
+define('KAFENIO_TREXONTA_SXOLIA', 30);
+
+// Η σταθερά "SXOLIA_CLEANUP_FREQ" δείχνει κάθε πότε θα γίνεται
+// καθαρισμός σχολίων είτε σε επίπεδο δημόσιας συζήτησης (καφενείο),
+// είτε σε επίπεδο τραπεζιού
+define('SXOLIA_CLEANUP_FREQ', 50);
 
 class Sizitisi {
 	public $kodikos;
@@ -305,6 +310,8 @@ class Sizitisi {
 			return($sizitisi);
 		}
 
+		self::cleanup_sizitisi($globals->trapezi->kodikos);
+
 		// Μαζεύουμε σχόλια του τραπεζιού και τυχόν σχόλια ένδειξης
 		// συγγραφής σχολίων στο καφενείο.
 		if (!isset($stmnt)) {
@@ -355,15 +362,17 @@ class Sizitisi {
 		return(FALSE);
 	}
 
-	public static function cleanup_kafenio() {
+	private static function cleanup_sizitisi($trapezi = NULL) {
 		global $globals;
 
-		if (mt_rand(1, 30) != 1) {
+		if (mt_rand(1, SXOLIA_CLEANUP_FREQ) != 1) {
 			return;
 		}
 
-		$query = "SELECT `kodikos` FROM `sizitisi` WHERE `trapezi` IS NULL " .
-			"ORDER BY `kodikos` DESC LIMIT " . KAFENIO_TREXONTA_SXOLIA;
+		$pio_trapezi = "`trapezi` " . (isset($trapezi) ? "= " . $trapezi : "IS NULL");
+
+		$query = "SELECT `kodikos` FROM `sizitisi` WHERE " . $pio_trapezi .
+			" ORDER BY `kodikos` DESC LIMIT " . KAFENIO_TREXONTA_SXOLIA;
 		$result = $globals->sql_query($query);
 		$count = 0;
 		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
@@ -374,8 +383,8 @@ class Sizitisi {
 			return;
 		}
 
-		$query = "DELETE FROM `sizitisi` " .
-			"WHERE (`trapezi` IS NULL) AND (`kodikos` < " . $proto . ")";
+		$query = "DELETE FROM `sizitisi` WHERE (" . $pio_trapezi . ") " .
+			"AND (`kodikos` < " . $proto . ")";
 		$globals->sql_query($query);
 	}
 
@@ -392,7 +401,7 @@ class Sizitisi {
 			return($sizitisi);
 		}
 
-		self::cleanup_kafenio();
+		self::cleanup_sizitisi();
 
 		// Η global μεταβλητή "kafenio_apo" είναι κοινή εδώ και στο βασικό
 		// πρόγραμμα ελέγχου εμφάνισης νέων δεδομένων ("prefadoros/neaDedomena.php").
