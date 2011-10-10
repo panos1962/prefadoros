@@ -289,6 +289,7 @@
 }
 
 .kafenio {
+	position: relative;
 	font-size: 0.4cm;
 	letter-spacing: 0.01cm;
 }
@@ -1286,8 +1287,8 @@ font-weight: bold;
 
 .galleryPhoto {
 	position: absolute;
-	top: 5.4cm;
-	left: 1.0cm;
+	top: 3.4cm;
+	left: 0.6cm;
 	width: 12.4cm;
 	cursor: pointer;
 	opacity: 0.0;
