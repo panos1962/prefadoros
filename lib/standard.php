@@ -26,6 +26,7 @@ define('XRONOS_POLIVOLO2', 20000);
 define('MAX_POLIVOLO2', 30);
 
 define('FUNCHAT_SERVER', 'http://www.pineza.info/prefa/images/gallery/');
+define('MY_EMAIL_ADDRESS', 'panos1962@gmail.com');
 
 if (isset($no_session)) {
 	$_SESSION = array();
@@ -655,7 +656,8 @@ class Page {
 		?>
 		<div class="data" style="font-style: italic; white-space: nowrap;">
 			&copy; Panos I. Papadopoulos <span style="font-style: normal;">[<a
-				href="mailto:<?php print 'panos1962@gmail.com'; ?>"><img
+				title="Send mail to &quot;<?php print MY_EMAIL_ADDRESS; ?>&quot;"
+				href="mailto:<?php print MY_EMAIL_ADDRESS; ?>"><img
 				src="<?php print $globals->server; ?>images/email.png"
 				style="width: 0.6cm; height: 0.5cm; margin-bottom: -0.15cm;"
 					alt="" /></a>]</span> 2011&ndash;
