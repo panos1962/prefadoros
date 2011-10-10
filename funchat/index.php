@@ -39,13 +39,13 @@ URL εικόνας
 <input id="inputLezanta" type="text" value="" size="50"
 	maxlength="4096" onkeyup="Ikona.keyCheck(event, this);" />
 <div id="inputSxolioArea" class="funchatSxolioArea">
-	<input id="inputSxolio" type="text" value="" size="50"
+	<input id="inputSxolio" type="text" value="" size="40"
 		maxlength="4096" onkeyup="Funchat.keyCheck(event, this);"
-		style="margin-bottom: 0.4cm;" />
+		style="margin-bottom: 0.4cm; font-size: 0.40cm;" />
 	<div>
-	<button type="button" onclick="return Funchat.apostoli();"
-		style="margin-right: 1.0cm;">Ok</button>
-	<button type="button" onclick="return Funchat.clear();">Cancel</button>
+	<button type="button" class="button" onclick="return Funchat.apostoli();"
+		style="margin-right: 1.0cm;">Αποστολή</button>
+	<button type="button" class="button" onclick="return Funchat.clear();">Ακύρωση</button>
 	</div>
 </div>
 </td>
