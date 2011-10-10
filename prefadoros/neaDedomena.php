@@ -405,27 +405,31 @@ class Sinedria {
 
 	public function fetch() {
 		global $globals;
+		static $stmnt = NULL;
+		$errmsg = "Sinedria::fetch(): ";
 
 		unset($this->enimerosi);
 		unset($this->peknpat);
 		unset($this->pekstat);
 
-		$query = "SELECT `enimerosi`, `peknpat`, `pekstat` FROM `sinedria` " .
-			"WHERE `kodikos` = " . $this->kodikos;
-		$result = @mysqli_query($globals->db, $query);
-		if (!$result) {
-			return(FALSE);
-		}
-		$row = @mysqli_fetch_array($result, MYSQLI_NUM);
-		if (!$row) {
-			return(FALSE);
+		if ($stmnt == NULL) {
+			$query = "SELECT `enimerosi`, `peknpat`, `pekstat` " .
+				"FROM `sinedria` WHERE `kodikos` = ?";
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
+			}
 		}
 
-		@mysqli_free_result($reslut);
-		$this->enimerosi = $row[0];
-		$this->peknpat = $row[1] == '' ? NULL : "%" . $globals->asfales($row[1]) . "%";
-		$this->pekstat = $row[2];
-		return(TRUE);
+		$stmnt->bind_param("i", $this->kodikos);
+		$stmnt->execute();
+		$stmnt->bind_result($this->enimerosi, $peknpat, $this->pekstat);
+		while ($stmnt->fetch()) {
+			$this->peknpat = $peknpat == '' ?
+				NULL : ("%" . $globals->asfales($peknpat) . "%");
+		}
+
+		return(isset($this->enimerosi));
 	}
 }
 ?>
