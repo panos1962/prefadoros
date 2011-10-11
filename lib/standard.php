@@ -385,7 +385,13 @@ class Page {
 	public static function motd() {
 		global $globals;
 
-		$motd1 = @file_get_contents("motd_all.html");
+		if (@file_exists($motd1) && @is_readable($motd1)) {
+			$motd1 = @file_get_contents("motd_all.html");
+		}
+		else {
+			$motd1 = FALSE;
+		}
+
 		if ($globals->is_pektis()) {
 			$motd2 = "motd/" . $globals->pektis->login . ".html";
 			$motd2 = (@file_exists($motd2) && @is_readable($motd2)) ?
@@ -394,6 +400,7 @@ class Page {
 		else {
 			$motd2 = FALSE;
 		}
+
 		if (!($motd1 || $motd2)) { return; }
 		?>
 		<div id="motd" class="motdArea"
