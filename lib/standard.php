@@ -25,7 +25,7 @@ define('MAX_POLIVOLO1', 20);
 define('XRONOS_POLIVOLO2', 20000);
 define('MAX_POLIVOLO2', 30);
 
-define('FUNCHAT_SERVER', 'http://www.pineza.info/prefa/funchat/');
+define('FUNCHAT_SERVER', 'http://www.pineza.info/prefa/funchatImages/');
 define('MY_EMAIL_ADDRESS', 'panos1962@gmail.com');
 
 if (isset($no_session)) {
