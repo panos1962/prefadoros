@@ -152,16 +152,5 @@ class Partida {
 
 		return($p);
 	}
-
-	public static function set_thesi_map($p) {
-die('thesi_map');
-		if (isset($p)) {
-			switch ($p->thesi) {
-			case 2:		$p->thesi_map = array(0, 3, 1, 2); break;
-			case 3:		$p->thesi_map = array(0, 2, 3, 1); break;
-			default:	$p->thesi_map = array(0, 1, 2, 3); break;
-			}
-		}
-	}
 }
 ?>
