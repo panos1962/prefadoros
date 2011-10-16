@@ -121,13 +121,15 @@ var Trapezi = new function() {
 	};
 
 	this.updateHTML = function() {
+		var peknpat = getelid('peknpat');
+		peknpat = (isSet(peknpat) && isSet(peknpat.value)) ? peknpat.value : '';
 		Trapezi.HTML = '<div class="kafenio">';
 		if (notPartida()) { Trapezi.HTML += Tools.miaPrefaHTML(true); }
 		if (rebelos.length > 0) {
 			Trapezi.HTML += '<div class="kafenioRebels">';
 			for (var i = 0; i < rebelos.length; i++) {
 				if (notSet(rebelos[i].t)) {
-					Trapezi.HTML += Trapezi.rebelosHTML(rebelos[i].l);
+					Trapezi.HTML += Trapezi.rebelosHTML(rebelos[i].l, false, peknpat);
 				}
 			}
 			Trapezi.HTML += '</div>';
@@ -143,13 +145,13 @@ var Trapezi = new function() {
 		}
 
 		for (var i = 0; i < trapezi.length; i++) {
-			Trapezi.HTML += Trapezi.trapeziHTML(trapezi[i]);
+			Trapezi.HTML += Trapezi.trapeziHTML(trapezi[i], peknpat);
 			var protos = '<div class="kafenioRebels" style="margin-top: 0.2cm;">';
 			for (var j = 0; j < rebelos.length; j++) {
 				if (isSet(rebelos[j].t) && (rebelos[j].t == trapezi[i].k)) {
 					Trapezi.HTML += protos;
 					protos = '';
-					Trapezi.HTML += Trapezi.rebelosHTML(rebelos[j].l, true);
+					Trapezi.HTML += Trapezi.rebelosHTML(rebelos[j].l, true, peknpat);
 				}
 			}
 			if (protos === '') { Trapezi.HTML += '</div>'; }
@@ -157,7 +159,7 @@ var Trapezi = new function() {
 		Trapezi.HTML += '</div>';
 	};
 
-	this.trapeziHTML = function(t) {
+	this.trapeziHTML = function(t, peknpat) {
 		var theatis = (isTheatis() && (t.k == partida.k));
 		var html = '';
 		html += '<hr class="kafenioTrapeziLine" />';
@@ -209,8 +211,6 @@ var Trapezi = new function() {
 			}
 			html += '</div>';
 		}
-		var peknpat = getelid('peknpat');
-		peknpat = (isSet(peknpat) && isSet(peknpat.value)) ? peknpat.value : null;
 		for (var i = 1; i <= 3; i++) {
 			var p = eval('t.p' + i);
 			html += '<div class="kafenioBox kafenioPektis';
@@ -302,10 +302,11 @@ var Trapezi = new function() {
 		}
 	};
 
-	this.rebelosHTML = function(t, theatis) {
+	this.rebelosHTML = function(t, theatis, peknpat) {
 		var html = '<div class="kafenioBox kafenioPektis rebelos';
-		if (isSet(theatis)) { html += ' theatis'; }
+		if (theatis) { html += ' theatis'; }
 		if (isPektis() && (t == pektis.login)) { html += ' ego'; }
+		else if (t == peknpat) { html += ' katazitoumenos'; }
 		html += '"';
 		html += Trapezi.permesHTML(t);
 		html += '>';
@@ -320,7 +321,7 @@ var Trapezi = new function() {
 			Tools.miaPrefaHTML() + '</div>';
 		var trapezi = {k:null,s:null,p1:null,p2:null,p3:null};
 		for (var i = 0; i < 6; i++) {
-			Trapezi.HTML += Trapezi.trapeziHTML(trapezi);
+			Trapezi.HTML += Trapezi.trapeziHTML(trapezi, '');
 		}
 		Trapezi.HTML += '</div>';
 	};
