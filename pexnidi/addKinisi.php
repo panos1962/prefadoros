@@ -166,6 +166,14 @@ function kane_pliromi($dianomi, $data) {
 		Prefadoros::xeklidose_trapezi(FALSE);
 		die('Απέτυχε η πληρωμή της διανομής');
 	}
+
+	// Καλού κακού ενημερώνω την πίστωση του τραπεζιού, δηλαδή
+	// το σύνολο των καπικιών που έχουν αναληφθεί από τις μέχρι
+	// τώρα διανομές (μαζί με την τελευταία που μόλις εισήγαγα).
+	$query = "UPDATE `trapezi` SET `pistosi` = (SELECT SUM(`kasa1` + `kasa2` + `kasa3`) / 10 " .
+		"FROM `dianomi` WHERE `trapezi` = " . $globals->trapezi->kodikos .
+		") WHERE `kodikos` = " . $globals->trapezi->kodikos;
+	$result = $globals->sql_query($query);
 }
 
 function check_baza($dianomi) {
