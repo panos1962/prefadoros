@@ -27,8 +27,8 @@ class Trapezi {
 	public $error;
 
 	public static function select_clause() {
-		return("SELECT `kodikos`, `pektis1`, `apodoxi1`, `pektis2`, " .
-			"`apodoxi2`, `pektis3`, `apodoxi3`, `kasa`, `pasopasopaso`, " .
+		return("SELECT `kodikos`, `pektis1`, `apodoxi1`, `pektis2`, `apodoxi2`, " .
+			"`pektis3`, `apodoxi3`, `kasa`, `pistosi`, `pasopasopaso`, " .
 			"`asoi`, `idiotikotita`, `prosvasi` FROM `trapezi` WHERE ");
 	}
 
@@ -95,7 +95,7 @@ class Trapezi {
 			$stmnt1->execute();
 			$stmnt1->bind_result($row['kodikos'], $row['pektis1'], $row['apodoxi1'],
 				$row['pektis2'], $row['apodoxi2'], $row['pektis3'], $row['apodoxi3'],
-				$row['kasa'], $row['pasopasopaso'], $row['asoi'],
+				$row['kasa'], $row['pistosi'], $row['pasopasopaso'], $row['asoi'],
 				$row['idiotikotita'], $row['prosvasi']);
 			$found = FALSE;
 			while ($stmnt1->fetch()) {
@@ -122,7 +122,7 @@ class Trapezi {
 		$stmnt2->execute();
 		$stmnt2->bind_result($row['kodikos'], $row['pektis1'], $row['apodoxi1'],
 			$row['pektis2'], $row['apodoxi2'], $row['pektis3'], $row['apodoxi3'],
-			$row['kasa'], $row['pasopasopaso'], $row['asoi'],
+			$row['kasa'], $row['pistosi'], $row['pasopasopaso'], $row['asoi'],
 			$row['idiotikotita'], $row['prosvasi']);
 		$not_found = TRUE;
 		while ($stmnt2->fetch()) {
@@ -152,7 +152,7 @@ class Trapezi {
 		$this->set_from_dbrow($row);
 	}
 
-	public function set_from_dbrow($row, $ipolipo = TRUE) {
+	public function set_from_dbrow($row) {
 		$this->kodikos = $row['kodikos'];
 		$this->pektis1 = $row['pektis1'];
 		$this->apodoxi1 = ($row['apodoxi1'] == 'YES' ? 1 : 0);
@@ -165,9 +165,7 @@ class Trapezi {
 		$this->asoi = ($row['asoi'] == 'YES' ? 1 : 0);
 		$this->prive = ($row['idiotikotita'] == 'ΔΗΜΟΣΙΟ' ? 0 : 1);
 		$this->klisto = ($row['prosvasi'] == 'ΑΝΟΙΚΤΟ' ? 0 : 1);
-		if ($ipolipo) {
-			$this->ipolipo = self::ipolipo($row['kodikos'], $row['kasa']);
-		}
+		$this->ipolipo = $row['kasa'] - $row['pistosi'];
 	}
 
 	public function set_energos_pektis($energos = FALSE) {
