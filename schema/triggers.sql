@@ -79,4 +79,39 @@ CREATE TRIGGER `sxesi_del` AFTER DELETE ON `sxesi` FOR EACH ROW BEGIN
 	WHERE (`login` LIKE OLD.`pektis`) OR (`login` LIKE OLD.`sxetizomenos`);
 END//
 
+DROP TRIGGER /*!50033 IF EXISTS */ `dianomi_ins`//
+
+CREATE TRIGGER `dianomi_ins` AFTER INSERT ON `dianomi` FOR EACH ROW BEGIN
+	UPDATE `trapezi` SET `pistosi` = `pistosi` +
+		((NEW.`kasa1` + NEW.`kasa2` + NEW.`kasa3`) / 10)
+	WHERE `kodikos` = NEW.`trapezi`;
+END//
+
+DROP TRIGGER /*!50033 IF EXISTS */ `dianomi_upd`//
+
+CREATE TRIGGER `dianomi_upd` AFTER UPDATE ON `dianomi` FOR EACH ROW BEGIN
+	DECLARE prin INTEGER;
+	DECLARE meta INTEGER;
+	SET prin = (OLD.`kasa1` + OLD.`kasa2` + OLD.`kasa3`) / 10;
+	SET meta = (NEW.`kasa1` + NEW.`kasa2` + NEW.`kasa3`) / 10;
+	IF (NEW.`trapezi` <> OLD.`trapezi`) THEN
+		UPDATE `trapezi` SET `pistosi` = `pistosi` - prin
+			WHERE `kodikos` = OLD.`trapezi`;
+		UPDATE `trapezi` SET `pistosi` = `pistosi` + meta
+			WHERE `kodikos` = NEW.`trapezi`;
+	ELSEIF (meta <> prin) THEN
+		UPDATE `trapezi` SET `pistosi` = `pistosi` - prin + meta
+			WHERE `kodikos` = NEW.`trapezi`;
+
+	END IF;
+END//
+
+DROP TRIGGER /*!50033 IF EXISTS */ `dianomi_del`//
+
+CREATE TRIGGER `dianomi_del` AFTER DELETE ON `dianomi` FOR EACH ROW BEGIN
+	UPDATE `trapezi` SET `pistosi` = `pistosi` -
+		((OLD.`kasa1` + OLD.`kasa2` + OLD.`kasa3`) / 10)
+	WHERE `kodikos` = OLD.`trapezi`;
+END//
+
 DELIMITER ;
