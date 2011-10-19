@@ -203,7 +203,7 @@ function sizitisi_area() {
 	</div>
 	<div id="sizitisiArea" class="pssArea sizitisiArea"
 		title="Κλικ για σταθεροποίηση/ρολάρισμα του κειμένου"
-		onclick="Sizitisi.scrollBottomDisabled=!Sizitisi.scrollBottomDisabled;">
+		onclick="Sizitisi.scrollBottomOnOff();">
 	<div id="sizitisiTrapezi" style="display: none;"></div>
 	<div id="sizitisiKafenio" style="display: none;"></div>
 	<div id="sxolioPreview"></div>
