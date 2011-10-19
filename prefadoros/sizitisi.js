@@ -247,10 +247,12 @@ var Sizitisi = new function() {
 		return html;
 	};
 
+	this.scrollBottomDisabled = false;
 	var scrollBottomTimer = null;
 
 	this.scrollBottom = function() {
 		if (isSet(scrollBottomTimer)) { return; }
+		if (this.scrollBottomDisabled) { return; }
 		var x = getelid('sizitisiArea');
 		if (notSet(x)) { return; }
 		scrollBottomTimer = setTimeout(function() {

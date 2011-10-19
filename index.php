@@ -201,7 +201,9 @@ function sizitisi_area() {
 			onclick="pss.sizitisi.afxisi(this);" alt="" />
 		</div>
 	</div>
-	<div id="sizitisiArea" class="pssArea sizitisiArea">
+	<div id="sizitisiArea" class="pssArea sizitisiArea"
+		title="Κλικ για σταθεροποίηση/ρολάρισμα του κειμένου"
+		onclick="Sizitisi.scrollBottomDisabled=!Sizitisi.scrollBottomDisabled;">
 	<div id="sizitisiTrapezi" style="display: none;"></div>
 	<div id="sizitisiKafenio" style="display: none;"></div>
 	<div id="sxolioPreview"></div>
