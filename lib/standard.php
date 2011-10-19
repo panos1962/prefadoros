@@ -623,6 +623,9 @@ class Page {
 			width="1" height="1" >
 		</form>
 		</div>
+		<a href="https://twitter.com/prefadorosTT" class="twitter-follow-button"
+			data-show-count="false">Follow @prefadorosTT</a>
+		<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
 		<?php
 		// self::statCounter();
 	}
