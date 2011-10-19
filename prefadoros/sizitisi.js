@@ -248,11 +248,18 @@ var Sizitisi = new function() {
 	};
 
 	this.scrollBottomDisabled = false;
+
+	this.scrollBottomOnOff = function() {
+		this.scrollBottomDisabled = !this.scrollBottomDisabled;
+		Sizitisi.scrollBottom();
+		Sizitisi.sxolioFocus();
+	};
+
 	var scrollBottomTimer = null;
 
 	this.scrollBottom = function() {
-		if (isSet(scrollBottomTimer)) { return; }
 		if (this.scrollBottomDisabled) { return; }
+		if (isSet(scrollBottomTimer)) { return; }
 		var x = getelid('sizitisiArea');
 		if (notSet(x)) { return; }
 		scrollBottomTimer = setTimeout(function() {
