@@ -251,8 +251,34 @@ var Sizitisi = new function() {
 
 	this.scrollBottomOnOff = function() {
 		this.scrollBottomDisabled = !this.scrollBottomDisabled;
-		Sizitisi.scrollBottom();
-		Sizitisi.sxolioFocus();
+		var x = getelid('sizitisiArea');
+		if (this.scrollBottomDisabled) {
+			var bi = [
+				'brick023.jpg',
+				'brick045.gif',
+				'brick051.jpg',
+				'brick054.jpg',
+				'brick056.jpg',
+				'brick069.jpg',
+				'brick070.jpg',
+				'brick075.gif'
+			];
+			if (isSet(x)) {
+				x.title = 'Κλικ για αυτόματο ρολάρισμα του κειμένου';
+				x.style.backgroundImage = 'url(' + globals.server +
+					'images/anagnosi/' +
+					bi[Math.floor(Math.random() * bi.length)] + ')';
+				mainFyi(x.style.backgroundImage);
+			}
+		}
+		else {
+			if (isSet(x)) {
+				x.title = 'Κλικ για απρόσκοπτη ανάγνωση του κειμένου';
+				x.style.backgroundImage = '';
+			}
+			Sizitisi.scrollBottom();
+			Sizitisi.sxolioFocus();
+		}
 	};
 
 	var scrollBottomTimer = null;
