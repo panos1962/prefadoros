@@ -254,21 +254,14 @@ var Sizitisi = new function() {
 		var x = getelid('sizitisiArea');
 		if (this.scrollBottomDisabled) {
 			var bi = [
-				'brick023.jpg',
-				'brick045.gif',
-				'brick051.jpg',
-				'brick054.jpg',
 				'brick056.jpg',
-				'brick069.jpg',
-				'brick070.jpg',
-				'brick075.gif'
+				'brick070.jpg'
 			];
 			if (isSet(x)) {
 				x.title = 'Κλικ για αυτόματο ρολάρισμα του κειμένου';
 				x.style.backgroundImage = 'url(' + globals.server +
 					'images/anagnosi/' +
 					bi[Math.floor(Math.random() * bi.length)] + ')';
-				mainFyi(x.style.backgroundImage);
 			}
 		}
 		else {
