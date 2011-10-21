@@ -385,8 +385,9 @@ class Page {
 	public static function motd() {
 		global $globals;
 
+		$motd1 = "motd_all.html";
 		if (@file_exists($motd1) && @is_readable($motd1)) {
-			$motd1 = @file_get_contents("motd_all.html");
+			$motd1 = @file_get_contents($motd1);
 		}
 		else {
 			$motd1 = FALSE;
