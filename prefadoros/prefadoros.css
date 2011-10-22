@@ -188,6 +188,10 @@ body {
 	border-width: 0.10cm;
 	border-color: #6B8E23;
 	background-color: #8AA886;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 }
 
 .pektis1Main {
@@ -295,6 +299,10 @@ body {
 	margin-bottom: 1px;
 	padding-left: 3px;
 	padding-bottom: 2px;
+
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
 }
 
 .kafenio {
@@ -386,6 +394,10 @@ body {
 	max-width: 2.8cm;
 
 	border-width: 0.08cm;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 }
 
 .kafenioTrapeziInfo {
