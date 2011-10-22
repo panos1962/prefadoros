@@ -280,7 +280,7 @@ var Partida = new function() {
 
 	this.pektis3HTML = function() {
 		var html = '';
-		html += '<div class="pektis3';
+		html += '<div class="pektis pektis3';
 		if (isTheatis()) { html += ' theatis'; }
 		html += '"';
 		html += Partida.thesiTheasisHTML(3);
@@ -301,7 +301,7 @@ var Partida = new function() {
 
 	this.pektis2HTML = function() {
 		var html = '';
-		html += '<div class="pektis2';
+		html += '<div class="pektis pektis2';
 		if (isTheatis()) { html += ' theatis'; }
 		html += '"';
 		html += Partida.thesiTheasisHTML(2);
@@ -322,7 +322,7 @@ var Partida = new function() {
 
 	this.pektis1HTML = function() {
 		var html = '';
-		html += '<div class="pektis1';
+		html += '<div class="pektis pektis1';
 		if (isDianomi()) { html += ' pektis1akri'; }
 		if (isTheatis()) { html += ' theatis'; }
 		html += '">';

@@ -128,47 +128,41 @@ body {
 	cursor: pointer;
 }
 
-.pektis3 {
+.pektis {
 	position: absolute;
+
+	width: 6.0cm;
+	height: 3.2cm;
+
+	background-color: #8AA886;
+	border-style: dotted;
+	border-color: #4D944D;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+	
+
+.pektis3 {
 	left: 0.2cm;
 	top: 0.66cm;
 
-	width: 6.0cm;
-	height: 3.2cm;
-
-	background-color: #8AA886;
-	border-style: dotted;
 	border-width: 0 0 1px 1px;
-	border-color: #4D944D;
 }
 
 .pektis2 {
-	position: absolute;
 	right: 0.2cm;
 	top: 0.66cm;
 
-	width: 6.0cm;
-	height: 3.2cm;
-
-	background-color: #8AA886;
-	border-style: dotted;
-	border-width: 0 0 1px 1px;
 	border-width: 0 1px 1px 0;
-	border-color: #4D944D;
 }
 
 .pektis1 {
-	position: absolute;
 	left: 3.6cm;
 	bottom: 0.66cm;
 
-	width: 6.0cm;
-	height: 3.2cm;
-
-	background-color: #8AA886;
-	border-style: dotted;
 	border-width: 1px 0 0 1px;
-	border-color: #4D944D;
 }
 
 .pektis1akri {
@@ -1035,6 +1029,10 @@ font-weight: normal;
 	font-family: "Comic Sans MS", cursive;
 	font-size: 0.50cm;;
 	font-weight: bold;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 }
 
 .pasoSimetoxi3 {
