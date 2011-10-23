@@ -169,7 +169,7 @@ function print_panel() {
 	$item_list[] = new Item("ipoklinome.gif", "Υποκλίνομαι!");
 	$item_list[] = new Item("mikrosIseAkoma.gif", "Μικρός είσαι ακόμη. Θα μάθεις.", 2.2);
 	$item_list[] = new Item("bebisEmoticon.gif");
-	$item_list[] = new Item("oliEfxaristimeni.gif", "Όλοι ευχαριστημένοι!");
+	$item_list[] = new Item("oliEfxaristimeni.gif");
 	$item_list[] = new Item("oliOk.gif", "Όλοι ευχαριστημένοι!");
 	$item_list[] = new Item("prosexe.gif");
 	$item_list[] = new Item("mrBean.gif", "", 4.6);
@@ -316,7 +316,7 @@ function print_panel() {
 	$item_list[] = new Item("ouranosSfontili.gif", "Ωχ!", "", "doing");
 	$item_list[] = new Item("klania.gif", "Σόρι παιδιά…", "", "klania");
 	$item_list[] = new Item("laptopEmoticon.gif");
-	$item_list[] = new Item("piramaEmoticon.gif", "Λέω να κάνω ένα πείραμα…", 3.2);
+	$item_list[] = new Item("piramaEmoticon.gif", "Είπα να κάνω ένα πείραμα…", 3.2);
 	$item_list[] = new Item("vivlioEmoticon.gif",
 		"Κάτσε να δω τι λέει ο Σαραντάκος γι αυτή την περίπτωση…");
 
