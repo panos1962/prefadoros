@@ -42,6 +42,8 @@ if ($globals->is_pektis()) {
 }
 Page::toolbar();
 ?>
+<div id="motto" class="motto" title="Κλικ για απόκρυψη"
+	onclick="this.style.display='none';"></div>
 <div class="mainArea">
 <?php
 Page::fyi();
