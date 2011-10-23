@@ -1323,3 +1323,41 @@ font-weight: bold;
 	filter: alpha(opacity=30);
 	cursor: pointer;
 }
+
+.motto {
+	position: absolute;
+	top: 6.0cm;
+	left: 1.0cm;
+	display: none;
+	margin-right: 1.0cm;
+	z-index: 1;
+
+	font-family: "Comic Sans MS", cursive;
+	color: #005A5A;
+
+	background-color: #FFFFFF;
+	background-repeat: repeat;
+	padding: 0.2cm 0.4cm 0.2cm 0.4cm;
+	border-style: groove;
+	border-width: 4px;
+	border-color: #999966;
+	cursor: pointer;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	user-select: text;
+	-moz-user-select: text;
+	-webkit-user-select: text;
+	-o-user-select: text;
+	-khtml-user-select: text;
+	-ms-user-select: text;
+}
+
+.mottoAuthor {
+	margin-top: 0.2cm;
+	font-style: italic;
+	color: #DC143C;
+	text-align: right;
+}
