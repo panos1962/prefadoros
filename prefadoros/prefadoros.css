@@ -1330,7 +1330,7 @@ font-weight: bold;
 	left: 1.0cm;
 	display: none;
 	margin-right: 1.0cm;
-	z-index: 1;
+	z-index: 20;
 
 	font-family: "Comic Sans MS", cursive;
 	color: #005A5A;
