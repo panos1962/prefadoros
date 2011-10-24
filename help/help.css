@@ -22,6 +22,14 @@ li {
 	margin-bottom: 0.4cm;
 }
 
+.helpIpotitlos {
+	background-color: #FFFFFF;
+	font-weight: normal;
+	font-size: 100%;
+	margin-bottom: -0.4cm;
+	text-decoration: underline;
+}
+
 .helpKimeno {
 	background-color: #FFFFFF;
 	line-height: 150%;
