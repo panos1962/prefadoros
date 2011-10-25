@@ -483,6 +483,39 @@ var Pexnidi = new function() {
 		return (count >= 4);
 	};
 
+	var agoraData = {};
+
+	this.kaneAgora = function() {
+		Pexnidi.anamoniEpilogis(agoraData.div);
+		Pexnidi.addKinisi('ΑΓΟΡΑ', agoraData.agora + ':' + agoraData.neaFila);
+		agoraData.dialogos.style.display = 'none';
+		agoraData = {};
+	};
+
+	this.akiriAgora = function() {
+		agoraData.dialogos.style.display = 'none';
+		agoraData = {};
+	};
+
+	this.confirmAgora = function() {
+		agoraData.dialogos = getelid('dialogos');
+		if (notSet(agoraData.dialogos)) { return; }
+
+		var html = '';
+		html += '<div>Να γίνει αγορά ' + Tools.decodeAgora(agoraData.agora) +
+			';' + '</div><br />';
+		html += '<div class="dialogosYesNo" onclick="Pexnidi.kaneAgora();" ' +
+			'onmouseover="this.style.backgroundColor=\'#FFFF33\';" ' +
+			'onmouseout="this.style.backgroundColor=\'#FFFF99\';">ΝΑΙ</div>';
+		html += '<div class="dialogosYesNo" onclick="Pexnidi.akiriAgora();" ' +
+			'onmouseover="this.style.backgroundColor=\'#FFFF33\';" ' +
+			'onmouseout="this.style.backgroundColor=\'#FFFF99\';">ΑΚΥΡΟ</div>';
+
+		agoraData.dialogos.innerHTML = html;
+		agoraData.dialogos.style.display = 'inline';
+		agoraData.dialogos.style.zIndex = 1;
+	};
+
 	this.epilogiAgoras = function(div, dxb) {
 		Sizitisi.sxolioFocus();
 		var de = dxb.substr(0, 1);
@@ -498,10 +531,10 @@ var Pexnidi = new function() {
 			neaFila += fila[i];
 		}
 
-		if (confirm('Να γίνει αγορά ' + Tools.decodeAgora(agora) + ';')) {
-			Pexnidi.anamoniEpilogis(div);
-			Pexnidi.addKinisi('ΑΓΟΡΑ', agora + ':' + neaFila);
-		}
+		agoraData.agora = agora;
+		agoraData.neaFila = neaFila;
+		agoraData.div = div;
+		this.confirmAgora();
 	};
 
 	this.epilogiSolo = function(div, dxb) {
