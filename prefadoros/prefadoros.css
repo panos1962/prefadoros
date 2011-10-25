@@ -1361,3 +1361,38 @@ font-weight: bold;
 	color: #DC143C;
 	text-align: right;
 }
+
+.dialogos {
+	position: absolute;
+	top: 5.5cm;
+	left: 3.4cm;
+	display: none;
+	z-index: 10;
+
+	font-style: italic;
+
+	padding: 0.4cm 0.6cm 0.6cm 0.6cm;
+	border-style: double;
+	border-width: 3px;
+	border-color: #999966;
+	background-color: #FFEB99;
+	background-color: #FFF0B2;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.dialogosYesNo {
+	display: inline;
+
+	font-style: normal;
+	background-color: #FFFF99;
+
+	border-width: 1px;
+	border-style: outset;
+	padding: 0.1cm 0.2cm 0.1cm 0.2cm;
+	margin-right: 1.0cm;
+
+	cursor: pointer;
+}

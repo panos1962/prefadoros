@@ -183,6 +183,7 @@ var Partida = new function() {
 		if (partida.theatis) { html += ' partidaTheatis'; }
 		if (partida.prive) { html += ' partidaPrive'; }
 		html += '">';
+		html += '<div id="dialogos" class="dialogos"></div>';
 
 		if (pexnidi.ipolipo <= 0) {
 			html += Partida.telosHTML();
