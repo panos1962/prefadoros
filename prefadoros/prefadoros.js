@@ -108,6 +108,9 @@ var Prefadoros = new function() {
 		}
 
 		if (isSet(fs) && fs) { Sizitisi.sxolioFocus(); }
+		if (isSet(Pexnidi) && isSet(Pexnidi.agoraData) && isSet(Pexnidi.agoraData.agora)) {
+			Pexnidi.confirmAgora();
+		}
 		return false;
 	};
 
