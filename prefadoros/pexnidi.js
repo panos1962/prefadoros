@@ -483,26 +483,26 @@ var Pexnidi = new function() {
 		return (count >= 4);
 	};
 
-	var agoraData = {};
+	this.agoraData = {};
 
 	this.kaneAgora = function() {
-		Pexnidi.anamoniEpilogis(agoraData.div);
-		Pexnidi.addKinisi('ΑΓΟΡΑ', agoraData.agora + ':' + agoraData.neaFila);
-		agoraData.dialogos.style.display = 'none';
-		agoraData = {};
+		Pexnidi.anamoniEpilogis(Pexnidi.agoraData.div);
+		Pexnidi.addKinisi('ΑΓΟΡΑ', Pexnidi.agoraData.agora + ':' + Pexnidi.agoraData.neaFila);
+		Pexnidi.agoraData.dialogos.style.display = 'none';
+		Pexnidi.agoraData = {};
 	};
 
 	this.akiriAgora = function() {
-		agoraData.dialogos.style.display = 'none';
-		agoraData = {};
+		Pexnidi.agoraData.dialogos.style.display = 'none';
+		Pexnidi.agoraData = {};
 	};
 
 	this.confirmAgora = function() {
-		agoraData.dialogos = getelid('dialogos');
-		if (notSet(agoraData.dialogos)) { return; }
+		Pexnidi.agoraData.dialogos = getelid('dialogos');
+		if (notSet(Pexnidi.agoraData.dialogos)) { return; }
 
 		var html = '';
-		html += '<div>Να γίνει αγορά ' + Tools.decodeAgora(agoraData.agora) +
+		html += '<div>Να γίνει αγορά ' + Tools.decodeAgora(Pexnidi.agoraData.agora) +
 			';' + '</div><br />';
 		html += '<div class="dialogosYesNo" onclick="Pexnidi.kaneAgora();" ' +
 			'onmouseover="this.style.backgroundColor=\'#FFFF33\';" ' +
@@ -511,9 +511,9 @@ var Pexnidi = new function() {
 			'onmouseover="this.style.backgroundColor=\'#FFFF33\';" ' +
 			'onmouseout="this.style.backgroundColor=\'#FFFF99\';">ΑΚΥΡΟ</div>';
 
-		agoraData.dialogos.innerHTML = html;
-		agoraData.dialogos.style.display = 'inline';
-		agoraData.dialogos.style.zIndex = 1;
+		Pexnidi.agoraData.dialogos.innerHTML = html;
+		Pexnidi.agoraData.dialogos.style.display = 'inline';
+		Pexnidi.agoraData.dialogos.style.zIndex = 1;
 	};
 
 	this.epilogiAgoras = function(div, dxb) {
@@ -531,9 +531,9 @@ var Pexnidi = new function() {
 			neaFila += fila[i];
 		}
 
-		agoraData.agora = agora;
-		agoraData.neaFila = neaFila;
-		agoraData.div = div;
+		Pexnidi.agoraData.agora = agora;
+		Pexnidi.agoraData.neaFila = neaFila;
+		Pexnidi.agoraData.div = div;
 		this.confirmAgora();
 	};
 
