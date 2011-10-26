@@ -497,13 +497,30 @@ var Pexnidi = new function() {
 		Pexnidi.agoraData = {};
 	};
 
+	this.confirmAsoiHTML = function() {
+		var html = '';
+		html = '<div class="dialogosAsoiArea">';
+		html += '<img class="dialogosAsoiIcon';
+		if (!Pexnidi.agoraData.asoi) { html += ' dialogosAsoiOff'; }
+		html += '" src="' + globals.server + 'images/trapoula/asoi.png" alt="" />';
+		html += '<input type="checkbox" ';
+		if (Pexnidi.agoraData.asoi) { html += 'checked="checked" '; }
+		html += 'onclick="Pexnidi.agoraData.asoi=!Pexnidi.agoraData.asoi;' +
+			'Pexnidi.confirmAgora();" />';
+		html += '</div>';
+		return html;
+	};
+
 	this.confirmAgora = function() {
 		Pexnidi.agoraData.dialogos = getelid('dialogos');
 		if (notSet(Pexnidi.agoraData.dialogos)) { return; }
+		Pexnidi.agoraData.agora = (Pexnidi.agoraData.asoi ?  'Y' : 'N') +
+			Pexnidi.agoraData.xroma + Pexnidi.agoraData.bazes;
 
 		var html = '';
 		html += '<div>Να γίνει αγορά ' + Tools.decodeAgora(Pexnidi.agoraData.agora) +
 			';' + '</div><br />';
+		if (Pexnidi.isAsoi()) { html += Pexnidi.confirmAsoiHTML(); }
 		html += '<div class="dialogosYesNo" onclick="Pexnidi.kaneAgora();" ' +
 			'onmouseover="this.style.backgroundColor=\'#FFFF33\';" ' +
 			'onmouseout="this.style.backgroundColor=\'#FFFF99\';">ΝΑΙ</div>';
@@ -518,11 +535,6 @@ var Pexnidi = new function() {
 
 	this.epilogiAgoras = function(div, dxb) {
 		Sizitisi.sxolioFocus();
-		var de = dxb.substr(0, 1);
-		var xroma = dxb.substr(1, 1);
-		var bazes = dxb.substr(2, 1);
-		var agora = ((Pexnidi.isAsoi() && confirm('Θα δηλώσετε τους τέσσερις άσους;')) ?
-			'Y' : 'N') + xroma + bazes;
 
 		var fila = pexnidi.fila[1];
 		var neaFila = '';
@@ -531,7 +543,9 @@ var Pexnidi = new function() {
 			neaFila += fila[i];
 		}
 
-		Pexnidi.agoraData.agora = agora;
+		Pexnidi.agoraData.xroma = dxb.substr(1, 1);
+		Pexnidi.agoraData.bazes = dxb.substr(2, 1);
+		Pexnidi.agoraData.asoi = Pexnidi.isAsoi();
 		Pexnidi.agoraData.neaFila = neaFila;
 		Pexnidi.agoraData.div = div;
 		this.confirmAgora();

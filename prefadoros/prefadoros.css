@@ -1396,3 +1396,19 @@ font-weight: bold;
 
 	cursor: pointer;
 }
+
+.dialogosAsoiArea {
+	display: inline;
+	width: 3.0cm;
+	margin-right: 1.0cm;
+}
+
+.dialogosAsoiIcon {
+	width: 1.0cm;
+	margin-bottom: -0.2cm;
+}
+
+.dialogosAsoiOff {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
