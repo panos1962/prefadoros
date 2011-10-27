@@ -10,8 +10,8 @@ $login = "'" . $globals->asfales($globals->pektis->login) . "'";
 Globals::perastike_check('pektis');
 $pektis = "'" . $globals->asfales($_REQUEST['pektis']) . "'";
 
-$query = "DELETE FROM `sxesi` WHERE (`pektis` LIKE " . $login .
-	") AND (`sxetizomenos` LIKE " . $pektis . ")";
+$query = "DELETE FROM `sxesi` WHERE (`pektis` = " . $login .
+	") AND (`sxetizomenos` = " . $pektis . ")";
 $result = @mysqli_query($globals->db, $query);
 if (!$result) {
 	@mysqli_rollback($globals->db);

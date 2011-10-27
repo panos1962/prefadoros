@@ -14,7 +14,7 @@ if (Prefadoros::set_trapezi()) {
 
 @mysqli_autocommit($globals->db, FALSE);
 
-$query = "DELETE FROM `theatis` WHERE `pektis` LIKE " . $slogin;
+$query = "DELETE FROM `theatis` WHERE `pektis` = " . $slogin;
 $globals->sql_query($query);
 
 $query = "INSERT INTO `trapezi` (`pektis1`) VALUES (" . $slogin . ")";

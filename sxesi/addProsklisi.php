@@ -52,8 +52,8 @@ function check_katastasi($pion, $filos) {
 function check_apoklismos($pion) {
 	global $globals;
 	global $slogin;
-	$query = "SELECT `status` FROM `sxesi` WHERE `pektis` LIKE '" .
-		$globals->asfales($pion) . "' AND `sxetizomenos` LIKE " . $slogin;
+	$query = "SELECT `status` FROM `sxesi` WHERE `pektis` = '" .
+		$globals->asfales($pion) . "' AND `sxetizomenos` = " . $slogin;
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) { return(FALSE); }

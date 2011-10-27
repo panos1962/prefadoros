@@ -18,7 +18,7 @@ if (($globals->trapezi->kasa += $dif) < 0) {
 }
 
 $query = "UPDATE `trapezi` SET `kasa` = " . $globals->trapezi->kasa .
-	" WHERE `kodikos` LIKE " . $globals->trapezi->kodikos;
+	" WHERE `kodikos` = " . $globals->trapezi->kodikos;
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	die('Απέτυχε η αλλαγή της κάσας');
