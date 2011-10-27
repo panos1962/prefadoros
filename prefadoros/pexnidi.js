@@ -196,6 +196,10 @@ var Pexnidi = new function() {
 		}
 	};
 
+	var enalagiXromaton = {
+		'lalaridi':1
+	};
+
 	this.spaseFila = function(s) {
 		var fila = [];
 		if (notSet(s) || (s.length < 2)) { return fila; }
@@ -221,16 +225,18 @@ var Pexnidi = new function() {
 			else if (alif[i].match(/^R/)) { red++; }
 		}
 
-		/*
-		if (pikes > 0) {
-			if (spathia == 0) { var sira = [ 'D', 'S', 'H', 'B', 'R' ]; }
-			else if (kara > 0) { sira = [ 'S', 'D', 'C', 'H', 'B', 'R' ]; }
-			else { sira = [ 'S', 'H', 'C', 'B', 'R' ]; }
+		if (isPektis() && enalagiXromaton.hasOwnProperty(pektis.login)) {
+			if (pikes > 0) {
+				if (spathia == 0) { var sira = [ 'D', 'S', 'H', 'B', 'R' ]; }
+				else if (kara > 0) { sira = [ 'S', 'D', 'C', 'H', 'B', 'R' ]; }
+				else { sira = [ 'S', 'H', 'C', 'B', 'R' ]; }
+			}
+			else if (spathia > 0) { var sira = [ 'D', 'C', 'H', 'B', 'R' ]; }
+			else { sira = [ 'D', 'H', 'B', 'R' ]; }
 		}
-		else if (spathia > 0) { var sira = [ 'D', 'C', 'H', 'B', 'R' ]; }
-		else { var sira = [ 'D', 'H', 'B', 'R' ]; }
-		*/
-		var sira = [ 'S', 'D', 'C', 'H', 'B', 'R' ];
+		else {
+			sira = [ 'S', 'D', 'C', 'H', 'B', 'R' ];
+		}
 
 		var idx = 0;
 
