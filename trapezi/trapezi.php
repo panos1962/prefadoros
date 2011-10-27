@@ -108,8 +108,8 @@ class Trapezi {
 		}
 
 		if ($stmnt2 == NULL) {
-			$query = self::select_clause() . "((`pektis1` LIKE ?) OR (`pektis2` LIKE ?) " .
-				"OR (`pektis3` LIKE ?)) AND (`telos` IS NULL) " .
+			$query = self::select_clause() . "((`pektis1` = ?) OR (`pektis2` = ?) " .
+				"OR (`pektis3` = ?)) AND (`telos` IS NULL) " .
 				"ORDER BY `kodikos` DESC LIMIT 1";
 			$stmnt2 = $globals->db->prepare($query);
 			if (!$stmnt2) {
@@ -259,7 +259,7 @@ class Trapezi {
 		}
 
 		$query = "SELECT * FROM `prosklisi` WHERE (`trapezi` = " .
-			$this->kodikos . ") AND (`pion` LIKE '" .
+			$this->kodikos . ") AND (`pion` = '" .
 			$globals->asfales($pektis) . "')";
 		$result = $globals->sql_query($query);
 		if (!$result) { return(FALSE); }

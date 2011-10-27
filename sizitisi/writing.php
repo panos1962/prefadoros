@@ -26,7 +26,7 @@ default:
 // σχόλια για τον παίκτη.
 $prosfata = time() - WRITING_CLEANUP;
 $query = "UPDATE `sizitisi` SET `sxolio` = '" . $globals->asfales($sxolio) .
- 	"', `trapezi` = " . $trapezi . " WHERE (`pektis` LIKE " .
+ 	"', `trapezi` = " . $trapezi . " WHERE (`pektis` = " .
 	$globals->pektis->slogin . ") AND (`sxolio` REGEXP '^@W[PK]@$') " .
 	"AND (UNIX_TIMESTAMP(`pote`) > " . $prosfata . ")";
 @mysqli_query($globals->db, $query);
