@@ -201,7 +201,7 @@ class Prefadoros {
 		// πρόσκληση από άλλο τραπέζι).
 
 		if ($trapezi->is_theatis()) {
-			$query = "DELETE FROM `theatis` WHERE `pektis` LIKE " . $slogin;
+			$query = "DELETE FROM `theatis` WHERE `pektis` = " . $slogin;
 			$globals->sql_query($query);
 			if (@mysqli_affected_rows($globals->db) != 1) {
 				print 'Απέτυχε η έξοδος του παίκτη "' . $pektis->login .
@@ -234,7 +234,7 @@ class Prefadoros {
 		// Καλού κακού διαγράφουμε πρώτα τυχόν άλλη συμμετοχή αυτού
 		// του τραπεζιού για την ίδια θέση ή για τον ίδιο παίκτη.
 		$query = "DELETE FROM `simetoxi` WHERE (`trapezi` = " .
-			$trapezi->kodikos . ") AND ((`pektis` LIKE " . $slogin .
+			$trapezi->kodikos . ") AND ((`pektis` = " . $slogin .
 			") OR (`thesi` = " . $trapezi->thesi . "))";
 		$globals->sql_query($query);
 
@@ -431,11 +431,11 @@ class Prefadoros {
 
 		$query = "INSERT INTO `sinedria_log` (`kodikos`, `pektis`, `ip`, " .
 			"`dimiourgia`, `enimerosi`, `telos`) SELECT `kodikos`, `pektis`, `ip`, " .
-			"`dimiourgia`, `enimerosi`, NOW() FROM `sinedria` WHERE `pektis` LIKE " .
+			"`dimiourgia`, `enimerosi`, NOW() FROM `sinedria` WHERE `pektis` = " .
 			$globals->pektis->slogin;
 		@mysqli_query($globals->db, $query);
 
-		$query = "DELETE FROM `sinedria` WHERE `pektis` LIKE " . $globals->pektis->slogin;
+		$query = "DELETE FROM `sinedria` WHERE `pektis` = " . $globals->pektis->slogin;
 		$globals->sql_query($query);
 	}
 }

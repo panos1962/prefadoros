@@ -34,13 +34,13 @@ function apo_pektis_theatis() {
 	}
 
 	// Διαγράφουμε τυχόν εγγραφή του παίκτη ως θεατή.
-	$query = "DELETE FROM `theatis` WHERE `pektis` LIKE " . $slogin;
+	$query = "DELETE FROM `theatis` WHERE `pektis` = " . $slogin;
 	$globals->sql_query($query);
 
 	// Διαγράφουμε τυχόν εγγραφές συμμετοχής στο τραπέζι για τον
 	// ίδιο παίκτη, ή για την ίδια θέση.
 	$query = "DELETE FROM `simetoxi` WHERE (`trapezi` = " .
-		$globals->trapezi->kodikos . ") AND ((`pektis` LIKE " .
+		$globals->trapezi->kodikos . ") AND ((`pektis` = " .
 		$slogin . ") OR (`thesi` = " . $globals->trapezi->thesi . "))";
 	$globals->sql_query($query);
 
@@ -88,7 +88,7 @@ function apo_theatis_pektis() {
 	}
 
 	// Διαγράφουμε την εγγραφή του παίκτη ως θεατή.
-	$query = "DELETE FROM `theatis` WHERE `pektis` LIKE " . $slogin;
+	$query = "DELETE FROM `theatis` WHERE `pektis` = " . $slogin;
 	$globals->sql_query($query);
 	if (mysqli_affected_rows($globals->db) != 1) {
 		@mysqli_rollback($globals->db);

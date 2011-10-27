@@ -74,7 +74,7 @@ function fila_tzogou($dianomi) {
 	global $globals;
 
 	$query = "SELECT `data` FROM `kinisi` WHERE (`dianomi` = " .
-		$dianomi . ") AND (`idos` LIKE 'ΔΙΑΝΟΜΗ')";
+		$dianomi . ") AND (`idos` = 'ΔΙΑΝΟΜΗ')";
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) {

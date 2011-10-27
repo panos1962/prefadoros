@@ -19,7 +19,7 @@ $dianomi = $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
 Prefadoros::klidose_trapezi();
 
 $query = "DELETE FROM `kinisi` WHERE (`dianomi` = " .
-	$dianomi . ") AND (`idos` LIKE 'CLAIM')";
+	$dianomi . ") AND (`idos` = 'CLAIM')";
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) < 1) {
 	Prefadoros::xeklidose_trapezi(FALSE);

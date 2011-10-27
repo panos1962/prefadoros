@@ -9,8 +9,8 @@ set_globals();
 Prefadoros::pektis_check();
 
 if (Globals::perastike('oles')) {
-	$query = "DELETE FROM `prosklisi` WHERE (`pios` LIKE " .
-		$globals->pektis->slogin . ") OR (`pion` LIKE " .
+	$query = "DELETE FROM `prosklisi` WHERE (`pios` = " .
+		$globals->pektis->slogin . ") OR (`pion` = " .
 		$globals->pektis->slogin . ")";
 	$errmsg = "των προσκλήσεων";
 }

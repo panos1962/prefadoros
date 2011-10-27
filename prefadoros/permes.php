@@ -140,8 +140,8 @@ class Permes {
 		$permes = array();
 		$query = "SELECT `kodikos`, `apostoleas`, `minima`, `katastasi`, " .
 			"UNIX_TIMESTAMP(`dimiourgia`) AS `dimiourgia` " .
-			"FROM `minima` WHERE (`paraliptis` LIKE " . $slogin .
-			") AND (`katastasi` LIKE 'ΝΕΟ') ORDER BY `kodikos`";
+			"FROM `minima` WHERE (`paraliptis` = " . $slogin .
+			") AND (`katastasi` = 'ΝΕΟ') ORDER BY `kodikos`";
 		$result = $globals->sql_query($query);
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$p = new Permes;
