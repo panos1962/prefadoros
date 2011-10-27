@@ -6,8 +6,6 @@ Page::data();
 set_globals();
 Prefadoros::pektis_check();
 
-$login = $globals->asfales($globals->pektis->login);
-
 Globals::perastike_check('onoma');
 $onoma = $globals->asfales($_REQUEST['onoma']);
 
@@ -31,7 +29,8 @@ $query = "UPDATE `pektis` SET `onoma` = '" . $onoma .
 if (Globals::perastike('password1') && ($_REQUEST['password1'])) {
 	$query .= ", `password` = '" . sha1($globals->asfales($_REQUEST['password1'])) . "'";
 }
-$query .= " WHERE `login` LIKE '" . $login . "' AND `password` LIKE '" . sha1($password) . "'";
+$query .= " WHERE `login` = " . $globals->pektis->slogin .
+	" AND `password` = '" . sha1($password) . "'";
 
 $result = $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {

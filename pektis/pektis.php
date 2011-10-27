@@ -44,9 +44,9 @@ class Pektis {
 
 		$query = "SELECT *, UNIX_TIMESTAMP(`poll`) AS `poll`, " .
 			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
-			"FROM `pektis` WHERE `login` LIKE '" . $globals->asfales($login) . "'";
+			"FROM `pektis` WHERE `login` = '" . $globals->asfales($login) . "'";
 		if (isset($password)) {
-			$query .= " AND `password` LIKE '" . $globals->asfales($password) . "'";
+			$query .= " AND `password` = '" . $globals->asfales($password) . "'";
 		}
 
 		$result = @mysqli_query($globals->db, $query);
@@ -86,7 +86,7 @@ class Pektis {
 	public function poll_update($sinedria, $id) {
 		global $globals;
 
-		$query = "UPDATE `pektis` SET `poll` = NOW() WHERE `login` LIKE " .
+		$query = "UPDATE `pektis` SET `poll` = NOW() WHERE `login` = " .
 			"'" . $this->login . "'";
 		$globals->sql_query($query);
 
@@ -147,7 +147,7 @@ class Pektis {
 
 		if ($stmnt == NULL) {
 			$query = "SELECT `minimadirty`, `prosklidirty`, `sxesidirty` " .
-				"FROM `pektis` WHERE `login` LIKE ?";
+				"FROM `pektis` WHERE `login` = ?";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
 				die($errmsg . $query . ": failed to prepare");
@@ -165,7 +165,7 @@ class Pektis {
 
 		if ($this->minimadirty || $this->prosklidirty || $this->sxesidirty) {
 			$query = "UPDATE `pektis` SET `minimadirty` = 'NO', `prosklidirty` = 'NO', " .
-				"`sxesidirty` = 'NO' WHERE `login` LIKE " . $this->slogin;
+				"`sxesidirty` = 'NO' WHERE `login` = " . $this->slogin;
 			$globals->sql_query($query);
 		}
 	}
