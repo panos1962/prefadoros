@@ -70,7 +70,7 @@ class Sxesi {
 		if ((!isset($sxetizomenos)) || $globals->pektis->sxesidirty) {
 			$sxetizomenos = array();
 			$query = "SELECT `sxetizomenos`, `status` FROM `sxesi` " .
-				"WHERE `pektis` LIKE " . $globals->pektis->slogin;
+				"WHERE `pektis` = " . $globals->pektis->slogin;
 			$result = $globals->sql_query($query);
 			while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
 				$sxetizomenos[$row[0]] = $row[1];
@@ -258,7 +258,7 @@ class Sxesi {
 			}
 			else {
 				$query .= "WHERE (`login` IN (SELECT `sxetizomenos` FROM `sxesi` " .
-					"WHERE `pektis` LIKE " . $globals->pektis->slogin . "))";
+					"WHERE `pektis` = " . $globals->pektis->slogin . "))";
 			}
 			$query .= "ORDER BY `login`";
 			$stmnt = $globals->db->prepare($query);

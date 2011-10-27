@@ -12,14 +12,14 @@ $slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
 $query = "SELECT *, UNIX_TIMESTAMP(`dimiourgia`) AS `pote` FROM `minima` WHERE ";
 if (Globals::perastike('exer') && Globals::perastike('iser')) {
-	$query .= "(`apostoleas` LIKE " . $slogin . ") OR " .
-		"(`paraliptis` LIKE " . $slogin . ")";
+	$query .= "(`apostoleas` = " . $slogin . ") OR " .
+		"(`paraliptis` = " . $slogin . ")";
 }
 elseif (Globals::perastike('exer')) {
-	$query .= "(`apostoleas` LIKE " . $slogin . ")";
+	$query .= "(`apostoleas` = " . $slogin . ")";
 }
 elseif (Globals::perastike('iser')) {
-	$query .= "(`paraliptis` LIKE " . $slogin . ")";
+	$query .= "(`paraliptis` = " . $slogin . ")";
 }
 else {
 	die(0);

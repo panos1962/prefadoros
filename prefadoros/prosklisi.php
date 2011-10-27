@@ -164,8 +164,8 @@ class Prosklisi {
 		$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 		$query = "SELECT `kodikos`, `pios`, `pion`, `trapezi`, " .
 			"UNIX_TIMESTAMP(`pote`) AS `pote` FROM `prosklisi` " .
-			"WHERE (`pios` LIKE " . $slogin . ") OR " .
-			"(`pion` LIKE " . $slogin . ") ORDER BY `kodikos` DESC"; 
+			"WHERE (`pios` = " . $slogin . ") OR " .
+			"(`pion` = " . $slogin . ") ORDER BY `kodikos` DESC"; 
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$p = new Prosklisi;

@@ -317,7 +317,7 @@ class Sizitisi {
 		if (!isset($stmnt)) {
 			$query = self:: select_clause() .
 				"(`trapezi` = ?) OR ((UNIX_TIMESTAMP(`pote`) > ?) " .
-				"AND (`sxolio` LIKE '@WK@')) ORDER BY `kodikos`";
+				"AND (`sxolio` = '@WK@')) ORDER BY `kodikos`";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
 				die($errmsg . $query . ": failed to prepare");
@@ -465,7 +465,7 @@ class Sizitisi {
 
 		$prosfata = time() - WRITING_CLEANUP;
 		$query = "DELETE FROM `sizitisi` " .
-			"WHERE (`pektis` LIKE " . $globals->pektis->slogin . ") " .
+			"WHERE (`pektis` = " . $globals->pektis->slogin . ") " .
 			"AND (`sxolio` REGEXP '^@W[PK]@$') " .
 			"AND (UNIX_TIMESTAMP(`pote`) > " . $prosfata . ")";
 		$globals->sql_query($query);

@@ -71,7 +71,7 @@ function gine_theatis() {
 	global $trapezi;
 	global $strapezi;
 
-	$query = "DELETE FROM `theatis` WHERE `pektis` LIKE " . $slogin;
+	$query = "DELETE FROM `theatis` WHERE `pektis` = " . $slogin;
 	$globals->sql_query($query);
 
 	$query = "INSERT INTO `theatis` (`trapezi`, `thesi`, `pektis`) " .
@@ -127,7 +127,7 @@ function vres_simetoxi() {
 
 	$query = "SELECT `thesi` FROM `simetoxi` WHERE " .
 		"(`trapezi` = " . $strapezi . ") AND " .
-		"(`pektis` LIKE " . $slogin . ")";
+		"(`pektis` = " . $slogin . ")";
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result);
 	if (!$row) { return 1; }
