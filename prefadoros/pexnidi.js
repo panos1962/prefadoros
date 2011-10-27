@@ -486,6 +486,7 @@ var Pexnidi = new function() {
 	this.agoraData = {};
 
 	this.kaneAgora = function() {
+		Sizitisi.sxolioFocus();
 		Pexnidi.anamoniEpilogis(Pexnidi.agoraData.div);
 		Pexnidi.addKinisi('ΑΓΟΡΑ', Pexnidi.agoraData.agora + ':' + Pexnidi.agoraData.neaFila);
 		Pexnidi.agoraData.dialogos.style.display = 'none';
@@ -493,6 +494,7 @@ var Pexnidi = new function() {
 	};
 
 	this.akiriAgora = function() {
+		Sizitisi.sxolioFocus();
 		Pexnidi.agoraData.dialogos.style.display = 'none';
 		Pexnidi.agoraData = {};
 	};
@@ -535,7 +537,6 @@ var Pexnidi = new function() {
 
 	this.epilogiAgoras = function(div, dxb) {
 		Sizitisi.sxolioFocus();
-
 		var fila = pexnidi.fila[1];
 		var neaFila = '';
 		for (var i = 0; i < 12; i++) {
