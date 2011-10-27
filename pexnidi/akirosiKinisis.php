@@ -23,7 +23,7 @@ $query = "DELETE FROM `kinisi` WHERE (`dianomi` = " . $dianomi .
 $globals->sql_query($query);
 
 $query = "DELETE FROM `kinisi` WHERE (`dianomi` = " . $dianomi .
-	") AND (`idos` NOT = 'ΔΙΑΝΟΜΗ') ORDER BY `kodikos` DESC LIMIT 1";
+	") AND (`idos` <> 'ΔΙΑΝΟΜΗ') ORDER BY `kodikos` DESC LIMIT 1";
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(TRUE);
