@@ -10,7 +10,7 @@ $pektis = "'" . $globals->asfales($_REQUEST['pektis']) . "'";
 sleep(2);
 
 $ip = NULL;
-$query = "SELECT `ip` FROM `sinedria` WHERE `pektis` LIKE " . $pektis .
+$query = "SELECT `ip` FROM `sinedria` WHERE `pektis` = " . $pektis .
 	" ORDER BY `kodikos` DESC LIMIT 1";
 $result = @mysqli_query($globals->db, $query);
 if ($result) {
@@ -20,7 +20,7 @@ if ($result) {
 		$ip = $row[0];
 	}
 	else {
-		$query = "SELECT `ip` FROM `sinedria_log` WHERE `pektis` LIKE " . $pektis .
+		$query = "SELECT `ip` FROM `sinedria_log` WHERE `pektis` = " . $pektis .
 		" ORDER BY `kodikos` DESC LIMIT 1";
 		$result = @mysqli_query($globals->db, $query);
 		if ($result) {

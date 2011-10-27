@@ -6,15 +6,9 @@ Page::data();
 set_globals();
 Prefadoros::pektis_check();
 
-$login = $globals->asfales($globals->pektis->login);
 $katastasi = $globals->asfales(Globals::perastike_check('katastasi'));
 
 $query = "UPDATE `pektis` SET `katastasi` = '" . $katastasi .
-	"' WHERE `login` LIKE '" . $login . "'";
+	"' WHERE `login` = " . $globals->pektis->slogin;
 $globals->sql_query($query);
-/*
-if (mysqli_affected_rows($globals->db) != 1) {
-	die('Δεν έγινε αλλαγή κατάστασης');
-}
-*/
 ?>
