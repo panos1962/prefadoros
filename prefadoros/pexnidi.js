@@ -221,6 +221,7 @@ var Pexnidi = new function() {
 			else if (alif[i].match(/^R/)) { red++; }
 		}
 
+		/*
 		if (pikes > 0) {
 			if (spathia == 0) { var sira = [ 'D', 'S', 'H', 'B', 'R' ]; }
 			else if (kara > 0) { sira = [ 'S', 'D', 'C', 'H', 'B', 'R' ]; }
@@ -228,6 +229,8 @@ var Pexnidi = new function() {
 		}
 		else if (spathia > 0) { var sira = [ 'D', 'C', 'H', 'B', 'R' ]; }
 		else { var sira = [ 'D', 'H', 'B', 'R' ]; }
+		*/
+		var sira = [ 'S', 'D', 'C', 'H', 'B', 'R' ];
 
 		var idx = 0;
 
