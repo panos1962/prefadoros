@@ -295,7 +295,7 @@ function print_panel() {
 	$item_list[] = new Item("parathiro.gif", "");
 	$item_list[] = new Item("astrapesEmoticon.gif", "@#!%@^&#*!@");
 	$item_list[] = new Item("miGamiso.jpg", "", 2.0);
-	$item_list[] = new Item("kokiniKarta.jpg", "", 3.0);
+	$item_list[] = new Item("kokiniKarta.jpg", "", 3.0, "sfirixtra");
 	$item_list[] = new Item("binelikia.gif", "Δεν αντέχω τα μπινελίκια!");
 	$item_list[] = new Item("klotsiaArxidia.gif");
 	$item_list[] = new Item("taXoni.gif");
