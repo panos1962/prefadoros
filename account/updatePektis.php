@@ -21,11 +21,14 @@ else {
 Globals::perastike_check('plati');
 $plati = "'" . $globals->asfales($_REQUEST['plati']) . "'";
 
+Globals::perastike_check('enalagi');
+$enalagi = "'" . $globals->asfales($_REQUEST['enalagi']) . "'";
+
 Globals::perastike_check('password');
 $password = $globals->asfales($_REQUEST['password']);
 
-$query = "UPDATE `pektis` SET `onoma` = '" . $onoma .
-	"', `email` = " . $email . ", `plati` = " . $plati;
+$query = "UPDATE `pektis` SET `onoma` = '" . $onoma . "', `email` = " . $email .
+	", `plati` = " . $plati . ", `enalagi` = " . $enalagi;
 if (Globals::perastike('password1') && ($_REQUEST['password1'])) {
 	$query .= ", `password` = '" . sha1($globals->asfales($_REQUEST['password1'])) . "'";
 }

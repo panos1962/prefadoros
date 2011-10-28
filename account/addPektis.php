@@ -22,12 +22,15 @@ else {
 Globals::perastike_check('plati');
 $plati = "'" . $globals->asfales($_REQUEST['plati']) . "'";
 
+Globals::perastike_check('enalagi');
+$enalagi = "'" . $globals->asfales($_REQUEST['enalagi']) . "'";
+
 Globals::perastike_check('password');
 $password = $globals->asfales($_REQUEST['password']);
 
-$query = "INSERT INTO `pektis` (`login`, `onoma`, `email`, `plati`, " .
+$query = "INSERT INTO `pektis` (`login`, `onoma`, `email`, `plati`, `enalagi`, " .
 	"`poll`, `password`) VALUES ('" . $login . "', '" . $onoma . "', "
-	. $email . ", " . $plati . ", NOW(), '" . sha1($password) . "')";
+	. $email . ", " . $plati . ", " . $enalagi . ", NOW(), '" . sha1($password) . "')";
 $result = $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	print 'Δεν δημιουργήθηκε λογαριασμός (' . @mysqli_error($globals->db) . ')';
