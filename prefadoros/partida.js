@@ -347,6 +347,13 @@ var Partida = new function() {
 		return html;
 	};
 
+	var mavroKokino = {
+		'S':	'M',
+		'C':	'M',
+		'D':	'K',
+		'H':	'K'
+	};
+
 	this.filaHTML = function(fila) {
 		var html = '';
 		if (fila.length <= 0) { return html; }
@@ -357,6 +364,9 @@ var Partida = new function() {
 
 		Dekada.resetControls(fila.length);
 		var proto = ' style="margin-left: 0px;"';
+		var enalagi = (isPektis() && isSet(pektis.enalagi) && pektis.enalagi);
+		var prevXroma = '';
+		var prevMavroKokino = '';
 		for (var i = 0; i < fila.length; i++) {
 			html += '<div class="filaSira';
 			if (tzogos) { html += ' filaSiraSteno filoSteno'; }
@@ -364,6 +374,19 @@ var Partida = new function() {
 			proto = '';
 			html += '<img id="filo_' + i + '" class="filaSiraIcon';
 			if (tzogos) { html += ' filoSteno'; }
+			if (!enalagi) {
+				var curXroma = fila[i].substr(0, 1);
+				if (curXroma != prevXroma) {
+					prevXroma = curXroma;
+					var curMavroKokino = mavroKokino[curXroma];
+					if (curMavroKokino == prevMavroKokino) {
+						html += ' filoDiaxor';
+					}
+					else {
+						prevMavroKokino = curMavroKokino;
+					}
+				}
+			}
 			html += '" src="' + globals.server + 'images/trapoula/' +
 				fila[i] + '.png" alt="" ';
 			if (tzogos && notTheatis()) { html += Dodekada.dodekadaHTML(i); }

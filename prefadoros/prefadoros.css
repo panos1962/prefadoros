@@ -926,6 +926,12 @@ font-weight: normal;
 	width: 1.9cm;
 }
 
+.filoDiaxor {
+	border-style: outset;
+	border-width: 0px 0px 0px 2px;
+	border-color: #336699;
+}
+
 .gipedo {
 	position: absolute;
 	top: 4.0cm;
