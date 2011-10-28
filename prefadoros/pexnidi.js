@@ -196,10 +196,6 @@ var Pexnidi = new function() {
 		}
 	};
 
-	var enalagiXromaton = {
-		'lalaridi':1
-	};
-
 	this.spaseFila = function(s) {
 		var fila = [];
 		if (notSet(s) || (s.length < 2)) { return fila; }
@@ -225,7 +221,7 @@ var Pexnidi = new function() {
 			else if (alif[i].match(/^R/)) { red++; }
 		}
 
-		if (isPektis() && enalagiXromaton.hasOwnProperty(pektis.login)) {
+		if (isPektis() && isSet(pektis.enalagi) && pektis.enalagi) {
 			if (pikes > 0) {
 				if (spathia == 0) { var sira = [ 'D', 'S', 'H', 'B', 'R' ]; }
 				else if (kara > 0) { sira = [ 'S', 'D', 'C', 'H', 'B', 'R' ]; }
@@ -235,7 +231,7 @@ var Pexnidi = new function() {
 			else { sira = [ 'D', 'H', 'B', 'R' ]; }
 		}
 		else {
-			sira = [ 'S', 'D', 'C', 'H', 'B', 'R' ];
+			sira = [ 'S', 'C', 'D', 'H', 'B', 'R' ];
 		}
 
 		var idx = 0;

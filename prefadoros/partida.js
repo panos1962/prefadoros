@@ -355,7 +355,6 @@ var Partida = new function() {
 		var pezon = ((pexnidi.fasi == 'ΠΑΙΧΝΙΔΙ') && isEpomenos());
 		if (pezon) { Dekada.setEpitrepto(fila); }
 
-//========================== setControls();
 		Dekada.resetControls(fila.length);
 		var proto = ' style="margin-left: 0px;"';
 		for (var i = 0; i < fila.length; i++) {
