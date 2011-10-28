@@ -78,8 +78,8 @@ function prefadoros() {
 	sinedria.id = 0;
 	sinedria.dumprsp = <?php print Globals::perastike('dumprsp') ? 'true' : 'false'; ?>;
 	globals.funchatServer = '<?php print FUNCHAT_SERVER; ?>';
-	pektis.superuser = <?php print ($globals->pektis->superuser ? 'true' : 'false'; ?>
-	pektis.enalagi = <?php print ($globals->pektis->enalagi ? 'true' : 'false'; ?>
+	pektis.superuser = <?php print $globals->pektis->superuser ? 'true' : 'false'; ?>;
+	pektis.enalagi = <?php print $globals->pektis->enalagi ? 'true' : 'false'; ?>;
 	//]]>
 	</script>
 	<table class="tldbg" width="100%">

@@ -110,7 +110,7 @@ var Sxesi = new function() {
 			break;
 		}
 		html += Sxesi.permesHTML(sxesi[i]);
-		if (isPektis() && globals.superUser.hasOwnProperty(pektis.login)) {
+		if (isPektis() && isSet(pektis.superuser) && pektis.superuser) {
 			html += Sxesi.dixeTopoHTML(sxesi[i].l);
 		}
 		html += '</div>';
