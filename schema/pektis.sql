@@ -5,7 +5,7 @@ CREATE TABLE `pektis` (
 	`kapikia`	ENUM('YES', 'NO') NOT NULL DEFAULT 'YES' COMMENT 'Προβολή καπικιών',
 	`katastasi`	ENUM('AVAILABLE', 'BUSY') NOT NULL DEFAULT 'AVAILABLE' COMMENT 'Κατάσταση παίκτη',
 	`plati`		ENUM('BLUE', 'RED', 'RANDOM') NOT NULL DEFAULT 'BLUE' COMMENT 'Πλάτη φύλλων',
-	`enalagi`	ENUM('YES', 'NO') NOT NULL DEFAULT 'NO' COMMENT 'Εναλλαγή χρωμάτων',
+	`enalagi`	ENUM('YES', 'NO') NOT NULL DEFAULT 'YES' COMMENT 'Εναλλαγή χρωμάτων',
 	`poll`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Last poll time',
 	-- Το password αποθηκεύεται σε SHA1 κρυπτογραφημένη μορφή.
 	`password`	CHARACTER(40) NOT NULL COMMENT 'Password',
