@@ -78,6 +78,17 @@ Page::epikefalida($globals->is_pektis());
 		</select>
 	</td>
 </tr>
+<tr>
+	<td class="formaPrompt tbldbg">
+		Εναλλαγή Χρωμάτων
+	</td>
+	<td class="tbldbg">
+		<select name="enalagi" class="formaField formaSelect"
+			onfocus="formaFyi('Τακτοποίηση φύλλων κατά χρώμα');">
+			<?php enalagi_list(); ?>
+		</select>
+	</td>
+</tr>
 <?php
 if ($globals->is_pektis()) {
 	?>
@@ -162,6 +173,35 @@ function plati_list() {
 
 	for ($i = 0; $i < 3; $i++) {
 		if ($timi[$i] != $plati) {
+			?>
+			<option value="<?php print $timi[$i]; ?>"><?php
+				print $desc[$timi[$i]]; ?></option>
+			<?php
+		}
+	}
+}
+
+function enalagi_list() {
+	global $globals;
+
+	$timi = array("NO", "YES");
+	$desc = array();
+	$desc["NO"] = "ΠΑΝΤΑ ΜΠΑΣΤΟΥΝΙΑ, ΚΑΡΑ, ΣΠΑΘΙΑ, ΚΟΥΠΕΣ";
+	$desc["YES"] = "ΕΝΑΛΛΑΓΗ ΧΡΩΜΑΤΩΝ (ΜΑΥΡΑ/ΚΟΚΚΙΝΑ)";
+
+	if ($globals->is_pektis()) {
+		$enalagi = ($globals->pektis->enalagi ? 'YES' : 'NO');
+		?>
+		<option value="<?php print $enalagi; ?>" selected="selected"><?php
+			print $desc[$enalagi]; ?></option>
+		<?php
+	}
+	else {
+		$enalagi = "";
+	}
+
+	for ($i = 0; $i < 2; $i++) {
+		if ($timi[$i] != $enalagi) {
 			?>
 			<option value="<?php print $timi[$i]; ?>"><?php
 				print $desc[$timi[$i]]; ?></option>

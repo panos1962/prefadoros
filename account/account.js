@@ -140,6 +140,7 @@ account.onload = function() {
 			'&onoma=' + uri(form.onoma.value) +
 			'&email=' + uri(form.email.value) +
 			'&plati=' + uri(form.plati.value) +
+			'&enalagi=' + uri(form.enalagi.value) +
 			'&password=' + uri(form.password1.value);
 		req.send(params);
 		var rsp = req.getResponse();
@@ -187,6 +188,7 @@ account.onload = function() {
 		params = 'onoma=' + uri(form.onoma.value) +
 			'&email=' + uri(form.email.value) +
 			'&plati=' + uri(form.plati.value) +
+			'&enalagi=' + uri(form.enalagi.value) +
 			'&password=' + uri(form.password.value) +
 			'&password1=' + uri(form.password1.value);
 		req.send(params);
