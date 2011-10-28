@@ -231,7 +231,7 @@ var Pexnidi = new function() {
 			else { sira = [ 'D', 'H', 'B', 'R' ]; }
 		}
 		else {
-			sira = [ 'S', 'C', 'D', 'H', 'B', 'R' ];
+			sira = [ 'S', 'D', 'C', 'H', 'B', 'R' ];
 		}
 
 		var idx = 0;
