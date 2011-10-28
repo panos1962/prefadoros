@@ -912,8 +912,8 @@ font-weight: normal;
 }
 
 .filaSiraIcon {
-	display: inline-block;
 	position: absolute;
+	left: 0px;
 	bottom: 0px;
 	width: 2.1cm;
 	height: 2.96cm;
