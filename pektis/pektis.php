@@ -70,9 +70,9 @@ class Pektis {
 			$this->enalagi = ($row['enalagi'] == 'YES');
 			$this->poll = $row['poll'];
 			$this->idle = (int)($row['idle']);
-			$this->superuser = $row['superuser'] == 'YES' ? 1 : 0;
-			$this->proxy = $row['proxy'] == 'YES' ? 1 : 0;
-			$this->melos = $row['melos'] == 'YES' ? 1 : 0;
+			$this->superuser = ($row['superuser'] == 'YES');
+			$this->proxy = ($row['proxy'] == 'YES' ? 1 : 0);
+			$this->melos = ($row['melos'] == 'YES' ? 1 : 0);
 			$this->minimadirty = ($row['minimadirty'] == 'YES');
 			$this->prosklidirty = ($row['prosklidirty'] == 'YES');
 			$this->sxesidirty = ($row['sxesidirty'] == 'YES');
