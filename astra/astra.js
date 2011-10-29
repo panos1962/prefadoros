@@ -10,6 +10,13 @@ var Astra = new function() {
 		x.style.height = h;
 		x.style.minHeight = h;
 		x.style.maxHeight =h;
+
+		var x = getelid('dataArea');
+		if (notSet(x)) { return; }
+
+		var h = (wh.h - 180) + 'px';
+		x.style.height = h;
+		x.style.maxHeight =h;
 	};
 
 	this.getData = function() {
@@ -48,7 +55,7 @@ var Astra = new function() {
 
 		var html = '';
 		for (var i = 0; i < dedomena.partida.length; i++) {
-			html += Astra.partidaHTML(dedomena.partida[i]);
+			html += Astra.partidaHTML(dedomena.partida[i], i);
 		}
 
 		var x = getelid('dataArea');
@@ -56,13 +63,14 @@ var Astra = new function() {
 		x.innerHTML = html;
 	};
 
-	this.partidaHTML = function(partida) {
+	this.partidaHTML = function(partida, i) {
 		var html = '';
-		html += '<div class="astraPartida">';
+		html += '<div class="astraPartida zebra' + (i % 2) + '">';
 		html += '<div class="astraPartidaKodikos">' + partida.k + '</div>'
 		html += '<div class="astraPartidaPektis">' + partida.p1 + '</div>'
 		html += '<div class="astraPartidaPektis">' + partida.p2 + '</div>'
 		html += '<div class="astraPartidaPektis">' + partida.p3 + '</div>'
+		html += '</div>';
 		return html;
 	};
 };
