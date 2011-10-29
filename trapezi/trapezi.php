@@ -338,46 +338,50 @@ class Trapezi {
 	public static function diagrafi($trapezi) {
 		global $globals;
 
-		// Επαναφέρω τους τελευταίους συμμετέχοντες παίκτες.
+		// Επαναφέρω τους τελευταίους συμμετέχοντες παίκτες. Κρατάω log archive
+		// μόνο στην περίπτωση που και οι τρεις παίκτες είναι συμπληρωμεένοι.
+		$keep_log = FALSE;
 		$query = "SELECT * FROM `simetoxi` WHERE `trapezi` = " . $trapezi;
 		$result = @mysqli_query($globals->db, $query);
 		if ($result) {
-			$pektis1 = '`pektis1`';
-			$pektis2 = '`pektis2`';
-			$pektis3 = '`pektis3`';
+			$pektis1 = '';
+			$pektis2 = '';
+			$pektis3 = '';
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				$p = "pektis" . $row['thesi'];
 				$$p = "'" . $globals->asfales($row['pektis']) . "'";
 			}
-
-			$query = "UPDATE `trapezi` SET `pektis1` = " . $pektis1 .
-				", `pektis2` = " . $pektis2 . ", " .  "`pektis3` = " .
-				$pektis3 . " WHERE `kodikos` = " . $trapezi;
-			@mysqli_query($globals->db, $query);
+			$keep_log = (($pektis1 != '') && ($pektis2 != '') && ($pektis3 != ''));
 		}
 
 		// Αντιγραφή των δεδομένων του τραπεζιού (τραπέζι, διανομές, κινήσεις)
 		// σε παράλληλους πίνακες ("trapezi_log", "dianomi_log", "kinisi_log").
+		if ($keep_log) {
+			$query = "UPDATE `trapezi` SET `pektis1` = " . $pektis1 .
+				", `pektis2` = " . $pektis2 . ", " .  "`pektis3` = " .
+				$pektis3 . " WHERE `kodikos` = " . $trapezi;
+			@mysqli_query($globals->db, $query);
 
-		$query = "INSERT INTO `trapezi_log` (`kodikos`, `pektis1`, `pektis2`, " .
-			"`pektis3`, `kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos`) " .
-			"SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3`, " .
-			"`kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos` " .
-			"FROM `trapezi` WHERE `kodikos` = " . $trapezi;
-		@mysqli_query($globals->db, $query);
+			$query = "INSERT INTO `trapezi_log` (`kodikos`, `pektis1`, `pektis2`, " .
+				"`pektis3`, `kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos`) " .
+				"SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3`, " .
+				"`kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos` " .
+				"FROM `trapezi` WHERE `kodikos` = " . $trapezi;
+			@mysqli_query($globals->db, $query);
 
-		$query = "INSERT INTO `dianomi_log` (`kodikos`, `trapezi`, `dealer`, `kasa1`, " .
-			"`metrita1`, `kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi`) " .
-			"SELECT `kodikos`, `trapezi`, `dealer`, `kasa1`, `metrita1`, " .
-			"`kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi` " .
-			"FROM `dianomi` WHERE `trapezi` = " . $trapezi;
-		@mysqli_query($globals->db, $query);
+			$query = "INSERT INTO `dianomi_log` (`kodikos`, `trapezi`, `dealer`, `kasa1`, " .
+				"`metrita1`, `kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi`) " .
+				"SELECT `kodikos`, `trapezi`, `dealer`, `kasa1`, `metrita1`, " .
+				"`kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi` " .
+				"FROM `dianomi` WHERE `trapezi` = " . $trapezi;
+			@mysqli_query($globals->db, $query);
 
-		$query = "INSERT INTO `kinisi_log` (`kodikos`, `dianomi`, `pektis`, " .
-			"`idos`, `data`, `pote`) SELECT `kodikos`, `dianomi`, `pektis`, " .
-			"`idos`, `data`, `pote` FROM `kinisi` WHERE `dianomi` IN " .
-			"(SELECT `kodikos` FROM `dianomi` WHERE `trapezi` = " . $trapezi . ")";
-		@mysqli_query($globals->db, $query);
+			$query = "INSERT INTO `kinisi_log` (`kodikos`, `dianomi`, `pektis`, " .
+				"`idos`, `data`, `pote`) SELECT `kodikos`, `dianomi`, `pektis`, " .
+				"`idos`, `data`, `pote` FROM `kinisi` WHERE `dianomi` IN " .
+				"(SELECT `kodikos` FROM `dianomi` WHERE `trapezi` = " . $trapezi . ")";
+			@mysqli_query($globals->db, $query);
+		}
 
 		// Υπάρχει λόγος που έχω χωριστά τη διαγραφή των προσκλήσεων.
 		// Πρόκειται για bug που αφορά στο σχετικό trigger διαγραφής

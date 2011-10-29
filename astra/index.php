@@ -45,7 +45,7 @@ Page::fyi();
 	<input class="formaField astraGo" value="Go!!!" type="button"
 		onclick="Astra.getData();" />
 </div>
-<div id="dataArea"></div>
+<div id="dataArea" class="astraDataArea"></div>
 </div>
 <?php
 Page::close();

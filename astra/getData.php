@@ -50,22 +50,31 @@ function parse_partida() {
 	return $query;
 }
 
-function select_partida($query) {
+function select_partida($sql) {
 	global $globals;
+	if ($sql == "") { return; }
 
-	if ($query == "") { return; }
-
-	$query = "SELECT * FROM `trapezi` WHERE 1" . $query;
-	$result = $globals->sql_query($query);
 	$koma = "";
+	$query = "SELECT * FROM `trapezi_log` WHERE 1" . $sql . " ORDER BY `kodikos`";
+	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-		print $koma . "{k:" . $row['kodikos'] .
-			",p1:'" . $row['pektis1'] .
-			"',p2:'" . $row['pektis2'] .
-			"',p3:'" . $row['pektis3'] .
-			"'}";
-		$koma = ",";
+		partida_json($row, $koma);
 	}
+
+	$query = "SELECT * FROM `trapezi` WHERE 1" . $sql . " ORDER BY `kodikos`";
+	$result = $globals->sql_query($query);
+	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		partida_json($row, $koma);
+	}
+}
+
+function partida_json($row, &$koma) {
+	print $koma . "{k:" . $row['kodikos'] .
+		",p1:'" . $row['pektis1'] .
+		"',p2:'" . $row['pektis2'] .
+		"',p3:'" . $row['pektis3'] .
+		"'}";
+	$koma = ",";
 }
 
 function lathos_kritiria($s) {

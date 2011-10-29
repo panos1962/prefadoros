@@ -29,7 +29,8 @@
 }
 
 .astraPartida {
-	margin-top: 0.2cm;
+	padding-top: 0.1cm;
+	padding-bottom: 0.1cm;
 }
 
 .astraPartidaKodikos {
@@ -54,6 +55,7 @@
 	width: 3.8cm;
 	min-width: 3.8cm;
 	max-width: 3.8cm;
+	overflow-x: hidden;
 
 	border-style: solid;
 	border-width: 0.08cm;
@@ -63,4 +65,11 @@
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
+}
+
+.astraDataArea {
+	height: 0px;
+	max-height: 0px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
