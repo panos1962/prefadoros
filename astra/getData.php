@@ -57,10 +57,9 @@ function select_partida($query) {
 
 	$query = "SELECT * FROM `trapezi` WHERE 1" . $query;
 	$result = $globals->sql_query($query);
-	$koma = "{";
+	$koma = "";
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-		print $koma .
-			"k:" . $row['kodikos'] .
+		print $koma . "{k:" . $row['kodikos'] .
 			",p1:'" . $row['pektis1'] .
 			"',p2:'" . $row['pektis2'] .
 			"',p3:'" . $row['pektis3'] .
