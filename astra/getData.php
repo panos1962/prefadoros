@@ -5,9 +5,6 @@ require_once '../pektis/pektis.php';
 Page::data();
 set_globals();
 
-global $error;
-$error = "";
-
 Prefadoros::pektis_check();
 
 print "{";
@@ -15,34 +12,26 @@ print "{";
 $query = "";
 $query .= parse_partida();
 
-print "partides:[";
+print "partida:[";
 select_partida($query);
 print "],ok:true}";
-die(0);
 
 function parse_partida() {
 	global $globals;
-	global $error;
 
 	$query = "";
-	if (!Globals::perastike('partida')) {
-		return $query;
-	}
-
-	$partida = $_REQUEST['partida'];
-	if ($partida == "") {
-		return;
-	}
+	if (!Globals::perastike('partida')) { return $query; }
+	$partida = trim($_REQUEST['partida']);
+	if ($partida == "") { return; }
 
 	$tmima = explode(",", $partida);
 	$n = count($tmima);
 	for ($i = 0; $i < $n; $i++) {
-		if ($query != "") {
-			$query .= " OR";
-		}
-		else {
-			$query .= " AND (";
-		}
+		$tmima[$i] = trim($tmima[$i]);
+		if ($tmima[$i] == "") { continue; }
+
+		if ($query != "") { $query .= " OR"; }
+		else { $query .= " AND ("; }
 
 		$query .= " (`kodikos` ";
 		if (preg_match("/^[0-9]+$/", $tmima[$i])) {
@@ -57,19 +46,27 @@ function parse_partida() {
 		}
 	}
 
-	if ($query != "") {
-		$query .= ")";
-	}
-
+	if ($query != "") { $query .= ")"; }
 	return $query;
 }
 
 function select_partida($query) {
-	if ($query == "") {
-		return;
-	}
+	global $globals;
+
+	if ($query == "") { return; }
 
 	$query = "SELECT * FROM `trapezi` WHERE 1" . $query;
+	$result = $globals->sql_query($query);
+	$koma = "{";
+	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		print $koma .
+			"k:" . $row['kodikos'] .
+			",p1:'" . $row['pektis1'] .
+			"',p2:'" . $row['pektis2'] .
+			"',p3:'" . $row['pektis3'] .
+			"'}";
+		$koma = ",";
+	}
 }
 
 function lathos_kritiria($s) {

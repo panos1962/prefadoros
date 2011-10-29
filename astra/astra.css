@@ -27,3 +27,40 @@
 	width: 0.6cm;
 	visibility: hidden;
 }
+
+.astraPartida {
+	margin-top: 0.2cm;
+}
+
+.astraPartidaKodikos {
+	display: inline-block;
+	margin-right: 0.6cm;
+	font-weight: bold;
+
+	width: 1.8cm;
+	min-width: 1.8cm;
+	max-width: 1.8cm;
+	text-align: right;
+}
+
+.astraPartidaPektis {
+	display: inline-block;
+	margin-left: 0.4cm;
+	text-align: center;
+
+	padding-top: 0.02cm;
+	padding-bottom: 0.08cm;
+
+	width: 3.8cm;
+	min-width: 3.8cm;
+	max-width: 3.8cm;
+
+	border-style: solid;
+	border-width: 0.08cm;
+	border-color: #6B8E23;
+	background-color: #8AA886;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}

@@ -40,9 +40,30 @@ var Astra = new function() {
 			mainFyi(rsp);
 		}
 
-		if (notSet(dedomena) || notSet(dedomena.ok)) {
+		if (notSet(dedomena) || notSet(dedomena.ok) ||
+			notSet(dedomena.partida)) {
 			mainFyi('Λανθασμένα δεδομένα' + rsp);
+			return;
 		}
+
+		var html = '';
+		for (var i = 0; i < dedomena.partida.length; i++) {
+			html += Astra.partidaHTML(dedomena.partida[i]);
+		}
+
+		var x = getelid('dataArea');
+		if (notSet(x)) { return; }
+		x.innerHTML = html;
+	};
+
+	this.partidaHTML = function(partida) {
+		var html = '';
+		html += '<div class="astraPartida">';
+		html += '<div class="astraPartidaKodikos">' + partida.k + '</div>'
+		html += '<div class="astraPartidaPektis">' + partida.p1 + '</div>'
+		html += '<div class="astraPartidaPektis">' + partida.p2 + '</div>'
+		html += '<div class="astraPartidaPektis">' + partida.p3 + '</div>'
+		return html;
 	};
 };
 
