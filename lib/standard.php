@@ -488,7 +488,7 @@ class Page {
 	protected static function leftTB() {
 		global $globals;
 		?>
-		<div style="display: inline-block; width: 9.0cm;">
+		<div style="display: inline-block; width: 11.0cm;">
 		<?php
 		if ($globals->is_pektis()) {
 			?> <span id="partidaKafenio"></span> <?php
@@ -502,6 +502,8 @@ class Page {
 		<?php
 		if ($globals->is_pektis()) {
 			?>
+			[<a target="_blank" href="<?php print $glogals->server;
+				?>astra/index.php" target="_blank">Αρχείο</a>]
 			[&nbsp;<a id="permesLink" class="data" target="_blank" href="<?php
 				print $globals->server; ?>permes/index.php?pedi=yes"
 				title="Προσωπικά μηνύματα">PM</a>&nbsp;]
