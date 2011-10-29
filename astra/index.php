@@ -2,6 +2,7 @@
 require_once '../lib/standard.php';
 require_once '../prefadoros/prefadoros.php';
 require_once '../pektis/pektis.php';
+require_once '../trapezi/trapezi.php';
 set_globals();
 Page::head();
 Page::stylesheet('lib/forma');
@@ -10,6 +11,7 @@ Page::javascript('lib/forma');
 Page::javascript('astra/astra');
 Page::body();
 Prefadoros::pektis_check();
+Prefadoros::set_trapezi();
 Page::epikefalida(Globals::perastike('pedi'));
 Page::fyi();
 ?>
@@ -31,8 +33,11 @@ Page::fyi();
 </div>
 <div class="astraInput">
 	<div class="formaPrompt astraPrompt">Παρτίδα</div>
-	<input id="partida" class="formaField" value="" type="text"
-		maxlength="128" style="width: 2.0cm;" />
+	<input id="partida" class="formaField" value="<?php
+		if ($globals->is_trapezi()) {
+			print $globals->trapezi->kodikos;
+		}
+		?>" type="text" maxlength="128" style="width: 2.0cm;" />
 </div>
 <div class="astraInput">
 	<img id="searchIcon" class="astraSearchIcon" src="<?php
@@ -40,6 +45,7 @@ Page::fyi();
 	<input class="formaField astraGo" value="Go!!!" type="button"
 		onclick="Astra.getData();" />
 </div>
+<div id="dataArea"></div>
 </div>
 <?php
 Page::close();
