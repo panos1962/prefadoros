@@ -502,7 +502,7 @@ class Page {
 		<?php
 		if ($globals->is_pektis()) {
 			?>
-			[<a target="_blank" href="<?php print $glogals->server;
+			[<a target="_blank" href="<?php print $globals->server;
 				?>astra/index.php" target="_blank">Αρχείο</a>]
 			[&nbsp;<a id="permesLink" class="data" target="_blank" href="<?php
 				print $globals->server; ?>permes/index.php?pedi=yes"
