@@ -1,0 +1,15 @@
+.astraArea {
+	min-height: 14.0cm;
+	max-height: 14.0cm;
+	height: 14.0cm;
+}
+
+.astraInput {
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.astraPrompt {
+	display: inline-block;
+	font-style: italic;
+}
