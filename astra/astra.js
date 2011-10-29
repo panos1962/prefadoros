@@ -63,13 +63,20 @@ var Astra = new function() {
 		x.innerHTML = html;
 	};
 
+	this.pektisHTML = function(pektis) {
+		var html = '<div class="astraPartidaPektis">';
+		html += (pektis != '' ? pektis : '&#8203;');
+		html += '</div>';
+		return html;
+	};
+
 	this.partidaHTML = function(partida, i) {
 		var html = '';
 		html += '<div class="astraPartida zebra' + (i % 2) + '">';
 		html += '<div class="astraPartidaKodikos">' + partida.k + '</div>'
-		html += '<div class="astraPartidaPektis">' + partida.p1 + '</div>'
-		html += '<div class="astraPartidaPektis">' + partida.p2 + '</div>'
-		html += '<div class="astraPartidaPektis">' + partida.p3 + '</div>'
+		html += Astra.pektisHTML(partida.p1);
+		html += Astra.pektisHTML(partida.p2);
+		html += Astra.pektisHTML(partida.p3);
 		html += '</div>';
 		return html;
 	};
