@@ -11,9 +11,14 @@ var Astra = new function() {
 		x.style.minHeight = h;
 		x.style.maxHeight =h;
 	};
+
+	this.getData = function() {
+		alert('asdasd');
+	};
 };
 
 window.onload = function() {
 	init();
 	Astra.setHeight();
+	Astra.getData();
 };
