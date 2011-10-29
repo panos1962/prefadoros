@@ -31,10 +31,12 @@ Page::fyi();
 </div>
 <div class="astraInput">
 	<div class="formaPrompt astraPrompt">Παρτίδα</div>
-	<input class="formaField" value="" type="text"
-		maxlength="10" style="width: 2.0cm;" />
+	<input id="partida" class="formaField" value="" type="text"
+		maxlength="128" style="width: 2.0cm;" />
 </div>
 <div class="astraInput">
+	<img id="searchIcon" class="astraSearchIcon" src="<?php
+		print $globals->server; ?>images/workingBilies.gif" alt="" />
 	<input class="formaField astraGo" value="Go!!!" type="button"
 		onclick="Astra.getData();" />
 </div>

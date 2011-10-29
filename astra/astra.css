@@ -15,9 +15,15 @@
 }
 
 .astraGo {
-	margin-left: 1.0cm;
 	padding-left: 0.2cm;
 	font-weight: bold;
 	font-style: italic;
 }
 
+.astraSearchIcon {
+	display: inline-block;
+	margin-left: 0.6cm;
+	margin-bottom: -0.2cm;
+	width: 0.6cm;
+	visibility: hidden;
+}

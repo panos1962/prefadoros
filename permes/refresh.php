@@ -7,19 +7,17 @@ set_globals();
 $globals->time_dif = Globals::perastike_check('timeDif');
 
 Prefadoros::pektis_check();
-$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
-
 
 $query = "SELECT *, UNIX_TIMESTAMP(`dimiourgia`) AS `pote` FROM `minima` WHERE ";
 if (Globals::perastike('exer') && Globals::perastike('iser')) {
-	$query .= "(`apostoleas` = " . $slogin . ") OR " .
-		"(`paraliptis` = " . $slogin . ")";
+	$query .= "(`apostoleas` = " . $globals->pektis->slogin . ") OR " .
+		"(`paraliptis` = " . $globals->pektis->slogin . ")";
 }
 elseif (Globals::perastike('exer')) {
-	$query .= "(`apostoleas` = " . $slogin . ")";
+	$query .= "(`apostoleas` = " . $globals->pektis->slogin . ")";
 }
 elseif (Globals::perastike('iser')) {
-	$query .= "(`paraliptis` = " . $slogin . ")";
+	$query .= "(`paraliptis` = " . $globals->pektis->slogin . ")";
 }
 else {
 	die(0);
