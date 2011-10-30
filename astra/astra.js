@@ -19,7 +19,15 @@ var Astra = new function() {
 		x.style.maxHeight =h;
 	};
 
+	var protiFora = true;
+
 	this.getData = function() {
+		var pektis = getelid('pektis');
+		if (notSet(pektis)) {
+			mainFyi('pektis: misssing input field');
+			return false;
+		}
+
 		var partida = getelid('partida');
 		if (notSet(partida)) {
 			mainFyi('partida: misssing input field');
@@ -35,7 +43,14 @@ var Astra = new function() {
 		};
 
 		var params = '';
-		params +=  'partida=' + uri(partida.value.trim());
+		if (protiFora) {
+			protiFora = false;
+		}
+		else {
+			params +=  'pektis=' + uri(pektis.value.trim());
+			params +=  '&partida=' + uri(partida.value.trim());
+		}
+
 		req.send(params);
 		return false;
 	};

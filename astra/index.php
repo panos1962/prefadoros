@@ -19,7 +19,7 @@ Page::fyi();
 <div id="astraArea" class="mainArea astraArea">
 <div class="astraInput">
 	<div class="formaPrompt astraPrompt">Παίκτης</div>
-	<input class="formaField" value="<?php print $globals->pektis->login; ?>"
+	<input id="pektis" class="formaField" value="<?php print $globals->pektis->login; ?>"
 		type="text" maxlength="1024" style="width: 4.0cm;"/>
 </div>
 <div class="astraInput">
