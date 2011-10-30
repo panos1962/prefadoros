@@ -15,7 +15,7 @@ Prefadoros::set_trapezi();
 Page::epikefalida(Globals::perastike('pedi'));
 Page::fyi();
 ?>
-<form onsubmit="return Astra.getData();" />
+<form onsubmit="return Astra.getData();">
 <div id="astraArea" class="mainArea astraArea">
 <div class="astraInput">
 	<div class="formaPrompt astraPrompt">Παίκτης</div>

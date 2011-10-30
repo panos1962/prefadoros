@@ -503,7 +503,8 @@ class Page {
 		if ($globals->is_pektis()) {
 			?>
 			[<a target="_blank" href="<?php print $globals->server;
-				?>astra/index.php?pedi=yes" target="_blank">Αρχείο</a>]
+				?>astra/index.php?pedi=yes" class="data"
+				title="Αρχείο παρτίδων">Αρχείο</a>]
 			[&nbsp;<a id="permesLink" class="data" target="_blank" href="<?php
 				print $globals->server; ?>permes/index.php?pedi=yes"
 				title="Προσωπικά μηνύματα">PM</a>&nbsp;]
@@ -626,11 +627,10 @@ class Page {
 			width="1" height="1" >
 		</form>
 		</div>
-		<a href="https://twitter.com/prefadorosTT" class="twitter-follow-button"
-			data-show-count="false">Follow @prefadorosTT</a>
-		<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+		<a href="https://twitter.com/prefadorosTT" target="_blank"><img
+			src="<?php print $globals->server; ?>images/twitter.png"
+			alt="Ο «Πρεφαδόρος» στο twitter" height="24" /></a>
 		<?php
-		// self::statCounter();
 	}
 
 	protected static function centerRB() {
