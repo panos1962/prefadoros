@@ -31,12 +31,12 @@
 .astraPartida {
 	padding-top: 0.1cm;
 	padding-bottom: 0.1cm;
+	cursor: pointer;
 }
 
 .astraPartidaKodikos {
 	display: inline-block;
-	margin-right: 0.6cm;
-	font-weight: bold;
+	margin-right: 0.4cm;
 
 	width: 1.8cm;
 	min-width: 1.8cm;
@@ -47,15 +47,6 @@
 .astraPartidaPektis {
 	display: inline-block;
 	margin-left: 0.4cm;
-	text-align: center;
-
-	padding-top: 0.02cm;
-	padding-bottom: 0.08cm;
-
-	width: 3.8cm;
-	min-width: 3.8cm;
-	max-width: 3.8cm;
-	overflow-x: hidden;
 
 	border-style: solid;
 	border-width: 0.08cm;
@@ -67,9 +58,47 @@
 	border-radius: 3px;
 }
 
+.astraOnoma {
+	display: inline-block;
+	padding-top: 0.02cm;
+	padding-bottom: 0.08cm;
+
+	width: 3.8cm;
+	min-width: 3.8cm;
+	max-width: 3.8cm;
+	overflow-x: hidden;
+
+	padding-left: 0.2cm;
+	text-align: left;
+}
+
+.astraKapikia {
+	display: inline-block;
+	padding-top: 0.02cm;
+	padding-bottom: 0.08cm;
+
+	width: 1.4cm;
+	min-width: 1.4cm;
+	max-width: 1.4cm;
+	overflow-x: hidden;
+
+	padding-right: 0.2cm;
+	text-align: right;
+	color: #003366;
+	background-color: #FFE4B5;
+}
+
+.astraMion {
+	color: #B20000;
+}
+
 .astraDataArea {
 	height: 0px;
 	max-height: 0px;
 	overflow-y: auto;
 	overflow-x: hidden;
+}
+
+.astraDianomiIcon {
+	width: 0.6cm;
 }

@@ -58,7 +58,7 @@ function select_partida($sql) {
 	$query = "SELECT * FROM `trapezi_log` WHERE 1" . $sql . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-		partida_json($row, $koma);
+		partida_json($row, $koma, '_log');
 	}
 
 	$query = "SELECT * FROM `trapezi` WHERE 1" . $sql . " ORDER BY `kodikos`";
@@ -68,13 +68,39 @@ function select_partida($sql) {
 	}
 }
 
-function partida_json($row, &$koma) {
-	print $koma . "{k:" . $row['kodikos'] .
+function partida_json($row, &$koma, $log = '') {
+	doune_lavin($row['kodikos'], $row['kasa'], $log, $kapikia);
+	print $koma . "{t:" . $row['kodikos'] .
 		",p1:'" . $row['pektis1'] .
-		"',p2:'" . $row['pektis2'] .
-		"',p3:'" . $row['pektis3'] .
-		"'}";
+		"',k1:" . $kapikia[1] .
+		",p2:'" . $row['pektis2'] .
+		"',k2:" . $kapikia[2] .
+		",p3:'" . $row['pektis3'] .
+		"',k3:" . $kapikia[3] .
+		"}";
 	$koma = ",";
+}
+
+function doune_lavin($trapezi, $kasa, $log, &$kapikia) {
+	global $globals;
+
+	$kasa *= 10;
+	$kapikia = array(0, -$kasa, -$kasa, -$kasa);
+	$kasa *= 3;
+
+	$query = "SELECT * FROM `dianomi" . $log . "` WHERE `trapezi` = " . $trapezi;
+	$result = $globals->sql_query($query);
+	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		$kasa -= $row['kasa1'] + $row['kasa2'] + $row['kasa3'];
+		$kapikia[1] += $row['metrita1'] + $row['kasa1'];
+		$kapikia[2] += $row['metrita2'] + $row['kasa2'];
+		$kapikia[3] += $row['metrita3'] + $row['kasa3'];
+	}
+
+	$x = $kasa / 3;
+	$kapikia[2] = floor($kapikia[2] + $x);
+	$kapikia[3] = floor($kapikia[3] + $x);
+	$kapikia[1] = -($kapikia[2] + $kapikia[3]);
 }
 
 function lathos_kritiria($s) {
