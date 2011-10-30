@@ -17,7 +17,7 @@ while ($row = @mysqli_fetch_array($result, MYSQL_NUM)) {
 }
 
 if (!isset($found)) {
-	$query = "SELECT `kodikos` FROM `trapezi` WHERE `kodikos` = " .
+	$query = "SELECT `kodikos` FROM `trapezi_log` WHERE `kodikos` = " .
 		$globals->asfales($trapezi);
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQL_NUM)) {
@@ -29,7 +29,7 @@ if (!isset($found)) {
 print "{";
 
 if (!isset($dianomi_table)) {
-	print "error:'" . $trapezi . ": δεν βρέθηκε το τραπέζι";
+	print "error:'" . $trapezi . ": δεν βρέθηκε το τραπέζι'";
 }
 else {
 	print "dianomi:[";
@@ -64,12 +64,13 @@ function partida_json($row, $kinisi_table, &$koma) {
 		",k3:" . $row['kasa3'] .
 		",m3:" . $row['metrita3'];
 	agora_json($row['kodikos'], $kinisi_table);
-	print "'}";
+	print "}";
 	$koma = ",";
 }
 
 function agora_data($dianomi, $kinisi_table) {
 	global $globals;
+return;
 
 	$query = "SELECT * FROM `" . $kinisi_table . "` WHERE `dianomi` = " .
 		$dianomi . " AND `idos` ΙΝ ('ΑΓΟΡΑ', 'ΔΗΛΩΣΗ', 'ΣΥΜΜΕΤΟΧΗ') ".
