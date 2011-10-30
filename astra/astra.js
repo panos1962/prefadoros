@@ -196,7 +196,7 @@ var Astra = new function() {
 
 	this.dianomiHTML = function(dianomi, i) {
 		var html = '';
-		html += '<div class="astraPartida astraDianomiZebra' + (i % 2) +
+		html += '<div class="astraDianomi astraDianomiZebra' + (i % 2) +
 			'" onclick="Astra.kinisiOnOff(' + dianomi.d + ');" ' +
 			'title="Κλικ για εμφάνιση/απόκρυψη κινήσεων" ' +
 			'onmouseover="Astra.epilogiDianomis(this);" ' +
@@ -209,7 +209,7 @@ var Astra = new function() {
 
 	this.epilogiDianomis = function(div) {
 		div.OBC = div.style.backgroundColor;
-		div.style.backgroundColor = '#FF3385';
+		div.style.backgroundColor = '#FF99C2';
 		div.style.fontWeight = 'bold';
 	};
 
