@@ -104,10 +104,17 @@
 	font-size: 90%;
 }
 
+.astraDianomi {
+	margin-left: 2.6cm;
+	padding-top: 0.1cm;
+	padding-bottom: 0.1cm;
+	cursor: pointer;
+}
+
 .astraDianomiZebra0 {
-	background-color: #FF99C2;
+	background-color: #FFCCE0;
 }
 
 .astraDianomiZebra1 {
-	background-color: #FF80B2;
+	background-color: #FFE6F0;
 }
