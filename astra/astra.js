@@ -63,22 +63,48 @@ var Astra = new function() {
 		x.innerHTML = html;
 	};
 
-	this.pektisHTML = function(pektis) {
+	this.pektisHTML = function(pektis, kapikia) {
 		var html = '<div class="astraPartidaPektis">';
+		html += '<div class="astraOnoma">';
 		html += (pektis != '' ? pektis : '&#8203;');
+		html += '</div>';
+		html += '<div class="astraKapikia';
+		if (kapikia < 0) { html += ' astraMion'; }
+		html += '">';
+		html += (kapikia != 0 ? kapikia : '&#8203;');
+		html += '</div>';
 		html += '</div>';
 		return html;
 	};
 
 	this.partidaHTML = function(partida, i) {
 		var html = '';
-		html += '<div class="astraPartida zebra' + (i % 2) + '">';
-		html += '<div class="astraPartidaKodikos">' + partida.k + '</div>'
-		html += Astra.pektisHTML(partida.p1);
-		html += Astra.pektisHTML(partida.p2);
-		html += Astra.pektisHTML(partida.p3);
+		html += '<div class="astraPartida zebra' + (i % 2) +
+			'" onclick="Astra.dianomiOnOff(' + partida.t + ');" ' +
+			'title="Κλικ για εμφάνιση/απόκρυψη διανομών" ' +
+			'onmouseover="Astra.epilogiPartidas(this);" ' +
+			'onmouseout="Astra.apoepilogiPartidas(this);">';
+		html += '<div class="astraPartidaKodikos">' + partida.t + '</div>'
+		html += Astra.pektisHTML(partida.p1, partida.k1);
+		html += Astra.pektisHTML(partida.p2, partida.k2);
+		html += Astra.pektisHTML(partida.p3, partida.k3);
 		html += '</div>';
 		return html;
+	};
+
+	this.epilogiPartidas = function(div) {
+		div.OBC = div.style.backgroundColor;
+		div.style.backgroundColor = '#FFFF33';
+		div.style.fontWeight = 'bold';
+	};
+
+	this.apoepilogiPartidas = function(div) {
+		div.style.backgroundColor = div.OBC;
+		div.style.fontWeight = 'normal';
+	};
+
+	this.dianomiOnOff = function(trapezi) {
+		alert(trapezi);
 	};
 };
 
