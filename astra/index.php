@@ -24,12 +24,12 @@ Page::fyi();
 </div>
 <div class="astraInput">
 	<div class="formaPrompt astraPrompt">Από</div>
-	<input class="formaField" value=""
+	<input id="apo" class="formaField" value=""
 		type="text" maxlength="10" style="width: 2.0cm;" />
 </div>
 <div class="astraInput">
 	<div class="formaPrompt astraPrompt">Έως</div>
-	<input class="formaField" value=""
+	<input id="eos" class="formaField" value=""
 		type="text" maxlength="10" style="width: 2.0cm;" />
 </div>
 <div class="astraInput">

@@ -12,6 +12,8 @@ print "{";
 
 $query = "";
 parse_pektis($query);
+parse_apo($query);
+parse_eos($query);
 parse_partida($query);
 
 print "partida:[";
@@ -44,6 +46,54 @@ function parse_pektis(&$prev) {
 		if ($prev != '') { $prev .= " AND "; }
 		$prev = $prev . "(" . $query . ")";
 	}
+}
+
+function parse_apo(&$prev) {
+	global $globals;
+
+	$query = "";
+	if (!Globals::perastike('apo')) { return $query; }
+	$apo = trim($_REQUEST['apo']);
+	if ($apo == "") { return; }
+
+	$tmima = preg_split("/[^0-9]+/", $apo);
+	$n = count($tmima);
+	if ($n != 3) {
+		lathos_kritiria($apo . ": λάθος ημερομηνία αρχής");
+	}
+
+	$apots = strtotime($tmima[2] . "-" . $tmima[1] . "-" . $tmima[0]);
+	if ($apots === FALSE) {
+		lathos_kritiria($apo . ": λάθος ημερομηνία αρχής");
+	}
+
+	$query .= "UNIX_TIMESTAMP(`stisimo`) >= " . ($apots - $globals->time_dif);
+	if ($prev != '') { $prev .= " AND "; }
+	$prev = $prev . "(" . $query . ")";
+}
+
+function parse_eos(&$prev) {
+	global $globals;
+
+	$query = "";
+	if (!Globals::perastike('eos')) { return $query; }
+	$eos = trim($_REQUEST['eos']);
+	if ($eos == "") { return; }
+
+	$tmima = preg_split("/[^0-9]+/", $eos);
+	$n = count($tmima);
+	if ($n != 3) {
+		lathos_kritiria($eos . ": λάθος ημερομηνία τέλους");
+	}
+
+	$eosts = strtotime($tmima[2] . "-" . $tmima[1] . "-" . $tmima[0]);
+	if ($eosts === FALSE) {
+		lathos_kritiria($eos . ": λάθος ημερομηνία τέλους");
+	}
+
+	$query .= "UNIX_TIMESTAMP(`stisimo`) <= " . ($eosts - $globals->time_dif);
+	if ($prev != '') { $prev .= " AND "; }
+	$prev = $prev . "(" . $query . ")";
 }
 
 function parse_partida(&$prev) {
@@ -88,24 +138,24 @@ function parse_partida(&$prev) {
 function select_partida($sql) {
 	global $globals;
 	if ($sql == "") {
-		$sql = "`stisimo` >= DATE_SUB(NOW(), INTERVAL 2 DAY)";
+		$sql = "`stisimo` >= DATE_SUB(NOW(), INTERVAL 1 DAY)";
 	}
 
 	$columns = "`kodikos`, `pektis1`, `pektis2`, `pektis3`, `kasa`, ";
-
 	$koma = "";
-	$query = "SELECT " . $columns . "UNIX_TIMESTAMP(`telos`) AS `xronos` " .
-		"FROM `trapezi_log` WHERE " . $sql . " ORDER BY `kodikos`";
-	$result = $globals->sql_query($query);
-	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-		partida_json($row, $koma, '_log');
-	}
 
 	$query = "SELECT " . $columns . "UNIX_TIMESTAMP(`stisimo`) AS `xronos` " .
-		"FROM `trapezi` WHERE " . $sql . " ORDER BY `kodikos`";
+		"FROM `trapezi` WHERE " . $sql . " ORDER BY `kodikos` DESC";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		partida_json($row, $koma);
+	}
+
+	$query = "SELECT " . $columns . "UNIX_TIMESTAMP(`telos`) AS `xronos` " .
+		"FROM `trapezi_log` WHERE " . $sql . " ORDER BY `kodikos` DESC";
+	$result = $globals->sql_query($query);
+	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		partida_json($row, $koma, '_log');
 	}
 }
 
@@ -148,6 +198,6 @@ function doune_lavin($trapezi, $kasa, $log, &$kapikia) {
 }
 
 function lathos_kritiria($s) {
-	die("error:'" . addslashes($s) . "}");
+	die("error:'" . addslashes($s) . "'}");
 }
 ?>

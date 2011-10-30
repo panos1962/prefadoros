@@ -28,6 +28,18 @@ var Astra = new function() {
 			return false;
 		}
 
+		var apo = getelid('apo');
+		if (notSet(apo)) {
+			mainFyi('apo: misssing input field');
+			return false;
+		}
+
+		var eos = getelid('eos');
+		if (notSet(eos)) {
+			mainFyi('eos: misssing input field');
+			return false;
+		}
+
 		var partida = getelid('partida');
 		if (notSet(partida)) {
 			mainFyi('partida: misssing input field');
@@ -48,6 +60,8 @@ var Astra = new function() {
 		}
 		else {
 			params +=  'pektis=' + uri(pektis.value.trim());
+			params +=  '&apo=' + uri(apo.value.trim());
+			params +=  '&eos=' + uri(eos.value.trim());
 			params +=  '&partida=' + uri(partida.value.trim());
 		}
 
@@ -67,8 +81,9 @@ var Astra = new function() {
 		}
 
 		if (notSet(dedomena) || notSet(dedomena.ok) ||
-			notSet(dedomena.partida)) {
-			mainFyi('Λανθασμένα δεδομένα' + rsp);
+			notSet(dedomena.partida) || isSet(dedomena.error)) {
+			if (isSet(dedomena) && isSet(dedomena.error)) { rsp = dedomena.error; }
+			mainFyi('Λανθασμένα δεδομένα: ' + rsp);
 			return;
 		}
 
