@@ -131,6 +131,7 @@ var Astra = new function() {
 		html += Astra.pektisHTML(partida.p3, partida.k3);
 		html += Astra.xronosHTML(partida.x);
 		html += '</div>';
+		html += '<div id="t' + partida.t + '"></div>';
 		return html;
 	};
 
@@ -146,7 +147,79 @@ var Astra = new function() {
 	};
 
 	this.dianomiOnOff = function(trapezi) {
-		alert(trapezi);
+		var x = getelid('t' + trapezi);
+		if (notSet(x)) { return; }
+
+		if (x.innerHTML != '') {
+			x.innerHTML = '';
+			return;
+		}
+
+		var ico = getelid('searchIcon');
+		if (ico) { ico.style.visibility = 'visible'; }
+
+		var req = new Request('astra/getDianomi');
+		req.xhr.onreadystatechange = function() {
+			getDianomiCheck(req, ico, x);
+		};
+
+		var params = 'trapezi=' + uri(trapezi);
+		req.send(params);
+		return false;
+	};
+
+	function getDianomiCheck(req, ico, div) {
+		if (req.xhr.readyState != 4) { return; }
+
+		ico.style.visibility = 'hidden';
+		rsp = req.getResponse();
+		try {
+			var dedomena = eval('(' + rsp + ')');
+		} catch(e) {
+			mainFyi(rsp);
+		}
+
+		if (notSet(dedomena) || notSet(dedomena.ok) ||
+			notSet(dedomena.dianomi) || isSet(dedomena.error)) {
+			if (isSet(dedomena) && isSet(dedomena.error)) { rsp = dedomena.error; }
+			mainFyi('Λανθασμένα δεδομένα: ' + rsp);
+			return;
+		}
+
+		var html = '';
+		for (var i = 0; i < dedomena.dianomi.length; i++) {
+			html += Astra.dianomiHTML(dedomena.dianomi[i], i);
+		}
+
+		div.innerHTML = html;
+	};
+
+	this.dianomiHTML = function(dianomi, i) {
+		var html = '';
+		html += '<div class="astraPartida astraDianomiZebra' + (i % 2) +
+			'" onclick="Astra.kinisiOnOff(' + dianomi.d + ');" ' +
+			'title="Κλικ για εμφάνιση/απόκρυψη κινήσεων" ' +
+			'onmouseover="Astra.epilogiDianomis(this);" ' +
+			'onmouseout="Astra.apoepilogiDianomis(this);">';
+		html += '<div>' + dianomi.d + '</div>'
+		html += '</div>';
+		html += '<div id="d' + dianomi.d + '"></div>';
+		return html;
+	};
+
+	this.epilogiDianomis = function(div) {
+		div.OBC = div.style.backgroundColor;
+		div.style.backgroundColor = '#FF3385';
+		div.style.fontWeight = 'bold';
+	};
+
+	this.apoepilogiDianomis = function(div) {
+		div.style.backgroundColor = div.OBC;
+		div.style.fontWeight = 'normal';
+	};
+
+	this.kinisiOnOff = function(dianomi) {
+		alert(dianomi);
 	};
 };
 
