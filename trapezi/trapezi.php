@@ -338,25 +338,42 @@ class Trapezi {
 	public static function diagrafi($trapezi) {
 		global $globals;
 
-		// Επαναφέρω τους τελευταίους συμμετέχοντες παίκτες. Κρατάω log archive
-		// μόνο στην περίπτωση που και οι τρεις παίκτες είναι συμπληρωμεένοι.
+		// Για να κρατήσω αρχείο πρέπει να έχω τουλάχιστον μια παιγμένη
+		// διανομή στο τραπέζι.
+
 		$keep_log = FALSE;
-		$query = "SELECT * FROM `simetoxi` WHERE `trapezi` = " . $trapezi;
+		$query = "SELECT `kodikos` FROM `dianomi` WHERE `trapezi` = " . $trapezi .
+			" AND ((`kasa1` <> 0) OR (`kasa2` <> 0) OR (`kasa3` <> 0)) LIMIT 1";
 		$result = @mysqli_query($globals->db, $query);
-		if ($result) {
-			$pektis1 = '';
-			$pektis2 = '';
-			$pektis3 = '';
-			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-				$p = "pektis" . $row['thesi'];
-				$$p = "'" . $globals->asfales($row['pektis']) . "'";
+		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+			$keep_log = TRUE;
+		}
+
+		// Αν βρήκα έστω μια διανομή στο τραπέζι, τότε ελέγχω τους τελευταίους
+		// συμμετέχοντες παίκτες. Για να κρατήσω αρχείο πρέπει και να εντοπίσω
+		// εγγραφές συμμετοχής και για τους τρεις παίκτες.
+
+		if ($keep_log) {
+			$keep_log = FALSE;
+			$query = "SELECT `thesi`, `pektis` FROM `simetoxi` WHERE `trapezi` = " . $trapezi;
+			$result = @mysqli_query($globals->db, $query);
+			if ($result) {
+				$pektis1 = '';
+				$pektis2 = '';
+				$pektis3 = '';
+				while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+					$p = "pektis" . $row['thesi'];
+					$$p = "'" . $globals->asfales($row['pektis']) . "'";
+				}
+				$keep_log = (($pektis1 != '') && ($pektis2 != '') && ($pektis3 != ''));
 			}
-			$keep_log = (($pektis1 != '') && ($pektis2 != '') && ($pektis3 != ''));
 		}
 
 		// Αντιγραφή των δεδομένων του τραπεζιού (τραπέζι, διανομές, κινήσεις)
 		// σε παράλληλους πίνακες ("trapezi_log", "dianomi_log", "kinisi_log").
+
 		if ($keep_log) {
+			// Επαναφέρω τους τελευταίους συμμετέχοντες παίκτες.
 			$query = "UPDATE `trapezi` SET `pektis1` = " . $pektis1 .
 				", `pektis2` = " . $pektis2 . ", " .  "`pektis3` = " .
 				$pektis3 . " WHERE `kodikos` = " . $trapezi;
