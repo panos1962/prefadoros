@@ -44,16 +44,15 @@ function select_dianomi($trapezi, $dianomi_table, $kinisi_table) {
 	global $globals;
 
 	$koma = "";
-	$query = "SELECT `kasa1`, `metrita1`, `kasa2`, `metrita2`, " .
-		"`kasa3`, `metrita3` FROM `" . $dianomi_table .
-		"` WHERE `trapezi` = " . $trapezi . " ORDER BY `kodikos`";
+	$query = "SELECT * FROM `" . $dianomi_table . "` WHERE `trapezi` = " .
+		$trapezi . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		dianomi_json($row, $kinisi_table, $koma);
 	}
 }
 
-function partida_json($row, $kinisi_table, &$koma) {
+function dianomi_json($row, $kinisi_table, &$koma) {
 	global $globals;
 
 	print $koma . "{d:" . $row['kodikos'] .
@@ -68,7 +67,7 @@ function partida_json($row, $kinisi_table, &$koma) {
 	$koma = ",";
 }
 
-function agora_data($dianomi, $kinisi_table) {
+function agora_json($dianomi, $kinisi_table) {
 	global $globals;
 return;
 
