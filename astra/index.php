@@ -15,6 +15,7 @@ Prefadoros::set_trapezi();
 Page::epikefalida(Globals::perastike('pedi'));
 Page::fyi();
 ?>
+<form onsubmit="return Astra.getData();" />
 <div id="astraArea" class="mainArea astraArea">
 <div class="astraInput">
 	<div class="formaPrompt astraPrompt">Παίκτης</div>
@@ -42,9 +43,9 @@ Page::fyi();
 <div class="astraInput">
 	<img id="searchIcon" class="astraSearchIcon" src="<?php
 		print $globals->server; ?>images/workingBilies.gif" alt="" />
-	<input class="formaField astraGo" value="Go!!!" type="button"
-		onclick="Astra.getData();" />
+	<input class="formaField astraGo" value="Go!!!" type="submit" />
 </div>
+</form>
 <div id="dataArea" class="astraDataArea"></div>
 </div>
 <?php

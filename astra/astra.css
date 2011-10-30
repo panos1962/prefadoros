@@ -36,11 +36,10 @@
 
 .astraPartidaKodikos {
 	display: inline-block;
-	margin-right: 0.4cm;
 
-	width: 1.8cm;
-	min-width: 1.8cm;
-	max-width: 1.8cm;
+	width: 2.2cm;
+	min-width: 2.2cm;
+	max-width: 2.2cm;
 	text-align: right;
 }
 
@@ -99,6 +98,8 @@
 	overflow-x: hidden;
 }
 
-.astraDianomiIcon {
-	width: 0.6cm;
+.astraPartidaXronos {
+	display: inline-block;
+	margin-left: 0.6cm;
+	font-size: 90%;
 }

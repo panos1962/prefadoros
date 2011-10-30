@@ -4,6 +4,7 @@ require_once '../prefadoros/prefadoros.php';
 require_once '../pektis/pektis.php';
 Page::data();
 set_globals();
+$globals->time_dif = Globals::perastike_check('timeDif');
 
 Prefadoros::pektis_check();
 
@@ -41,6 +42,10 @@ function parse_partida() {
 			$ipotmima = explode("-", $tmima[$i]);
 			$query .= "BETWEEN " . $ipotmima[0] . " AND " . $ipotmima[1] . ")";
 		}
+		elseif (preg_match("/^[0-9]+\\-$/", $tmima[$i])) {
+			$ipotmima = explode("-", $tmima[$i]);
+			$query .= ">= " . $ipotmima[0] . ")";
+		}
 		else {
 			lathos_kritiria($partida . ": λανθασμένα κριτήρια παρτίδας");
 		}
@@ -54,14 +59,18 @@ function select_partida($sql) {
 	global $globals;
 	if ($sql == "") { return; }
 
+	$columns = "`kodikos`, `pektis1`, `pektis2`, `pektis3`, `kasa`, ";
+
 	$koma = "";
-	$query = "SELECT * FROM `trapezi_log` WHERE 1" . $sql . " ORDER BY `kodikos`";
+	$query = "SELECT " . $columns . "UNIX_TIMESTAMP(`telos`) AS `xronos` " .
+		"FROM `trapezi_log` WHERE 1" . $sql . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		partida_json($row, $koma, '_log');
 	}
 
-	$query = "SELECT * FROM `trapezi` WHERE 1" . $sql . " ORDER BY `kodikos`";
+	$query = "SELECT " . $columns . "UNIX_TIMESTAMP(`stisimo`) AS `xronos` " .
+		"FROM `trapezi` WHERE 1" . $sql . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		partida_json($row, $koma);
@@ -69,6 +78,8 @@ function select_partida($sql) {
 }
 
 function partida_json($row, &$koma, $log = '') {
+	global $globals;
+
 	doune_lavin($row['kodikos'], $row['kasa'], $log, $kapikia);
 	print $koma . "{t:" . $row['kodikos'] .
 		",p1:'" . $row['pektis1'] .
@@ -77,7 +88,8 @@ function partida_json($row, &$koma, $log = '') {
 		"',k2:" . $kapikia[2] .
 		",p3:'" . $row['pektis3'] .
 		"',k3:" . $kapikia[3] .
-		"}";
+		",x:'" . addslashes(Xronos::pote($row['xronos'], $globals->time_dif)) .
+		"'}";
 	$koma = ",";
 }
 

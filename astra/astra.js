@@ -21,7 +21,10 @@ var Astra = new function() {
 
 	this.getData = function() {
 		var partida = getelid('partida');
-		if (notSet(partida)) { return mainFyi('partida: misssing input field'); }
+		if (notSet(partida)) {
+			mainFyi('partida: misssing input field');
+			return false;
+		}
 
 		var ico = getelid('searchIcon');
 		if (ico) { ico.style.visibility = 'visible'; }
@@ -34,6 +37,7 @@ var Astra = new function() {
 		var params = '';
 		params +=  'partida=' + uri(partida.value.trim());
 		req.send(params);
+		return false;
 	};
 
 	function getDataCheck(req, ico) {
@@ -77,6 +81,13 @@ var Astra = new function() {
 		return html;
 	};
 
+	this.xronosHTML = function(xronos) {
+		var html = '<div class="astraPartidaXronos">';
+		html += xronos;
+		html += '</div>';
+		return html;
+	};
+
 	this.partidaHTML = function(partida, i) {
 		var html = '';
 		html += '<div class="astraPartida zebra' + (i % 2) +
@@ -88,6 +99,7 @@ var Astra = new function() {
 		html += Astra.pektisHTML(partida.p1, partida.k1);
 		html += Astra.pektisHTML(partida.p2, partida.k2);
 		html += Astra.pektisHTML(partida.p3, partida.k3);
+		html += Astra.xronosHTML(partida.x);
 		html += '</div>';
 		return html;
 	};
