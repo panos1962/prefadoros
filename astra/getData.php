@@ -91,7 +91,7 @@ function parse_eos(&$prev) {
 		lathos_kritiria($eos . ": λάθος ημερομηνία τέλους");
 	}
 
-	$query .= "UNIX_TIMESTAMP(`stisimo`) <= " . ($eosts - $globals->time_dif);
+	$query .= "UNIX_TIMESTAMP(`stisimo`) <= " . ($eosts + 86400 - $globals->time_dif);
 	if ($prev != '') { $prev .= " AND "; }
 	$prev = $prev . "(" . $query . ")";
 }
