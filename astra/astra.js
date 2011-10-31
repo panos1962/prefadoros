@@ -229,7 +229,7 @@ var Astra = new function() {
 		html += '<div class="' + klasi + '">';
 		if (thesi == dianomi.l) {
 			html += '<img class="astraDealer" src= "' + globals.server +
-				'images/dealer.png" alt="" />';
+				'images/dealer.png" title="Dealer" alt="" />';
 		}
 
 		if (paso) {
