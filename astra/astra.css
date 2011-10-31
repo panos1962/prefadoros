@@ -142,7 +142,12 @@ body {
 	display: inline-block;
 	background-color: #B7AA7D;
 	color: #FFFF00;
+
+	width: 17.35cm;
+	min-width: 17.35cm;
+	max-width: 17.35cm;
 	padding: 0px 0.2cm 0px 0.2cm;
+	text-align: center;
 
 	border-style: solid;
 	border-width: 0.08cm;
@@ -151,4 +156,60 @@ body {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
+}
+
+.astraAgora {
+	display: inline-block;
+}
+
+.astraAgoraPektis {
+	position: relative;
+	display: inline-block;
+	width: 5.54cm;
+	margin-right: 0.4cm;
+
+	border-style: solid;
+	border-width: 0.08cm;
+	border-color: #6B8E23;
+	background-color: #8AA886;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+
+	background-color: #FFFFCC;
+	text-align: center;
+}
+
+.astraAgoraBazes {
+	font-weight: bold;
+}
+
+.astraAgoraXroma {
+	width: 0.5cm;
+	height: 0.4cm;
+}
+
+.astraAgoraAsoi {
+	width: 0.5cm;
+	height: 0.4cm;
+}
+
+.astraAgoraPaso {
+	background-image: url('../images/diagrafiSmall.png');
+	background-repeat: repeat;
+	background-color: #FFFFFF;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+}
+
+.astraSimetoxi {
+	background-color: #E6E6B8;
+}
+
+.astraDealer {
+	position: absolute;
+	bottom: 0.05cm;
+	left: 0.1cm;
+	width: 0.5cm;
 }

@@ -200,6 +200,57 @@ var Astra = new function() {
 		div.innerHTML = html;
 	};
 
+	this.agoraHTML = function(axb) {
+		var asoi = axb.substr(0,1);
+		var xroma = axb.substr(1,1);
+		var bazes = axb.substr(2,1);
+
+		var html = '';
+		html += '<div class="astraAgora">';
+		html += '<span class="astraAgoraBazes">' + bazes + '</span>';
+		html += '<img class="astraAgoraXroma" src= "' + globals.server +
+			'images/trapoula/xroma' + xroma + '.png" alt="" />';
+		if (asoi == 'Y') {
+			html += '&nbsp;+&nbsp;';
+			html += '<img class="astraAgoraAsoi" src= "' + globals.server +
+			'images/trapoula/asoi.png" alt="" />';
+		}
+		html += '</div>';
+		return html;
+	};
+
+	this.agoraPektisHTML = function(thesi, dianomi) {
+		var html = '';
+		var paso = (notSet(dianomi.a) || notSet(dianomi.t));
+
+		var klasi = 'astraAgoraPektis';
+		if (paso) { klasi += ' astraAgoraPaso'; }
+
+		html += '<div class="' + klasi + '">';
+		if (thesi == dianomi.l) {
+			html += '<img class="astraDealer" src= "' + globals.server +
+				'images/dealer.png" alt="" />';
+		}
+
+		if (paso) {
+			html += 'ΠΑΣΟ';
+		}
+		else {
+			html += '<div class="astraAgoraPektis>';
+			if (thesi == dianomi.t) {
+				html += Astra.agoraHTML(dianomi.a);
+			}
+			else {
+				html += '<div class="astraSimetoxi">';
+				html += 'ΠΑΙΖΩ';
+				html += '</div>';
+			}
+		}
+
+		html += '</div>';
+		return html;
+	};
+
 	this.dianomiHTML = function(dianomi, i) {
 		var html = '';
 		html += '<div class="astraDianomi astraDianomiZebra' + (i % 2) +
@@ -207,13 +258,8 @@ var Astra = new function() {
 			'title="Κλικ για εμφάνιση/απόκρυψη κινήσεων" ' +
 			'onmouseover="Astra.epilogiDianomis(this);" ' +
 			'onmouseout="Astra.apoepilogiDianomis(this);">';
-		html += '<div style="display: inline-block;">' + dianomi.l + '</div>';
-		if (isSet(dianomi.a)) {
-			html += '<div style="display: inline-block;">' + dianomi.t + '</div>';
-			html += '<div style="display: inline-block;">' + dianomi.a + '</div>';
-		}
-		else {
-			html += '<div style="display: inline-block;">ΠΑΣΟ</div>';
+		for (var j = 1; j <= 3; j++) {
+			html += Astra.agoraPektisHTML(j, dianomi);
 		}
 		html += '</div>';
 		html += '<div id="d' + dianomi.d + '"></div>';
