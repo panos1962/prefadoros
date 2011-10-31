@@ -160,7 +160,7 @@ var Astra = new function() {
 
 		var req = new Request('astra/getDianomi');
 		req.xhr.onreadystatechange = function() {
-			getDianomiCheck(req, ico, x);
+			getDianomiCheck(req, ico, x, trapezi);
 		};
 
 		var params = 'trapezi=' + uri(trapezi);
@@ -168,7 +168,7 @@ var Astra = new function() {
 		return false;
 	};
 
-	function getDianomiCheck(req, ico, div) {
+	function getDianomiCheck(req, ico, div, trapezi) {
 		if (req.xhr.readyState != 4) { return; }
 
 		ico.style.visibility = 'hidden';
@@ -190,6 +190,12 @@ var Astra = new function() {
 		for (var i = 0; i < dedomena.dianomi.length; i++) {
 			html += Astra.dianomiHTML(dedomena.dianomi[i], i);
 		}
+		html += '<div class="astraDianomi">';
+		html += '<div class="astraKlisimo" ' +
+			'onclick="Astra.dianomiOnOff(' + trapezi + ');">';
+		html += 'Κλείσιμο';
+		html += '</div>';
+		html += '</div>';
 
 		div.innerHTML = html;
 	};

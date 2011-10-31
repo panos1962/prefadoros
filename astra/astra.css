@@ -13,6 +13,12 @@ body {
 	height: 14.0cm;
 }
 
+.astraInputArea {
+	height: 1.8em;
+	min-height: 1.8em;
+	max-height: 1.8em;
+}
+
 .astraInput {
 	display: inline-block;
 	white-space: nowrap;
@@ -41,6 +47,10 @@ body {
 	padding-top: 0.1cm;
 	padding-bottom: 0.1cm;
 	cursor: pointer;
+
+	width: 26.0cm;
+	max-width: 26.0cm;
+	overflow-x: hidden;
 }
 
 .astraPartidaKodikos {
@@ -126,4 +136,19 @@ body {
 
 .astraDianomiZebra1 {
 	background-color: #FFE6F0;
+}
+
+.astraKlisimo {
+	display: inline-block;
+	background-color: #B7AA7D;
+	color: #FFFF00;
+	padding: 0px 0.2cm 0px 0.2cm;
+
+	border-style: solid;
+	border-width: 0.08cm;
+	border-color: #928864;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 }
