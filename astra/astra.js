@@ -201,7 +201,14 @@ var Astra = new function() {
 			'title="Κλικ για εμφάνιση/απόκρυψη κινήσεων" ' +
 			'onmouseover="Astra.epilogiDianomis(this);" ' +
 			'onmouseout="Astra.apoepilogiDianomis(this);">';
-		html += '<div>' + dianomi.d + '</div>'
+		html += '<div style="display: inline-block;">' + dianomi.l + '</div>';
+		if (isSet(dianomi.a)) {
+			html += '<div style="display: inline-block;">' + dianomi.t + '</div>';
+			html += '<div style="display: inline-block;">' + dianomi.a + '</div>';
+		}
+		else {
+			html += '<div style="display: inline-block;">ΠΑΣΟ</div>';
+		}
 		html += '</div>';
 		html += '<div id="d' + dianomi.d + '"></div>';
 		return html;
