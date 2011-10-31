@@ -1,3 +1,12 @@
+body {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	-khtml-user-select: none;
+	-ms-user-select: none;
+}
+
 .astraArea {
 	min-height: 14.0cm;
 	max-height: 14.0cm;

@@ -56,6 +56,7 @@ function dianomi_json($row, $kinisi_table, &$koma) {
 	global $globals;
 
 	print $koma . "{d:" . $row['kodikos'] .
+		",l:" . $row['dealer'] .
 		",k1:" . $row['kasa1'] .
 		",m1:" . $row['metrita1'] .
 		",k2:" . $row['kasa2'] .
@@ -69,14 +70,28 @@ function dianomi_json($row, $kinisi_table, &$koma) {
 
 function agora_json($dianomi, $kinisi_table) {
 	global $globals;
-return;
 
-	$query = "SELECT * FROM `" . $kinisi_table . "` WHERE `dianomi` = " .
-		$dianomi . " AND `idos` ΙΝ ('ΑΓΟΡΑ', 'ΔΗΛΩΣΗ', 'ΣΥΜΜΕΤΟΧΗ') ".
+	$agora = NULL;
+	$query = "SELECT * FROM `" . $kinisi_table . "` WHERE (`dianomi` = " .
+		$dianomi . ") AND (`idos` IN ('ΑΓΟΡΑ', 'ΔΗΛΩΣΗ', 'ΣΥΜΜΕΤΟΧΗ')) ".
 		"ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-		$x = 0;
+		switch ($row['idos']) {
+		case "ΑΓΟΡΑ":
+			$tzogadoros = $row['pektis'];
+			$agora = $row['data'];
+			break;
+		}
 	}
+
+	if (!isset($agora)) {
+		return;
+	}
+
+	$tmima = explode(":", $agora);
+	$agora = $tmima[0];
+	print ",t:" . $tzogadoros;
+	print ",a:'" . $agora . "'";
 }
 ?>
