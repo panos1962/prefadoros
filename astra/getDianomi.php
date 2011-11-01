@@ -72,6 +72,7 @@ function agora_json($dianomi, $kinisi_table) {
 	global $globals;
 
 	$agora = NULL;
+	$tzogadoros = 0;
 	$dilosi = array('', '', '', '');
 	$simetoxi = array('', '', '', '');
 	$query = "SELECT * FROM `" . $kinisi_table . "` WHERE (`dianomi` = " .
@@ -123,7 +124,7 @@ function agora_json($dianomi, $kinisi_table) {
 
 	if ($mazi > 0) {
 		for ($i = 1; $i <= 3; $i++) {
-			if ($simetoxi[$i] == 'S') {
+			if ($i != $tzogadoros) {
 				$simetoxi[$i] = 'V';
 			}
 		}
