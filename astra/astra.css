@@ -243,6 +243,8 @@ body {
 }
 
 .astraSimetoxiV {
+	opacity: 0.6;
+	filter: alpha(opacity=60);
 	background-color: #70944D;
 }
 
