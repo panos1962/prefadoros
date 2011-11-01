@@ -116,7 +116,7 @@ function agora_json($dianomi, $kinisi_table) {
 			$simetoxi[$i] = 'N';
 			break;
 		default:
-			$simetoxi[$i] = '';
+			$simetoxi[$i] = '?';
 			break;
 		}
 	}
