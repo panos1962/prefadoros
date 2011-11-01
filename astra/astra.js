@@ -201,13 +201,18 @@ var Astra = new function() {
 		div.innerHTML = html;
 	};
 
-	this.agoraHTML = function(axb) {
+	this.agoraHTML = function(axb, ekane) {
 		var asoi = axb.substr(0,1);
 		var xroma = axb.substr(1,1);
 		var bazes = axb.substr(2,1);
 
+		var klasi = 'astraAgora';
+		var mesa = bazes - ekane;
+		if (mesa > 1) { klasi += ' astraSolo'; }
+		else if (mesa > 0) { klasi += ' astraMesa'; }
+
 		var html = '';
-		html += '<div class="astraAgora">';
+		html += '<div class="' + klasi + '">';
 		html += '<span class="astraAgoraBazes">' + bazes + '</span>';
 		html += '<img class="astraAgoraXroma" src= "' + globals.server +
 			'images/trapoula/xroma' + xroma + '.png" alt="" />';
@@ -290,7 +295,8 @@ var Astra = new function() {
 		}
 		else {
 			if (thesi == dianomi.t) {
-				html += Astra.agoraHTML(dianomi.a);
+				var bazes = isSet(dianomi.b) ? dianomi.b[dianomi.t] : 10;
+				html += Astra.agoraHTML(dianomi.a, bazes);
 			}
 			else {
 				html += Astra.dilosiHTML(dianomi.o[thesi]);
