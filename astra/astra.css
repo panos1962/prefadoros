@@ -158,14 +158,11 @@ body {
 	border-radius: 3px;
 }
 
-.astraAgora {
-	display: inline-block;
-}
-
-.astraAgoraPektis {
+.astraDianomiPektis {
 	position: relative;
 	display: inline-block;
 	width: 5.54cm;
+	height: 0.54cm;
 	margin-right: 0.4cm;
 
 	border-style: solid;
@@ -179,6 +176,19 @@ body {
 
 	background-color: #FFFFCC;
 	text-align: center;
+}
+
+.astraPaso {
+	background-image: url('../images/diagrafiSmall.png');
+	background-repeat: repeat;
+	background-color: #FFFFFF;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+}
+
+.astraAgora {
+	position: absolute;
+	display: inline-block;
 }
 
 .astraAgoraBazes {
@@ -195,25 +205,54 @@ body {
 	height: 0.4cm;
 }
 
-.astraAgoraPaso {
-	background-image: url('../images/diagrafiSmall.png');
-	background-repeat: repeat;
-	background-color: #FFFFFF;
-	opacity: 0.7;
-	filter: alpha(opacity=70);
-}
-
 .astraDilosi {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 3.2cm;
+	display: inline-block;
+	padding-left: 0.1cm;
+	text-align: left;
+	letter-spacing: -1px;
 	background-color: #E6E6B8;
 }
 
 .astraSimetoxi {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 2.2cm;
+	display: inline-block;
+	padding-right: 0.1cm;
+	text-align: right;
+	color: #FFFF00;
 	background-color: #E6E6B8;
+}
+
+
+.astraSimetoxiM {
+	background-color: #5F9EA0;
+}
+
+.astraSimetoxiN {
+	background-color: #CD5C5C;
+}
+
+.astraSimetoxiP {
+	background-color: #70944D;
+}
+
+.astraSimetoxiV {
+	background-color: #70944D;
+}
+
+.astraSimetoxiS {
+	color: #16130E;
 }
 
 .astraDealer {
 	position: absolute;
 	bottom: 0.05cm;
-	left: 0.4cm;
+	left: -0.2cm;
 	width: 0.5cm;
 }

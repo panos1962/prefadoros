@@ -99,6 +99,36 @@ function agora_json($dianomi, $kinisi_table) {
 		return;
 	}
 
+	$mazi = 0;
+	for ($i = 1; $i <= 3; $i++) {
+		switch ($simetoxi[$i]) {
+		case 'ΜΑΖΙ':
+			$mazi = $i;
+			$simetoxi[$i] = 'M';
+			break;
+		case 'ΠΑΣΟ':
+			$simetoxi[$i] = 'S';
+			break;
+		case 'ΠΑΙΖΩ':
+			$simetoxi[$i] = 'P';
+			break;
+		case 'ΜΟΝΟΣ':
+			$simetoxi[$i] = 'N';
+			break;
+		default:
+			$simetoxi[$i] = '';
+			break;
+		}
+	}
+
+	if ($mazi > 0) {
+		for ($i = 1; $i <= 3; $i++) {
+			if ($simetoxi[$i] == 'S') {
+				$simetoxi[$i] = 'V';
+			}
+		}
+	}
+
 	$tmima = explode(":", $agora);
 	$agora = $tmima[0];
 	print ",t:" . $tzogadoros;
@@ -112,7 +142,7 @@ function agora_json($dianomi, $kinisi_table) {
 	print "],s:[";
 	$koma = "";
 	for ($i = 0; $i <= 3; $i++) {
-		print $koma . "'" . addslashes($simetoxi[$i]) . "'";
+		print $koma . "'" . $simetoxi[$i] . "'";
 		$koma = ",";
 	}
 	print "]";

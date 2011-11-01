@@ -214,7 +214,7 @@ var Astra = new function() {
 		if (asoi == 'Y') {
 			html += '&nbsp;+&nbsp;';
 			html += '<img class="astraAgoraAsoi" src= "' + globals.server +
-			'images/trapoula/asoi.png" alt="" />';
+			'images/trapoula/asoi.png" title="Και οι άσοι!" alt="" />';
 		}
 		html += '</div>';
 		return html;
@@ -230,9 +230,7 @@ var Astra = new function() {
 			var exo = dilosi.substr(0, 1);
 			var xroma = dilosi.substr(1, 1);
 			var bazes = dilosi.substr(2, 1);
-			if (exo == 'E') {
-				html += 'Έχω ';
-			}
+			if (exo == 'E') { html += 'Έχω '; }
 			html += globals.bazesDesc[bazes] + ' ' + globals.xromaDesc[xroma];
 		}
 		else {
@@ -242,30 +240,49 @@ var Astra = new function() {
 		return html;
 	};
 
-	this.agoraPektisHTML = function(thesi, dianomi) {
+	var simetoxiDecode = {
+		'P':	'ΠΑΙΖΩ',
+		'S':	'ΠΑΣΟ',
+		'M':	'ΜΑΖΙ',
+		'V':	'ΒΟΘΑΩ',
+		'?':	'????'
+	};
+
+	this.simetoxiHTML = function(simetoxi) {
+		var html = '';
+		html += '<div class="astraSimetoxi astraSimetoxi' + simetoxi;
+		if (simetoxi == 'S') { html += ' astraPaso'; }
+		html += '">';
+
+		html += simetoxiDecode[simetoxi];
+		html += '</div>';
+		return html;
+	};
+
+	this.dianomiPektisHTML = function(thesi, dianomi) {
 		var html = '';
 		var paso = (notSet(dianomi.a) || notSet(dianomi.t));
 
-		var klasi = 'astraAgoraPektis';
-		if (paso) { klasi += ' astraAgoraPaso'; }
-
+		var klasi = 'astraDianomiPektis';
+		if (paso) { klasi += ' astraPaso'; }
 		html += '<div class="' + klasi + '">';
-		if (thesi == dianomi.l) {
-			html += '<img class="astraDealer" src= "' + globals.server +
-				'images/dealer.png" title="Dealer" alt="" />';
-		}
 
 		if (paso) {
 			html += 'ΠΑΣΟ';
 		}
 		else {
-			html += '<div class="astraAgoraPektis>';
 			if (thesi == dianomi.t) {
 				html += Astra.agoraHTML(dianomi.a);
 			}
 			else {
 				html += Astra.dilosiHTML(dianomi.o[thesi]);
+				html += Astra.simetoxiHTML(dianomi.s[thesi]);
 			}
+		}
+
+		if (thesi == dianomi.l) {
+			html += '<img class="astraDealer" src= "' + globals.server +
+				'images/dealer.png" title="Dealer" alt="" />';
 		}
 
 		html += '</div>';
@@ -280,7 +297,7 @@ var Astra = new function() {
 			'onmouseover="Astra.epilogiDianomis(this);" ' +
 			'onmouseout="Astra.apoepilogiDianomis(this);">';
 		for (var j = 1; j <= 3; j++) {
-			html += Astra.agoraPektisHTML(j, dianomi);
+			html += Astra.dianomiPektisHTML(j, dianomi);
 		}
 		html += '</div>';
 		html += '<div id="d' + dianomi.d + '"></div>';
@@ -290,12 +307,10 @@ var Astra = new function() {
 	this.epilogiDianomis = function(div) {
 		div.OBC = div.style.backgroundColor;
 		div.style.backgroundColor = '#FF99C2';
-		div.style.fontWeight = 'bold';
 	};
 
 	this.apoepilogiDianomis = function(div) {
 		div.style.backgroundColor = div.OBC;
-		div.style.fontWeight = 'normal';
 	};
 
 	this.kinisiOnOff = function(dianomi) {
