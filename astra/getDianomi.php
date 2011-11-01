@@ -124,8 +124,9 @@ function agora_json($dianomi, $kinisi_table) {
 
 	if ($mazi > 0) {
 		for ($i = 1; $i <= 3; $i++) {
-			if ($i != $tzogadoros) {
+			if (($i != $tzogadoros) && ($i != $mazi)) {
 				$simetoxi[$i] = 'V';
+				break;
 			}
 		}
 	}
