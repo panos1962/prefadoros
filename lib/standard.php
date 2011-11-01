@@ -629,7 +629,7 @@ class Page {
 		</div>
 		<a href="https://twitter.com/prefadorosTT" target="_blank"><img
 			src="<?php print $globals->server; ?>images/twitter.png"
-			alt="Ο «Πρεφαδόρος» στο twitter" height="24" /></a>
+			alt="Ο «Πρεφαδόρος» στο twitter" height="22" /></a>
 		<?php
 	}
 
