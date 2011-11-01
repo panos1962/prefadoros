@@ -262,13 +262,28 @@ var Astra = new function() {
 		return html;
 	};
 
+	var RB = [ 'R', 'R', 'R', 'B', 'B' , 'B', 'R', 'R', 'R', 'B' ];
+
+	this.bazesHTML = function(bazes) {
+		var html = '';
+		if (bazes <= 0) { return html; }
+
+		html += '<div class="astraBazes">';
+		for (var i = 0; i < bazes; i++) {
+			html += '<img class="astraBazaIcon" src="' + globals.server +
+				'images/trapoula/' + RB[i] + 'V.png" alt="" />';
+		}
+		html += '</div>';
+		return html;
+	};
+
 	this.dianomiPektisHTML = function(thesi, dianomi) {
 		var html = '';
 		var paso = (notSet(dianomi.a) || notSet(dianomi.t));
 
 		var klasi = 'astraDianomiPektis';
 		if (paso) { klasi += ' astraPaso'; }
-		html += '<div class="' + klasi + '">';
+		html += '<div class="' + klasi + '" style="text-align: center;">';
 
 		if (paso) {
 			html += 'ΠΑΣΟ';
@@ -286,6 +301,10 @@ var Astra = new function() {
 		if (thesi == dianomi.l) {
 			html += '<img class="astraDealer" src= "' + globals.server +
 				'images/dealer.png" title="Dealer" alt="" />';
+		}
+
+		if (isSet(dianomi.b)) {
+			html += Astra.bazesHTML(dianomi.b[thesi]);
 		}
 
 		html += '</div>';
