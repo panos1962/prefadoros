@@ -231,7 +231,9 @@ var Astra = new function() {
 			var xroma = dilosi.substr(1, 1);
 			var bazes = dilosi.substr(2, 1);
 			if (exo == 'E') { html += 'Έχω '; }
-			html += bazes + ' ' + globals.xromaDesc[xroma];
+			html += bazes;
+			html += '<img class="astraDilosiXroma" src= "' + globals.server +
+				'images/trapoula/xroma' + xroma + '.png" alt="" />';
 		}
 		else {
 			html += '&nbsp;';
