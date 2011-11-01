@@ -72,15 +72,25 @@ function agora_json($dianomi, $kinisi_table) {
 	global $globals;
 
 	$agora = NULL;
+	$dilosi = array('', '', '', '');
+	$simetoxi = array('', '', '', '');
 	$query = "SELECT * FROM `" . $kinisi_table . "` WHERE (`dianomi` = " .
 		$dianomi . ") AND (`idos` IN ('ΑΓΟΡΑ', 'ΔΗΛΩΣΗ', 'ΣΥΜΜΕΤΟΧΗ')) ".
 		"ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		switch ($row['idos']) {
-		case "ΑΓΟΡΑ":
+		case 'ΑΓΟΡΑ':
 			$tzogadoros = $row['pektis'];
 			$agora = $row['data'];
+			break;
+		case 'ΔΗΛΩΣΗ':
+			if (substr($row['data'], 0, 1) != "P") {
+				$dilosi[$row['pektis']] = $row['data'];
+			}
+			break;
+		case 'ΣΥΜΜΕΤΟΧΗ':
+			$simetoxi[$row['pektis']] = $row['data'];
 			break;
 		}
 	}
@@ -93,5 +103,18 @@ function agora_json($dianomi, $kinisi_table) {
 	$agora = $tmima[0];
 	print ",t:" . $tzogadoros;
 	print ",a:'" . $agora . "'";
+	print ",o:[";
+	$koma = "";
+	for ($i = 0; $i <= 3; $i++) {
+		print $koma . "'" . addslashes($dilosi[$i]) . "'";
+		$koma = ",";
+	}
+	print "],s:[";
+	$koma = "";
+	for ($i = 0; $i <= 3; $i++) {
+		print $koma . "'" . addslashes($simetoxi[$i]) . "'";
+		$koma = ",";
+	}
+	print "]";
 }
 ?>

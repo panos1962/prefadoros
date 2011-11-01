@@ -1,3 +1,4 @@
+var pexnidi = {};
 var Astra = new function() {
 	this.setHeight = function() {
 		var wh = diathesimosXoros();
@@ -219,6 +220,28 @@ var Astra = new function() {
 		return html;
 	};
 
+	this.dilosiHTML = function(dilosi) {
+		var html = '';
+		html += '<div class="astraDilosi">';
+		if (dilosi == 'DTG') {
+			html += 'Άμα μείνουν';
+		}
+		else if (dilosi != '') {
+			var exo = dilosi.substr(0, 1);
+			var xroma = dilosi.substr(1, 1);
+			var bazes = dilosi.substr(2, 1);
+			if (exo == 'E') {
+				html += 'Έχω ';
+			}
+			html += globals.bazesDesc[bazes] + ' ' + globals.xromaDesc[xroma];
+		}
+		else {
+			html += '&nbsp;';
+		}
+		html += '</div>';
+		return html;
+	};
+
 	this.agoraPektisHTML = function(thesi, dianomi) {
 		var html = '';
 		var paso = (notSet(dianomi.a) || notSet(dianomi.t));
@@ -241,9 +264,7 @@ var Astra = new function() {
 				html += Astra.agoraHTML(dianomi.a);
 			}
 			else {
-				html += '<div class="astraSimetoxi">';
-				html += 'ΠΑΙΖΩ';
-				html += '</div>';
+				html += Astra.dilosiHTML(dianomi.o[thesi]);
 			}
 		}
 
