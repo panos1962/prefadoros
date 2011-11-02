@@ -10,6 +10,9 @@ Prefadoros::pektis_check();
 
 print "{";
 
+global $ke_pektis;
+$ke_pektis = array();
+
 $query = "";
 parse_pektis($query);
 parse_apo($query);
@@ -22,6 +25,7 @@ print "],ok:true}";
 
 function parse_pektis(&$prev) {
 	global $globals;
+	global $ke_pektis;
 
 	$query = "";
 	if (!Globals::perastike('pektis')) { return $query; }
@@ -32,6 +36,18 @@ function parse_pektis(&$prev) {
 	$n = count($tmima);
 	for ($i = 0; $i < $n; $i++) {
 		$tmima[$i] = trim($tmima[$i]);
+		if ($tmima[$i] == "") { continue; }
+
+		$ipotmima = explode("+", $tmima[$i]);
+		$m = count($ipotmima);
+		for ($j = 1; $j < $m; $j++) {
+			$ipotmima[$j] = trim($ipotmima[$j]);
+			if ($ipotmima[$j] != "") {
+				$ke_pektis[$ipotmima[$j]] = TRUE;
+			}
+		}
+
+		$tmima[$i] = trim($ipotmima[0]);
 		if ($tmima[$i] == "") { continue; }
 
 		if ($query != "") { $query .= " OR"; }
@@ -161,6 +177,15 @@ function select_partida($sql) {
 
 function partida_json($row, &$koma, $log = '') {
 	global $globals;
+	global $ke_pektis;
+
+	foreach($ke_pektis as $pektis => $val) {
+		if (($row['pektis1'] != $pektis) &&
+			($row['pektis2'] != $pektis) &&
+			($row['pektis3'] != $pektis)) {
+			return;
+		}
+	}
 
 	doune_lavin($row['kodikos'], $row['kasa'], $log, $kapikia);
 	print $koma . "{t:" . $row['kodikos'] .
