@@ -225,9 +225,12 @@ var Astra = new function() {
 		return html;
 	};
 
-	this.dilosiHTML = function(dilosi) {
+	this.dilosiHTML = function(dilosi, mesa) {
 		var html = '';
-		html += '<div class="astraDilosi">';
+		html += '<div class="astraDilosi';
+		if (mesa > 1) { html += ' astraSolo'; }
+		else if (mesa > 0) { html += ' astraMesa'; }
+		html += '">';
 		if (dilosi == 'DTG') {
 			html += 'Άμα μείνουν';
 		}
@@ -261,7 +264,6 @@ var Astra = new function() {
 		html += '<div class="astraSimetoxi astraSimetoxi' + simetoxi;
 		if (simetoxi == 'S') { html += ' astraPaso'; }
 		html += '">';
-
 		html += simetoxiDecode[simetoxi];
 		html += '</div>';
 		return html;
@@ -281,6 +283,14 @@ var Astra = new function() {
 		html += '</div>';
 		return html;
 	};
+
+	// Εδώ θα δημιουργήσουμε array στο object "dianomi" με στοιχεία
+	// που αφορούν στην κατάσταση των αμυνομένων και αντιστοιχούν στις
+	// θέσεις των παικτών (1-based) όπου:
+	//
+	//	0: σημαίνει βγήκε ή πάσο
+	//	1: μέσα απλά
+	//	2: μέσα σόλο
 
 	this.mesaExo = function(dianomi) {
 		dianomi.mesa = [ 0, 0, 0, 0 ];
@@ -310,7 +320,7 @@ var Astra = new function() {
 			return;
 		}
 
-		switch (dianomi.a.substr(2,1)) {
+		switch (parseInt(dianomi.a.substr(2,1))) {
 		case 6:
 			var protosPrepi = 2;
 			var defterosPrepi = 2;
@@ -331,6 +341,9 @@ var Astra = new function() {
 			return;
 		}
 
+		// Αν κάποιος από τους αμυνόμενους πήγε πάσο
+		// τον μηδενίζω και αλλάζω τον πρώτο.
+
 		if (dianomi.s[protos] == 'S') {
 			protos = defteros;
 			defteros = 0;
@@ -346,24 +359,49 @@ var Astra = new function() {
 		var piran = 10 - dianomi.b[tzogadoros];
 		if (piran >= aminaPrepi) { return; }
 
+		// Χρησιμοποιώ ένα τοπικό array με τις μπάζες των
+		// αμυνομένων, στο οποίο όμως επιχειρώ ένα "ζύγισμα"
+		// των μπαζών, δηλαδή τυχόν πλεόνασμα από τον έναν
+		// αμυνόμενο το μεταφέρω στον άλλο.
+
+		bazes = [ 0, 0, 0, 0 ]
+		bazes[protos] = dianomi.b[protos];
+		bazes[defteros] = dianomi.b[defteros];
+
+		if ((protos != 0) && (defteros != 0)) {
+			var dif = bazes[protos] - protosPrepi;
+			if (dif > 0) {
+				bazes[protos] -= dif;
+				bazes[defteros] += dif;
+			}
+
+			dif = bazes[defteros] - defterosPrepi;
+			if (dif > 0) {
+				bazes[defteros] -= dif;
+				bazes[protos] += dif;
+			}
+		}
+
 		if (protos != 0) {
-			dif = protosPrepi - dianomi.b[protos];
+			var dif = protosPrepi - bazes[protos];
 			if (dif > 1) { dianomi.mesa[protos] = 2; }
-			if (dif > 0) { dianomi.mesa[protos] = 1; }
+			else if (dif > 0) { dianomi.mesa[protos] = 1; }
 		}
 
 		if (defteros != 0) {
-			dif = defterosPrepi - dianomi.b[defteros];
+			dif = defterosPrepi - bazes[defteros];
 			if (dif > 1) { dianomi.mesa[defteros] = 2; }
-			if (dif > 0) { dianomi.mesa[defteros] = 1; }
+			else if (dif > 0) { dianomi.mesa[defteros] = 1; }
 		}
 
 		if (dianomi.s[protos] == 'V') {
 			dianomi.mesa[defteros] += dianomi.mesa[protos];
+			dianomi.mesa[protos] = 0;
 		}
 
 		if (dianomi.s[defteros] == 'V') {
 			dianomi.mesa[protos] += dianomi.mesa[defteros];
+			dianomi.mesa[defteros] = 0;
 		}
 	};
 
@@ -374,8 +412,6 @@ var Astra = new function() {
 		var html = '';
 		var klasi = 'astraDianomiPektis';
 		if (paso) { klasi += ' astraPaso'; }
-		else if (dianomi.mesa[thesi] == 1) { klasi += ' astraPektisMesa'; }
-		else if (dianomi.mesa[thesi] > 1) { klasi += ' astraPektisSolo'; }
 		html += '<div class="' + klasi + '" style="text-align: center;">';
 
 		if (paso) {
@@ -387,7 +423,7 @@ var Astra = new function() {
 				html += Astra.agoraHTML(dianomi.a, bazes);
 			}
 			else {
-				html += Astra.dilosiHTML(dianomi.o[thesi]);
+				html += Astra.dilosiHTML(dianomi.o[thesi], dianomi.mesa[thesi]);
 				html += Astra.simetoxiHTML(dianomi.s[thesi]);
 			}
 		}
