@@ -99,6 +99,9 @@ var Astra = new function() {
 		var x = getelid('dataArea');
 		if (notSet(x)) { return; }
 		x.innerHTML = html;
+		if (dedomena.partida.length == 1) {
+			Astra.dianomiOnOff(dedomena.partida[0].t);
+		}
 	};
 
 	this.pektisHTML = function(pektis, kapikia) {
