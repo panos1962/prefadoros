@@ -60,10 +60,13 @@ var Astra = new function() {
 			protiFora = false;
 		}
 		else {
-			params +=  'pektis=' + uri(pektis.value.trim());
-			params +=  '&apo=' + uri(apo.value.trim());
-			params +=  '&eos=' + uri(eos.value.trim());
-			params +=  '&partida=' + uri(partida.value.trim());
+			partida.value = partida.value.trim();
+			params +=  'partida=' + uri(partida.value);
+			if (!partida.value.match(/^[0-9]+/)) {
+				params +=  '&pektis=' + uri(pektis.value.trim());
+				params +=  '&apo=' + uri(apo.value.trim());
+				params +=  '&eos=' + uri(eos.value.trim());
+			}
 		}
 
 		req.send(params);
