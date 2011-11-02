@@ -282,12 +282,100 @@ var Astra = new function() {
 		return html;
 	};
 
-	this.dianomiPektisHTML = function(thesi, dianomi) {
-		var html = '';
-		var paso = (notSet(dianomi.a) || notSet(dianomi.t));
+	this.mesaExo = function(dianomi) {
+		dianomi.mesa = [ 0, 0, 0, 0 ];
+		if (notSet(dianomi.a) || notSet(dianomi.t) ||
+			notSet(dianomi.s) || notSet(dianomi.b)) {
+			return;
+		}
 
+		var tzogadoros = dianomi.t;
+		switch (tzogadoros) {
+		case 1:
+			var protos = 2;
+			var defteros = 3;
+			break;
+		case 2:
+			protos = 3;
+			defteros = 1;
+			break;
+		case 3:
+			protos = 1;
+			defteros = 2;
+			break;
+		default:
+			return;
+		}
+		if ((dianomi.s[protos] == 'S') && (dianomi.s[defteros] == 'S')) {
+			return;
+		}
+
+		switch (dianomi.a.substr(2,1)) {
+		case 6:
+			var protosPrepi = 2;
+			var defterosPrepi = 2;
+			break;
+		case 7:
+			protosPrepi = 2;
+			defterosPrepi = 1;
+			break;
+		case 8:
+			protosPrepi = 1;
+			defterosPrepi = 1;
+			break;
+		case 9:
+			protosPrepi = 1;
+			defterosPrepi = 0;
+			break;
+		default:
+			return;
+		}
+
+		if (dianomi.s[protos] == 'S') {
+			protos = defteros;
+			defteros = 0;
+		}
+
+		if (dianomi.s[defteros] == 'S') {
+			defteros = 0;
+		}
+
+		var aminaPrepi = 0;
+		if (protos != 0) { aminaPrepi += protosPrepi; }
+		if (defteros != 0) { aminaPrepi += defterosPrepi; }
+		var piran = 10 - dianomi.b[tzogadoros];
+		if (piran >= aminaPrepi) { return; }
+
+		if (protos != 0) {
+			dif = protosPrepi - dianomi.b[protos];
+			if (dif > 1) { dianomi.mesa[protos] = 2; }
+			if (dif > 0) { dianomi.mesa[protos] = 1; }
+		}
+
+		if (defteros != 0) {
+			dif = defterosPrepi - dianomi.b[defteros];
+			if (dif > 1) { dianomi.mesa[defteros] = 2; }
+			if (dif > 0) { dianomi.mesa[defteros] = 1; }
+		}
+
+		if (dianomi.s[protos] == 'V') {
+			dianomi.mesa[defteros] += dianomi.mesa[protos];
+		}
+
+		if (dianomi.s[defteros] == 'V') {
+			dianomi.mesa[protos] += dianomi.mesa[defteros];
+		}
+	};
+
+	this.dianomiPektisHTML = function(thesi, dianomi) {
+		var paso = (notSet(dianomi.a) || notSet(dianomi.t));
+		Astra.mesaExo(dianomi);
+
+		var html = '';
 		var klasi = 'astraDianomiPektis';
 		if (paso) { klasi += ' astraPaso'; }
+		else if (dianomi.mesa[thesi] == 1) { klasi += ' astraPektisMesa'; }
+		else if (dianomi.mesa[thesi] > 1) { klasi += ' astraPektisSolo'; }
 		html += '<div class="' + klasi + '" style="text-align: center;">';
 
 		if (paso) {
