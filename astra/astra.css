@@ -111,8 +111,8 @@ body {
 }
 
 .astraDataArea {
-	height: 0px;
-	max-height: 0px;
+	height: 0;
+	max-height: 0;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
@@ -291,4 +291,51 @@ body {
 	border-style: solid;
 	border-width: 1px;
 	border-color: #FFFFFF;
+}
+
+.astraKinisi {
+	position: relative;
+	height: 0.76cm;
+	margin-left: 2.6cm;
+	cursor: pointer;
+}
+
+.astraKinisiZebra0 {
+	background-color: #ADC2D6;
+}
+
+.astraKinisiZebra1 {
+	background-color: #DEE7EF;
+}
+
+.astraKinisiPektis {
+	position: absolute;
+	bottom: 0.04cm;
+	width: 5.54cm;
+	min-width: 5.54cm;
+	max-width: 5.54cm;
+
+	border-style: solid;
+	border-width: 0.08cm;
+	border-color: #6B8E23;
+	background-color: #8AA886;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+
+	background-color: #FFFF99;
+	text-align: center;
+}
+
+.astraKinisi1 {
+	left: 0;
+}
+
+.astraKinisi2 {
+	left: 6.1cm;
+}
+
+.astraKinisi3 {
+	left: 12.15cm;
 }

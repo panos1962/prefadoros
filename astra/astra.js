@@ -1,8 +1,9 @@
-var pexnidi = {};
 var Astra = new function() {
 	this.setHeight = function() {
 		var wh = diathesimosXoros();
-		if ((typeof(wh.h) != 'number') || (wh.h < 600)) { return; }
+		if ((typeof(wh.h) != 'number') || (wh.h < 600)) {
+			wh.h = 600;
+		}
 
 		var x = getelid('astraArea');
 		if (notSet(x)) { return; }
@@ -19,6 +20,10 @@ var Astra = new function() {
 		x.style.height = h;
 		x.style.maxHeight =h;
 	};
+
+	// Μπαίνοντας στη σελίδα γίνεται αυτόματη αναζήτηση των
+	// πρόσφατων παρτίδων. Μετά εντοπίζονται παρτίδες με
+	// τα κριτήρια αναζήτησης.
 
 	var protiFora = true;
 
@@ -199,12 +204,25 @@ var Astra = new function() {
 		}
 		html += '<div class="astraDianomi">';
 		html += '<div class="astraKlisimo" ' +
+			'onmouseover="Astra.epilogiKlisimo(this);" ' +
+			'onmouseout="Astra.apoepilogiKlisimo(this);" ' +
 			'onclick="Astra.dianomiOnOff(' + trapezi + ');">';
 		html += 'Κλείσιμο';
 		html += '</div>';
 		html += '</div>';
 
 		div.innerHTML = html;
+	};
+
+	this.epilogiKlisimo = function(div) {
+		div.OBC = div.style.backgroundColor;
+		div.style.backgroundColor = '#94704D';
+		div.style.fontWeight = 'bold';
+	};
+
+	this.apoepilogiKlisimo = function(div) {
+		div.style.backgroundColor = div.OBC;
+		div.style.fontWeight = 'normal';
 	};
 
 	this.agoraHTML = function(axb, ekane) {
@@ -290,13 +308,13 @@ var Astra = new function() {
 		return html;
 	};
 
-	// Εδώ θα δημιουργήσουμε array στο object "dianomi" με στοιχεία
-	// που αφορούν στην κατάσταση των αμυνομένων και αντιστοιχούν στις
-	// θέσεις των παικτών (1-based) όπου:
+	// Εδώ θα δημιουργήσουμε array "mesa" στο object "dianomi" με
+	// στοιχεία που αφορούν στην κατάσταση των αμυνομένων και
+	// αντιστοιχούν στις θέσεις των παικτών (1-based) όπου:
 	//
-	//	0: σημαίνει βγήκε ή πάσο
-	//	1: μέσα απλά
-	//	2: μέσα σόλο
+	//	0	σημαίνει βγήκε ή πάσο
+	//	1	μέσα απλά
+	//	>1	μέσα σόλο
 
 	this.mesaExo = function(dianomi) {
 		dianomi.mesa = [ 0, 0, 0, 0 ];
@@ -322,6 +340,8 @@ var Astra = new function() {
 		default:
 			return;
 		}
+
+		// Αν και οι δύο αμυνόμενοι δήλωσαν πάσο, επιστρέφουμε άμεσα.
 		if ((dianomi.s[protos] == 'S') && (dianomi.s[defteros] == 'S')) {
 			return;
 		}
@@ -400,6 +420,10 @@ var Astra = new function() {
 			else if (dif > 0) { dianomi.mesa[defteros] = 1; }
 		}
 
+		// Εφόσον ένας από τους δύο παίκτες είναι βοηθητικός,
+		// σημαίνει ότι "τον πήρε" ο άλλος, ο οποίος πρέπει
+		// να επιβαρυνθεί τη χασούρα.
+
 		if (dianomi.s[protos] == 'V') {
 			dianomi.mesa[defteros] += dianomi.mesa[protos];
 			dianomi.mesa[protos] = 0;
@@ -472,7 +496,80 @@ var Astra = new function() {
 	};
 
 	this.kinisiOnOff = function(dianomi) {
-		alert(dianomi);
+		var x = getelid('d' + dianomi);
+		if (notSet(x)) { return; }
+
+		if (x.innerHTML != '') {
+			x.innerHTML = '';
+			return;
+		}
+
+		var ico = getelid('searchIcon');
+		if (ico) { ico.style.visibility = 'visible'; }
+
+		var req = new Request('astra/getKinisi');
+		req.xhr.onreadystatechange = function() {
+			getKinisiCheck(req, ico, x, dianomi);
+		};
+
+		var params = 'dianomi=' + uri(dianomi);
+		req.send(params);
+		return false;
+	};
+
+	function getKinisiCheck(req, ico, div, dianomi) {
+		if (req.xhr.readyState != 4) { return; }
+
+		ico.style.visibility = 'hidden';
+		rsp = req.getResponse();
+		try {
+			var dedomena = eval('(' + rsp + ')');
+		} catch(e) {
+			mainFyi(rsp);
+		}
+
+		if (notSet(dedomena) || notSet(dedomena.ok) ||
+			notSet(dedomena.kinisi) || isSet(dedomena.error)) {
+			if (isSet(dedomena) && isSet(dedomena.error)) { rsp = dedomena.error; }
+			mainFyi('Λανθασμένα δεδομένα: ' + rsp);
+			return;
+		}
+
+		var html = '';
+		for (var i = 0; i < dedomena.kinisi.length; i++) {
+			html += Astra.kinisiHTML(dedomena.kinisi[i], i);
+		}
+		html += '<div class="astraKinisi">';
+		html += '<div class="astraKlisimo" ' +
+			'onmouseover="Astra.epilogiKlisimo(this);" ' +
+			'onmouseout="Astra.apoepilogiKlisimo(this);" ' +
+			'onclick="Astra.kinisiOnOff(' + dianomi + ');">';
+		html += 'Κλείσιμο';
+		html += '</div>';
+		html += '</div>';
+
+		div.innerHTML = html;
+	};
+
+	this.kinisiHTML = function(kinisi, i) {
+		var html = '';
+		html += '<div class="astraKinisi astraKinisiZebra' + (i % 2) + '" ' +
+			'onmouseover="Astra.epilogiKinisis(this);" ' +
+			'onmouseout="Astra.apoepilogiKinisis(this);">';
+		html += '<div class="astraKinisiPektis astraKinisi' + kinisi.p + '">';
+		html += kinisi.i;
+		html += '</div>';
+		html += '</div>';
+		return html;
+	};
+
+	this.epilogiKinisis = function(div) {
+		div.OBC = div.style.backgroundColor;
+		div.style.backgroundColor = '#66A3A3';
+	};
+
+	this.apoepilogiKinisis = function(div) {
+		div.style.backgroundColor = div.OBC;
 	};
 };
 
