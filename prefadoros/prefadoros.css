@@ -926,9 +926,15 @@ font-weight: normal;
 	width: 1.9cm;
 }
 
-.filoDiaxor {
+.filoDiaxorM {
 	border-style: outset;
-	border-width: 0px 0px 0px 2px;
+	border-width: 0px 0px 0px 3px;
+	border-color: #FF99FF;
+}
+
+.filoDiaxorK {
+	border-style: outset;
+	border-width: 0px 0px 0px 3px;
 	border-color: #336699;
 }
 

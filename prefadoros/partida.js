@@ -378,7 +378,7 @@ var Partida = new function() {
 				prevXroma = curXroma;
 				var curMavroKokino = mavroKokino[curXroma];
 				if (curMavroKokino == prevMavroKokino) {
-					html += ' filoDiaxor';
+					html += ' filoDiaxor' + curMavroKokino;
 				}
 				else {
 					prevMavroKokino = curMavroKokino;
