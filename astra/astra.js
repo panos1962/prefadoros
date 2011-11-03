@@ -596,7 +596,7 @@ var Astra = new function() {
 
 	this.epilogiKinisis = function(div) {
 		div.OBC = div.style.backgroundColor;
-		div.style.backgroundColor = '#66A3A3';
+		div.style.backgroundColor = '#80CCCC';
 	};
 
 	this.apoepilogiKinisis = function(div) {
