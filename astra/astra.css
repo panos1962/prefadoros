@@ -349,6 +349,16 @@ body {
 	background-color: #FFFF00;
 }
 
+.astraKinisiClaim {
+	background-color: #33AD5C;
+	color: #FFFF00;
+}
+
+.astraKinisiClaimOk {
+	background-color: #99D6AE;
+	font-style: italic;
+}
+
 .astraKinisiDilosi {
 	display: inline-block;
 	position: relative;
