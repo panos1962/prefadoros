@@ -44,7 +44,7 @@ Page::epikefalida($globals->is_pektis());
 </tr>
 <tr>
 	<td class="formaPrompt tbldbg">
-		Name
+		Ονοματεπώνυμο
 	</td>
 	<td class="tbldbg">
 		<input id="onoma" name="onoma" type="text" maxlength="128" size="50" value="<?php
@@ -69,7 +69,7 @@ Page::epikefalida($globals->is_pektis());
 </tr>
 <tr>
 	<td class="formaPrompt tbldbg">
-		Πλάτη
+		Πλάτη&nbsp;παιγνιοχάρτων
 	</td>
 	<td class="tbldbg">
 		<select name="plati" class="formaField formaSelect"
@@ -80,7 +80,7 @@ Page::epikefalida($globals->is_pektis());
 </tr>
 <tr>
 	<td class="formaPrompt tbldbg">
-		Εναλλαγή Χρωμάτων
+		Εναλλαγή&nbsp;χρωμάτων
 	</td>
 	<td class="tbldbg">
 		<select name="enalagi" class="formaField formaSelect"
@@ -94,7 +94,7 @@ if ($globals->is_pektis()) {
 	?>
 	<tr>
 		<td class="formaPrompt tbldbg">
-			Current Password
+			Τρέχων&nbsp;κωδικός
 		</td>
 		<td class="tbldbg">
 			<input name="password" type="password" maxlength="50"
@@ -106,7 +106,7 @@ if ($globals->is_pektis()) {
 ?>
 <tr>
 	<td class="formaPrompt tbldbg">
-		Password
+		Κωδικός
 	</td>
 	<td class="tbldbg">
 		<input name="password1" type="password" maxlength="50" size="16"
@@ -115,7 +115,7 @@ if ($globals->is_pektis()) {
 </tr>
 <tr>
 	<td class="formaPrompt tbldbg">
-		Repeat
+		Επαναλάβατε
 	</td>
 	<td class="tbldbg">
 		<input name="password2" type="password" maxlength="50" size="16"
