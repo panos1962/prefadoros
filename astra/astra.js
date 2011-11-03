@@ -521,6 +521,8 @@ var Astra = new function() {
 		return false;
 	};
 
+	var claim = '';
+
 	function getKinisiCheck(req, ico, div, dianomi) {
 		if (req.xhr.readyState != 4) { return; }
 
@@ -540,6 +542,7 @@ var Astra = new function() {
 		}
 
 		var html = '';
+		claim = '';
 		for (var i = 0; i < dedomena.kinisi.length; i++) {
 			html += Astra.kinisiHTML(dedomena.kinisi[i], i, dianomi);
 		}
@@ -584,6 +587,11 @@ var Astra = new function() {
 			break;
 		case 'ΜΠΑΖΑ':
 			html += '<div class="astraKinisiBaza">ΜΠΑΖΑ</div>';
+			break;
+		case 'CLAIM':
+			html += '<div class="astraKinisiClaim' + claim + '">' +
+				(claim == '' ? 'CLAIM' : 'Ok!') + '</div>';
+			claim = 'Ok';
 			break;
 		default:
 			html += kinisi.i;
