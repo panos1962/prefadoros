@@ -539,7 +539,7 @@ var Astra = new function() {
 
 		var html = '';
 		for (var i = 0; i < dedomena.kinisi.length; i++) {
-			html += Astra.kinisiHTML(dedomena.kinisi[i], i);
+			html += Astra.kinisiHTML(dedomena.kinisi[i], i, dianomi);
 		}
 		html += '<div class="astraKinisi">';
 		html += '<div class="astraKlisimo" ' +
@@ -553,9 +553,11 @@ var Astra = new function() {
 		div.innerHTML = html;
 	};
 
-	this.kinisiHTML = function(kinisi, i) {
+	this.kinisiHTML = function(kinisi, i, dianomi) {
 		var html = '';
-		html += '<div class="astraKinisi astraKinisiZebra' + (i % 2) + '" ' +
+		html += '<div class="astraKinisi astraKinisiZebra' + (i % 2) +
+			'" onclick="Astra.kinisiOnOff(' + dianomi + ');" ' +
+			'title="Κλικ για απόκρυψη κινήσεων" ' +
 			'onmouseover="Astra.epilogiKinisis(this);" ' +
 			'onmouseout="Astra.apoepilogiKinisis(this);">';
 		html += '<div class="astraKinisiPektis astraKinisi' + kinisi.p + '">';
