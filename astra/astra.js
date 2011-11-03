@@ -234,6 +234,7 @@ var Astra = new function() {
 		var mesa = bazes - ekane;
 		if (mesa > 1) { klasi += ' astraSolo'; }
 		else if (mesa > 0) { klasi += ' astraMesa'; }
+		else if (ekane > 10) { klasi += ' astraKinisiAgora'; }
 
 		var html = '';
 		html += '<div class="' + klasi + '">';
@@ -254,6 +255,7 @@ var Astra = new function() {
 		html += '<div class="astraDilosi';
 		if (mesa > 1) { html += ' astraSolo'; }
 		else if (mesa > 0) { html += ' astraMesa'; }
+		else if (mesa < 0) { html += ' astraKinisiDilosi'; }
 		html += '">';
 		if (dilosi == 'DTG') {
 			html += 'Άμα μείνουν';
@@ -557,7 +559,29 @@ var Astra = new function() {
 			'onmouseover="Astra.epilogiKinisis(this);" ' +
 			'onmouseout="Astra.apoepilogiKinisis(this);">';
 		html += '<div class="astraKinisiPektis astraKinisi' + kinisi.p + '">';
-		html += kinisi.i;
+		switch (kinisi.i) {
+		case 'ΔΗΛΩΣΗ':
+			if (kinisi.d.match(/^P/)) { html += 'ΠΑΣΟ'; }
+			else {
+				html += Astra.dilosiHTML(kinisi.d, -1);
+				html += kinisi.d;
+			}
+			break;
+		case 'ΑΓΟΡΑ':
+			html += Astra.agoraHTML(kinisi.d, 11);
+			break;
+		case 'ΦΥΛΛΟ':
+			html += kinisi.d.substr(1, 1) + '<img class="astraKinisiXroma" src="' +
+				globals.server + 'images/trapoula/xroma' + kinisi.d.substr(0, 1) +
+				'.png" alt="" />';
+			break;
+		case 'ΜΠΑΖΑ':
+			html += '<div class="astraKinisiBaza">ΜΠΑΖΑ</div>';
+			break;
+		default:
+			html += kinisi.i;
+			break;
+		}
 		html += '</div>';
 		html += '</div>';
 		return html;

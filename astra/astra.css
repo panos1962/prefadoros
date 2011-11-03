@@ -339,3 +339,22 @@ body {
 .astraKinisi3 {
 	left: 12.15cm;
 }
+
+.astraKinisiXroma {
+	width: 0.5cm;
+	height: 0.4cm;
+}
+
+.astraKinisiBaza {
+	background-color: #FFFF00;
+}
+
+.astraKinisiDilosi {
+	display: inline-block;
+	position: relative;
+}
+
+.astraKinisiAgora {
+	display: inline-block;
+	position: relative;
+}
