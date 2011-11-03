@@ -285,12 +285,14 @@ var Astra = new function() {
 		'?':	'????'
 	};
 
-	this.simetoxiHTML = function(simetoxi) {
+	this.simetoxiHTML = function(simetoxi, kinisi) {
 		var html = '';
 		html += '<div class="astraSimetoxi astraSimetoxi' + simetoxi;
 		if (simetoxi == 'S') { html += ' astraPaso'; }
+		if (isSet(kinisi)) { html += ' astraKinisiSimetoxi'; }
 		html += '">';
-		html += simetoxiDecode[simetoxi];
+		html += simetoxiDecode.hasOwnProperty(simetoxi) ?
+			simetoxiDecode[simetoxi] : simetoxi;
 		html += '</div>';
 		return html;
 	};
@@ -571,6 +573,9 @@ var Astra = new function() {
 			break;
 		case 'ΑΓΟΡΑ':
 			html += Astra.agoraHTML(kinisi.d, 11);
+			break;
+		case 'ΣΥΜΜΕΤΟΧΗ':
+			html += Astra.simetoxiHTML(kinisi.d, true);
 			break;
 		case 'ΦΥΛΛΟ':
 			html += kinisi.d.substr(1, 1) + '<img class="astraKinisiXroma" src="' +
