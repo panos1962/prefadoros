@@ -52,6 +52,26 @@ function select_kinisi($dianomi, $kinisi_table) {
 }
 
 function kinisi_json($row, &$koma) {
+		if ($row['idos'] == 'ΣΥΜΜΕΤΟΧΗ') {
+			switch ($row['data']) {
+			case 'ΜΑΖΙ':
+				$row['data'] = 'M';
+				break;
+			case 'ΠΑΣΟ':
+				$row['data'] = 'S';
+				break;
+			case 'ΠΑΙΖΩ':
+				$row['data'] = 'P';
+				break;
+			case 'ΜΟΝΟΣ':
+				$row['data'] = 'N';
+				break;
+			default:
+				$row['data'] = '?';
+				break;
+			}
+	}
+
 	print $koma . "{k:" . $row['kodikos'] .
 		",p:" . $row['pektis'] .
 		",i:'" . $row['idos'] .
