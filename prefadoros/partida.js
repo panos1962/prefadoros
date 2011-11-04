@@ -753,6 +753,7 @@ var Partida = new function() {
 		if (notSet(ico)) { return; }
 		ico.prevSrc = ico.src;
 		ico.src = globals.server + 'images/working.gif';
+		Tools.dialogosMinima();
 		mainFyi('Αλλαγή παρακολουθούμενου παίκτη');
 
 		var req = new Request('trapezi/thesiTheasis');
