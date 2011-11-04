@@ -203,13 +203,16 @@ var Tools = new function() {
 		}, xronos);
 	};
 
-	this.decodeAgora = function(xb) {
+	this.decodeAgora = function(xb, apla) {
 		var s = '';
 		var asoi = xb.substr(0, 1);
 		var xroma = xb.substr(1, 1);
 		var bazes = xb.substr(2, 1);
 
-		if (bazes in globals.bazesDesc) { s += globals.bazesDesc[bazes]; }
+		if (isSet(apla) && (bazes < 7)) {
+			s += (xroma == 'H' ? 'απλές' : 'απλά');
+		}
+		else if (bazes in globals.bazesDesc) { s += globals.bazesDesc[bazes]; }
 		else { s += '?'; }
 		s += ' ';
 		if (xroma in globals.xromaDesc) { s += globals.xromaDesc[xroma]; }

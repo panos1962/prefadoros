@@ -557,17 +557,47 @@ var Pexnidi = new function() {
 		this.confirmAgora();
 	};
 
+	this.axioprepesSolo = function() {
+		Sizitisi.sxolioFocus();
+		Pexnidi.anamoniEpilogis(Pexnidi.agoraData.div);
+		Pexnidi.addKinisi('ΣΟΛΟ', Pexnidi.agoraData.xroma + Pexnidi.agoraData.bazes);
+		Pexnidi.agoraData.dialogos.style.display = 'none';
+		Pexnidi.agoraData = {};
+	};
+
+	this.confirmSolo = function() {
+		Pexnidi.agoraData.dialogos = getelid('dialogos');
+		if (notSet(Pexnidi.agoraData.dialogos)) { return; }
+		Pexnidi.agoraData.agora = 'N' + Pexnidi.agoraData.xroma +
+			Pexnidi.agoraData.bazes;
+
+		var html = '';
+		html += '<div>Θέλετε, πράγματι, να τα γράψετε σόλο ' +
+			(Pexnidi.agoraData.xroma == 'H' ? 'στις' : 'στα') +
+			' <span style="font-weight: bold; white-space: nowrap;">' +
+			Tools.decodeAgora(Pexnidi.agoraData.agora, true) +
+			';</span></div><br />';
+		html += '<div class="dialogosYesNo" onclick="Pexnidi.axioprepesSolo();" ' +
+			'onmouseover="this.style.backgroundColor=\'#FFFF33\';" ' +
+			'onmouseout="this.style.backgroundColor=\'#FFFF99\';">ΝΑΙ</div>';
+		html += '<div class="dialogosYesNo" onclick="Pexnidi.akiriAgora();" ' +
+			'onmouseover="this.style.backgroundColor=\'#FFFF33\';" ' +
+			'onmouseout="this.style.backgroundColor=\'#FFFF99\';">ΑΚΥΡΟ</div>';
+
+		Pexnidi.agoraData.dialogos.innerHTML = html;
+		Pexnidi.agoraData.dialogos.style.display = 'inline';
+		Pexnidi.agoraData.dialogos.style.top = '4.8cm';
+		Pexnidi.agoraData.dialogos.style.zIndex = 1;
+	};
+
 	this.epilogiSolo = function(div, dxb) {
 		Sizitisi.sxolioFocus();
 		if (dxb == 'DTG') { dxb = 'DS6'; }
-		var xroma = dxb.substr(1, 1);
-		var bazes = dxb.substr(2, 1);
-		var agora = 'N' + xroma + bazes;
-		if (confirm('Θέλετε, πράγματι, να τα γράψτε σόλο στα ' +
-			Tools.decodeAgora(agora) + ';')) {
-			Pexnidi.anamoniEpilogis(div);
-			Pexnidi.addKinisi('ΣΟΛΟ', xroma + bazes);
-		}
+
+		Pexnidi.agoraData.xroma = dxb.substr(1, 1);
+		Pexnidi.agoraData.bazes = dxb.substr(2, 1);
+		Pexnidi.agoraData.div = div;
+		this.confirmSolo();
 	};
 
 	this.epilogiSimetoxi = function(div, data) {
