@@ -108,8 +108,23 @@ var Prefadoros = new function() {
 		}
 
 		if (isSet(fs) && fs) { Sizitisi.sxolioFocus(); }
-		if (isSet(Pexnidi) && isSet(Pexnidi.agoraData) && isSet(Pexnidi.agoraData.agora)) {
+
+		// Εδώ υπάρχει ένα λεπτό σημείο του προγράμματος. Πρόκειται
+		// για διαλόγους επιβεβαίωσης είτε της αγοράς, είτε του claim.
+		// Αυτοί οι διάλογοι εμφανίζονται για επικύρωση των επιλογών
+		// του τζογαδόρου. Όταν έρχονται, όμως, νέα δεδομένα και πρέπει
+		// να γίνει επανασχεδιασμός (π.χ. από σχόλια που γράφει ένας
+		// άλλος παίκτης), τότε αυτοί οι διάλογοι εξαφανίζονται. Για
+		// το λόγο αυτό χρησιμοποιούνται κάποιες properties που
+		// καταδεικνύουν ότι κάποιος διάλογος βρίσκεται σε εξέλιξη,
+		// ώστε σε περίπτωση επανασχεδιασμού να εμφανιστεί ο τρέχων
+		// διάλογος στην νέα εικόνα.
+
+		if (isSet(Pexnidi) && isSet(Pexnidi.agoraData.agora)) {
 			Pexnidi.confirmAgora();
+		}
+		else if (isSet(controlPanel) && controlPanel.claimConfirmation) {
+			controlPanel.confirmClaim();
 		}
 		return false;
 	};

@@ -228,4 +228,26 @@ var Tools = new function() {
 	this.bazesEncode = function(b) {
 		return b == 10 ? 'T' : b;
 	};
+
+	this.dialogosMinima = function(msg, y) {
+		var x = getelid('dialogos');
+		if (notSet(x)) { return; }
+
+		if (notSet(msg)) {
+			msg = 'Το αίτημά σας έχει υποβληθεί.<br />Παρακαλώ περιμένετε…';
+		}
+
+		x.innerHTML = msg;
+		x.style.display = 'inline';
+		if (isSet(y)) { x.style.top = y; }
+		x.zIndex = 1;
+	};
+
+	this.dialogosClear = function() {
+		var x = getelid('dialogos');
+		if (notSet(x)) { return; }
+
+		x.style.display = 'none';
+		x.zIndex = 0;
+	};
 }
