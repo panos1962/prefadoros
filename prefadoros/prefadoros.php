@@ -290,7 +290,7 @@ class Prefadoros {
 		}
 
 		if ($stmnt == NULL) {
-			$query = "SELECT `login` FROM `pektis` " .
+			$query = "SELECT SQL_NO_CACHE `login` FROM `pektis` " .
 				"WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
 				XRONOS_PEKTIS_IDLE_MAX;
 			$stmnt = $globals->db->prepare($query);

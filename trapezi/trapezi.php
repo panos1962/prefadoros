@@ -26,10 +26,11 @@ class Trapezi {
 
 	public $error;
 
-	public static function select_clause() {
-		return("SELECT `kodikos`, `pektis1`, `apodoxi1`, `pektis2`, `apodoxi2`, " .
-			"`pektis3`, `apodoxi3`, `kasa`, `pistosi`, `pasopasopaso`, " .
-			"`asoi`, `idiotikotita`, `prosvasi` FROM `trapezi` WHERE ");
+	public static function select_clause($no_cache = '') {
+		return("SELECT " . $no_cache . " `kodikos`, `pektis1`, " .
+			"`apodoxi1`, `pektis2`, `apodoxi2`, `pektis3`, `apodoxi3`, " .
+			"`kasa`, `pistosi`, `pasopasopaso`, `asoi`, `idiotikotita`, " .
+			"`prosvasi` FROM `trapezi` WHERE ");
 	}
 
 	public function __construct($trexon = TRUE) {

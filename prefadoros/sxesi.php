@@ -245,7 +245,7 @@ class Sxesi {
 		if ($stmnt == NULL) {
 			$np = NULL;
 			$ol = $online;
-			$query = "SELECT `login`, `onoma`, " .
+			$query = "SELECT SQL_NO_CACHE `login`, `onoma`, " .
 				"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` FROM `pektis` ";
 			if (isset($sinedria->peknpat)) {
 				$np = $sinedria->peknpat;

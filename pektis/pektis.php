@@ -44,7 +44,7 @@ class Pektis {
 		unset($this->sxesidirty);
 		unset($this->error);
 
-		$query = "SELECT *, UNIX_TIMESTAMP(`poll`) AS `poll`, " .
+		$query = "SELECT SQL_NO_CACHE *, UNIX_TIMESTAMP(`poll`) AS `poll`, " .
 			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
 			"FROM `pektis` WHERE `login` = '" . $globals->asfales($login) . "'";
 		if (isset($password)) {
