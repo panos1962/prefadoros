@@ -142,7 +142,7 @@ class Kafenio {
 		$energos = Prefadoros::energos_pektis();
 
 		if ($stmnt == NULL) {
-			$query = Trapezi::select_clause() . "(`telos` IS NULL) " .
+			$query = Trapezi::select_clause("SQL_NO_CACHE") . "(`telos` IS NULL) " .
 				"AND ((UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
 				XRONOS_PEKTIS_IDLE_MAX . ") ORDER BY `kodikos` DESC"; 
 			$stmnt = $globals->db->prepare($query);
@@ -172,7 +172,7 @@ class Kafenio {
 	private static function svise_palia_trapezia() {
 		global $globals;
 
-		$query = "SELECT `kodikos` FROM `trapezi` WHERE ";
+		$query = "SELECT SQL_NO_CACHE `kodikos` FROM `trapezi` WHERE ";
 
 		// Τραπέζια όπου ένας τουλάχιστον παίκτης είναι φευγάτος και
 		// δεν έχουν επικοινωνία για πάνω από 5 λεπτά.
