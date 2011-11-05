@@ -359,7 +359,7 @@ var Pexnidi = new function() {
 
 		if ((kinisi.length > 0) &&
 			(pexnidi.mesaKinisi == kinisi[kinisi.length - 1].k)) {
-			playSound(pexnidi.mesaIxos);
+			playSoundList(pexnidi.mesaIxos);
 		}
 		switch (pexnidi.fasi) {
 		case 'ΔΙΑΝΟΜΗ':

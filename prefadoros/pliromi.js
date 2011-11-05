@@ -89,7 +89,7 @@ var Pliromi = new function() {
 			switch (dif) {
 			case 1: ixos = 'balothia'; spot = 'aa'; break;
 			case 2: ixos = 'pistolia'; spot = 'as'; break;
-			default: ixos = 'polivolo'; spot = 'at'; break;
+			default: ixos = 'balothia,polivolo:500,pistolia:2000'; spot = 'at'; break;
 			}
 			Pexnidi.bamBoum(ixos, spot, kinisi);
 		}
