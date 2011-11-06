@@ -490,18 +490,21 @@ var Pexnidi = new function() {
 
 	this.agoraData = {};
 
+	this.clearAgora = function() {
+		Tools.dialogosClear();
+		Pexnidi.agoraData = {};
+	};
+
 	this.kaneAgora = function() {
 		Sizitisi.sxolioFocus();
 		Pexnidi.anamoniEpilogis(Pexnidi.agoraData.div);
 		Pexnidi.addKinisi('ΑΓΟΡΑ', Pexnidi.agoraData.agora + ':' + Pexnidi.agoraData.neaFila);
-		Pexnidi.agoraData.dialogos.style.display = 'none';
-		Pexnidi.agoraData = {};
+		Pexnidi.clearAgora();
 	};
 
 	this.akiriAgora = function() {
 		Sizitisi.sxolioFocus();
-		Pexnidi.agoraData.dialogos.style.display = 'none';
-		Pexnidi.agoraData = {};
+		Pexnidi.clearAgora();
 	};
 
 	this.confirmAsoiHTML = function() {
@@ -519,8 +522,6 @@ var Pexnidi = new function() {
 	};
 
 	this.confirmAgora = function() {
-		Pexnidi.agoraData.dialogos = getelid('dialogos');
-		if (notSet(Pexnidi.agoraData.dialogos)) { return; }
 		Pexnidi.agoraData.agora = (Pexnidi.agoraData.asoi ?  'Y' : 'N') +
 			Pexnidi.agoraData.xroma + Pexnidi.agoraData.bazes;
 
@@ -535,9 +536,7 @@ var Pexnidi = new function() {
 			'onmouseover="this.style.backgroundColor=\'#FFFF33\';" ' +
 			'onmouseout="this.style.backgroundColor=\'#FFFF99\';">ΑΚΥΡΟ</div>';
 
-		Pexnidi.agoraData.dialogos.innerHTML = html;
-		Pexnidi.agoraData.dialogos.style.display = 'inline';
-		Pexnidi.agoraData.dialogos.style.zIndex = 1;
+		Tools.dialogos(html);
 	};
 
 	this.epilogiAgoras = function(div, dxb) {
@@ -561,13 +560,10 @@ var Pexnidi = new function() {
 		Sizitisi.sxolioFocus();
 		Pexnidi.anamoniEpilogis(Pexnidi.agoraData.div);
 		Pexnidi.addKinisi('ΣΟΛΟ', Pexnidi.agoraData.xroma + Pexnidi.agoraData.bazes);
-		Pexnidi.agoraData.dialogos.style.display = 'none';
-		Pexnidi.agoraData = {};
+		Pexnidi.clearAgora();
 	};
 
 	this.confirmSolo = function() {
-		Pexnidi.agoraData.dialogos = getelid('dialogos');
-		if (notSet(Pexnidi.agoraData.dialogos)) { return; }
 		Pexnidi.agoraData.agora = 'N' + Pexnidi.agoraData.xroma +
 			Pexnidi.agoraData.bazes;
 
@@ -584,10 +580,7 @@ var Pexnidi = new function() {
 			'onmouseover="this.style.backgroundColor=\'#FFFF33\';" ' +
 			'onmouseout="this.style.backgroundColor=\'#FFFF99\';">ΑΚΥΡΟ</div>';
 
-		Pexnidi.agoraData.dialogos.innerHTML = html;
-		Pexnidi.agoraData.dialogos.style.display = 'inline';
-		Pexnidi.agoraData.dialogos.style.top = '4.8cm';
-		Pexnidi.agoraData.dialogos.style.zIndex = 1;
+		Tools.dialogos(html, '4.8cm');
 	};
 
 	this.epilogiSolo = function(div, dxb) {
@@ -596,6 +589,7 @@ var Pexnidi = new function() {
 
 		Pexnidi.agoraData.xroma = dxb.substr(1, 1);
 		Pexnidi.agoraData.bazes = dxb.substr(2, 1);
+		Pexnidi.agoraData.solo = true;
 		Pexnidi.agoraData.div = div;
 		this.confirmSolo();
 	};
