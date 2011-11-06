@@ -229,7 +229,7 @@ var Tools = new function() {
 		return b == 10 ? 'T' : b;
 	};
 
-	this.dialogosMinima = function(msg, y) {
+	this.dialogos = function(msg, y) {
 		var x = getelid('dialogos');
 		if (notSet(x)) { return; }
 
@@ -248,6 +248,7 @@ var Tools = new function() {
 		if (notSet(x)) { return; }
 
 		x.style.display = 'none';
+		x.style.top = '5.5cm';
 		x.zIndex = 0;
 	};
 }

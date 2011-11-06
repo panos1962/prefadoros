@@ -121,7 +121,12 @@ var Prefadoros = new function() {
 		// διάλογος στην νέα εικόνα.
 
 		if (isSet(Pexnidi) && isSet(Pexnidi.agoraData.agora)) {
-			Pexnidi.confirmAgora();
+			if (isSet(Pexnidi.agoraData.solo)) {
+				Pexnidi.confirmSolo();
+			}
+			else {
+				Pexnidi.confirmAgora();
+			}
 		}
 		else if (isSet(controlPanel) && controlPanel.claimConfirmation) {
 			controlPanel.confirmClaim();
