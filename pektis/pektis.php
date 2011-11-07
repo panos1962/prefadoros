@@ -10,6 +10,7 @@ class Pektis {
 	public $plati_filo;
 	public $plati_other;
 	public $enalagi;
+	public $paraskinio;
 	public $poll;
 	public $idle;
 	public $superuser;
@@ -34,6 +35,7 @@ class Pektis {
 		unset($this->plati_filo);
 		unset($this->plati_other);
 		unset($this->enalagi);
+		unset($this->paraskinio);
 		unset($this->poll);
 		unset($this->idle);
 		unset($this->superuser);
@@ -68,6 +70,7 @@ class Pektis {
 			$this->katastasi = $row['katastasi'];
 			$this->plati = $row['plati'];
 			$this->enalagi = ($row['enalagi'] == 'YES');
+			$this->paraskinio = $row['paraskinio'];
 			$this->poll = $row['poll'];
 			$this->idle = (int)($row['idle']);
 			$this->superuser = ($row['superuser'] == 'YES');
