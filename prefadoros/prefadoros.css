@@ -564,8 +564,8 @@ background-color: magenta;
 .pssArea {
 	margin-bottom: 0.04cm;
 	border-style: solid;
-	border-width: 1px;
-	border-color: #999966;
+	border-width: 2px 1px 1px 2px;
+	border-color: #CCCCCC #999966 #999966 #CCCCCC;
 	overflow-y: auto;
 	overflow-x: auto;
 	white-space: nowrap;
