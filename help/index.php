@@ -2,6 +2,9 @@
 require_once '../lib/standard.php';
 set_globals(TRUE);
 Page::head();
+Page::stylesheet('help/help');
+Page::body();
+Page::epikefalida(Globals::perastike('pedi'));
 ?>
 <script type="text/javascript">
 //<![CDATA[
@@ -13,11 +16,6 @@ setTimeout(function() {
 }, 30000);
 //]]>
 </script>
-<?php
-Page::stylesheet('help/help');
-Page::body();
-Page::epikefalida(Globals::perastike('pedi'));
-?>
 <div class="helpArea">
 
 <ul>
