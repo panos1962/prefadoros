@@ -193,6 +193,10 @@ background-color: magenta;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+
+	-webkit-box-shadow: 2px 2px 6px #2E2E2E;
+	-moz-box-shadow: 2px 2px 6px #2E2E2E;
+	box-shadow: 2px 2px 6px #2E2E2E;
 }
 
 .pektis1Main {
