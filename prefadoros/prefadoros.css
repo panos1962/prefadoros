@@ -351,6 +351,10 @@ background-color: magenta;
 
 	background-image: url('../images/trapeziPartida.jpg');
 	background-repeat: repeat;
+
+	-webkit-box-shadow: 2px 2px 6px #2E2E2E;
+	-moz-box-shadow: 2px 2px 6px #2E2E2E;
+	box-shadow: 2px 2px 6px #2E2E2E;
 }
 
 .kafenioTrapeziPrive {
@@ -411,6 +415,10 @@ background-color: magenta;
 	border-color: #6B8E23;
 
 	background-color: #8AA886;
+
+	-webkit-box-shadow: 2px 2px 6px #2E2E2E;
+	-moz-box-shadow: 2px 2px 6px #2E2E2E;
+	box-shadow: 2px 2px 6px #2E2E2E;
 }
 
 .kafenioBoxData {
@@ -1353,14 +1361,18 @@ font-weight: bold;
 	background-color: #FFFFFF;
 	background-repeat: repeat;
 	padding: 0.2cm 0.4cm 0.2cm 0.4cm;
-	border-style: groove;
-	border-width: 4px;
+	border-style: solid;
+	border-width: 2px;
 	border-color: #999966;
 	cursor: pointer;
 
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+
+	-webkit-box-shadow: 3px 3px 6px #3E3E3E;
+	-moz-box-shadow: 3px 3px 6px #3E3E3E;
+	box-shadow: 3px 3px 6px #3E3E3E;
 
 	user-select: text;
 	-moz-user-select: text;
@@ -1396,6 +1408,10 @@ font-weight: bold;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+
+	-webkit-box-shadow: 2px 2px 3px #656565;
+	-moz-box-shadow: 2px 2px 3px #656565;
+	box-shadow: 2px 2px 3px #656565;
 }
 
 .dialogosYesNo {
