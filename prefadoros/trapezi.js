@@ -228,7 +228,7 @@ var Trapezi = new function() {
 				if (isPektis() && (p == pektis.login)) { html += ' ego'; }
 				else if (p == peknpat) { html += ' katazitoumenos'; }
 			}
-			html += '"';
+			html += ' noshadow"';
 			if (p) { html += Trapezi.permesHTML(p); }
 			html += '>';
 			html += '<div class="kafenioBoxData">' + (p == '' ? '&nbsp;' : p) + '</div>';

@@ -421,6 +421,12 @@ background-color: magenta;
 	box-shadow: 2px 2px 6px #2E2E2E;
 }
 
+.noshadow {
+	-webkit-box-shadow: 0px 0px 0px #FFFFFF;
+	-moz-box-shadow: 0px 0px 0px #FFFFFF;
+	box-shadow: 0px 0px 0px #FFFFFF;
+}
+
 .kafenioBoxData {
 	max-width: 2.8cm;
 	overflow: hidden;
