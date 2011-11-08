@@ -17,6 +17,7 @@ if (isset($globals->pektis->login)) {
 
 if (!Globals::perastike('offlineOnly')) {
 	unset($_SESSION['ps_login']);
+	unset($_SESSION['ps_paraskinio']);
 	Prefadoros::klise_sinedria();
 }
 

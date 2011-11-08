@@ -27,6 +27,7 @@ define('MAX_POLIVOLO2', 30);
 
 define('FUNCHAT_SERVER', 'http://www.pineza.info/prefa/funchatImages/');
 define('MY_EMAIL_ADDRESS', 'panos1962@gmail.com');
+define('DEFAULT_PARASKINIO', 'standard.gif');
 
 if (isset($no_session)) {
 	$_SESSION = array();
@@ -680,11 +681,23 @@ class Page {
 	}
 
 	public static function close($ribbon = TRUE) {
+		global $globals;
+
 		if ($ribbon) {
 			self::ribbon();
 		}
 		?>
 		</body>
+		<script type="text/javascript">
+		//<![CDATA[
+		try {
+			document.body.style.backgroundImage = 'url(<?php
+			print $globals->server . "images/background/" .
+				(Globals::session_set('ps_paraskinio') ?
+				$_SESSION['ps_paraskinio'] : DEFAULT_PARASKINIO); ?>)';
+		} catch(e) {};
+		//]]>
+		</script>
 		</html>
 		<?php
 	}

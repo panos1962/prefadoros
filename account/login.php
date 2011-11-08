@@ -1,6 +1,7 @@
 <?php
 require_once '../lib/standard.php';
 unset($_SESSION['ps_login']);
+unset($_SESSION['ps_paraskinio']);
 set_globals();
 Page::head();
 Page::stylesheet('lib/forma');
