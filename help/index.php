@@ -701,6 +701,25 @@ setTimeout(function() {
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
+			<img src="<?php print $globals->server; ?>images/controlPanel/paraskinio.png"
+				class="helpIcon" alt="" />
+		</td>
+		<td class="helpKimeno">
+			Κάνοντας διαδοχικά κλικ στην παλέτα παρασκηνίων αλλάζουμε το
+			μοτίβο του παρασκηνίου. Ο «Πρεφαδόρος» ξεκινά αρχικά με
+			ένα διακριτικό μοτίβο παρασκηνίου, αλλά μπορείτε να επιλέξετε
+			κάποιο διακριτικότερο ή πιο έντονο μοτίβο παρασκηνίου.
+			Το μοτίβο παρασκηνίου ακολουθεί τον παίκτη και όχι
+			τον υπολογιστή στον οποίον εκτελείται το πρόγραμμα.
+		</td>
+		</tr>
+	</table>
+</p>
+
+<p>
+	<table width="100%">
+		<tr>
+		<td class="helpIconColumn">
 			<img src="<?php print $globals->server; ?>images/controlPanel/entasi.png"
 				class="helpIcon" alt="" />
 		</td>
