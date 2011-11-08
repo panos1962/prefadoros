@@ -7,9 +7,10 @@ set_globals();
 Prefadoros::pektis_check();
 
 Globals::perastike_check('paraskinio');
-$paraskinio = $globals->asfales($_REQUEST['paraskinio']);
+$_SESSION['ps_paraskinio'] = $_REQUEST['paraskinio'];
 
-$query = "UPDATE `pektis` SET `paraskinio` = '" . $paraskinio . "' " .
+$query = "UPDATE `pektis` SET `paraskinio` = '" .
+	$globals->asfales($_REQUEST['paraskinio']) . "' " .
 	"WHERE `login` = " . $globals->pektis->slogin;
 $globals->sql_query($query);
 ?>

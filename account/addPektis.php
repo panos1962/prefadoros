@@ -1,6 +1,7 @@
 <?php
 require_once '../lib/standard.php';
 unset($_SESSION['ps_login']);
+unset($_SESSION['ps_paraskinio']);
 Page::data();
 set_globals();
 
@@ -38,4 +39,5 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 }
 
 $_SESSION['ps_login'] = $_REQUEST['login'];
+$_SESSION['ps_paraskinio'] = DEFAULT_PARASKINIO;
 ?>

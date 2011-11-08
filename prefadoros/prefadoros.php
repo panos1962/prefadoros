@@ -27,6 +27,7 @@ class Prefadoros {
 			$globals->pektis = new Pektis($_SESSION['ps_login']);
 			if (!isset($globals->pektis->login)) {
 				unset($_SESSION['ps_login']);
+				unset($_SESSION['ps_paraskinio']);
 				unset($globals->pektis);
 			}
 		}

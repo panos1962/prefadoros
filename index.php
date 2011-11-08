@@ -80,8 +80,6 @@ function prefadoros() {
 	globals.funchatServer = '<?php print FUNCHAT_SERVER; ?>';
 	pektis.superuser = <?php print $globals->pektis->superuser ? 'true' : 'false'; ?>;
 	pektis.enalagi = <?php print $globals->pektis->enalagi ? 'true' : 'false'; ?>;
-	document.body.style.backgroundImage = 'url(<?php print $globals->server . 'images/background/' .
-		$globals->pektis->paraskinio; ?>)';
 	//]]>
 	</script>
 	<table class="tldbg" width="100%">
