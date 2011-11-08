@@ -66,9 +66,14 @@ li {
 	background-color: #FFFFCC;
 	color: #303233;
 	padding: 0.4cm 0.6cm 0.8cm 0.6cm;
+
 	border-style: double;
 	border-width: 3px;
 	border-color: #FCBF30;
+
+	-webkit-box-shadow: 4px 4px 10px #2E2E2E;
+	-moz-box-shadow: 4px 4px 10px #2E2E2E;
+	box-shadow: 4px 4px 10px #2E2E2E;
 }
 
 .simantikoEntono {
@@ -80,4 +85,8 @@ li {
 	background-color: #D44837;
 	color: #FCBF30;
 	padding: 0.1cm 0.2cm 0.1cm 0.2cm;
+
+	-webkit-box-shadow: 2px 2px 4px #2E2E2E;
+	-moz-box-shadow: 2px 2px 4px #2E2E2E;
+	box-shadow: 2px 2px 4px #2E2E2E;
 }

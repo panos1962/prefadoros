@@ -33,6 +33,10 @@ a img {
 	margin-bottom: 0.2cm;
 	opacity: 1.0;
 	filter: alpha(opacity=100);
+
+	-webkit-box-shadow: 2px 2px 4px #2E2E2E;
+	-moz-box-shadow: 2px 2px 4px #2E2E2E;
+	box-shadow: 2px 2px 4px #2E2E2E;
 }
 
 .motdInnerArea {
