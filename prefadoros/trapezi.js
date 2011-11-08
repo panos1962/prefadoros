@@ -62,6 +62,7 @@ var Trapezi = new function() {
 		"ouzaki.jpg",
 		"papoudes.jpg",
 		"platanos.jpg",
+		"kiparisia.jpg",
 		"ketiAvli.jpg",
 		"toPalio.jpg",
 		"toSteki.jpg",
