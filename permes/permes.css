@@ -1,5 +1,4 @@
 .permesArea {
-	margin-left: 1.5cm;
 	max-width: 21cm;
 	min-height: 14.0cm;
 	height: auto;
@@ -15,10 +14,9 @@
 
 .permesApo {
 	font-weight: bold;
-	color: #226622;
+	color: #003399;
 	vertical-align: top;
 	min-width: 2.0cm;
-	background-color: #FFFFFF;
 }
 
 .permesMinima {
