@@ -203,9 +203,18 @@ background-color: magenta;
 	position: absolute;
 	right: 0px;
 	top: 0px;
+
 	width: 1.0cm;
 	height: 1.0cm;
+
 	cursor: pointer;
+}
+
+.pektisPhoto {
+	position: absolute;
+	right: 0px;
+	height: 2.3cm;
+	z-index: -1;
 }
 
 .pektis1Main {

@@ -675,17 +675,61 @@ var Partida = new function() {
 		return html;
 	};
 
+	var infoShowStatus = [ 0, 0, 0, 0 ];
+
 	this.pektisInfoHTML = function(thesi) {
 		var html = '';
-		if (partida.pektis[thesi] != '') {
-			html += '<div class="pektisInfo" title="Κλικ για πληροφορίες" ' +
-				'onclick="Partida.pektisInfo(' + thesi + ', this);"></div>';
-		}
+		var pektis = partida.pektis[thesi];
+		if (pektis == '') { return html; }
+
+		html += '<div class="pektisInfo" title="Κλικ για πληροφορίες" ' +
+			'onmouseover="Partida.pektisInfoShow(' + thesi + ');" ' +
+			'onmouseout="Partida.pektisInfoHide(' + thesi + ');" ' +
+			'onclick="Partida.pektisInfoShow(' + thesi + ', true);">';
+		html += '<img id="pektisPhoto' + thesi + '" class="pektisPhoto" src="' +
+			globals.server + 'photo/' + pektis.substr(0, 1) + '/' +
+			pektis + '.jpg" alt="" onerror="this.src=\'' +
+			globals.server + 'images/nophoto.png\';" ';
+		if  (infoShowStatus[thesi] != 0) { html += 'style="z-index: 1;" '; }
+		html += '/>';
+		html += '</div>';
 		return html;
 	};
 
-	this.pektisInfo = function(thesi) {
-		mainFyi(partida.pektis[thesi]);
+	this.pektisInfoShow = function(thesi, keep) {
+		var x = getelid('pektisPhoto' + thesi);
+		if (notSet(x)) { return; }
+
+		if (notSet(keep)) { keep = false; }
+		if (keep) {
+			if (infoShowStatus[thesi] == 2) {
+				x.style.zIndex = -1;
+				infoShowStatus[thesi] = 0;
+			}
+			else {
+				x.style.zIndex = 1;
+				infoShowStatus[thesi] = 2;
+				x.title = 'Κλικ για απόκρυψη';
+			}
+		}
+		else if (infoShowStatus[thesi] == 2) {
+			return;
+		}
+		else {
+			x.style.zIndex = 1;
+			infoShowStatus[thesi] = 1;
+			x.title = 'Κλικ για μόνιμη εμφάνιση';
+		}
+	};
+
+	this.pektisInfoHide = function(thesi) {
+		var x = getelid('pektisPhoto' + thesi);
+		if (notSet(x)) { return; }
+
+		if (infoShowStatus[thesi] != 2) {
+			x.style.zIndex = -1;
+			infoShowStatus[thesi] = 0;
+		}
 	};
 
 	this.rologakiHTML = function(thesi) {
