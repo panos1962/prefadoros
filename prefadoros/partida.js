@@ -686,9 +686,11 @@ var Partida = new function() {
 			'onmouseover="Partida.pektisInfoShow(' + thesi + ');" ' +
 			'onmouseout="Partida.pektisInfoHide(' + thesi + ');" ' +
 			'onclick="Partida.pektisInfoShow(' + thesi + ', true);">';
+		var grama = pektis.substr(0, 1);
+		grama = grama.toLowerCase();
 		html += '<img id="pektisPhoto' + thesi + '" class="pektisPhoto" src="' +
-			globals.server + 'photo/' + pektis.substr(0, 1) + '/' +
-			pektis + '.jpg" alt="" onerror="this.src=\'' + globals.server +
+			globals.server + 'photo/' + grama + '/' + pektis +
+			'.jpg" alt="" onerror="this.src=\'' + globals.server +
 			'images/nophoto.png\'; this.style.display=\'none\'; return false;" ';
 		if  (infoShowStatus[thesi] != 0) { html += 'style="z-index: 1;" '; }
 		html += '/>';
