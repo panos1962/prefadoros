@@ -289,6 +289,7 @@ var Partida = new function() {
 		html += '<div class="pektisMain';
 		html += Partida.pektisMainHTML(3);
 		html += '">';
+		html += Partida.pektisInfoHTML(3);
 		html += Partida.dpmHTML(3);
 		html += Partida.onomaPektiHTML(3);
 		html += Partida.kapikiaHTML(3);
@@ -310,6 +311,7 @@ var Partida = new function() {
 		html += '<div class="pektisMain';
 		html += Partida.pektisMainHTML(2);
 		html += '">';
+		html += Partida.pektisInfoHTML(2);
 		html += Partida.dpmHTML(2);
 		html += Partida.onomaPektiHTML(2);
 		html += Partida.kapikiaHTML(2);
@@ -332,6 +334,7 @@ var Partida = new function() {
 		if (isDianomi()) { html += ' pektis1MainAkri'; }
 		html += Partida.pektisMainHTML(1);
 		html += '">';
+		html += Partida.pektisInfoHTML(1);
 		html += Partida.dpmHTML(1);
 		html += Partida.onomaPektiHTML(1);
 		html += Partida.kapikiaHTML(1);
@@ -670,6 +673,19 @@ var Partida = new function() {
 			if (thesi == pexnidi.epomenos) { html += ' epomenos'; }
 		}
 		return html;
+	};
+
+	this.pektisInfoHTML = function(thesi) {
+		var html = '';
+		if (partida.pektis[thesi] != '') {
+			html += '<div class="pektisInfo" title="Κλικ για πληροφορίες" ' +
+				'onclick="Partida.pektisInfo(' + thesi + ', this);"></div>';
+		}
+		return html;
+	};
+
+	this.pektisInfo = function(thesi) {
+		mainFyi(partida.pektis[thesi]);
 	};
 
 	this.rologakiHTML = function(thesi) {

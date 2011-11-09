@@ -199,6 +199,15 @@ background-color: magenta;
 	box-shadow: 2px 2px 6px #2E2E2E;
 }
 
+.pektisInfo {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 1.0cm;
+	height: 1.0cm;
+	cursor: pointer;
+}
+
 .pektis1Main {
 	top: auto;
 	bottom: 0px;
