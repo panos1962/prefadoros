@@ -215,6 +215,9 @@ background-color: magenta;
 	right: 0px;
 	height: 2.3cm;
 	z-index: -1;
+
+	opacity: 0.5;
+	filter: alpha(opacity=50);
 }
 
 .pektis1Main {

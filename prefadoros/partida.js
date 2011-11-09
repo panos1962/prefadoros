@@ -693,6 +693,8 @@ var Partida = new function() {
 			'.jpg" alt="" onerror="this.src=\'' + globals.server +
 			'images/nophoto.png\'; this.style.display=\'none\'; return false;" ';
 		if  (infoShowStatus[thesi] != 0) { html += 'style="z-index: 1;" '; }
+		html += 'onmouseover="Partida.pektisPhotoAdiafanis(this);" ';
+		html += 'onmouseout="Partida.pektisPhotoDiafanis(this);" ';
 		html += '/>';
 		html += '</div>';
 		return html;
@@ -723,6 +725,26 @@ var Partida = new function() {
 			x.title = 'Κλικ για μόνιμη εμφάνιση';
 		}
 		return false;
+	};
+
+	this.pektisPhotoDiafanis = function(obj) {
+			if (isSet(obj.style.opacity)) {
+				obj.style.opacity = 0.5;
+			}
+			if (isSet(obj.filters) && isSet(obj.filters.alpha) &&
+				isSet(obj.filters.alpha.opacity)) {
+				obj.filters.alpha.opacity = 50;
+			}
+	};
+
+	this.pektisPhotoAdiafanis = function(obj) {
+			if (isSet(obj.style.opacity)) {
+				obj.style.opacity = 1;
+			}
+			if (isSet(obj.filters) && isSet(obj.filters.alpha) &&
+				isSet(obj.filters.alpha.opacity)) {
+				obj.filters.alpha.opacity = 100;
+			}
 	};
 
 	this.pektisInfoHide = function(thesi) {
