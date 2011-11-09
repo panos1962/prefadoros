@@ -688,8 +688,8 @@ var Partida = new function() {
 			'onclick="Partida.pektisInfoShow(' + thesi + ', true);">';
 		html += '<img id="pektisPhoto' + thesi + '" class="pektisPhoto" src="' +
 			globals.server + 'photo/' + pektis.substr(0, 1) + '/' +
-			pektis + '.jpg" alt="" onerror="this.src=\'' +
-			globals.server + 'images/nophoto.png\';" ';
+			pektis + '.jpg" alt="" onerror="this.src=\'' + globals.server +
+			'images/nophoto.png\'; this.style.display=\'none\'; return false;" ';
 		if  (infoShowStatus[thesi] != 0) { html += 'style="z-index: 1;" '; }
 		html += '/>';
 		html += '</div>';
@@ -698,7 +698,7 @@ var Partida = new function() {
 
 	this.pektisInfoShow = function(thesi, keep) {
 		var x = getelid('pektisPhoto' + thesi);
-		if (notSet(x)) { return; }
+		if (notSet(x)) { return false; }
 
 		if (notSet(keep)) { keep = false; }
 		if (keep) {
@@ -713,23 +713,25 @@ var Partida = new function() {
 			}
 		}
 		else if (infoShowStatus[thesi] == 2) {
-			return;
+			return false;
 		}
 		else {
 			x.style.zIndex = 1;
 			infoShowStatus[thesi] = 1;
 			x.title = 'Κλικ για μόνιμη εμφάνιση';
 		}
+		return false;
 	};
 
 	this.pektisInfoHide = function(thesi) {
 		var x = getelid('pektisPhoto' + thesi);
-		if (notSet(x)) { return; }
+		if (notSet(x)) { return false; }
 
 		if (infoShowStatus[thesi] != 2) {
 			x.style.zIndex = -1;
 			infoShowStatus[thesi] = 0;
 		}
+		return false;
 	};
 
 	this.rologakiHTML = function(thesi) {
