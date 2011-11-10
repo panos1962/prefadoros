@@ -690,8 +690,7 @@ var Partida = new function() {
 		grama = grama.toLowerCase();
 		html += '<img id="pektisPhoto:' + pektis + '" class="pektisPhoto" src="' +
 			globals.server + 'photo/' + grama + '/' + pektis +
-			'.jpg" alt="" onerror="this.src=\'' + globals.server +
-			'images/nophoto.png\'; this.style.display=\'none\'; return false;" ';
+			'.jpg" alt="" onerror="return Partida.pektisNoPhoto(this);" ';
 		if (infoShowStatus.hasOwnProperty(pektis) && infoShowStatus[pektis] != 0) {
 			html += 'style="z-index: 1;" ';
 		}
@@ -700,6 +699,11 @@ var Partida = new function() {
 		html += '/>';
 		html += '</div>';
 		return html;
+	};
+
+	this.pektisNoPhoto = function(img) {
+		img.src = globals.server + 'images/nophoto.png';
+		return false;
 	};
 
 	this.pektisInfoShow = function(pektis, keep) {
