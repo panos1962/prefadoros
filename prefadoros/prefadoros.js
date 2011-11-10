@@ -141,6 +141,15 @@ var Prefadoros = new function() {
 		var s = getelid('sizitisiTrapezi');
 		if (isSet(s)) { s.style.display = 'none'; }
 
+		// Αν είμαστε σε mode παρτίδας και πάμε να γυρίσουμε σε
+		// mode καφενείου, τότε κρατάμε το inner HTML της παρτίδας
+		// όπως έχει αυτή ακριβώς τη στιγμή, ώστε να το έχουμε
+		// ενημερωμένο όταν ξαναγυρίσουμε σε mode παρτίδας.
+		if (isSet(this.show) && (this.show == 'partida') &&
+			isSet(Partida) && isSet(x.innerHTML)) {
+			Partida.HTML = x.innerHTML;
+		}
+
 		this.show = 'kafenio';
 		if (Trapezi.HTML != x.innerHTML) {
 			x.style.overflowY = 'auto';
