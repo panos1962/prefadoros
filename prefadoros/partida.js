@@ -675,7 +675,7 @@ var Partida = new function() {
 		return html;
 	};
 
-	var infoShowStatus = [ 0, 0, 0, 0 ];
+	var infoShowStatus = {};
 
 	this.pektisInfoHTML = function(thesi) {
 		var html = '';
@@ -683,16 +683,18 @@ var Partida = new function() {
 		if (pektis == '') { return html; }
 
 		html += '<div class="pektisInfo" title="Κλικ για πληροφορίες" ' +
-			'onmouseover="Partida.pektisInfoShow(' + thesi + ');" ' +
-			'onmouseout="Partida.pektisInfoHide(' + thesi + ');" ' +
-			'onclick="Partida.pektisInfoShow(' + thesi + ', true);">';
+			'onmouseover="Partida.pektisInfoShow(\'' + pektis + '\');" ' +
+			'onmouseout="Partida.pektisInfoHide(\'' + pektis + '\');" ' +
+			'onclick="Partida.pektisInfoShow(\'' + pektis + '\', true);">';
 		var grama = pektis.substr(0, 1);
 		grama = grama.toLowerCase();
-		html += '<img id="pektisPhoto' + thesi + '" class="pektisPhoto" src="' +
+		html += '<img id="pektisPhoto:' + pektis + '" class="pektisPhoto" src="' +
 			globals.server + 'photo/' + grama + '/' + pektis +
 			'.jpg" alt="" onerror="this.src=\'' + globals.server +
 			'images/nophoto.png\'; this.style.display=\'none\'; return false;" ';
-		if  (infoShowStatus[thesi] != 0) { html += 'style="z-index: 1;" '; }
+		if (infoShowStatus.hasOwnProperty(pektis) && infoShowStatus[pektis] != 0) {
+			html += 'style="z-index: 1;" ';
+		}
 		html += 'onmouseover="Partida.pektisPhotoAdiafanis(this);" ';
 		html += 'onmouseout="Partida.pektisPhotoDiafanis(this);" ';
 		html += '/>';
@@ -700,28 +702,26 @@ var Partida = new function() {
 		return html;
 	};
 
-	this.pektisInfoShow = function(thesi, keep) {
-		var x = getelid('pektisPhoto' + thesi);
+	this.pektisInfoShow = function(pektis, keep) {
+		var x = getelid('pektisPhoto:' + pektis);
 		if (notSet(x)) { return false; }
 
 		if (notSet(keep)) { keep = false; }
+		if (!infoShowStatus.hasOwnProperty(pektis)) { infoShowStatus[pektis] = 0; }
 		if (keep) {
-			if (infoShowStatus[thesi] == 2) {
+			if (infoShowStatus[pektis] == 2) {
 				x.style.zIndex = -1;
-				infoShowStatus[thesi] = 0;
+				infoShowStatus[pektis] = 0;
 			}
 			else {
 				x.style.zIndex = 1;
-				infoShowStatus[thesi] = 2;
+				infoShowStatus[pektis] = 2;
 				x.title = 'Κλικ για απόκρυψη';
 			}
 		}
-		else if (infoShowStatus[thesi] == 2) {
-			return false;
-		}
-		else {
+		else if (infoShowStatus[pektis] != 2) {
 			x.style.zIndex = 1;
-			infoShowStatus[thesi] = 1;
+			infoShowStatus[pektis] = 1;
 			x.title = 'Κλικ για μόνιμη εμφάνιση';
 		}
 		return false;
@@ -747,13 +747,14 @@ var Partida = new function() {
 			}
 	};
 
-	this.pektisInfoHide = function(thesi) {
-		var x = getelid('pektisPhoto' + thesi);
+	this.pektisInfoHide = function(pektis) {
+		if (!infoShowStatus.hasOwnProperty(pektis)) { return false; }
+		var x = getelid('pektisPhoto:' + pektis);
 		if (notSet(x)) { return false; }
 
-		if (infoShowStatus[thesi] != 2) {
+		if (infoShowStatus[pektis] != 2) {
 			x.style.zIndex = -1;
-			infoShowStatus[thesi] = 0;
+			infoShowStatus[pektis] = 0;
 		}
 		return false;
 	};
