@@ -4,3 +4,4 @@ glob:data/*.txt
 glob:dedomena/*
 glob:*.zip
 glob:images/gallery/*
+glob:photo/p/*
