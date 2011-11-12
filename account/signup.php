@@ -6,13 +6,15 @@ set_globals();
 Prefadoros::set_pektis();
 Page::head();
 Page::stylesheet('lib/forma');
+Page::stylesheet('account/signup');
 Page::javascript('lib/forma');
 Page::javascript('account/account');
 Page::body();
 Page::epikefalida($globals->is_pektis());
 ?>
 <div class="mainArea">
-<form class="forma" method="post" action="<?php print $globals->server; ?>index.php">
+<form class="forma" method="post" action="<?php print $globals->server; ?>index.php"
+	style="position: relative;">
 <table class="formaData tbldbg">
 <tr>
 	<td class="formaHeader tbldbg" colspan="2">
@@ -99,6 +101,9 @@ if ($globals->is_pektis()) {
 		<td class="tbldbg">
 			<input name="password" type="password" maxlength="50"
 				size="16" value="@@@@@@@@" class="formaField" />
+			<div style="position: relative; display: inline-block;">
+				<?php photo_area(); ?>
+			</div>
 		</td>
 	</tr>
 	<?php
@@ -209,4 +214,23 @@ function enalagi_list() {
 		}
 	}
 }
+
+function photo_area() {
+	global $globals;
+
+	if (!$globals->is_pektis()) {
+		return;
+	}
+
+	?>
+	<div class="signupPhotoArea" title="Κλικ για αλλαγή εικόνας προφίλ"
+		onclick="alert('asdasd');">
+		<img class="signupPhoto" src="<?php print $globals->server;
+			?>photo/<?php print strtolower(substr($globals->pektis->login, 0, 1));
+			?>/<?php print $globals->pektis->login; ?>.jpg" onerror="this.src='<?php
+			print $globals->server; ?>/images/missingPhoto.png';" alt="" />
+	</div>
+	<?php
+}
+
 ?>
