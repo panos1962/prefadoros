@@ -201,6 +201,11 @@ account.onload = function() {
 		exitChild();
 		return false;
 	};
+
+	this.alagiPhoto = function(fld) {
+		var x = getelid('photo');
+		if (notSet(x)) { return; }
+	};
 }
 
 window.onload = function() {

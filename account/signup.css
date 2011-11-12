@@ -15,4 +15,7 @@
 .signupPhoto {
 	height: 2.3cm;
 	float: right;
+
+	opacity: 0.5;
+	filter: alpha(opacity=50);
 }

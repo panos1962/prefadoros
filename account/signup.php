@@ -149,6 +149,12 @@ if ($globals->is_pektis()) {
 		<input type="button" value="Cancel" class="button formaButton"
 			onclick="return exitChild();" />
 	</td>
+	<td class="tbldbg">
+		<input type="hidden" name="MAX_PHOTO_SIZE" value="200000" />
+		<input id="uploadPhotoButton" type="file" name="photoFile" size="10"
+			accept="image/jpeg" style="visibility: hidden;"
+			onchange="account.alagiPhoto(this);" />
+	</td>
 </tr>
 </table>
 </form>
@@ -224,8 +230,10 @@ function photo_area() {
 
 	?>
 	<div class="signupPhotoArea" title="Κλικ για αλλαγή εικόνας προφίλ"
-		onclick="alert('asdasd');">
-		<img class="signupPhoto" src="<?php print $globals->server;
+		onclick="getelid('uploadPhotoButton').click();"
+		onmouseover="diafaniaSet(getelid('photo'));"
+		onmouseout="diafaniaSet(getelid('photo'), 50);">
+		<img id="photo" class="signupPhoto" src="<?php print $globals->server;
 			?>photo/<?php print strtolower(substr($globals->pektis->login, 0, 1));
 			?>/<?php print $globals->pektis->login; ?>.jpg" onerror="this.src='<?php
 			print $globals->server; ?>/images/missingPhoto.png';" alt="" />
