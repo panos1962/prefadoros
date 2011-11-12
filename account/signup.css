@@ -1,0 +1,18 @@
+.signupPhotoArea {
+	position: absolute;
+	top: -1em;
+	left: 1em;
+	width: 4.23cm;
+	height: 2.3cm;
+	overflow-x: hidden;
+
+	background-image: url('../images/nophotoPat.png');
+	background-repeat: repeat;
+	background-color: magenta;
+	cursor: pointer;
+}
+
+.signupPhoto {
+	height: 2.3cm;
+	float: right;
+}
