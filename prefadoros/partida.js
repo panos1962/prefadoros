@@ -688,13 +688,14 @@ var Partida = new function() {
 			'onclick="Partida.pektisInfoShow(\'' + pektis + '\', true);">';
 		var grama = pektis.substr(0, 1);
 		grama = grama.toLowerCase();
-		html += '<div class="pektisPhotoContainer">';
-		html += '<img id="pektisPhoto:' + pektis + '" class="pektisPhoto" src="' +
-			globals.server + 'photo/' + grama + '/' + pektis +
-			'.jpg" alt="" onerror="return Partida.pektisNoPhoto(this);" ';
+		html += '<div id="pektisPhoto:' + pektis + '" class="pektisPhotoContainer"';
 		if (infoShowStatus.hasOwnProperty(pektis) && infoShowStatus[pektis] != 0) {
 			html += 'style="z-index: 1;" ';
 		}
+		html += '>';
+		html += '<img class="pektisPhoto" src="' +
+			globals.server + 'photo/' + grama + '/' + pektis +
+			'.jpg" alt="" onerror="return Partida.pektisNoPhoto(this);" ';
 		html += 'onmouseover="diafaniaSet(this);" ';
 		html += 'onmouseout="diafaniaSet(this, 50);" ';
 		html += '/>';
