@@ -150,10 +150,12 @@ if ($globals->is_pektis()) {
 			onclick="return exitChild();" />
 	</td>
 	<td class="tbldbg">
+		<?php /*
 		<input type="hidden" name="MAX_PHOTO_SIZE" value="200000" />
 		<input id="uploadPhotoButton" type="file" name="photoFile" size="10"
 			accept="image/jpeg" style="visibility: hidden;"
 			onchange="account.alagiPhoto(this);" />
+		*/ ?>
 	</td>
 </tr>
 </table>
@@ -230,7 +232,7 @@ function photo_area() {
 
 	?>
 	<div class="signupPhotoArea" title="Κλικ για αλλαγή εικόνας προφίλ"
-		onclick="getelid('uploadPhotoButton').click();"
+		onclick="return account.selectPhoto();"
 		onmouseover="diafaniaSet(getelid('photo'));"
 		onmouseout="diafaniaSet(getelid('photo'), 50);">
 		<img id="photo" class="signupPhoto" src="<?php print $globals->server;
