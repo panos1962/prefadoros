@@ -214,6 +214,7 @@ background-color: magenta;
 	position: absolute;
 	top: 0px;
 	right: 0px;
+	z-index: -1;
 
 	width: 4.3cm;
 	height: 2.3cm;
@@ -223,7 +224,6 @@ background-color: magenta;
 
 .pektisPhoto {
 	float: right;
-	z-index: -1;
 	height: 2.3cm;
 
 	opacity: 0.5;
