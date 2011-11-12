@@ -210,11 +210,21 @@ background-color: magenta;
 	cursor: pointer;
 }
 
-.pektisPhoto {
+.pektisPhotoContainer {
 	position: absolute;
+	top: 0px;
 	right: 0px;
+
+	width: 4.3cm;
 	height: 2.3cm;
+
+	overflow: hidden;
+}
+
+.pektisPhoto {
+	float: right;
 	z-index: -1;
+	height: 2.3cm;
 
 	opacity: 0.5;
 	filter: alpha(opacity=50);
