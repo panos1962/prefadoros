@@ -202,6 +202,14 @@ account.onload = function() {
 		return false;
 	};
 
+	this.selectPhoto = function() {
+		alert('Ακόμη δεν έχει γίνει. Προς το παρόν μπορείτε να μου στέλνετε ' +
+			'email με συνημμένο αρχείο εικόνας στο "panos1962@gmail.com"');
+		return false;
+
+		getelid('uploadPhotoButton').click();
+	};
+
 	this.alagiPhoto = function(fld) {
 		var x = getelid('photo');
 		if (notSet(x)) { return; }
