@@ -119,7 +119,7 @@ if ($globals->is_pektis()) {
 	</td>
 	<td class="tbldbg">
 		<input name="password1" type="password" maxlength="50" size="16"
-			value="" class="formaField" onfocus="formFyi();" />
+			value="" class="formaField" onfocus="formaFyi();" />
 	</td>
 </tr>
 <tr>
@@ -231,7 +231,7 @@ function photo_area() {
 	?>
 	<div class="signupPhotoArea" title="Κλικ για αλλαγή εικόνας προφίλ"
 		onclick="return account.selectPhoto();"
-		onmouseover="diafaniaSet(getelid('photo')); formFyi('<?php
+		onmouseover="diafaniaSet(getelid('photo')); formaFyi('<?php
 			print "Το αρχείο εικόνας πρέπει να είναι τύπου JPEG/JPG και να " .
 				"μην υπερβαίνει τα " . MAX_PHOTO_SIZE . " bytes";
 		?>');" onmouseout="diafaniaSet(getelid('photo'), 50);">
