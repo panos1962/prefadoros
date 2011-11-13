@@ -37,7 +37,6 @@ $query .= " WHERE `login` = " . $globals->pektis->slogin .
 
 $result = $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
-	print 'Δεν έγιναν αλλαγές στα στοιχεία του λογαριασμού';
-	die(1);
+	die('NO_CHANGE');
 }
 ?>

@@ -134,7 +134,7 @@ if ($globals->is_pektis()) {
 </tr>
 </table>
 <table class="formaPanel tbldbg">
-<tr>
+<tr style="vertical-align: top;">
 	<td class="tbldbg">
 		<input type="submit" value="<?php
 			print ($globals->is_pektis() ? 'Update' : 'Create') ; ?> account"
@@ -149,14 +149,20 @@ if ($globals->is_pektis()) {
 		<input type="button" value="Cancel" class="button formaButton"
 			onclick="return exitChild();" />
 	</td>
-	<td class="tbldbg">
-		<?php /*
-		<input type="hidden" name="MAX_PHOTO_SIZE" value="200000" />
-		<input id="uploadPhotoButton" type="file" name="photoFile" size="10"
-			accept="image/jpeg" style="visibility: hidden;"
-			onchange="account.alagiPhoto(this);" />
-		*/ ?>
-	</td>
+	<?php
+	if ($globals->server == "http://127.0.0.1/prefadoros/") {
+		?>
+		<td class="tbldbg">
+			<iframe id="uploadFrame" name="uploadFrame" src=""
+				style="width: 6.0cm; height: 3.0cm; background-color: #FFFF99;">
+			</iframe>
+			<input type="hidden" name="MAX_PHOTO_SIZE" value="200000" />
+			<input id="uploadPhotoButton" type="file" name="photoFile" size="10"
+				accept="image/jpeg" style="visibility: hidden;" />
+		</td>
+		<?php
+	}
+	?>
 </tr>
 </table>
 </form>

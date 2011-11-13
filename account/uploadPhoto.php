@@ -2,8 +2,9 @@
 require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
 require_once '../prefadoros/prefadoros.php';
-Page::data();
 set_globals();
+Page::head();
+Page::body();
 Prefadoros::pektis_check();
 
 if ((!is_array($_FILES)) || (!array_key_exists('photo', $_FILES)) ||
@@ -32,4 +33,6 @@ $ikona = $upload_dir . $globals->pektis->login . "." . $tipos;
 
 if(!move_uploaded_file($_FILES['photo']['tmp_name'], $ikona))
 	die("Σφάλμα κατά τη μεταφόρτωση του αρχείου εικόνας.");
+
+Page::close();
 ?>

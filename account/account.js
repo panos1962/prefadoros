@@ -192,9 +192,31 @@ account.onload = function() {
 			'&password=' + uri(form.password.value) +
 			'&password1=' + uri(form.password1.value);
 		req.send(params);
-		var rsp = req.getResponse();
-		if (rsp) {
-			formaFyi(rsp);
+		var rspData = req.getResponse();
+		if (rspData && (rspData != 'NO_CHANGE')) {
+			formaFyi(rspData);
+			return false;
+		}
+
+		var rspPhoto = account.uploadPhoto(form);
+		if (rspPhoto && (rspPhoto != 'NO_CHANGE')) {
+			formaFyi(rspPhoto);
+			return false;
+		}
+
+		if ((rspPhoto == 'NO_CHANGE') && (rspData == 'NO_CHANGE')) {
+			formaFyi('Δεν έγιναν αλλαγές στα στοιχεία του λογαριασμού');
+			return false;
+		}
+
+		if (!rspPhoto) {
+			if (rspData) {
+				formaFyi('Η φωτογραφία προφίλ ενημερώθηκε επιτυχώς');
+			}
+			else {
+				formaFyi('Η φωτογραφία προφίλ και τα στοιχεία λογαριασμού ' +
+					'ενημερώθηκαν επιτυχώς');
+			}
 			return false;
 		}
 
@@ -202,19 +224,25 @@ account.onload = function() {
 		return false;
 	};
 
+	this.uploadPhoto = function(form) {
+		if (notSet(form.photoFile)) { return 'NO_CHANGE'; }
+		if (notSet(form.photoFile.value)) { return 'NO_CHANGE'; }
+		form.photoFile.value = form.photoFile.value.trim();
+		if (form.photoFile.value == '') { return 'NO_CHANGE'; }
+
+		return 'failed to load ' + form.photoFile.value;
+	};
+
 	this.selectPhoto = function() {
-		alert('Ακόμη δεν έχει γίνει. Προς το παρόν μπορείτε να μου στέλνετε ' +
-			'email με συνημμένο αρχείο εικόνας στο "panos1962@gmail.com"');
-		return false;
+		if (globals.server != 'http://127.0.0.1/prefadoros/') {
+			alert('Ακόμη δεν έχει γίνει. Προς το παρόν μπορείτε να μου στέλνετε ' +
+				'email με συνημμένο αρχείο εικόνας στο "panos1962@gmail.com"');
+			return false;
+		}
 
 		getelid('uploadPhotoButton').click();
 	};
-
-	this.alagiPhoto = function(fld) {
-		var x = getelid('photo');
-		if (notSet(x)) { return; }
-	};
-}
+};
 
 window.onload = function() {
 	init();
