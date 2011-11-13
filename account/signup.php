@@ -13,8 +13,9 @@ Page::body();
 Page::epikefalida($globals->is_pektis());
 ?>
 <div class="mainArea">
-<form class="forma" method="post" action="<?php print $globals->server; ?>index.php"
-	style="position: relative;">
+<form class="forma" method="post" action="<?php print $globals->server;
+	?>account/uploadPhoto.php" enctype="multipart/form-data"
+	target="uploadFrame" style="position: relative;">
 <table class="formaData tbldbg">
 <tr>
 	<td class="formaHeader tbldbg" colspan="2">
@@ -53,7 +54,7 @@ Page::epikefalida($globals->is_pektis());
 			if ($globals->is_pektis()) {
 				print $globals->pektis->onoma;
 			}
-			?>" class="formaField" />
+			?>" class="formaField" onfocus="formaFyi();" />
 	</td>
 </tr>
 <tr>
@@ -66,7 +67,8 @@ Page::epikefalida($globals->is_pektis());
 				print $globals->pektis->email;
 			}
 			?>" onkeydown="this.style.color=globals.color.ok;"
-			onblur="account.checkEmailValue(this);" class="formaField" />
+			onfocus="formaFyi();" onblur="account.checkEmailValue(this);"
+			class="formaField" />
 	</td>
 </tr>
 <tr>
@@ -100,7 +102,8 @@ if ($globals->is_pektis()) {
 		</td>
 		<td class="tbldbg">
 			<input name="password" type="password" maxlength="50"
-				size="16" value="@@@@@@@@" class="formaField" />
+				size="16" value="@@@@@@@@" class="formaField"
+				onfocus="formaFyi();" />
 			<div style="position: relative; display: inline-block;">
 				<?php photo_area(); ?>
 			</div>
@@ -115,7 +118,7 @@ if ($globals->is_pektis()) {
 	</td>
 	<td class="tbldbg">
 		<input name="password1" type="password" maxlength="50" size="16"
-			value="" class="formaField" />
+			value="" class="formaField" onfocus="formFyi();" />
 	</td>
 </tr>
 <tr>
@@ -124,7 +127,7 @@ if ($globals->is_pektis()) {
 	</td>
 	<td class="tbldbg">
 		<input name="password2" type="password" maxlength="50" size="16"
-			value="" class="formaField" />
+			value="" class="formaField" onfocus="formaFyi();" />
 	</td>
 </tr>
 <tr>
@@ -143,26 +146,14 @@ if ($globals->is_pektis()) {
 				'update' : 'add' ); ?>Pektis(this.form);" />
 	</td>
 	<td class="tbldbg">
-		<input type="reset" value="Reset" class="button formaButton" />
+		<input type="reset" value="Reset" class="button formaButton"
+			onfocus="formaFyi('Επαναφορά αρχικών δεδομένων φόρμας');" />
 	</td>
 	<td class="tbldbg">
 		<input type="button" value="Cancel" class="button formaButton"
-			onclick="return exitChild();" />
+			onfocus="formaFyi('Έξοδος από τη φόρμα');" onclick="return exitChild();" />
 	</td>
-	<?php
-	if ($globals->server == "http://127.0.0.1/prefadoros/") {
-		?>
-		<td class="tbldbg">
-			<iframe id="uploadFrame" name="uploadFrame" src=""
-				style="width: 6.0cm; height: 3.0cm; background-color: #FFFF99;">
-			</iframe>
-			<input type="hidden" name="MAX_PHOTO_SIZE" value="200000" />
-			<input id="uploadPhotoButton" type="file" name="photoFile" size="10"
-				accept="image/jpeg" style="visibility: hidden;" />
-		</td>
-		<?php
-	}
-	?>
+	<?php photo_input() ?>
 </tr>
 </table>
 </form>
@@ -246,6 +237,29 @@ function photo_area() {
 			?>/<?php print $globals->pektis->login; ?>.jpg" onerror="this.src='<?php
 			print $globals->server; ?>/images/missingPhoto.png';" alt="" />
 	</div>
+	<?php
+}
+
+function photo_input() {
+	global $globals;
+
+	if ($globals->server != "http://127.0.0.1/prefadoros/") {
+		return;
+	}
+
+	if ($globals->not_pektis()) {
+		return;
+	}
+
+	?>
+	<td class="tbldbg">
+		<iframe id="uploadFrame" name="uploadFrame" src=""
+			style="display: none; width: 6.0cm; height: 3.0cm; background-color: #FFFF99;">
+		</iframe>
+		<input type="hidden" name="MAX_PHOTO_SIZE" value="200000" />
+		<input name="photoFile" id="uploadPhotoButton" type="file" size="10"
+			accept="image/jpeg" style="visibility: hidden;" />
+	</td>
 	<?php
 }
 
