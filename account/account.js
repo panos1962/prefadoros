@@ -192,31 +192,18 @@ account.onload = function() {
 			'&password=' + uri(form.password.value) +
 			'&password1=' + uri(form.password1.value);
 		req.send(params);
-		var rspData = req.getResponse();
-		if (rspData && (rspData != 'NO_CHANGE')) {
-			formaFyi(rspData);
+		var rsp = req.getResponse();
+		if (rsp && (rsp != 'NO_CHANGE')) {
+			formaFyi(rsp);
 			return false;
 		}
 
-		var rspPhoto = account.uploadPhoto(form);
-		if (rspPhoto && (rspPhoto != 'NO_CHANGE')) {
-			formaFyi(rspPhoto);
-			return false;
+		if (account.uploadPhoto(form)) {
+			return true;
 		}
 
-		if ((rspPhoto == 'NO_CHANGE') && (rspData == 'NO_CHANGE')) {
+		if (rsp) {
 			formaFyi('Δεν έγιναν αλλαγές στα στοιχεία του λογαριασμού');
-			return false;
-		}
-
-		if (!rspPhoto) {
-			if (rspData) {
-				formaFyi('Η φωτογραφία προφίλ ενημερώθηκε επιτυχώς');
-			}
-			else {
-				formaFyi('Η φωτογραφία προφίλ και τα στοιχεία λογαριασμού ' +
-					'ενημερώθηκαν επιτυχώς');
-			}
 			return false;
 		}
 
@@ -225,12 +212,10 @@ account.onload = function() {
 	};
 
 	this.uploadPhoto = function(form) {
-		if (notSet(form.photoFile)) { return 'NO_CHANGE'; }
-		if (notSet(form.photoFile.value)) { return 'NO_CHANGE'; }
+		if (notSet(form.photoFile)) { return false; }
+		if (notSet(form.photoFile.value)) { return false; }
 		form.photoFile.value = form.photoFile.value.trim();
-		if (form.photoFile.value == '') { return 'NO_CHANGE'; }
-
-		return 'failed to load ' + form.photoFile.value;
+		return (form.photoFile.value != '');
 	};
 
 	this.selectPhoto = function() {

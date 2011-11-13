@@ -27,13 +27,24 @@ $enalagi = "'" . $globals->asfales($_REQUEST['enalagi']) . "'";
 Globals::perastike_check('password');
 $password = $globals->asfales($_REQUEST['password']);
 
+$where_clause = " WHERE `login` = " . $globals->pektis->slogin .
+	" AND `password` = '" . sha1($password) . "'";
+$query = "SELECT `login` FROM `pektis`" . $where_clause;
+$result = $globals->sql_query($query);
+$not_found = TRUE;
+while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+	$not_found = FALSE;
+}
+if ($not_found) {
+	die('Δώσατε λάθος κωδικό');
+}
+
 $query = "UPDATE `pektis` SET `onoma` = '" . $onoma . "', `email` = " . $email .
 	", `plati` = " . $plati . ", `enalagi` = " . $enalagi;
 if (Globals::perastike('password1') && ($_REQUEST['password1'])) {
 	$query .= ", `password` = '" . sha1($globals->asfales($_REQUEST['password1'])) . "'";
 }
-$query .= " WHERE `login` = " . $globals->pektis->slogin .
-	" AND `password` = '" . sha1($password) . "'";
+$query .= $where_clause;
 
 $result = $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
