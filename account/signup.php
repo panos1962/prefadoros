@@ -2,6 +2,7 @@
 require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
 require_once '../prefadoros/prefadoros.php';
+defined ('MAX_PHOTO_SIZE', 50000);
 set_globals();
 Prefadoros::set_pektis();
 Page::head();
@@ -230,8 +231,10 @@ function photo_area() {
 	?>
 	<div class="signupPhotoArea" title="Κλικ για αλλαγή εικόνας προφίλ"
 		onclick="return account.selectPhoto();"
-		onmouseover="diafaniaSet(getelid('photo'));"
-		onmouseout="diafaniaSet(getelid('photo'), 50);">
+		onmouseover="diafaniaSet(getelid('photo')); formFyi('<?php
+			print "Το αρχείο εικόνας πρέπει να είναι τύπου JPEG/JPG και να " .
+				"μην υπερβαίνει τα " . MAX_PHOTO_SIZE . " bytes";
+		?>');" onmouseout="diafaniaSet(getelid('photo'), 50);">
 		<img id="photo" class="signupPhoto" src="<?php print $globals->server;
 			?>photo/<?php print strtolower(substr($globals->pektis->login, 0, 1));
 			?>/<?php print $globals->pektis->login; ?>.jpg" onerror="this.src='<?php
@@ -258,7 +261,7 @@ function photo_input() {
 		<iframe id="uploadFrame" name="uploadFrame" src=""
 			style="display: none; width: 6.0cm; height: 3.0cm; background-color: #FFFF99;">
 		</iframe>
-		<input type="hidden" name="MAX_PHOTO_SIZE" value="200000" />
+		<input type="hidden" name="MAX_PHOTO_SIZE" value="<?php print MAX_PHOTO_SIZE; ?>" />
 		<input name="photoFile" id="uploadPhotoButton" type="file" size="10"
 			accept="image/jpeg" style="visibility: hidden;" />
 	</td>
