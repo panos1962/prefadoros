@@ -233,7 +233,7 @@ function photo_area() {
 		onclick="return account.selectPhoto();"
 		onmouseover="diafaniaSet(getelid('photo')); formaFyi('<?php
 			print "Αρχείο εικόνας τύπου JPEG/JPG, μικρότερο από " . MAX_PHOTO_SIZE . " bytes";
-		?>');" onmouseout="diafaniaSet(getelid('photo'), 50);">
+		?>');" onmouseout="diafaniaSet(getelid('photo'), 50); formaFyi();">
 		<img id="photo" class="signupPhoto" src="<?php print $globals->server;
 			?>photo/<?php print strtolower(substr($globals->pektis->login, 0, 1));
 			?>/<?php print $globals->pektis->login; ?>.jpg" onerror="this.src='<?php
