@@ -243,9 +243,11 @@ function photo_area() {
 function photo_input() {
 	global $globals;
 
+	/*
 	if ($globals->server != "http://127.0.0.1/prefadoros/") {
 		return;
 	}
+	*/
 
 	if ($globals->not_pektis()) {
 		return;

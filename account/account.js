@@ -219,11 +219,13 @@ account.onload = function() {
 	};
 
 	this.selectPhoto = function() {
+		/*
 		if (globals.server != 'http://127.0.0.1/prefadoros/') {
 			alert('Ακόμη δεν έχει γίνει. Προς το παρόν μπορείτε να μου στέλνετε ' +
 				'email με συνημμένο αρχείο εικόνας στο "panos1962@gmail.com"');
 			return false;
 		}
+		*/
 
 		getelid('uploadPhotoButton').click();
 	};
