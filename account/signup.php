@@ -2,7 +2,7 @@
 require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
 require_once '../prefadoros/prefadoros.php';
-defined ('MAX_PHOTO_SIZE', 50000);
+define('MAX_PHOTO_SIZE', 50000);
 set_globals();
 Prefadoros::set_pektis();
 Page::head();
@@ -232,8 +232,7 @@ function photo_area() {
 	<div class="signupPhotoArea" title="Κλικ για αλλαγή εικόνας προφίλ"
 		onclick="return account.selectPhoto();"
 		onmouseover="diafaniaSet(getelid('photo')); formaFyi('<?php
-			print "Το αρχείο εικόνας πρέπει να είναι τύπου JPEG/JPG και να " .
-				"μην υπερβαίνει τα " . MAX_PHOTO_SIZE . " bytes";
+			print "Αρχείο εικόνας τύπου JPEG/JPG, μικρότερο από " . MAX_PHOTO_SIZE . " bytes";
 		?>');" onmouseout="diafaniaSet(getelid('photo'), 50);">
 		<img id="photo" class="signupPhoto" src="<?php print $globals->server;
 			?>photo/<?php print strtolower(substr($globals->pektis->login, 0, 1));
