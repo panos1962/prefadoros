@@ -216,7 +216,7 @@ background-color: magenta;
 	right: 0px;
 	z-index: -1;
 
-	width: 4.3cm;
+	max-width: 4.3cm;
 	height: 2.3cm;
 
 	overflow: hidden;
