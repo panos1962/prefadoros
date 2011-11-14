@@ -683,9 +683,9 @@ var Partida = new function() {
 		if (pektis == '') { return html; }
 
 		html += '<div class="pektisInfo" title="Κλικ για πληροφορίες" ' +
-			'onmouseover="Partida.pektisInfoShow(\'' + pektis + '\');" ' +
+			'onmouseover="Partida.pektisInfoShow(event, \'' + pektis + '\');" ' +
 			'onmouseout="Partida.pektisInfoHide(\'' + pektis + '\');" ' +
-			'onclick="Partida.pektisInfoShow(\'' + pektis + '\', true);">';
+			'onclick="Partida.pektisInfoShow(event, \'' + pektis + '\', true);">';
 		var grama = pektis.substr(0, 1);
 		grama = grama.toLowerCase();
 		html += '<div id="pektisPhoto:' + pektis + '" class="pektisPhotoContainer"';
@@ -709,7 +709,11 @@ var Partida = new function() {
 		return false;
 	};
 
-	this.pektisInfoShow = function(pektis, keep) {
+	this.pektisInfoShow = function(e, pektis, keep) {
+		if (!e) var e = window.event;
+		e.cancelBubble = true;
+		if (e.stopPropagation) e.stopPropagation();
+		
 		var x = getelid('pektisPhoto:' + pektis);
 		if (notSet(x)) { return false; }
 
