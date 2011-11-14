@@ -821,7 +821,7 @@ var Partida = new function() {
 		var html = '';
 		if (notTheatis()) { return html; }
 		html += ' onclick="Partida.thesiTheasis(' + thesi + ');"';
-		html += ' style="cursor: pointer;"';
+		html += ' style="cursor: crosshair;"';
 		html += ' title="Αλλαγή παρακολουθούμενου παίκτη"';
 		return html;
 	};
