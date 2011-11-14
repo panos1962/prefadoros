@@ -1,0 +1,375 @@
+body {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	-khtml-user-select: none;
+	-ms-user-select: none;
+}
+
+.astraArea {
+	min-height: 14.0cm;
+	max-height: 14.0cm;
+	height: 14.0cm;
+}
+
+.astraInputArea {
+	height: 1.8em;
+	min-height: 1.8em;
+	max-height: 1.8em;
+}
+
+.astraInput {
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.astraPrompt {
+	display: inline-block;
+	font-style: italic;
+}
+
+.astraGo {
+	padding-left: 0.2cm;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.astraSearchIcon {
+	display: inline-block;
+	margin-left: 0.6cm;
+	margin-bottom: -0.2cm;
+	width: 0.6cm;
+	visibility: hidden;
+}
+
+.astraPartida {
+	padding-top: 0.1cm;
+	padding-bottom: 0.1cm;
+	cursor: pointer;
+
+	width: 26.0cm;
+	max-width: 26.0cm;
+	overflow-x: hidden;
+}
+
+.astraPartidaKodikos {
+	display: inline-block;
+
+	width: 2.2cm;
+	min-width: 2.2cm;
+	max-width: 2.2cm;
+	text-align: right;
+}
+
+.astraPartidaPektis {
+	display: inline-block;
+	margin-left: 0.4cm;
+
+	border-style: solid;
+	border-width: 0.08cm;
+	border-color: #6B8E23;
+	background-color: #8AA886;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.astraOnoma {
+	display: inline-block;
+	padding-top: 0.02cm;
+	padding-bottom: 0.08cm;
+
+	width: 3.8cm;
+	min-width: 3.8cm;
+	max-width: 3.8cm;
+	overflow-x: hidden;
+
+	padding-left: 0.2cm;
+	text-align: left;
+}
+
+.astraKapikia {
+	display: inline-block;
+	padding-top: 0.02cm;
+	padding-bottom: 0.08cm;
+
+	width: 1.4cm;
+	min-width: 1.4cm;
+	max-width: 1.4cm;
+	overflow-x: hidden;
+
+	padding-right: 0.2cm;
+	text-align: right;
+	color: #003366;
+	background-color: #FFE4B5;
+}
+
+.astraMion {
+	color: #B20000;
+}
+
+.astraDataArea {
+	height: 0;
+	max-height: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.astraPartidaXronos {
+	display: inline-block;
+	margin-left: 0.6cm;
+	font-size: 90%;
+}
+
+.astraDianomi {
+	margin-left: 2.6cm;
+	padding-top: 0.1cm;
+	padding-bottom: 0.1cm;
+	cursor: pointer;
+}
+
+.astraDianomiZebra0 {
+	background-color: #FFCCE0;
+}
+
+.astraDianomiZebra1 {
+	background-color: #FFE6F0;
+}
+
+.astraKlisimo {
+	display: inline-block;
+	background-color: #B7AA7D;
+	color: #FFFF00;
+
+	width: 17.35cm;
+	min-width: 17.35cm;
+	max-width: 17.35cm;
+	padding: 0px 0.2cm 0px 0.2cm;
+	text-align: center;
+
+	border-style: solid;
+	border-width: 0.08cm;
+	border-color: #928864;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.astraDianomiPektis {
+	position: relative;
+	display: inline-block;
+	width: 5.54cm;
+	height: 0.54cm;
+	margin-right: 0.4cm;
+
+	border-style: solid;
+	border-width: 0.08cm;
+	border-color: #6B8E23;
+	background-color: #8AA886;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+
+	background-color: #FFFFCC;
+}
+
+.astraPaso {
+	background-image: url('../images/diagrafiSmall.png');
+	background-repeat: repeat;
+	background-color: #FFFFFF;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+}
+
+.astraAgora {
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	width: 5.54cm;
+	background-color: #FFC266;
+	text-align: center;
+}
+
+.astraAgoraBazes {
+	font-weight: bold;
+}
+
+.astraAgoraXroma {
+	width: 0.5cm;
+	height: 0.4cm;
+}
+
+.astraAgoraAsoi {
+	width: 0.5cm;
+	height: 0.4cm;
+}
+
+.astraDilosi {
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 3.2cm;
+	overflow: hidden;
+	padding-left: 0.4cm;
+	text-align: left;
+	letter-spacing: -1px;
+	background-color: #E6E6B8;
+}
+
+.astraDilosiXroma {
+	width: 0.5cm;
+	height: 0.4cm;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+}
+
+.astraMesa {
+	background-color: #FF6666;
+}
+
+.astraSolo {
+	background-color: #CC2900;
+}
+
+.astraSimetoxi {
+	display: inline-block;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 2.2cm;
+	overflow: hidden;
+	padding-right: 0.1cm;
+	text-align: right;
+	color: #FFFF00;
+	background-color: #E6E6B8;
+}
+
+
+.astraSimetoxiM {
+	background-color: #5F9EA0;
+}
+
+.astraSimetoxiN {
+	background-color: #CD5C5C;
+}
+
+.astraSimetoxiP {
+	background-color: #70944D;
+}
+
+.astraSimetoxiV {
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+	background-color: #70944D;
+}
+
+.astraSimetoxiS {
+	color: #16130E;
+}
+
+.astraDealer {
+	position: absolute;
+	bottom: 0.05cm;
+	left: -0.2cm;
+	width: 0.5cm;
+}
+
+.astraBazes {
+	position: absolute;
+	left: 0.4cm;
+	bottom: -0.20cm;
+}
+
+.astraBazaIcon {
+	width: 0.18cm;
+	margin-left: 0.1cm;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #FFFFFF;
+}
+
+.astraKinisi {
+	position: relative;
+	height: 0.76cm;
+	margin-left: 2.6cm;
+	cursor: pointer;
+}
+
+.astraKinisiZebra0 {
+	background-color: #ADC2D6;
+}
+
+.astraKinisiZebra1 {
+	background-color: #DEE7EF;
+}
+
+.astraKinisiPektis {
+	position: absolute;
+	bottom: 0.04cm;
+	width: 5.54cm;
+	min-width: 5.54cm;
+	max-width: 5.54cm;
+
+	border-style: solid;
+	border-width: 0.08cm;
+	border-color: #6B8E23;
+	background-color: #8AA886;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+
+	background-color: #FFFF99;
+	text-align: center;
+}
+
+.astraKinisi1 {
+	left: 0;
+}
+
+.astraKinisi2 {
+	left: 6.1cm;
+}
+
+.astraKinisi3 {
+	left: 12.15cm;
+}
+
+.astraKinisiXroma {
+	width: 0.5cm;
+	height: 0.4cm;
+}
+
+.astraKinisiBaza {
+	background-color: #FFFF00;
+}
+
+.astraKinisiClaim {
+	background-color: #33AD5C;
+	color: #FFFF00;
+}
+
+.astraKinisiClaimOk {
+	background-color: #99D6AE;
+	font-style: italic;
+}
+
+.astraKinisiDilosi {
+	display: inline-block;
+	position: relative;
+}
+
+.astraKinisiAgora {
+	display: inline-block;
+	position: relative;
+}
+
+.astraKinisiSimetoxi {
+	display: inline-block;
+	position: relative;
+}

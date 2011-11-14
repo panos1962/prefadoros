@@ -1,0 +1,69 @@
+.permesArea {
+	max-width: 21cm;
+	min-height: 14.0cm;
+	height: auto;
+}
+
+.permesPros {
+	margin-left: 0.4cm;
+	font-weight: bold;
+	color: #006600;
+	vertical-align: top;
+	min-width: 2.0cm;
+}
+
+.permesApo {
+	font-weight: bold;
+	color: #003399;
+	vertical-align: top;
+	min-width: 2.0cm;
+}
+
+.permesMinima {
+	max-width: 20.0cm;
+	width: 14.0cm;
+	max-width: 14.0cm;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #999966;
+	padding-left: 0.1cm;
+	padding-right: 0.1cm;
+	vertical-align: top;
+	text-align: left;
+	user-select: auto;
+	-moz-user-select: auto;
+	-webkit-user-select: auto;
+	-o-user-select: auto;
+	-khtml-user-select: auto;
+	-ms-user-select: auto;
+}
+
+.permesDiavasmeno {
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	background-image: url('../images/diavasmeno.jpg');
+	background-repeat: repeat;
+}
+
+.permesIcon {
+	width: 0.6cm;
+	background-color: #FFFFFF;
+	cursor: pointer;
+}
+
+#permesInput {
+	max-height: 11.0cm;
+	max-width: 21.0cm;
+}
+
+.permesXronosArea {
+	font-size: 76%;
+	margin-left: 0.2cm;
+	color: #999966;
+}
+
+.permesXronos {
+	padding-left: 0.1cm;
+	padding-right: 0.1cm;
+	color: #525229;
+}
