@@ -38,12 +38,24 @@ default:
 // πρώτο γράμμα του παίκτη, π.χ. για τον παίκτη "panos" το αρχείο εικόνας
 // θα είναι το "photo/p/panos.jpg".
 
-$ikona = "../photo/" . strtolower(substr($globals->pektis->login, 0, 1)) .
-	"/" . $globals->pektis->login . "." . $tipos;
+$basi = "../photo/" . strtolower(substr($globals->pektis->login, 0, 1)) .
+	"/" . $globals->pektis->login;
+$ikona = $basi . "." . $tipos;
+$kopia = $basi . "~." . $tipos;
+$aipok = $basi . "~~." . $tipos;
 
-if(!move_uploaded_file($_FILES['photoFile']['tmp_name'], $ikona))
+@copy($ikona, $aipok);
+@chmod($aipok, 0666);
+
+if(!move_uploaded_file($_FILES['photoFile']['tmp_name'], $ikona)) {
 	lathos('Σφάλμα κατά τη μεταφόρτωση του αρχείου εικόνας.');
+}
+
 @chmod($ikona, 0666);
+if (!@rename($aipok, $kopia)) {
+	@copy($ikona, $kopia);
+}
+@chmod($kopia, 0666);
 
 ?>
 <script type="text/javascript">
