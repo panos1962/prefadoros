@@ -46,8 +46,66 @@ if (Globals::perastike('password1') && ($_REQUEST['password1'])) {
 }
 $query .= $where_clause;
 
+$no_change = TRUE;
 $result = $globals->sql_query($query);
-if (mysqli_affected_rows($globals->db) != 1) {
+if (mysqli_affected_rows($globals->db) == 1) {
+	$no_change = FALSE;
+}
+
+if (Globals::perastike('photoEnergia')) {
+	switch ($_REQUEST['photoEnergia']) {
+	case 'restore':
+		restore_photo();
+		$no_change = FALSE;
+		break;
+	case 'delete':
+		delete_photo();
+		$no_change = FALSE;
+		break;
+	}
+}
+
+if ($no_change) {
 	die('NO_CHANGE');
 }
+
+function restore_photo() {
+	global $globals;
+
+	$basi = "../photo/" . strtolower(substr($globals->pektis->login, 0, 1)) .
+		"/" . $globals->pektis->login;
+	$tipos = "jpg";
+	$ikona = $basi . "." . $tipos;
+	$kopia = $basi . "~." . $tipos;
+	$aipok = $basi . "~~." . $tipos;
+
+	if (!@rename($ikona, $aipok)) {
+		@copy($kopia, $ikona);
+		@chmod($ikona, 0666);
+		return;
+	}
+	@chmod($aipok, 0666);
+
+	if (@rename($kopia, $ikona)) {
+		@chmod($ikona, 0666);
+		@rename($aipok, $kopia);
+		@chmod($kopia, 0666);
+	}
+	else {
+		@rename($aipok, $ikona);
+		@chmod($ikona, 0666);
+	}
+}
+
+function delete_photo() {
+	global $globals;
+
+	$basi = "../photo/" . strtolower(substr($globals->pektis->login, 0, 1)) .
+		"/" . $globals->pektis->login;
+	$tipos = "jpg";
+	$ikona = $basi . "." . $tipos;
+
+	@unlink($ikona);
+}
+
 ?>
