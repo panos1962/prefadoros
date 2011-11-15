@@ -103,17 +103,24 @@ if ($globals->is_pektis()) {
 		</td>
 		<td class="tbldbg">
 			<input name="password" type="password" maxlength="50"
-				size="16" value="@@@@@@@@" class="formaField"
+				size="16" value="@@@@@@" class="formaField"
 				onfocus="formaFyi();" />
 			<div style="position: relative; display: inline-block;">
 				<?php photo_area(); ?>
 			</div>
 		</td>
 	</tr>
+	<tr id="alagiKodikou">
+		<td class="formaPrompt tbldbg">
+			<a href="#" onclick="return account.alagiKodikou();">Αλλαγή κωδικού</a>
+		</td>
+		<td>
+		</td>
+	</tr>
 	<?php
 }
 ?>
-<tr>
+<tr id="neosKodikos"<?php if ($globals->is_pektis()) { ?> style="visibility: hidden;"<?php }?>>
 	<td class="formaPrompt tbldbg">
 		Κωδικός
 	</td>
@@ -122,7 +129,7 @@ if ($globals->is_pektis()) {
 			value="" class="formaField" onfocus="formaFyi();" />
 	</td>
 </tr>
-<tr>
+<tr id="neosKodikos2"<?php if ($globals->is_pektis()) { ?> style="display: none;"<?php }?>>
 	<td class="formaPrompt tbldbg">
 		Επαναλάβατε
 	</td>

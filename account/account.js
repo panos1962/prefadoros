@@ -150,6 +150,7 @@ account.onload = function() {
 		}
 
 		location.href = globals.server;
+		return false;
 	};
 
 	this.updatePektis = function(form) {
@@ -263,6 +264,20 @@ account.onload = function() {
 				'/' + pektis.login + '~.jpg';
 			energia.value = 'restore';
 		}
+	};
+
+	this.alagiKodikou = function() {
+		var x = getelid('alagiKodikou');
+		if (notSet(x)) { return false; }
+		x.style.display = 'none';
+
+		x = getelid('neosKodikos');
+		if (notSet(x)) { return false; }
+		x.style.visibility = 'visible';
+
+		x = getelid('neosKodikos2');
+		if (notSet(x)) { return false; }
+		x.style.display = 'table-row';
 	};
 };
 
