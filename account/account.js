@@ -190,7 +190,8 @@ account.onload = function() {
 			'&plati=' + uri(form.plati.value) +
 			'&enalagi=' + uri(form.enalagi.value) +
 			'&password=' + uri(form.password.value) +
-			'&password1=' + uri(form.password1.value);
+			'&password1=' + uri(form.password1.value) +
+			'&photoEnergia=' + uri(form.photoEnergia.value);
 		req.send(params);
 		var rsp = req.getResponse();
 		if (rsp && (rsp != 'NO_CHANGE')) {
@@ -219,15 +220,49 @@ account.onload = function() {
 	};
 
 	this.selectPhoto = function() {
-		/*
-		if (globals.server != 'http://127.0.0.1/prefadoros/') {
-			alert('Ακόμη δεν έχει γίνει. Προς το παρόν μπορείτε να μου στέλνετε ' +
-				'email με συνημμένο αρχείο εικόνας στο "panos1962@gmail.com"');
-			return false;
-		}
-		*/
+		var x = getelid('photoEnergia');
+		if (isSet(x)) { x.value = ''; }
 
 		getelid('uploadPhotoButton').click();
+	};
+
+	this.deletePhoto = function() {
+		var energia = getelid('photoEnergia');
+		if (notSet(energia)) { return; }
+
+		if (energia.value != '') {
+			photo.src = photo.arxikoSrc;
+			energia.value = '';
+		}
+		else {
+			photo.arxikoSrc = photo.src;
+			photo.src = globals.server + 'images/missingPhoto.png';
+			energia.value = 'delete';
+		}
+	};
+
+	this.restorePhoto = function() {
+		if (notSet(pektis) || notSet(pektis.login)) { return; }
+
+		var energia = getelid('photoEnergia');
+		if (notSet(energia)) { return; }
+
+		var photo = getelid('photo');
+		if (notSet(photo)) { return; }
+
+		var x = getelid('uploadPhotoButton');
+		if (isSet(x)) { x.value = ''; }
+
+		if (energia.value != '') {
+			photo.src = photo.arxikoSrc;
+			energia.value = '';
+		}
+		else {
+			photo.arxikoSrc = photo.src;
+			photo.src = globals.server + 'photo/' + pektis.login.substr(0, 1) +
+				'/' + pektis.login + '~.jpg';
+			energia.value = 'restore';
+		}
 	};
 };
 

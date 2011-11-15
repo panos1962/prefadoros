@@ -239,6 +239,14 @@ function photo_area() {
 			?>/<?php print $globals->pektis->login; ?>.jpg" onerror="this.src='<?php
 			print $globals->server; ?>/images/missingPhoto.png';" alt="" />
 	</div>
+	<div class="signupPhotoToolArea">
+		<img class="signupPhotoTool" src="<?php print $globals->server;
+			?>images/Xred.png" title="Διαγραφή εικόνας" alt=""
+			onclick="account.deletePhoto();" style="margin-top: 0px;" />
+		<img class="signupPhotoTool" src="<?php print $globals->server;
+			?>images/undo.png" title="Επαναφορά εικόνας" alt=""
+			onclick="account.restorePhoto();" />
+	</div>
 	<?php
 }
 
@@ -261,6 +269,7 @@ function photo_input() {
 			style="display: none; width: 6.0cm; height: 3.0cm; background-color: #FFFF99;">
 		</iframe>
 		<input type="hidden" name="MAX_PHOTO_SIZE" value="<?php print MAX_PHOTO_SIZE; ?>" />
+		<input id="photoEnergia" type="hidden" name="photoEnergia" value="" />
 		<input name="photoFile" id="uploadPhotoButton" type="file" size="10"
 			accept="image/jpeg" style="visibility: hidden;" />
 	</td>
