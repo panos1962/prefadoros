@@ -1,7 +1,7 @@
 .signupPhotoArea {
 	position: absolute;
 	top: -1em;
-	left: 1em;
+	left: 0.4cm;
 	width: 4.23cm;
 	height: 2.3cm;
 	overflow-x: hidden;
@@ -19,4 +19,18 @@
 
 	opacity: 0.5;
 	filter: alpha(opacity=50);
+}
+
+.signupPhotoToolArea {
+	position: absolute;
+	top: -1em;
+	left: 5.0cm;
+	width: 1px;
+}
+
+.signupPhotoTool {
+	width: 0.8cm;
+	margin-top: 0.6cm;
+
+	cursor: pointer;
 }
