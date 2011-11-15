@@ -35,11 +35,11 @@ account.onload = function() {
 
 		rsp = req.getResponse();
 		if (rsp) {
-			formaFyi(rsp);
+			mainFyi(rsp);
 			fld.style.color = globals.color.error;
 		}
 		else {
-			formaFyi();
+			mainFyi();
 			fld.style.color = globals.color.ok;
 		}
 	};
@@ -51,7 +51,7 @@ account.onload = function() {
 		req.send(params);
 		var rsp = req.getResponse();
 		if (rsp) {
-			formaFyi(rsp);
+			mainFyi(rsp);
 			return false;
 		}
 
@@ -68,13 +68,13 @@ account.onload = function() {
 
 		if (fld.value === '') {
 			fld.style.color = globals.color.error;
-			formaFyi('Το login name είναι υποχρεωτικό');
+			mainFyi('Το login name είναι υποχρεωτικό');
 			return false;
 		}
 
 		if (!fld.value.match(/^[a-zA-Z][a-zA-Z0-9_!@#=.:+-]*$/)) {
 			fld.style.color = globals.color.error;
-			formaFyi('Το login name δεν είναι δεκτό');
+			mainFyi('Το login name δεν είναι δεκτό');
 			return false;
 		}
 
@@ -95,7 +95,7 @@ account.onload = function() {
 			return true;
 		}
 
-		formaFyi('Το email δεν είναι σωστό');
+		mainFyi('Το email δεν είναι σωστό');
 		fld.style.color = globals.color.error;
 		return false;
 	};
@@ -107,7 +107,7 @@ account.onload = function() {
 		}
 
 		if (notSet(form.onoma.value) || (form.onoma.value === '')) {
-			formaFyi('Το όνομα είναι υποχρεωτικό');
+			mainFyi('Το όνομα είναι υποχρεωτικό');
 			form.onoma.focus();
 			return false;
 		}
@@ -118,19 +118,19 @@ account.onload = function() {
 		}
 
 		if (notSet(form.password1.value) || (form.password1.value === '')) {
-			formaFyi('Το password είναι υποχρεωτικό');
+			mainFyi('Το password είναι υποχρεωτικό');
 			form.password1.focus();
 			return false;
 		}
 
 		if (notSet(form.password2.value) || (form.password2.value === '')) {
-			formaFyi('Πρέπει να επαναλάβετε το password');
+			mainFyi('Πρέπει να επαναλάβετε το password');
 			form.password2.focus();
 			return false;
 		}
 
 		if (form.password2.value != form.password1.value) {
-			formaFyi('Τα δύο passwords είναι διαφορετικά');
+			mainFyi('Τα δύο passwords είναι διαφορετικά');
 			form.password1.focus();
 			return false;
 		}
@@ -145,7 +145,7 @@ account.onload = function() {
 		req.send(params);
 		var rsp = req.getResponse();
 		if (rsp) {
-			formaFyi(rsp);
+			mainFyi(rsp);
 			return false;
 		}
 
@@ -155,7 +155,7 @@ account.onload = function() {
 
 	this.updatePektis = function(form) {
 		if (notSet(form.onoma.value) || (form.onoma.value === '')) {
-			formaFyi('Το όνομα είναι υποχρεωτικό');
+			mainFyi('Το όνομα είναι υποχρεωτικό');
 			form.onoma.focus();
 			return false;
 		}
@@ -166,7 +166,7 @@ account.onload = function() {
 		}
 
 		if (notSet(form.password.value) || (form.password.value === '')) {
-			formaFyi('Δεν δόθηκε password');
+			mainFyi('Δεν δόθηκε password');
 			form.password.focus();
 			return false;
 		}
@@ -180,7 +180,7 @@ account.onload = function() {
 		}
 
 		if (form.password2.value != form.password1.value) {
-			formaFyi('Τα δύο passwords είναι διαφορετικά');
+			mainFyi('Τα δύο passwords είναι διαφορετικά');
 			form.password1.focus();
 			return false;
 		}
@@ -196,7 +196,7 @@ account.onload = function() {
 		req.send(params);
 		var rsp = req.getResponse();
 		if (rsp && (rsp != 'NO_CHANGE')) {
-			formaFyi(rsp);
+			mainFyi(rsp);
 			return false;
 		}
 
@@ -205,7 +205,7 @@ account.onload = function() {
 		}
 
 		if (rsp) {
-			formaFyi('Δεν έγιναν αλλαγές στα στοιχεία του λογαριασμού');
+			mainFyi('Δεν έγιναν αλλαγές στα στοιχεία του λογαριασμού');
 			return false;
 		}
 

@@ -12,11 +12,12 @@ Page::javascript('lib/forma');
 Page::javascript('account/account');
 Page::body();
 Page::epikefalida($globals->is_pektis());
+Page::fyi();
 ?>
 <div class="mainArea">
 <form class="forma" method="post" action="<?php print $globals->server;
 	?>account/uploadPhoto.php" enctype="multipart/form-data"
-	target="uploadFrame" style="position: relative;">
+	target="uploadFrame" style="position: relative; padding-top: 10px;">
 <table class="formaData tbldbg">
 <tr>
 	<td class="formaHeader tbldbg" colspan="2">
@@ -96,31 +97,10 @@ Page::epikefalida($globals->is_pektis());
 </tr>
 <?php
 if ($globals->is_pektis()) {
-	?>
-	<tr>
-		<td class="formaPrompt tbldbg">
-			Τρέχων&nbsp;κωδικός
-		</td>
-		<td class="tbldbg">
-			<input name="password" type="password" maxlength="50"
-				size="16" value="@@@@@@" class="formaField"
-				onfocus="formaFyi();" />
-			<div style="position: relative; display: inline-block;">
-				<?php photo_area(); ?>
-			</div>
-		</td>
-	</tr>
-	<tr id="alagiKodikou">
-		<td class="formaPrompt tbldbg">
-			<a href="#" onclick="return account.alagiKodikou();">Αλλαγή κωδικού</a>
-		</td>
-		<td>
-		</td>
-	</tr>
-	<?php
+	kodikos_area();
 }
 ?>
-<tr id="neosKodikos"<?php if ($globals->is_pektis()) { ?> style="visibility: hidden;"<?php }?>>
+<tr id="neosKodikos"<?php if ($globals->is_pektis()) { ?> style="visibility: hidden;"<?php } ?>>
 	<td class="formaPrompt tbldbg">
 		Κωδικός
 	</td>
@@ -129,7 +109,7 @@ if ($globals->is_pektis()) {
 			value="" class="formaField" onfocus="formaFyi();" />
 	</td>
 </tr>
-<tr id="neosKodikos2"<?php if ($globals->is_pektis()) { ?> style="display: none;"<?php }?>>
+<tr id="neosKodikos2"<?php if ($globals->is_pektis()) { ?> style="display: none;"<?php } ?>>
 	<td class="formaPrompt tbldbg">
 		Επαναλάβατε
 	</td>
@@ -226,6 +206,31 @@ function enalagi_list() {
 			<?php
 		}
 	}
+}
+
+function kodikos_area() {
+	?>
+	<tr>
+		<td class="formaPrompt tbldbg">
+			Τρέχων&nbsp;κωδικός
+		</td>
+		<td class="tbldbg">
+			<input name="password" type="password" maxlength="50"
+				size="16" value="@@@@@@" class="formaField"
+				onfocus="formaFyi();" />
+			<div style="position: relative; display: inline-block;">
+				<?php photo_area(); ?>
+			</div>
+		</td>
+	</tr>
+	<tr id="alagiKodikou">
+		<td class="formaPrompt tbldbg">
+			<a href="#" onclick="return account.alagiKodikou();">Αλλαγή κωδικού</a>
+		</td>
+		<td>
+		</td>
+	</tr>
+	<?php
 }
 
 function photo_area() {
