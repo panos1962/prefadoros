@@ -9,9 +9,11 @@ Page::javascript('lib/forma');
 Page::javascript('account/account');
 Page::body();
 Page::epikefalida(FALSE);
+Page::fyi();
 ?>
 <div class="mainArea">
-<form class="forma" method="post" action="<?php print $globals->server; ?>index.php" >
+<form class="forma" method="post" action="<?php print $globals->server; ?>index.php"
+	style="margin-top: padding-top: 1em;">
 <table class="formaData tbldbg">
 <tr>
 	<td class="formaHeader tbldbg" colspan="2">
