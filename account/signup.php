@@ -97,8 +97,46 @@ Page::fyi();
 </tr>
 <?php
 if ($globals->is_pektis()) {
-	kodikos_area();
+	?>
+	<tr>
+		<td class="formaPrompt tbldbg">
+			Τρέχων&nbsp;κωδικός
+		</td>
+		<td class="tbldbg">
+			<input name="password" type="password" maxlength="50"
+				size="16" value="@@@@@@" class="formaField"
+				onfocus="formaFyi();" />
+			<div style="position: relative; display: inline-block;">
+				<?php photo_area(); ?>
+			</div>
+		</td>
+	</tr>
+	<?php
+	// Ακολουθεί ψευδοlink αλλαγής κωδικού (password) το οποίο εμφανίζει
+	// τα πεδία θέσης/αλλαγής κωδικού. By default δεν εμφανίζουμε αυτά
+	// τα πεδία για να μην μπερδεύεται ο παίκτης, αλλά κάνοντας κλικ
+	// στο εν λόγω ψευδοlink, εμφανίζονται τα πεδία και αποκρύπτεται
+	// το ψευδοlink.
+	?>
+	<tr id="alagiKodikou">
+		<td class="formaPrompt tbldbg">
+			<a href="#" onclick="return account.alagiKodikou();">Αλλαγή κωδικού</a>
+		</td>
+		<td>
+		</td>
+	</tr>
+	<?php
 }
+
+// Τα δύο πεδία που ακολουθούν αφορούν στην εισαγωγή νέου κωδικού είτε
+// κατά την εγγραφή νέου παίκτη, είτε στη φάση αλλαγής του κωδικού.
+// Πρόκειται για το πεδίο του νέου κωδικού και για παρόμοι πεδίο στο
+// οποίο ο παίκτης επαναλαμβάνει τον κωδικό του για να μη γίνει κάποιο
+// λάθος (κλασική διαδικασία θέσης/αλλαγής password).
+// Ίσως παρατηρήσετε ότι υπάρχει διαφορετική αντιμετώπιση στα δύο πεδία,
+// αλλά αυτό σχετίζεται μόνο με το ότι θέλουμε να καταλαμβάνεται μια
+// γραμμή ακόμη όταν το ψευδοlink εμφάνισης των εν λόγω πεδίων είναι
+// εμφανές.
 ?>
 <tr id="neosKodikos"<?php if ($globals->is_pektis()) { ?> style="visibility: hidden;"<?php } ?>>
 	<td class="formaPrompt tbldbg">
@@ -206,31 +244,6 @@ function enalagi_list() {
 			<?php
 		}
 	}
-}
-
-function kodikos_area() {
-	?>
-	<tr>
-		<td class="formaPrompt tbldbg">
-			Τρέχων&nbsp;κωδικός
-		</td>
-		<td class="tbldbg">
-			<input name="password" type="password" maxlength="50"
-				size="16" value="@@@@@@" class="formaField"
-				onfocus="formaFyi();" />
-			<div style="position: relative; display: inline-block;">
-				<?php photo_area(); ?>
-			</div>
-		</td>
-	</tr>
-	<tr id="alagiKodikou">
-		<td class="formaPrompt tbldbg">
-			<a href="#" onclick="return account.alagiKodikou();">Αλλαγή κωδικού</a>
-		</td>
-		<td>
-		</td>
-	</tr>
-	<?php
 }
 
 function photo_area() {
