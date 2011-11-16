@@ -17,7 +17,7 @@ Page::fyi();
 <div class="mainArea">
 <form class="forma" method="post" action="<?php print $globals->server;
 	?>account/uploadPhoto.php" enctype="multipart/form-data"
-	target="uploadFrame" style="position: relative; padding-top: 10px;">
+	target="uploadFrame" style="position: relative; padding-top: 1em;">
 <table class="formaData tbldbg">
 <tr>
 	<td class="formaHeader tbldbg" colspan="2">
