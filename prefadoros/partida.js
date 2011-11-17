@@ -962,6 +962,11 @@ var Partida = new function() {
 		return html;
 	};
 
+	// Η function "proskeklimenos" δείχνει ένα τσεκ στον θεατή, εφόσον
+	// τον έχουμε ήδη προσκαλέσει. Δεν μας δείχνει, όμως, αν ο θεατής
+	// έχει πρόσκληση από άλλον παίκτη του τραπεζιού. Θα μπορούσε να
+	// γίνει και αυτό, αλλά υπάρχει κόστος.
+
 	this.proskeklimenos = function(pektis) {
 		if (notSet(window.prosklisi)) { return false; }
 		for (var i = 0; i < prosklisi.length; i++) {
