@@ -321,7 +321,10 @@ class Page {
 		<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 		<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="<?php print $titlos; ?>" />
+		<meta name="description" content="Παίξτε πρέφα on-line!" />
+		<meta name="keywords" content="πρέφα,πρεφαδόρος,prefa,prefadoros" />
+		<meta name="author" content="Panos Papadopoulos" />
+
 		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="<?php
 			print $globals->server; ?>favicon.ico" />
 		<title><?php print $titlos; ?></title>
