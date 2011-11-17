@@ -328,10 +328,14 @@ background-color: magenta;
 }
 
 .theatisData {
-	background-color: #B7AA7D;
+	position: relative;
+
 	border-style: solid;
 	border-width: 1px;
 	border-color: #928864;
+
+	background-color: #B7AA7D;
+
 	margin-bottom: 1px;
 	padding-left: 3px;
 	padding-bottom: 2px;
@@ -339,6 +343,16 @@ background-color: magenta;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
+}
+
+.theatisProsklisi {
+	position: absolute;
+	right: 0.1cm;
+	top: 0.05cm;
+	width: 0.4cm;
+
+	opacity: 0.8;
+	filter: alpha(opacity=80);
 }
 
 .kafenio {

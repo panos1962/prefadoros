@@ -954,8 +954,22 @@ var Partida = new function() {
 		html += Trapezi.permesHTML(pektis);
 		html += '>';
 		html += pektis;
+		if (Partida.proskeklimenos(pektis)) {
+			html += '<img class="theatisProsklisi" src="' + globals.server +
+				'images/controlPanel/check.png" alt="" />';
+		}
 		html += '</div>';
 		return html;
+	};
+
+	this.proskeklimenos = function(pektis) {
+		if (notSet(window.prosklisi)) { return false; }
+		for (var i = 0; i < prosklisi.length; i++) {
+			if (prosklisi[i].p != pektis) { continue; }
+			if (prosklisi[i].t != partida.kodikos) { continue; }
+			return true;
+		}
+		return false;
 	};
 
 	this.noPartidaHTML = function() {
