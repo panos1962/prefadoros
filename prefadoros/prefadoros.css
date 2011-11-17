@@ -329,6 +329,7 @@ background-color: magenta;
 
 .theatisData {
 	position: relative;
+	white-space: nowrap;
 
 	border-style: solid;
 	border-width: 1px;
@@ -482,6 +483,7 @@ background-color: magenta;
 
 .kafenioBoxData {
 	max-width: 2.8cm;
+	white-space: nowrap;
 	overflow: hidden;
 }
 
