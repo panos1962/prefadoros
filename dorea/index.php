@@ -7,6 +7,8 @@ Page::head();
 p {
 	background-image: none;
 	background-color: #FFFFFF;
+	padding-left: 0.2cm;
+	padding-right: 0.2cm;
 }
 
 .mainArea {
