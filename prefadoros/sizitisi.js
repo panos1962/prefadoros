@@ -191,7 +191,15 @@ var Sizitisi = new function() {
 		var k = 'k' + s.k;
 		if (x[4] && (!epexeIxos.hasOwnProperty(k)) && isSet(s.w) &&
 			((currentTimestamp() - (s.w * 1000)) < 5000)) {
-			playSound(x[4]);
+			var xx = x[4].split(':');
+			if ((xx.length > 1) && (xx[1] > 0)) {
+				setTimeout(function() {
+					playSound(xx[0], xx[2]);
+				}, xx[1]);
+			}
+			else {
+				playSound(xx[0], xx[2]);
+			}
 			epexeIxos[k] = true;
 		}
 
