@@ -311,6 +311,9 @@ function print_kasa($pektis) {
 	elseif ($klist[$n] < 0) {
 		print '<div style="color: #990000;">' . $klist[$n] . '</div>';
 	}
+	else if ($klist[$n] == 0) {
+		print '<div style="color: #990000;">0</div>';
+	}
 }
 
 function print_kapikia31() {

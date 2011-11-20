@@ -166,7 +166,7 @@ class Trapezi {
 		$this->asoi = ($row['asoi'] == 'YES' ? 1 : 0);
 		$this->prive = ($row['idiotikotita'] == 'ΔΗΜΟΣΙΟ' ? 0 : 1);
 		$this->klisto = ($row['prosvasi'] == 'ΑΝΟΙΚΤΟ' ? 0 : 1);
-		$this->ipolipo = $row['kasa'] - $row['pistosi'];
+		$this->ipolipo = (3 * $row['kasa']) - $row['pistosi'];
 	}
 
 	public function set_energos_pektis($energos = FALSE) {
@@ -411,6 +411,10 @@ class Trapezi {
 		@mysqli_query($globals->db, $query);
 	}
 
+	// Η μέθοδος που ακολουθεί δεν καλείται πουθενά. Έχει μείνει από παλιά,
+	// πριν προσθέσω το πεδίο "pistosi" στον πίνακα "trapezi".
+	/*
+
 	public static function ipolipo($kodikos, $kasa) {
 		global $globals;
 		static $stmnt = NULL;
@@ -438,5 +442,6 @@ class Trapezi {
 
 		return intval($kasa / 10);
 	}
+	*/
 }
 ?>
