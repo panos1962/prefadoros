@@ -78,6 +78,14 @@ class Item {
 	public $zoom;
 	public $sound;
 
+	// Το πεδίο του ήχου έχει τη μορφή "ήχος[:καθυστέρηση[:ένταση]]", π.χ.
+	// "tzamia:1500:40", όπου η καθυστέρηση είναι σε milliseconds και
+	// η ένταση είναι ένας ακέραιος, π.χ. 20, 30 κλπ, παρόμοιος με αυτόν
+	// που χρησιμοποιείται από την "playSound". Αν δεν δοθεί καθυστέρηση
+	// υποτίθεται μηδενική (χωρίς καθυστέρηση), ενώ αν δεν δοθεί ένταση
+	// χρησιμοποιείται η default τιμή του συγκεκριμένου ήχου, όπως αυτή
+	// ορίζεται στο "lib/soundmanager.js"
+
 	public function __construct($image = '', $title = '', $zoom = '', $sound = '') {
 		$this->image = $image;
 		$this->title = $title;
@@ -159,9 +167,9 @@ function print_panel() {
 	$item_list[] = new Item("iseTromeros.gif", "", 4.8);
 	$item_list[] = new Item("gamisaki.gif");
 	$item_list[] = new Item("catFire.gif");
-	$item_list[] = new Item("fayeGun.gif", "", 4.8);
+	$item_list[] = new Item("fayeGun.gif", "", 4.8, "polivolo");
 	$item_list[] = new Item("komanto.gif");
-	$item_list[] = new Item("shooter.gif");
+	$item_list[] = new Item("shooter.gif", "", "", "pistolia");
 	$item_list[] = new Item("exeteAso.gif", "Έχετε κάποιον άσο;");
 	$item_list[] = new Item("soloDance.gif", "Το 'παιξα ωραία!");
 	$item_list[] = new Item("zito.gif", "Ζήτω!", 5.2);
@@ -194,14 +202,14 @@ function print_panel() {
 	$item_list[] = new Item("vadinSkifto.gif", "Δύσκολο…", 2.6);
 	$item_list[] = new Item("denTsimpao.gif", "Δεν τσιμπάω ρε!", 2.1);
 	$item_list[] = new Item("elaStoThio.gif", "Έλα στο θείο!", 3.2);
-	$item_list[] = new Item("helloBird.gif");
+	$item_list[] = new Item("helloBird.gif", "", "", "kanarini");
 	$item_list[] = new Item("piosPezi.gif", "Ε, ποιος παίζει;", 3.1);
 	$item_list[] = new Item("petamaKitapi.gif", "Δες τα χάλια σου στο κιτάπι…");
 	$item_list[] = new Item("noCommentEmoticon.gif");
 	$item_list[] = new Item("souromenosIse.gif", "Σουρωμένος είσαι;");
 	$item_list[] = new Item("tiSasExo.gif", "Τι σας έχω, τι σας έχω!");
 	$item_list[] = new Item("kremastika.gif", "Κρεμάστηκα τώρα!", 3.3);
-	$item_list[] = new Item("xipna.gif", "Ξύπνα, ρεεεε!", 5.1);
+	$item_list[] = new Item("xipna.gif", "Ξύπνα, ρεεεε!", 5.1, "bell:1000");
 	$item_list[] = new Item("bartAss.gif", "Kiss my ass!");
 	$item_list[] = new Item("mafalda.gif", "Παίξτο ανέμελα…");
 	$item_list[] = new Item("toraTiKano.gif", "Τώρα;", 4.0);
@@ -281,18 +289,18 @@ function print_panel() {
 	$item_list[] = new Item("helloEmoticon.gif");
 	$item_list[] = new Item("hiPokemon.gif");
 	$item_list[] = new Item("ILoveUEmoticon.gif");
-	$item_list[] = new Item("filaki.gif", "Να σε φιλήσω!");
+	$item_list[] = new Item("filaki.gif", "Να σε φιλήσω!", "", "filaki");
 	$item_list[] = new Item("iLoveYou.gif");
 	$item_list[] = new Item("flower.gif");
 	$item_list[] = new Item("tragoudiEmoticon.gif", "Θα μας τραγουδήσεις κάτι;");
 	$item_list[] = new Item("koutsoTripa.gif", "Πρόσεχε τις λούμπες!");
-	$item_list[] = new Item("minBisMesa.gif", "Ένα, δύο, τρία και… Ουπς!");
+	$item_list[] = new Item("minBisMesa.gif", "Ένα, δύο, τρία και… Ουπς!", "", "blioup:1500:20");
 	$item_list[] = new Item("migaki.gif", "Μια μύγα!");
 	$item_list[] = new Item("chuckNoris.jpg", "Ούτε εγώ δεν τις βγάζω αυτές!");
 	$item_list[] = new Item("moxthiroEmoticon.gif");
 	$item_list[] = new Item("kobra.gif");
 	$item_list[] = new Item("sfiriEmoticon.gif", "Θα το σπάσω!!!");
-	$item_list[] = new Item("parathiro.gif", "");
+	$item_list[] = new Item("parathiro.gif", "", "", "tzamia:1500");
 	$item_list[] = new Item("astrapesEmoticon.gif", "@#!%@^&#*!@");
 	$item_list[] = new Item("miGamiso.jpg", "", 2.0);
 	$item_list[] = new Item("kokiniKarta.jpg", "", 3.0, "sfirixtra");
