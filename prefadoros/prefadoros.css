@@ -487,14 +487,15 @@ background-color: magenta;
 	overflow: hidden;
 }
 
-.kafenioFilos {
-	color: #006600;
-	font-weight: bold;
-}
-
 .theatis {
 	border-color: #928864;
 	background-color: #B7AA7D;
+}
+
+.kafenioFilos {
+	color: #006600;
+	background-color: #FFB84D;
+	font-weight: bold;
 }
 
 .keniThesi {
