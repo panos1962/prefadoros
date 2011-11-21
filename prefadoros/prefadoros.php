@@ -438,6 +438,26 @@ class Prefadoros {
 
 		$query = "DELETE FROM `sinedria` WHERE `pektis` = " . $globals->pektis->slogin;
 		$globals->sql_query($query);
+
+		// Μια στις 50 φορές επιχειρούμε να κλείσουμε συνεδρίες παικτών
+		// που δεν έχουν επαφή με το πρόγραμμα για αρκετή ώρα.
+		if (mt_rand(1, 50) == 10) {
+			self::klise_palies_sinedries();
+		}
+	}
+
+	private static function klise_palies_sinedries() {
+		global $globals;
+
+		$where = "`pektis` IN (SELECT `login` FROM `pektis` " .
+			"WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) > 3600)";
+		$query = "INSERT INTO `sinedria_log` (`kodikos`, `pektis`, `ip`, " .
+			"`dimiourgia`, `enimerosi`, `telos`) SELECT `kodikos`, `pektis`, `ip`, " .
+			"`dimiourgia`, `enimerosi`, NOW() FROM `sinedria` WHERE " . $where;
+		@mysqli_query($globals->db, $query);
+
+		$query = "DELETE FROM `sinedria` WHERE " . $where;
+		$globals->sql_query($query);
 	}
 }
 ?>
