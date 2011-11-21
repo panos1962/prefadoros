@@ -487,6 +487,11 @@ background-color: magenta;
 	overflow: hidden;
 }
 
+.kafenioFilos {
+	color: #003300;
+	font-weight: bold;
+}
+
 .theatis {
 	border-color: #928864;
 	background-color: #B7AA7D;
