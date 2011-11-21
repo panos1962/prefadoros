@@ -95,5 +95,6 @@ function lathos($message) {
 	</script>
 	<?php
 	Page::close();
+	die(0);
 }
 ?>
