@@ -410,38 +410,5 @@ class Trapezi {
 		$query = "DELETE FROM `trapezi` WHERE `kodikos` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
 	}
-
-	// Η μέθοδος που ακολουθεί δεν καλείται πουθενά. Έχει μείνει από παλιά,
-	// πριν προσθέσω το πεδίο "pistosi" στον πίνακα "trapezi".
-	/*
-
-	public static function ipolipo($kodikos, $kasa) {
-		global $globals;
-		static $stmnt = NULL;
-		$errmsg = "Trapezi::ipolipo(): ";
-
-		$kasa *= 30;
-
-		if ($stmnt == NULL) {
-			$query = "SELECT `kasa1`, `kasa2`, `kasa3` " .
-				"FROM `dianomi` WHERE `trapezi` = ?";
-			$stmnt = $globals->db->prepare($query);
-			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
-			}
-		}
-
-		$stmnt->bind_param("i", $kodikos);
-		$stmnt->execute();
-		$stmnt->bind_result($kasa1, $kasa2, $kasa3);
-		while ($stmnt->fetch()) {
-			$kasa -= $kasa1;
-			$kasa -= $kasa2;
-			$kasa -= $kasa3;
-		}
-
-		return intval($kasa / 10);
-	}
-	*/
 }
 ?>
