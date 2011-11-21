@@ -261,8 +261,13 @@ var Trapezi = new function() {
 		html += ' onmouseover="Trapezi.fotise(this);"';
 		html += ' onmouseout="Trapezi.xefotise(this);"';
 		html += ' onclick="Sxesi.permesWindow(\'' + p + '\', \'' + msg + '\');"';
-		html += ' title="Πρόσκληση, ή προσωπικό μήνυμα προς το χρήστη &quot;' +
-			p + '&quot;"';
+		// Εδώ υπάρχει ένα ανώδυνο bug· αν ο παίκτης είναι θεατής σε τραπέζι,
+		// θα εμφανίζεται μήνυμα για πρόσκληση, ακόμη και αν ο παίκτης δεν
+		// παίζει σε κάποιο τραπέζι. Στη φόρμα, όμως, που θα εμφανιστεί δεν
+		// παρέχεται δυνατότητα πρόκσλησης.
+		html += ' title="';
+		html += isPartida() ? 'Πρόσκληση, ή προσωπικό μήνυμα' : 'Προσωπικό μήνυμα';
+		html += ' προς το χρήστη &quot;' + p + '&quot;"';
 		html += ' style="cursor: pointer;"';
 		return html;
 	};
