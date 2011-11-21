@@ -56,8 +56,7 @@ function minima_pros($pros = '', $pros_fixed = FALSE) {
 		}?>
 	</div>
 	<div style="width: 20.0cm;">
-	<textarea id="permesInput" rows="14" cols="<?php print $pros_fixed ? 80 : 80; ?>"
-		style="font-size: 0.4cm;"><?php
+	<textarea id="permesInput" rows="14" style="font-size: 0.4cm; width: 14.0cm;"><?php
 		if (Globals::perastike('minima')) {
 			print $_REQUEST['minima'];
 		} ?></textarea>
