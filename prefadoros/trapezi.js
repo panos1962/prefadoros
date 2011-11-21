@@ -185,7 +185,7 @@ var Trapezi = new function() {
 			else {
 				html += 'Θεατής στο τραπέζι ' + t.k;
 			}
-			html += '"';
+			html += '&#13;&#10;(υπόλοιπο κάσας ' + (t.i * 10) + ' καπίκια)"';
 			html += ' onclick="Trapezi.theatis(' + t.k + ');"';
 		}
 		html += '>';
