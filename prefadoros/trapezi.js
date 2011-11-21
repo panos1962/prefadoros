@@ -333,6 +333,7 @@ var Trapezi = new function() {
 	this.rebelosHTML = function(t, theatis, peknpat) {
 		var html = '<div class="kafenioBox kafenioPektis rebelos';
 		if (theatis) { html += ' theatis'; }
+		if (Trapezi.isFilos(t)) { html += ' kafenioFilos'; }
 		if (isPektis() && (t == pektis.login)) { html += ' ego'; }
 		else if (t == peknpat) { html += ' katazitoumenos'; }
 		html += '"';
