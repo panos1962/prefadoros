@@ -26,8 +26,8 @@ a img {
 }
 
 .motdArea {
-	background-color: #305930;
 	background-color: #4D704D;
+	background-color: #FFD6AD;
 	padding: 0.1cm;
 	margin-top: 0.2cm;
 	margin-bottom: 0.2cm;
@@ -44,6 +44,7 @@ a img {
 	border-style: solid;
 	border-width: 2px;
 	color: #FFFF88;
+	color: #002900;
 	text-align: center;
 }
 
