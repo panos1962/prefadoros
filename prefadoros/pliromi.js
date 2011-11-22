@@ -169,6 +169,18 @@ var Pliromi = new function() {
 			}
 		}
 
+		// Εφόσον το υπόλοιπο της κάσας επαρκεί, η αγορά πληρώνεται
+		// κανονικά. Αν το υπόλοιπο της κάσας δεν επαρκεί, τότε για
+		// μεν τις βγαλμένες αγορές η πληρωμή γίνεται με βάση το
+		// υπόλοιπο της κάσας, για δε τις αγορές που είναι μέσα
+		// η πληρωμή γίνεται κανονικά, με βάση την πραγματική αξία
+		// της αγοράς.
+
+		this.axiaBazasMesa = this.axiaBazas;
+		if (this.axiaBazas > pexnidi.ipolipo) {
+			this.axiaBazas = pexnidi.ipolipo;
+		}
+
 		// Αν δεν μετράνε οι άσοι μηδενίζω την αξία των άσων.
 		if (notAsoiKolos()) { this.axiaTaPoulia = 0; }
 
@@ -261,17 +273,17 @@ var Pliromi = new function() {
 		// Αν ο τζογαδόρος "μπήκε μέσα" παραπάνω από 1 μπάζα, τότε
 		// θα τα πληρώσει όλα διπλά (σόλο).
 		if (pexnidi.agoraBazes - pexnidi.baza[pexnidi.tzogadoros] > 1) {
-			this.axiaBazas *= 2;
+			this.axiaBazasMesa *= 2;
 			this.doseTaPoulia(2);
 		}
 		else {
 			this.doseTaPoulia(1);
 		}
 
-		this.kasa[pexnidi.tzogadoros] -= 10 * this.axiaBazas;
+		this.kasa[pexnidi.tzogadoros] -= 10 * this.axiaBazasMesa;
 		for (var i = 1; i <= 3; i++) {
 			if (i != pexnidi.tzogadoros) {
-				var poso = pexnidi.baza[i] * this.axiaBazas;
+				var poso = pexnidi.baza[i] * this.axiaBazasMesa;
 				this.kapikia[pexnidi.tzogadoros] -= poso;
 				this.kapikia[i] += poso;
 			}
@@ -297,7 +309,7 @@ var Pliromi = new function() {
 	};
 
 	this.mesa9 = function(pektis) {
-		var poso = 10 * this.axiaBazas;
+		var poso = 10 * this.axiaBazasMesa;
 		this.kapikia[pektis] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 	};
@@ -311,7 +323,7 @@ var Pliromi = new function() {
 			}
 			break;
 		case 10:
-			var poso = 10 * this.axiaBazas;
+			var poso = 10 * this.axiaBazasMesa;
 			this.kapikia[protos] -= poso;
 			this.kapikia[pexnidi.tzogadoros] += poso;
 
@@ -322,21 +334,21 @@ var Pliromi = new function() {
 	};
 
 	this.mesa8_9_0_1 = function(protos, defteros) {
-		var poso = 9 * this.axiaBazas;
+		var poso = 9 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		poso = 1 * this.axiaBazas;
+		poso = 1 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[defteros] += poso;
 	};
 
 	this.mesa8_9_1_0 = function(protos, defteros) {
-		var poso = 9 * this.axiaBazas;
+		var poso = 9 * this.axiaBazasMesa;
 		this.kapikia[defteros] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		poso = 1 * this.axiaBazas;
+		poso = 1 * this.axiaBazasMesa;
 		this.kapikia[defteros] -= poso;
 		this.kapikia[protos] += poso;
 	};
@@ -357,7 +369,7 @@ var Pliromi = new function() {
 			}
 			break;
 		case 10:
-			var poso = 10 * this.axiaBazas;
+			var poso = 10 * this.axiaBazasMesa;
 			this.kapikia[defteros] -= poso;
 			this.kapikia[pexnidi.tzogadoros] += poso;
 
@@ -369,47 +381,47 @@ var Pliromi = new function() {
 	};
 
 	this.mesa7_8_0_2 = function(protos, defteros) {
-		var poso = 8 * this.axiaBazas;
+		var poso = 8 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		poso = 2 * this.axiaBazas;
+		poso = 2 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[defteros] += poso;
 	};
 
 	this.mesa7_8_1_1 = function(protos, defteros) {
-		var poso = 8 * this.axiaBazas;
+		var poso = 8 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		poso = 1 * this.axiaBazas;
+		poso = 1 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[defteros] += poso;
 	};
 
 	this.mesa7_8_2_0 = function(protos, defteros) {
-		var poso = 8 * this.axiaBazas;
+		var poso = 8 * this.axiaBazasMesa;
 		this.kapikia[defteros] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		poso = 2 * this.axiaBazas;
+		poso = 2 * this.axiaBazasMesa;
 		this.kapikia[defteros] -= poso;
 		this.kapikia[protos] += poso;
 	};
 
 	this.mesa7_9_0_1 = function(protos, defteros) {
-		var poso = (9 * this.axiaBazas) * 2;
+		var poso = (9 * this.axiaBazasMesa) * 2;
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		var poso = 1 * this.axiaBazas;
+		var poso = 1 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[defteros] += poso;
 	};
 
 	this.mesa7_9_1_0 = function(protos, defteros) {
-		var poso = 9 * this.axiaBazas;
+		var poso = 9 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
@@ -441,7 +453,7 @@ var Pliromi = new function() {
 			}
 			break;
 		case 10:
-			var poso = (10 * this.axiaBazas) * 2;
+			var poso = (10 * this.axiaBazasMesa) * 2;
 			this.kapikia[protos] -= poso;
 			this.kapikia[pexnidi.tzogadoros] += poso;
 
@@ -452,59 +464,59 @@ var Pliromi = new function() {
 	};
 
 	this.mesa6_7_0_3 = function(protos, defteros) {
-		var poso = 7 * this.axiaBazas;
+		var poso = 7 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		poso = 3 * this.axiaBazas;
+		poso = 3 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[defteros] += poso;
 	};
 
 	this.mesa6_7_1_2 = function(protos, defteros) {
-		var poso = 7 * this.axiaBazas;
+		var poso = 7 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		poso = 2 * this.axiaBazas;
+		poso = 2 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[defteros] += poso;
 	};
 
 	this.mesa6_7_2_1 = function(protos, defteros) {
-		var poso = 7 * this.axiaBazas;
+		var poso = 7 * this.axiaBazasMesa;
 		this.kapikia[defteros] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		poso = 2 * this.axiaBazas;
+		poso = 2 * this.axiaBazasMesa;
 		this.kapikia[defteros] -= poso;
 		this.kapikia[protos] += poso;
 	};
 
 	this.mesa6_7_3_0 = function(protos, defteros) {
-		var poso = 7 * this.axiaBazas;
+		var poso = 7 * this.axiaBazasMesa;
 		this.kapikia[defteros] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		poso = 3 * this.axiaBazas;
+		poso = 3 * this.axiaBazasMesa;
 		this.kapikia[defteros] -= poso;
 		this.kapikia[protos] += poso;
 	};
 
 	this.mesa6_8_0_2 = function(protos, defteros) {
-		var poso = (8 * this.axiaBazas) * 2;
+		var poso = (8 * this.axiaBazasMesa) * 2;
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
 		// Εδώ υπάρχει ένσταση για το αν ο συμπαίκτης θα
 		// πληρωθεί σόλο. Διαφωνώ!
-		poso = 2 * this.axiaBazas;
+		poso = 2 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[defteros] += poso;
 	};
 
 	this.mesa6_8_1_1 = function(protos, defteros) {
-		var poso = 8 * this.axiaBazas;
+		var poso = 8 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
@@ -513,17 +525,17 @@ var Pliromi = new function() {
 	};
 
 	this.mesa6_8_2_0 = function(protos, defteros) {
-		var poso = (8 * this.axiaBazas) * 2;
+		var poso = (8 * this.axiaBazasMesa) * 2;
 		this.kapikia[defteros] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		poso = 2 * this.axiaBazas;
+		poso = 2 * this.axiaBazasMesa;
 		this.kapikia[defteros] -= poso;
 		this.kapikia[protos] += poso;
 	};
 
 	this.mesa6_9_0_1 = function(protos, defteros) {
-		var poso = 9 * this.axiaBazas;
+		var poso = 9 * this.axiaBazasMesa;
 		this.kapikia[defteros] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
@@ -533,7 +545,7 @@ var Pliromi = new function() {
 	};
 
 	this.mesa6_9_1_0 = function(protos, defteros) {
-		var poso = 9 * this.axiaBazas;
+		var poso = 9 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
@@ -572,12 +584,12 @@ var Pliromi = new function() {
 		case 6:
 			switch (pexnidi.baza[pektis]) {
 			case 0:
-				var poso = (10 * this.axiaBazas) * 2;
+				var poso = (10 * this.axiaBazasMesa) * 2;
 				this.kapikia[pexnidi.tzogadoros] +=  poso;
 				this.kapikia[pektis] -=  poso;
 				break;
 			case 1:
-				poso = 9 * this.axiaBazas;
+				poso = 9 * this.axiaBazasMesa;
 				this.kapikia[pexnidi.tzogadoros] +=  poso;
 				this.kapikia[pektis] -=  poso;
 				break;
@@ -594,12 +606,12 @@ var Pliromi = new function() {
 		case 7:
 			switch (pexnidi.baza[pektis]) {
 			case 0:
-				poso = (10 * this.axiaBazas) * 2;
+				poso = (10 * this.axiaBazasMesa) * 2;
 				this.kapikia[pexnidi.tzogadoros] +=  poso;
 				this.kapikia[pektis] -=  poso;
 				break;
 			case 1:
-				poso = 9 * this.axiaBazas;
+				poso = 9 * this.axiaBazasMesa;
 				this.kapikia[pexnidi.tzogadoros] +=  poso;
 				this.kapikia[pektis] -=  poso;
 				break;
@@ -615,7 +627,7 @@ var Pliromi = new function() {
 		case 8:
 			switch (pexnidi.baza[pektis]) {
 			case 0:
-				poso = 10 * this.axiaBazas;
+				poso = 10 * this.axiaBazasMesa;
 				this.kapikia[pexnidi.tzogadoros] +=  poso;
 				this.kapikia[pektis] -=  poso;
 				break;
@@ -631,7 +643,7 @@ var Pliromi = new function() {
 		case 9:
 			switch (pexnidi.baza[pektis]) {
 			case 0:
-				poso = 10 * this.axiaBazas;
+				poso = 10 * this.axiaBazasMesa;
 				this.kapikia[pexnidi.tzogadoros] +=  poso;
 				this.kapikia[pektis] -=  poso;
 				break;
