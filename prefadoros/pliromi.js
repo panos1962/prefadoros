@@ -177,7 +177,7 @@ var Pliromi = new function() {
 		// της αγοράς.
 
 		this.axiaBazasMesa = this.axiaBazas;
-		if (this.axiaBazas > pexnidi.ipolipo) {
+		if ((pexnidi.ipolipo > 0) && (this.axiaBazas > pexnidi.ipolipo)) {
 			this.axiaBazas = pexnidi.ipolipo;
 		}
 
