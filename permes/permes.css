@@ -1,5 +1,5 @@
 .permesArea {
-	max-width: 21cm;
+	max-width: 26.0cm;
 	min-height: 14.0cm;
 	height: auto;
 }
@@ -20,8 +20,6 @@
 }
 
 .permesMinima {
-	width: 14.0cm;
-	max-width: 14.0cm;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #999966;
@@ -52,7 +50,7 @@
 
 #permesInput {
 	max-height: 11.0cm;
-	max-width: 21.0cm;
+	max-width: 25.0cm;
 }
 
 .permesXronosArea {
