@@ -352,22 +352,48 @@ class Trapezi {
 
 		// Αν βρήκα έστω μια διανομή στο τραπέζι, τότε ελέγχω τους τελευταίους
 		// συμμετέχοντες παίκτες. Για να κρατήσω αρχείο πρέπει, επίσης, να εντοπίσω
-		// εγγραφές συμμετοχής και για τους τρεις παίκτες.
+		// εγγραφές συμμετοχής για τους παίκτες που ίσως έχουν αποχωρήσει.
 
 		if ($keep_log) {
 			$keep_log = FALSE;
+
+			$pektis1 = '';
+			$pektis2 = '';
+			$pektis3 = '';
+
+			// Πρώτα συμπληρώνω με τους παίκτες που μετέχουν αυτή τη στιγμή στο
+			// τραπέζι. Παίρνω και τον κωδικό, ώστε να πέσουν οι παίκτες στις
+			// θέσεις 1, 2, και 3 του projection list.
+
+			$query = "SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3` FROM `trapezi` " .
+				"WHERE `trapezi` = " . $trapezi;
+			$result = @mysqli_query($globals->db, $query);
+			if ($result) {
+				while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+					for ($i = 1; $i <= 3; $i++) {
+						if (($pektis = trim($row[$i])) != '') {
+							$p = "pektis" . $i;
+							$$p = "'" . $globals->asfales($pektis) . "'";
+						}
+					}
+				}
+			}
+
+			// Τώρα θα πάρω τις τελευταίες συμμετοχές, ώστε να συμπληρώσω τους
+			// παίκτες που ίσως λείπουν.
+
 			$query = "SELECT `thesi`, `pektis` FROM `simetoxi` WHERE `trapezi` = " . $trapezi;
 			$result = @mysqli_query($globals->db, $query);
 			if ($result) {
-				$pektis1 = '';
-				$pektis2 = '';
-				$pektis3 = '';
-				while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-					$p = "pektis" . $row['thesi'];
-					$$p = "'" . $globals->asfales($row['pektis']) . "'";
+				while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+					$p = "pektis" . $row[0];
+					if ($$p == '') {
+						$$p = "'" . $globals->asfales($row[1]) . "'";
+					}
 				}
-				$keep_log = (($pektis1 != '') && ($pektis2 != '') && ($pektis3 != ''));
 			}
+
+			$keep_log = (($pektis1 != '') && ($pektis2 != '') && ($pektis3 != ''));
 		}
 
 		// Αντιγραφή των δεδομένων του τραπεζιού (τραπέζι, διανομές, κινήσεις)
