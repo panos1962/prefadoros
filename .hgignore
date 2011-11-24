@@ -5,3 +5,4 @@ glob:dedomena/*
 glob:*.zip
 glob:images/gallery/*
 glob:motd_all.html
+glob:Desktop.ini
