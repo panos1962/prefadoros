@@ -21,6 +21,10 @@ if (@mysqli_affected_rows($globals->db) <= 0) {
 	die("Δεν διεγράφησαν διανομές");
 }
 
+// Σ' αυτό το σημείο αποστέλλονται μηνύματα στους παίκτες και
+// σε άλλους συμμετέχοντες της παρτίδας ότι κάποιος παίκτης
+// έκανε επανεκκίνηση της παρτίδας.
+
 $endiaferomenos = array();
 $endiaferomenos[$globals->trapezi->pektis1] = 'pektis';
 $endiaferomenos[$globals->trapezi->pektis2] = 'pektis';
@@ -34,7 +38,7 @@ if ($result) {
 	}
 }
 
-$apostoleas = "'www.prefadoros.gr'";
+$apostoleas = "'" . SYSTEM_ACCOUNT . "'";
 $minima = "'" . $globals->asfales("Ο παίκτης <strong><em>" . $globals->pektis->login .
 	"</em></strong> διέγραψε τις διανομές της <nobr>παρτίδας <strong><em>" .
 	$globals->trapezi->kodikos . "</em></strong>.</nobr><hr />" .

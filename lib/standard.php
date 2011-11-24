@@ -27,6 +27,7 @@ define('MAX_POLIVOLO2', 30);
 
 define('FUNCHAT_SERVER', 'http://www.pineza.info/prefa/funchatImages/');
 define('MY_EMAIL_ADDRESS', 'panos1962@gmail.com');
+define('SYSTEM_ACCOUNT', 'www.prefadoros.gr');
 define('DEFAULT_PARASKINIO', 'standard.gif');
 
 if (isset($no_session)) {
