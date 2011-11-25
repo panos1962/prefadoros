@@ -172,6 +172,16 @@ var Sizitisi = new function() {
 			return Sizitisi.funchatDecode(s);
 		}
 
+		// Αν δώσουμε short link από το youtube, π.χ. "http://youtu.be/6KUJE2xs-RE"
+		// μας δίνει το βιντεάκι σε iframe. Το short link εμφανίζεται σε κουτάκι
+		// που επιγράφεται "Σύνδεσμος σε αυτό το βίντεο", όταν πατάμε "Αποστολή".
+
+		if ((s.s).match(/^http:\/\/youtu\.be\//)) {
+			var t = (s.s).split("/");
+			return '<iframe width="300" height="225" src="http://www.youtube.com/embed/' +
+				t[t.length - 1] + '" frameborder="0" allowfullscreen></iframe>';
+		}
+
 		return Sizitisi.textDecode(s.s);
 	};
 
