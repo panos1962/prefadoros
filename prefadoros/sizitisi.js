@@ -227,7 +227,7 @@ var Sizitisi = new function() {
 		if (s.match(/^http:\/\/youtu\.be\//)) {
 			var tmima = s.split("/");
 			s = tmima[tmima.length - 1];		// το τελευταίο τμήμα του URL
-			var url = s.replace(/[-+]*$/, '');	// αποκόπτουμε τυχόν +/- από το τέλος
+			var url = s.replace(/[-+0=]*$/, '');	// αποκόπτουμε τυχόν +/- από το τέλος
 			var w = 300;
 
 			// Εφόσον υπήρχαν +/- αυξομειώνουμε το πλάτος.
@@ -236,8 +236,18 @@ var Sizitisi = new function() {
 				sp = sp.split('');
 				for (var i = 0; i < sp.length; i++) {
 					dw = w / 2.0;
-					if (sp[i] == '+') { w += dw; }
-					else { w -= dw; }
+					switch (sp[i]) {
+					case '+':
+						w += dw;
+						break;
+					case '-':
+						w -= dw;
+						break;
+					case '0':
+					case '=':
+						w = 300;
+						break;
+					}
 				}
 			}
 
@@ -256,16 +266,26 @@ var Sizitisi = new function() {
 		//
 		// είναι η εικόνα μας αρκετά στενότερη.
 
-		if (s.match(/^http:\/\/.*\.(jpg|png|gif)[-+]*$/i)) {
-			var url = s.replace(/[-+]*$/, '');
+		if (s.match(/^http:\/\/.*\.(jpg|png|gif)[-+0=]*$/i)) {
+			var url = s.replace(/[-+0=]*$/, '');
 			var w = 820;
 			if (url != s) {
 				var sp = s.replace(url, '');
 				sp = sp.split('');
 				for (var i = 0; i < sp.length; i++) {
 					dw = w / 2.0;
-					if (sp[i] == '+') { w += dw; }
-					else { w -= dw; }
+					switch (sp[i]) {
+					case '+':
+						w += dw;
+						break;
+					case '-':
+						w -= dw;
+						break;
+					case '0':
+					case '=':
+						w = 820;
+						break;
+					}
 				}
 			}
 
