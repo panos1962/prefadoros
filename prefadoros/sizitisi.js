@@ -215,6 +215,8 @@ var Sizitisi = new function() {
 	};
 
 	this.textDecode = function(s) {
+		var dfltw = 82;		// default πλάτος σε χιλιοστά
+
 		// Αν δώσουμε short link από το YouTube, π.χ. "http://youtu.be/6KUJE2xs-RE"
 		// μας δίνει το βιντεάκι σε iframe. Το short link εμφανίζεται σε κουτάκι
 		// που επιγράφεται "Σύνδεσμος σε αυτό το βίντεο", όταν πατάμε "Αποστολή".
@@ -222,13 +224,14 @@ var Sizitisi = new function() {
 		//
 		//	http://youtu.be/MeuyES_FJY8--+
 		//
-		// είναι το βίντεό μας αρκετά στενότερο.
+		// είναι το βίντεό μας αρκετά στενότερο. Μπορούμε να βάλουμε και το "="
+		// για επαναφορά στο default μέγεθος.
 
 		if (s.match(/^http:\/\/youtu\.be\//)) {
 			var tmima = s.split("/");
 			s = tmima[tmima.length - 1];		// το τελευταίο τμήμα του URL
-			var url = s.replace(/[-+0=]*$/, '');	// αποκόπτουμε τυχόν +/- από το τέλος
-			var w = 300;
+			var url = s.replace(/[-+=]*$/, '');	// αποκόπτουμε τυχόν +/- από το τέλος
+			var w = dfltw;
 
 			// Εφόσον υπήρχαν +/- αυξομειώνουμε το πλάτος.
 			if (url != s) {
@@ -243,19 +246,17 @@ var Sizitisi = new function() {
 					case '-':
 						w -= dw;
 						break;
-					case '0':
 					case '=':
-						w = 300;
+						w = dfltw;
 						break;
 					}
 				}
 			}
 
-			// Το πλάτος είναι σε pixels και πρέπει να έχει αναλογία 4:3 με το ύψος.
-			w = Math.round(w);
-			return '<iframe width="' + w + '" height="' + Math.round(w / 1.33) +
-				'" src="http://www.youtube.com/embed/' + url +
-				'" frameborder="0" allowfullscreen></iframe>';
+			// Το πλάτος είναι σε χιλιοστά και πρέπει να έχει αναλογία 4:3 με το ύψος.
+			return '<iframe style="width: ' + Math.round(w) + 'mm; height: ' +
+				Math.round(w / 1.33) + 'mm;" src="http://www.youtube.com/embed/' +
+				url + '" frameborder="0" allowfullscreen></iframe>';
 		}
 
 		// Αν δώσουμε URL εικόνας, τότε εμφανίζεται η εικόνα σε διάσταση τέτοια
@@ -266,9 +267,9 @@ var Sizitisi = new function() {
 		//
 		// είναι η εικόνα μας αρκετά στενότερη.
 
-		if (s.match(/^http:\/\/.*\.(jpg|png|gif)[-+0=]*$/i)) {
-			var url = s.replace(/[-+0=]*$/, '');
-			var w = 820;
+		if (s.match(/^http:\/\/.*\.(jpg|png|gif)[-+=]*$/i)) {
+			var url = s.replace(/[-+=]*$/, '');
+			var w = dfltw;
 			if (url != s) {
 				var sp = s.replace(url, '');
 				sp = sp.split('');
@@ -281,17 +282,15 @@ var Sizitisi = new function() {
 					case '-':
 						w -= dw;
 						break;
-					case '0':
 					case '=':
-						w = 820;
+						w = dfltw;
 						break;
 					}
 				}
 			}
 
-			w = Math.round(w);
-			w /= 100.0;
-			return '<img src="' + url + '" style="width: ' + w + 'cm;" alt="" />';
+			return '<img src="' + url + '" style="width: ' +
+				Math.round(w) + 'mm;" alt="" />';
 		}
 
 		if (s.match(/^(http|https):\/\//i)) {
