@@ -87,9 +87,8 @@ var Dumprsp = new function() {
 			id++;
 			p.setAttribute('id', id);
 			var d = new Date;
-			var html = strTime(d, true) +
-				' [' + d.getMilliseconds() + ']<br />' +
-				rsp.replace(/script/i, '&#8203;script') + '<hr />';
+			var html = strTime(d, true) + ' [' + d.getMilliseconds() +
+				']<br />' + akirosiScript(rsp) + '<hr />';
 			p.innerHTML = html;
 
 			var eod = wdump.document.getElementById('EOD');

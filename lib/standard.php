@@ -152,6 +152,15 @@ class Globals {
 		return($s);
 	}
 
+	// Η μέθοδος "akirosi_script" χρησιμοποιείται για να ακυρώσει τυχόν
+	// ενσωματωμένο javascript κώδικα σε μηνύματα και συζητήσεις, και
+	// το επιτυγχάνει εισάγοντας χαρακτήρα μηδενικού πλάτους πριν τη
+	// λέξη script.
+
+	public static function akirosi_script($s) {
+		return(preg_replace("/script/i", "&#8203;script", $s));
+	}
+
 	public function sql_query($query, $msg = 'SQL error') {
 		$result = @mysqli_query($this->db, $query);
 		if ($result) { return($result); }

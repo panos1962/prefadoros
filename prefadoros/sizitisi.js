@@ -146,7 +146,7 @@ var Sizitisi = new function() {
 	var epexeIxos = [];
 
 	this.decode = function(s) {
-		s.s = (s.s).replace(/script/i, '&#8203;script');
+		s.s = akirosiScript(s.s);
 		if (s.s == "@WP@") {
 			return '<img class="moliviPartida" src="' + globals.server +
 				'images/moliviPartida.gif" alt="" />';
@@ -268,7 +268,7 @@ var Sizitisi = new function() {
 		//
 		// είναι η εικόνα μας αρκετά στενότερη.
 
-		if (s.match(/^http:\/\/.*\.(jpg|png|gif)[-+=]*$/i)) {
+		if (s.match(/^https?:\/\/.*\.(jpg|png|gif)[-+=]*$/i)) {
 			var url = s.replace(/[-+=]*$/, '');
 			var w = dfltw;
 			if (url != s) {
@@ -294,7 +294,7 @@ var Sizitisi = new function() {
 				Math.round(w) + 'mm;" alt="" />';
 		}
 
-		if (s.match(/^(http|https):\/\//i)) {
+		if (s.match(/^https?:\/\//i)) {
 			return '<a target="_blank" href="' + s +
 				'" onclick="return Sizitisi.clickLink(event);">' +
 				'<img src="' + globals.server + 'images/link.png" ' +
