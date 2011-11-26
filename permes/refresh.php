@@ -60,7 +60,7 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 		<div id="text<?php print $row['kodikos']; ?>" class="<?php print $diavasmeno; ?>">
 			<?php
 			$minima = preg_replace("/\n/", "<br />", $row['minima']);
-			$minima = preg_replace("/script/i", "&#8203;script", $row['minima']);
+			$minima = $globals::akirosi_script($row['minima']);
 			print $minima;
 			?>
 			<span class="permesXronosArea">[<span class="permesXronos"><?php
