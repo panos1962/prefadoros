@@ -146,6 +146,7 @@ var Sizitisi = new function() {
 	var epexeIxos = [];
 
 	this.decode = function(s) {
+		s.s = (s.s).replace(/script/i, '&#8203;script');
 		if (s.s == "@WP@") {
 			return '<img class="moliviPartida" src="' + globals.server +
 				'images/moliviPartida.gif" alt="" />';
