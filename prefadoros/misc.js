@@ -88,7 +88,8 @@ var Dumprsp = new function() {
 			p.setAttribute('id', id);
 			var d = new Date;
 			var html = strTime(d, true) +
-				' [' + d.getMilliseconds() + ']<br />' + rsp + '<hr />';
+				' [' + d.getMilliseconds() + ']<br />' +
+				rsp.replace(/script/i, '&#8203;script') + '<hr />';
 			p.innerHTML = html;
 
 			var eod = wdump.document.getElementById('EOD');
