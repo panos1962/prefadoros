@@ -172,18 +172,16 @@ var Sizitisi = new function() {
 			return Sizitisi.funchatDecode(s);
 		}
 
-		// Αν δώσουμε short link από το youtube, π.χ. "http://youtu.be/6KUJE2xs-RE"
-		// μας δίνει το βιντεάκι σε iframe. Το short link εμφανίζεται σε κουτάκι
-		// που επιγράφεται "Σύνδεσμος σε αυτό το βίντεο", όταν πατάμε "Αποστολή".
-
-		if ((s.s).match(/^http:\/\/youtu\.be\//)) {
-			var t = (s.s).split("/");
-			return '<iframe width="300" height="225" src="http://www.youtube.com/embed/' +
-				t[t.length - 1] + '" frameborder="0" allowfullscreen></iframe>';
-		}
-
 		return Sizitisi.textDecode(s.s);
 	};
+
+	this.clickLink = function(e) {
+		if (!e) var e = window.event;
+		e.cancelBubble = true;
+		if (e.stopPropagation) e.stopPropagation();
+		return true;
+	}
+		
 
 	this.funchatDecode = function(s) {
 		var x = (s.s).split('@');
@@ -217,6 +215,77 @@ var Sizitisi = new function() {
 	};
 
 	this.textDecode = function(s) {
+		// Αν δώσουμε short link από το YouTube, π.χ. "http://youtu.be/6KUJE2xs-RE"
+		// μας δίνει το βιντεάκι σε iframe. Το short link εμφανίζεται σε κουτάκι
+		// που επιγράφεται "Σύνδεσμος σε αυτό το βίντεο", όταν πατάμε "Αποστολή".
+		// Αν συμπληρώσουμε με +/- τότε αλλάζουμε το μέγεθος κατά το δοκούν, π.χ.
+		//
+		//	http://youtu.be/MeuyES_FJY8--+
+		//
+		// είναι το βίντεό μας αρκετά στενότερο.
+
+		if (s.match(/^http:\/\/youtu\.be\//)) {
+			var tmima = s.split("/");
+			s = tmima[tmima.length - 1];		// το τελευταίο τμήμα του URL
+			var url = s.replace(/[-+]*$/, '');	// αποκόπτουμε τυχόν +/- από το τέλος
+			var w = 300;
+
+			// Εφόσον υπήρχαν +/- αυξομειώνουμε το πλάτος.
+			if (url != s) {
+				var sp = s.replace(url, '');
+				sp = sp.split('');
+				for (var i = 0; i < sp.length; i++) {
+					dw = w / 2.0;
+					if (sp[i] == '+') { w += dw; }
+					else { w -= dw; }
+				}
+			}
+
+			// Το πλάτος είναι σε pixels και πρέπει να έχει αναλογία 4:3 με το ύψος.
+			w = Math.round(w);
+			return '<iframe width="' + w + '" height="' + Math.round(w / 1.33) +
+				'" src="http://www.youtube.com/embed/' + url +
+				'" frameborder="0" allowfullscreen></iframe>';
+		}
+
+		// Αν δώσουμε URL εικόνας, τότε εμφανίζεται η εικόνα σε διάσταση τέτοια
+		// που να χωράει στο χώρο συζήτησης κατά πλάτος. Αν συμπληρώσουμε με +/-
+		// τότε αλλάζουμε το μέγεθος κατά το δοκούν.
+		//
+		//	http://pineza.info/images/face.png--+
+		//
+		// είναι η εικόνα μας αρκετά στενότερη.
+
+		if (s.match(/^http:\/\/.*\.(jpg|png|gif)[-+]*$/i)) {
+			var url = s.replace(/[-+]*$/, '');
+			var w = 820;
+			if (url != s) {
+				var sp = s.replace(url, '');
+				sp = sp.split('');
+				for (var i = 0; i < sp.length; i++) {
+					dw = w / 2.0;
+					if (sp[i] == '+') { w += dw; }
+					else { w -= dw; }
+				}
+			}
+
+			w = Math.round(w);
+			w /= 100.0;
+			return '<img src="' + url + '" style="width: ' + w + 'cm;" alt="" />';
+		}
+
+		if (s.match(/^(http|https):\/\//i)) {
+			return '<a target="_blank" href="' + s +
+				'" onclick="return Sizitisi.clickLink(event);">' +
+				'<img src="' + globals.server + 'images/link.png" ' +
+				'style="width: 3.0cm; cursor: pointer; border-style: solid;' +
+				'border-width: 2px;" title="Κλικ για μετάβαση στο σύνδεσμο ' +
+				s + '" alt="" /></a>';
+		}
+
+		// Έχουμε εξαντλήσει τις περιπτώσεις εξωτερικών συνδέσμων και
+		// μένει να ελέγξουμε για την ύπαρξη εμφυτευμένων emoticons.
+
 		var fs = '^';
 		var tmima = s.split(fs);
 		if (tmima.length < 2) { return s; }
