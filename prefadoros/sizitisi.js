@@ -195,7 +195,7 @@ var Sizitisi = new function() {
 		html += '/>';
 		var titlos = x[5];
 		for (var i = 6; i < x.length; i++) { titlos += x[i]; }
-		if (titlos != '') { html += '<div>' + titlos + '</div>'; }
+		if (titlos != '') { html += '<div>' + akirosiScript(titlos) + '</div>'; }
 
 		var k = 'k' + s.k;
 		if (x[4] && (!epexeIxos.hasOwnProperty(k)) && isSet(s.w) &&
