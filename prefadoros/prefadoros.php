@@ -252,8 +252,9 @@ class Prefadoros {
 		// Επιχειρούμε να κλείσουμε το τραπέζι, εφόσον όλες οι θέσεις
 		// είναι πλέον κενές.
 		$query = "UPDATE `trapezi` SET `telos` = NOW() WHERE (`kodikos` = " .
-			$trapezi->kodikos .  ") AND (`pektis1` IS NULL) AND " .
-			"(`pektis2` IS NULL) AND (`pektis3` IS NULL)";
+			$trapezi->kodikos .  ") AND (`telos` IS NULL) AND " .
+			"(`pektis1` IS NULL) AND (`pektis2` IS NULL) AND " .
+			"(`pektis3` IS NULL)";
 		$globals->sql_query($query);
 
 		// Αν δεν ενημερωθεί το τραπέζι σημαίνει ότι δεν έχουν ακόμη
