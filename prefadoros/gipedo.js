@@ -96,17 +96,13 @@ var Gipedo = new function() {
 			html += 'Η κάσα έχει τελειώσει. Αν θέλετε να συνεχίσετε την ' +
 				'παρτίδα, είναι καλό να προσθέσετε κάσα χρησιμοποιώντας ' +
 				'το πλήκτρο ';
-			html += '<img src="' + globals.server + 'images/panoKasa.png" alt="" ' +
-				'style="width: 0.4cm; height: 0.4cm;" ' +
-				'onclick="Gipedo.pliktroTelosAlert(event, \'pliktroPanoKasa\');" />, ';
-			html += 'που βρίσκεται στο επάνω αριστερό μέρος του τραπεζιού.';
+			html += Gipedo.pliktroTelosAlertHTML('pliktroPanoKasa', 'panoKasa.png');
+			html += ', που βρίσκεται στο επάνω αριστερό μέρος του τραπεζιού.';
 			html += '<br />';
 			html += 'Αν η παρτίδα έχει τελειώσει, τότε θα πρέπει και οι τρεις ' +
 				'παίκτες να πατήσετε το πλήκτρο εξόδου ';
-			html += '<img src="' + globals.server + 'images/controlPanel/exodos.png" ' +
-				'style="width: 0.5cm; height: 0.5cm;" alt="" ' +
-				'onclick="Gipedo.pliktroTelosAlert(event, \'pliktroExodos\');" />, ';
-			html += 'που βρίσκεται στο ' +
+			html += Gipedo.pliktroTelosAlertHTML('pliktroExodos', 'controlPanel/exodos.png');
+			html += ', που βρίσκεται στο ' +
 				'control panel, προκειμένου να αρχειοθετηθεί κανονικά η ' +
 				'παρτίδα. Οποιοσδήποτε άλλος τρόπος εξόδου πιθανόν να ' +
 				'προκαλέσει απώλεια των δεδομένων της συγκεκριμένης παρτίδας.';
@@ -122,6 +118,13 @@ var Gipedo = new function() {
 		div.style.display = 'none';
 		telosAlert[partida.kodikos] = true;
 		return false;
+	};
+
+	this.pliktroTelosAlertHTML = function(id, img) {
+		return '<img src="' + globals.server + 'images/' + img +
+			'" alt="" style="width: 0.5cm; height: 0.5cm;" ' +
+			'title="Κλικ για επισήμανση πλήκτρου" ' +
+			'onclick="Gipedo.pliktroTelosAlert(event, \'' + id + '\');" />';
 	};
 
 	this.pliktroTelosAlert = function(e, id) {
