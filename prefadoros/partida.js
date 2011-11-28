@@ -228,8 +228,9 @@ var Partida = new function() {
 		html += '&nbsp;]&nbsp;<span title="Αρχική κάσα" class="partidaInfoData' + tbc + '">';
 		html += partida.kasa + '</span>';
 		if (notTheatis()) {
-			html += '<img class="kasaPanoKato' + tbc + '" alt="" src="' + globals.server +
-				'images/panoKasa.png" title="Αύξηση κάσας κατά 300 καπίκια" ' +
+			html += '<img id="pliktroPanoKasa" class="kasaPanoKato' + tbc + '" alt="" src="' +
+				globals.server + 'images/panoKasa.png" ' +
+				'title="Αύξηση κάσας κατά 300 καπίκια" ' +
 				'onclick="Partida.kasaPanoKato(10, this);" />';
 			html += '<img class="kasaPanoKato' + tbc + '" alt="" src="' + globals.server +
 				'images/katoKasa.png" title="Μείωση κάσας κατά 300 καπίκια" ' +

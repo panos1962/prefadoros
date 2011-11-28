@@ -48,6 +48,14 @@ var Gipedo = new function() {
 		return html;
 	};
 
+	// Όταν η κάσα τελειώσει, εμφανίζεται σχετικό μήνυμα στους παίκτες.
+	// Οι παίκτες μπορούν να αποκρύψουν το μήνυμα αυτό κάνοντας κλικ
+	// επάνω στο μήνυμα. Το αντικείμενο "telosAlert" κρατάει ακριβώς
+	// την απόκρυψη του μηνύματος για κάθε τραπέζι, ώστε το μήνυμα
+	// να μην εμφανίζεται συνεχώς.
+
+	var telosAlert = {};
+
 	this.dilosiHTML = function() {
 		var html = '';
 		html += '<img class="tzogosIcon" src="' + globals.server +
@@ -81,20 +89,23 @@ var Gipedo = new function() {
 				'δηλώνοντας «πάσο». Περιμένετε τη σειρά σας…';
 			html += '</div>';
 		}
-		if (notTheatis() && (pexnidi.ipolipo <= 0)) {
-			html += '<div class="telosAlert" onclick="Gipedo.kliseAlert(event, this);" ' +
+		if (notTheatis() && (pexnidi.ipolipo <= 0) &&
+			(!telosAlert.hasOwnProperty(partida.kodikos))) {
+			html += '<div class="telosAlert" onclick="Gipedo.kliseTelosAlert(event, this);" ' +
 				'title="Κλικ για να αποκρύψετε αυτήν την ειδοποίηση">';
 			html += 'Η κάσα έχει τελειώσει. Αν θέλετε να συνεχίσετε την ' +
 				'παρτίδα, είναι καλό να προσθέσετε κάσα χρησιμοποιώντας ' +
 				'το πλήκτρο ';
 			html += '<img src="' + globals.server + 'images/panoKasa.png" alt="" ' +
-				'style="width: 0.4cm; height: 0.4cm;" />, ';
+				'style="width: 0.4cm; height: 0.4cm;" ' +
+				'onclick="Gipedo.pliktroTelosAlert(event, \'pliktroPanoKasa\');" />, ';
 			html += 'που βρίσκεται στο επάνω αριστερό μέρος του τραπεζιού.';
 			html += '<br />';
 			html += 'Αν η παρτίδα έχει τελειώσει, τότε θα πρέπει και οι τρεις ' +
 				'παίκτες να πατήσετε το πλήκτρο εξόδου ';
 			html += '<img src="' + globals.server + 'images/controlPanel/exodos.png" ' +
-				'style="width: 0.5cm; height: 0.5cm;" alt="" />, ';
+				'style="width: 0.5cm; height: 0.5cm;" alt="" ' +
+				'onclick="Gipedo.pliktroTelosAlert(event, \'pliktroExodos\');" />, ';
 			html += 'που βρίσκεται στο ' +
 				'control panel, προκειμένου να αρχειοθετηθεί κανονικά η ' +
 				'παρτίδα. Οποιοσδήποτε άλλος τρόπος εξόδου πιθανόν να ' +
@@ -104,11 +115,27 @@ var Gipedo = new function() {
 		return html;
 	};
 
-	this.kliseAlert = function(e, div) {
+	this.kliseTelosAlert = function(e, div) {
 		if (!e) var e = window.event;
 		e.cancelBubble = true;
 		if (e.stopPropagation) e.stopPropagation();
 		div.style.display = 'none';
+		telosAlert[partida.kodikos] = true;
+		return false;
+	};
+
+	this.pliktroTelosAlert = function(e, id) {
+		if (!e) var e = window.event;
+		e.cancelBubble = true;
+		if (e.stopPropagation) e.stopPropagation();
+		var img = getelid(id);
+		if (isSet(img)) {
+			var src = img.src;
+			img.src = globals.server + 'images/alert.gif';
+			setTimeout(function() {
+				try { img.src = src; } catch (e) {};
+			}, 1000);
+		}
 		return false;
 	};
 
