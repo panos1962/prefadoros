@@ -81,7 +81,35 @@ var Gipedo = new function() {
 				'δηλώνοντας «πάσο». Περιμένετε τη σειρά σας…';
 			html += '</div>';
 		}
+		if (notTheatis() && (pexnidi.ipolipo <= 0)) {
+			html += '<div class="telosAlert" onclick="Gipedo.kliseAlert(event, this);" ' +
+				'title="Κλικ για να αποκρύψετε αυτήν την ειδοποίηση">';
+			html += 'Η κάσα έχει τελειώσει. Αν θέλετε να συνεχίσετε την ' +
+				'παρτίδα, είναι καλό να προσθέσετε κάσα χρησιμοποιώντας ' +
+				'το πλήκτρο ';
+			html += '<img src="' + globals.server + 'images/panoKasa.png" alt="" ' +
+				'style="width: 0.4cm; height: 0.4cm;" />, ';
+			html += 'που βρίσκεται στο επάνω αριστερό μέρος του τραπεζιού.';
+			html += '<br />';
+			html += 'Αν η παρτίδα έχει τελειώσει, τότε θα πρέπει και οι τρεις ' +
+				'παίκτες να πατήσετε το πλήκτρο εξόδου ';
+			html += '<img src="' + globals.server + 'images/controlPanel/exodos.png" ' +
+				'style="width: 0.5cm; height: 0.5cm;" alt="" />, ';
+			html += 'που βρίσκεται στο ' +
+				'control panel, προκειμένου να αρχειοθετηθεί κανονικά η ' +
+				'παρτίδα. Οποιοσδήποτε άλλος τρόπος εξόδου πιθανόν να ' +
+				'προκαλέσει απώλεια των δεδομένων της συγκεκριμένης παρτίδας.';
+			html += '</div>';
+		}
 		return html;
+	};
+
+	this.kliseAlert = function(e, div) {
+		if (!e) var e = window.event;
+		e.cancelBubble = true;
+		if (e.stopPropagation) e.stopPropagation();
+		div.style.display = 'none';
+		return false;
 	};
 
 	this.dilosiPerigrafiHTML = function(dilosi) {

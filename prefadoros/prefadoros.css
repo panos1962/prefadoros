@@ -1044,6 +1044,35 @@ font-weight: normal;
 	width: 4.0cm;
 }
 
+.telosAlert {
+	position: absolute;
+	top: -0.8cm;
+	left: -2.4cm;
+	width: 11.7cm;
+
+	padding: 0.1cm 0.2cm 0.1cm 0.2cm;
+	font-size: 0.4cm;
+	line-height: 0.54cm;
+
+	font-size: 100%;
+	font-weight: normal;
+	background-color: #FFB280;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	-webkit-box-shadow: 3px 3px 6px #3E3E3E;
+	-moz-box-shadow: 3px 3px 6px #3E3E3E;
+	box-shadow: 3px 3px 6px #3E3E3E;
+
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+
+	cursor: pointer;
+	z-index: 2;
+}
+
 .gipedoProvlimaIcon {
 	position: absolute;
 	top: 0.4cm;
