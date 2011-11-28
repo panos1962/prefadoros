@@ -124,19 +124,23 @@ var Gipedo = new function() {
 		return '<img src="' + globals.server + 'images/' + img +
 			'" alt="" style="width: 0.5cm; height: 0.5cm;" ' +
 			'title="Κλικ για επισήμανση πλήκτρου" ' +
+			'onmouseover="Gipedo.pliktroTelosAlert(event, \'' + id +
+			'\', \'images/asteraki.gif\');" ' +
 			'onclick="Gipedo.pliktroTelosAlert(event, \'' + id + '\');" />';
 	};
 
-	this.pliktroTelosAlert = function(e, id) {
+	this.pliktroTelosAlert = function(e, id, alertImg) {
 		if (!e) var e = window.event;
 		e.cancelBubble = true;
 		if (e.stopPropagation) e.stopPropagation();
+
+		if (notSet(alertImg)) { alertImg = 'images/alert.gif'; }
 		var img = getelid(id);
 		if (isSet(img)) {
-			var src = img.src;
-			img.src = globals.server + 'images/alert.gif';
+			if (notSet(img.oldSrc)) { img.oldSrc = img.src; }
+			img.src = globals.server + alertImg;
 			setTimeout(function() {
-				try { img.src = src; } catch (e) {};
+				try { img.src = img.oldSrc; } catch (e) {};
 			}, 1000);
 		}
 		return false;
