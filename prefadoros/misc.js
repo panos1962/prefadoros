@@ -229,18 +229,19 @@ var Tools = new function() {
 		return b == 10 ? 'T' : b;
 	};
 
-	this.dialogos = function(msg, y) {
-		var x = getelid('dialogos');
-		if (notSet(x)) { return; }
+	this.dialogos = function(msg, y, x) {
+		var d = getelid('dialogos');
+		if (notSet(d)) { return; }
 
 		if (notSet(msg)) {
 			msg = 'Το αίτημά σας έχει υποβληθεί.<br />Παρακαλώ περιμένετε…';
 		}
 
-		x.innerHTML = msg;
-		x.style.display = 'inline';
-		if (isSet(y)) { x.style.top = y; }
-		x.zIndex = 1;
+		d.innerHTML = msg;
+		d.style.display = 'inline';
+		if (isSet(y)) { d.style.top = y; }
+		if (isSet(x)) { d.style.left = x; }
+		d.zIndex = 1;
 	};
 
 	this.dialogosClear = function() {
