@@ -301,6 +301,7 @@ class Dedomena {
 
 function torina_dedomena($prev = NULL) {
 	global $globals;
+	static $giros = 0;
 
 	$dedomena = new Dedomena();
 
@@ -326,7 +327,13 @@ function torina_dedomena($prev = NULL) {
 		$dedomena->permes = $prev->permes;
 	}
 
-	$dedomena->sxesi = Sxesi::process();
+	if (($prev == NULL) || $globals->pektis->sxesidirty) {
+		$dedomena->sxesi = Sxesi::process();
+	}
+	else {
+		$dedomena->sxesi = $prev->sxesi;
+	}
+
 	$dedomena->trapezi = Kafenio::process();
 	$dedomena->rebelos = Rebelos::process();
 	$dedomena->sizitisi = Sizitisi::process_sizitisi();
