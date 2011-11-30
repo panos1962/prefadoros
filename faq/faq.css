@@ -1,0 +1,54 @@
+.faqArea {
+	min-height: 14.4cm;
+	margin-left: 0.5cm;
+	max-width: 21cm;
+}
+
+li {
+	margin-top: 0.4cm;
+}
+
+.faqErotisi {
+	background-color: #FFFFFF;
+	font-weight: bold;
+	font-size: 100%;
+	margin-bottom: 0.4cm;
+}
+
+.faqKimeno {
+	background-color: #FFFFFF;
+	line-height: 150%;
+	text-align: justify;
+	margin-bottom: 0.4cm;
+	vertical-align: top;
+	padding-left: 0.2cm;
+	padding-right: 0.2cm;
+}
+
+.faqTitlos {
+	text-decoration: underline;
+	margin-bottom: -0.3cm;
+}
+
+.faqIcon {
+	background-color: #FFFFFF;
+	width: 1.2cm;
+	margin-top: 0.2cm;
+	display: inline;
+}
+
+.faqIconInline {
+	background-color: #FFFFFF;
+	width: 1em;
+	margin-bottom: -0.1cm;
+}
+
+.faqIconColumn {
+	width: 2.2cm;
+	vertical-align: top;
+}
+
+.faqKorifi {
+	margin-top: 0.5cm;
+	text-align: right;
+}
