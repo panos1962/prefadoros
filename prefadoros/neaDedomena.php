@@ -327,17 +327,24 @@ function torina_dedomena($prev = NULL) {
 		$dedomena->permes = $prev->permes;
 	}
 
-	if (($prev == NULL) || $globals->pektis->sxesidirty) {
+	// Μια στις δύο φορές ελέγχω τα δευτερεύοντα στοιχεία, δηλαδή
+	// στοιχεία που δεν επηρεάζουν σημαντικά την εξέλιξη του παιχνιδιού.
+
+	if (($giros++ % 2) == 0) {
 		$dedomena->sxesi = Sxesi::process();
+		$dedomena->trapezi = Kafenio::process();
+		$dedomena->rebelos = Rebelos::process();
+		$dedomena->sizitisi = Sizitisi::process_sizitisi();
+		$dedomena->kafenio = Sizitisi::process_kafenio();
 	}
 	else {
 		$dedomena->sxesi = $prev->sxesi;
+		$dedomena->trapezi = $prev->trapezi;
+		$dedomena->rebelos = $prev->rebelos;
+		$dedomena->sizitisi = $prev->sizitisi;
+		$dedomena->kafenio = $prev->kafenio;
 	}
 
-	$dedomena->trapezi = Kafenio::process();
-	$dedomena->rebelos = Rebelos::process();
-	$dedomena->sizitisi = Sizitisi::process_sizitisi();
-	$dedomena->kafenio = Sizitisi::process_kafenio();
 	return($dedomena);
 }
 
