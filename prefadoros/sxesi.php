@@ -75,7 +75,6 @@ class Sxesi {
 			while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
 				$sxetizomenos[$row[0]] = $row[1];
 			}
-			$globals->pektis->sxesidirty = FALSE;
 		}
 
 		return($sxetizomenos);

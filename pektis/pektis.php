@@ -169,9 +169,26 @@ class Pektis {
 			$this->sxesidirty = ($sxesidirty == 'YES');
 		}
 
-		if ($this->minimadirty || $this->prosklidirty || $this->sxesidirty) {
-			$query = "UPDATE `pektis` SET `minimadirty` = 'NO', `prosklidirty` = 'NO', " .
-				"`sxesidirty` = 'NO' WHERE `login` = " . $this->slogin;
+		$query = "";
+		$set_koma = "SET ";
+
+		if ($this->minimadirty) {
+			$query .= ($set_koma . "`minimadirty` = 'NO'");
+			$set_koma = ", ";
+		}
+
+		if ($this->prosklidirty) {
+			$query .= ($set_koma . "`prosklidirty` = 'NO'");
+			$set_koma = ", ";
+		}
+
+		if ($this->sxesidirty) {
+			$query .= ($set_koma . "`sxesidirty` = 'NO'");
+			$set_koma = ", ";
+		}
+
+		if ($query != "") {
+			$query = "UPDATE `pektis` " . $query . " WHERE `login` = " . $this->slogin;
 			$globals->sql_query($query);
 		}
 	}

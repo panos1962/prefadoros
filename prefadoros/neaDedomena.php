@@ -115,6 +115,15 @@ if (!$prev->diavase()) {
 $ekinisi = time();
 usleep(XRONOS_DEDOMENA_TIC);
 do {
+	// Πριν προχωρήσουμε στο μάζεμα των στοιχείων και στον
+	// συνακόλουθο έλεγχο, ελέγχουμε μήπως έχει δρομολογηθεί
+	// ήδη νεότερος κύκλος ελέγχου/αποστολής στα πλαίσια
+	// της τρέχουσας συνεδρίας. Αν όντως συμβαίνει κάτι
+	// τέτοιο, τότε το πρόγραμμα απλώς τερματίζει επιστρέφοντας
+	// σχετικά στοιχεία τερματισμού στον client, ώστε αυτός να
+	// αγνοήσει τη συγκεκριμένη απάντηση.
+	check_neotero_id();
+
 	unset($globals->trapezi);
 	Prefadoros::set_trapezi();
 	$globals->pektis->check_dirty();
@@ -158,15 +167,6 @@ do {
 	else {
 		usleep(XRONOS_DEDOMENA_TIC4);
 	}
-
-	// Πριν προχωρήσουμε στο μάζεμα των στοιχείων και στον
-	// συνακόλουθο έλεγχο, ελέγχουμε μήπως έχει δρομολογηθεί
-	// ήδη νεότερος κύκλος ελέγχου/αποστολής στα πλαίσια
-	// της τρέχουσας συνεδρίας. Αν όντως συμβαίνει κάτι
-	// τέτοιο, τότε το πρόγραμμα απλώς τερματίζει επιστρέφοντας
-	// σχετικά στοιχεία τερματισμού στον client, ώστε αυτός να
-	// αγνοήσει τη συγκεκριμένη απάντηση.
-	check_neotero_id();
 } while (TRUE);
 
 function check_neotero_id() {
@@ -327,18 +327,23 @@ function torina_dedomena($prev = NULL) {
 		$dedomena->permes = $prev->permes;
 	}
 
+	if (($prev == NULL) || $globals->pektis->sxesidirty) {
+		$dedomena->sxesi = Sxesi::process();
+	}
+	else {
+		$dedomena->sxesi = $prev->sxesi;
+	}
+
 	// Μια στις δύο φορές ελέγχω τα δευτερεύοντα στοιχεία, δηλαδή
 	// στοιχεία που δεν επηρεάζουν σημαντικά την εξέλιξη του παιχνιδιού.
 
 	if (($giros++ % 2) == 0) {
-		$dedomena->sxesi = Sxesi::process();
 		$dedomena->trapezi = Kafenio::process();
 		$dedomena->rebelos = Rebelos::process();
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
 		$dedomena->kafenio = Sizitisi::process_kafenio();
 	}
 	else {
-		$dedomena->sxesi = $prev->sxesi;
 		$dedomena->trapezi = $prev->trapezi;
 		$dedomena->rebelos = $prev->rebelos;
 		$dedomena->sizitisi = $prev->sizitisi;

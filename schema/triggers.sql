@@ -79,6 +79,23 @@ CREATE TRIGGER `sxesi_del` AFTER DELETE ON `sxesi` FOR EACH ROW BEGIN
 	WHERE (`login` = OLD.`pektis`) OR (`login` = OLD.`sxetizomenos`);
 END//
 
+DROP TRIGGER /*!50033 IF EXISTS */ `sinedria_ins`//
+
+CREATE TRIGGER `sinedria_ins` AFTER INSERT ON `sinedria` FOR EACH ROW BEGIN
+	UPDATE `pektis` SET `sxesidirty` = 'YES'
+	WHERE `login` = NEW.`pektis`;
+END//
+
+DROP TRIGGER /*!50033 IF EXISTS */ `sinedria_upd`//
+
+CREATE TRIGGER `sinedria_upd` AFTER UPDATE ON `sinedria` FOR EACH ROW BEGIN
+	IF (NEW.`peknpat` <> OLD.`peknpat`) OR (NEW.`peksxet` <> OLD.`peksxet`) OR
+		(NEW.`pekstat` <> OLD.`pekstat`) THEN
+		UPDATE `pektis` SET `sxesidirty` = 'YES'
+		WHERE `login` = NEW.`pektis`;
+	END IF;
+END//
+
 DROP TRIGGER /*!50033 IF EXISTS */ `dianomi_ins`//
 
 CREATE TRIGGER `dianomi_ins` AFTER INSERT ON `dianomi` FOR EACH ROW BEGIN
