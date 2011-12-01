@@ -119,7 +119,6 @@ CREATE TRIGGER `dianomi_upd` AFTER UPDATE ON `dianomi` FOR EACH ROW BEGIN
 	ELSEIF (meta <> prin) THEN
 		UPDATE `trapezi` SET `pistosi` = `pistosi` - prin + meta
 			WHERE `kodikos` = NEW.`trapezi`;
-
 	END IF;
 END//
 
