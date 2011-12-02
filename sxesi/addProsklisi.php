@@ -22,24 +22,27 @@ $query = "INSERT INTO `prosklisi` (`pios`, `pion`, `trapezi`) " .
 	$globals->asfales($trapezi) . ")";
 @mysqli_query($globals->db, $query);
 if (@mysqli_affected_rows($globals->db) != 1) {
-	die('Μήπως έχετε ήδη στείλει πρόσκληση στον παίκτη "' .
+	$globals->klise_fige('Μήπως έχετε ήδη στείλει πρόσκληση στον παίκτη "' .
 		$_REQUEST['pion'] . '" για το τραπέζι ' . $trapezi . ';');
 }
 
 print "OK@" . $trapezi;
+$globals->klise_fige();
 
 // Η function "check_katastasi" ελέγχει την κατάσταση του παίκτη που προσκαλούμε.
 // Αν είναι διαθέσιμος, ή αν μας έχει στους φίλους, η πρόσκληση γίνεται δεκτή,
 // αλλιώς το πρόγραμμα επιστρέφει με σχετικό μήνυμα.
 
 function check_katastasi($pion, $filos) {
+	global $globals;
+
 	$p = new Pektis($pion);
 	switch ($p->katastasi) {
 	case 'AVAILABLE': return;
 	}
 
 	if (!$filos) {
-		die('Ο παίκτης "' . $pion . '" είναι απασχολημένος');
+		$globals->klise_fige('Ο παίκτης "' . $pion . '" είναι απασχολημένος');
 	}
 }
 
@@ -60,7 +63,8 @@ function check_apoklismos($pion) {
 
 	switch ($row[0]) {
 	case 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ':
-		die('Ο παίκτης "' . $pion . '" δεν αποδέχεται τις προσκλήσεις αυτή τη στιγμή');
+		$globals->klise_fige('Ο παίκτης "' . $pion .
+			'" δεν αποδέχεται τις προσκλήσεις αυτή τη στιγμή');
 	case 'ΦΙΛΟΣ':
 		return(TRUE);
 	default:
@@ -73,7 +77,7 @@ function vres_to_trapezi() {
 
 	Prefadoros::set_trapezi();
 	if (!$globals->is_trapezi()) {
-		die('Ακαθόριστο τραπέζι');
+		$globals->klise_fige('Ακαθόριστο τραπέζι');
 	}
 
 	if ($globals->trapezi->is_pektis()) {
@@ -84,7 +88,7 @@ function vres_to_trapezi() {
 		return($globals->trapezi->kodikos);
 	}
 
-	die('Δεν έχετε δικαίωμα πρόσκλησης παικτών σε αυτό το τραπέζι');
+	$globals->klise_fige('Δεν έχετε δικαίωμα πρόσκλησης παικτών σε αυτό το τραπέζι');
 }
 
 ?>

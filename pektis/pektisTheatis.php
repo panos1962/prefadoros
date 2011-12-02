@@ -11,7 +11,7 @@ global $slogin;
 $slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
 if (!Prefadoros::set_trapezi()) {
-	die('Ακαθόριστο τραπέζι');
+	$globals->klise_fige('Ακαθόριστο τραπέζι');
 }
 
 @mysqli_autocommit($globals->db, FALSE);
@@ -22,6 +22,7 @@ else {
 	apo_pektis_theatis();
 }
 @mysqli_commit($globals->db);
+$globals->klise_fige();
 
 function apo_pektis_theatis() {
 	global $globals;
@@ -30,7 +31,7 @@ function apo_pektis_theatis() {
 	// Επιβεβαιώνουμε ότι ο παίκτης όντως συμμετέχει στο τραπέζι.
 	$pektis = 'pektis' . $globals->trapezi->thesi;
 	if ($globals->trapezi->$pektis != $globals->pektis->login) {
-		die('Δεν συμμετέχετε στο τραπέζι');
+		$globals->klise_fige('Δεν συμμετέχετε στο τραπέζι');
 	}
 
 	// Διαγράφουμε τυχόν εγγραφή του παίκτη ως θεατή.
@@ -52,7 +53,7 @@ function apo_pektis_theatis() {
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
 		@mysqli_rollback($globals->db);
-		die('Απέτυχε η εισαγωγή συμμετοχής');
+		$globals->klise_fige('Απέτυχε η εισαγωγή συμμετοχής');
 	}
 
 	// Δημιουργούμε εγγραφή θεατή για τον παίκτη και (αρχικά) για
@@ -63,7 +64,7 @@ function apo_pektis_theatis() {
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
 		@mysqli_rollback($globals->db);
-		die('Απέτυχε η δημιουργία θεατή');
+		$globals->klise_fige('Απέτυχε η δημιουργία θεατή');
 	}
 
 	// Εκκενώνουμε τη θέση του παίκτη στο τραπέζι.
@@ -72,7 +73,7 @@ function apo_pektis_theatis() {
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
 		@mysqli_rollback($globals->db);
-		die('Απέτυχε η εκκένωση της θέσης σας στο τραπέζι');
+		$globals->klise_fige('Απέτυχε η εκκένωση της θέσης σας στο τραπέζι');
 	}
 }
 
@@ -84,7 +85,7 @@ function apo_theatis_pektis() {
 	// να συμμετάσχει ως παίκτης.
 	if (!$globals->trapezi->is_prosklisi()) {
 		@mysqli_rollback($globals->db);
-		die('Δεν έχετε προσκληθεί στο τραπέζι ' . $globals->trapezi->kodikos);
+		$globals->klise_fige('Δεν έχετε προσκληθεί στο τραπέζι ' . $globals->trapezi->kodikos);
 	}
 
 	// Διαγράφουμε την εγγραφή του παίκτη ως θεατή.
@@ -92,7 +93,7 @@ function apo_theatis_pektis() {
 	$globals->sql_query($query);
 	if (mysqli_affected_rows($globals->db) != 1) {
 		@mysqli_rollback($globals->db);
-		die('Απέτυχε η διαγραφή θεατή');
+		$globals->klise_fige('Απέτυχε η διαγραφή θεατή');
 	}
 
 	// Ελέγχουμε μήπως ο παίκτης συμμετέχει ήδη στο τραπέζι.
@@ -157,7 +158,7 @@ function apo_theatis_pektis() {
 
 	if ($nok) {
 		@mysqli_rollback($globals->db);
-		die('Δεν υπάρχει κενή θέση στο τραπέζι');
+		$globals->klise_fige('Δεν υπάρχει κενή θέση στο τραπέζι');
 	}
 }
 ?>

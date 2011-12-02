@@ -58,6 +58,7 @@ $globals->sql_query($query);
 
 @mysqli_commit($globals->db);
 if ($partida) { print 'partida'; }
+$globals->klise_fige();
 
 // Εαν ο παίκτης συμμετέχει στο τραπέζι στο οποίο ζητά να γίνει
 // θεατής, τότε διαγράφουμε τυχόν άλλη συμμετοχή του παίκτη ως
@@ -76,7 +77,7 @@ function check_pektis() {
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) {
-		die('Δεν βρέθηκε το τραπέζι');
+		$globals->klise_fige('Δεν βρέθηκε το τραπέζι');
 	}
 
 	@mysqli_free_result($result);
@@ -86,7 +87,7 @@ function check_pektis() {
 				$globals->pektis->slogin;
 			$globals->sql_query($query);
 			@mysqli_commit($globals->db);
-			die('partida');
+			$globals->klise_fige('partida');
 		}
 	}
 }
@@ -111,12 +112,12 @@ function check_prosvasi() {
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) {
-		die('Δεν βρέθηκε το τραπέζι');
+		$globals->klise_fige('Δεν βρέθηκε το τραπέζι');
 	}
 
 	@mysqli_free_result($result);
 	if ($row[0] != 'ΔΗΜΟΣΙΟ') {
-		die("Το τραπέζι " . $trapezi . " είναι πριβέ");
+		$globals->klise_fige("Το τραπέζι " . $trapezi . " είναι πριβέ");
 	}
 }
 ?>

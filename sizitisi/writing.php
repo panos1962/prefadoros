@@ -21,7 +21,7 @@ default:
 	if (Sizitisi::cleanup_writing() > 0) {
 		Sizitisi::set_dirty();
 	}
-	die(0);
+	$globals->klise_fige();
 }
 
 // Πρώτα δοκιμάζουμε να ενημερώσουμε τυχόν υπάρχοντα writing
@@ -34,7 +34,7 @@ $query = "UPDATE `sizitisi` SET `sxolio` = '" . $globals->asfales($sxolio) .
 @mysqli_query($globals->db, $query);
 if (@mysqli_affected_rows($globals->db) > 0) {
 	Sizitisi::set_dirty();
-	die(0);
+	$globals->klise_fige();
 }
 
 // Εφόσον δεν ενημερώθηκαν υπάρχοντα writing σχόλια για τον
@@ -44,12 +44,13 @@ $query = "INSERT INTO `sizitisi` (`pektis`, `trapezi`, `sxolio`) " .
 	$globals->asfales($sxolio) . "')";
 $globals->sql_query($query);
 Sizitisi::set_dirty();
+$globals->klise_fige();
 
 function vres_trapezi() {
 	global $globals;
 	Prefadoros::trapezi_check();
 	if ($globals->trapezi->is_theatis() && (!$globals->trapezi->is_prosklisi())) {
-		die(0);
+		$globals->klise_fige();
 	}
 	return $globals->trapezi->kodikos;
 }

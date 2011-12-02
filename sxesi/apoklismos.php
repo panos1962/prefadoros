@@ -16,7 +16,7 @@ $query = "DELETE FROM `sxesi` WHERE (`pektis` = " . $login .
 $result = @mysqli_query($globals->db, $query);
 if (!$result) {
 	@mysqli_rollback($globals->db);
-	die('Απέτυχε η διαγραφή σχέσης (' . @mysqli_error($globals->db) . ')');
+	$globals->klise_fige('Απέτυχε η διαγραφή σχέσης (' . @mysqli_error($globals->db) . ')');
 }
 
 $query = "INSERT INTO `sxesi` (`pektis`, `sxetizomenos`, `status`) " .
@@ -24,8 +24,9 @@ $query = "INSERT INTO `sxesi` (`pektis`, `sxetizomenos`, `status`) " .
 $result = @mysqli_query($globals->db, $query);
 if ((!$result) || (@mysqli_affected_rows($globals->db) != 1)) {
 	@mysqli_rollback($globals->db);
-	die('Απέτυχε ο αποκλεισμός του παίκτη "' . $_REQUEST['pektis'] .
+	$globals->klise_fige('Απέτυχε ο αποκλεισμός του παίκτη "' . $_REQUEST['pektis'] .
 		'" (' . @mysqli_error($globals->db) . ')');
 }
 @mysqli_commit($globals->db);
+$globals->klise_fige();
 ?>

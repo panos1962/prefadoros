@@ -12,4 +12,5 @@ $pekstat = $globals->asfales($_REQUEST['pekstat']);
 
 $query = "UPDATE `sinedria` SET `pekstat` = '" . $pekstat . "' WHERE `kodikos` = " . $sinedria;
 $globals->sql_query($query);
+$globals->klise_fige();
 ?>

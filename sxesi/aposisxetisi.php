@@ -15,6 +15,7 @@ $query = "DELETE FROM `sxesi` WHERE (`pektis` = " . $login .
 $result = @mysqli_query($globals->db, $query);
 if (!$result) {
 	@mysqli_rollback($globals->db);
-	die('Απέτυχε η αποσυσχέτιση (' . @mysqli_error($globals->db) . ')');
+	$globals->klise_fige('Απέτυχε η αποσυσχέτιση (' . @mysqli_error($globals->db) . ')');
 }
+$globals->klise_fige();
 ?>

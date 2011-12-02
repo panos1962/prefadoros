@@ -9,7 +9,7 @@ set_globals();
 Prefadoros::pektis_check();
 $slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 if (Prefadoros::set_trapezi()) {
-	die('Πρέπει να εξέλθετε πρώτα από το τρέχον τραπέζι');
+	$globals->klise_fige('Πρέπει να εξέλθετε πρώτα από το τρέχον τραπέζι');
 }
 
 @mysqli_autocommit($globals->db, FALSE);
@@ -21,7 +21,7 @@ $query = "INSERT INTO `trapezi` (`pektis1`) VALUES (" . $slogin . ")";
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	@mysqli_rollback($globals->db);
-	die('Απέτυχε η δημιουργία νέου τραπεζιού');
+	$globals->klise_fige('Απέτυχε η δημιουργία νέου τραπεζιού');
 }
 
 $trapezi = @mysqli_insert_id($globals->db);
@@ -30,8 +30,9 @@ $query = "INSERT INTO `prosklisi` (`pios`, `pion`, `trapezi`) " .
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	@mysqli_rollback($globals->db);
-	die('Απέτυχε η δημιουργία πρόσκλησης στο νέο τραπέζι');
+	$globals->klise_fige('Απέτυχε η δημιουργία πρόσκλησης στο νέο τραπέζι');
 }
 
 @mysqli_commit($globals->db);
+$globals->klise_fige();
 ?>

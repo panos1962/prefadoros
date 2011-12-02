@@ -29,6 +29,7 @@ else {
 </div>
 <?php
 Page::close();
+$globals->klise_fige();
 
 // Η function "minima_pros" σχηματίζει τη φόρμα αποστολής μηνυμάτων.
 // Ως παραμέτρους δέχεται το login name του παραλήπτη ("pros") και

@@ -1,6 +1,6 @@
 <?php
 require_once 'lib/standard.php';
-set_globals();
+set_globals(TRUE);
 Page::head('Πρεφαδόρος &mdash; Σφάλμα');
 Page::stylesheet('lib/error');
 Page::body();
@@ -14,4 +14,5 @@ print (Globals::perastike('minima') ? $_REQUEST['minima'] : 'Άγνωστο σφ
 </div>
 <?php
 Page::close();
+$globals->klise_fige();
 ?>
