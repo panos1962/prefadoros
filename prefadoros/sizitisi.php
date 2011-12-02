@@ -469,6 +469,24 @@ class Sizitisi {
 			"AND (`sxolio` REGEXP '^@W[PK]@$') " .
 			"AND (UNIX_TIMESTAMP(`pote`) > " . $prosfata . ")";
 		$globals->sql_query($query);
+		return (@mysqli_affected_rows($globals->db));
+	}
+
+	public static function set_dirty() {
+		global $globals;
+		static $stmnt = NULL;
+		$errmsg = "Sizitisi::set_dirty(): ";
+
+		if ($stmnt == NULL) {
+			$query = "UPDATE `sinedria` SET `sizitisidirty` = 'YES' " .
+				"WHERE `sizitisidirty` <> 'YES'";
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
+			}
+		}
+
+		$stmnt->execute();
 	}
 }
 ?>
