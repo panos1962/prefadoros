@@ -329,25 +329,24 @@ function torina_dedomena($prev = NULL) {
 
 	if (($prev == NULL) || $globals->pektis->sxesidirty) {
 		$dedomena->sxesi = Sxesi::process();
+		$sxesi_same = FALSE;
 	}
 	else {
 		$dedomena->sxesi = $prev->sxesi;
+		$sxesi_same = TRUE;
 	}
 
-	// Μια στις δύο φορές ελέγχω τα δευτερεύοντα στοιχεία, δηλαδή
-	// στοιχεία που δεν επηρεάζουν σημαντικά την εξέλιξη του παιχνιδιού.
+	$dedomena->trapezi = Kafenio::process();
+	$dedomena->rebelos = Rebelos::process();
+	$dedomena->sizitisi = Sizitisi::process_sizitisi();
+	$dedomena->kafenio = Sizitisi::process_kafenio();
 
-	if (($giros++ % 2) == 0) {
-		$dedomena->trapezi = Kafenio::process();
-		$dedomena->rebelos = Rebelos::process();
-		$dedomena->sizitisi = Sizitisi::process_sizitisi();
-		$dedomena->kafenio = Sizitisi::process_kafenio();
-	}
-	else {
-		$dedomena->trapezi = $prev->trapezi;
-		$dedomena->rebelos = $prev->rebelos;
-		$dedomena->sizitisi = $prev->sizitisi;
-		$dedomena->kafenio = $prev->kafenio;
+	// Αν δεν έχουν ελεγχθεί οι σχέσεις θα πρέπει να ελεγχθούν τώρα,
+	// εφόσον έχει αλλάξει κάτι που αφορά στους παίκτες.
+
+	if ($sxesi_same && (($dedomena->trapezi != $prev->trapezi) ||
+		($dedomena->rebelos != $prev->rebelos))) {
+		$dedomena->sxesi = Sxesi::process();
 	}
 
 	return($dedomena);
