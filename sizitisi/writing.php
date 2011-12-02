@@ -18,7 +18,9 @@ case 'K':
 	$sxolio = "@WK@";
 	break;
 default:
-	Sizitisi::cleanup_writing();
+	if (Sizitisi::cleanup_writing() > 0) {
+		Sizitisi::set_dirty();
+	}
 	die(0);
 }
 
@@ -30,7 +32,10 @@ $query = "UPDATE `sizitisi` SET `sxolio` = '" . $globals->asfales($sxolio) .
 	$globals->pektis->slogin . ") AND (`sxolio` REGEXP '^@W[PK]@$') " .
 	"AND (UNIX_TIMESTAMP(`pote`) > " . $prosfata . ")";
 @mysqli_query($globals->db, $query);
-if (@mysqli_affected_rows($globals->db) > 0) { die(0); }
+if (@mysqli_affected_rows($globals->db) > 0) {
+	Sizitisi::set_dirty();
+	die(0);
+}
 
 // Εφόσον δεν ενημερώθηκαν υπάρχοντα writing σχόλια για τον
 // παίκτη, εισάγουμε νέο writing σχόλιο.
@@ -38,6 +43,7 @@ $query = "INSERT INTO `sizitisi` (`pektis`, `trapezi`, `sxolio`) " .
 	"VALUES (" . $globals->pektis->slogin . ", " . $trapezi . ", '" .
 	$globals->asfales($sxolio) . "')";
 $globals->sql_query($query);
+Sizitisi::set_dirty();
 
 function vres_trapezi() {
 	global $globals;

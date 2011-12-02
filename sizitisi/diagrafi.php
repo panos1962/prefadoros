@@ -2,6 +2,7 @@
 require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
 require_once '../trapezi/trapezi.php';
+require_once '../prefadoros/sizitisi.php';
 require_once '../prefadoros/prefadoros.php';
 Page::data();
 set_globals();
@@ -18,6 +19,7 @@ $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) < 1) {
 	die('Δεν έγινε διαγραφή');
 }
+Sizitisi::set_dirty();
 
 function vres_trapezi() {
 	global $globals;
