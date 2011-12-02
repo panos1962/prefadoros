@@ -88,7 +88,7 @@ monitor_write("freska");
 if (Globals::perastike('freska')) {
 	freska_dedomena(torina_dedomena());
 	monitor_write("exit");
-	die(0);
+	$globals->klise_fige();
 }
 
 // Στο σημείο αυτό πρόκειται για κλασικό αίτημα αποστολής δεδομένων
@@ -105,7 +105,7 @@ $prev = new Dedomena();
 if (!$prev->diavase()) {
 	freska_dedomena(torina_dedomena());
 	monitor_write("exit");
-	die(0);
+	$globals->klise_fige();
 }
 
 // Είμαστε στη φάση που έχουμε διαβάσει επιτυχώς από το σχετικό αρχείο
@@ -135,7 +135,7 @@ do {
 		$curr->kinisi = Kinisi::fix_baza_filo($curr->kinisi, $prev->kinisi);
 		diaforetika_dedomena($curr, $prev);
 		monitor_write("exit");
-		die(0);
+		$globals->klise_fige();
 	}
 
 	// Εφόσον δεν υπάρχουν διαφορές, αφήνουμε ένα μικρό
@@ -151,7 +151,7 @@ do {
 		print_epikefalida();
 		print ",s:1}";
 		monitor_write("exit (timeout)");
-		die(0);
+		$globals->klise_fige();
 	}
 
 	$kiklos++;
@@ -178,13 +178,13 @@ function check_neotero_id() {
 		print_epikefalida();
 		print ",fatalError: 'Ακαθόριστη συνεδρία (" . $sinedria->kodikos .
 			"). Δοκιμάστε επαναφόρτωση της σελίδας'}";
-		die(0);
+		$globals->klise_fige();
 	}
 
 	if ($sinedria->enimerosi != $id) {
 		print_epikefalida();
 		print "}";
-		die(0);
+		$globals->klise_fige();
 	}
 }
 
@@ -454,7 +454,7 @@ class Sinedria {
 				"FROM `sinedria` WHERE `kodikos` = ?";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
+				$globals->klise_fige($errmsg . $query . ": failed to prepare");
 			}
 		}
 
@@ -480,7 +480,7 @@ class Sinedria {
 				"WHERE `kodikos` = " . $this->kodikos;
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
+				$globals->klise_fige($errmsg . $query . ": failed to prepare");
 			}
 		}
 

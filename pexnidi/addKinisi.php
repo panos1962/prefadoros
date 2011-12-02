@@ -15,13 +15,13 @@ if (preg_match("@^http://127@", $globals->server)) {
 Prefadoros::pektis_check();
 Prefadoros::trapezi_check();
 if ($globals->trapezi->is_theatis()) {
-	die("Δεν μπορείτε να εισαγάγετε κινήσεις ως θεατής");
+	$globals->klise_fige("Δεν μπορείτε να εισαγάγετε κινήσεις ως θεατής");
 }
 
 Prefadoros::dianomi_check();
 $dianomi = $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
 if ($dianomi != Globals::perastike_check('dianomi')) {
-	die('Λάθος διανομή κίνησης');
+	$globals->klise_fige('Λάθος διανομή κίνησης');
 }
 
 $idos = Globals::perastike_check('idos');
@@ -63,12 +63,13 @@ $query = "INSERT INTO `kinisi` (`dianomi`, `pektis`, `idos`, `data`) " .
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(FALSE);
-	die('Απέτυχε η εισαγωγή κίνησης');
+	$globals->klise_fige('Απέτυχε η εισαγωγή κίνησης');
 }
 
 print "OK@" . @mysqli_insert_id($globals->db);
 
 Prefadoros::xeklidose_trapezi(TRUE);
+$globals->klise_fige();
 
 function fila_tzogou($dianomi) {
 	global $globals;
@@ -79,7 +80,7 @@ function fila_tzogou($dianomi) {
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) {
 		Prefadoros::xeklidose_trapezi(FALSE);
-		die('Δεν βρέθηκε κίνηση αγοράς για τη διανομή ' . $dianomi);
+		$globals->klise_fige('Δεν βρέθηκε κίνηση αγοράς για τη διανομή ' . $dianomi);
 	}
 
 	$x = explode(":", $row[0]);
@@ -123,7 +124,7 @@ function check_trito_paso($dianomi, $data, $pektis) {
 	// Ελέγχω τώρα μήπως επαναλαμβάνεται δήλωση από τον ίδιο παίκτη.
 	if ($pektis == $pektis_telefteas_dilosis) {
 		Prefadoros::xeklidose_trapezi(FALSE);
-		die('Απόπειρα διπλοδήλωσης');
+		$globals->klise_fige('Απόπειρα διπλοδήλωσης');
 	}
 
 	// Αν πρόκειται για δήλωση πάσο, ελέγχω αν έχω ήδη δύο προηγούμενα
@@ -143,7 +144,7 @@ function kane_pliromi($dianomi, $data) {
 	$posa = explode(':', $data);
 	if (count($posa) != 7) {
 		Prefadoros::xeklidose_trapezi(FALSE);
-		die($data . ': λανθασμένα data πληρωμής');
+		$globals->klise_fige($data . ': λανθασμένα data πληρωμής');
 	}
 
 	$query = "UPDATE `dianomi` SET " .
@@ -164,7 +165,7 @@ function kane_pliromi($dianomi, $data) {
 
 	if ($data1 != $data) {
 		Prefadoros::xeklidose_trapezi(FALSE);
-		die('Απέτυχε η πληρωμή της διανομής');
+		$globals->klise_fige('Απέτυχε η πληρωμή της διανομής');
 	}
 
 	// Καλού κακού ενημερώνω την πίστωση του τραπεζιού, δηλαδή
@@ -191,7 +192,7 @@ function check_baza($dianomi) {
 	}
 	if ($prev != 'ΦΥΛΛΟ') {
 		Prefadoros::xeklidose_trapezi(FALSE);
-		die('Απόπειρα μπάζας μετά από "'. $prev . '"');
+		$globals->klise_fige('Απόπειρα μπάζας μετά από "'. $prev . '"');
 	}
 }
 
@@ -208,7 +209,7 @@ function check_dianomi($dianomi) {
 	}
 	if ($found) {
 		Prefadoros::xeklidose_trapezi(FALSE);
-		die('Απόπειρα διπλοδιανομής');
+		$globals->klise_fige('Απόπειρα διπλοδιανομής');
 	}
 }
 
@@ -239,7 +240,7 @@ function check_agora($dianomi) {
 	}
 
 	Prefadoros::xeklidose_trapezi(FALSE);
-	die('Απόπειρα διπλής αγοράς');
+	$globals->klise_fige('Απόπειρα διπλής αγοράς');
 }
 
 ?>
