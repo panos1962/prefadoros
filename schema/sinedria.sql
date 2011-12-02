@@ -18,6 +18,7 @@ CREATE TABLE `sinedria` (
 		'ONLINE',
 		'ΔΙΑΘΕΣΙΜΟΙ'
 	)		NOT NULL DEFAULT 'ΟΛΟΙ' COMMENT 'Επιθυμητή κατάσταση παικτών',
+	`sizitisidirty`	ENUM('YES', 'NO') NOT NULL DEFAULT 'YES' COMMENT 'Αλλαγές στη συζήτηση',
 
 	PRIMARY KEY (
 		`kodikos`
