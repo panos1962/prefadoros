@@ -223,10 +223,12 @@ class Globals {
 	}
 
 	public function klise_fige($msg = 0) {
+		/*
 		if (isset($this->db)) {
 			@mysqli_kill($this->db, @mysqli_thread_id($this->db));
 			@mysqli_close($this->db);
 		}
+		*/
 		die($msg);
 	}
 
