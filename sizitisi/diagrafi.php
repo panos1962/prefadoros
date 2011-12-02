@@ -17,16 +17,17 @@ if (!Globals::perastike('delall')) {
 }
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) < 1) {
-	die('Δεν έγινε διαγραφή');
+	$globals->klise_fige('Δεν έγινε διαγραφή');
 }
 Sizitisi::set_dirty();
+$globals->klise_fige();
 
 function vres_trapezi() {
 	global $globals;
 	Prefadoros::trapezi_check();
 	if ($globals->trapezi->is_theatis() &&
 		(!$globals->trapezi->is_prosklisi())) {
-			die('Δεν έχετε δικαίωμα παρέμβασης στη συζήτηση');
+			$globals->klise_fige('Δεν έχετε δικαίωμα παρέμβασης στη συζήτηση');
 	}
 	return $globals->trapezi->kodikos;
 }

@@ -18,6 +18,7 @@ $query = "INSERT INTO `minima` (`apostoleas`, `paraliptis`, `minima`) " .
 	"VALUES ('" . $login . "', '" . $pros . "', '" . $minima . "')";
 $result = @mysqli_query($globals->db, $query);
 if ((!$result) || (mysqli_affected_rows($globals->db) != 1)) {
-	die('Απέτυχε η αποστολή του μηνύματος');
+	$globals->klise_fige('Απέτυχε η αποστολή του μηνύματος');
 }
+$globals->klise_fige();
 ?>

@@ -356,6 +356,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 <?php
 Page::close();
+$globals->klise_fige();
 
 function erotisi($topic, $id) {
 	$idx = preg_replace('/[, ]/', '_', $topic);

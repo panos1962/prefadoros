@@ -8,6 +8,7 @@ $minima = $globals->asfales($_REQUEST['minima']);
 $query = "DELETE FROM `minima` WHERE `kodikos` = " . $minima;
 $result = @mysqli_query($globals->db, $query);
 if ((!$result) || (mysqli_affected_rows($globals->db) != 1)) {
-	die('Απέτυχε η διαγραφή του μηνύματος');
+	$globals->klise_fige('Απέτυχε η διαγραφή του μηνύματος');
 }
+$globals->klise_fige();
 ?>

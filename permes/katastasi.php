@@ -13,6 +13,7 @@ $query = "UPDATE `minima` SET `katastasi` = '" . $katastasi .
 	"' WHERE `kodikos` = " . $minima;
 $result = @mysqli_query($globals->db, $query);
 if ((!$result) || (mysqli_affected_rows($globals->db) != 1)) {
-	die('Απέτυχε η αλλαγή κατάστασης του μηνύματος');
+	$globals->klise_fige('Απέτυχε η αλλαγή κατάστασης του μηνύματος');
 }
+$globals->klise_fige();
 ?>

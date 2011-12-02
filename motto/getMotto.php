@@ -5,12 +5,12 @@ Page::data();
 set_globals();
 
 if (!($fsize = filesize($fname = "../motto/motto.txt"))) {
-	die(0);
+	$globals->klise_fige();
 }
 
 $fh = fopen($fname, "r");
 if (!$fh) {
-	die(0);
+	$globals->klise_fige();
 }
 
 $text = "";
@@ -56,4 +56,5 @@ $text = addslashes($text);
 $author = addslashes($author);
 
 print "{text:'" . $text . "',author:'" . $author . "'}";
+$globals->klise_fige();
 ?>

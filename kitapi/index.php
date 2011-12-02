@@ -107,6 +107,7 @@ body {
 </body>
 </html>
 <?php
+$globals->klise_fige();
 
 function kitapi() {
 	global $globals;

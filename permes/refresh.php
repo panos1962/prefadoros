@@ -20,7 +20,7 @@ elseif (Globals::perastike('iser')) {
 	$query .= "(`paraliptis` = " . $globals->pektis->slogin . ")";
 }
 else {
-	die(0);
+	$globals->klise_fige();
 }
 $query .= " ORDER BY `kodikos` DESC LIMIT 30";
 $result = $globals->sql_query($query);
@@ -85,6 +85,7 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 ?>
 </table>
 <?php
+$globals->klise_fige();
 
 function katastasi_panel($minima, $katastasi) {
 	global $globals;

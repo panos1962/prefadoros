@@ -19,12 +19,12 @@ Prefadoros::set_trapezi();
 if ($globals->is_trapezi()) {
 	if ($globals->trapezi->kodikos == $trapezi) {
 		@mysqli_rollback($globals->db);
-		die('Συμμετέχετε ήδη στο τραπέζι ' . $trapezi);
+		$globals->klise_fige('Συμμετέχετε ήδη στο τραπέζι ' . $trapezi);
 	}
 
 	if (!Prefadoros::exodos()) {
 		@mysqli_rollback($globals->db);
-		die('Απέτυχε η έξοδος του παίκτη "' . $globals->pektis->login .
+		$globals->klise_fige('Απέτυχε η έξοδος του παίκτη "' . $globals->pektis->login .
 			'" από το τραπέζι ' . $globals->trapezi->kodikos);
 	}
 }
@@ -35,19 +35,19 @@ $result = $globals->sql_query($query);
 $row = @mysqli_fetch_array($result, MYSQLI_NUM);
 if (!$row) {
 	@mysqli_rollback($globals->db);
-	die('Δεν βρέθηκε το τραπέζι ' . $trapezi);
+	$globals->klise_fige('Δεν βρέθηκε το τραπέζι ' . $trapezi);
 }
 
 @mysqli_free_result($result);
 if ($row[0]) {
 	@mysqli_rollback($globals->db);
-	die('Το τραπέζι έχει κλείσει');
+	$globals->klise_fige('Το τραπέζι έχει κλείσει');
 }
 
 for ($i = 1; $i <= 3; $i++) {
 	if ($row[$i] == $globals->pektis->login) {
 		@mysqli_rollback($globals->db);
-		die("Συμμετέχετε ήδη ως παίκτης στο τραπέζι " . $trapezi);
+		$globals->klise_fige("Συμμετέχετε ήδη ως παίκτης στο τραπέζι " . $trapezi);
 	}
 }
 
@@ -64,6 +64,7 @@ else {
 	gine_pektis($thesi);
 }
 @mysqli_commit($globals->db);
+$globals->klise_fige();
 
 function gine_theatis() {
 	global $globals;
@@ -79,7 +80,7 @@ function gine_theatis() {
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
 		@mysqli_rollback($globals->db);
-		die('Απέτυχε η ένταξη του παίκτη "' . $globals->pektis->login .
+		$globals->klise_fige('Απέτυχε η ένταξη του παίκτη "' . $globals->pektis->login .
 			'" στο τραπέζι ' . $trapezi . ' ως θεατή');
 	}
 }
@@ -96,7 +97,7 @@ function gine_pektis($thesi) {
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
 		@mysqli_rollback($globals->db);
-		die('Απέτυχε η ένταξη του παίκτη "' . $globals->pektis->login .
+		$globals->klise_fige('Απέτυχε η ένταξη του παίκτη "' . $globals->pektis->login .
 			'" στο τραπέζι ' . $trapezi);
 	}
 }
@@ -109,12 +110,12 @@ function trapezi_prosklisis() {
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
 	if (!$row) {
-		die('Δεν βρέθηκε η πρόσκληση ' . $prosklisi);
+		$globals->klise_fige('Δεν βρέθηκε η πρόσκληση ' . $prosklisi);
 	}
 
 	@mysqli_free_result($result);
 	if ($row['pion'] != $globals->pektis->login) {
-		die('Η πρόσκληση δεν σας αφορά');
+		$globals->klise_fige('Η πρόσκληση δεν σας αφορά');
 	}
 
 	return($row['trapezi']);

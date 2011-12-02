@@ -21,7 +21,7 @@ case 'K':
 	$trapezi = "NULL";
 	break;
 default:
-	die('Ακαθόριστο τραπέζι/καφενείο');
+	$globals->klise_fige('Ακαθόριστο τραπέζι/καφενείο');
 }
 
 @mysqli_autocommit($globals->db, FALSE);
@@ -35,19 +35,20 @@ $query = "INSERT INTO `sizitisi` (`pektis`, `trapezi`, `sxolio`) " .
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	@mysqli_rollback($globals->db);
-	die('Απέτυχε η εισαγωγή σχολίου');
+	$globals->klise_fige('Απέτυχε η εισαγωγή σχολίου');
 }
 
 Sizitisi::set_dirty();
 
 @mysqli_commit($globals->db);
+$globals->klise_fige();
 
 function vres_to_trapezi() {
 	global $globals;
 	Prefadoros::trapezi_check();
 	if ($globals->trapezi->is_theatis() && (!$globals->trapezi->is_prosklisi()) &&
 		($globals->pektis->login != 'panos')) {
-		die('Δεν έχετε προσκληθεί στη συζήτηση αυτού του τραπεζιού');
+		$globals->klise_fige('Δεν έχετε προσκληθεί στη συζήτηση αυτού του τραπεζιού');
 	}
 	return $globals->trapezi->kodikos;
 }

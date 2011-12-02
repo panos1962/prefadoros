@@ -10,4 +10,5 @@ Prefadoros::pektis_check();
 Prefadoros::trapezi_check();
 Prefadoros::klidose_trapezi();
 Prefadoros::xeklidose_trapezi(Prefadoros::exodos());
+$globals->klise_fige();
 ?>

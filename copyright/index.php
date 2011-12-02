@@ -20,4 +20,5 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 <?php
 Page::close();
+$globals->klise_fige();
 ?>

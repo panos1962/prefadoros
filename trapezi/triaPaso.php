@@ -9,7 +9,7 @@ set_globals();
 Prefadoros::pektis_check();
 Prefadoros::trapezi_check();
 if ($globals->trapezi->theatis) {
-	die('Δεν μπορείτε να αλλάξετε το πάσο, πάσο, πάσο ως θεατής');
+	$globals->klise_fige('Δεν μπορείτε να αλλάξετε το πάσο, πάσο, πάσο ως θεατής');
 }
 
 $ppp = ($globals->trapezi->ppp != 0 ? 'NO' : 'YES');
@@ -20,7 +20,7 @@ switch ($globals->trapezi->thesi) {
 case 1:		$ena = 2; $dio = 3; break;
 case 2:		$ena = 1; $dio = 3; break;
 case 3:		$ena = 1; $dio = 2; break;
-default:	die('Ακαθόριστη θέση παίκτη');
+default:	$globals->klise_fige('Ακαθόριστη θέση παίκτη');
 }
 
 $query = "UPDATE `trapezi` SET `pasopasopaso` = '" . $ppp .
@@ -29,8 +29,9 @@ $query = "UPDATE `trapezi` SET `pasopasopaso` = '" . $ppp .
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(FALSE);
-	die('Δεν έγινε η αλλαγή του πάσο, πάσο, πάσο');
+	$globals->klise_fige('Δεν έγινε η αλλαγή του πάσο, πάσο, πάσο');
 }
 
 Prefadoros::xeklidose_trapezi(TRUE);
+$globals->klise_fige();
 ?>

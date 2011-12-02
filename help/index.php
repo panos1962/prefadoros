@@ -2075,6 +2075,7 @@ setTimeout(function() {
 </div>
 <?php
 Page::close();
+$globals->klise_fige();
 
 function periexomena($topic) {
 	$idx = preg_replace('/[, !]/', '_', $topic);

@@ -57,6 +57,7 @@ else {
 </div>
 <?php
 Page::close();
+$globals->klise_fige();
 
 function prefadoros() {
 	global $globals;

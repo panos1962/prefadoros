@@ -17,4 +17,5 @@ if (Globals::perastike('pekstat')) {
 
 $query .= " WHERE `kodikos` = " . $sinedria;
 $globals->sql_query($query);
+$globals->klise_fige();
 ?>
