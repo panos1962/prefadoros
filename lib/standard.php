@@ -222,6 +222,12 @@ class Globals {
 		return(TRUE);
 	}
 
+	public function klise_fige($msg = 0) {
+		@mysqli_kill($this->db, @mysqli_thread_id($this->db));
+		@mysqli_close($this->db);
+		die($msg);
+	}
+
 	function xeklidoma($tag, $commit = NULL) {
 		if (isset($commit)) {
 			if ($commit) {
