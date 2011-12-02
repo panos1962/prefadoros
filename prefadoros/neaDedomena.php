@@ -341,9 +341,16 @@ function torina_dedomena($prev = NULL) {
 	$dedomena->rebelos = Rebelos::process();
 
 	if (($prev == NULL) || $sinedria->sizitisidirty) {
-		$sinedria->clear_sizitisidirty();
+		if ($sinedria->sizitisidirty) {
+			$sinedria->clear_sizitisidirty();
+		}
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
 		$dedomena->kafenio = Sizitisi::process_kafenio();
+	}
+	elseif (($dedomena->partida != NULL) && (($prev->partida == NULL) ||
+		($dedomena->partida->kodikos != $prev->partida->kodikos))) {
+		$dedomena->sizitisi = Sizitisi::process_sizitisi();
+		$dedomena->kafenio = $prev->kafenio;
 	}
 	else {
 		$dedomena->sizitisi = $prev->sizitisi;
