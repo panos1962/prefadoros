@@ -38,6 +38,8 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 	die('Απέτυχε η εισαγωγή σχολίου');
 }
 
+Sizitisi::set_dirty();
+
 @mysqli_commit($globals->db);
 
 function vres_to_trapezi() {

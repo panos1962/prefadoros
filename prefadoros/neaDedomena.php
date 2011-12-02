@@ -301,6 +301,7 @@ class Dedomena {
 
 function torina_dedomena($prev = NULL) {
 	global $globals;
+	global $sinedria;
 	static $giros = 0;
 
 	$dedomena = new Dedomena();
@@ -338,8 +339,16 @@ function torina_dedomena($prev = NULL) {
 
 	$dedomena->trapezi = Kafenio::process();
 	$dedomena->rebelos = Rebelos::process();
-	$dedomena->sizitisi = Sizitisi::process_sizitisi();
-	$dedomena->kafenio = Sizitisi::process_kafenio();
+
+	if (($prev == NULL) || $sinedria->sizitisidirty) {
+		$sinedria->clear_sizitisidirty();
+		$dedomena->sizitisi = Sizitisi::process_sizitisi();
+		$dedomena->kafenio = Sizitisi::process_kafenio();
+	}
+	else {
+		$dedomena->sizitisi = $prev->sizitisi;
+		$dedomena->kafenio = $prev->kafenio;
+	}
 
 	// Αν δεν έχουν ελεγχθεί οι σχέσεις θα πρέπει να ελεγχθούν τώρα,
 	// εφόσον έχει αλλάξει κάτι που αφορά στους παίκτες.
@@ -413,12 +422,14 @@ class Sinedria {
 	public $enimerosi;
 	public $peknpat;
 	public $pekstat;
+	public $sizitisidirty;
 
 	public function __construct() {
 		unset($this->kodikos);
 		unset($this->enimerosi);
 		unset($this->peknpat);
 		unset($this->pekstat);
+		unset($this->sizitisidirty);
 	}
 
 	public function fetch() {
@@ -429,9 +440,10 @@ class Sinedria {
 		unset($this->enimerosi);
 		unset($this->peknpat);
 		unset($this->pekstat);
+		unset($this->sizitisidirty);
 
 		if ($stmnt == NULL) {
-			$query = "SELECT `enimerosi`, `peknpat`, `pekstat` " .
+			$query = "SELECT `enimerosi`, `peknpat`, `pekstat`, `sizitisidirty` " .
 				"FROM `sinedria` WHERE `kodikos` = ?";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
@@ -441,13 +453,31 @@ class Sinedria {
 
 		$stmnt->bind_param("i", $this->kodikos);
 		$stmnt->execute();
-		$stmnt->bind_result($this->enimerosi, $peknpat, $this->pekstat);
+		$stmnt->bind_result($this->enimerosi, $peknpat, $this->pekstat, $sizitisidirty);
 		while ($stmnt->fetch()) {
 			$this->peknpat = $peknpat == '' ?
 				NULL : ("%" . $globals->asfales($peknpat) . "%");
+			$this->sizitisidirty = ($sizitisidirty == 'YES');
 		}
 
 		return(isset($this->enimerosi));
+	}
+
+	public function clear_sizitisidirty() {
+		global $globals;
+		static $stmnt = NULL;
+		$errmsg = "Sinedria::clear_sizitisidirty(): ";
+
+		if ($stmnt == NULL) {
+			$query = "UPDATE `sinedria` SET `sizitisidirty` = 'NO' " .
+				"WHERE `kodikos` = " . $this->kodikos;
+			$stmnt = $globals->db->prepare($query);
+			if (!$stmnt) {
+				die($errmsg . $query . ": failed to prepare");
+			}
+		}
+
+		$stmnt->execute();
 	}
 }
 ?>
