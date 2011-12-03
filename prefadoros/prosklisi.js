@@ -189,20 +189,40 @@ var Prosklisi = new function() {
 		req.send(params);
 	};
 
-	function diagrafiOlonCheck(req, img) {
+	this.theates = function(img) {
+		Sizitisi.sxolioFocus();
+		img.prevSrc = img.src;
+		img.src = globals.server + 'images/working.gif';
+		var req = new Request('prosklisi/theates');
+		req.xhr.onreadystatechange = function() {
+			theatesCheck(req, img);
+		};
+
+		req.send();
+	};
+
+	function theatesCheck(req, img) {
 		if (req.xhr.readyState != 4) { return; }
+		img.src = img.prevSrc;
 		rsp = req.getResponse();
 		mainFyi(rsp);
 		if (rsp) {
+			errorIcon(img);
 			playSound('beep');
-			img.src = globals.server + 'images/X.png';
-			setTimeout(function() {
-				try { img.src = img.prevSrc; } catch(e) {};
-			}, globals.duration.errorIcon);
 		}
-		else {
-			playSound('skisimo');
-			try { img.src = img.prevSrc; } catch(e) {};
+	};
+
+	this.controlsHTML = function() {
+		var html = '';
+		if (isPartida() && notTheatis()) {
+			html += '<img class="pssIcon" src="' + globals.server +
+				'images/controlPanel/theatis.png" ' +
+				'title="Προσκαλέστε όλους τους θεατές" ' +
+				'alt="" onclick="Prosklisi.theates(this);" />';
 		}
+		html += '<img class="pssIcon" src="' + globals.server + 'images/Xred.png" ' +
+			'title="Διαγραφή όλων των προσκλήσεων που σας αφορρούν" ' +
+			'alt="" onclick="Prosklisi.diagrafiOlon(this);" />';
+		return html;
 	};
 };

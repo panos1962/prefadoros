@@ -91,6 +91,7 @@ var Prefadoros = new function() {
 				setTimeout(Dekada.setControls, 100);
 			}
 		}
+		Prefadoros.prosklisiControls();
 		Prefadoros.sizitisiControls();
 
 		var s = getelid('sizitisiTrapezi');
@@ -155,6 +156,7 @@ var Prefadoros = new function() {
 			x.style.overflowY = 'auto';
 			x.innerHTML = Trapezi.HTML;
 		}
+		Prefadoros.prosklisiControls();
 		Prefadoros.sizitisiControls();
 
 		var s = getelid('sizitisiKafenio');
@@ -179,6 +181,16 @@ var Prefadoros = new function() {
 			Sizitisi.sxolioFocus();
 		}
 		return false;
+	};
+
+	this.prosklisiControls = function() {
+		var x = getelid('prosklisiControls');
+		if (notSet(x)) { return; }
+
+		// Επανεμφανίζουμε το πλήκτρο αποστολής προσκλήσεων σε θεατές
+		// ανάλογα με τις προσβάσεις του χρήστη, χωρίς να μεταφέρουμε
+		// το focus στο πεδίο των σχολίων.
+		x.innerHTML = Prosklisi.controlsHTML();
 	};
 
 	this.sizitisiControls = function() {
