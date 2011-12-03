@@ -6,7 +6,9 @@ var Prosklisi = new function() {
 		}
 
 		if (isSet(dedomena.prosklisi)) {
-			if (notFreska(dedomena)) { Prosklisi.ixitikoSima(dedomena); }
+			if (notFreska(dedomena) && isDiathesimos()) {
+				Prosklisi.ixitikoSima(dedomena);
+			}
 			prosklisi = dedomena.prosklisi;
 			Prosklisi.updateHTML();
 			return;
@@ -27,7 +29,7 @@ var Prosklisi = new function() {
 				if (dedomena.prosklisiNew[i].a != pektis.login) { nea = true; }
 				prosklisi1.push(dedomena.prosklisiNew[i]);
 			}
-			if (nea && notFreska(dedomena)) { playSound('sfirigma'); }
+			if (nea && notFreska(dedomena) && isDiathesimos()) { playSound('sfirigma'); }
 		}
 
 		// Διατρέχω το παλιό array "prosklisi" και ελέγχω αν κάποιες από τις

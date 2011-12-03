@@ -245,6 +245,16 @@ function notTheatis() {
 	return(!isTheatis());
 }
 
+function isDiathesimos() {
+	if (notPektis()) { return false; }
+	if (notSet(pektis.available)) { return false; }
+	return pektis.available;
+}
+
+function notDiathesimos() {
+	return(!isDiathesimos());
+}
+
 function isPartida() {
 	return(isSet(window.partida) && isSet(partida.kodikos));
 }
