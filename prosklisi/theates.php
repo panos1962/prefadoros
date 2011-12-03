@@ -12,9 +12,10 @@ if ($globals->trapezi->theatis) {
 	die('Δεν μπορείτε να αποστείλετε προσκλήσεις ως θεατής');
 }
 
-$query = "INSERT INTO `prosklisi` (`pios`, `pion`, `trapezi`) " .
-	"SELECT " . $globals->pektis->slogin . ", `pektis`, " .
-	$globals->trapezi->kodikos . " FROM `theatis` WHERE `trapezi` = " .
-	$globals->trapezi->kodikos;
+// Εισάγουμε προσκλήσεις για όλους τους θεατές,
+// αγνοώντας τις ήδη υπάρχουσες.
+$query = "INSERT IGNORE INTO `prosklisi` (`pios`, `pion`, `trapezi`) SELECT " .
+	$globals->pektis->slogin . ", `pektis`, " . $globals->trapezi->kodikos .
+	" FROM `theatis` WHERE `trapezi` = " . $globals->trapezi->kodikos;
 @mysqli_query($globals->db, $query);
 $globals->klise_fige();
