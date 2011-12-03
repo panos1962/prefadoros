@@ -140,10 +140,8 @@ function prosklisi_area() {
 	global $globals;
 	?>
 	<div class="pssHeaderArea">
-		<span class="data">Προσκλήσεις</span><img class="pssIcon" src="<?php
-			print $globals->server; ?>images/Xred.png"
-			title="Διαγραφή όλων των προσκλήσεων που σας αφορρούν"
-			alt="" onclick="Prosklisi.diagrafiOlon(this);" />
+		<span class="data">Προσκλήσεις</span>
+		<span id="prosklisiControls"></span>
 		<div class="pssSizing">
 		<img src="<?php print $globals->server; ?>images/miosiPerioxis.png"
 			class="pssSizingIcon" title="Μείωση περιοχής προσκλήσεων"
