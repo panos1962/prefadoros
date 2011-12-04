@@ -302,7 +302,6 @@ class Dedomena {
 function torina_dedomena($prev = NULL) {
 	global $globals;
 	global $sinedria;
-	static $giros = 0;
 
 	$dedomena = new Dedomena();
 
@@ -340,10 +339,12 @@ function torina_dedomena($prev = NULL) {
 	$dedomena->trapezi = Kafenio::process();
 	$dedomena->rebelos = Rebelos::process();
 
-	if (($prev == NULL) || $sinedria->sizitisidirty) {
-		if ($sinedria->sizitisidirty) {
-			$sinedria->clear_sizitisidirty();
-		}
+	if ($prev == NULL) {
+		$dedomena->sizitisi = Sizitisi::process_sizitisi();
+		$dedomena->kafenio = Sizitisi::process_kafenio();
+	}
+	elseif ($sinedria->sizitisidirty) {
+		$sinedria->clear_sizitisidirty();
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
 		$dedomena->kafenio = Sizitisi::process_kafenio();
 	}
