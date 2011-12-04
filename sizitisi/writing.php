@@ -19,7 +19,7 @@ case 'K':
 	break;
 default:
 	if (Sizitisi::cleanup_writing() > 0) {
-		Sizitisi::set_dirty();
+		Sizitisi::set_dirty(FALSE);
 	}
 	$globals->klise_fige();
 }
@@ -33,7 +33,7 @@ $query = "UPDATE `sizitisi` SET `sxolio` = '" . $globals->asfales($sxolio) .
 	"AND (UNIX_TIMESTAMP(`pote`) > " . $prosfata . ")";
 @mysqli_query($globals->db, $query);
 if (@mysqli_affected_rows($globals->db) > 0) {
-	Sizitisi::set_dirty();
+	Sizitisi::set_dirty(FALSE);
 	$globals->klise_fige();
 }
 
@@ -43,7 +43,7 @@ $query = "INSERT INTO `sizitisi` (`pektis`, `trapezi`, `sxolio`) " .
 	"VALUES (" . $globals->pektis->slogin . ", " . $trapezi . ", '" .
 	$globals->asfales($sxolio) . "')";
 $globals->sql_query($query);
-Sizitisi::set_dirty();
+Sizitisi::set_dirty(FALSE);
 $globals->klise_fige();
 
 function vres_trapezi() {

@@ -344,9 +344,9 @@ function torina_dedomena($prev = NULL) {
 		$dedomena->kafenio = Sizitisi::process_kafenio();
 	}
 	elseif ($sinedria->sizitisidirty) {
-		$sinedria->clear_sizitisidirty();
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
 		$dedomena->kafenio = Sizitisi::process_kafenio();
+		$sinedria->clear_sizitisidirty();
 	}
 	elseif (($dedomena->partida != NULL) && (($prev->partida == NULL) ||
 		($dedomena->partida->kodikos != $prev->partida->kodikos))) {

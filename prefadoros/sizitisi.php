@@ -472,21 +472,42 @@ class Sizitisi {
 		return (@mysqli_affected_rows($globals->db));
 	}
 
-	public static function set_dirty() {
+	// Η μέθοδος "set_dirty" θέτει το πεδίο "sizitisidirty" σε 'YES' για όλες
+	// τις συνεδρίες που δεν το έχουν 'YES'. Για λόγους που αφορούν στο μολύβι
+	// δίνεται η δυνατότητα να ενημερώσουμε μόνο τις συνεδρίες των άλλων παικτών
+	// περνώντας μια false τιμή.
+
+	public static function set_dirty($ola = TRUE) {
 		global $globals;
-		static $stmnt = NULL;
+		static $stmnt1 = NULL;
+		static $stmnt2 = NULL;
 		$errmsg = "Sizitisi::set_dirty(): ";
 
-		if ($stmnt == NULL) {
-			$query = "UPDATE `sinedria` SET `sizitisidirty` = 'YES' " .
-				"WHERE `sizitisidirty` <> 'YES'";
-			$stmnt = $globals->db->prepare($query);
-			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
+		if ($ola) {
+			if ($stmnt1 == NULL) {
+				$query = "UPDATE `sinedria` SET `sizitisidirty` = 'YES' " .
+					"WHERE `sizitisidirty` <> 'YES'";
+				$stmnt1 = $globals->db->prepare($query);
+				if (!$stmnt1) {
+					$globals->klise_fige($errmsg . $query . ": failed to prepare");
+				}
 			}
-		}
 
-		$stmnt->execute();
+			$stmnt1->execute();
+		}
+		else {
+			if ($stmnt2 == NULL) {
+				$query = "UPDATE `sinedria` SET `sizitisidirty` = 'YES' " .
+					"WHERE (`sizitisidirty` <> 'YES') AND " .
+					"(`pektis` != " . $globals->pektis->slogin . ")";
+				$stmnt2 = $globals->db->prepare($query);
+				if (!$stmnt2) {
+					$globals->klise_fige($errmsg . $query . ": failed to prepare");
+				}
+			}
+
+			$stmnt2->execute();
+		}
 	}
 }
 ?>
