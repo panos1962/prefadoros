@@ -296,7 +296,11 @@ function print_panel() {
 	$item_list[] = new Item("koutsoTripa.gif", "Πρόσεχε τις λούμπες!");
 	$item_list[] = new Item("minBisMesa.gif", "Ένα, δύο, τρία και… Ουπς!", "", "blioup:1500:20");
 	$item_list[] = new Item("migaki.gif", "Μια μύγα!");
+	$item_list[] = new Item("notaraTaTheli.jpg", "Τα θέλει κι εσένα ο οργανισμός σου!", "",
+		"http://youtu.be/HMguQXzgcd0");
 	$item_list[] = new Item("chuckNoris.jpg", "Ούτε εγώ δεν τις βγάζω αυτές!");
+	$item_list[] = new Item("vegosPelates.jpg", "Πελάτες μου!", "",
+		"http://youtu.be/0iFeP8zlmFU");
 	$item_list[] = new Item("moxthiroEmoticon.gif");
 	$item_list[] = new Item("kobra.gif");
 	$item_list[] = new Item("sfiriEmoticon.gif", "Θα το σπάσω!!!");
