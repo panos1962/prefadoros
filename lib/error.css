@@ -1,8 +1,10 @@
 .sfalma {
 	margin-top: 2.0cm;
-	margin-left: 1.0cm;
 	padding: 0.2cm;
-	max-width: 20.0cm;
 	background-color: #990000;
 	color: yellow;
+}
+
+p {
+	text-align: justify;
 }
