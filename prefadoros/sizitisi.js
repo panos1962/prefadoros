@@ -188,30 +188,52 @@ var Sizitisi = new function() {
 		var x = (s.s).split('@');
 		if (x.length < 6) { return Sizitisi.textDecode(s.s); }
 
-		var html = '';
-		html += '<img src="' + globals.funchatServer + x[2] +
-			'" class="sizitisiFunchatImage" alt="" ';
-		if (x[3]) { html += 'style="width: ' + x[3] + 'cm;" '; }
-		html += '/>';
+		var ikona = '';
+		var video = '';
+		if (x[2] != '') {
+			var ikona = '<img src="' + globals.funchatServer + x[2] +
+				'" class="sizitisiFunchatImage" alt="" ';
+			if (x[3]) { ikona += 'style="width: ' + x[3] + 'cm;" '; }
+			ikona += '/>';
+		}
+
 		var titlos = x[5];
 		for (var i = 6; i < x.length; i++) { titlos += x[i]; }
-		if (titlos != '') { html += '<div>' + akirosiScript(titlos) + '</div>'; }
+		if (titlos != '') { titlos = '<div>' + akirosiScript(titlos) + '</div>'; }
 
 		var k = 'k' + s.k;
 		if (x[4] && (!epexeIxos.hasOwnProperty(k)) && isSet(s.w) &&
 			((currentTimestamp() - (s.w * 1000)) < 5000)) {
-			var xx = x[4].split(':');
-			if ((xx.length > 1) && (xx[1] > 0)) {
-				setTimeout(function() {
-					playSound(xx[0], xx[2]);
-				}, xx[1]);
-			}
-			else {
-				playSound(xx[0], xx[2]);
-			}
+			video = Sizitisi.pexeIxoVideo(x[4]);
 			epexeIxos[k] = true;
+			if (video != '') {
+				ikona = '';
+				titlos = '';
+			}
 		}
 
+		return ikona + video + titlos;
+	};
+
+	this.pexeIxoVideo = function(iv) {
+		var html = '';
+		if (iv.match(/^https?:\/\/youtu\.be\//)) {
+			html += '<iframe width="300" height="203" src="http://www.youtube.com/embed/';
+			html += iv.replace(/^https?:\/\/youtu\.be\//, '');
+			html += '?autoplay=1&rel=0&controls=0&showinfo=0" ';
+			html += 'frameborder="0"></iframe>';
+		}
+		else {
+			iv = iv.split(':');
+			if ((iv.length > 1) && (iv[1] > 0)) {
+				setTimeout(function() {
+					playSound(iv[0], iv[2]);
+				}, iv[1]);
+			}
+			else {
+				playSound(iv[0], iv[2]);
+			}
+		}
 		return html;
 	};
 
