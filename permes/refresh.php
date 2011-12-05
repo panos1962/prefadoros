@@ -59,8 +59,8 @@ for ($i = 0; $row = mysqli_fetch_array($result, MYSQLI_ASSOC); $i++) {
 	<td class="zebra<?php print $i % 2; ?> permesMinima">
 		<div id="text<?php print $row['kodikos']; ?>" class="<?php print $diavasmeno; ?>">
 			<?php
-			$minima = preg_replace("/\n/", "<br />", $row['minima']);
 			$minima = $globals::akirosi_script($row['minima']);
+			$minima = preg_replace("/\n/", "<br />", $row['minima']);
 			print $minima;
 			?>
 			<span class="permesXronosArea">[<span class="permesXronos"><?php
