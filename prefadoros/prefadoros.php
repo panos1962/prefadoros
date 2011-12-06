@@ -202,7 +202,8 @@ class Prefadoros {
 		// πρόσκληση από άλλο τραπέζι).
 
 		if ($trapezi->is_theatis()) {
-			$query = "DELETE FROM `theatis` WHERE `pektis` = " . $slogin;
+			$query = "DELETE FROM `theatis` WHERE `pektis` = " .
+				$globals->pektis->slogin;
 			$globals->sql_query($query);
 			if (@mysqli_affected_rows($globals->db) != 1) {
 				print 'Απέτυχε η έξοδος του παίκτη "' . $pektis->login .
@@ -235,13 +236,13 @@ class Prefadoros {
 		// Καλού κακού διαγράφουμε πρώτα τυχόν άλλη συμμετοχή αυτού
 		// του τραπεζιού για την ίδια θέση ή για τον ίδιο παίκτη.
 		$query = "DELETE FROM `simetoxi` WHERE (`trapezi` = " .
-			$trapezi->kodikos . ") AND ((`pektis` = " . $slogin .
+			$trapezi->kodikos . ") AND ((`pektis` = " . $globals->pektis->slogin .
 			") OR (`thesi` = " . $trapezi->thesi . "))";
 		$globals->sql_query($query);
 
 		$query = "INSERT INTO `simetoxi` (`trapezi`, `thesi`, `pektis`) " .
 			"VALUES (" . $trapezi->kodikos . ", " . $trapezi->thesi .
-			", " . $slogin . ")";
+			", " . $globals->pektis->slogin . ")";
 		$globals->sql_query($query);
 		if (@mysqli_affected_rows($globals->db) != 1) {
 			print 'Απέτυχε η εισαγωγή συμμετοχής του παίκτη "' +
