@@ -366,7 +366,7 @@ class Trapezi {
 			// θέσεις 1, 2, και 3 του projection list.
 
 			$query = "SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3` FROM `trapezi` " .
-				"WHERE `trapezi` = " . $trapezi;
+				"WHERE `kodikos` = " . $trapezi;
 			$result = @mysqli_query($globals->db, $query);
 			if ($result) {
 				while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
