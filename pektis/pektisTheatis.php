@@ -7,8 +7,6 @@ Page::data();
 set_globals();
 
 Prefadoros::pektis_check();
-global $slogin;
-$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 
 if (!Prefadoros::set_trapezi()) {
 	$globals->klise_fige('Ακαθόριστο τραπέζι');
@@ -26,7 +24,6 @@ $globals->klise_fige();
 
 function apo_pektis_theatis() {
 	global $globals;
-	global $slogin;
 
 	// Επιβεβαιώνουμε ότι ο παίκτης όντως συμμετέχει στο τραπέζι.
 	$pektis = 'pektis' . $globals->trapezi->thesi;
@@ -35,21 +32,21 @@ function apo_pektis_theatis() {
 	}
 
 	// Διαγράφουμε τυχόν εγγραφή του παίκτη ως θεατή.
-	$query = "DELETE FROM `theatis` WHERE `pektis` = " . $slogin;
+	$query = "DELETE FROM `theatis` WHERE `pektis` = " . $globals->pektis->slogin;
 	$globals->sql_query($query);
 
 	// Διαγράφουμε τυχόν εγγραφές συμμετοχής στο τραπέζι για τον
 	// ίδιο παίκτη, ή για την ίδια θέση.
 	$query = "DELETE FROM `simetoxi` WHERE (`trapezi` = " .
 		$globals->trapezi->kodikos . ") AND ((`pektis` = " .
-		$slogin . ") OR (`thesi` = " . $globals->trapezi->thesi . "))";
+		$globals->pektis->slogin . ") OR (`thesi` = " . $globals->trapezi->thesi . "))";
 	$globals->sql_query($query);
 
 	// Δημιουργούμε εγγραφή συμμετοχής του παίκτη στο τραπέζι στη
 	// θέση που βρίσκεται αυτή τη στιγμή.
 	$query = "INSERT INTO `simetoxi` (`trapezi`, `thesi`, `pektis`) " .
 		"VALUES (" . $globals->trapezi->kodikos . ", " .
-		$globals->trapezi->thesi . ", " . $slogin . ")";
+		$globals->trapezi->thesi . ", " . $globals->pektis->slogin . ")";
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
 		@mysqli_rollback($globals->db);
@@ -59,7 +56,7 @@ function apo_pektis_theatis() {
 	// Δημιουργούμε εγγραφή θεατή για τον παίκτη και (αρχικά) για
 	// τη θέση που συμμετείχε ως θεατής.
 	$query = "INSERT INTO `theatis` (`pektis`, `trapezi`, `thesi`) " .
-		"VALUES (" . $slogin . ", " . $globals->trapezi->kodikos .
+		"VALUES (" . $globals->pektis->slogin . ", " . $globals->trapezi->kodikos .
 		", " . $globals->trapezi->thesi . ")";
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
@@ -79,7 +76,6 @@ function apo_pektis_theatis() {
 
 function apo_theatis_pektis() {
 	global $globals;
-	global $slogin;
 
 	// Αν δεν υπάχει πρόσκληση στο τραπέζι, τότε δεν μπορεί κάποιος
 	// να συμμετάσχει ως παίκτης.
@@ -89,7 +85,7 @@ function apo_theatis_pektis() {
 	}
 
 	// Διαγράφουμε την εγγραφή του παίκτη ως θεατή.
-	$query = "DELETE FROM `theatis` WHERE `pektis` = " . $slogin;
+	$query = "DELETE FROM `theatis` WHERE `pektis` = " . $globals->pektis->slogin;
 	$globals->sql_query($query);
 	if (mysqli_affected_rows($globals->db) != 1) {
 		@mysqli_rollback($globals->db);
@@ -109,14 +105,14 @@ function apo_theatis_pektis() {
 	// ίδια θέση, διαγράφοντας παράλληλα αυτήν (και ίσως και άλλες)
 	// εγγραφές συμμετοχής του παίκτη στο τραπέζι.
 	$query = "SELECT `thesi` FROM `simetoxi` WHERE `trapezi` = " .
-		$globals->trapezi->kodikos . " AND `pektis` = " . $slogin;
+		$globals->trapezi->kodikos . " AND `pektis` = " . $globals->pektis->slogin;
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if ($row) {
 		@mysqli_free_result($result);
 		$thesi = $row[0];
 		$query = "DELETE FROM `simetoxi` WHERE `trapezi` = " .
-			$globals->trapezi->kodikos . " AND `pektis` = " . $slogin;
+			$globals->trapezi->kodikos . " AND `pektis` = " . $globals->pektis->slogin;
 		$globals->sql_query($query);
 	}
 	else {
@@ -144,7 +140,7 @@ function apo_theatis_pektis() {
 	$nok = TRUE;
 	for ($i = 0; $i < 3; $i++) {
 		$query = "UPDATE `trapezi` SET `pektis" . $thesi . "` = " .
-			$slogin . " WHERE `kodikos` = " . $globals->trapezi->kodikos .
+			$globals->pektis->slogin . " WHERE `kodikos` = " . $globals->trapezi->kodikos .
 			" AND `pektis" . $thesi . "` IS NULL";
 		$globals->sql_query($query);
 		if (@mysqli_affected_rows($globals->db) == 1) {
