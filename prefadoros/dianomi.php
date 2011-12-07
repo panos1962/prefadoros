@@ -207,7 +207,7 @@ class Dianomi {
 				"FROM `dianomi` WHERE `trapezi` = ? ORDER BY `kodikos`"; 
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
+				$globals->klise_fige($errmsg . $query . ": failed to prepare");
 			}
 		}
 

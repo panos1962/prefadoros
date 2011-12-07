@@ -320,7 +320,7 @@ class Sizitisi {
 				"AND (`sxolio` = '@WK@')) ORDER BY `kodikos`";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
+				$globals->klise_fige($errmsg . $query . ": failed to prepare");
 			}
 		}
 
@@ -431,7 +431,7 @@ class Sizitisi {
 				"AND (`kodikos` >= ?) ORDER BY `kodikos`";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
+				$globals->klise_fige($errmsg . $query . ": failed to prepare");
 			}
 		}
 

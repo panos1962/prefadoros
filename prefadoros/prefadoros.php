@@ -298,7 +298,7 @@ class Prefadoros {
 				XRONOS_PEKTIS_IDLE_MAX;
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
+				$globals->klise_fige($errmsg . $query . ": failed to prepare");
 			}
 		}
 
@@ -341,7 +341,7 @@ class Prefadoros {
 			$query = "SELECT `pektis`, `trapezi`, `thesi` FROM `theatis`";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
+				$globals->klise_fige($errmsg . $query . ": failed to prepare");
 			}
 		}
 
@@ -384,7 +384,7 @@ class Prefadoros {
 				"FROM `trapezi` WHERE `telos` IS NULL";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
+				$globals->klise_fige($errmsg . $query . ": failed to prepare");
 			}
 		}
 

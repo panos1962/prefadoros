@@ -10,7 +10,7 @@ $dif = intval(Globals::perastike_check('dif'));
 Prefadoros::pektis_check();
 Prefadoros::trapezi_check();
 if ($globals->trapezi->theatis) {
-	die('Δεν μπορείτε να αλλάξετε την κάσα ως θεατής');
+	$globals->klise_fige('Δεν μπορείτε να αλλάξετε την κάσα ως θεατής');
 }
 
 if (($globals->trapezi->kasa += $dif) < 0) {
@@ -21,6 +21,7 @@ $query = "UPDATE `trapezi` SET `kasa` = " . $globals->trapezi->kasa .
 	" WHERE `kodikos` = " . $globals->trapezi->kodikos;
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
-	die('Απέτυχε η αλλαγή της κάσας');
+	$globals->klise_fige('Απέτυχε η αλλαγή της κάσας');
 }
+$globals->klise_fige();
 ?>

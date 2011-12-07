@@ -147,7 +147,7 @@ class Kafenio {
 				XRONOS_PEKTIS_IDLE_MAX . ") ORDER BY `kodikos` DESC"; 
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
+				$globals->klise_fige($errmsg . $query . ": failed to prepare");
 			}
 		}
 

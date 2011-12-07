@@ -9,7 +9,7 @@ set_globals();
 Prefadoros::pektis_check();
 Prefadoros::trapezi_check();
 if ($globals->trapezi->is_theatis()) {
-	die('Δεν μπορείτε να αλλάξετε τη διάταξη των παικτών ως θεατής');
+	$globals->klise_fige('Δεν μπορείτε να αλλάξετε τη διάταξη των παικτών ως θεατής');
 }
 
 // Με το παρόν αλλάζουμε τη διάταξη των παικτών. Αυτό μπορεί να γίνει
@@ -36,7 +36,7 @@ if (Globals::perastike('alagi')) {
 	case 1:
 	case 2:
 	case 3:		break;
-	default:	die('Ακαθόριστη θέση παίκτη');
+	default:	$globals->klise_fige('Ακαθόριστη θέση παίκτη');
 	}
 
 	$max = $ena + 3;
@@ -47,7 +47,7 @@ if (Globals::perastike('alagi')) {
 			break;
 		}
 	}
-	if ($i == $max) { die('Δεν υπάρχει κενή θέση'); }
+	if ($i == $max) { $globals->klise_fige('Δεν υπάρχει κενή θέση'); }
 	$errmsg = 'Δεν έγινε αλλαγή θέσης';
 }
 else {
@@ -55,7 +55,7 @@ else {
 	case 1:		$ena = 2; $dio = 3; break;
 	case 2:		$ena = 1; $dio = 3; break;
 	case 3:		$ena = 1; $dio = 2; break;
-	default:	die('Ακαθόριστη θέση παίκτη');
+	default:	$globals->klise_fige('Ακαθόριστη θέση παίκτη');
 	}
 	$errmsg = 'Δεν έγινε αλλαγή στη διάταξη των παικτών';
 }
@@ -77,8 +77,9 @@ $query = "UPDATE `trapezi` SET `pektis" . $ena . "` = " . $pektis2 .
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(FALSE);
-	die($errmsg);
+	$globals->klise_fige($errmsg);
 }
 
 Prefadoros::xeklidose_trapezi(TRUE);
+$globals->klise_fige();
 ?>

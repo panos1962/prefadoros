@@ -16,7 +16,7 @@ $thesi = Globals::perastike_check('thesi');
 $pektis = "pektis" . $thesi;
 if ((!isset($globals->trapezi->$pektis)) ||
 	($globals->trapezi->$pektis != $globals->pektis->login)) {
-	die('Λάθος θέση παίκτη');
+	$globals->klise_fige('Λάθος θέση παίκτη');
 }
 
 Prefadoros::klidose_trapezi();
@@ -30,7 +30,7 @@ if (Globals::perastike('apodoxi')) {
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
 		Prefadoros::xeklidose_trapezi(FALSE);
-		die('Απέτυχε η αλλαγή αποδοχής');
+		$globals->klise_fige('Απέτυχε η αλλαγή αποδοχής');
 	}
 
 	$apodoxi = "apodoxi" . $thesi;
@@ -59,6 +59,7 @@ else if (Globals::perastike('dianomi')) {
 }
 
 Prefadoros::xeklidose_trapezi(TRUE);
+$globals->klise_fige();
 
 function kane_dianomi($dealer) {
 	global $globals;
@@ -71,7 +72,7 @@ function kane_dianomi($dealer) {
 	$globals->sql_query($query);
 	if (@mysqli_affected_rows($globals->db) != 1) {
 		Prefadoros::xeklidose_trapezi(FALSE);
-		die("Απέτυχε η διανομή");
+		$globals->klise_fige("Απέτυχε η διανομή");
 	}
 	$dianomi = @mysqli_insert_id($globals->db);
 
@@ -111,7 +112,7 @@ function find_the_dealer() {
 
 	if ($dealer == 0) {
 		Prefadoros::xeklidose_trapezi(FALSE);
-		die('Ακαθόριστος dealer προηγούμενης διανομής');
+		$globals->klise_fige('Ακαθόριστος dealer προηγούμενης διανομής');
 	}
 
 	// Στην προηγούμενη διανομή πρέπει να έχουν γίνει τουλάχιστον
@@ -126,7 +127,7 @@ function find_the_dealer() {
 
 	if ($dilosi < 3) {
 		Prefadoros::xeklidose_trapezi(FALSE);
-		die('Απόπειρα διπλοδιανομής');
+		$globals->klise_fige('Απόπειρα διπλοδιανομής');
 	}
 
 	// Καθορίζουμε τον dealer της διανομής που θα γίνει να είναι
