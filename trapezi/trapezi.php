@@ -88,7 +88,7 @@ class Trapezi {
 				$query = self::select_clause() . "`kodikos` = ?";
 				$stmnt1 = $globals->db->prepare($query);
 				if (!$stmnt1) {
-					die($errmsg . $query . ": failed to prepare");
+					$globals->klise_fige($errmsg . $query . ": failed to prepare");
 				}
 			}
 
@@ -114,7 +114,7 @@ class Trapezi {
 				"ORDER BY `kodikos` DESC LIMIT 1";
 			$stmnt2 = $globals->db->prepare($query);
 			if (!$stmnt2) {
-				die($errmsg . $query . ": failed to prepare");
+				$globals->klise_fige($errmsg . $query . ": failed to prepare");
 			}
 		}
 

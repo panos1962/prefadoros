@@ -10,7 +10,7 @@ set_globals();
 Prefadoros::pektis_check();
 Prefadoros::trapezi_check();
 if ($globals->trapezi->is_theatis()) {
-	die("Δεν μπορείτε να εισάγετε κινήσεις ως θεατής");
+	$globals->klise_fige("Δεν μπορείτε να εισάγετε κινήσεις ως θεατής");
 }
 
 Prefadoros::dianomi_check();
@@ -27,7 +27,7 @@ $query = "DELETE FROM `kinisi` WHERE (`dianomi` = " . $dianomi .
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(TRUE);
-	die('Δεν υπάχει κίνηση προς ακύρωση');
+	$globals->klise_fige('Δεν υπάχει κίνηση προς ακύρωση');
 }
 
 $query = "INSERT INTO `kinisi` (`dianomi`, `pektis`, `idos`, `data`) " .
@@ -35,7 +35,8 @@ $query = "INSERT INTO `kinisi` (`dianomi`, `pektis`, `idos`, `data`) " .
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(FALSE);
-	die('Απέτυχε η ακύρωση κίνησης');
+	$globals->klise_fige('Απέτυχε η ακύρωση κίνησης');
 }
 
 Prefadoros::xeklidose_trapezi(TRUE);
+$globals->klise_fige();

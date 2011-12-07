@@ -8,10 +8,10 @@ set_globals();
 
 Prefadoros::pektis_check();
 if (!Prefadoros::set_trapezi()) {
-	die('Ακαθόριστο τραπέζι');
+	$globals->klise_fige('Ακαθόριστο τραπέζι');
 }
 if (!$globals->trapezi->is_pektis()) {
-	die('Δεν έχετε δικαίωμα αλλαγής της πρόσβασης στο τραπέζι');
+	$globals->klise_fige('Δεν έχετε δικαίωμα αλλαγής της πρόσβασης στο τραπέζι');
 }
 
 $prosvasi = Globals::perastike_check('prosvasi');
@@ -19,6 +19,7 @@ $query = "UPDATE `trapezi` SET `prosvasi` = '" . $globals->asfales($prosvasi) .
 	"' WHERE `kodikos` = " . $globals->trapezi->kodikos;
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
-	die('Δεν άλλαξε η ιδιωτικότητα του τραπεζιού');
+	$globals->klise_fige('Δεν άλλαξε η ιδιωτικότητα του τραπεζιού');
 }
+$globals->klise_fige();
 ?>

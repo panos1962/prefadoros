@@ -302,7 +302,7 @@ class Kinisi {
 				"FROM `kinisi` WHERE `dianomi` = ? ORDER BY `kodikos`";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
+				$globals->klise_fige($errmsg . $query . ": failed to prepare");
 			}
 		}
 
@@ -333,7 +333,7 @@ class Kinisi {
 			$dianomi . ", " . $pektis . ", '" . $idos . "', '" . $data . "')";
 		$globals->sql_query($query);
 		if (@mysqli_affected_rows($globals->db) != 1) {
-			die("Απέτυχε η εισαγωγή κίνησης (" . $query . ")");
+			$globals->klise_fige("Απέτυχε η εισαγωγή κίνησης (" . $query . ")");
 		}
 		return @mysqli_insert_id($globals->db);
 	}
