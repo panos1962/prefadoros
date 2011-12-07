@@ -197,10 +197,6 @@ var Sizitisi = new function() {
 			ikona += '/>';
 		}
 
-		var titlos = x[5];
-		for (var i = 6; i < x.length; i++) { titlos += x[i]; }
-		if (titlos != '') { titlos = '<div>' + akirosiScript(titlos) + '</div>'; }
-
 		var k = 'k' + s.k;
 		if (x[4] && (!epexeIxos.hasOwnProperty(k)) && isSet(s.w) &&
 			((currentTimestamp() - (s.w * 1000)) < 5000)) {
@@ -211,6 +207,10 @@ var Sizitisi = new function() {
 				titlos = '';
 			}
 		}
+
+		var titlos = x[5];
+		for (var i = 6; i < x.length; i++) { titlos += x[i]; }
+		if (titlos != '') { titlos = '<div>' + akirosiScript(titlos) + '</div>'; }
 
 		return ikona + video + titlos;
 	};
