@@ -180,7 +180,11 @@ class Kafenio {
 			"AND (`poll` < DATE_SUB(NOW(), INTERVAL 5 MINUTE))) ";
 
 		// Τραπέζια που δεν έχουν επικοινωνία για πάνω από μια μέρα.
-		$query .= "OR (`poll` < DATE_SUB(NOW(), INTERVAL 1 DAY))";
+		$query .= "OR (`poll` < DATE_SUB(NOW(), INTERVAL 1 DAY)) OR ";
+
+		// Τραπέζια που έχουν κάποια ώρα που δημιουργήθηκαν, αλλά κάτι
+		// δεν πάει καλά με το polling.
+		$query .= "((`poll` IS NULL) AND (`stisimo` < DATE_SUB(NOW(), INTERVAL 15 MINUTE)))";
 
 		$result = @mysqli_query($globals->db, $query);
 		if ($result) {
