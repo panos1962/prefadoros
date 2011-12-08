@@ -186,7 +186,6 @@ function print_panel() {
 	$item_list[] = new Item("bebisEmoticon.gif");
 	$item_list[] = new Item("oliEfxaristimeni.gif");
 	$item_list[] = new Item("oliOk.gif", "Όλοι ευχαριστημένοι!");
-	$item_list[] = new Item("prosexe.gif");
 	$item_list[] = new Item("mrBean.gif", "", 4.6);
 	$item_list[] = new Item("tinExoStisi.gif", "Την έστησα.", 1.4);
 	$item_list[] = new Item("mazi.gif", "Πάμε μαζί;", 3.8);
@@ -206,7 +205,7 @@ function print_panel() {
 	$item_list[] = new Item("efkoloItan.gif", "Όχι να το παινευτώ, αλλά είμαι μάστορας.", 2.0);
 	$item_list[] = new Item("dikeoma.gif", "Δικαίωμα…");
 	$item_list[] = new Item("skeptikoArkoudi.gif");
-	$item_list[] = new Item("vadinSkifto.gif", "Δύσκολο…", 2.6);
+	$item_list[] = new Item("vadinSkifto.gif", "Δύσκολο…", 2.0);
 	$item_list[] = new Item("denTsimpao.gif", "Δεν τσιμπάω ρε!", 2.1);
 	$item_list[] = new Item("elaStoThio.gif", "Έλα στο θείο!", 3.2);
 	$item_list[] = new Item("helloBird.gif", "", "", "kanarini");
@@ -217,7 +216,6 @@ function print_panel() {
 	$item_list[] = new Item("tiSasExo.gif", "Τι σας έχω, τι σας έχω!");
 	$item_list[] = new Item("kremastika.gif", "Κρεμάστηκα τώρα!", 3.3);
 	$item_list[] = new Item("xipna.gif", "Ξύπνα, ρεεεε!", 5.1, "bell:1000");
-	$item_list[] = new Item("bartAss.gif", "Kiss my ass!");
 	$item_list[] = new Item("mafalda.gif", "Παίξτο ανέμελα…");
 	$item_list[] = new Item("toraTiKano.gif", "Τώρα;", 4.0);
 	$item_list[] = new Item("oniropoloEmoticon.gif", "Λες η τύχη να είναι μαζί μου;");
@@ -255,6 +253,7 @@ function print_panel() {
 	$item_list[] = new Item("tiNaEkana.gif", "Τι να έκανα, ρε συ;", 2.0);
 	$item_list[] = new Item("tiNaSouPoTora.gif", "Τι να σου πω τώρα;", 2.0);
 	$item_list[] = new Item("etsi.gif", "Έεεεετσι!");
+	$item_list[] = new Item("prosexe.gif");
 	$item_list[] = new Item("epikindino.gif", "Επικίνδυνο…");
 	$item_list[] = new Item("daffyMalakas.gif", "Τρόμπας είσαι;", 4.4);
 	$item_list[] = new Item("toblerone.jpg", "Τον πλέρωνε…");
@@ -266,7 +265,6 @@ function print_panel() {
 	$item_list[] = new Item("tonIpiame.gif", "Τον ήπιαμε!", 3.2);
 	$item_list[] = new Item("pipaKaroto.gif", "", 3.3);
 	$item_list[] = new Item("pipa.gif", "Πίπα, όπως λέμε Φελίπα…");
-	$item_list[] = new Item("fuckYou.gif");
 	$item_list[] = new Item("dontiToulipa.gif");
 	$item_list[] = new Item("klamaEmoticon.gif");
 	$item_list[] = new Item("klapsEmoticon.gif", "Κλαψ…");
@@ -275,6 +273,7 @@ function print_panel() {
 	$item_list[] = new Item("kokinizo.gif");
 	$item_list[] = new Item("meKitasPouSeKitao.gif", "Μήπως βγω έτσι;");
 	$item_list[] = new Item("palamakiaEmoticon.gif", "Παραδέχομαι…");
+	$item_list[] = new Item("kino.gif");
 	$item_list[] = new Item("bravoEmoticon.gif");
 	$item_list[] = new Item("gelioEmoticon.gif", "Πλάκα έχετε…", 1.4);
 	$item_list[] = new Item("lolEmoticon.gif");
@@ -313,6 +312,8 @@ function print_panel() {
 	$item_list[] = new Item("sfiriEmoticon.gif", "Θα το σπάσω!!!");
 	$item_list[] = new Item("parathiro.gif", "", "", "tzamia:1500");
 	$item_list[] = new Item("astrapesEmoticon.gif", "@#!%@^&#*!@");
+	$item_list[] = new Item("fuckYou.gif");
+	$item_list[] = new Item("bartAss.gif", "Kiss my ass!");
 	$item_list[] = new Item("miGamiso.jpg", "", 2.0);
 	$item_list[] = new Item("kokiniKarta.jpg", "", 3.0, "sfirixtra");
 	$item_list[] = new Item("binelikia.gif", "Δεν αντέχω τα μπινελίκια!");
