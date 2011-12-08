@@ -243,6 +243,7 @@ background-color: magenta;
 	font-size: 0.76cm;
 	font-weight: bold;
 	text-align: center;
+	white-space: nowrap;
 	overflow: hidden;
 }
 
