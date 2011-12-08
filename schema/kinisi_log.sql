@@ -27,4 +27,4 @@ CREATE TABLE `kinisi_log` (
 	) REFERENCES `dianomi_log` (
 		`kodikos`
 	) ON DELETE CASCADE
-) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας κρατημένων κινήσεων'
+) ENGINE=InnoDB CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8 COMMENT='Πίνακας κρατημένων κινήσεων'

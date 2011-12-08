@@ -30,4 +30,4 @@ CREATE TABLE `trapezi_log` (
 	KEY (
 		`pektis3`
 	) USING BTREE
-) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας κρατημένων τραπεζιών'
+) ENGINE=InnoDB CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8 COMMENT='Πίνακας κρατημένων τραπεζιών'
