@@ -304,6 +304,8 @@ function print_panel() {
 	$item_list[] = new Item("migaki.gif", "Μια μύγα!");
 	$item_list[] = new Item("notaraTaTheli.jpg", "Τα θέλει κι εσένα ο οργανισμός σου!", "",
 		"http://youtu.be/HMguQXzgcd0");
+	$item_list[] = new Item("notaraSodoma.jpg", "Εδώ μέσα γίνονται Σόδομα και Γόμορα!", "",
+		"http://youtu.be/-wYfPfJshSM");
 	$item_list[] = new Item("chuckNoris.jpg", "Ούτε εγώ δεν τις βγάζω αυτές!");
 	$item_list[] = new Item("vegosPelates.jpg", "Πελάτες μου!", "",
 		"http://youtu.be/0iFeP8zlmFU");
