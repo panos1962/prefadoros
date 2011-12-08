@@ -17,4 +17,4 @@ CREATE TABLE `sinedria_log` (
 	KEY (
 		`pektis`
 	) USING BTREE
-) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας ενημερώσεων'
+) ENGINE=InnoDB CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8 COMMENT='Πίνακας ενημερώσεων'

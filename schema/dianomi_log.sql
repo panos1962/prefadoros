@@ -19,4 +19,4 @@ CREATE TABLE `dianomi_log` (
 	) REFERENCES `trapezi_log` (
 		`kodikos`
 	) ON DELETE CASCADE
-) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας κρατημένων διανομών'
+) ENGINE=InnoDB CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8 COMMENT='Πίνακας κρατημένων διανομών'
