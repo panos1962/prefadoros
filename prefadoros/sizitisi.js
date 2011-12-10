@@ -290,7 +290,7 @@ var Sizitisi = new function() {
 		//
 		// είναι η εικόνα μας αρκετά στενότερη.
 
-		if (s.match(/^https?:\/\/.*\.(jpe?g|png|gif)[-+=]*$/i)) {
+		if (s.match(/^https?:\/\/.*\.(jpe?g|png|gif|bmp)[-+=]*$/i)) {
 			var url = s.replace(/[-+=]*$/, '');
 			var w = dfltw;
 			if (url != s) {
