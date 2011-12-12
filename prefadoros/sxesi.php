@@ -220,6 +220,9 @@ class Sxesi {
 
 		$tora_ts = time();
 		$last_hour_ts = $tora_ts - ($tora_ts % 3600);
+		if ($tora_ts - $last_hour_ts < 300) {
+			$last_hour_ts -= 3600;
+		}
 		$query = "SELECT `login`, `onoma`, UNIX_TIMESTAMP(`poll`) FROM `pektis` ";
 		if (isset($sinedria->peknpat)) {
 			$query .= "WHERE (`onoma` LIKE '" . $sinedria->peknpat . "') OR " .

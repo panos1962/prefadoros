@@ -293,6 +293,9 @@ class Prefadoros {
 
 		$now_ts = time();
 		$last_hour_ts = $now_ts - ($now_ts % 3600);
+		if ($now_ts - $last_hour_ts < 300) {
+			$last_hour_ts -= 3600;
+		}
 		$query = "SELECT `login`, UNIX_TIMESTAMP(`poll`) FROM `pektis` " .
 			"WHERE UNIX_TIMESTAMP(`poll`) > " . $last_hour_ts;
 		$result = $globals->sql_query($query);
