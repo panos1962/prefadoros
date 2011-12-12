@@ -126,7 +126,6 @@ class Kafenio {
 		global $globals;
 		static $trapezi = NULL;
 		static $etrexe_ts = 0.0;
-		static $stmnt = NULL;
 
 		$tora_ts = microtime(TRUE);
 		if (($tora_ts - $etrexe_ts) <= 1.5) {
@@ -141,23 +140,15 @@ class Kafenio {
 		$trapezi = array();
 		$energos = Prefadoros::energos_pektis();
 
-		if ($stmnt == NULL) {
-			$query = Trapezi::select_clause("SQL_NO_CACHE") . "(`telos` IS NULL) " .
-				"AND ((UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
-				XRONOS_PEKTIS_IDLE_MAX . ") ORDER BY `kodikos` DESC"; 
-			$stmnt = $globals->db->prepare($query);
-			if (!$stmnt) {
-				$globals->klise_fige($errmsg . $query . ": failed to prepare");
+		$query = "SELECT *, UNIX_TIMESTAMP(`poll`) AS `poll` " .
+			"WHERE `telos` IS NULL ORDER BY `kodikos` DESC"; 
+		$result = $globals->sql_query($query);
+		$now = time();
+		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+			if (($now - $row['poll']) >= XRONOS_PEKTIS_IDLE_MAX) {
+				continue;
 			}
-		}
 
-		$stmnt->execute();
-		$row = array();
-		$stmnt->bind_result($row['kodikos'], $row['pektis1'], $row['apodoxi1'],
-			$row['pektis2'], $row['apodoxi2'], $row['pektis3'], $row['apodoxi3'],
-			$row['kasa'], $row['pistosi'], $row['pasopasopaso'], $row['asoi'],
-			$row['idiotikotita'], $row['prosvasi']);
-		while ($stmnt->fetch()) {
 			$t = new Trapezi(FALSE);
 			$t->set_from_dbrow($row);
 			if ($t->set_energos_pektis($energos)) {
