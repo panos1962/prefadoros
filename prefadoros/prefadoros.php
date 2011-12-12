@@ -276,7 +276,6 @@ class Prefadoros {
 
 	public static function energos_pektis() {
 		global $globals;
-		static $stmnt = NULL;
 		static $etrexe_ts = 0.0;
 		global $kiklos;
 		static $etrexe_kiklos = -1;
@@ -292,22 +291,17 @@ class Prefadoros {
 			return($energos);
 		}
 
-		if ($stmnt == NULL) {
-			$query = "SELECT SQL_NO_CACHE `login` FROM `pektis` " .
-				"WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) < " .
-				XRONOS_PEKTIS_IDLE_MAX;
-			$stmnt = $globals->db->prepare($query);
-			if (!$stmnt) {
-				$globals->klise_fige($errmsg . $query . ": failed to prepare");
-			}
-		}
-
-		$stmnt->execute();
-		$stmnt->bind_result($login);
+		$now_ts = time();
+		$last_hour_ts = $now_ts - ($now_ts % 3600);
+		$query = "SELECT `login`, UNIX_TIMESTAMP(`poll`) FROM `pektis` " .
+			"WHERE UNIX_TIMESTAMP(`poll`) > " . $last_hour_ts;
+		$result = $globals->sql_query($query);
 
 		$energos = array();
-		while ($stmnt->fetch()) {
-			$energos[$login] = TRUE;
+		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+			if (($now_ts - $row[1]) <= XRONOS_PEKTIS_IDLE_MAX) {
+				$energos[$row[0]] = TRUE;
+			}
 		}
 
 		$etrexe_ts = microtime(TRUE);
