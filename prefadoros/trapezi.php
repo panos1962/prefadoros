@@ -140,7 +140,7 @@ class Kafenio {
 		$trapezi = array();
 		$energos = Prefadoros::energos_pektis();
 
-		$query = "SELECT *, UNIX_TIMESTAMP(`poll`) AS `poll` " .
+		$query = "SELECT *, UNIX_TIMESTAMP(`poll`) AS `poll` FROM `trapezi` " .
 			"WHERE `telos` IS NULL ORDER BY `kodikos` DESC"; 
 		$result = $globals->sql_query($query);
 		$now = time();
