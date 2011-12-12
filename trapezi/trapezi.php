@@ -26,13 +26,6 @@ class Trapezi {
 
 	public $error;
 
-	public static function select_clause() {
-		return("SELECT `kodikos`, `pektis1`, `apodoxi1`, " .
-			"`pektis2`, `apodoxi2`, `pektis3`, `apodoxi3`, " .
-			"`kasa`, `pistosi`, `pasopasopaso`, `asoi`, `idiotikotita`, " .
-			"`prosvasi`, `poll` FROM `trapezi` WHERE ");
-	}
-
 	public function __construct($trexon = TRUE) {
 		global $globals;
 		$errmsg = "Trapezi::construct(): ";
@@ -79,10 +72,8 @@ class Trapezi {
 			$this->theatis = 1;
 		}
 
-		$row = array();
-
 		if (isset($trapezi)) {
-			$query = self::select_clause() . "`kodikos` = " . $trapezi;
+			$query = "SELECT * FROM `trapezi` WHERE `kodikos` = " . $trapezi;
 			$result = $globals->sql_query($query);
 			while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				@mysqli_free_result($result);
@@ -91,10 +82,13 @@ class Trapezi {
 			}
 		}
 
-		$query = self::select_clause() . "((`pektis1` = " . $globals->pektis->slogin .
-			") OR (`pektis2` = " . $globals->pektis->slogin .
-			") OR (`pektis3` = " . $globals->pektis->slogin .
-			")) AND (`telos` IS NULL) ORDER BY `kodikos` DESC LIMIT 1";
+		// Δεν εντοπίστηκε τραπέζι στο οποίο ο παίκτης να είναι θεατής.
+		// Εντοπίζουμε το νεότερο τραπέζι στο οποίο συμμετέχει ως παίκτης.
+		$query = "SELECT * FROM `trapezi` WHERE (" .
+			"(`pektis1` = " . $globals->pektis->slogin . ") OR " .
+			"(`pektis2` = " . $globals->pektis->slogin . ") OR " .
+			"(`pektis3` = " . $globals->pektis->slogin . ")" .
+			") AND (`telos` IS NULL) ORDER BY `kodikos` DESC LIMIT 1";
 		$result = $globals->sql_query($query);
 		$not_found = TRUE;
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {

@@ -7,17 +7,18 @@ Page::data();
 set_globals();
 
 Prefadoros::pektis_check();
-$slogin = "'" . $globals->asfales($globals->pektis->login) . "'";
 if (Prefadoros::set_trapezi()) {
 	$globals->klise_fige('Πρέπει να εξέλθετε πρώτα από το τρέχον τραπέζι');
 }
 
 @mysqli_autocommit($globals->db, FALSE);
 
-$query = "DELETE FROM `theatis` WHERE `pektis` = " . $slogin;
+$query = "DELETE FROM `theatis` WHERE `pektis` = " . $globals->pektis->slogin;
 $globals->sql_query($query);
 
-$query = "INSERT INTO `trapezi` (`pektis1`) VALUES (" . $slogin . ")";
+
+$query = "INSERT INTO `trapezi` (`pektis1`, `poll`) VALUES (" .
+	$globals->pektis->slogin . ", NOW())";
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	@mysqli_rollback($globals->db);
@@ -25,8 +26,8 @@ if (mysqli_affected_rows($globals->db) != 1) {
 }
 
 $trapezi = @mysqli_insert_id($globals->db);
-$query = "INSERT INTO `prosklisi` (`pios`, `pion`, `trapezi`) " .
-	"VALUES (" . $slogin . ", " . $slogin . ", " . $trapezi . ")";
+$query = "INSERT INTO `prosklisi` (`pios`, `pion`, `trapezi`) VALUES (" .
+	$globals->pektis->slogin . ", " . $globals->pektis->slogin . ", " . $trapezi . ")";
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	@mysqli_rollback($globals->db);
