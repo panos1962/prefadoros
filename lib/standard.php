@@ -10,7 +10,7 @@ define('XRONOS_DEDOMENA_TIC3', 1500000);
 define('XRONOS_DEDOMENA_TIC4', 2500000);
 
 // ελάχιστο διάστημα μεταξύ polling timestamps (seconds)
-define('XRONOS_POLL_GRANULE', 10);
+define('XRONOS_POLL_GRANULE', 20);
 
 // μέγιστο διάστημα polling μέχρι να θεωρηθεί ο παίκτης offline σε (seconds)
 define('XRONOS_PEKTIS_IDLE_MAX', (XRONOS_DEDOMENA_MAX + XRONOS_POLL_GRANULE + 10));

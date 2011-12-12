@@ -94,12 +94,13 @@ class Pektis {
 		$now = time();
 
 		if (($now - $this->poll) > XRONOS_POLL_GRANULE) {
-			$query = "UPDATE `pektis` SET `poll` = NOW() " .
-				"WHERE `login` = " . $this->slogin;
+			$now_ts = $now - ($now % XRONOS_POLL_GRANULE) + XRONOS_POLL_GRANULE;
+			$query = "UPDATE `pektis` SET `poll` = FROM_UNIXTIME(" . $now_ts .
+				") WHERE `login` = " . $this->slogin;
 			$globals->sql_query($query);
 			if ($globals->is_trapezi()) {
-				$query = "UPDATE `trapezi` SET `poll` = NOW() " .
-					"WHERE `kodikos` = " . $globals->trapezi->kodikos;
+				$query = "UPDATE `trapezi` SET `poll` = FROM_UNIXTIME(" . $now_ts .
+					") WHERE `kodikos` = " . $globals->trapezi->kodikos;
 				$globals->sql_query($query);
 			}
 		}
