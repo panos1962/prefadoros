@@ -204,9 +204,6 @@ class Sxesi {
 	public static function process() {
 		global $globals;
 		global $sinedria;
-		static $stmnt = NULL;
-		static $np = NULL;
-		static $ol = NULL;
 		$errmsg = "Sxesi::process(): ";
 
 		$available = FALSE;
@@ -221,50 +218,21 @@ class Sxesi {
 			break;
 		}
 
-		// Θα τσεκάρουμε αν χρειάζεται έτσι κι αλλιώς να ξαναπροετοιμαστεί
-		// το query. Αν έχει αλλάξει κάτι από τα δεδομένα που καθορίζουν
-		// το query, τότε θα πρέπει να ξαναγίνει η προετοιμασία.
-
+		$tora_ts = time();
+		$last_hour_ts = $tora_ts - ($tora_ts % 3600);
+		$query = "SELECT `login`, `onoma`, UNIX_TIMESTAMP(`poll`) FROM `pektis` ";
 		if (isset($sinedria->peknpat)) {
-			if (!isset($np)) {
-				$stmnt = NULL;
-			}
-			elseif ($sinedria->peknpat != $np) {
-				$stmnt = NULL;
-			}
+			$query .= "WHERE (`onoma` LIKE '" . $sinedria->peknpat . "') OR " .
+				"(`login` LIKE '" . $sinedria->peknpat . "')";
 		}
-		elseif (isset($np)) {
-			$stmnt = NULL;
+		elseif ($online) {
+			$query .= "WHERE UNIX_TIMESTAMP(`poll`) > " . $last_hour_ts;
 		}
-
-		if ((!isset($ol)) || ($online != $ol)) {
-			$stmnt = NULL;
+		else {
+			$query .= "WHERE (`login` IN (SELECT `sxetizomenos` FROM `sxesi` " .
+				"WHERE `pektis` = " . $globals->pektis->slogin . "))";
 		}
-
-		if ($stmnt == NULL) {
-			$np = NULL;
-			$ol = $online;
-			$query = "SELECT SQL_NO_CACHE `login`, `onoma`, " .
-				"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` FROM `pektis` ";
-			if (isset($sinedria->peknpat)) {
-				$np = $sinedria->peknpat;
-				$query .= "WHERE (`onoma` LIKE '" . $sinedria->peknpat . "') OR " .
-					"(`login` LIKE '" . $sinedria->peknpat . "') ";
-			}
-			elseif ($online) {
-				$query .= "WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) <= " .
-					XRONOS_PEKTIS_IDLE_MAX . " ";
-			}
-			else {
-				$query .= "WHERE (`login` IN (SELECT `sxetizomenos` FROM `sxesi` " .
-					"WHERE `pektis` = " . $globals->pektis->slogin . "))";
-			}
-			$query .= "ORDER BY `login`";
-			$stmnt = $globals->db->prepare($query);
-			if (!$stmnt) {
-				die($errmsg . $query . ": failed to prepare");
-			}
-		}
+		$query .= " ORDER BY `login`";
 
 		// Δημιουργούμε λίστα όλων των παικτών που τώρα παίζουν, ώστε να μπορούμε
 		// να μαρκάρουμε τους παίζοντες παίκτες.
@@ -283,9 +251,11 @@ class Sxesi {
 		// μετά τους ασχέτους, και, τέλος, τους αποκλεισμένους.
 		$sxesi1 = array();
 
-		$stmnt->execute();
-		$stmnt->bind_result($login, $onoma, $idle);
-		while ($stmnt->fetch()) {
+		$result = $globals->sql_query($query);
+		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+			$login = $row[0];
+			$onoma = $row[1];
+			$idle = $tora_ts - $row[2];
 			if ($online && ($idle > XRONOS_PEKTIS_IDLE_MAX)) { continue; }
 			if ($available && array_key_exists($login, $pezon)) { continue; }
 			$s = new Sxesi;
