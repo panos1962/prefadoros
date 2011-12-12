@@ -46,8 +46,7 @@ class Pektis {
 		unset($this->sxesidirty);
 		unset($this->error);
 
-		$query = "SELECT SQL_NO_CACHE *, UNIX_TIMESTAMP(`poll`) AS `poll`, " .
-			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) AS `idle` " .
+		$query = "SELECT *, UNIX_TIMESTAMP(`poll`) AS `poll` " .
 			"FROM `pektis` WHERE `login` = '" . $globals->asfales($login) . "'";
 		if (isset($password)) {
 			$query .= " AND `password` = '" . $globals->asfales($password) . "'";
@@ -72,7 +71,7 @@ class Pektis {
 			$this->enalagi = ($row['enalagi'] == 'YES');
 			$this->paraskinio = $row['paraskinio'];
 			$this->poll = $row['poll'];
-			$this->idle = (int)($row['idle']);
+			$this->idle = (int)(time() - $row['poll']);
 			$this->superuser = ($row['superuser'] == 'YES');
 			$this->proxy = ($row['proxy'] == 'YES' ? 1 : 0);
 			$this->melos = ($row['melos'] == 'YES' ? 1 : 0);
@@ -92,14 +91,17 @@ class Pektis {
 	public function poll_update($sinedria, $id) {
 		global $globals;
 
-		$query = "UPDATE `pektis` SET `poll` = NOW() WHERE `login` = " .
-			"'" . $this->login . "'";
-		$globals->sql_query($query);
+		$now = time();
 
-		if ($globals->is_trapezi()) {
-			$query = "UPDATE `trapezi` SET `poll` = NOW() WHERE `kodikos` = " .
-				$globals->trapezi->kodikos;
-			@mysqli_query($globals->db, $query);
+		if (($now - $this->poll) > XRONOS_POLL_GRANULE) {
+			$query = "UPDATE `pektis` SET `poll` = NOW() " .
+				"WHERE `login` = " . $this->slogin;
+			$globals->sql_query($query);
+			if ($globals->is_trapezi()) {
+				$query = "UPDATE `trapezi` SET `poll` = NOW() " .
+					"WHERE `kodikos` = " . $globals->trapezi->kodikos;
+				$globals->sql_query($query);
+			}
 		}
 
 		$query = "UPDATE `sinedria` SET `enimerosi` = " . $id .
