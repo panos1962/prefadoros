@@ -26,17 +26,15 @@ class Trapezi {
 
 	public $error;
 
-	public static function select_clause($no_cache = '') {
-		return("SELECT " . $no_cache . " `kodikos`, `pektis1`, " .
-			"`apodoxi1`, `pektis2`, `apodoxi2`, `pektis3`, `apodoxi3`, " .
+	public static function select_clause() {
+		return("SELECT `kodikos`, `pektis1`, `apodoxi1`, " .
+			"`pektis2`, `apodoxi2`, `pektis3`, `apodoxi3`, " .
 			"`kasa`, `pistosi`, `pasopasopaso`, `asoi`, `idiotikotita`, " .
-			"`prosvasi` FROM `trapezi` WHERE ");
+			"`prosvasi`, `poll` FROM `trapezi` WHERE ");
 	}
 
 	public function __construct($trexon = TRUE) {
 		global $globals;
-		static $stmnt1 = NULL;
-		static $stmnt2 = NULL;
 		$errmsg = "Trapezi::construct(): ";
 
 		unset($this->kodikos);
@@ -84,50 +82,25 @@ class Trapezi {
 		$row = array();
 
 		if (isset($trapezi)) {
-			if ($stmnt1 == NULL) {
-				$query = self::select_clause() . "`kodikos` = ?";
-				$stmnt1 = $globals->db->prepare($query);
-				if (!$stmnt1) {
-					$globals->klise_fige($errmsg . $query . ": failed to prepare");
-				}
-			}
-
-			$stmnt1->bind_param("i", $trapezi);
-			$stmnt1->execute();
-			$stmnt1->bind_result($row['kodikos'], $row['pektis1'], $row['apodoxi1'],
-				$row['pektis2'], $row['apodoxi2'], $row['pektis3'], $row['apodoxi3'],
-				$row['kasa'], $row['pistosi'], $row['pasopasopaso'], $row['asoi'],
-				$row['idiotikotita'], $row['prosvasi']);
-			$found = FALSE;
-			while ($stmnt1->fetch()) {
-				$found = TRUE;
-			}
-			if ($found) {
+			$query = self::select_clause() . "`kodikos` = " . $trapezi;
+			$result = $globals->sql_query($query);
+			while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+				@mysqli_free_result($result);
 				$this->set_from_dbrow($row);
 				return;
 			}
 		}
 
-		if ($stmnt2 == NULL) {
-			$query = self::select_clause() . "((`pektis1` = ?) OR (`pektis2` = ?) " .
-				"OR (`pektis3` = ?)) AND (`telos` IS NULL) " .
-				"ORDER BY `kodikos` DESC LIMIT 1";
-			$stmnt2 = $globals->db->prepare($query);
-			if (!$stmnt2) {
-				$globals->klise_fige($errmsg . $query . ": failed to prepare");
-			}
-		}
-
-		$stmnt2->bind_param("sss", $globals->pektis->login,
-			$globals->pektis->login, $globals->pektis->login);
-		$stmnt2->execute();
-		$stmnt2->bind_result($row['kodikos'], $row['pektis1'], $row['apodoxi1'],
-			$row['pektis2'], $row['apodoxi2'], $row['pektis3'], $row['apodoxi3'],
-			$row['kasa'], $row['pistosi'], $row['pasopasopaso'], $row['asoi'],
-			$row['idiotikotita'], $row['prosvasi']);
+		$query = self::select_clause() . "((`pektis1` = " . $globals->pektis->slogin .
+			") OR (`pektis2` = " . $globals->pektis->slogin .
+			") OR (`pektis3` = " . $globals->pektis->slogin .
+			")) AND (`telos` IS NULL) ORDER BY `kodikos` DESC LIMIT 1";
+		$result = $globals->sql_query($query);
 		$not_found = TRUE;
-		while ($stmnt2->fetch()) {
+		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+			@mysqli_free_result($result);
 			$not_found = FALSE;
+			break;
 		}
 
 		if ($not_found) {
