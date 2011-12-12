@@ -13,7 +13,7 @@ define('XRONOS_DEDOMENA_TIC4', 2500000);
 define('XRONOS_POLL_GRANULE', 20);
 
 // μέγιστο διάστημα polling μέχρι να θεωρηθεί ο παίκτης offline σε (seconds)
-define('XRONOS_PEKTIS_IDLE_MAX', (XRONOS_DEDOMENA_MAX + XRONOS_POLL_GRANULE + 10));
+define('XRONOS_PEKTIS_IDLE_MAX', (XRONOS_DEDOMENA_MAX + XRONOS_POLL_GRANULE + XRONOS_POLL_GRANULE));
 
 // μέγιστο επιτρεπτό διάστημα μεταξύ απαντήσεων από τον server (milliseconds)
 define('XRONOS_NO_ANSWER_MAX', ((XRONOS_DEDOMENA_MAX + 5) * 1000));
