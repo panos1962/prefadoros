@@ -421,6 +421,10 @@ var Sxesi = new function() {
 		if (isSet(x)) {
 			x.value = '';
 			peknpatPrev = '';
+			if (isSet(x.style)) {
+				x.style.backgroundImage = 'url(' +globals.server +
+					'images/sxesiPrompt.png)';
+			}
 		}
 
 		var x = getelid('pekstat');
