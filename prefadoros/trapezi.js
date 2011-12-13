@@ -166,9 +166,11 @@ var Trapezi = new function() {
 
 	this.loginMatch = function(login, peknpat) {
 		if (notSet(peknpat)) { return false; }
-		if (login == peknpat) { return true; }
-		if (peknpat.length < 3) { return false; }
-		return login.match(new RegExp(peknpat, 'i'));
+		var l = login.toUpperCase();
+		var p = peknpat.toUpperCase();
+		if (l == p) { return true; }
+		if (p.length < 3) { return false; }
+		return l.match(p);
 	};
 
 	this.trapeziHTML = function(t, peknpat) {
