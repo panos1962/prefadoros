@@ -440,7 +440,7 @@ var Sxesi = new function() {
 		ico.src = globals.server + 'images/working.gif';
 		var req = new Request('sxesi/peknpat');
 		req.xhr.onreadystatechange = function() {
-			peknpatCheck(req, ico);
+			peknpatCheck(req, ico, pat);
 		};
 
 		params = 'sinedria=' + sinedria.kodikos;
@@ -451,7 +451,7 @@ var Sxesi = new function() {
 		req.send(params);
 	};
 
-	function peknpatCheck(req, ico) {
+	function peknpatCheck(req, ico, pat) {
 		if (req.xhr.readyState != 4) { return; }
 		var rsp = req.getResponse();
 		if (rsp) {
@@ -466,6 +466,9 @@ var Sxesi = new function() {
 		else {
 			try { ico.src = globals.server + 'images/sxetikos.png'; }
 				catch(e) {};
+			if (pat != peknpatPrev) {
+				Trapezi.updateHTML();
+			}
 		}
 		return false;
 	};
