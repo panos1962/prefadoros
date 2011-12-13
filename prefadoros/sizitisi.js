@@ -639,6 +639,11 @@ var Sizitisi = new function() {
 				'images/controlPanel/talk.png" class="pssIcon" ' +
 				'title="Αποστολή σχολίου" alt="" ' +
 				'onclick="Sizitisi.apostoli(null, this);" />';
+			html += '<img id="sxolioErase" src="' + globals.server +
+				'images/skoupaki.png" class="pssIcon" ' +
+				'style="margin-right: 0px;" ' +
+				'title="Καθαρισμός πεδίου" alt="" ' +
+				'onclick="Sizitisi.resetSxolioInput();" />';
 		}
 		else {
 			s.disabled = true;
@@ -647,6 +652,7 @@ var Sizitisi = new function() {
 			(notTheatis() || isProsklisi())) {
 			html += '<img id="sxolioDiagrafi" src="' + globals.server +
 				'images/Xred.png" class="pssIcon" ' +
+				'style="margin-right: 0px;" ' +
 				'title="Διαγραφή σχολίων" alt="" ' +
 				'onclick="Sizitisi.diagrafi(this);" />';
 		}

@@ -161,7 +161,7 @@ function sxesi_area() {
 	?>
 	<div class="pssHeaderArea">
 		<input id="peknpat" class="pssInput" type="text" value="" maxlength="256"
-			size="20" onkeyup="Sxesi.patchange(event, this);"
+			size="18" onkeyup="Sxesi.patchange(event, this);"
 			style="background-image: url('<?php print $globals->server;
 				?>images/sxesiPrompt.png');" />
 		<img id="sxetikosIcon" src="<?php print $globals->server; ?>images/sxetikos.png"
@@ -190,7 +190,7 @@ function sizitisi_area() {
 	?>
 	<div class="pssHeaderArea">
 		<input id="sxolioInput" class="pssInput" type="text" value="" maxlength="4096"
-			size="20" style="background-image: url('<?php
+			size="18" style="background-image: url('<?php
 			print $globals->server; ?>images/sizitisiPrompt.png');"
 			onkeyup="Sizitisi.keyCheck(event, this);" />
 		<input id="sxolioInputHidden" type="hidden" value="" maxlength="4096" size="0" />
