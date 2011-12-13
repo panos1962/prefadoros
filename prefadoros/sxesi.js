@@ -364,10 +364,6 @@ var Sxesi = new function() {
 	var peknpatPrev = '';
 
 	this.patchange = function(e, fld) {
-		if (isSet(searchPektisTimer)) {
-			clearTimeout(searchPektisTimer);
-		}
-
 		fld.style.backgroundImage = '';
 		if (window.event) { var key = e.keyCode; }
 		else if (e.which) { key = e.which; }
@@ -390,6 +386,7 @@ var Sxesi = new function() {
 
 		if (fld.value == peknpatPrev) { return; }
 		peknpatPrev = fld.value;
+		Trapezi.updateHTML();
 
 		switch (fld.value.length) {
 		case 0:		var delay = 10; break;
@@ -397,6 +394,11 @@ var Sxesi = new function() {
 		case 2:		delay = 500; break;
 		case 3:		delay = 300; break;
 		default:	delay = 200; break;
+		}
+
+		if (isSet(searchPektisTimer)) {
+			clearTimeout(searchPektisTimer);
+			searchPektisTimer = null;
 		}
 
 		searchPektisTimer = setTimeout(function() {
@@ -408,6 +410,7 @@ var Sxesi = new function() {
 		if (isSet(window.Sizitisi)) { Sizitisi.sxolioFocus(); }
 		if (isSet(searchPektisTimer)) {
 			clearTimeout(searchPektisTimer);
+			searchPektisTimer = null;
 		}
 
 		var x = getelid('peknpat');
