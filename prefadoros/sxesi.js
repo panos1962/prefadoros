@@ -387,9 +387,11 @@ var Sxesi = new function() {
 		if (fld.value == peknpatPrev) { return; }
 		peknpatPrev = fld.value;
 		Trapezi.updateHTML();
-		var x = getelid('prefadoros');
-		if (x.innerHTML != Trapezi.HTML) {
-			x.innerHTML = Trapezi.HTML;
+		if (Prefadoros.show == 'kafenio') {
+			var x = getelid('prefadoros');
+			if (x.innerHTML != Trapezi.HTML) {
+				x.innerHTML = Trapezi.HTML;
+			}
 		}
 
 		switch (fld.value.length) {
