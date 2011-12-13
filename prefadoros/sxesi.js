@@ -364,7 +364,7 @@ var Sxesi = new function() {
 	var peknpatPrev = '';
 
 	this.patchange = function(e, fld) {
-		if (searchPektisTimer) {
+		if (isSet(searchPektisTimer)) {
 			clearTimeout(searchPektisTimer);
 		}
 
@@ -374,30 +374,22 @@ var Sxesi = new function() {
 		else { key = false; }
 
 		if (key) {
-			if (fld.value == '') {
-				fld.style.backgroundImage = globals.server +
-					'images/sxesiPrompt.png';
-			}
-			else {
-				fld.style.backgroundImage = '';
-			}
-
 			switch(key) {
 			case 27:	// Esc key
 				fld.value = '';
 				break;
 			}
+			if (fld.value == '') {
+				fld.style.backgroundImage = 'url(' +globals.server +
+					'images/sxesiPrompt.png)';
+			}
+			else {
+				fld.style.backgroundImage = '';
+			}
 		}
 
-		//fld.value = fld.value.trim();
-		if ((fld.value == '') && (fld.value == peknpatPrev)) { return; }
+		if (fld.value == peknpatPrev) { return; }
 		peknpatPrev = fld.value;
-
-		var wk = globals.server + 'images/working.gif';
-		var si = getelid('sxetikosIcon');
-		if (isSet(si) && (si.src != wk)) {
-			si.src = globals.server + 'images/working.gif';
-		}
 
 		switch (fld.value.length) {
 		case 0:		var delay = 10; break;
@@ -414,7 +406,7 @@ var Sxesi = new function() {
 
 	this.sxetizomenoi = function(img) {
 		if (isSet(window.Sizitisi)) { Sizitisi.sxolioFocus(); }
-		if (searchPektisTimer) {
+		if (isSet(searchPektisTimer)) {
 			clearTimeout(searchPektisTimer);
 		}
 
@@ -440,7 +432,7 @@ var Sxesi = new function() {
 		ico.src = globals.server + 'images/working.gif';
 		var req = new Request('sxesi/peknpat');
 		req.xhr.onreadystatechange = function() {
-			peknpatCheck(req, ico, pat);
+			peknpatCheck(req, ico);
 		};
 
 		params = 'sinedria=' + sinedria.kodikos;
@@ -451,7 +443,7 @@ var Sxesi = new function() {
 		req.send(params);
 	};
 
-	function peknpatCheck(req, ico, pat) {
+	function peknpatCheck(req, ico) {
 		if (req.xhr.readyState != 4) { return; }
 		var rsp = req.getResponse();
 		if (rsp) {
@@ -466,9 +458,6 @@ var Sxesi = new function() {
 		else {
 			try { ico.src = globals.server + 'images/sxetikos.png'; }
 				catch(e) {};
-			if (pat != peknpatPrev) {
-				Trapezi.updateHTML();
-			}
 		}
 		return false;
 	};
