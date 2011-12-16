@@ -140,7 +140,7 @@ setTimeout(function() {
 	δηλαδή στην κεντρική στήλη εργαλείων στην κορυφή της οποίας
 	υπάρχει το εικονίδιο εναλλαγής
 	<span class="nobr">εργαλείων (<img src="<?php
-		print $globals->server; ?>images/controlPanel/4balls.png"
+		print $globals->server; ?>images/controlPanel/4Balls.png"
 		class="helpIconInline" alt = "" />),</span>
 	με το οποίο εμφανίζονται διαδοχικά όλα τα διαθέσιμα εργαλεία
 	που παρέχονται σε κάθε φάση του παιχνιδιού.
