@@ -137,9 +137,9 @@ var Astra = new function() {
 			'title="Κλικ για εμφάνιση/απόκρυψη διανομών" ' +
 			'onmouseover="Astra.epilogiPartidas(this);" ' +
 			'onmouseout="Astra.apoepilogiPartidas(this);">';
-		html += '<div class="astraPartidaKodikos';
-		if (isSet(partida.a)) { html += ' astraKodikosActive'; }
-		html += '">' + partida.t + '</div>'
+		html += '<div class="astraPartidaKodikos">';
+		if (isSet(partida.a)) { html += '*'; }
+		html += partida.t + '</div>'
 		html += Astra.pektisHTML(partida.p1, partida.k1);
 		html += Astra.pektisHTML(partida.p2, partida.k2);
 		html += Astra.pektisHTML(partida.p3, partida.k3);
