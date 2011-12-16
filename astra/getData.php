@@ -188,8 +188,11 @@ function partida_json($row, &$koma, $log = '') {
 	}
 
 	doune_lavin($row['kodikos'], $row['kasa'], $log, $kapikia);
-	print $koma . "{t:" . $row['kodikos'] .
-		",p1:'" . $row['pektis1'] .
+	print $koma . "{t:" . $row['kodikos'];
+	if ($log == '') {
+		print ",a: 1";
+	}
+	print ",p1:'" . $row['pektis1'] .
 		"',k1:" . $kapikia[1] .
 		",p2:'" . $row['pektis2'] .
 		"',k2:" . $kapikia[2] .
