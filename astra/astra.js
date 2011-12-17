@@ -55,9 +55,21 @@ var Astra = new function() {
 		var ico = getelid('searchIcon');
 		if (ico) { ico.style.visibility = 'visible'; }
 
+		// Κατά την παρουσίαση θα χρειαστούμε τα κριτήρια
+		// αναζήτησης παικτών για να χρωματίσουμε κατάλληλα
+		// τους παίκτες που πληρούν αυτά τα κριτήρια.
+
+		var plist = pektis.value.split(/,+/);
+		for (var i = 0; i < plist.length; i++) {
+			plist[i] = plist[i].trim();
+			plist[i] = plist[i].replace(/\./g, '\\.');
+			plist[i] = plist[i].replace(/_/, '.');
+			plist[i] = plist[i].replace(/%/, '.*');
+		}
+
 		var req = new Request('astra/getData');
 		req.xhr.onreadystatechange = function() {
-			getDataCheck(req, ico);
+			getDataCheck(req, ico, plist);
 		};
 
 		var params = '';
@@ -78,7 +90,7 @@ var Astra = new function() {
 		return false;
 	};
 
-	function getDataCheck(req, ico) {
+	function getDataCheck(req, ico, plist) {
 		if (req.xhr.readyState != 4) { return; }
 
 		ico.style.visibility = 'hidden';
@@ -98,7 +110,7 @@ var Astra = new function() {
 
 		var html = '';
 		for (var i = 0; i < dedomena.partida.length; i++) {
-			html += Astra.partidaHTML(dedomena.partida[i], i);
+			html += Astra.partidaHTML(dedomena.partida[i], i, plist);
 		}
 
 		var x = getelid('dataArea');
@@ -109,10 +121,22 @@ var Astra = new function() {
 		}
 	};
 
-	this.pektisHTML = function(pektis, kapikia) {
+	this.pektisHTML = function(pektis, kapikia, plist) {
 		var html = '<div class="astraPartidaPektis">';
-		html += '<div class="astraOnoma">';
-		html += (pektis != '' ? pektis : '&#8203;');
+		html += '<div class="astraOnoma';
+		if (pektis != '') {
+			for (var i = 0; i < plist.length; i++) {
+				if (pektis.match('^' + plist[i] + '$')) {
+					html += ' astraOnomaMatch';
+					break;
+				}
+			}
+		}
+		else {
+			pektis = '&#8203;';
+		}
+		html += '">';
+		html += pektis;
 		html += '</div>';
 		html += '<div class="astraKapikia';
 		if (kapikia < 0) { html += ' astraMion'; }
@@ -130,7 +154,7 @@ var Astra = new function() {
 		return html;
 	};
 
-	this.partidaHTML = function(partida, i) {
+	this.partidaHTML = function(partida, i, plist) {
 		var html = '';
 		html += '<div class="astraPartida zebra' + (i % 2) +
 			'" onclick="Astra.dianomiOnOff(' + partida.t + ');" ' +
@@ -141,9 +165,9 @@ var Astra = new function() {
 		if (isSet(partida.a)) { html += '[' + partida.t + ']'; }
 		else { html += partida.t; }
 		html += '</div>';
-		html += Astra.pektisHTML(partida.p1, partida.k1);
-		html += Astra.pektisHTML(partida.p2, partida.k2);
-		html += Astra.pektisHTML(partida.p3, partida.k3);
+		html += Astra.pektisHTML(partida.p1, partida.k1, plist);
+		html += Astra.pektisHTML(partida.p2, partida.k2, plist);
+		html += Astra.pektisHTML(partida.p3, partida.k3, plist);
 		html += Astra.xronosHTML(partida.x);
 		html += '</div>';
 		html += '<div id="t' + partida.t + '"></div>';
