@@ -59,7 +59,7 @@ var Astra = new function() {
 		// αναζήτησης παικτών για να χρωματίσουμε κατάλληλα
 		// τους παίκτες που πληρούν αυτά τα κριτήρια.
 
-		var plist = pektis.value.split(/,+/);
+		var plist = pektis.value.split(/[,+]/);
 		for (var i = 0; i < plist.length; i++) {
 			plist[i] = plist[i].trim();
 			plist[i] = plist[i].replace(/\./g, '\\.');
@@ -127,7 +127,7 @@ var Astra = new function() {
 		if (pektis != '') {
 			for (var i = 0; i < plist.length; i++) {
 				if (pektis.match('^' + plist[i] + '$')) {
-					html += ' astraOnomaMatch';
+					html += ' astraOnoma' + (i % 3);
 					break;
 				}
 			}
