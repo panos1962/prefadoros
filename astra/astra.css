@@ -90,6 +90,10 @@ body {
 	text-align: left;
 }
 
+.astraOnomaMatch {
+	color: #0000FF;
+}
+
 .astraKapikia {
 	display: inline-block;
 	padding-top: 0.02cm;
