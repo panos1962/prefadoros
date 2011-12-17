@@ -90,8 +90,16 @@ body {
 	text-align: left;
 }
 
-.astraOnomaMatch {
+.astraOnoma0 {
 	color: #0000FF;
+}
+
+.astraOnoma1 {
+	color: #CC0099;
+}
+
+.astraOnoma2 {
+	color: #D14719;
 }
 
 .astraKapikia {
