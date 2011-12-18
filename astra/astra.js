@@ -122,7 +122,9 @@ var Astra = new function() {
 	};
 
 	this.pektisHTML = function(pektis, kapikia, plist) {
-		var html = '<div class="astraPartidaPektis">';
+		var html = '<div class="astraPartidaPektis';
+		if (kapikia < 0) { html += ' astraArnitikos'; }
+		html += '">';
 		html += '<div class="astraOnoma';
 		if (pektis != '') {
 			for (var i = 0; i < plist.length; i++) {
