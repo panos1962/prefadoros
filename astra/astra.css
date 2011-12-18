@@ -76,6 +76,11 @@ body {
 	border-radius: 3px;
 }
 
+.astraThetikos {
+	background-image: url('../images/thetiko.png');
+	background-repeat: no-repeat;
+}
+
 .astraArnitikos {
 	background-image: url('../images/arnitiko.png');
 	background-repeat: no-repeat;
