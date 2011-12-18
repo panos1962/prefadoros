@@ -76,6 +76,11 @@ body {
 	border-radius: 3px;
 }
 
+.astraArnitikos {
+	background-image: url('../images/arnitiko.png');
+	background-repeat: no-repeat;
+}
+
 .astraOnoma {
 	display: inline-block;
 	padding-top: 0.02cm;
