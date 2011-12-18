@@ -122,14 +122,11 @@ var Astra = new function() {
 	};
 
 	this.pektisHTML = function(pektis, kapikia, plist) {
-		var html = '<div class="astraPartidaPektis';
-		if (kapikia < 0) { html += ' astraArnitikos'; }
-		html += '">';
-		html += '<div class="astraOnoma';
+		var pektisMatch = false;
 		if (pektis != '') {
 			for (var i = 0; i < plist.length; i++) {
 				if (pektis.match('^' + plist[i] + '$')) {
-					html += ' astraOnoma' + (i % 3);
+					pektisMatch = true;
 					break;
 				}
 			}
@@ -137,6 +134,15 @@ var Astra = new function() {
 		else {
 			pektis = '&#8203;';
 		}
+
+		var html = '<div class="astraPartidaPektis';
+		if (pektisMatch) {
+			if (kapikia > 0) { html += ' astraThetikos'; }
+			else if (kapikia < 0) { html += ' astraArnitikos'; }
+		}
+		html += '">';
+		html += '<div class="astraOnoma';
+		if (pektisMatch) { html += ' astraOnoma' + (i % 3); }
 		html += '">';
 		html += pektis;
 		html += '</div>';
