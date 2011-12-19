@@ -215,6 +215,29 @@ var Partida = new function() {
 		return html;
 	};
 
+	this.giortesHTML = function(cls) {
+		var x = new Date();
+		var m = x.getMonth() + 1;
+		var d = x.getDate();
+
+		var img = null;
+		var tit = '';
+		if ((m == 12) && (d > 18)) {
+			img = 'xmas.png';
+			tit = 'Καλά Χριστούγεννα!';
+		}
+		else if ((m == 1) && (d < 7)) {
+			img = 'neoEtos.png';
+			tit = 'Καλή χρονιά!';
+		}
+
+		if (isSet(img)) {
+			return '<img class="' + cls + '" alt="" src="' +
+				globals.server + '/images/giortes/' + img +
+				'" title="' + tit + '" />';
+		}
+	};
+
 	this.panoInfoHTML = function() {
 		var html = '';
 		var tbc = isTheatis() ? ' theatis' : '';
@@ -257,6 +280,7 @@ var Partida = new function() {
 					globals.server + 'images/trapoula/asoi.png" ' +
 					'title="Δεν μετράνε οι άσοι" />';
 			}
+			html += Partida.giortesHTML('partidaAttrIcon');
 			html += '</div>';
 		}
 		return html;
