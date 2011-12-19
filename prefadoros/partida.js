@@ -231,11 +231,9 @@ var Partida = new function() {
 			tit = 'Καλή χρονιά!';
 		}
 
-		if (isSet(img)) {
-			return '<img class="' + cls + '" alt="" src="' +
-				globals.server + '/images/giortes/' + img +
-				'" title="' + tit + '" />';
-		}
+		return (isSet(img) ? '<img class="' + cls + '" alt="" src="' +
+			globals.server + '/images/giortes/' + img +
+			'" title="' + tit + '" />' : '');
 	};
 
 	this.panoInfoHTML = function() {
@@ -265,7 +263,8 @@ var Partida = new function() {
 		html += '&nbsp;<span title="Υπόλοιπο κάσας" class="partidaInfoData' + tbc + '">';
 		html += pexnidi.ipolipo + '</span>';
 		html += '</div>';
-		if (isKlisto() || isPasoPasoPaso() || notAsoiKolos()) {
+		var giortes = Partida.giortesHTML('partidaAttrIcon');
+		if (giortes || isKlisto() || isPasoPasoPaso() || notAsoiKolos()) {
 			html += '<div class="partidaAttrArea">';
 			if (isKlisto()) {
 				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
@@ -280,7 +279,7 @@ var Partida = new function() {
 					globals.server + 'images/trapoula/asoi.png" ' +
 					'title="Δεν μετράνε οι άσοι" />';
 			}
-			html += Partida.giortesHTML('partidaAttrIcon');
+			html += giortes;
 			html += '</div>';
 		}
 		return html;

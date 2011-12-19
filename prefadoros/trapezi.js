@@ -208,10 +208,11 @@ var Trapezi = new function() {
 		}
 		html += '</div>';
 		html += '</div>';
+		var giortes = Partida.giortesHTML('kafenioTrapeziAttrIcon');
 		if ((isSet(t.b) && (t.b == 1)) || (isSet(t.ppp) && (t.ppp == 1)) ||
-			(notSet(t.asoi) || (t.asoi == 0))) {
+			(notSet(t.asoi) || (t.asoi == 0)) || giortes) {
 			html += '<div class="kafenioTrapeziAttrArea">';
-			html += Partida.giortesHTML('kafenioTrapeziAttrIcon');
+			html += giortes;
 			if (isSet(t.b) && (t.b == 1)) {
 				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
 					'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
