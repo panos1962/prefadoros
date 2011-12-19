@@ -309,8 +309,6 @@ function print_panel() {
 	$item_list[] = new Item("chuckNoris.jpg", "Ούτε εγώ δεν τις βγάζω αυτές!");
 	$item_list[] = new Item("vegosPelates.jpg", "Πελάτες μου!", "",
 		"http://youtu.be/0iFeP8zlmFU");
-	$item_list[] = new Item("denAntexo.png", "Όχι, δεν αντέχω άλλο!", "",
-		"http://youtu.be/aEOcb4DD6xw");
 	$item_list[] = new Item("moxthiroEmoticon.gif");
 	$item_list[] = new Item("kobra.gif");
 	$item_list[] = new Item("sfiriEmoticon.gif", "Θα το σπάσω!!!");
@@ -318,6 +316,10 @@ function print_panel() {
 	$item_list[] = new Item("astrapesEmoticon.gif", "@#!%@^&#*!@");
 	$item_list[] = new Item("fuckYou.gif");
 	$item_list[] = new Item("bartAss.gif", "Kiss my ass!");
+	$item_list[] = new Item("denAntexo.png", "Όχι, δεν αντέχω άλλο!", "",
+		"http://youtu.be/aEOcb4DD6xw");
+	$item_list[] = new Item("aiStoDiaolo.jpg", "Άι στο διάολο…", "",
+		"http://youtu.be/A6LAyK5l8AU");
 	$item_list[] = new Item("miGamiso.jpg", "", 2.0);
 	$item_list[] = new Item("kokiniKarta.jpg", "", 3.0, "sfirixtra");
 	$item_list[] = new Item("binelikia.gif", "Δεν αντέχω τα μπινελίκια!");
