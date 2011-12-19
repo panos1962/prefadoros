@@ -231,9 +231,10 @@ var Partida = new function() {
 			tit = 'Καλή χρονιά!';
 		}
 
-		return (isSet(img) ? '<img class="' + cls + '" alt="" src="' +
-			globals.server + '/images/giortes/' + img +
-			'" title="' + tit + '" />' : '');
+		if (notSet(img)) { return ''; }
+		return '<img class="' + (isSet(cls) ? cls : 'partidaAttrIcon') +
+			'" alt="" src="' + globals.server + '/images/giortes/' + img +
+			'" title="' + tit + '" />';
 	};
 
 	this.panoInfoHTML = function() {
@@ -263,7 +264,7 @@ var Partida = new function() {
 		html += '&nbsp;<span title="Υπόλοιπο κάσας" class="partidaInfoData' + tbc + '">';
 		html += pexnidi.ipolipo + '</span>';
 		html += '</div>';
-		var giortes = Partida.giortesHTML('partidaAttrIcon');
+		var giortes = Partida.giortesHTML();
 		if (giortes || isKlisto() || isPasoPasoPaso() || notAsoiKolos()) {
 			html += '<div class="partidaAttrArea">';
 			if (isKlisto()) {
@@ -1005,6 +1006,10 @@ var Partida = new function() {
 		Partida.HTML = '<div class="partida">';
 		Partida.HTML += '<div class="partidaMinima" style="margin-top: 1.8cm;">';
 		Partida.HTML += '<div style="padding: 0.4cm;">' + Tools.xromataHTML('1.2cm') + '</div>';
+		var giortes = Partida.giortesHTML();
+		if (giortes) {
+			Partida.HTML += '<div class="partidaAttrArea">' + giortes + '</div>';
+		}
 		Partida.HTML += Tools.miaPrefaHTML();
 		Partida.HTML += '<div style="width: 80%; margin-left: auto; ' +
 			'margin-right: auto; margin-top: 0.6cm;">';
