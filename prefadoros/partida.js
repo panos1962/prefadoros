@@ -215,6 +215,28 @@ var Partida = new function() {
 		return html;
 	};
 
+	this.giortesMusic = function(img) {
+		var x = getelid('giortes');
+		if (notSet(x)) { return; }
+		if (x.innerHTML != '') {
+			x.innerHTML = '';
+			return;
+		}
+
+		var songs = [];
+		switch (img) {
+		case 'xmas.png':
+			songs = [ 'TeNJmOsBS94' , 'DW5bIN4h6O4', 'sbbQwecCzo8' ];
+			break;
+		}
+
+		if (songs.length <= 0) { return; }
+		var i = Math.floor(Math.random() * songs.length);
+		x.innerHTML = '<iframe width="420" height="315" ' +
+			'src="http://www.youtube.com/embed/' + songs[i] +
+			'?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+	};
+
 	this.giortesHTML = function(cls) {
 		var x = new Date();
 		var m = x.getMonth() + 1;
@@ -232,9 +254,11 @@ var Partida = new function() {
 		}
 
 		if (notSet(img)) { return ''; }
-		return '<img class="' + (isSet(cls) ? cls : 'partidaAttrIcon') +
+		return '<div id="giortes" style="display: none;"></div>' +
+			'<img class="' + (isSet(cls) ? cls : 'partidaAttrIcon') +
 			'" alt="" src="' + globals.server + '/images/giortes/' + img +
-			'" title="' + tit + '" />';
+			'" title="' + tit + '" onclick="Partida.giortesMusic(\'' +
+			img + '\');" style="cursor: pointer;" />';
 	};
 
 	this.panoInfoHTML = function() {
