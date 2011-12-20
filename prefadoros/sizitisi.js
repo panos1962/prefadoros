@@ -202,10 +202,7 @@ var Sizitisi = new function() {
 			((currentTimestamp() - (s.w * 1000)) < 5000)) {
 			video = Sizitisi.pexeIxoVideo(x[4]);
 			epexeIxos[k] = true;
-			if (video != '') {
-				ikona = '';
-				titlos = '';
-			}
+			// if (video != '') { ikona = ''; }
 		}
 
 		var titlos = x[5];
@@ -221,7 +218,7 @@ var Sizitisi = new function() {
 			html += '<iframe width="300" height="203" src="http://www.youtube.com/embed/';
 			html += iv.replace(/^https?:\/\/youtu\.be\//, '');
 			html += '?autoplay=1&rel=0&controls=0&showinfo=0" ';
-			html += 'frameborder="0"></iframe>';
+			html += 'frameborder="0" style="display: none;"></iframe>';
 		}
 		else {
 			iv = iv.split(':');
