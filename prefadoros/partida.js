@@ -254,8 +254,7 @@ var Partida = new function() {
 		}
 
 		if (notSet(img)) { return ''; }
-		return '<div id="giortes" style="display: none;"></div>' +
-			'<img class="' + (isSet(cls) ? cls : 'partidaAttrIcon') +
+		return '<img class="' + (isSet(cls) ? cls : 'partidaAttrIcon') +
 			'" alt="" src="' + globals.server + '/images/giortes/' + img +
 			'" title="' + tit + '" onclick="Partida.giortesMusic(\'' +
 			img + '\');" style="cursor: pointer;" />';
