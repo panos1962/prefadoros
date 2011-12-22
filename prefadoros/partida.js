@@ -738,7 +738,7 @@ var Partida = new function() {
 		grama = grama.toLowerCase();
 		html += '<div id="pektisPhoto:' + pektis + '" class="pektisPhotoContainer"';
 		if (infoShowStatus.hasOwnProperty(pektis) && infoShowStatus[pektis] != 0) {
-			html += 'style="z-index: 1;" ';
+			html += 'style="display: inline;" ';
 		}
 		html += '>';
 		html += '<img class="pektisPhoto" src="' +
