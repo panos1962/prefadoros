@@ -202,7 +202,7 @@ class Prefadoros {
 		// πρόσκληση από άλλο τραπέζι).
 
 		if ($trapezi->is_theatis()) {
-			$query = "DELETE FROM `theatis` WHERE `pektis` = " .
+			$query = "DELETE FROM `theatis` WHERE `pektis` = BINARY " .
 				$globals->pektis->slogin;
 			$globals->sql_query($query);
 			if (@mysqli_affected_rows($globals->db) != 1) {
@@ -236,8 +236,9 @@ class Prefadoros {
 		// Καλού κακού διαγράφουμε πρώτα τυχόν άλλη συμμετοχή αυτού
 		// του τραπεζιού για την ίδια θέση ή για τον ίδιο παίκτη.
 		$query = "DELETE FROM `simetoxi` WHERE (`trapezi` = " .
-			$trapezi->kodikos . ") AND ((`pektis` = " . $globals->pektis->slogin .
-			") OR (`thesi` = " . $trapezi->thesi . "))";
+			$trapezi->kodikos . ") AND ((`pektis` = BINARY " .
+			$globals->pektis->slogin . ") OR (`thesi` = " .
+			$trapezi->thesi . "))";
 		$globals->sql_query($query);
 
 		$query = "INSERT INTO `simetoxi` (`trapezi`, `thesi`, `pektis`) " .
@@ -431,11 +432,11 @@ class Prefadoros {
 
 		$query = "INSERT INTO `sinedria_log` (`kodikos`, `pektis`, `ip`, " .
 			"`dimiourgia`, `enimerosi`, `telos`) SELECT `kodikos`, `pektis`, `ip`, " .
-			"`dimiourgia`, `enimerosi`, NOW() FROM `sinedria` WHERE `pektis` = " .
-			$globals->pektis->slogin;
+			"`dimiourgia`, `enimerosi`, NOW() FROM `sinedria` " .
+			"WHERE `pektis` = BINARY " . $globals->pektis->slogin;
 		@mysqli_query($globals->db, $query);
 
-		$query = "DELETE FROM `sinedria` WHERE `pektis` = " . $globals->pektis->slogin;
+		$query = "DELETE FROM `sinedria` WHERE `pektis` = BINARY " . $globals->pektis->slogin;
 		$globals->sql_query($query);
 
 		// Μια στις 50 φορές επιχειρούμε να κλείσουμε συνεδρίες παικτών

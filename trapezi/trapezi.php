@@ -85,9 +85,9 @@ class Trapezi {
 		// Δεν εντοπίστηκε τραπέζι στο οποίο ο παίκτης να είναι θεατής.
 		// Εντοπίζουμε το νεότερο τραπέζι στο οποίο συμμετέχει ως παίκτης.
 		$query = "SELECT * FROM `trapezi` WHERE (" .
-			"(`pektis1` = " . $globals->pektis->slogin . ") OR " .
-			"(`pektis2` = " . $globals->pektis->slogin . ") OR " .
-			"(`pektis3` = " . $globals->pektis->slogin . ")" .
+			"(`pektis1` = BINARY " . $globals->pektis->slogin . ") OR " .
+			"(`pektis2` = BINARY " . $globals->pektis->slogin . ") OR " .
+			"(`pektis3` = BINARY " . $globals->pektis->slogin . ")" .
 			") AND (`telos` IS NULL) ORDER BY `kodikos` DESC LIMIT 1";
 		$result = $globals->sql_query($query);
 		$not_found = TRUE;
@@ -227,7 +227,7 @@ class Trapezi {
 		}
 
 		$query = "SELECT * FROM `prosklisi` WHERE (`trapezi` = " .
-			$this->kodikos . ") AND (`pion` = '" .
+			$this->kodikos . ") AND (`pion` = BINARY '" .
 			$globals->asfales($pektis) . "')";
 		$result = $globals->sql_query($query);
 		if (!$result) { return(FALSE); }
