@@ -54,21 +54,21 @@ DROP TRIGGER /*!50033 IF EXISTS */ `sxesi_ins`//
 
 CREATE TRIGGER `sxesi_ins` AFTER INSERT ON `sxesi` FOR EACH ROW BEGIN
 	UPDATE `pektis` SET `sxesidirty` = 'YES'
-	WHERE (`login` = NEW.`pektis`) OR (`login` = NEW.`sxetizomenos`);
+	WHERE (`login` = BINARY NEW.`pektis`) OR (`login` = BINARY NEW.`sxetizomenos`);
 END//
 
 DROP TRIGGER /*!50033 IF EXISTS */ `sxesi_upd`//
 
 CREATE TRIGGER `sxesi_upd` AFTER UPDATE ON `sxesi` FOR EACH ROW BEGIN
 	UPDATE `pektis` SET `sxesidirty` = 'YES'
-	WHERE (`login` = NEW.`pektis`) OR (`login` = NEW.`sxetizomenos`);
+	WHERE (`login` = BINARY NEW.`pektis`) OR (`login` = BINARY NEW.`sxetizomenos`);
 	IF NEW.`pektis` <> OLD.`pektis` THEN
 		UPDATE `pektis` SET `sxesidirty` = 'YES'
-		WHERE `login` = OLD.`pektis`;
+		WHERE `login` = BINARY OLD.`pektis`;
 	END IF;
 	IF NEW.`sxetizomenos` <> OLD.`sxetizomenos` THEN
 		UPDATE `pektis` SET `sxesidirty` = 'YES'
-		WHERE `login` = OLD.`sxetizomenos`;
+		WHERE `login` = BINARY OLD.`sxetizomenos`;
 	END IF;
 END//
 
@@ -76,14 +76,14 @@ DROP TRIGGER /*!50033 IF EXISTS */ `sxesi_del`//
 
 CREATE TRIGGER `sxesi_del` AFTER DELETE ON `sxesi` FOR EACH ROW BEGIN
 	UPDATE `pektis` SET `sxesidirty` = 'YES'
-	WHERE (`login` = OLD.`pektis`) OR (`login` = OLD.`sxetizomenos`);
+	WHERE (`login` = BINARY OLD.`pektis`) OR (`login` = BINARY OLD.`sxetizomenos`);
 END//
 
 DROP TRIGGER /*!50033 IF EXISTS */ `sinedria_ins`//
 
 CREATE TRIGGER `sinedria_ins` AFTER INSERT ON `sinedria` FOR EACH ROW BEGIN
 	UPDATE `pektis` SET `sxesidirty` = 'YES'
-	WHERE `login` = NEW.`pektis`;
+	WHERE `login` = BINARY NEW.`pektis`;
 END//
 
 DROP TRIGGER /*!50033 IF EXISTS */ `sinedria_upd`//
@@ -92,7 +92,7 @@ CREATE TRIGGER `sinedria_upd` AFTER UPDATE ON `sinedria` FOR EACH ROW BEGIN
 	IF (NEW.`peknpat` <> OLD.`peknpat`) OR (NEW.`peksxet` <> OLD.`peksxet`) OR
 		(NEW.`pekstat` <> OLD.`pekstat`) THEN
 		UPDATE `pektis` SET `sxesidirty` = 'YES'
-		WHERE `login` = NEW.`pektis`;
+		WHERE `login` = BINARY NEW.`pektis`;
 	END IF;
 END//
 
