@@ -769,17 +769,17 @@ var Partida = new function() {
 		if (!infoShowStatus.hasOwnProperty(pektis)) { infoShowStatus[pektis] = 0; }
 		if (keep) {
 			if (infoShowStatus[pektis] == 2) {
-				x.style.zIndex = -1;
+				x.style.display = 'none';
 				infoShowStatus[pektis] = 0;
 			}
 			else {
-				x.style.zIndex = 1;
+				x.style.display = 'inline';
 				infoShowStatus[pektis] = 2;
 				x.title = 'Κλικ για απόκρυψη';
 			}
 		}
 		else if (infoShowStatus[pektis] != 2) {
-			x.style.zIndex = 1;
+			x.style.display = 'inline';
 			infoShowStatus[pektis] = 1;
 			x.title = 'Κλικ για μόνιμη εμφάνιση';
 		}
@@ -792,7 +792,7 @@ var Partida = new function() {
 		if (notSet(x)) { return false; }
 
 		if (infoShowStatus[pektis] != 2) {
-			x.style.zIndex = -1;
+			x.style.display = 'none';
 			infoShowStatus[pektis] = 0;
 		}
 		return false;

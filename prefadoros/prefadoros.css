@@ -214,7 +214,8 @@ background-color: magenta;
 	position: absolute;
 	top: 0px;
 	right: 0px;
-	z-index: -1;
+	display: none;
+	z-index: 1;
 
 	max-width: 4.3cm;
 	height: 2.3cm;
