@@ -9,7 +9,7 @@ set_globals();
 Prefadoros::set_pektis();
 if (isset($globals->pektis->login)) {
 	$query = "UPDATE `pektis` SET `poll` = DATE_SUB(NOW(), INTERVAL " .
-		XRONOS_PEKTIS_IDLE_MAX . " SECOND) WHERE `login` = " .
+		XRONOS_PEKTIS_IDLE_MAX . " SECOND) WHERE `login` = BINARY " .
 		$globals->pektis->slogin;
 	$globals->sql_query($query);
 	Sizitisi::cleanup_writing();

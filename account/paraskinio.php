@@ -11,6 +11,6 @@ $_SESSION['ps_paraskinio'] = $_REQUEST['paraskinio'];
 
 $query = "UPDATE `pektis` SET `paraskinio` = '" .
 	$globals->asfales($_REQUEST['paraskinio']) . "' " .
-	"WHERE `login` = " . $globals->pektis->slogin;
+	"WHERE `login` = BINARY " . $globals->pektis->slogin;
 $globals->sql_query($query);
 ?>
