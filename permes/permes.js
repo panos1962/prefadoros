@@ -37,7 +37,7 @@ var Permes = new function() {
 		img.src = globals.server + 'images/email.png';
 		rsp = req.getResponse();
 		if (rsp) {
-			formaFyi('Απέτυχε η αποστολή του μηνύματος');
+			formaFyi('Απέτυχε η αποστολή του μηνύματος (' + rsp + ')');
 			errorIcon(img);
 		}
 		else {
