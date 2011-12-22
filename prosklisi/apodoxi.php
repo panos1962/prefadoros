@@ -72,7 +72,7 @@ function gine_theatis() {
 	global $trapezi;
 	global $strapezi;
 
-	$query = "DELETE FROM `theatis` WHERE `pektis` = " . $slogin;
+	$query = "DELETE FROM `theatis` WHERE `pektis` = BINARY " . $slogin;
 	$globals->sql_query($query);
 
 	$query = "INSERT INTO `theatis` (`trapezi`, `thesi`, `pektis`) " .
@@ -128,7 +128,7 @@ function vres_simetoxi() {
 
 	$query = "SELECT `thesi` FROM `simetoxi` WHERE " .
 		"(`trapezi` = " . $strapezi . ") AND " .
-		"(`pektis` = " . $slogin . ")";
+		"(`pektis` = BINARY " . $slogin . ")";
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result);
 	if (!$row) { return 1; }
