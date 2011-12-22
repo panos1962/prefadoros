@@ -32,13 +32,13 @@ function apo_pektis_theatis() {
 	}
 
 	// Διαγράφουμε τυχόν εγγραφή του παίκτη ως θεατή.
-	$query = "DELETE FROM `theatis` WHERE `pektis` = " . $globals->pektis->slogin;
+	$query = "DELETE FROM `theatis` WHERE `pektis` = BINARY " . $globals->pektis->slogin;
 	$globals->sql_query($query);
 
 	// Διαγράφουμε τυχόν εγγραφές συμμετοχής στο τραπέζι για τον
 	// ίδιο παίκτη, ή για την ίδια θέση.
 	$query = "DELETE FROM `simetoxi` WHERE (`trapezi` = " .
-		$globals->trapezi->kodikos . ") AND ((`pektis` = " .
+		$globals->trapezi->kodikos . ") AND ((`pektis` = BINARY " .
 		$globals->pektis->slogin . ") OR (`thesi` = " . $globals->trapezi->thesi . "))";
 	$globals->sql_query($query);
 
@@ -85,7 +85,7 @@ function apo_theatis_pektis() {
 	}
 
 	// Διαγράφουμε την εγγραφή του παίκτη ως θεατή.
-	$query = "DELETE FROM `theatis` WHERE `pektis` = " . $globals->pektis->slogin;
+	$query = "DELETE FROM `theatis` WHERE `pektis` = BINARY " . $globals->pektis->slogin;
 	$globals->sql_query($query);
 	if (mysqli_affected_rows($globals->db) != 1) {
 		@mysqli_rollback($globals->db);
@@ -105,14 +105,14 @@ function apo_theatis_pektis() {
 	// ίδια θέση, διαγράφοντας παράλληλα αυτήν (και ίσως και άλλες)
 	// εγγραφές συμμετοχής του παίκτη στο τραπέζι.
 	$query = "SELECT `thesi` FROM `simetoxi` WHERE `trapezi` = " .
-		$globals->trapezi->kodikos . " AND `pektis` = " . $globals->pektis->slogin;
+		$globals->trapezi->kodikos . " AND `pektis` = BINARY " . $globals->pektis->slogin;
 	$result = $globals->sql_query($query);
 	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if ($row) {
 		@mysqli_free_result($result);
 		$thesi = $row[0];
 		$query = "DELETE FROM `simetoxi` WHERE `trapezi` = " .
-			$globals->trapezi->kodikos . " AND `pektis` = " . $globals->pektis->slogin;
+			$globals->trapezi->kodikos . " AND `pektis` = BINARY " . $globals->pektis->slogin;
 		$globals->sql_query($query);
 	}
 	else {
