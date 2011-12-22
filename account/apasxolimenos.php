@@ -9,6 +9,6 @@ Prefadoros::pektis_check();
 $katastasi = $globals->asfales(Globals::perastike_check('katastasi'));
 
 $query = "UPDATE `pektis` SET `katastasi` = '" . $katastasi .
-	"' WHERE `login` = " . $globals->pektis->slogin;
+	"' WHERE `login` = BINARY " . $globals->pektis->slogin;
 $globals->sql_query($query);
 ?>

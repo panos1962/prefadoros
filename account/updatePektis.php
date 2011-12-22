@@ -27,8 +27,8 @@ $enalagi = "'" . $globals->asfales($_REQUEST['enalagi']) . "'";
 Globals::perastike_check('password');
 $password = $globals->asfales($_REQUEST['password']);
 
-$where_clause = " WHERE `login` = " . $globals->pektis->slogin .
-	" AND `password` = '" . sha1($password) . "'";
+$where_clause = " WHERE `login` = BINARY " . $globals->pektis->slogin .
+	" AND `password` = BINARY '" . sha1($password) . "'";
 $query = "SELECT `login` FROM `pektis`" . $where_clause;
 $result = $globals->sql_query($query);
 $not_found = TRUE;

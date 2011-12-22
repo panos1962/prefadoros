@@ -47,9 +47,9 @@ class Pektis {
 		unset($this->error);
 
 		$query = "SELECT *, UNIX_TIMESTAMP(`poll`) AS `poll` " .
-			"FROM `pektis` WHERE `login` = '" . $globals->asfales($login) . "'";
+			"FROM `pektis` WHERE `login` = BINARY '" . $globals->asfales($login) . "'";
 		if (isset($password)) {
-			$query .= " AND `password` = '" . $globals->asfales($password) . "'";
+			$query .= " AND `password` = BINARY '" . $globals->asfales($password) . "'";
 		}
 
 		$result = @mysqli_query($globals->db, $query);
@@ -96,7 +96,7 @@ class Pektis {
 		if (($now - $this->poll) > XRONOS_POLL_GRANULE) {
 			$now_ts = $now - ($now % XRONOS_POLL_GRANULE) + XRONOS_POLL_GRANULE;
 			$query = "UPDATE `pektis` SET `poll` = FROM_UNIXTIME(" . $now_ts .
-				") WHERE `login` = " . $this->slogin;
+				") WHERE `login` = BINARY " . $this->slogin;
 			$globals->sql_query($query);
 			if ($globals->is_trapezi()) {
 				$query = "UPDATE `trapezi` SET `poll` = FROM_UNIXTIME(" . $now_ts .
@@ -156,7 +156,7 @@ class Pektis {
 
 		if ($stmnt == NULL) {
 			$query = "SELECT `minimadirty`, `prosklidirty`, `sxesidirty` " .
-				"FROM `pektis` WHERE `login` = ?";
+				"FROM `pektis` WHERE `login` = BINARY ?";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
 				die($errmsg . $query . ": failed to prepare");
@@ -191,7 +191,8 @@ class Pektis {
 		}
 
 		if ($query != "") {
-			$query = "UPDATE `pektis` " . $query . " WHERE `login` = " . $this->slogin;
+			$query = "UPDATE `pektis` " . $query .
+				" WHERE `login` = BINARY " . $this->slogin;
 			$globals->sql_query($query);
 		}
 	}
