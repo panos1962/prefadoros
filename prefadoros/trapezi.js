@@ -121,7 +121,7 @@ var Trapezi = new function() {
 		else {
 			setTimeout(function() {
 				Trapezi.miosiPhotoOpacity(img);
-			}, 50);
+			}, 10);
 		}
 	};
 
