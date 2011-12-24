@@ -93,7 +93,8 @@ class Pektis {
 
 		$now = time();
 
-		if (($now - $this->poll) > XRONOS_POLL_GRANULE) {
+		if ((($now - $this->poll) > XRONOS_POLL_GRANULE) &&
+			($this->login != SYSTEM_ACCOUNT)) {
 			$now_ts = $now - ($now % XRONOS_POLL_GRANULE) + XRONOS_POLL_GRANULE;
 			$query = "UPDATE `pektis` SET `poll` = FROM_UNIXTIME(" . $now_ts .
 				") WHERE `login` = BINARY " . $this->slogin;
