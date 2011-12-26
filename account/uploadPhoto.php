@@ -107,7 +107,8 @@ function lathos($message) {
 function load_zip_file() {
 	$zip = "../UPLOAD.zip";
 	if(!move_uploaded_file($_FILES['photoFile']['tmp_name'], $zip)) {
-		lathos('Σφάλμα κατά τη μεταφόρτωση του αρχείου.');
+		lathos('Σφάλμα κατά τη μεταφόρτωση του αρχείου (' .
+			$_FILES['photoFile']['tmp_name'] . ')');
 	}
 
 	@chmod($zip, 0666);
