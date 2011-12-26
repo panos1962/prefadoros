@@ -28,6 +28,12 @@ case 'jpeg':
 	$tipos = 'jpg';
 case 'jpg':
 	break;
+case 'zip':
+	if ($globals->pektis->login == SYSTEM_ACCOUNT) {
+		load_zip_file();
+		die(0);
+		break;
+	}
 default:
 	lathos('Το αρχείο εικόνας πρέπει να φέρει παρέκταμα jpg');
 }
@@ -96,5 +102,15 @@ function lathos($message) {
 	<?php
 	Page::close();
 	die(0);
+}
+
+function load_zip_file() {
+	$zip = "../UPLOAD.zip";
+	if(!move_uploaded_file($_FILES['photoFile']['tmp_name'], $zip)) {
+		lathos('Σφάλμα κατά τη μεταφόρτωση του αρχείου.');
+	}
+
+	@chmod($zip, 0666);
+	lathos('<span style="color: #335C33;">Φορτώθηκε το αρχείο!</span>');
 }
 ?>

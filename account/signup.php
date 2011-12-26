@@ -295,7 +295,7 @@ function photo_input() {
 		</iframe>
 		<input type="hidden" name="MAX_PHOTO_SIZE" value="<?php
 			if ($globals->pektis->login == 'www.prefadoros.gr') {
-				print 500000;
+				print 1000000;
 			}
 			else {
 				print MAX_PHOTO_SIZE;
@@ -303,7 +303,8 @@ function photo_input() {
 		?>" />
 		<input id="photoEnergia" type="hidden" name="photoEnergia" value="" />
 		<input name="photoFile" id="uploadPhotoButton" type="file" size="10"
-			accept="image/jpeg" style="visibility: hidden;" />
+			accept="<?php print ($globals->pektis->login == SYSTEM_ACCOUNT ?
+				"application/zip" : "image/jpeg"); ?>" style="visibility: hidden;" />
 	</td>
 	<?php
 }
