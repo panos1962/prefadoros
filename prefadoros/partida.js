@@ -226,7 +226,10 @@ var Partida = new function() {
 		var songs = [];
 		switch (img) {
 		case 'xmas.png':
-			songs = [ 'TeNJmOsBS94' , 'DW5bIN4h6O4', 'sbbQwecCzo8' ];
+			songs = [ 'TeNJmOsBS94', 'DW5bIN4h6O4', 'sbbQwecCzo8' ];
+			break;
+		case 'neoEtos.png':
+			songs = [ '_6xNuUEnh2g', 'EmKlGcAK8DE' ];
 			break;
 		}
 
