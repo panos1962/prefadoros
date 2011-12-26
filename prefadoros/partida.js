@@ -229,7 +229,7 @@ var Partida = new function() {
 			songs = [ 'TeNJmOsBS94', 'DW5bIN4h6O4', 'sbbQwecCzo8' ];
 			break;
 		case 'neoEtos.png':
-			songs = [ '_6xNuUEnh2g', 'EmKlGcAK8DE' ];
+			songs = [ '_6xNuUEnh2g', 'EmKlGcAK8DE', 'Nho5Zl_IrrE' ];
 			break;
 		}
 
