@@ -470,7 +470,7 @@ class Page {
 		<?php
 	}
 
-	public static function epikefalida($pedi = FALSE) {
+	public static function epikefalida($pedi = FALSE, $more = NULL) {
 		global $globals;
 		?>
 		<div id="toolbar" class="toolbarArea">
@@ -485,6 +485,9 @@ class Page {
 							onclick="window.self.close(); return false"
 							class="data">Κλείσιμο</a>&nbsp;]
 						<?php
+					}
+					if (isset($more)) {
+						print $more;
 					}
 					?>
 				</div>
