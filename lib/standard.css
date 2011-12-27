@@ -40,12 +40,12 @@ a img {
 }
 
 .motdInnerArea {
-	padding: 0.2cm 0 0.2cm 0;
+	padding: 0.2cm 0.4cm 0.2cm 0.4cm;
 	border-style: solid;
 	border-width: 2px;
 	color: #FFFF88;
 	color: #002900;
-	text-align: center;
+	text-align: justify;
 }
 
 .motdLine {
