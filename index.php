@@ -37,7 +37,7 @@ if (!Globals::perastike('motd')) {
 if ($globals->is_pektis()) {
 	Prefadoros::pektis_check();
 	if (!Globals::perastike('diafimisi')) {
-		// Page::diafimisi();
+		Page::diafimisi();
 	}
 }
 Page::toolbar();
