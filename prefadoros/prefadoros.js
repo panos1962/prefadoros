@@ -37,7 +37,7 @@ function motdSetup() {
 		var x = getelid('motd');
 		if (notSet(x)) { return; }
 		if (isSet(x.pineza) && x.pineza) {return; }
-		sviseNode(x, 1200);
+		sviseNode(x, 500);
 	}, globals.duration.motd);
 }
 
@@ -46,7 +46,7 @@ function diafimisiSetup() {
 		var x = getelid('diafimisi');
 		if (notSet(x)) { return; }
 		if (isSet(x.pineza) && x.pineza) {return; }
-		sviseNode(x, 1200);
+		sviseNode(x, 500);
 	}, globals.duration.diafimisi);
 }
 
