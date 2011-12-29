@@ -1,5 +1,14 @@
+th {
+	padding: 0 0.2cm 0 0.2cm;
+}
+
 td {
 	padding: 0 0.2cm 0 0.2cm;
+}
+
+.statsEpikefalida {
+	color: #003399;
+	background-color: #FDC953;
 }
 
 .statsPektis {
@@ -27,4 +36,8 @@ td {
 
 .statsArnitikos {
 	color: red;
+}
+
+.statsPano {
+	width: 0.6cm;
 }
