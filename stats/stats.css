@@ -1,0 +1,30 @@
+td {
+	padding: 0 0.2cm 0 0.2cm;
+}
+
+.statsPektis {
+	font-weight: bold;
+}
+
+.statsEgo {
+	background-color: #99ADC2;
+}
+
+.statsPlithos {
+	text-align: right;
+	font-family: "Lucida Console", "Monaco", monospace;
+}
+
+.statsBathmos {
+	font-weight: bold;
+	text-align: right;
+	font-family: "Lucida Console", "Monaco", monospace;
+}
+
+.statsThetikos {
+	color: green;
+}
+
+.statsArnitikos {
+	color: red;
+}
