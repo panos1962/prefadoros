@@ -60,6 +60,7 @@ function print_stats($pektis = "") {
 		</th>
 	</tr>
 	<?php
+	$pkok = TRUE;
 	$n = 0;
 	while ($row = fgets($fp)) {
 		$cols = explode("\t", $row);
@@ -68,12 +69,18 @@ function print_stats($pektis = "") {
 		}
 
 		$sp = sin_plin($cols[4]);
+		$pk = ($pektis != "") && preg_match("/" . $pektis . "/", $cols[0]);
 		print '<tr class="zebra' . ($n++ % 2);
-		if (preg_match("/" . $pektis . "/", $cols[0])) {
+		if ($pk) {
 			print " statsEgo";
 		}
 		print '">';
-		print '<td class="statsPektis' . $sp . '">' . $cols[0] . '</td>';
+		print '<td class="statsPektis' . $sp . '">';
+		if ($pk && $pkok) {
+			print '<a name="pkspot"></a>';
+			$pkok = FALSE;
+		}
+ 		print $cols[0] . '</td>';
 		print '<td class="statsPlithos">' . $cols[1] . '</td>';
 		print '<td class="statsPlithos">' . $cols[2] . '</td>';
 		print '<td class="statsPlithos">' . $cols[3] . '</td>';
