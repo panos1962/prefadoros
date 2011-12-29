@@ -57,6 +57,9 @@ function print_stats($pektis = "") {
 	<table style="margin-top: 0.2cm;">
 	<tr class="statsEpikefalida">
 		<th>
+			Α/Α
+		</th>
+		<th>
 			Παίκτης
 		</th>
 		<th>
@@ -90,6 +93,7 @@ function print_stats($pektis = "") {
 			print " statsEgo";
 		}
 		print '">';
+		print '<td class="statsPlithos statsAa">' . $n . '</td>';
 		print '<td class="statsPektis' . $sp . '">';
 		if ($pk && $pkok) {
 			print '<a name="pkspot"></a>';
