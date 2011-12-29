@@ -39,7 +39,7 @@ Page::fyi();
 	print $pektis; ?>" onchange="Stats.reload(this);" />
 <img src="<?php print $globals->server; ?>images/fakos.png" alt=""
 	style="width: 0.6cm; margin-bottom: -0.15cm; cursor: pointer;"
-	onclick="Stats.reload(getelid('pektis'));" />
+	title="Εντοπισμός παίκτη" onclick="Stats.reload(getelid('pektis'));" />
 <?php
 print_stats($pektis);
 Page::close();
