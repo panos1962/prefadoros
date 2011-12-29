@@ -13,7 +13,7 @@ Page::body();
 Prefadoros::pektis_check();
 Prefadoros::set_trapezi();
 Page::epikefalida(Globals::perastike('pedi'), "[<a target=\"_blank\" href=\"" .
-	$globals->server . "stats/index.php\" ".
+	$globals->server . "stats/index.php?pedi=yes\" ".
 	"title=\"Βαθμολογία παικτών που έχουν παίξει πάνω από 1.000 διανομές\">Βαθμολογία</a>]");
 Page::fyi();
 ?>

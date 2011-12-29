@@ -18,7 +18,20 @@ Page::stylesheet('lib/forma');
 Page::stylesheet('stats/stats');
 Page::javascript('stats/stats');
 Page::body();
-Page::epikefalida(Globals::perastike('pedi'));
+if (Globals::perastike('pedi')) {
+	$pedi = TRUE;
+	?>
+	<script type="text/javascript">
+	//<![CDATA[
+	Stats.pedi = '&pedi=yes';
+	//]]>
+	</script>
+	<?php
+}
+else {
+	$pedi = FALSE;
+}
+Page::epikefalida($pedi);
 Page::fyi();
 ?>
 <span class="formaPrompt">Παίκτης</span>
