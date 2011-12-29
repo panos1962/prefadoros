@@ -12,9 +12,9 @@ Page::javascript('astra/astra');
 Page::body();
 Prefadoros::pektis_check();
 Prefadoros::set_trapezi();
-Page::epikefalida(Globals::perastike('pedi'), "[<a target=\"_blank\" href=\"https://" .
-	"docs.google.com/spreadsheet/ccc?key=0AtxbrNQrmiGhdGlTbkhnSE00QjlrbUhmWE1OSF9ta1E#" .
-	"gid=0\" title=\"Βαθμολογία παικτών που έχουν παίξει πάνω από 2.000 διανομές\">Βαθμολογία</a>]");
+Page::epikefalida(Globals::perastike('pedi'), "[<a target=\"_blank\" href=\"" .
+	$globals->server . "stats/index.php\" ".
+	"title=\"Βαθμολογία παικτών που έχουν παίξει πάνω από 1.000 διανομές\">Βαθμολογία</a>]");
 Page::fyi();
 ?>
 <div id="astraArea" class="mainArea astraArea">
