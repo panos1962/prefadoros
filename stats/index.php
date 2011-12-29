@@ -41,8 +41,8 @@ function print_stats($pektis = "") {
 	}
 
 	?>
-	<table>
-	<tr>
+	<table style="margin-top: 0.2cm;">
+	<tr class="statsEpikefalida">
 		<th>
 			Παίκτης
 		</th>
@@ -57,6 +57,8 @@ function print_stats($pektis = "") {
 		</th>
 		<th>
 			Βαθμός
+		</th>
+		<th>
 		</th>
 	</tr>
 	<?php
@@ -85,6 +87,9 @@ function print_stats($pektis = "") {
 		print '<td class="statsPlithos">' . $cols[2] . '</td>';
 		print '<td class="statsPlithos">' . $cols[3] . '</td>';
 		print '<td class="statsBathmos' . $sp . '">' . $cols[4] . '</td>';
+		print '<td><a href="#" onclick="getelid(\'pektis\').select(); return true;">' .
+			'<img src="' . $globals->server . 'images/dixePano.png" ' .
+				'title="Εντοπισμός παίκτη" class="statsPano" alt="" /></a>';
 		print '</tr>';
 	}
 
