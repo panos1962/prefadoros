@@ -220,6 +220,10 @@ var Sizitisi = new function() {
 			html += '?autoplay=1&rel=0&controls=0&showinfo=0" ';
 			html += 'frameborder="0" style="display: none;"></iframe>';
 		}
+		else if (iv.match(/^https?:\/\/splicd\.com\//)) {
+			html += '<iframe width="300" height="203" src="' + iv;
+			html += '" frameborder="0" style="display: none;"></iframe>';
+		}
 		else {
 			iv = iv.split(':');
 			if ((iv.length > 1) && (iv[1] > 0)) {
