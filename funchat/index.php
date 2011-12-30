@@ -308,7 +308,7 @@ function print_panel() {
 		"http://youtu.be/-wYfPfJshSM");
 	$item_list[] = new Item("chuckNoris.jpg", "Ούτε εγώ δεν τις βγάζω αυτές!");
 	$item_list[] = new Item("vegosPelates.jpg", "Πελάτες μου!", "3.5",
-		"http://youtu.be/0iFeP8zlmFU");
+		"http://splicd.com/0iFeP8zlmFU/0/2");
 	$item_list[] = new Item("moxthiroEmoticon.gif");
 	$item_list[] = new Item("kobra.gif");
 	$item_list[] = new Item("sfiriEmoticon.gif", "Θα το σπάσω!!!");
