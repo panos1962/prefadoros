@@ -266,24 +266,46 @@ account.onload = function() {
 		}
 	};
 
-	this.alagiKodikou = function() {
-		var x = getelid('alagiKodikou');
-		if (notSet(x)) { return false; }
-		x.style.display = 'none';
+	this.alagiKodikouPrompt = function() {
+		var x = getelid('neosKodikos');
+		if (notSet(x)) { return; }
+		if (x.style.visibility != 'hidden') { return; }
 
-		x = getelid('neosKodikos');
-		if (notSet(x)) { return false; }
+		var html = '<td class="formaPrompt tbldbg">';
+		html += '<a href="#" onclick="return account.alagiKodikou();">Αλλαγή κωδικού</a>';
+		html += '</td>';
+		html += '<td class="tbldbg">';
+		html += '<input name="password1" type="password" maxlength="50" size="16" ';
+		html += 'value="" class="formaField" onfocus="formaFyi();" ';
+		html += 'style="visibility: hidden;" />';
+		html += '</td>';
+		x.innerHTML = html;
 		x.style.visibility = 'visible';
+	}
+
+	this.alagiKodikou = function() {
+		var x = getelid('neosKodikos');
+		if (notSet(x)) { return false; }
+
+		var html = '<td class="formaPrompt tbldbg">';
+		html += 'Νέος κωδικός';
+		html += '</td>';
+		html += '<td class="tbldbg">';
+		html += '<input name="password1" type="password" maxlength="50" size="16" ';
+		html += 'value="" class="formaField" onfocus="formaFyi();" />';
+		html += '</td>';
+		x.innerHTML = html;
 
 		x = getelid('neosKodikos2');
 		if (notSet(x)) { return false; }
-		x.style.display = 'table-row';
+		x.style.visibility = 'visible';
 	};
 };
 
 window.onload = function() {
 	init();
 	account.onload();
+	account.alagiKodikouPrompt();
 	var x = getelid('login');
 	if (x.disabled) {
 		x = getelid('onoma');
