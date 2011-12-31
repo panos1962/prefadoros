@@ -112,25 +112,11 @@ if ($globals->is_pektis()) {
 		</td>
 	</tr>
 	<?php
-	// Ακολουθεί ψευδοlink αλλαγής κωδικού (password) το οποίο εμφανίζει
-	// τα πεδία θέσης/αλλαγής κωδικού. By default δεν εμφανίζουμε αυτά
-	// τα πεδία για να μην μπερδεύεται ο παίκτης, αλλά κάνοντας κλικ
-	// στο εν λόγω ψευδοlink, εμφανίζονται τα πεδία και αποκρύπτεται
-	// το ψευδοlink.
-	?>
-	<tr id="alagiKodikou">
-		<td class="formaPrompt tbldbg">
-			<a href="#" onclick="return account.alagiKodikou();">Αλλαγή κωδικού</a>
-		</td>
-		<td>
-		</td>
-	</tr>
-	<?php
 }
 
 // Τα δύο πεδία που ακολουθούν αφορούν στην εισαγωγή νέου κωδικού είτε
 // κατά την εγγραφή νέου παίκτη, είτε στη φάση αλλαγής του κωδικού.
-// Πρόκειται για το πεδίο του νέου κωδικού και για παρόμοι πεδίο στο
+// Πρόκειται για το πεδίο του νέου κωδικού και για παρόμοιο πεδίο στο
 // οποίο ο παίκτης επαναλαμβάνει τον κωδικό του για να μη γίνει κάποιο
 // λάθος (κλασική διαδικασία θέσης/αλλαγής password).
 // Ίσως παρατηρήσετε ότι υπάρχει διαφορετική αντιμετώπιση στα δύο πεδία,
@@ -138,16 +124,16 @@ if ($globals->is_pektis()) {
 // γραμμή ακόμη όταν το ψευδοlink εμφάνισης των εν λόγω πεδίων είναι
 // εμφανές.
 ?>
-<tr id="neosKodikos"<?php if ($globals->is_pektis()) { ?> style="visibility: hidden;"<?php } ?>>
+<tr id="neosKodikos" <?php if ($globals->is_pektis()) {?> style="visibility: hidden;" <?php }?>>
 	<td class="formaPrompt tbldbg">
-		Κωδικός
+		<?php print $globals->is_pektis() ? "Νέος κωδικός" : "Κωδικός" ?>
 	</td>
 	<td class="tbldbg">
 		<input name="password1" type="password" maxlength="50" size="16"
 			value="" class="formaField" onfocus="formaFyi();" />
 	</td>
 </tr>
-<tr id="neosKodikos2"<?php if ($globals->is_pektis()) { ?> style="display: none;"<?php } ?>>
+<tr id="neosKodikos2" <?php if ($globals->is_pektis()) {?> style="visibility: hidden;" <?php }?>>
 	<td class="formaPrompt tbldbg">
 		Επαναλάβατε
 	</td>
@@ -161,6 +147,21 @@ if ($globals->is_pektis()) {
 		&#xfeff;<span id="formaFyi" class="fyi formaFyi"></span>
 	</td>
 </tr>
+<?php
+if ($globals->is_pektis()) {
+	?>
+	<tr>
+	<td colspan="2">
+	<div  style="padding: 0.2cm; font-style: italic; color: #003366;">
+	Για να καταχωρήσετε οποιαδήποτε αλλαγή θα πρέπει να πληκτρολογήσετε
+	τον τρέχοντα κωδικό σας (password) στο φερώνυμο πεδίο της φόρμας, πριν κάνετε
+	κλικ στο πλήκτρο [Update&nbsp;account].
+	</div>
+	</td>
+	</tr>
+	<?php
+}
+?>
 </table>
 <table class="formaPanel tbldbg">
 <tr style="vertical-align: top;">
