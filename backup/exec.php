@@ -10,8 +10,20 @@ switch ($pinakas) {
 case 'pektis':
 	backup_pektis($offset);
 	break;
+case 'sxesi':
+	backup_sxesi($offset);
+	break;
+case 'minima':
+	backup_minima($offset);
+	break;
 case 'trapezi':
 	backup_trapezi($offset);
+	break;
+case 'dianomi':
+	backup_dianomi($offset);
+	break;
+case 'kinisi':
+	backup_kinisi($offset);
 	break;
 case 'sinedria':
 	backup_sinedria($offset);
@@ -23,19 +35,48 @@ default:
 function backup_pektis($offset) {
 	global $globals;
 
-	$query = "SELECT COUNT(*) FROM `pektis`";
-	$result = $globals->sql_query($query);
-	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
-	if (!$row) {
-		die("pektis: cannot count");
-	}
-	@mysqli_free_result($result);
-	$ola = $row[0];
-
+	$ola = count_ola("pektis");
 	$fp = anixe_arxio("pektis");
 	$limit = 100;
-	$query = "SELECT `login`, `onoma`, `email` " .
+	$query = "SELECT `login`, `onoma`, `email`, `kapikia`, `katastasi`, `plati`, " .
+		"`enalagi`, `paraskinio`, `poll`, `password`, `egrafi`, `superuser`, " .
+		"`proxy`, `melos` " .
 		"FROM `pektis` ORDER BY `login` LIMIT " . $offset . ", " . $limit;
+	$result = $globals->sql_query($query);
+	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
+		write_grami($fp, $row);
+	}
+	fclose($fp);
+
+	print_data($offset, $limit, $count, $ola);
+}
+
+function backup_sxesi($offset) {
+	global $globals;
+
+	$ola = count_ola("sxesi");
+	$fp = anixe_arxio("sxesi");
+	$limit = 100;
+	$query = "SELECT `kodikos`, `pektis`, `sxetizomenos`, `status`, `dimiourgia` " .
+		"FROM `sxesi` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
+	$result = $globals->sql_query($query);
+	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
+		write_grami($fp, $row);
+	}
+	fclose($fp);
+
+	print_data($offset, $limit, $count, $ola);
+}
+
+function backup_minima($offset) {
+	global $globals;
+
+	$ola = count_ola("minima");
+	$fp = anixe_arxio("minima");
+	$limit = 100;
+	$query = "SELECT `kodikos`, `apostoleas`, `paraliptis`, `dimiourgia` " .
+		"`katastasi`, `minima` " .
+		"FROM `minima` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
@@ -48,19 +89,46 @@ function backup_pektis($offset) {
 function backup_trapezi($offset) {
 	global $globals;
 
-	$query = "SELECT COUNT(*) FROM `trapezi_log`";
-	$result = $globals->sql_query($query);
-	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
-	if (!$row) {
-		die("trapezi_log: cannot count");
-	}
-	@mysqli_free_result($result);
-	$ola = $row[0];
-
+	$ola = count_ola("trapezi");
 	$fp = anixe_arxio("trapezi");
-	$limit = 1000;
+	$limit = 100;
 	$query = "SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3` " .
 		"FROM `trapezi_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
+	$result = $globals->sql_query($query);
+	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
+		write_grami($fp, $row);
+	}
+	fclose($fp);
+
+	print_data($offset, $limit, $count, $ola);
+}
+
+function backup_dianomi($offset) {
+	global $globals;
+
+	$ola = count_ola("dianomi");
+	$fp = anixe_arxio("dianomi");
+	$limit = 1000;
+	$query = "SELECT `kodikos`, `trapezi`, `dealer`, `kasa1`, `metrita1`, " .
+		"`kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi`" .
+		"FROM `dianomi_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
+	$result = $globals->sql_query($query);
+	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
+		write_grami($fp, $row);
+	}
+	fclose($fp);
+
+	print_data($offset, $limit, $count, $ola);
+}
+
+function backup_kinisi($offset) {
+	global $globals;
+
+	$ola = count_ola("kinisi");
+	$fp = anixe_arxio("kinisi");
+	$limit = 1000;
+	$query = "SELECT `kodikos`, `dianomi`, `pektis`, `idos`, `data`, `pote` " .
+		"FROM `kinisi_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
@@ -73,15 +141,7 @@ function backup_trapezi($offset) {
 function backup_sinedria($offset) {
 	global $globals;
 
-	$query = "SELECT COUNT(*) FROM `sinedria_log`";
-	$result = $globals->sql_query($query);
-	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
-	if (!$row) {
-		die("sinedria_log: cannot count");
-	}
-	@mysqli_free_result($result);
-	$ola = $row[0];
-
+	$ola = count_ola("trapezi");
 	$fp = anixe_arxio("sinedria");
 	$limit = 1000;
 	$query = "SELECT `kodikos`, `pektis` " .
@@ -96,6 +156,8 @@ function backup_sinedria($offset) {
 }
 
 function count_ola($pinakas) {
+	global $globals;
+
 	$query = "SELECT COUNT(*) FROM `" . $pinakas . "`";
 	$result = $globals->sql_query($query);
 	$row = mysqli_fetch_array($result, MYSQLI_NUM);
