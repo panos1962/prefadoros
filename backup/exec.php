@@ -32,13 +32,15 @@ function backup_pektis($offset) {
 	@mysqli_free_result($result);
 	$ola = $row[0];
 
+	$fp = anixe_arxio("pektis");
 	$limit = 100;
 	$query = "SELECT `login`, `onoma`, `email` " .
 		"FROM `pektis` ORDER BY `login` LIMIT " . $offset . ", " . $limit;
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
-		$x = $row[0];
+		write_grami($fp, $row);
 	}
+	fclose($fp);
 
 	print_data($offset, $limit, $count, $ola);
 }
@@ -55,13 +57,15 @@ function backup_trapezi($offset) {
 	@mysqli_free_result($result);
 	$ola = $row[0];
 
+	$fp = anixe_arxio("trapezi");
 	$limit = 1000;
 	$query = "SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3` " .
 		"FROM `trapezi_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
-		$x = $row[0];
+		write_grami($fp, $row);
 	}
+	fclose($fp);
 
 	print_data($offset, $limit, $count, $ola);
 }
@@ -78,13 +82,15 @@ function backup_sinedria($offset) {
 	@mysqli_free_result($result);
 	$ola = $row[0];
 
+	$fp = anixe_arxio("sinedria");
 	$limit = 1000;
 	$query = "SELECT `kodikos`, `pektis` " .
 		"FROM `sinedria_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
-		$x = $row[0];
+		write_grami($fp, $row);
 	}
+	fclose($fp);
 
 	print_data($offset, $limit, $count, $ola);
 }
@@ -102,4 +108,24 @@ function count_ola($pinakas) {
 
 function print_data($offset, $limit, $count, $ola) {
 	print $offset . ":" . $limit . ":" . $count . ":" . $ola . ":ok";
+}
+
+function anixe_arxio($arxio) {
+	$fname = "../data/" . $arxio . ".txt";
+	$fp = @fopen($fname, "w");
+	if ($fp) {
+		return($fp);
+	}
+
+	die($arxio . ": cannot open file");
+}
+
+function write_grami($fp, $row) {
+	$n = count($row);
+	$x = $row[0];
+	for ($i = 1; $i < $n; $i++) {
+		$x .= "\t" . $row[$i];
+	}
+	$x .= "\n";
+	fwrite($fp, $x);
 }

@@ -1,6 +1,5 @@
 glob:Thumbs.db
 glob:*.swp
-glob:data/*.txt
 glob:dedomena/*
 glob:*.zip
 glob:images/gallery/*
@@ -9,3 +8,4 @@ glob:Desktop.ini
 glob:photo/?/*
 glob:diafimisi/*.png
 glob:stats/rank.txt
+glob:data/*.txt
