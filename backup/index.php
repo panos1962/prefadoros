@@ -29,12 +29,48 @@ Page::fyi();
 	</td>
 </tr>
 <tr>
+	<td id="sxesiStatus" class="backupStatus">
+	</td>
+	<td class="backupPinakas">
+		<span id="sxesi" class="data">Σχέσεις</span>
+	</td>
+	<td id="sxesiCount" class="backupCount">
+	</td>
+</tr>
+<tr>
+	<td id="minimaStatus" class="backupStatus">
+	</td>
+	<td class="backupPinakas">
+		<span id="minima" class="data">Μηνύματα</span>
+	</td>
+	<td id="minimaCount" class="backupCount">
+	</td>
+</tr>
+<tr>
 	<td id="trapeziStatus" class="backupStatus">
 	</td>
 	<td class="backupPinakas">
 		<span id="trapezi" class="data">Τραπέζια</span>
 	</td>
 	<td id="trapeziCount" class="backupCount">
+	</td>
+</tr>
+<tr>
+	<td id="dianomiStatus" class="backupStatus">
+	</td>
+	<td class="backupPinakas">
+		<span id="dianomi" class="data">Διανομές</span>
+	</td>
+	<td id="dianomiCount" class="backupCount">
+	</td>
+</tr>
+<tr>
+	<td id="kinisiStatus" class="backupStatus">
+	</td>
+	<td class="backupPinakas">
+		<span id="kinisi" class="data">Κινήσεις</span>
+	</td>
+	<td id="kinisiCount" class="backupCount">
 	</td>
 </tr>
 <tr>

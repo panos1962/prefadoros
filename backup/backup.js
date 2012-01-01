@@ -57,9 +57,21 @@ Backup.execCheck = function(pinakas, req) {
 	xc.innerHTML = '';
 	switch (pinakas) {
 	case 'pektis':
+		Backup.pinakas('sxesi');
+		break;
+	case 'sxesi':
+		Backup.pinakas('minima');
+		break;
+	case 'minima':
 		Backup.pinakas('trapezi');
 		break;
 	case 'trapezi':
+		Backup.pinakas('dianomi');
+		break;
+	case 'dianomi':
+		Backup.pinakas('kinisi');
+		break;
+	case 'kinisi':
 		Backup.pinakas('sinedria');
 		break;
 	default:
