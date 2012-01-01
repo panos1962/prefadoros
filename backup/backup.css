@@ -1,0 +1,28 @@
+.backupEpikefalida {
+	margin-bottom: 0.4cm;
+	text-align: center;
+	text-decoration: underline;
+}
+
+.backupStatus {
+	width: 1.0cm;
+	text-align: right;
+}
+
+.backupPinakas {
+	padding: 0.2cm;
+}
+
+
+.backupWorking {
+	width: 0.6cm;
+}
+
+.backupCount {
+	width: 6.0cm;
+	color: #003366;
+}
+
+.backupButton {
+	font-size: 0.4cm;
+}
