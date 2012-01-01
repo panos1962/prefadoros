@@ -36,7 +36,7 @@ function backup_pektis($offset) {
 	global $globals;
 
 	$ola = count_ola("pektis");
-	$fp = anixe_arxio("pektis");
+	$fp = anixe_arxio("pektis", $offset);
 	$limit = 100;
 	$query = "SELECT `login`, `onoma`, `email`, `kapikia`, `katastasi`, `plati`, " .
 		"`enalagi`, `paraskinio`, `poll`, `password`, `egrafi`, `superuser`, " .
@@ -55,7 +55,7 @@ function backup_sxesi($offset) {
 	global $globals;
 
 	$ola = count_ola("sxesi");
-	$fp = anixe_arxio("sxesi");
+	$fp = anixe_arxio("sxesi", $offset);
 	$limit = 100;
 	$query = "SELECT `kodikos`, `pektis`, `sxetizomenos`, `status`, `dimiourgia` " .
 		"FROM `sxesi` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
@@ -72,7 +72,7 @@ function backup_minima($offset) {
 	global $globals;
 
 	$ola = count_ola("minima");
-	$fp = anixe_arxio("minima");
+	$fp = anixe_arxio("minima", $offset);
 	$limit = 100;
 	$query = "SELECT `kodikos`, `apostoleas`, `paraliptis`, `dimiourgia` " .
 		"`katastasi`, `minima` " .
@@ -89,8 +89,8 @@ function backup_minima($offset) {
 function backup_trapezi($offset) {
 	global $globals;
 
-	$ola = count_ola("trapezi");
-	$fp = anixe_arxio("trapezi");
+	$ola = count_ola("trapezi_log");
+	$fp = anixe_arxio("trapezi", $offset);
 	$limit = 100;
 	$query = "SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3` " .
 		"FROM `trapezi_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
@@ -106,9 +106,9 @@ function backup_trapezi($offset) {
 function backup_dianomi($offset) {
 	global $globals;
 
-	$ola = count_ola("dianomi");
-	$fp = anixe_arxio("dianomi");
-	$limit = 1000;
+	$ola = count_ola("dianomi_log");
+	$fp = anixe_arxio("dianomi", $offset);
+	$limit = 10000;
 	$query = "SELECT `kodikos`, `trapezi`, `dealer`, `kasa1`, `metrita1`, " .
 		"`kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi`" .
 		"FROM `dianomi_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
@@ -124,9 +124,9 @@ function backup_dianomi($offset) {
 function backup_kinisi($offset) {
 	global $globals;
 
-	$ola = count_ola("kinisi");
-	$fp = anixe_arxio("kinisi");
-	$limit = 1000;
+	$ola = count_ola("kinisi_log");
+	$fp = anixe_arxio("kinisi", $offset);
+	$limit = 100000;
 	$query = "SELECT `kodikos`, `dianomi`, `pektis`, `idos`, `data`, `pote` " .
 		"FROM `kinisi_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
 	$result = $globals->sql_query($query);
@@ -142,7 +142,7 @@ function backup_sinedria($offset) {
 	global $globals;
 
 	$ola = count_ola("trapezi");
-	$fp = anixe_arxio("sinedria");
+	$fp = anixe_arxio("sinedria_log", $offset);
 	$limit = 1000;
 	$query = "SELECT `kodikos`, `pektis` " .
 		"FROM `sinedria_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
@@ -172,9 +172,9 @@ function print_data($offset, $limit, $count, $ola) {
 	print $offset . ":" . $limit . ":" . $count . ":" . $ola . ":ok";
 }
 
-function anixe_arxio($arxio) {
+function anixe_arxio($arxio, $offset) {
 	$fname = "../data/" . $arxio . ".txt";
-	$fp = @fopen($fname, "w");
+	$fp = @fopen($fname, ($offset == 0 ? "w" : "a"));
 	if ($fp) {
 		return($fp);
 	}
