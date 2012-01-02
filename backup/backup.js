@@ -1,60 +1,62 @@
 var Backup = {};
 
+Backup.ekinisi = function() {
+	var x = getelid('ekinisi');
+	if (notSet(x)) { return false; }
+	x.innerHTML = '<img src="' + globals.server +
+		'images/elika.gif" class="backupButton" alt="" />';
+
+	Backup.pinakas('pektis');
+	return false;
+};
+
 Backup.pinakas = function(pinakas) {
 	var xs = getelid(pinakas + 'Status');
-	if (notSet(xs)) { return false; }
+	if (notSet(xs)) { return; }
 	xs.innerHTML = '<img src="' + globals.server + 'images/that.gif" ' +
 		'style="width: 0.6cm;" alt="" />';
 
 	var xp = getelid(pinakas);
-	if (notSet(xp)) { return false; }
+	if (notSet(xp)) { return; }
 	xp.style.fontWeight = 'bold';
 
 	Backup.exec(pinakas)
 };
 
-Backup.exec = function(pinakas, offset) {
+Backup.exec = function(pinakas) {
 	var req = new Request('backup/exec');
 	req.xhr.onreadystatechange = function() {
 		Backup.execCheck(pinakas, req);
 	};
 
-	if (notSet(offset)) { offset = 0; }
-
 	var params = 'pinakas=' + uri(pinakas);
-	params += '&offset=' + offset;
 	req.send(params);
+
+	var x = getelid(pinakas + 'Count');
+	if (notSet(x)) { return; }
+	x.innerHTML = '<img style="width: 2.2cm;" src="' + globals.server +
+		'images/riges.gif" alt="" />';
 };
 
 Backup.execCheck = function(pinakas, req) {
 	if (req.xhr.readyState != 4) { return; }
 	var rsp = req.getResponse();
 	var x = rsp.split(':');
-	if ((x.length != 5) || (x[4] != 'ok')) {
+	if ((x.length != 2) || (x[1] != 'ok')) {
 		alert(rsp);
 		return;
 	}
+	var count = parseInt(x[0]);
 
-	var xc = getelid(pinakas + 'Count');
-	if (notSet(xc)) { return; }
+	var x = getelid(pinakas + 'Count');
+	if (notSet(x)) { return; }
+	x.innerHTML = '<span class="data">' + count + '</span>';
 
-	var offset = parseInt(x[0]);
-	var limit = parseInt(x[1]);
-	var count = parseInt(x[2]);
-	var rows = offset + count;
-	xc.innerHTML = '<span class="data">' + rows + '</span>';
+	x = getelid(pinakas + 'Status');
+	if (notSet(x)) { return; }
+	x.innerHTML = '<img class="backupDone" src="' + globals.server +
+		'images/controlPanel/check.png" alt="" />';
 
-	if (limit <= count) {
-		xc.innerHTML += '#<span class="data">' + x[3] + '</span>';
-		Backup.exec(pinakas, rows);
-		return;
-	}
-
-	xc.innerHTML = '<span class="data">' + rows + '</span>';
-	xc = getelid(pinakas + 'Status');
-	if (notSet(xc)) { return; }
-
-	xc.innerHTML = '';
 	switch (pinakas) {
 	case 'pektis':
 		Backup.pinakas('sxesi');
@@ -75,6 +77,10 @@ Backup.execCheck = function(pinakas, req) {
 		Backup.pinakas('sinedria');
 		break;
 	default:
+		var x = getelid('ekinisi');
+		if (notSet(x)) { return false; }
+		x.innerHTML = '<button class="backupButton" type="button" ' +
+			'onclick="return Backup.ekinisi();">Restart backup</button>';
 		break;
 	}
 };

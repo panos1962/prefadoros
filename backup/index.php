@@ -85,9 +85,9 @@ Page::fyi();
 <tr>
 	<td class="backupStatus">
 	</td>
-	<td class="backupPinakas" colspan="100">
-		<button class="backupButton" style="margin-top: 0.4cm;" type="button"
-			onclick="return Backup.pinakas('pektis');">Start backup</button>
+	<td id="ekinisi" class="backupPinakas" colspan="100">
+		<button class="backupButton" type="button"
+			onclick="return Backup.ekinisi();">Start backup</button>
 	</td>
 </tr>
 </tbody>

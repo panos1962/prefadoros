@@ -4,155 +4,134 @@ header('Content-type: text/plain; charset=utf-8');
 require_once '../lib/standard.php';
 set_globals();
 $pinakas = Globals::perastike_check('pinakas');
-$offset = Globals::perastike_check('offset');
 
 switch ($pinakas) {
 case 'pektis':
-	backup_pektis($offset);
+	backup_pektis();
 	break;
 case 'sxesi':
-	backup_sxesi($offset);
+	backup_sxesi();
 	break;
 case 'minima':
-	backup_minima($offset);
+	backup_minima();
 	break;
 case 'trapezi':
-	backup_trapezi($offset);
+	backup_trapezi();
 	break;
 case 'dianomi':
-	backup_dianomi($offset);
+	backup_dianomi();
 	break;
 case 'kinisi':
-	backup_kinisi($offset);
+	backup_kinisi();
 	break;
 case 'sinedria':
-	backup_sinedria($offset);
+	backup_sinedria();
 	break;
 default:
 	die($pinakas . ": invalid table name");
 }
 
-function backup_pektis($offset) {
+function backup_pektis() {
 	global $globals;
 
-	$ola = count_ola("pektis");
-	$fp = anixe_arxio("pektis", $offset);
-	$limit = 100;
+	$fp = anixe_arxio("pektis");
 	$query = "SELECT `login`, `onoma`, `email`, `kapikia`, `katastasi`, `plati`, " .
 		"`enalagi`, `paraskinio`, `poll`, `password`, `egrafi`, `superuser`, " .
 		"`proxy`, `melos` " .
-		"FROM `pektis` ORDER BY `login` LIMIT " . $offset . ", " . $limit;
+		"FROM `pektis` ORDER BY `login`";
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
 	}
 	fclose($fp);
-
-	print_data($offset, $limit, $count, $ola);
+	print_data($count);
 }
 
-function backup_sxesi($offset) {
+function backup_sxesi() {
 	global $globals;
 
-	$ola = count_ola("sxesi");
-	$fp = anixe_arxio("sxesi", $offset);
-	$limit = 100;
+	$fp = anixe_arxio("sxesi");
 	$query = "SELECT `kodikos`, `pektis`, `sxetizomenos`, `status`, `dimiourgia` " .
-		"FROM `sxesi` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
+		"FROM `sxesi` ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
 	}
 	fclose($fp);
-
-	print_data($offset, $limit, $count, $ola);
+	print_data($count);
 }
 
-function backup_minima($offset) {
+function backup_minima() {
 	global $globals;
 
-	$ola = count_ola("minima");
-	$fp = anixe_arxio("minima", $offset);
-	$limit = 100;
+	$fp = anixe_arxio("minima");
 	$query = "SELECT `kodikos`, `apostoleas`, `paraliptis`, `dimiourgia` " .
 		"`katastasi`, `minima` " .
-		"FROM `minima` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
+		"FROM `minima` ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
 	}
 	fclose($fp);
-
-	print_data($offset, $limit, $count, $ola);
+	print_data($count);
 }
 
-function backup_trapezi($offset) {
+function backup_trapezi() {
 	global $globals;
 
-	$ola = count_ola("trapezi_log");
 	$fp = anixe_arxio("trapezi", $offset);
-	$limit = 100;
-	$query = "SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3` " .
-		"FROM `trapezi_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
+	$query = "SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3`, " .
+		"`pasopasopaso`, `asoi`, `stisimo`, `telos` " .
+		"FROM `trapezi_log` ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
 	}
 	fclose($fp);
-
-	print_data($offset, $limit, $count, $ola);
+	print_data($count);
 }
 
-function backup_dianomi($offset) {
+function backup_dianomi() {
 	global $globals;
 
-	$ola = count_ola("dianomi_log");
 	$fp = anixe_arxio("dianomi", $offset);
-	$limit = 10000;
 	$query = "SELECT `kodikos`, `trapezi`, `dealer`, `kasa1`, `metrita1`, " .
 		"`kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi`" .
-		"FROM `dianomi_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
+		"FROM `dianomi_log` ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
 	}
 	fclose($fp);
-
-	print_data($offset, $limit, $count, $ola);
+	print_data($count);
 }
 
-function backup_kinisi($offset) {
+function backup_kinisi() {
 	global $globals;
 
-	$ola = count_ola("kinisi_log");
 	$fp = anixe_arxio("kinisi", $offset);
-	$limit = 100000;
 	$query = "SELECT `kodikos`, `dianomi`, `pektis`, `idos`, `data`, `pote` " .
-		"FROM `kinisi_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
+		"FROM `kinisi_log` ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
 	}
 	fclose($fp);
-
-	print_data($offset, $limit, $count, $ola);
+	print_data($count);
 }
 
-function backup_sinedria($offset) {
+function backup_sinedria() {
 	global $globals;
 
-	$ola = count_ola("trapezi");
 	$fp = anixe_arxio("sinedria_log", $offset);
-	$limit = 1000;
-	$query = "SELECT `kodikos`, `pektis` " .
-		"FROM `sinedria_log` ORDER BY `kodikos` LIMIT " . $offset . ", " . $limit;
+	$query = "SELECT `kodikos`, `pektis`, `ip`, `dimiourgia`, `enimerosi`, `telos` " .
+		"FROM `sinedria_log` ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
 	}
 	fclose($fp);
-
-	print_data($offset, $limit, $count, $ola);
+	print_data($count);
 }
 
 function count_ola($pinakas) {
@@ -168,13 +147,13 @@ function count_ola($pinakas) {
 	return($row[0]);
 }
 
-function print_data($offset, $limit, $count, $ola) {
-	print $offset . ":" . $limit . ":" . $count . ":" . $ola . ":ok";
+function print_data($count) {
+	print $count . ":ok";
 }
 
-function anixe_arxio($arxio, $offset) {
+function anixe_arxio($arxio) {
 	$fname = "../data/" . $arxio . ".txt";
-	$fp = @fopen($fname, ($offset == 0 ? "w" : "a"));
+	$fp = @fopen($fname, "w");
 	if ($fp) {
 		return($fp);
 	}
