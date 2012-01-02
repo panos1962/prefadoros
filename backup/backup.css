@@ -13,9 +13,12 @@
 	padding: 0.2cm;
 }
 
-
 .backupWorking {
 	width: 0.6cm;
+}
+
+.backupDone {
+	width: 0.4cm;
 }
 
 .backupCount {
@@ -25,4 +28,5 @@
 
 .backupButton {
 	font-size: 0.4cm;
+	margin-top: 0.4cm;
 }
