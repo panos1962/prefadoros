@@ -7,6 +7,7 @@ require_once '../lib/standard.php';
 set_globals();
 $pinakas = Globals::perastike_check('pinakas');
 
+set_time_limit(0);
 switch ($pinakas) {
 case 'pektis':
 	backup_pektis();
@@ -111,7 +112,6 @@ function backup_dianomi() {
 function backup_kinisi() {
 	global $globals;
 
-	set_time_limit(300);
 	$fp = anixe_arxio("kinisi");
 	$query = "SELECT `kodikos`, `dianomi`, `pektis`, `idos`, `data`, `pote` " .
 		"FROM `kinisi_log` ORDER BY `kodikos`";
