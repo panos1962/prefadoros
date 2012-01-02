@@ -181,6 +181,7 @@ var Tools = new function() {
 	};
 
 	this.miaPrefaHTML = function(space) {
+		if (isSet(pektis) && isSet(pektis.system) && pektis.system) { return ''; }
 		var html = '<div style="text-align: center; margin-top: 0.2cm;';
 		if (isSet(space)) { html += 'padding-bottom: 0.2cm;'; }
 		html += '">';
