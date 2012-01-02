@@ -1,5 +1,7 @@
 <?php
 header('Content-type: text/plain; charset=utf-8');
+global $no_session;
+$no_session = TRUE;
 
 require_once '../lib/standard.php';
 set_globals();
@@ -109,6 +111,7 @@ function backup_dianomi() {
 function backup_kinisi() {
 	global $globals;
 
+	set_time_limit(300);
 	$fp = anixe_arxio("kinisi", $offset);
 	$query = "SELECT `kodikos`, `dianomi`, `pektis`, `idos`, `data`, `pote` " .
 		"FROM `kinisi_log` ORDER BY `kodikos`";
