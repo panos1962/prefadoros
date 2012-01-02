@@ -86,7 +86,7 @@ function print_stats($pektis = "") {
 			continue;
 		}
 
-		$sp = sin_plin($cols[1]);
+		$sp = sin_plin($cols[4]);
 		$pk = ($pektis != "") && preg_match("/" . $pektis . "/", $cols[0]);
 		print '<tr class="zebra' . ($n++ % 2);
 		if ($pk) {
@@ -100,10 +100,10 @@ function print_stats($pektis = "") {
 			$pkok = FALSE;
 		}
  		print $cols[0] . '</td>';
+		print '<td class="statsPlithos">' . $cols[1] . '</td>';
 		print '<td class="statsPlithos">' . $cols[2] . '</td>';
 		print '<td class="statsPlithos">' . $cols[3] . '</td>';
-		print '<td class="statsPlithos">' . $cols[4] . '</td>';
-		print '<td class="statsBathmos' . $sp . '">' . $cols[1] . '</td>';
+		print '<td class="statsBathmos' . $sp . '">' . $cols[4] . '</td>';
 		print '<td><a href="#" onclick="getelid(\'pektis\').select(); return true;">' .
 			'<img src="' . $globals->server . 'images/dixePano.png" ' .
 				'title="Εντοπισμός παίκτη" class="statsPano" alt="" /></a>';
