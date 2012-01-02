@@ -100,8 +100,16 @@ class Pektis {
 				") WHERE `login` = BINARY " . $this->slogin;
 			$globals->sql_query($query);
 			if ($globals->is_trapezi()) {
-				$query = "UPDATE `trapezi` SET `poll` = FROM_UNIXTIME(" . $now_ts .
-					") WHERE `kodikos` = " . $globals->trapezi->kodikos;
+				if ($globals->trapezi->is_theatis()) {
+					$query = "UPDATE `trapezi` SET `poll` = FROM_UNIXTIME(" . $now_ts .
+						") WHERE (`telos` IS NULL) AND " . "((`pektis1` = BINARY " .
+						$this->slogin . ") OR (`pektis2` = BINARY " . $this->slogin .
+						") OR (`pektis3` = BINARY " . $this->slogin . "))";
+				}
+				else {
+					$query = "UPDATE `trapezi` SET `poll` = FROM_UNIXTIME(" . $now_ts .
+						") WHERE `kodikos` = " . $globals->trapezi->kodikos;
+				}
 				$globals->sql_query($query);
 			}
 		}
