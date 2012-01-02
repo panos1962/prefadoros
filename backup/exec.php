@@ -81,7 +81,7 @@ function backup_minima() {
 function backup_trapezi() {
 	global $globals;
 
-	$fp = anixe_arxio("trapezi", $offset);
+	$fp = anixe_arxio("trapezi");
 	$query = "SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3`, " .
 		"`pasopasopaso`, `asoi`, `stisimo`, `telos` " .
 		"FROM `trapezi_log` ORDER BY `kodikos`";
@@ -96,7 +96,7 @@ function backup_trapezi() {
 function backup_dianomi() {
 	global $globals;
 
-	$fp = anixe_arxio("dianomi", $offset);
+	$fp = anixe_arxio("dianomi");
 	$query = "SELECT `kodikos`, `trapezi`, `dealer`, `kasa1`, `metrita1`, " .
 		"`kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi`" .
 		"FROM `dianomi_log` ORDER BY `kodikos`";
@@ -112,7 +112,7 @@ function backup_kinisi() {
 	global $globals;
 
 	set_time_limit(300);
-	$fp = anixe_arxio("kinisi", $offset);
+	$fp = anixe_arxio("kinisi");
 	$query = "SELECT `kodikos`, `dianomi`, `pektis`, `idos`, `data`, `pote` " .
 		"FROM `kinisi_log` ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
@@ -126,7 +126,7 @@ function backup_kinisi() {
 function backup_sinedria() {
 	global $globals;
 
-	$fp = anixe_arxio("sinedria_log", $offset);
+	$fp = anixe_arxio("sinedria");
 	$query = "SELECT `kodikos`, `pektis`, `ip`, `dimiourgia`, `enimerosi`, `telos` " .
 		"FROM `sinedria_log` ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
