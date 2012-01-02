@@ -559,8 +559,11 @@ class Page {
 			<a target="_blank" href="<?php
 				print $globals->server; ?>account/signup.php?modify"
 				class="data login" title="Στοιχεία λογαριασμού"
-				style="max-width: 5.4cm; overflow: hidden;"><?php
-					print $globals->pektis->login; ?></a>
+				style="max-width: 5.4cm; overflow: hidden;<?php
+					if ($globals->pektis->login == SYSTEM_ACCOUNT) {
+						print " color: #FF3333;";
+					}
+					?>"><?php print $globals->pektis->login; ?></a>
 			<?php
 			self::logout_section();
 		}
