@@ -982,7 +982,13 @@ var Partida = new function() {
 			if (isSet(rebelos[i].t) && (rebelos[i].t == partida.kodikos) &&
 				(rebelos[i].l != pektis.login)) {
 				if (count > 5) {
-					if (more <= 0) { var moreProtos = rebelos[i].l; }
+					if (more <= 0) {
+						var moreProtos = rebelos[i].l;
+						var moreOnomata = rebelos[i].l;
+					}
+					else {
+						moreOnomata += ', ' + rebelos[i].l;
+					}
 					more++;
 					continue;
 				}
@@ -992,8 +998,12 @@ var Partida = new function() {
 				count++;
 			}
 		}
-		if (more == 1) { html += Partida.theatisItemHTML(moreProtos); }
-		else if (more > 0) { html += '<div>και άλλοι ' + more + '</div>'; }
+		if (more == 1) {
+			html += Partida.theatisItemHTML(moreProtos);
+		}
+		else if (more > 0) {
+			html += '<div title="' + moreOnomata + '">και άλλοι ' + more + '</div>';
+		}
 
 		if (protos == '') { html += '</div>'; }
 		return html;
