@@ -311,6 +311,8 @@ function print_panel() {
 		"http://splicd.com/0iFeP8zlmFU/0/2");
 	$item_list[] = new Item("moxthiroEmoticon.gif");
 	$item_list[] = new Item("kobra.gif");
+	$item_list[] = new Item("tinPatisame.jpg", "Την πατήσαμε…", "6.0",
+		"http://splicd.com/rvwSqsAoeq4/0/1");
 	$item_list[] = new Item("sfiriEmoticon.gif", "Θα το σπάσω!!!");
 	$item_list[] = new Item("parathiro.gif", "", "", "tzamia:1500");
 	$item_list[] = new Item("astrapesEmoticon.gif", "@#!%@^&#*!@");
