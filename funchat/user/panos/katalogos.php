@@ -10,5 +10,5 @@ $item_list[] = new Item("user/panos/omorfantraMou.jpg",
 $item_list[] = new Item("user/panos/kritikos.jpg",
 	"Η πρέφα θέλει υπομονή!", 4.0, "http://splicd.com/fYGBzNScM0I/24/28");
 $item_list[] = new Item("user/panos/orePouPame.jpg",
-	"Ωρέ πού πάμε, ρε; Πού πάμε;", 6.0, "http://youtu.be/Tr1JPeAW3M8?start=6");
+	"Ωρέ πού πάμε, ρε; Πού πάμε;", 6.0, "http://youtu.be/yRIMlBoMJXE");
 ?>
