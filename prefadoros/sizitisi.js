@@ -217,7 +217,8 @@ var Sizitisi = new function() {
 		if (iv.match(/^https?:\/\/youtu\.be\//)) {
 			html += '<iframe width="300" height="203" src="http://www.youtube.com/embed/';
 			html += iv.replace(/^https?:\/\/youtu\.be\//, '');
-			html += '?autoplay=1&rel=0&controls=0&showinfo=0" ';
+			html += html.match(/\?start=[0-9]+/) ? '&' : '?';
+			html += 'autoplay=1&rel=0&controls=0&showinfo=0" ';
 			html += 'frameborder="0" style="display: none;"></iframe>';
 		}
 		else if (iv.match(/^https?:\/\/splicd\.com\//)) {
