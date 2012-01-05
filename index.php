@@ -191,8 +191,11 @@ function sizitisi_area() {
 	global $globals;
 	?>
 	<div class="pssHeaderArea">
-		<input id="sxolioInput" class="pssInput" type="text" value="" maxlength="4096"
-			size="18" style="background-image: url('<?php
+		<input id="sxolioInput" class="pssInput" type="text" value="" maxlength="4096" <?php
+			if ($globals->is_pektis() && ($globals->pektis->login == SYSTEM_ACCOUNT)) {
+				?>disabled="disabled" <?php
+			}
+			?> size="18" style="background-image: url('<?php
 			print $globals->server; ?>images/sizitisiPrompt.png');"
 			onkeyup="Sizitisi.keyCheck(event, this);" />
 		<input id="sxolioInputHidden" type="hidden" value="" maxlength="4096" size="0" />

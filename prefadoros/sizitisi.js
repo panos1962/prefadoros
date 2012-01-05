@@ -632,9 +632,12 @@ var Sizitisi = new function() {
 		if (notSet(s)) { return ''; }
 
 		var html = '';
-		if ((Prefadoros.show == 'kafenio') ||
+		if (isPektis() && pektis.system) {
+			s.disabled = true;
+		}
+		else if ((Prefadoros.show == 'kafenio') ||
 			(isPartida() && (notTheatis() || isProsklisi())) ||
-			(pektis.login == 'panos')) {
+			(isPektis() && (pektis.login == 'panos'))) {
 			s.disabled = false;
 			if (notSet(fs)) { Sizitisi.sxolioFocus() };
 			html += '<img id="sxolioApostoli" src="' + globals.server +

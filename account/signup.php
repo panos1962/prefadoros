@@ -34,8 +34,8 @@ Page::fyi();
 			<?php
 			if ($globals->is_pektis()) {
 				?>
-				value="<?php print $globals->pektis->login; ?>" disabled
-				style="font-weight: bold;"
+				value="<?php print $globals->pektis->login; ?>"
+				disabled="disabled" style="font-weight: bold;"
 				<?php
 			}
 			else {
