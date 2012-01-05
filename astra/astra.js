@@ -98,7 +98,8 @@ var Astra = new function() {
 		try {
 			var dedomena = eval('(' + rsp + ')');
 		} catch(e) {
-			mainFyi(rsp);
+			mainFyi(rsp + ': invalid response data');
+			return;
 		}
 
 		if (notSet(dedomena) || notSet(dedomena.ok) ||
