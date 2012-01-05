@@ -44,7 +44,7 @@ Page::fyi();
 </div>
 <div class="astraInput">
 	<img id="searchIcon" class="astraSearchIcon" src="<?php
-		print $globals->server; ?>images/workingBilies.gif" alt="" />
+		print $globals->server; ?>images/workingRed.gif" alt="" />
 	<input class="formaField astraGo" value="Go!!!" type="submit" />
 </div>
 </form>
