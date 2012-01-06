@@ -517,6 +517,22 @@ setTimeout(function() {
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
+			<img src="<?php print $globals->server; ?>images/controlPanel/misoLepto.gif"
+				class="helpIcon" alt="" />
+		</td>
+		<td class="helpKimeno">
+			Κάνοντας κλικ σε αυτό το εικονίδιο ειδοποιούμε συμπαίκτες
+			και θεατές ότι θα λείψουμε για λίγο.
+			Η ειδοποίηση εμφανίζεται στο χώρο ανταλλαγής μηνυμάτων.
+		</td>
+		</tr>
+	</table>
+</p>
+
+<p>
+	<table width="100%">
+		<tr>
+		<td class="helpIconColumn">
 			<img src="<?php print $globals->server; ?>images/controlPanel/prefadoros.png"
 				class="helpIcon" alt="" />
 		</td>
