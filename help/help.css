@@ -1,0 +1,94 @@
+.helpArea {
+	min-height: 14.4cm;
+	margin-left: 1.5cm;
+	max-width: 21cm;
+}
+
+li {
+	margin-top: 0.1cm;
+	line-height: 150%;
+}
+
+.helpPeriexomena {
+	background-color: #FFFFFF;
+	line-height: 150%;
+}
+
+.helpTitlos {
+	background-color: #FFFFFF;
+	font-weight: bold;
+	font-size: 120%;
+	margin-bottom: 0.4cm;
+}
+
+.helpIpotitlos {
+	background-color: #FFFFFF;
+	font-weight: normal;
+	font-size: 100%;
+	margin-bottom: -0.4cm;
+	text-decoration: underline;
+}
+
+.helpKimeno {
+	background-color: #FFFFFF;
+	line-height: 150%;
+	text-align: justify;
+	margin-bottom: 0.4cm;
+	vertical-align: top;
+	padding-left: 0.2cm;
+	padding-right: 0.2cm;
+}
+
+.helpIcon {
+	background-color: #FFFFFF;
+	width: 1.2cm;
+	margin-top: 0.2cm;
+	display: inline;
+}
+
+.helpIconInline {
+	background-color: #FFFFFF;
+	width: 1.2em;
+	max-height: 0.6cm;
+	margin-bottom: -0.1cm;
+}
+
+.helpIconColumn {
+	width: 2.2cm;
+	vertical-align: top;
+}
+
+.simantiko {
+	position: absolute;
+	top: 2.0cm;
+	right: 1.0cm;
+	width: 14.0cm;
+	text-align: justify;
+	line-height: 150%;
+	background-color: #FFFFCC;
+	color: #303233;
+	padding: 0.4cm 0.6cm 0.8cm 0.6cm;
+
+	border-style: double;
+	border-width: 3px;
+	border-color: #FCBF30;
+
+	-webkit-box-shadow: 4px 4px 10px #2E2E2E;
+	-moz-box-shadow: 4px 4px 10px #2E2E2E;
+	box-shadow: 4px 4px 10px #2E2E2E;
+}
+
+.simantikoEntono {
+	color: #FF3300;
+}
+
+.simantikoHeader {
+	display: inline-block;
+	background-color: #D44837;
+	color: #FCBF30;
+	padding: 0.1cm 0.2cm 0.1cm 0.2cm;
+
+	-webkit-box-shadow: 2px 2px 4px #2E2E2E;
+	-moz-box-shadow: 2px 2px 4px #2E2E2E;
+	box-shadow: 2px 2px 4px #2E2E2E;
+}
