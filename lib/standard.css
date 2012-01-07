@@ -170,6 +170,10 @@ a img {
 	background-color: #FFFF99;
 }
 
+.entono {
+	font-weight: bold;
+}
+
 .nobr {
 	white-space: nowrap;
 }
