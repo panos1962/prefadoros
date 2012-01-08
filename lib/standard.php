@@ -343,7 +343,7 @@ class Page {
 		<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="description" content="Παίξτε πρέφα on-line!" />
-		<meta name="keywords" content="πρέφα,πρεφαδόρος,prefa,prefadoros" />
+		<meta name="keywords" content="πρέφα,πρεφαδόρος,πρεφα,πρεφαδορος,prefa,prefadoros" />
 		<meta name="author" content="Panos Papadopoulos" />
 
 		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="<?php
