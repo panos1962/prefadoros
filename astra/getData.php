@@ -154,7 +154,14 @@ function parse_partida(&$prev) {
 function select_partida($sql) {
 	global $globals;
 	if ($sql == "") {
-		$sql = "`stisimo` >= DATE_SUB(NOW(), INTERVAL 1 DAY)";
+		switch ($globals->server) {
+		case 'http://127.0.0.1/prefadoros/':
+			$sql = "1";
+			break;
+		default:
+			$sql = "`stisimo` >= DATE_SUB(NOW(), INTERVAL 1 DAY)";
+			break;
+		}
 	}
 
 	$columns = "`kodikos`, `pektis1`, `pektis2`, `pektis3`, `kasa`, ";
