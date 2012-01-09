@@ -139,9 +139,17 @@ body {
 	overflow-x: hidden;
 }
 
+.astraMovie {
+	display: inline-block;
+	margin-left: 0.2cm;
+	width: 0.4cm;
+	height: 0.7cm;
+	margin-bottom: -0.2cm;
+}
+
 .astraPartidaXronos {
 	display: inline-block;
-	margin-left: 0.6cm;
+	margin-left: 0.2cm;
 	font-size: 90%;
 }
 

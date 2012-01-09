@@ -177,6 +177,8 @@ var Astra = new function() {
 		html += Astra.pektisHTML(partida.p1, partida.k1, plist);
 		html += Astra.pektisHTML(partida.p2, partida.k2, plist);
 		html += Astra.pektisHTML(partida.p3, partida.k3, plist);
+		html += '<img class="astraMovie" title="Replay" src="' +
+			globals.server + 'images/movie.png" alt="" />';
 		html += Astra.xronosHTML(partida.x);
 		html += '</div>';
 		html += '<div id="t' + partida.t + '"></div>';
