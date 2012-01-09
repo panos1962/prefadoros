@@ -647,17 +647,21 @@ class Page {
 			src="<?php print $globals->server; ?>images/vcss.gif"
 			alt="Valid CSS!" height="24" /></a>
 		*/
+		if ($globals->is_pektis()) {
+			?>
+			<div title="Για τις ανάγκες του server…" style="display: inline-block;">
+			<form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+			<input type="hidden" name="cmd" value="_s-xclick">
+			<input type="hidden" name="hosted_button_id" value="7UGXKWGRM5TXU">
+			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"
+				border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+			<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif"
+				width="1" height="1" >
+			</form>
+			</div>
+			<?php
+		}
 		?>
-		<div title="Για τις ανάγκες του server…" style="display: inline-block;">
-		<form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-		<input type="hidden" name="cmd" value="_s-xclick">
-		<input type="hidden" name="hosted_button_id" value="7UGXKWGRM5TXU">
-		<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"
-			border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-		<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif"
-			width="1" height="1" >
-		</form>
-		</div>
 		<a href="https://twitter.com/prefadorosTT" target="_blank"><img
 			src="<?php print $globals->server; ?>images/twitter.png"
 			alt="Ο «Πρεφαδόρος» στο twitter" height="22" /></a>
@@ -690,9 +694,13 @@ class Page {
 			class="data">Ιστολόγιο</a>&nbsp;]
 		[&nbsp;<a target="_blank" href="http://prefadoros.forumgreek.com"
 			class="data">Φόρουμ</a>&nbsp;]
-		[&nbsp;<a target="_blank" href="<?php print $globals->server;
-			?>dorea/index.php?pedi=yes">Δωρεές</a>&nbsp;]
 		<?php
+		if ($globals->is_pektis()) {
+			?>
+			[&nbsp;<a target="_blank" href="<?php print $globals->server;
+				?>dorea/index.php?pedi=yes">Δωρεές</a>&nbsp;]
+			<?php
+		}
 	}
 
 	protected static function rightRB() {
