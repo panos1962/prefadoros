@@ -177,9 +177,12 @@ var Astra = new function() {
 		html += Astra.pektisHTML(partida.p1, partida.k1, plist);
 		html += Astra.pektisHTML(partida.p2, partida.k2, plist);
 		html += Astra.pektisHTML(partida.p3, partida.k3, plist);
+		html += '<div style="position: relative; width: 0.8cm; ' +
+			'display: inline-block;">&#8203;';
 		html += '<img class="astraMovie" title="Replay" src="' +
 			globals.server + 'images/movie.png" alt="" ' +
 			'onclick="Astra.replayMovie(event, ' + partida.t + ');" />';
+		html += '</div>';
 		html += Astra.xronosHTML(partida.x);
 		html += '</div>';
 		html += '<div id="t' + partida.t + '"></div>';
@@ -658,7 +661,7 @@ var Astra = new function() {
 			try {
 				movieWindow.location.href = globals.server +
 					'movie/index.php?trapezi=' + uri(t);
-				movieWindow.select();
+				movieWindow.focus();
 				return;
 			} catch (e) {
 				movieWindow = null;
@@ -667,10 +670,9 @@ var Astra = new function() {
 
 		movieWindow = window.open(globals.server +
 			'movie/index.php?trapezi=' + uri(t), '_blank',
-			'location=0,status=0,titlebar=0,menubar=0,scrollbars=0,' +
-			'resizable=0');
-		if (notSet(movieWindow)) {
-			return;
+			'titlebar=1,menubar=1,location=0,width=400,height=200,scrollbars=1,resizable=0');
+		if (isSet(movieWindow)) {
+			movieWindow.focus();
 		}
 	};
 };
