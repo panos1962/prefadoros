@@ -178,7 +178,8 @@ var Astra = new function() {
 		html += Astra.pektisHTML(partida.p2, partida.k2, plist);
 		html += Astra.pektisHTML(partida.p3, partida.k3, plist);
 		html += '<img class="astraMovie" title="Replay" src="' +
-			globals.server + 'images/movie.png" alt="" />';
+			globals.server + 'images/movie.png" alt="" ' +
+			'onclick="Astra.replayMovie(event, ' + partida.t + ');" />';
 		html += Astra.xronosHTML(partida.x);
 		html += '</div>';
 		html += '<div id="t' + partida.t + '"></div>';
@@ -647,6 +648,30 @@ var Astra = new function() {
 
 	this.apoepilogiKinisis = function(div) {
 		div.style.backgroundColor = div.OBC;
+	};
+
+	var movieWindow = null;
+
+	this.replayMovie = function(e, t) {
+		stopProp(e);
+		if (isSet(movieWindow)) {
+			try {
+				movieWindow.location.href = globals.server +
+					'movie/index.php?trapezi=' + uri(t);
+				movieWindow.select();
+				return;
+			} catch (e) {
+				movieWindow = null;
+			}
+		}
+
+		movieWindow = window.open(globals.server +
+			'movie/index.php?trapezi=' + uri(t), '_blank',
+			'location=0,status=0,titlebar=0,menubar=0,scrollbars=0,' +
+			'resizable=0');
+		if (notSet(movieWindow)) {
+			return;
+		}
 	};
 };
 
