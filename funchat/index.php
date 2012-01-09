@@ -362,3 +362,4 @@ function print_panel() {
 		$item_list[$i]->show();
 	}
 }
+?>
