@@ -18,6 +18,7 @@ Page::epikefalida(Globals::perastike('pedi'), "[<a target=\"_blank\" href=\"" .
 Page::fyi();
 ?>
 <div id="astraArea" class="mainArea astraArea">
+<div id="ruler" style="width: 10.0cm; height: 1px;"></div>
 <form onsubmit="return Astra.getData();" class="astraInputArea">
 <div class="astraInput">
 	<div class="formaPrompt astraPrompt">Παίκτης</div>

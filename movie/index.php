@@ -21,7 +21,7 @@ Page::body();
 		</table>
 	</div>
 	<div id="trapezi" class="movieTrapezi">
-		<div style="position: relative; height: 18.0cm;">
+		<div style="position: relative; height: 13.0cm;">
 			<div class="moviePektisArea moviePektisArea3">
 				3
 			</div>

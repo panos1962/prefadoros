@@ -177,8 +177,8 @@ var Astra = new function() {
 		html += Astra.pektisHTML(partida.p1, partida.k1, plist);
 		html += Astra.pektisHTML(partida.p2, partida.k2, plist);
 		html += Astra.pektisHTML(partida.p3, partida.k3, plist);
-		html += '<div style="position: relative; width: 0.8cm; ' +
-			'display: inline-block;">&#8203;';
+		html += '<div style="position: relative; width: 0.8cm; height: 0.4cm; ' +
+			'display: inline-block;">&#8203';
 		html += '<img class="astraMovie" title="Replay" src="' +
 			globals.server + 'images/movie.png" alt="" ' +
 			'onclick="Astra.replayMovie(event, ' + partida.t + ');" />';
@@ -670,15 +670,31 @@ var Astra = new function() {
 
 		movieWindow = window.open(globals.server +
 			'movie/index.php?trapezi=' + uri(t), '_blank',
-			'titlebar=1,menubar=1,location=0,width=400,height=200,scrollbars=1,resizable=0');
+			'titlebar=1,menubar=1,location=0,left=100,top=100,' +
+			'width=' + Astra.cm2pixels(19.4) + ',height=' +
+			Astra.cm2pixels(17) + ',scrollbars=1,resizable=0');
 		if (isSet(movieWindow)) {
 			movieWindow.focus();
 		}
 	};
+
+	this.pixelsAnaCm= null;
+
+	this.ruler = function() {
+		var x = getelid('ruler');
+		if (notSet(x)) { return; }
+		Astra.pixelsAnaCm = x.offsetWidth / 10;
+		x.parentNode.removeChild(x);
+	};
+
+	this.cm2pixels = function(cm) {
+		return parseInt(Astra.pixelsAnaCm * cm);
+	}
 };
 
 window.onload = function() {
 	init();
 	Astra.setHeight();
 	Astra.getData();
+	Astra.ruler();
 };
