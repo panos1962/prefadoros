@@ -1,10 +1,12 @@
 Movie = {};
 
 Movie.resize = function() {
-	var x = getelid('trapezi');
+	var x = getelid('main');
 	if (notSet(x)) { return; }
-	var w = parseInt(x.offsetWidth * 1.1);
-	var h = parseInt(x.offsetHeight * 1.2);
+
+	var w = x.offsetWidth - x.offsetLeft;
+	var h = x.offsetHeight - x.offsetTop;
+alert(x.offsetWidth);
 
 	window.resizeTo(w, h);
 };

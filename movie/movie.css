@@ -1,7 +1,8 @@
 .movieMain {
 	position: relative;
-	width: 10.0cm;
-	height: 10.0cm;
+	width: 20.4cm;
+	height: 21.0cm;
+background-color: green;
 }
 
 .movieEpikefalida {
@@ -28,8 +29,37 @@ background-color: teal;
 	top: 1.4cm;
 	left: 0px;
 	width: 20.4cm;
-	height: 16.0cm;
+	height: 18.0cm;
 background-color: yellow;
+}
+
+.moviePektisArea {
+	position: absolute;
+	width: 9.6cm;
+	height: 5.0cm;
+background-color: magenta;
+}
+
+.moviePektisArea3 {
+	top: 0.2cm;
+	left: 0.2cm;
+}
+
+.moviePektisArea2 {
+	top: 0.2cm;
+	right: 0.2cm;
+}
+
+.moviePektisArea1 {
+	bottom: 0.2cm;
+	left: 5.8cm;
+}
+
+.movieControls {
+	position: absolute;
+	bottom: 0.2cm;
+	left: 0.2cm;
+background-color: crimson;
 }
 
 /*
