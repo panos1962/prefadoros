@@ -30,14 +30,16 @@ Page::epikefalida(Globals::perastike('pedi'));
 	Οι εξαιρετικές εικόνες των παιγνιοχάρτων είναι από το site
 	<a target="_blank" href="http://www.jfitz.com/cards/">jfitz.com</a>,
 	ενώ τα περισσότερα από τα εικονίδια που χρησιμοποιούνται
-	στο διαδικτυακό καφενείο της πρέφας κατέβηκαν από το site
-	<a target="_blank" href="http://www.iconfinder.com/">www.iconfinder.com</a>
-	και, σε όσα από αυτά χρειάστηκε, η επεξεργασία τους έγινε
+	στο διαδικτυακό καφενείο της πρέφας κατέβηκαν από τα sites
+	<a target="_blank" href="http://www.iconfinder.com/">www.iconfinder.com</a>,
+	<a target="_blank" href="http://www.findicons.com/">www.findicons.com</a> και
+	<a target="_blank" href="http://www.glitter-graphics.com">www.glitter-graphics.com</a>,
+	ενώ σε όσα από αυτά χρειάστηκε, η επεξεργασία τους έγινε
 	με τον <a target="_blank" href="http://www.gimp.org/">GIMP</a>.
 	Σε ό,τι αφορά στους ήχους, χρησιμοποιήθηκε η βιβλιοθήκη
 	<a target="_blank" href="http://www.schillmania.com/">SoundManager2</a>
-	του Scott Schiller, με ήχους που κατέβηκαν από το site
-	<a target="_blank" href="http://www.grsites.com/">GRSites</a>,
+	του <a target="_blank" href="http://www.linkedin.com/pub/scott-schiller/1/13a/239">Scott Schiller</a>,
+	με ήχους που κατέβηκαν από το site <a target="_blank" href="http://www.grsites.com/">GRSites</a>,
 	από το οποίο επίσης κατέβηκε και το κομφετί που
 	συνθέτει το default background pattern.
 	Το όλο project συντηρείται με το
