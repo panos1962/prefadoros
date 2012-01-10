@@ -48,7 +48,7 @@ Page::body();
 		<?php lista_dianomon($dianomes); ?>
 	</div>
 	<div class="movieControls">
-		Controls
+		<?php controls(); ?>
 	</div>
 </div>
 <?php
@@ -255,6 +255,26 @@ class Dianomi {
 			}
 		}
 	}
+}
+
+function controls() {
+	global $globals;
+	?>
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/stop.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/pause.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/play.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/start.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/end.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/rev.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/fwd.png" alt="" />
+	<?php
 }
 
 ?>

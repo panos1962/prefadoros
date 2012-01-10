@@ -180,7 +180,7 @@ var Astra = new function() {
 		html += '<div style="position: relative; width: 0.8cm; height: 0.4cm; ' +
 			'display: inline-block;">&#8203';
 		html += '<img class="astraMovie" title="Replay" src="' +
-			globals.server + 'images/movie.png" alt="" ' +
+			globals.server + 'images/movie/movie.png" alt="" ' +
 			'onclick="Astra.replayMovie(event, ' + partida.t + ');" />';
 		html += '</div>';
 		html += Astra.xronosHTML(partida.x);
@@ -530,7 +530,7 @@ var Astra = new function() {
 		html += '<div style="position: relative; width: 0.8cm; height: 0.4cm; ' +
 			'display: inline-block;">&#8203';
 		html += '<img class="astraMovie" title="Replay" src="' +
-			globals.server + 'images/movie.png" alt="" ' +
+			globals.server + 'images/movie/movie.png" alt="" ' +
 			'style="left: -0.08cm; top: -0.3cm;" ' +
 			'onclick="Astra.replayMovie(event, ' + t + ', ' + dianomi.d + ');" />';
 		html += '</div>';

@@ -70,11 +70,19 @@ background-color: magenta;
 	height: 1.0cm;
 	font-size: 0.6cm;
 	padding: 0.2cm 0.2cm 0px 0.2cm;
+	text-align: center;
 
 	background-color: #8CAA88;
 	border-style: solid;
 	border-color: #4D944D;
 	border-width: 2px;
+}
+
+.movieControlIcon {
+	margin-left: 0.2cm;
+	margin-right: 0.2cm;
+	width: 0.8cm;
+	height: 0.8cm;
 }
 
 .movieDianomes {
