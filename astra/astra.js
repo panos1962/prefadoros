@@ -242,7 +242,7 @@ var Astra = new function() {
 
 		var html = '';
 		for (var i = 0; i < dedomena.dianomi.length; i++) {
-			html += Astra.dianomiHTML(dedomena.dianomi[i], i);
+			html += Astra.dianomiHTML(dedomena.dianomi[i], i, trapezi);
 		}
 		html += '<div class="astraDianomi">';
 		html += '<div class="astraKlisimo" ' +
@@ -517,7 +517,7 @@ var Astra = new function() {
 		return html;
 	};
 
-	this.dianomiHTML = function(dianomi, i) {
+	this.dianomiHTML = function(dianomi, i, t) {
 		var html = '';
 		html += '<div class="astraDianomi astraDianomiZebra' + (i % 2) +
 			'" onclick="Astra.kinisiOnOff(' + dianomi.d + ');" ' +
@@ -527,6 +527,13 @@ var Astra = new function() {
 		for (var j = 1; j <= 3; j++) {
 			html += Astra.dianomiPektisHTML(j, dianomi);
 		}
+		html += '<div style="position: relative; width: 0.8cm; height: 0.4cm; ' +
+			'display: inline-block;">&#8203';
+		html += '<img class="astraMovie" title="Replay" src="' +
+			globals.server + 'images/movie.png" alt="" ' +
+			'style="left: -0.08cm; top: -0.3cm;" ' +
+			'onclick="Astra.replayMovie(event, ' + t + ', ' + dianomi.d + ');" />';
+		html += '</div>';
 		html += '</div>';
 		html += '<div id="d' + dianomi.d + '"></div>';
 		return html;
@@ -655,12 +662,15 @@ var Astra = new function() {
 
 	var movieWindow = null;
 
-	this.replayMovie = function(e, t) {
+	this.replayMovie = function(e, t, d) {
 		stopProp(e);
+		var movie = globals.server + 'movie/index.php?trapezi=' + uri(t);
+		if (isSet(d)) {
+			movie += '&dianomi=' + uri(d);
+		}
 		if (isSet(movieWindow)) {
 			try {
-				movieWindow.location.href = globals.server +
-					'movie/index.php?trapezi=' + uri(t);
+				movieWindow.location.href = movie;
 				movieWindow.focus();
 				return;
 			} catch (e) {
@@ -668,8 +678,7 @@ var Astra = new function() {
 			}
 		}
 
-		movieWindow = window.open(globals.server +
-			'movie/index.php?trapezi=' + uri(t), '_blank',
+		movieWindow = window.open(movie, '_blank',
 			'titlebar=1,menubar=1,location=0,left=100,top=100,' +
 			'width=' + Astra.cm2pixels(25.4) + ',height=' +
 			Astra.cm2pixels(18.0) + ',scrollbars=1,resizable=0');
