@@ -84,7 +84,7 @@ background-color: magenta;
 	width: 5.8cm;
 	height: 17.0cm;
 	max-height: 17.0cm;
-	overflow-y: scroll;
+	overflow-y: auto;
 background-color: gold;
 }
 
