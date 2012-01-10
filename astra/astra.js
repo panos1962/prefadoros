@@ -671,8 +671,8 @@ var Astra = new function() {
 		movieWindow = window.open(globals.server +
 			'movie/index.php?trapezi=' + uri(t), '_blank',
 			'titlebar=1,menubar=1,location=0,left=100,top=100,' +
-			'width=' + Astra.cm2pixels(19.4) + ',height=' +
-			Astra.cm2pixels(17) + ',scrollbars=1,resizable=0');
+			'width=' + Astra.cm2pixels(25.4) + ',height=' +
+			Astra.cm2pixels(18.0) + ',scrollbars=1,resizable=0');
 		if (isSet(movieWindow)) {
 			movieWindow.focus();
 		}
