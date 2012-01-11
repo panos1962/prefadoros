@@ -205,7 +205,6 @@ class Trapezi {
 
 	public function calc_ipolipo($dianomes) {
 		$n = count($dianomes);
-$n = 1;
 		for ($i = 0; $i < $n; $i++) {
 			$this->ipolipo -= $dianomes[$i]->kasa1 +
 				$dianomes[$i]->kasa2 + $dianomes[$i]->kasa3;

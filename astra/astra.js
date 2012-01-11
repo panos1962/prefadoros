@@ -177,12 +177,14 @@ var Astra = new function() {
 		html += Astra.pektisHTML(partida.p1, partida.k1, plist);
 		html += Astra.pektisHTML(partida.p2, partida.k2, plist);
 		html += Astra.pektisHTML(partida.p3, partida.k3, plist);
-		html += '<div style="position: relative; width: 0.8cm; height: 0.4cm; ' +
-			'display: inline-block;">&#8203';
-		html += '<img class="astraMovie" title="Replay" src="' +
-			globals.server + 'images/movie/movie.png" alt="" ' +
-			'onclick="Astra.replayMovie(event, ' + partida.t + ');" />';
-		html += '</div>';
+		if (notSet(partida.a)) {
+			html += '<div style="position: relative; width: 0.8cm; height: 0.4cm; ' +
+				'display: inline-block;">&#8203';
+			html += '<img class="astraMovie" title="Replay" src="' +
+				globals.server + 'images/movie/movie.png" alt="" ' +
+				'onclick="Astra.replayMovie(event, ' + partida.t + ');" />';
+			html += '</div>';
+		}
 		html += Astra.xronosHTML(partida.x);
 		html += '</div>';
 		html += '<div id="t' + partida.t + '"></div>';
