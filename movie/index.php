@@ -13,7 +13,9 @@ if (Globals::perastike('dianomi')) {
 else {
 	$dianomi = $dianomes[0];
 }
+$trapezi->calc_ipolipo($dianomes);
 Page::head("Πρεφαδόρος -- Παρτίδα " . $trapezi->kodikos);
+Page::stylesheet('prefadoros/prefadoros');
 Page::stylesheet('movie/movie');
 Page::javascript('movie/movie');
 Page::body();
@@ -23,7 +25,12 @@ Page::body();
 		<table width="100%" class="tbldbg">
 		<tr>
 		<td class="movieEpikefalidaLeft tbldbg">
-		Παρτίδα <?php print $trapezi->kodikos; ?>, κάσα 50
+		Παρτίδα <span class="partidaInfoData"><?php
+			print $trapezi->kodikos; ?></span>,
+			κάσα <span class="partidaInfoData"><?php
+			print $trapezi->kasa; ?></span>,
+			υπόλοιπο <span class="partidaInfoData"><?php
+			print $trapezi->ipolipo; ?></span>
 		</td>
 		<td class="movieEpikefalidaRight tbldbg">
 		Διανομή <span id="dianomi"><?php print $dianomi->kodikos; ?></span>
@@ -86,7 +93,8 @@ function fetch_dianomes($trapezi) {
 		" ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-		$dianomes[$n++] = new Dianomi($row, $trapezi);
+		$dianomes[$n] = new Dianomi($row, $trapezi);
+		$n++;
 	}
 
 	return($dianomes);
@@ -182,6 +190,7 @@ class Trapezi {
 	public $kasa;
 	public $ppp;
 	public $asoi;
+	public $ipolipo;
 
 	public function __construct($row) {
 		$this->kodikos = $row['kodikos'];
@@ -191,6 +200,17 @@ class Trapezi {
 		$this->kasa = $row['kasa'];
 		$this->ppp = $row['pasopasopaso'] == 'YES';
 		$this->asoi = $row['asoi'] == 'YES';
+		$this->ipolipo = $this->kasa * 30;
+	}
+
+	public function calc_ipolipo($dianomes) {
+		$n = count($dianomes);
+$n = 1;
+		for ($i = 0; $i < $n; $i++) {
+			$this->ipolipo -= $dianomes[$i]->kasa1 +
+				$dianomes[$i]->kasa2 + $dianomes[$i]->kasa3;
+		}
+		$this->ipolipo /= 10;
 	}
 }
 
