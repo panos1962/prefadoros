@@ -209,6 +209,12 @@ function entopise_dianomi($kodikos, $dianomes, $trapezi) {
 
 function lista_dianomon($dianomes, $dianomi) {
 	$n = count($dianomes);
+	if ($n > 0) {
+		?>
+		<div class="movieDianomesItem movieDianomesTelos" title="Τελική εικόνα"
+			onclick="Movie.selectDianomi();">Έναρξη</div>
+		<?php
+	}
 	$spot = 0;
 	for ($i = 0; $i < $n; $i++) {
 		if (isset($dianomi) && ($dianomes[$i]->kodikos == $dianomi->kodikos)) {
