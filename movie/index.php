@@ -11,13 +11,31 @@ if (Globals::perastike('dianomi')) {
 	$dianomi = entopise_dianomi($_REQUEST['dianomi'], $dianomes, $trapezi);
 }
 else {
-	$dianomi = $dianomes[0];
+	$dianomi = NULL;
 }
-$trapezi->calc_ipolipo($dianomes);
+$trapezi->calc_ipolipo($dianomes, $dianomi);
+$kinises = fetch_kinises($dianomi);
 Page::head("Πρεφαδόρος -- Παρτίδα " . $trapezi->kodikos);
 Page::stylesheet('prefadoros/prefadoros');
 Page::stylesheet('movie/movie');
 Page::javascript('movie/movie');
+?>
+<script type="text/javascript">
+//<![CDATA[
+if (notSet(window.Movie)) { Movie = {}; }
+Movie.trapezi = <?php print $trapezi->kodikos; ?>;
+Movie.kinises = [];
+<?php
+$n = count($kinises);
+for ($i = 0; $i < $n; $i++) {
+	?>
+	Movie.kinises[<?php print $i; ?>] = <?php print $kinises[$i]->json(); ?>;
+	<?php
+}
+?>
+//]]>
+</script>
+<?php
 Page::body();
 ?>
 <div id="main" class="movieMain">
@@ -33,26 +51,54 @@ Page::body();
 			print $trapezi->ipolipo; ?></span>
 		</td>
 		<td class="movieEpikefalidaRight tbldbg">
-		Διανομή <span id="dianomi"><?php print $dianomi->kodikos; ?></span>
+		<?php
+		if (isset($dianomi)) {
+			?>
+			Διανομή <span class="partidaInfoData"><span id="dianomi"><?php
+				print $dianomi->kodikos; ?></span></span>
+			<?php
+		}
+		?>
 		</td>
 		</tr>
 		</table>
 	</div>
 	<div id="trapezi" class="movieTrapezi">
 		<div style="position: relative; height: 14.0cm;">
-			<div class="moviePektisArea moviePektisArea3">
-				3
+			<div id="pektis3" class="moviePektisArea moviePektisArea3">
+				<div class="moviePektisMain moviePektisMain3">
+					<div class="moviePektis moviePektis3">
+						<?php
+						print $trapezi->pektis3;
+						print_kapikia($trapezi->kapikia3);
+						?>
+					</div>
+				</div>
 			</div>
-			<div class="moviePektisArea moviePektisArea2">
-				2
+			<div id="pektis2" class="moviePektisArea moviePektisArea2">
+				<div class="moviePektisMain moviePektisMain2">
+					<div class="moviePektis moviePektis2">
+						<?php
+						print $trapezi->pektis2;
+						print_kapikia($trapezi->kapikia2);
+						?>
+					</div>
+				</div>
 			</div>
-			<div class="moviePektisArea moviePektisArea1">
-				1
+			<div id="pektis1" class="moviePektisArea moviePektisArea1">
+				<div class="moviePektisMain moviePektisMain1">
+					<div class="moviePektis moviePektis1">
+						<?php
+						print $trapezi->pektis1;
+						print_kapikia($trapezi->kapikia1);
+						?>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 	<div class="movieDianomes">
-		<?php lista_dianomon($dianomes); ?>
+		<?php lista_dianomon($dianomes, $dianomi); ?>
 	</div>
 	<div class="movieControls">
 		<?php controls(); ?>
@@ -100,6 +146,26 @@ function fetch_dianomes($trapezi) {
 	return($dianomes);
 }
 
+function fetch_kinises($dianomi) {
+	global $globals;
+
+	$kinises = array();
+	if (isset($dianomi)) {
+		$n = 0;
+		$query = "SELECT `kodikos`, `pektis`, `idos`, `data`, " .
+			"UNIX_TIMESTAMP(`pote`) AS `pote` FROM `kinisi_log` " .
+			"WHERE `dianomi` = " . $globals->asfales($dianomi->kodikos) .
+			" ORDER BY `kodikos`";
+		$result = $globals->sql_query($query);
+		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+			$kinises[$n] = new Kinisi($row);
+			$n++;
+		}
+	}
+
+	return($kinises);
+}
+
 function entopise_dianomi($kodikos, $dianomes, $trapezi) {
 	$n = count($dianomes);
 	for ($i = 0; $i < $n; $i++) {
@@ -111,12 +177,21 @@ function entopise_dianomi($kodikos, $dianomes, $trapezi) {
 	die($kodikos . ": δεν βρέθηκε διανομή στο τραπέζι " . $trapezi->kodikos);
 }
 
-function lista_dianomon($dianomes) {
+function lista_dianomon($dianomes, $dianomi) {
 	$n = count($dianomes);
+	$spot = 0;
 	for ($i = 0; $i < $n; $i++) {
+		if (isset($dianomi) && ($dianomes[$i]->kodikos == $dianomi->kodikos)) {
+			$spot = $i;
+			$spotClass = " movieDianomesSpot";
+		}
+		else {
+			$spotClass = "";
+		}
 		?>
-		<div class="movieDianomesItem zebra<?php print $i % 2; ?>"
-			title="Διανομή <?php print $dianomes[$i]->kodikos; ?>"
+		<div id="dianomi<?php print $i; ?>" class="movieDianomesItem zebra<?php
+			print ($i % 2) . $spotClass; ?>" title="Διανομή <?php
+			print $dianomes[$i]->kodikos; ?>"
 			onclick="Movie.selectDianomi(<?php print $dianomes[$i]->kodikos; ?>);">
 		<?php
 		$agora = explode(":", $dianomes[$i]->agora);
@@ -144,6 +219,22 @@ function lista_dianomon($dianomes) {
 		?>
 		</div>
 		<?php
+	}
+
+	if ($n > 0) {
+		?>
+		<div class="movieDianomesItem" title="Τέλος"
+			onclick="Movie.selectDianomi();">ΤΕΛΟΣ</div>
+		<?php
+		if ($spot > 10) {
+			?>
+			<script type="text/javascript">
+			//<![CDATA[
+			Movie.dianomiSpot = <?php print $spot - 10; ?>;
+			//]]>
+			</script>
+			<?php
+		}
 	}
 }
 
@@ -182,6 +273,35 @@ function decode_simetoxi($n) {
 	return($simetoxi);
 }
 
+function controls() {
+	global $globals;
+	?>
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/stop.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/pause.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/play.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/start.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/end.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/rev.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/fwd.png" alt="" />
+	<?php
+}
+
+function print_kapikia($x) {
+	if ($x > 0) {
+		?>&nbsp;<span class="kapikiaSin">+<?php print $x; ?></span><?php
+	}
+	elseif ($x < 0) {
+		?>&nbsp;<span class="kapikiaMion"><?php print $x; ?></span><?php
+	}
+}
+
 class Trapezi {
 	public $kodikos;
 	public $pektis1;
@@ -191,6 +311,9 @@ class Trapezi {
 	public $ppp;
 	public $asoi;
 	public $ipolipo;
+	public $kapikia1;
+	public $kapikia2;
+	public $kapikia3;
 
 	public function __construct($row) {
 		$this->kodikos = $row['kodikos'];
@@ -201,14 +324,30 @@ class Trapezi {
 		$this->ppp = $row['pasopasopaso'] == 'YES';
 		$this->asoi = $row['asoi'] == 'YES';
 		$this->ipolipo = $this->kasa * 30;
+		$this->kapikia1 = -$this->kasa * 10;
+		$this->kapikia2 = -$this->kasa * 10;
+		$this->kapikia3 = -$this->kasa * 10;
 	}
 
-	public function calc_ipolipo($dianomes) {
+	public function calc_ipolipo($dianomes, $dianomi) {
 		$n = count($dianomes);
 		for ($i = 0; $i < $n; $i++) {
-			$this->ipolipo -= $dianomes[$i]->kasa1 +
-				$dianomes[$i]->kasa2 + $dianomes[$i]->kasa3;
+			if (isset($dianomi) && ($dianomes[$i]->kodikos == $dianomi->kodikos)) {
+				break;
+			}
+
+			$this->kapikia1 += $dianomes[$i]->kasa1 + $dianomes[$i]->metrita1;
+			$this->ipolipo -= $dianomes[$i]->kasa1;
+			$this->kapikia2 += $dianomes[$i]->kasa2 + $dianomes[$i]->metrita2;
+			$this->ipolipo -= $dianomes[$i]->kasa2;
+			$this->kapikia3 += $dianomes[$i]->kasa3 + $dianomes[$i]->metrita3;
+			$this->ipolipo -= $dianomes[$i]->kasa3;
 		}
+
+		$triadi = round($this->ipolipo / 3.0);
+		$this->kapikia1 += $triadi;
+		$this->kapikia2 += $triadi;
+		$this->kapikia3 = -$this->kapikia1 - $this->kapikia2;
 		$this->ipolipo /= 10;
 	}
 }
@@ -276,24 +415,25 @@ class Dianomi {
 	}
 }
 
-function controls() {
-	global $globals;
-	?>
-	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/stop.png" alt="" />
-	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/pause.png" alt="" />
-	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/play.png" alt="" />
-	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/start.png" alt="" />
-	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/end.png" alt="" />
-	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/rev.png" alt="" />
-	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/fwd.png" alt="" />
-	<?php
+class Kinisi {
+	public $kodikos;
+	public $pektis;
+	public $idos;
+	public $data;
+
+	public function __construct($row) {
+		$this->kodikos = $row['kodikos'];
+		$this->pektis = $row['pektis'];
+		$this->idos = $row['idos'];
+		$this->data = $row['data'];
+		$this->pote = $row['pote'];
+	}
+
+	public function json() {
+		print "{kodikos:" . $this->kodikos . ",pektis:'" . $this->pektis .
+			"',idos:'" . $this->idos . "',data:'" . $this->data .
+			"',pote:" . $this->pote . "}";
+	}
 }
 
 ?>

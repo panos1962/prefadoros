@@ -43,8 +43,34 @@
 .moviePektisArea {
 	position: absolute;
 	width: 8.6cm;
-	height: 4.0cm;
+	height: 4.6cm;
 background-color: magenta;
+}
+
+.moviePektisMain {
+	position: absolute;
+	width: 8.4cm;
+	height: 3.8cm;
+
+	border-style: solid;
+	border-width: 0.1cm;
+	border-color: #4D944D;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.moviePektisMain3 {
+	left: 0px;
+}
+
+.moviePektisMain2 {
+	right: 0px;
+}
+
+.moviePektisMain1 {
+	bottom: 0px;
 }
 
 .moviePektisArea3 {
@@ -60,6 +86,33 @@ background-color: magenta;
 .moviePektisArea1 {
 	bottom: 0.2cm;
 	left: 4.9cm;
+}
+
+.moviePektis {
+	position: absolute;
+	width: 8.4cm;
+	height: 0.8cm;
+
+	font-size: 0.6cm;
+	font-weight: bold;
+	text-align: center;
+
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	background-color: #8CAA88;
+}
+
+.moviePektis3 {
+	top: 0px;
+}
+
+.moviePektis2 {
+	top: 0px;
+}
+
+.moviePektis1 {
+	bottom: 0px;
 }
 
 .movieControls {
@@ -104,11 +157,15 @@ background-color: gold;
 	cursor: pointer;
 }
 
+.movieDianomesSpot {
+	background-color: #FFFF33;
+}
+
 .movieDianomesTzogadoros {
 	display: inline-block;
 	max-width: 3.0cm;
 	overflow: hidden;
-	letter-spacing: -0.05cm;
+	letter-spacing: -0.02cm;
 }
 
 .movieDianomesTzogadoros2 {
