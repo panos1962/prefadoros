@@ -228,6 +228,8 @@ function lista_dianomon($dianomes, $dianomi) {
 		<div id="dianomi<?php print $i; ?>" class="movieDianomesItem zebra<?php
 			print ($i % 2) . $spotClass; ?>" title="Διανομή <?php
 			print $dianomes[$i]->kodikos; ?>"
+			onmouseover="this.style.fontWeight='bold';"
+			onmouseout="this.style.fontWeight='normal';"
 			onclick="Movie.selectDianomi(<?php print $dianomes[$i]->kodikos; ?>);">
 		<?php
 		$agora = explode(":", $dianomes[$i]->agora);
