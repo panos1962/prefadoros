@@ -40,11 +40,25 @@
 	border-width: 2px;
 }
 
+.movieIdieterotites {
+	position: absolute;
+	top: -0.6cm;
+	right: 0.2cm;
+}
+
+.movieIdieterotitesIcon {
+	width: 0.8cm;
+	margin-left: 0.2cm;
+}
+
 .moviePektisArea {
 	position: absolute;
 	width: 8.6cm;
 	height: 4.6cm;
+	background-color: #8CAA88;
+/*
 background-color: magenta;
+*/
 }
 
 .moviePektisMain {
@@ -214,10 +228,25 @@ background-color: gold;
 	height: 0.6cm;
 }
 
-/*
-.tbldbg {
+.movieDianomesTelos {
+	background-color: #B7AA7D;
+	color: #FFFF00;
+
+	padding: 0px 0.2cm 0.1cm 0.2cm;
+	text-align: center;
+
 	border-style: solid;
-	border-width: 1px;
-	border-color: red;
+	border-width: 0.08cm;
+	border-color: #928864;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 }
-*/
+
+.movieDealerIcon {
+	position: absolute;
+	width: 1.0cm;
+	top: 0.2cm;
+	left: -0.4cm;
+}

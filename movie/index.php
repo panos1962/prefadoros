@@ -73,6 +73,7 @@ Page::body();
 						print_kapikia($trapezi->kapikia3);
 						?>
 					</div>
+					<?php check_dealer(3, $dianomi); ?>
 				</div>
 			</div>
 			<div id="pektis2" class="moviePektisArea moviePektisArea2">
@@ -83,6 +84,7 @@ Page::body();
 						print_kapikia($trapezi->kapikia2);
 						?>
 					</div>
+					<?php check_dealer(2, $dianomi); ?>
 				</div>
 			</div>
 			<div id="pektis1" class="moviePektisArea moviePektisArea1">
@@ -93,9 +95,11 @@ Page::body();
 						print_kapikia($trapezi->kapikia1);
 						?>
 					</div>
+					<?php check_dealer(1, $dianomi); ?>
 				</div>
 			</div>
 		</div>
+		<?php idieterotites($trapezi); ?>
 	</div>
 	<div class="movieDianomes">
 		<?php lista_dianomon($dianomes, $dianomi); ?>
@@ -106,6 +110,32 @@ Page::body();
 </div>
 <?php
 Page::close(FALSE);
+
+function check_dealer($pektis, $dianomi) {
+	global $globals;
+
+	if (!isset($dianomi)) {
+		return;
+	}
+
+	$protos = $dianomi->dealer + 1;
+	if ($protos > 3) {
+		$protos = 1;
+	}
+
+	if ($pektis == $dianomi->dealer) {
+		?>
+		<img class="movieDealerIcon" src="<?php print $globals->server;
+			?>images/dealer.png" title="Dealer" alt="" />
+		<?php
+	}
+	elseif ($pektis == $protos) {
+		?>
+		<img class="movieDealerIcon" src="<?php print $globals->server;
+			?>images/protos.png" title="Πρώτος" alt="" />
+		<?php
+	}
+}
 
 function entopise_trapezi() {
 	global $globals;
@@ -223,7 +253,7 @@ function lista_dianomon($dianomes, $dianomi) {
 
 	if ($n > 0) {
 		?>
-		<div class="movieDianomesItem" title="Τέλος"
+		<div class="movieDianomesItem movieDianomesTelos" title="Τελική εικόνα"
 			onclick="Movie.selectDianomi();">ΤΕΛΟΣ</div>
 		<?php
 		if ($spot > 10) {
@@ -235,6 +265,32 @@ function lista_dianomon($dianomes, $dianomi) {
 			</script>
 			<?php
 		}
+	}
+}
+
+function idieterotites($trapezi) {
+	global $globals;
+
+	$idieterotites = "";
+
+	if ($trapezi->ppp) {
+		$idieterotites .= '<img class="movieIdieterotitesIcon" src="' .
+			$globals->server . 'images/controlPanel/ppp.png" ' .
+			'title="Παίζεται το πάσο, πάσο, πάσο" alt="" />';
+	}
+
+	if ($trapezi->asoi) {
+		$idieterotites .= '<img class="movieIdieterotitesIcon" src="' .
+			$globals->server . 'images/trapoula/asoi.png" ' .
+			'title="Δεν παίζουν οι άσοι" alt="" />';
+	}
+
+	if ($idieterotites != "") {
+		?>
+		<div class="movieIdieterotites">
+			<?php print $idieterotites; ?>
+		</div>
+		<?php
 	}
 }
 
@@ -388,16 +444,19 @@ class Dianomi {
 		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 			switch ($row[1]) {
 			case 'ΑΓΟΡΑ':
-				if (!$row) {
-					$this->tzogadoros = NULL;
-					$this->agora = NULL;
-				}
-				else {
+				switch ($row[0]) {
+				case 1:
+				case 2:
+				case 3:
 					$this->tzogadoros_thesi = $row[0];
 					$pektis = "pektis" . $row[0];
 					$this->tzogadoros = $trapezi->$pektis;
-					$this->tzogadoros = $trapezi->$pektis;
 					$this->agora = $row[2];
+					break;
+				default:
+					$this->tzogadoros = NULL;
+					$this->agora = NULL;
+					break;
 				}
 				break;
 			case 'ΣΥΜΜΕΤΟΧΗ':
