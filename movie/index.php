@@ -49,68 +49,10 @@ Page::fyi("margin-bottom: 0.2cm; width: 24.4cm;");
 ?>
 <div id="main" class="movieMain">
 	<div id="epikefalida" class="movieEpikefalida">
-		<table width="100%" class="tbldbg">
-		<tr>
-		<td class="movieEpikefalidaLeft tbldbg">
-		Παρτίδα <span class="partidaInfoData"><?php
-			print $trapezi->kodikos; ?></span>,
-			κάσα <span class="partidaInfoData"><?php
-			print $trapezi->kasa; ?></span>,
-			υπόλοιπο <span class="partidaInfoData"><?php
-			print $trapezi->ipolipo; ?></span>
-		</td>
-		<td class="movieEpikefalidaRight tbldbg">
-		<?php
-		if (isset($dianomi)) {
-			?>
-			Διανομή <span class="partidaInfoData"><span id="dianomi"><?php
-				print $dianomi->kodikos; ?></span></span>
-			<?php
-		}
-		?>
-		</td>
-		</tr>
-		</table>
+		<?php epikefalida($trapezi, $dianomi); ?>
 	</div>
 	<div id="trapezi" class="movieTrapezi">
-		<div style="position: relative; height: 14.0cm;">
-			<div id="pektis3" class="moviePektisArea moviePektisArea3">
-				<div class="moviePektisMain moviePektisMain3">
-					<div class="moviePektis moviePektis3">
-						<?php
-						print $trapezi->pektis3;
-						print_kapikia($trapezi->kapikia3);
-						?>
-					</div>
-					<div id="filaArea3" class="movieFilaArea movieFilaArea3"></div>
-					<?php check_dealer(3, $dianomi); ?>
-				</div>
-			</div>
-			<div id="pektis2" class="moviePektisArea moviePektisArea2">
-				<div class="moviePektisMain moviePektisMain2">
-					<div class="moviePektis moviePektis2">
-						<?php
-						print $trapezi->pektis2;
-						print_kapikia($trapezi->kapikia2);
-						?>
-					</div>
-					<div id="filaArea2" class="movieFilaArea movieFilaArea2"></div>
-					<?php check_dealer(2, $dianomi); ?>
-				</div>
-			</div>
-			<div id="pektis1" class="moviePektisArea moviePektisArea1">
-				<div id="filaArea1" class="movieFilaArea movieFilaArea1"></div>
-				<div class="moviePektisMain moviePektisMain1">
-					<div class="moviePektis moviePektis1">
-						<?php
-						print $trapezi->pektis1;
-						print_kapikia($trapezi->kapikia1);
-						?>
-					</div>
-					<?php check_dealer(1, $dianomi); ?>
-				</div>
-			</div>
-		</div>
+		<?php trapezi($trapezi, $dianomi); ?>
 		<?php idieterotites($trapezi); ?>
 	</div>
 	<div class="movieDianomes">
@@ -122,6 +64,92 @@ Page::fyi("margin-bottom: 0.2cm; width: 24.4cm;");
 </div>
 <?php
 Page::close(FALSE);
+
+function epikefalida($trapezi, $dianomi) {
+	?>
+	<table width="100%" class="tbldbg">
+	<tr>
+	<td class="movieEpikefalidaLeft tbldbg">
+	Παρτίδα <span class="partidaInfoData"><?php
+		print $trapezi->kodikos; ?></span>,
+		κάσα <span class="partidaInfoData"><?php
+		print $trapezi->kasa; ?></span>,
+		υπόλοιπο <span class="partidaInfoData"><?php
+		print $trapezi->ipolipo; ?></span>
+	</td>
+	<td class="movieEpikefalidaRight tbldbg">
+	<?php
+	if (isset($dianomi)) {
+		?>
+		Διανομή <span class="partidaInfoData"><span id="dianomi"><?php
+			print $dianomi->kodikos; ?></span></span>
+		<?php
+	}
+	?>
+	</td>
+	</tr>
+	</table>
+	<?php
+}
+
+function trapezi($trapezi, $dianomi) {
+	global $globals;
+	?>
+	<div style="position: relative; height: 14.0cm;">
+		<div id="pektis3" class="moviePektisArea moviePektisArea3">
+			<div class="moviePektisMain moviePektisMain3">
+				<div class="moviePektis moviePektis3">
+					<?php
+					print $trapezi->pektis3;
+					print_kapikia($trapezi->kapikia3);
+					?>
+				</div>
+				<div id="filaArea3" class="movieFilaArea movieFilaArea3"></div>
+				<?php check_dealer(3, $dianomi); ?>
+			</div>
+		</div>
+		<div id="pektis2" class="moviePektisArea moviePektisArea2">
+			<div class="moviePektisMain moviePektisMain2">
+				<div class="moviePektis moviePektis2">
+					<?php
+					print $trapezi->pektis2;
+					print_kapikia($trapezi->kapikia2);
+					?>
+				</div>
+				<div id="filaArea2" class="movieFilaArea movieFilaArea2"></div>
+				<?php check_dealer(2, $dianomi); ?>
+			</div>
+		</div>
+		<div id="gipedo" class="movieGipedo">
+			<?php tzogos($dianomi); ?>
+		</div>
+		<div id="pektis1" class="moviePektisArea moviePektisArea1">
+			<div id="filaArea1" class="movieFilaArea movieFilaArea1"></div>
+			<div class="moviePektisMain moviePektisMain1">
+				<div class="moviePektis moviePektis1">
+					<?php
+					print $trapezi->pektis1;
+					print_kapikia($trapezi->kapikia1);
+					?>
+				</div>
+				<?php check_dealer(1, $dianomi); ?>
+			</div>
+		</div>
+	</div>
+	<?php
+}
+
+function tzogos($dianomi) {
+	global $globals;
+
+	if (isset($dianomi)) {
+		?>
+		<div id="tzogos" title="Άνοιγμα τζόγου" style="position: relative;"
+			onclick="Movie.tzogosOnOff(this);">
+		</div>
+		<?php
+	}
+}
 
 function check_dealer($pektis, $dianomi) {
 	global $globals;

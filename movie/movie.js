@@ -1,4 +1,4 @@
-if (notSet(window.Movie)) { var Movie = {}; }
+if (notSet(window.Movie)) { var Movie = {}; }null;
 var pexnidi = {};
 
 function isPektis() {
@@ -22,6 +22,37 @@ Movie.pexeDianomi = function() {
 	mainFyi(Movie.dianomi);
 };
 
+Movie.tzogosAniktos = null;
+
+Movie.tzogosOnOff = function(div, fila) {
+	if (notSet(div)) { return; }
+	if (notSet(Movie.tzogosAniktos)) { return; }
+	if (isSet(fila)) {
+		div.filaHTML = '<img class="movieFilaSiraIcon" src="' + globals.server +
+			'images/trapoula/' + fila.substr(0, 2) + '.png" alt="" ' +
+			'style="left: 2.1cm; top: 0.5cm;" />' +
+			'<img class="movieFilaSiraIcon" src="' + globals.server +
+			'images/trapoula/' + fila.substr(2, 2) + '.png" alt="" ' +
+			'style="left: 4.4cm; top: 0.5cm;" />';
+	}
+	if (Movie.tzogosAniktos) {
+		var html = '<img class="movieTzogosIcon" src="' + globals.server +
+			'images/trapoula/tzogos.png" alt="" />';
+		div.title = 'Άνοιγμα τζόγου';
+	}
+	else {
+		html = div.filaHTML;
+		div.title = 'Κλείσιμο τζόγου';
+	}
+	div.innerHTML = html;
+	Movie.tzogosAniktos = !Movie.tzogosAniktos;
+};
+
+Movie.dioxeTzogo = function() {
+	sviseNode(getelid('tzogos'));
+	Movie.tzogosAniktos = null;
+};
+
 Movie.miraseFila = function() {
 	Movie.cursor = null;
 	if (notSet(Movie.kinisi)) { return; }
@@ -39,6 +70,10 @@ Movie.miraseFila = function() {
 		var html = Movie.filaHTML(Pexnidi.spaseFila(x[i]));
 		p.innerHTML = html;
 	}
+
+	Movie.tzogosAniktos = true;
+	Movie.tzogosOnOff(getelid('tzogos'), x[0]);
+
 	Movie.cursor = 0;
 };
 

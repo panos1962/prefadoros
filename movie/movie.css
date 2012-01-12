@@ -319,3 +319,22 @@ background-color: teal;
 	border-width: 0px 0px 0px 4px;
 	border-color: #66FF33;
 }
+
+.movieGipedo {
+	position: absolute;
+	width: 8.5cm;
+	height: 4.0cm;
+	top: 5.0cm;
+	left: 5.0cm;
+/*
+background-color: teal;
+*/
+}
+
+.movieTzogosIcon {
+	position: absolute;
+	top: 0.5cm;
+	left: 2.2cm;
+	width: 4.0cm;
+	cursor: pointer;
+}
