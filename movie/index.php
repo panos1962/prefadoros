@@ -144,7 +144,8 @@ function tzogos($dianomi) {
 
 	if (isset($dianomi)) {
 		?>
-		<div id="tzogos" title="Άνοιγμα τζόγου" style="position: relative;"
+		<div id="tzogos" title="Άνοιγμα τζόγου"
+			style="position: relative; cursor: pointer;"
 			onclick="Movie.tzogosOnOff(this);">
 		</div>
 		<?php
