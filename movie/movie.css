@@ -176,7 +176,8 @@ background-color: gold;
 }
 
 .movieDianomesSpot {
-	background-color: #FFFF33;
+	font-weight: bold;
+	background-color: #FFCCFF;
 }
 
 .movieDianomesTzogadoros {
@@ -195,7 +196,7 @@ background-color: gold;
 }
 
 .movieDianomesTzogadoros0 {
-	color: #FF6600;
+	color: #7A2900;
 }
 
 .movieDianomesSimetoxi {
