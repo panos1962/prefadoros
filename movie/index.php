@@ -1,6 +1,9 @@
 <?php
 require_once '../lib/standard.php';
+require_once '../prefadoros/prefadoros.php';
+require_once '../pektis/pektis.php';
 set_globals();
+Prefadoros::pektis_check();
 $trapezi = entopise_trapezi();
 $dianomes = fetch_dianomes($trapezi);
 if (count($dianomes) <= 0) {
@@ -14,22 +17,27 @@ else {
 	$dianomi = NULL;
 }
 $trapezi->calc_ipolipo($dianomes, $dianomi);
-$kinises = fetch_kinises($dianomi);
+$kinisi = fetch_kinisi($dianomi);
 Page::head("Πρεφαδόρος -- Παρτίδα " . $trapezi->kodikos);
 Page::stylesheet('prefadoros/prefadoros');
 Page::stylesheet('movie/movie');
 Page::javascript('movie/movie');
+Page::javascript('prefadoros/pexnidi');
 ?>
 <script type="text/javascript">
 //<![CDATA[
-if (notSet(window.Movie)) { Movie = {}; }
+if (notSet(window.Movie)) { var Movie = {}; }
 Movie.trapezi = <?php print $trapezi->kodikos; ?>;
-Movie.kinises = [];
+Movie.dianomi = <?php print isset($dianomi) ? $dianomi->kodikos : "null"; ?>;
+Movie.kinisi = [];
+pektis = {};
+pektis.login = '<?php print $globals->pektis->login; ?>';
+pektis.enalagi = <?php print $globals->pektis->enalagi ? 'true' : 'false'; ?>;
 <?php
-$n = count($kinises);
+$n = count($kinisi);
 for ($i = 0; $i < $n; $i++) {
 	?>
-	Movie.kinises[<?php print $i; ?>] = <?php print $kinises[$i]->json(); ?>;
+	Movie.kinisi[<?php print $i; ?>] = <?php print $kinisi[$i]->json(); ?>;
 	<?php
 }
 ?>
@@ -37,6 +45,7 @@ for ($i = 0; $i < $n; $i++) {
 </script>
 <?php
 Page::body();
+Page::fyi("margin-bottom: 0.2cm; width: 24.4cm;");
 ?>
 <div id="main" class="movieMain">
 	<div id="epikefalida" class="movieEpikefalida">
@@ -73,6 +82,7 @@ Page::body();
 						print_kapikia($trapezi->kapikia3);
 						?>
 					</div>
+					<div id="filaArea3" class="movieFilaArea movieFilaArea3"></div>
 					<?php check_dealer(3, $dianomi); ?>
 				</div>
 			</div>
@@ -84,10 +94,12 @@ Page::body();
 						print_kapikia($trapezi->kapikia2);
 						?>
 					</div>
+					<div id="filaArea2" class="movieFilaArea movieFilaArea2"></div>
 					<?php check_dealer(2, $dianomi); ?>
 				</div>
 			</div>
 			<div id="pektis1" class="moviePektisArea moviePektisArea1">
+				<div id="filaArea1" class="movieFilaArea movieFilaArea1"></div>
 				<div class="moviePektisMain moviePektisMain1">
 					<div class="moviePektis moviePektis1">
 						<?php
@@ -176,10 +188,10 @@ function fetch_dianomes($trapezi) {
 	return($dianomes);
 }
 
-function fetch_kinises($dianomi) {
+function fetch_kinisi($dianomi) {
 	global $globals;
 
-	$kinises = array();
+	$kinisi = array();
 	if (isset($dianomi)) {
 		$n = 0;
 		$query = "SELECT `kodikos`, `pektis`, `idos`, `data`, " .
@@ -188,12 +200,12 @@ function fetch_kinises($dianomi) {
 			" ORDER BY `kodikos`";
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			$kinises[$n] = new Kinisi($row);
+			$kinisi[$n] = new Kinisi($row);
 			$n++;
 		}
 	}
 
-	return($kinises);
+	return($kinisi);
 }
 
 function entopise_dianomi($kodikos, $dianomes, $trapezi) {
@@ -343,17 +355,17 @@ function controls() {
 	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/stop.png" alt="" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/pause.png" alt="" />
-	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/play.png" alt="" />
-	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/start.png" alt="" />
-	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/end.png" alt="" />
-	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/rev.png" alt="" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/fwd.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/end.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/pause.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/start.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/play.png" alt="" />
 	<?php
 }
 

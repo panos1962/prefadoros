@@ -597,9 +597,9 @@ class Page {
 		<?php
 	}
 
-	public static function fyi() {
+	public static function fyi($style = "") {
 		?>
-		<div id="mainFyi" class="fyi mainFyi">
+		<div id="mainFyi" class="fyi mainFyi" style="<?php print $style; ?>">
 			&nbsp;
 		</div>
 		<?php
