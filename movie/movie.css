@@ -252,5 +252,70 @@ background-color: gold;
 	position: absolute;
 	width: 1.0cm;
 	top: 0.2cm;
-	left: -0.4cm;
+	left: -0.6cm;
+}
+
+.movieFilaArea {
+	position: absolute;
+	width: 8.3cm;
+	height: 3.0cm;
+	left: 0.06cm;
+/*
+background-color: teal;
+*/
+}
+
+.movieFilaArea3 {
+	top: 0.76cm;
+}
+
+.movieFilaArea2 {
+	top: 0.76cm;
+}
+
+.movieFilaArea1 {
+	top: 0.7cm;
+	left: 0.18cm;
+}
+
+.movieFilaXeri {
+	width: 8.3cm;
+	text-align: center;
+}
+
+.movieFilaSira {
+	position: relative;
+	display: inline-block;
+	margin-left: -1.44cm;
+	width: 2.1cm;
+	height: 3.0cm;
+}
+
+.movieFilaSiraSteno {
+	margin-left: -1.34cm;
+}
+
+.movieFilaSiraIcon {
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	width: 2.1cm;
+	height: 2.96cm;
+	cursor: pointer;
+}
+
+.movieFiloSteno {
+	width: 1.9cm;
+}
+
+.movieFiloDiaxorM {
+	border-style: outset;
+	border-width: 0px 0px 0px 4px;
+	border-color: #FF9696;
+}
+
+.movieFiloDiaxorK {
+	border-style: outset;
+	border-width: 0px 0px 0px 4px;
+	border-color: #66FF33;
 }
