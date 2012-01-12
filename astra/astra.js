@@ -122,7 +122,7 @@ var Astra = new function() {
 		}
 	};
 
-	this.pektisHTML = function(pektis, kapikia, plist) {
+	this.pektisHTML = function(pektis, kapikia, plist, thesi) {
 		var pektisMatch = false;
 		if (pektis != '') {
 			for (var i = 0; i < plist.length; i++) {
@@ -136,7 +136,7 @@ var Astra = new function() {
 			pektis = '&#8203;';
 		}
 
-		var html = '<div class="astraPartidaPektis';
+		var html = '<div class="astraPartidaPektis astraPartidaPektis' + thesi;
 		if (pektisMatch) {
 			if (kapikia > 0) { html += ' astraThetikos'; }
 			else if (kapikia < 0) { html += ' astraArnitikos'; }
@@ -174,16 +174,13 @@ var Astra = new function() {
 		if (isSet(partida.a)) { html += '[' + partida.t + ']'; }
 		else { html += partida.t; }
 		html += '</div>';
-		html += Astra.pektisHTML(partida.p1, partida.k1, plist);
-		html += Astra.pektisHTML(partida.p2, partida.k2, plist);
-		html += Astra.pektisHTML(partida.p3, partida.k3, plist);
+		html += Astra.pektisHTML(partida.p1, partida.k1, plist, 1);
+		html += Astra.pektisHTML(partida.p2, partida.k2, plist, 2);
+		html += Astra.pektisHTML(partida.p3, partida.k3, plist, 3);
 		if (notSet(partida.a)) {
-			html += '<div style="position: relative; width: 0.8cm; height: 0.4cm; ' +
-				'display: inline-block;">&#8203';
-			html += '<img class="astraMovie" title="Replay" src="' +
+			html += '<img class="astraPartidaMovie" title="Replay" src="' +
 				globals.server + 'images/movie/movie.png" alt="" ' +
 				'onclick="Astra.replayMovie(event, ' + partida.t + ');" />';
-			html += '</div>';
 		}
 		html += Astra.xronosHTML(partida.x);
 		html += '</div>';
@@ -488,7 +485,7 @@ var Astra = new function() {
 		Astra.mesaExo(dianomi);
 
 		var html = '';
-		var klasi = 'astraDianomiPektis';
+		var klasi = 'astraDianomiPektis astraDianomiPektis' + thesi;
 		if (paso) { klasi += ' astraPaso'; }
 		html += '<div class="' + klasi + '" style="text-align: center;">';
 
@@ -529,13 +526,9 @@ var Astra = new function() {
 		for (var j = 1; j <= 3; j++) {
 			html += Astra.dianomiPektisHTML(j, dianomi);
 		}
-		html += '<div style="position: relative; width: 0.8cm; height: 0.4cm; ' +
-			'display: inline-block;">&#8203';
-		html += '<img class="astraMovie" title="Replay" src="' +
+		html += '<img class="astraDianomiMovie" title="Replay" src="' +
 			globals.server + 'images/movie/movie.png" alt="" ' +
-			'style="left: -0.08cm; top: -0.3cm;" ' +
 			'onclick="Astra.replayMovie(event, ' + t + ', ' + dianomi.d + ');" />';
-		html += '</div>';
 		html += '</div>';
 		html += '<div id="d' + dianomi.d + '"></div>';
 		return html;
