@@ -166,7 +166,8 @@ var Astra = new function() {
 	this.partidaHTML = function(partida, i, plist) {
 		var html = '';
 		html += '<div class="astraPartida zebra' + (i % 2) +
-			'" onclick="Astra.dianomiOnOff(' + partida.t + ');" ' +
+			'" onclick="Astra.dianomiOnOff(' + partida.t +
+			', ' + (isSet(partida.a) ? 'true' : 'false') + ');" ' +
 			'title="Κλικ για εμφάνιση/απόκρυψη διανομών" ' +
 			'onmouseover="Astra.epilogiPartidas(this);" ' +
 			'onmouseout="Astra.apoepilogiPartidas(this);">';
@@ -199,7 +200,7 @@ var Astra = new function() {
 		div.style.fontWeight = 'normal';
 	};
 
-	this.dianomiOnOff = function(trapezi) {
+	this.dianomiOnOff = function(trapezi, active) {
 		var x = getelid('t' + trapezi);
 		if (notSet(x)) { return; }
 
@@ -213,7 +214,7 @@ var Astra = new function() {
 
 		var req = new Request('astra/getDianomi');
 		req.xhr.onreadystatechange = function() {
-			getDianomiCheck(req, ico, x, trapezi);
+			getDianomiCheck(req, ico, x, trapezi, active);
 		};
 
 		var params = 'trapezi=' + uri(trapezi);
@@ -221,7 +222,7 @@ var Astra = new function() {
 		return false;
 	};
 
-	function getDianomiCheck(req, ico, div, trapezi) {
+	function getDianomiCheck(req, ico, div, trapezi, active) {
 		if (req.xhr.readyState != 4) { return; }
 
 		ico.style.visibility = 'hidden';
@@ -241,7 +242,7 @@ var Astra = new function() {
 
 		var html = '';
 		for (var i = 0; i < dedomena.dianomi.length; i++) {
-			html += Astra.dianomiHTML(dedomena.dianomi[i], i, trapezi);
+			html += Astra.dianomiHTML(dedomena.dianomi[i], i, trapezi, active);
 		}
 		html += '<div class="astraDianomi">';
 		html += '<div class="astraKlisimo" ' +
@@ -516,7 +517,7 @@ var Astra = new function() {
 		return html;
 	};
 
-	this.dianomiHTML = function(dianomi, i, t) {
+	this.dianomiHTML = function(dianomi, i, t, active) {
 		var html = '';
 		html += '<div class="astraDianomi astraDianomiZebra' + (i % 2) +
 			'" onclick="Astra.kinisiOnOff(' + dianomi.d + ');" ' +
@@ -526,9 +527,11 @@ var Astra = new function() {
 		for (var j = 1; j <= 3; j++) {
 			html += Astra.dianomiPektisHTML(j, dianomi);
 		}
-		html += '<img class="astraDianomiMovie" title="Replay" src="' +
-			globals.server + 'images/movie/movie.png" alt="" ' +
-			'onclick="Astra.replayMovie(event, ' + t + ', ' + dianomi.d + ');" />';
+		if (!active) {
+			html += '<img class="astraDianomiMovie" title="Replay" src="' +
+				globals.server + 'images/movie/movie.png" alt="" ' +
+				'onclick="Astra.replayMovie(event, ' + t + ', ' + dianomi.d + ');" />';
+		}
 		html += '</div>';
 		html += '<div id="d' + dianomi.d + '"></div>';
 		return html;
