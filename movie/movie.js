@@ -119,6 +119,20 @@ Movie.filaHTML = function(fila) {
 	return html;
 };
 
+Movie.ipopsifiaDianomi = function(div, nai) {
+	if (nai) {
+		div.prevWeight = div.style.fontWeight;
+		div.style.fontWeight = 'bold';
+	}
+	else {
+		try {
+			div.style.fontWeight = div.prevWeight;
+		} catch (e) {
+			div.style.fontWeight = 'normal';
+		}
+	}
+};
+
 window.onload = function() {
 	init();
 	if (isSet(Movie.dianomiSpot)) {
