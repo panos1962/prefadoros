@@ -33,7 +33,7 @@ Movie.tzogosOnOff = function(div, fila) {
 			'style="left: 2.1cm; top: 0.5cm;" />' +
 			'<img class="movieFilaSiraIcon" src="' + globals.server +
 			'images/trapoula/' + fila.substr(2, 2) + '.png" alt="" ' +
-			'style="left: 4.4cm; top: 0.5cm;" />';
+			'style="left: 4.2cm; top: 0.5cm; padding-left: 0.2cm;" />';
 	}
 	if (Movie.tzogosAniktos) {
 		var html = '<img class="movieTzogosIcon" src="' + globals.server +
@@ -141,5 +141,12 @@ window.onload = function() {
 
 	if (isSet(Movie.dianomi)) {
 		Movie.miraseFila();
+	}
+
+	for (var i = 1; i <= 3; i++) {
+		var x = getelid('pektis' + i);
+		if (isSet(x)) {
+			x.title = "Αλλαγή θέσης"
+		}
 	}
 };
