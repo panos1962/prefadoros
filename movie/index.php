@@ -10,13 +10,19 @@ if (count($dianomes) <= 0) {
 	die("Δεν υπάρχουν διανομές");
 }
 
-if (Globals::perastike('dianomi')) {
+$enarxi = Globals::perastike('enarxi');
+if ($enarxi) {
+	$dianomi = NULL;
+	$trapezi->reset_ipolipo();
+}
+elseif (Globals::perastike('dianomi')) {
 	$dianomi = entopise_dianomi($_REQUEST['dianomi'], $dianomes, $trapezi);
+	$trapezi->calc_ipolipo($dianomes, $dianomi);
 }
 else {
 	$dianomi = NULL;
+	$trapezi->calc_ipolipo($dianomes);
 }
-$trapezi->calc_ipolipo($dianomes, $dianomi);
 $kinisi = fetch_kinisi($dianomi);
 Page::head("Πρεφαδόρος -- Παρτίδα " . $trapezi->kodikos);
 Page::stylesheet('prefadoros/prefadoros');
@@ -253,7 +259,7 @@ function lista_dianomon($dianomes, $dianomi) {
 	if ($n > 0) {
 		?>
 		<div class="movieDianomesItem movieDianomesTelos" title="Τελική εικόνα"
-			onclick="Movie.selectDianomi();">Έναρξη</div>
+			onclick="Movie.selectDianomi(0);">ΕΝΑΡΞΗ</div>
 		<?php
 	}
 	$spot = 0;
@@ -436,7 +442,14 @@ class Trapezi {
 		$this->kapikia3 = -$this->kasa * 10;
 	}
 
-	public function calc_ipolipo($dianomes, $dianomi) {
+	public function reset_ipolipo() {
+		$this->kapikia1 = 0;
+		$this->kapikia2 = 0;
+		$this->kapikia3 = 0;
+		$this->ipolipo /= 10;
+	}
+
+	public function calc_ipolipo($dianomes, $dianomi = NULL) {
 		$n = count($dianomes);
 		for ($i = 0; $i < $n; $i++) {
 			if (isset($dianomi) && ($dianomes[$i]->kodikos == $dianomi->kodikos)) {
