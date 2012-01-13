@@ -44,7 +44,9 @@ function select_dianomi($trapezi, $dianomi_table, $kinisi_table) {
 	global $globals;
 
 	$koma = "";
-	$query = "SELECT * FROM `" . $dianomi_table . "` WHERE `trapezi` = " .
+	$query = "SELECT `kodikos`, `dealer`, `kasa1`, `metrita1`, `kasa2`, `metrita2`, " .
+		"`kasa3`, `metrita3`, UNIX_TIMESTAMP(`enarxi`) AS `xronos` " .
+		"FROM `" . $dianomi_table . "` WHERE `trapezi` = " .
 		$trapezi . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -62,7 +64,8 @@ function dianomi_json($row, $kinisi_table, &$koma) {
 		",k2:" . $row['kasa2'] .
 		",m2:" . $row['metrita2'] .
 		",k3:" . $row['kasa3'] .
-		",m3:" . $row['metrita3'];
+		",m3:" . $row['metrita3'] .
+		",x:'" . addslashes(Xronos::pote($row['xronos'], $globals->time_dif)) . "'";
 	agora_json($row['kodikos'], $kinisi_table);
 	print "}";
 	$koma = ",";
