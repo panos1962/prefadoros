@@ -56,7 +56,7 @@ body {
 	overflow-x: hidden;
 }
 
-.astraPartidaKodikos {
+.astraKodikos {
 	position: absolute;
 	top: 0.2cm;
 	left: 0.2cm;
@@ -80,15 +80,15 @@ body {
 	border-radius: 3px;
 }
 
-.astraPartidaPektis1 {
+.astraPektis1 {
 	left: 2.6cm;
 }
 
-.astraPartidaPektis2 {
+.astraPektis2 {
 	left: 8.7cm;
 }
 
-.astraPartidaPektis3 {
+.astraPektis3 {
 	left: 14.8cm;
 }
 
@@ -155,18 +155,10 @@ body {
 	overflow-x: hidden;
 }
 
-.astraPartidaMovie {
+.astraMovie {
 	position: absolute;
 	top: 0.1cm;
 	left: 20.8cm;
-	width: 0.5cm;
-	height: 0.7cm;
-}
-
-.astraDianomiMovie {
-	position: absolute;
-	top: 0.1cm;
-	left: 18.2cm;
 	width: 0.5cm;
 	height: 0.7cm;
 }
@@ -180,7 +172,6 @@ body {
 
 .astraDianomi {
 	position: relative;
-	margin-left: 2.6cm;
 	min-height: 0.9cm;
 	cursor: pointer;
 }
@@ -194,13 +185,9 @@ body {
 }
 
 .astraKlisimo {
-	display: inline-block;
 	background-color: #B7AA7D;
 	color: #FFFF00;
 
-	width: 17.35cm;
-	min-width: 17.35cm;
-	max-width: 17.35cm;
 	padding: 0px 0.2cm 0px 0.2cm;
 	text-align: center;
 
@@ -362,7 +349,6 @@ body {
 .astraKinisi {
 	position: relative;
 	height: 0.76cm;
-	margin-left: 2.6cm;
 	cursor: pointer;
 }
 
@@ -392,18 +378,6 @@ body {
 
 	background-color: #FFFF99;
 	text-align: center;
-}
-
-.astraKinisi1 {
-	left: 0;
-}
-
-.astraKinisi2 {
-	left: 6.1cm;
-}
-
-.astraKinisi3 {
-	left: 12.15cm;
 }
 
 .astraKinisiXroma {

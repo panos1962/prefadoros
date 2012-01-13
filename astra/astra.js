@@ -136,7 +136,7 @@ var Astra = new function() {
 			pektis = '&#8203;';
 		}
 
-		var html = '<div class="astraPartidaPektis astraPartidaPektis' + thesi;
+		var html = '<div class="astraPartidaPektis astraPektis' + thesi;
 		if (pektisMatch) {
 			if (kapikia > 0) { html += ' astraThetikos'; }
 			else if (kapikia < 0) { html += ' astraArnitikos'; }
@@ -171,7 +171,7 @@ var Astra = new function() {
 			'title="Κλικ για εμφάνιση/απόκρυψη διανομών" ' +
 			'onmouseover="Astra.epilogiPartidas(this);" ' +
 			'onmouseout="Astra.apoepilogiPartidas(this);">';
-		html += '<div class="astraPartidaKodikos">';
+		html += '<div class="astraKodikos">';
 		if (isSet(partida.a)) { html += '[' + partida.t + ']'; }
 		else { html += partida.t; }
 		html += '</div>';
@@ -179,7 +179,7 @@ var Astra = new function() {
 		html += Astra.pektisHTML(partida.p2, partida.k2, plist, 2);
 		html += Astra.pektisHTML(partida.p3, partida.k3, plist, 3);
 		if (notSet(partida.a)) {
-			html += '<img class="astraPartidaMovie" title="Replay" src="' +
+			html += '<img class="astraMovie" title="Replay" src="' +
 				globals.server + 'images/movie/movie.png" alt="" ' +
 				'onclick="Astra.replayMovie(event, ' + partida.t + ');" />';
 		}
@@ -249,7 +249,7 @@ var Astra = new function() {
 			'onmouseover="Astra.epilogiKlisimo(this);" ' +
 			'onmouseout="Astra.apoepilogiKlisimo(this);" ' +
 			'onclick="Astra.dianomiOnOff(' + trapezi + ');">';
-		html += 'Κλείσιμο';
+		html += 'Κλείσιμο διανομών';
 		html += '</div>';
 		html += '</div>';
 
@@ -486,7 +486,7 @@ var Astra = new function() {
 		Astra.mesaExo(dianomi);
 
 		var html = '';
-		var klasi = 'astraDianomiPektis astraDianomiPektis' + thesi;
+		var klasi = 'astraDianomiPektis astraPektis' + thesi;
 		if (paso) { klasi += ' astraPaso'; }
 		html += '<div class="' + klasi + '" style="text-align: center;">';
 
@@ -524,14 +524,18 @@ var Astra = new function() {
 			'title="Κλικ για εμφάνιση/απόκρυψη κινήσεων" ' +
 			'onmouseover="Astra.epilogiDianomis(this);" ' +
 			'onmouseout="Astra.apoepilogiDianomis(this);">';
+		html += '<div class="astraKodikos">';
+		html += dianomi.d;
+		html += '</div>';
 		for (var j = 1; j <= 3; j++) {
 			html += Astra.dianomiPektisHTML(j, dianomi);
 		}
 		if (!active) {
-			html += '<img class="astraDianomiMovie" title="Replay" src="' +
+			html += '<img class="astraMovie" title="Replay" src="' +
 				globals.server + 'images/movie/movie.png" alt="" ' +
 				'onclick="Astra.replayMovie(event, ' + t + ', ' + dianomi.d + ');" />';
 		}
+		html += Astra.xronosHTML(dianomi.x);
 		html += '</div>';
 		html += '<div id="d' + dianomi.d + '"></div>';
 		return html;
@@ -598,7 +602,7 @@ var Astra = new function() {
 			'onmouseover="Astra.epilogiKlisimo(this);" ' +
 			'onmouseout="Astra.apoepilogiKlisimo(this);" ' +
 			'onclick="Astra.kinisiOnOff(' + dianomi + ');">';
-		html += 'Κλείσιμο';
+		html += 'Κλείσιμο κινήσεων';
 		html += '</div>';
 		html += '</div>';
 
@@ -612,7 +616,7 @@ var Astra = new function() {
 			'title="Κλικ για απόκρυψη κινήσεων" ' +
 			'onmouseover="Astra.epilogiKinisis(this);" ' +
 			'onmouseout="Astra.apoepilogiKinisis(this);">';
-		html += '<div class="astraKinisiPektis astraKinisi' + kinisi.p + '">';
+		html += '<div class="astraKinisiPektis astraPektis' + kinisi.p + '">';
 		switch (kinisi.i) {
 		case 'ΔΗΛΩΣΗ':
 			if (kinisi.d.match(/^P/)) { html += 'ΠΑΣΟ'; }
@@ -645,6 +649,7 @@ var Astra = new function() {
 			break;
 		}
 		html += '</div>';
+		html += Astra.xronosHTML(kinisi.x);
 		html += '</div>';
 		return html;
 	};

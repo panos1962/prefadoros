@@ -42,7 +42,8 @@ function select_kinisi($dianomi, $kinisi_table) {
 	global $globals;
 
 	$koma = "";
-	$query = "SELECT * FROM `" . $kinisi_table . "` WHERE `dianomi` = " .
+	$query = "SELECT `kodikos`, `pektis`, `idos`, `data`, UNIX_TIMESTAMP(`pote`) AS `xronos` " .
+		"FROM `" . $kinisi_table . "` WHERE `dianomi` = " .
 		$dianomi . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -52,30 +53,33 @@ function select_kinisi($dianomi, $kinisi_table) {
 }
 
 function kinisi_json($row, &$koma) {
-		if ($row['idos'] == 'ΣΥΜΜΕΤΟΧΗ') {
-			switch ($row['data']) {
-			case 'ΜΑΖΙ':
-				$row['data'] = 'M';
-				break;
-			case 'ΠΑΣΟ':
-				$row['data'] = 'S';
-				break;
-			case 'ΠΑΙΖΩ':
-				$row['data'] = 'P';
-				break;
-			case 'ΜΟΝΟΣ':
-				$row['data'] = 'N';
-				break;
-			default:
-				$row['data'] = '?';
-				break;
-			}
+	global $globals;
+
+	if ($row['idos'] == 'ΣΥΜΜΕΤΟΧΗ') {
+		switch ($row['data']) {
+		case 'ΜΑΖΙ':
+			$row['data'] = 'M';
+			break;
+		case 'ΠΑΣΟ':
+			$row['data'] = 'S';
+			break;
+		case 'ΠΑΙΖΩ':
+			$row['data'] = 'P';
+			break;
+		case 'ΜΟΝΟΣ':
+			$row['data'] = 'N';
+			break;
+		default:
+			$row['data'] = '?';
+			break;
+		}
 	}
 
 	print $koma . "{k:" . $row['kodikos'] .
 		",p:" . $row['pektis'] .
 		",i:'" . $row['idos'] .
 		"',d:'" . $row['data'] .
+		"',x:'" . addslashes(Xronos::pote($row['xronos'], $globals->time_dif)) .
 		"'}";
 	$koma = ",";
 }
