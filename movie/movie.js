@@ -13,7 +13,10 @@ Movie.selectDianomi = function(d) {
 	}
 
 	var href = globals.server + 'movie/index.php?trapezi=' + uri(Movie.trapezi);
-	if (isSet(d)) { href += '&dianomi=' + uri(d); }
+	if (isSet(d)) {
+		if (d > 0) { href += '&dianomi=' + uri(d); }
+		else { href += '&enarxi=yes'; }
+	}
 	window.location.href = href;
 };
 
