@@ -287,11 +287,13 @@ function lista_dianomon($dianomes, $dianomi) {
 				print $dianomes[$i]->tzogadoros_thesi % 3; ?>">
 				<?php print $dianomes[$i]->tzogadoros; ?>
 			</div>
-			<div class="movieDianomesSimetoxi">
-				<?php print decode_simetoxi($dianomes[$i]->simetoxi); ?>
-			</div>
-			<div class="movieDianomesAgora">
-				<?php print decode_agora($agora[0]); ?>
+			<div class="movieDianomesAgoraArea">
+				<div class="movieDianomesSimetoxi">
+					<?php print decode_simetoxi($dianomes[$i]->simetoxi); ?>
+				</div>
+				<div class="movieDianomesAgora">
+					<?php print decode_agora($agora[0]); ?>
+				</div>
 			</div>
 			<?php
 		}

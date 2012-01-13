@@ -172,7 +172,7 @@ background-color: gold;
 .movieDianomesItem {
 	position: relative;
 	font-size: 0.5cm;
-	height: 0.6cm;
+	height: 0.54cm;
 	padding: 0px 0.1cm 0.2cm 0.1cm;
 	cursor: pointer;
 }
@@ -183,9 +183,8 @@ background-color: gold;
 }
 
 .movieDianomesTzogadoros {
-	display: inline-block;
-	max-width: 3.0cm;
-	overflow: hidden;
+	position: absolute;
+	left: 0.02cm;
 	letter-spacing: -0.02cm;
 }
 
@@ -203,6 +202,7 @@ background-color: gold;
 
 .movieDianomesSimetoxi {
 	display: inline-block;
+	padding-right: 0.02cm;
 }
 
 .movieDianomesSimetoxiIcon {
@@ -217,13 +217,14 @@ background-color: gold;
 	margin-bottom: -0.05cm;
 }
 
-.movieDianomesAgora {
+.movieDianomesAgoraArea {
 	position: absolute;
 	top: 0px;
-	right: 0px;
+	right: 0.02cm;
+}
+
+.movieDianomesAgora {
 	display: inline-block;
-	text-align: right;
-	overflow: hidden;
 }
 
 .movieDianomesXroma {
