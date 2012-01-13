@@ -524,7 +524,9 @@ var Astra = new function() {
 			'title="Κλικ για εμφάνιση/απόκρυψη κινήσεων" ' +
 			'onmouseover="Astra.epilogiDianomis(this);" ' +
 			'onmouseout="Astra.apoepilogiDianomis(this);">';
-		html += '<div class="astraKodikos">';
+		html += '<div class="astraKodikos astraDianomiKodikos' + (i % 2) +
+			'" onmouseover="Astra.kodikosDianomis(this, true);" ' +
+			'" onmouseout="Astra.kodikosDianomis(this, false);">';
 		html += dianomi.d;
 		html += '</div>';
 		for (var j = 1; j <= 3; j++) {
@@ -539,6 +541,19 @@ var Astra = new function() {
 		html += '</div>';
 		html += '<div id="d' + dianomi.d + '"></div>';
 		return html;
+	};
+
+	this.kodikosDianomis = function(div, fotise) {
+		if (notSet(div)) { return; }
+		if (notSet(div.style)) { return; }
+		if (notSet(div.style.color)) { return; }
+		if (fotise) {
+			div.oldColor = div.style.color;
+			div.style.color = '#336699';
+		}
+		else {
+			div.style.color = div.oldColor;
+		}
 	};
 
 	this.epilogiDianomis = function(div) {
