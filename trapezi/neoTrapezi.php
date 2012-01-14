@@ -16,6 +16,10 @@ if (Prefadoros::set_trapezi()) {
 $query = "DELETE FROM `theatis` WHERE `pektis` = " . $globals->pektis->slogin;
 $globals->sql_query($query);
 
+$lock_file = "../lock/neoTrapezi";
+if (file_exists($lock_file)) {
+	die(file_get_contents($lock_file));
+}
 
 $query = "INSERT INTO `trapezi` (`pektis1`, `poll`) VALUES (" .
 	$globals->pektis->slogin . ", NOW())";
