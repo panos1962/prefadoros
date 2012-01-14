@@ -21,7 +21,7 @@ if (file_exists($lock_file)) {
 	$minima = @file_get_contents($lock_file);
 	if ($minima == "") {
 		$minima = '<span style="color: #990000;">' .
-			'Δοκιμάστε αργότερα, γίνονται εργασίες συντήρησης.' .
+			'Δοκιμάστε αργότερα, γίνονται εργασίες συντήρησης' .
 			'</span>';
 	}
 	die($minima);
