@@ -49,6 +49,7 @@ global $globals;
 unset($globals);
 
 class Globals {
+	public $klista;
 	public $server;
 	public $db;
 	public $administrator;
@@ -59,6 +60,7 @@ class Globals {
 	public $kinisi;
 
 	public function __construct() {
+		unset($this->klista);
 		unset($this->server);
 		unset($this->db);
 		unset($this->administrator);
@@ -567,7 +569,7 @@ class Page {
 			<?php
 			self::logout_section();
 		}
-		else {
+		elseif (!isset($globals->klista)) {
 			self::signup_section();
 			self::login_section();
 		}
