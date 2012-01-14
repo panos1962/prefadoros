@@ -5,7 +5,15 @@ require_once 'trapezi/trapezi.php';
 require_once 'lib/trapoula.php';
 require_once 'prefadoros/prefadoros.php';
 set_globals();
-Prefadoros::set_pektis();
+$globals->klista = "lock/klista.php";
+if (file_exists($globals->klista)) {
+	unset($globals->pektis);
+}
+else {
+	unset($globals->klista);
+	Prefadoros::set_pektis();
+}
+
 Page::head();
 if ($globals->is_pektis()) {
 	Page::stylesheet('prefadoros/prefadoros');
@@ -236,6 +244,24 @@ function emoticons() {
 }
 
 function welcome() {
+	global $globals;
+
+	if (isset($globals->klista)) {
+		if (file_exists($globals->klista)) {
+			$minima = file_get_contents($globals->klista);
+		}
+		if ($minima != "") {
+			print $minima;
+		}
+		else {
+			?>
+			<p class="welcome" style="margin-top: 0.0cm; font: 150%; font-weight: bold;">
+				Είμαστε κλειστά για λίγο, δοκιμάστε αργότερα…
+			</p>
+			<?php
+		}
+		return;
+	}
 	?>
 	<p class="welcome" style="margin-top: 0.0cm;">
 		Καλώς ήλθατε στον Πρεφαδόρο. Πρόκειται για ιστότοπο
