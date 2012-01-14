@@ -18,7 +18,13 @@ $globals->sql_query($query);
 
 $lock_file = "../lock/neoTrapezi";
 if (file_exists($lock_file)) {
-	die(file_get_contents($lock_file));
+	$minima = @file_get_contents($lock_file);
+	if ($minima == "") {
+		$minima = '<span style="color: #990000;">' .
+			'Δοκιμάστε αργότερα, γίνονται εργασίες συντήρησης.' .
+			'</span>';
+	}
+	die($minima);
 }
 
 $query = "INSERT INTO `trapezi` (`pektis1`, `poll`) VALUES (" .
