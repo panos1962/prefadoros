@@ -461,7 +461,7 @@ class Sizitisi {
 
 	public static function cleanup_writing() {
 		global $globals;
-		if ($globals->not_pektis()) { return; }
+		if ($globals->not_pektis()) { return 0; }
 
 		$prosfata = time() - WRITING_CLEANUP;
 		$query = "DELETE FROM `sizitisi` " .
