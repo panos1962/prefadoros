@@ -14,10 +14,20 @@ Page::body();
 Page::epikefalida($globals->is_pektis());
 Page::fyi();
 ?>
+<script type="text/javascript">
+//<![CDATA[
+setTimeout(function() {
+	var x = getelid('simantiko');
+	if (notSet(x)) { return; }
+	if (isSet(x.pineza) && x.pineza) {return; }
+	sviseNode(x, 500);
+}, 50000);
+//]]>
+</script>
 <div class="mainArea">
 <form class="forma" method="post" action="<?php print $globals->server;
 	?>account/uploadPhoto.php" enctype="multipart/form-data"
-	target="uploadFrame" style="position: relative; padding-top: 1em;">
+	target="uploadFrame" style="position: relative; padding-top: 1em; z-index:1;">
 <table class="formaData tbldbg">
 <tr>
 	<td class="formaHeader tbldbg" colspan="2">
@@ -186,6 +196,9 @@ if ($globals->is_pektis()) {
 </form>
 </div>
 <?php
+if ($globals->not_pektis()) {
+	simantiko();
+}
 Page::close();
 
 function plati_list() {
@@ -307,6 +320,52 @@ function photo_input() {
 			accept="<?php print ($globals->pektis->login == SYSTEM_ACCOUNT ?
 				"application/zip" : "image/jpeg"); ?>" style="visibility: hidden;" />
 	</td>
+	<?php
+}
+
+function simantiko() {
+	?>
+	<div id="simantiko" class="simantiko" style="top: 1.2cm; width: 18.0cm; z-index:2;"
+		onmouseover="this.style.zIndex=2;getelid('apokripsisimantiko').style.visibility='visible';"
+		onmouseout="this.style.zIndex=0;getelid('apokripsisimantiko').style.visibility='hidden';">
+	<?php Page::apokripsi('simantiko'); ?>
+	<div style="text-align: center; margin-bottom: 0.2cm;">
+	<div class="simantikoHeader">ΣΗΜΑΝΤΙΚΟ</div>
+	</div>
+	Φίλοι πρεφαδόροι, πριν προχωρήσετε στην εγγραφή σας στο διαδικτυακό καφενείο
+	της πρέφας, διαβάστε τους όρους εγγραφής και συμμετοχής:
+	<ul>
+	<li>
+		Σκοπός του ιστοτόπου είναι είναι η διάδοση και η καλλιέργεια
+		του παιχνιδιού της πρέφας και σε καμία περίπτωση
+		<span class="simantikoEntono">
+		δεν επιτρέπεται οποιασδήποτε μορφής τζόγος
+		</span>
+		στο χώρο του διαδικτυακού καφενείου της πρέφας.
+		<p></p>
+	</li>
+	<li>
+		Οποιαδήποτε συζήτηση διεξάγεται στο χώρο του καφενείου ή σε κάποιο
+		τραπέζι πρέπει να είναι κόσμια και σε καμία περίπτωση ο ιστότοπος
+		<span class="simantikoEntono">
+		δεν εγγυάται το απόρρητο των συζητήσεων</span> αυτών.
+		Τα ίδια ισχύουν και σε ό,τι αφορά στην ανταλλαγή προσωπικών μηνυμάτων (PM).
+		<p></p>
+	</li>
+	<li>
+		Ο ιστότοπος δεν έχει κερδοσκοπικό χαρακτήρα και
+		δεν απαιτεί οποιαδήποτε τακτική συνδρομή, επομένως
+		<span class="simantikoEntono">
+		δεν είστε σε καμία περίπτωση υποχρεωμένοι να καταβάλετε οποιοδήποτε
+		χρηματικό ποσό</span>.
+		Βεβαίως, μπορείτε να συνεισφέρετε στα έξοδα του
+		ιστοτόπου, υπό μορφήν δωρεάς και μόνο εφόσον το επιθυμείτε.
+	</li>
+	</ul>
+	Εφόσον κατανοείτε και αποδέχεστε τους παραπάνω όρους μπορείτε να
+	προχωρήσετε στην εγγραφή σας στο διαδικτυακό καφενείο της πρέφας.
+	Καλή διασκέδαση!
+	</div>
 	<?php
 }
 
