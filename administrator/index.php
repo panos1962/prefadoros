@@ -6,7 +6,7 @@ Page::administrator_check();
 Page::stylesheet('lib/menu');
 Page::javascript('administrator/administrator');
 Page::body();
-Page::epikefalida();
+Page::epikefalida(TRUE);
 ?>
 <div class="mainArea">
 <div class="menu">

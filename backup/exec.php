@@ -1,9 +1,9 @@
 <?php
-header('Content-type: text/plain; charset=utf-8');
 global $no_session;
 $no_session = TRUE;
 
 require_once '../lib/standard.php';
+Page::data();
 set_globals();
 $pinakas = Globals::perastike_check('pinakas');
 
