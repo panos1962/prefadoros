@@ -35,7 +35,10 @@ define('DEFAULT_PARASKINIO', 'standard.gif');
 
 if (isset($no_session)) {
 	$_SESSION = array();
-	$_SESSION['ps_login'] = $_REQUEST['login'];
+	if (isset($_REQUEST) && is_array($_REQUEST) &&
+		array_key_exists('login', $_REQUEST)) {
+		$_SESSION['ps_login'] = $_REQUEST['login'];
+	}
 }
 else {
 	// 24 * 7 * 3600 = 604800
