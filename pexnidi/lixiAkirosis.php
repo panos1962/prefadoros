@@ -18,12 +18,11 @@ $dianomi = $globals->dianomi[count($globals->dianomi) - 1]->kodikos;
 
 Prefadoros::klidose_trapezi();
 
-$query = "DELETE FROM `kinisi` WHERE (`dianomi` = " . $dianomi .
-	") AND (`idos` = 'ΑΚΥΡΩΣΗ')";
+$query = "DELETE FROM `kinisi` WHERE (`dianomi` = " . $dianomi . ") AND (`idos` = 'ΑΚΥΡΩΣΗ')";
 $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	Prefadoros::xeklidose_trapezi(FALSE);
-	die('Απέτυχε η λήξη ακύρωσης κινήσεων');
+	die('Απέτυχε η κατάργηση ακύρωσης κινήσεων');
 }
 
 Prefadoros::xeklidose_trapezi(TRUE);
