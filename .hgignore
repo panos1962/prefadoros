@@ -9,3 +9,4 @@ glob:photo/?/*
 glob:diafimisi/*.png
 glob:stats/rank.txt
 glob:data/*.txt
+glob:dorea/*.jpg

@@ -37,6 +37,9 @@ Page::epikefalida(Globals::perastike('pedi'));
 Θεσσαλονίκη, 25 Σεπτεμβρίου 2011
 </p>
 <p>
+<img src="<?php print $globals->server; ?>dorea/panos.jpg" alt=""
+style="width: 3.2cm; float: left; margin-right: 0.4cm; margin-top: 0.2cm;
+	border-style: solid; border-width: 2px; border-color: #003300;" />
 Ο ιστότοπος της διαδικτυακής πρέφας στήθηκε και
 συντηρείται από εμένα προσωπικά, τόσο όσον αφορά
 στην ανάπτυξη των σχετικών προγραμμάτων,
