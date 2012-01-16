@@ -136,6 +136,39 @@ Movie.ipopsifiaDianomi = function(div, nai) {
 	}
 };
 
+Movie.Controls = {};
+
+Movie.Controls.play = function() {
+	if (notSet(Movie.dianomi)) {
+		Movie.Controls.dianomi(1);
+		return;
+	}
+
+	if (notSet(Movie.cursor)) {
+		Movie.miraseFila();
+		return;
+	}
+
+	alert(Movie.cursor);
+};
+
+Movie.Controls.dianomi = function(step) {
+	if (Movie.dianomes.length <= 0) {
+		mainFyi('Δεν υπάρχουν διανομές!');
+		return;
+	}
+
+	if (notSet(Movie.dianomi)) {
+		if (step > 0) {
+			Movie.selectDianomi(Movie.dianomes[0]);
+		}
+		else {
+			Movie.selectDianomi(Movie.dianomes[Movie.dianomes.length - 1]);
+		}
+		return;
+	}
+};
+
 window.onload = function() {
 	init();
 	if (isSet(Movie.dianomiSpot)) {
