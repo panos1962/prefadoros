@@ -35,11 +35,18 @@ Page::javascript('prefadoros/pexnidi');
 if (notSet(window.Movie)) { var Movie = {}; }
 Movie.trapezi = <?php print $trapezi->kodikos; ?>;
 Movie.dianomi = <?php print isset($dianomi) ? $dianomi->kodikos : "null"; ?>;
+Movie.dianomes = [];
 Movie.kinisi = [];
 pektis = {};
 pektis.login = '<?php print $globals->pektis->login; ?>';
 pektis.enalagi = <?php print $globals->pektis->enalagi ? 'true' : 'false'; ?>;
 <?php
+$n = count($dianomes);
+for ($i = 0; $i < $n; $i++) {
+	?>
+	Movie.dianomes[<?php print $i; ?>] = <?php print $dianomes[$i]->kodikos; ?>;
+	<?php
+}
 $n = count($kinisi);
 for ($i = 0; $i < $n; $i++) {
 	?>
@@ -67,6 +74,7 @@ Page::fyi("margin-bottom: 0.2cm; width: 24.4cm;");
 	<div class="movieControls">
 		<?php controls(); ?>
 	</div>
+	<?php debug_area(); ?>
 </div>
 <?php
 Page::close(FALSE);
@@ -392,9 +400,9 @@ function controls() {
 	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/stop.png" alt="" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/rev.png" alt="" />
+		?>images/movie/rev.png" alt="" onclick="Movie.Controls.dianomi(-1);" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/fwd.png" alt="" />
+		?>images/movie/fwd.png" alt="" onclick="Movie.Controls.dianomi(1);" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/end.png" alt="" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
@@ -402,7 +410,7 @@ function controls() {
 	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/start.png" alt="" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/play.png" alt="" />
+		?>images/movie/play.png" alt="" onclick="Movie.Controls.play();" />
 	<?php
 }
 
@@ -413,6 +421,23 @@ function print_kapikia($x) {
 	elseif ($x < 0) {
 		?>&nbsp;<span class="kapikiaMion"><?php print $x; ?></span><?php
 	}
+}
+
+function debug_area() {
+	if (!Globals::perastike("debug")) {
+		return;
+	}
+
+	?>
+	<div class="movieDebugArea">
+		Welcome!
+<?php
+for ($i = 0; $i < 20; $i++) {
+	print $i . "<br />";
+}
+?>
+	</div>
+	<?php
 }
 
 class Trapezi {
