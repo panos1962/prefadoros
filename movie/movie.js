@@ -7,7 +7,7 @@ function isPektis() {
 
 Movie.selectDianomi = function(d) {
 	if (notSet(Movie.trapezi)) { return; }
-	if (isSet(Movie.dianomi) && (Movie.dianomi == d)) {
+	if (isSet(Movie.dianomi) && isSet(d) && (Movie.dianomi == d)) {
 		Movie.pexeDianomi();
 		return;
 	}
@@ -160,13 +160,52 @@ Movie.Controls.dianomi = function(step) {
 
 	if (notSet(Movie.dianomi)) {
 		if (step > 0) {
-			Movie.selectDianomi(Movie.dianomes[0]);
+			if (Movie.enarxi) {
+				Movie.selectDianomi(Movie.dianomes[0]);
+			}
+			else {
+				Movie.selectDianomi(0);
+			}
+		}
+		else if (Movie.enarxi) {
+			Movie.selectDianomi();
 		}
 		else {
 			Movie.selectDianomi(Movie.dianomes[Movie.dianomes.length - 1]);
 		}
 		return;
 	}
+
+	var i = Movie.entopiseDianomi();
+	if (notSet(i)) {
+		mainFyi('Ακαθόριστη διανομή!');
+		return;
+	}
+
+	if (step > 0) {
+		i++;
+		if (i >= Movie.dianomes.length) {
+			Movie.selectDianomi();
+			return;
+		}
+	}
+	else {
+		i--;
+		if (i < 0) {
+			Movie.selectDianomi(0);
+			return;
+		}
+	}
+	Movie.selectDianomi(Movie.dianomes[i]);
+};
+
+Movie.entopiseDianomi = function() {
+	for (var i = 0; i < Movie.dianomes.length; i++) {
+		if (Movie.dianomi == Movie.dianomes[i]) {
+			return(i);
+		}
+	}
+	return null;
 };
 
 window.onload = function() {
