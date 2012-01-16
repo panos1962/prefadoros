@@ -155,6 +155,7 @@ background-color: magenta;
 	margin-right: 0.2cm;
 	width: 0.8cm;
 	height: 0.8cm;
+	cursor: pointer;
 }
 
 .movieDianomes {
@@ -175,11 +176,6 @@ background-color: gold;
 	height: 0.54cm;
 	padding: 0px 0.1cm 0.2cm 0.1cm;
 	cursor: pointer;
-}
-
-.movieDianomesSpot {
-	font-weight: bold;
-	background-color: #FFCCFF;
 }
 
 .movieDianomesTzogadoros {
@@ -351,4 +347,15 @@ background-color: teal;
 	overflow-y: auto;
 	color: #FFFF99;
 background-color: teal;
+}
+
+.movieDianomesSpot {
+	font-weight: bold;
+	background-color: #FFCCFF;
+}
+
+.movieTelosSpot {
+	font-weight: bold;
+	color: #FF6600;
+	background-color: #FFCCFF;
 }

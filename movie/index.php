@@ -35,6 +35,7 @@ Page::javascript('prefadoros/pexnidi');
 if (notSet(window.Movie)) { var Movie = {}; }
 Movie.trapezi = <?php print $trapezi->kodikos; ?>;
 Movie.dianomi = <?php print isset($dianomi) ? $dianomi->kodikos : "null"; ?>;
+Movie.enarxi = <?php print $enarxi ? "true" : "false"; ?>;
 Movie.dianomes = [];
 Movie.kinisi = [];
 pektis = {};
@@ -62,14 +63,14 @@ Page::fyi("margin-bottom: 0.2cm; width: 24.4cm;");
 ?>
 <div id="main" class="movieMain">
 	<div id="epikefalida" class="movieEpikefalida">
-		<?php epikefalida($trapezi, $dianomi); ?>
+		<?php epikefalida($trapezi, $dianomi, $enarxi); ?>
 	</div>
 	<div id="trapezi" class="movieTrapezi">
 		<?php trapezi($trapezi, $dianomi); ?>
 		<?php idieterotites($trapezi); ?>
 	</div>
 	<div class="movieDianomes">
-		<?php lista_dianomon($dianomes, $dianomi); ?>
+		<?php lista_dianomon($dianomes, $dianomi, $enarxi); ?>
 	</div>
 	<div class="movieControls">
 		<?php controls(); ?>
@@ -79,7 +80,7 @@ Page::fyi("margin-bottom: 0.2cm; width: 24.4cm;");
 <?php
 Page::close(FALSE);
 
-function epikefalida($trapezi, $dianomi) {
+function epikefalida($trapezi, $dianomi, $enarxi) {
 	?>
 	<table width="100%" class="tbldbg">
 	<tr>
@@ -97,6 +98,13 @@ function epikefalida($trapezi, $dianomi) {
 		?>
 		Διανομή <span class="partidaInfoData"><span id="dianomi"><?php
 			print $dianomi->kodikos; ?></span></span>
+		<?php
+	}
+	else {
+		?>
+		<span class="partidaInfoData">
+			<?php print $enarxi ? "Έναρξη" : "Τέλος"; ?>
+		</span>
 		<?php
 	}
 	?>
@@ -262,11 +270,14 @@ function entopise_dianomi($kodikos, $dianomes, $trapezi) {
 	die($kodikos . ": δεν βρέθηκε διανομή στο τραπέζι " . $trapezi->kodikos);
 }
 
-function lista_dianomon($dianomes, $dianomi) {
+function lista_dianomon($dianomes, $dianomi, $enarxi) {
 	$n = count($dianomes);
 	if ($n > 0) {
 		?>
-		<div class="movieDianomesItem movieDianomesTelos" title="Τελική εικόνα"
+		<div class="movieDianomesItem movieDianomesTelos<?php
+			if ((!isset($dianomi)) && $enarxi) {
+				print " movieTelosSpot";
+			}?>" title="Αρχική εικόνα"
 			onclick="Movie.selectDianomi(0);">ΕΝΑΡΞΗ</div>
 		<?php
 	}
@@ -318,7 +329,10 @@ function lista_dianomon($dianomes, $dianomi) {
 
 	if ($n > 0) {
 		?>
-		<div class="movieDianomesItem movieDianomesTelos" title="Τελική εικόνα"
+		<div class="movieDianomesItem movieDianomesTelos<?php
+			if ((!isset($dianomi)) && (!$enarxi)) {
+				print " movieTelosSpot";
+			}?>" title="Τελική εικόνα"
 			onclick="Movie.selectDianomi();">ΤΕΛΟΣ</div>
 		<?php
 		if ($spot > 10) {
@@ -400,15 +414,17 @@ function controls() {
 	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/stop.png" alt="" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/rev.png" alt="" onclick="Movie.Controls.dianomi(-1);" />
+		?>images/movie/rev.png" alt="" title="Προηγούμενη διανομή"
+		onclick="Movie.Controls.dianomi(-1);" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/fwd.png" alt="" onclick="Movie.Controls.dianomi(1);" />
+		?>images/movie/fwd.png" alt="" title="Επόμενη διανομή"
+		onclick="Movie.Controls.dianomi(1);" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/end.png" alt="" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/pause.png" alt="" />
-	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/start.png" alt="" />
+	<img class="movieControlIcon" src="<?php print $globals->server;
+		?>images/movie/pause.png" alt="" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/play.png" alt="" onclick="Movie.Controls.play();" />
 	<?php
