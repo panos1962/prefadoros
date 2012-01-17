@@ -5,7 +5,18 @@ function isPektis() {
 	return(isSet(window.pektis) && isSet(pektis.login));
 }
 
+Movie.nextFrame = null;
+
+Movie.clearNextFrame = function() {
+	if (isSet(Movie.nextFrame)) {
+		clearTimeout(Movie.nextFrame);
+	}
+	Movie.nextFrame = null;
+	Movie.playing(false);
+};
+
 Movie.selectDianomi = function(d) {
+	Movie.clearNextFrame();
 	if (notSet(Movie.trapezi)) { return; }
 	if (isSet(Movie.dianomi) && isSet(d) && (Movie.dianomi == d)) {
 		Movie.pexeDianomi();
@@ -13,6 +24,7 @@ Movie.selectDianomi = function(d) {
 	}
 
 	var href = globals.server + 'movie/index.php?trapezi=' + uri(Movie.trapezi);
+	if (Movie.debugger) { href += '&debug=yes'; }
 	if (isSet(d)) {
 		if (d > 0) { href += '&dianomi=' + uri(d); }
 		else { href += '&enarxi=yes'; }
@@ -22,7 +34,7 @@ Movie.selectDianomi = function(d) {
 
 Movie.pexeDianomi = function() {
 	if (notSet(Movie.dianomi)) { return; }
-	mainFyi(Movie.dianomi);
+	Movie.Controls.play();
 };
 
 Movie.tzogosAniktos = null;
@@ -136,9 +148,70 @@ Movie.ipopsifiaDianomi = function(div, nai) {
 	}
 };
 
+Movie.realTime = true;
+Movie.timeScale = 1000;
+
+Movie.setRealTime = function(yes) {
+	Movie.realTime = yes;
+	Movie.timeScale = 1000;
+Movie.debug((Movie.realTime ? 'Real time' : 'Fixed time') + ', step = ' + Movie.timeScale);
+};
+
+Movie.calcTimeStep = function() {
+	if (Movie.timeScale > 2000) { return 500; }
+	if (Movie.timeScale > 1000) { return 200; }
+	if (Movie.timeScale > 500) { return 100; }
+	return 50;
+};
+
+Movie.slower = function() {
+	if ((Movie.timeScale += Movie.calcTimeStep()) >= 3000) {
+		Movie.timeScale = 3000;
+	}
+Movie.debug((Movie.realTime ? 'Real time' : 'Fixed time') + ', step = ' + Movie.timeScale);
+};
+
+Movie.faster = function() {
+	if ((Movie.timeScale -= Movie.calcTimeStep()) < 50) {
+		Movie.timeScale = 50;
+	}
+Movie.debug((Movie.realTime ? 'Real time' : 'Fixed time') + ', step = ' + Movie.timeScale);
+};
+
+Movie.entopiseDianomi = function() {
+	for (var i = 0; i < Movie.dianomes.length; i++) {
+		if (Movie.dianomi == Movie.dianomes[i]) {
+			return(i);
+		}
+	}
+	return null;
+};
+
+Movie.debug = function(s, newline) {
+	var x = getelid('debugArea');
+	if (notSet(x)) { return; }
+	if (notSet(newline)) { newline = true; }
+	var y = document.createElement(newline ? 'div' : 'span');
+	y.innerHTML = s;
+	x.appendChild(y);
+	if (isSet(x.scrollHeight)) { x.scrollTop = x.scrollHeight; }
+};
+
+Movie.playing = function(yes) {
+	var x = getelid('playing');
+	if (notSet(x) || notSet(x.style) || notSet(x.style.display)) { return; }
+	if (yes) {
+		x.style.display = 'inline';
+	}
+	else {
+		x.style.display = 'none';
+	}
+};
+
 Movie.Controls = {};
 
-Movie.Controls.play = function() {
+Movie.Controls.play = function(step) {
+	Movie.clearNextFrame();
 	if (notSet(Movie.dianomi)) {
 		Movie.Controls.dianomi(1);
 		return;
@@ -149,7 +222,79 @@ Movie.Controls.play = function() {
 		return;
 	}
 
-	alert(Movie.cursor);
+	if (notSet(step)) {
+		step = 1;
+		var auto = true;
+	}
+	else {
+		auto = false;
+	}
+
+	Movie.cursor += step;
+	if (Movie.cursor >= Movie.kinisi.length) {
+		Movie.Controls.dianomi(1);
+		return;
+	}
+	if (Movie.cursor < 0) {
+		Movie.Controls.dianomi(-1);
+		return;
+	}
+
+Movie.debug(Movie.kinisi[Movie.cursor].idos);
+	if (Movie.cursor == Movie.kinisi.length - 1) {
+		return;
+	}
+
+	if (Movie.realTime) {
+		var pause = (Movie.kinisi[Movie.cursor + 1].pote -
+			Movie.kinisi[Movie.cursor].pote) * Movie.timeScale;
+	}
+	else {
+		pause = Movie.timeScale;
+	}
+Movie.debug(pause);
+
+	if (notSet(auto)) { auto = true; }
+	if (auto) {
+		Movie.nextFrame = setTimeout(Movie.Controls.play, pause);
+		Movie.playing(true);
+	}
+};
+
+Movie.Controls.pause = function() {
+	if (isSet(Movie.nextFrame)) {
+		Movie.clearNextFrame();
+	}
+	else {
+		Movie.Controls.play();
+	}
+};
+
+Movie.Controls.stop = function() {
+	Movie.clearNextFrame();
+};
+
+Movie.Controls.prevDianomi = function() {
+	Movie.clearNextFrame();
+	if (isSet(Movie.cursor) && (Movie.cursor > 0)) {
+		Movie.miraseFila();
+	}
+	else {
+		Movie.Controls.dianomi(-1);
+	}
+};
+
+Movie.Controls.nextDianomi = function() {
+	Movie.clearNextFrame();
+	if (isSet(Movie.cursor) && (Movie.cursor > 0) &&
+		(Movie.cursor < (Movie.kinisi.length -1))) {
+		Movie.cursor = Movie.kinisi.length - 2;
+		if (Movie.cursor > 0) { Movie.Controls.play(); }
+		else { Movie.miraseFila(); }
+	}
+	else {
+		Movie.Controls.dianomi(1);
+	}
 };
 
 Movie.Controls.dianomi = function(step) {
@@ -197,15 +342,6 @@ Movie.Controls.dianomi = function(step) {
 		}
 	}
 	Movie.selectDianomi(Movie.dianomes[i]);
-};
-
-Movie.entopiseDianomi = function() {
-	for (var i = 0; i < Movie.dianomes.length; i++) {
-		if (Movie.dianomi == Movie.dianomes[i]) {
-			return(i);
-		}
-	}
-	return null;
 };
 
 window.onload = function() {
