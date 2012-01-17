@@ -148,17 +148,24 @@ background-color: magenta;
 	border-style: solid;
 	border-color: #4D944D;
 	border-width: 2px;
+
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	-khtml-user-select: none;
+	-ms-user-select: none;
 }
 
 .movieControlsLeft {
 	position: absolute;
-	bottom: 0.1cm;
+	bottom: 0px;
 	left: 0.4cm;
 }
 
 .movieControlsRight {
 	position: absolute;
-	bottom: 0.1cm;
+	bottom: 0px;
 	right: 0.4cm;
 }
 
@@ -168,6 +175,12 @@ background-color: magenta;
 	width: 0.8cm;
 	height: 0.8cm;
 	cursor: pointer;
+}
+
+.movieTimeIcon {
+	border-style: solid;
+	border-width: 0.06cm;
+	border-color: #8CAA88;
 }
 
 .movieDianomes {
@@ -375,4 +388,11 @@ background-color: teal;
 	font-weight: bold;
 	color: #FF6600;
 	background-color: #FFCCFF;
+}
+
+.movieEpomeno {
+	position: absolute;
+	bottom: 0.2cm;
+	left: 14.8cm;
+	font-size: 0.3cm;
 }
