@@ -24,7 +24,7 @@ Movie.selectDianomi = function(d) {
 	}
 
 	var href = globals.server + 'movie/index.php?trapezi=' + uri(Movie.trapezi);
-	if (Movie.debugger) { href += '&debug=yes'; }
+	if (Movie.dbg) { href += '&debug=yes'; }
 	if (isSet(d)) {
 		if (d > 0) { href += '&dianomi=' + uri(d); }
 		else { href += '&enarxi=yes'; }
@@ -154,6 +154,7 @@ Movie.timeScale = 1000;
 Movie.setRealTime = function(yes) {
 	Movie.realTime = yes;
 	Movie.timeScale = 1000;
+	Movie.showTimeSettings();
 Movie.debug((Movie.realTime ? 'Real time' : 'Fixed time') + ', step = ' + Movie.timeScale);
 };
 
@@ -168,6 +169,7 @@ Movie.slower = function() {
 	if ((Movie.timeScale += Movie.calcTimeStep()) >= 3000) {
 		Movie.timeScale = 3000;
 	}
+	Movie.showTimeSettings();
 Movie.debug((Movie.realTime ? 'Real time' : 'Fixed time') + ', step = ' + Movie.timeScale);
 };
 
@@ -175,6 +177,7 @@ Movie.faster = function() {
 	if ((Movie.timeScale -= Movie.calcTimeStep()) < 50) {
 		Movie.timeScale = 50;
 	}
+	Movie.showTimeSettings();
 Movie.debug((Movie.realTime ? 'Real time' : 'Fixed time') + ', step = ' + Movie.timeScale);
 };
 
@@ -208,9 +211,55 @@ Movie.playing = function(yes) {
 	}
 };
 
+Movie.showTimeSettings = function() {
+	if (Movie.realTime) {
+		var on = getelid('roloi');
+		var off = getelid('metronomos');
+	}
+	else {
+		off = getelid('roloi');
+		on = getelid('metronomos');
+	}
+	if (isSet(on)) { on.style.borderColor = '#FF6666'; }
+	if (isSet(off)) { off.style.borderColor = '#8CAA88'; }
+
+	off = getelid('slow');
+	if (isSet(off)) { off.style.borderColor = '#8CAA88'; }
+	off = getelid('fast');
+	if (isSet(off)) { off.style.borderColor = '#8CAA88'; }
+	if (Movie.timeScale < 350) {
+		on = getelid('fast');
+		var color = '#FFFF33';
+	}
+	else if (Movie.timeScale < 550) {
+		on = getelid('fast');
+		color = '#FF6666';
+	}
+	else if (Movie.timeScale < 950) {
+		on = getelid('fast');
+		color = '#335C33';
+	}
+	else if (Movie.timeScale > 2250) {
+		on = getelid('slow');
+		color = '#FFFF33';
+	}
+	else if (Movie.timeScale > 1550) {
+		on = getelid('slow');
+		color = '#FF6666';
+	}
+	else if (Movie.timeScale > 1050) {
+		on = getelid('slow');
+		color = '#335C33';
+	}
+	else {
+		on = null;
+	}
+	if (isSet(on)) { on.style.borderColor = color; }
+};
+
 Movie.Controls = {};
 
-Movie.Controls.play = function(step) {
+Movie.Controls.play = function(vima) {
 	Movie.clearNextFrame();
 	if (notSet(Movie.dianomi)) {
 		Movie.Controls.dianomi(1);
@@ -222,15 +271,15 @@ Movie.Controls.play = function(step) {
 		return;
 	}
 
-	if (notSet(step)) {
-		step = 1;
+	if (notSet(vima)) {
+		vima = 1;
 		var auto = true;
 	}
 	else {
 		auto = false;
 	}
 
-	Movie.cursor += step;
+	Movie.cursor += vima;
 	if (Movie.cursor >= Movie.kinisi.length) {
 		Movie.Controls.dianomi(1);
 		return;
@@ -245,20 +294,47 @@ Movie.debug(Movie.kinisi[Movie.cursor].idos);
 		return;
 	}
 
+	var pause = Movie.showEpomeno();
+	if (notSet(auto)) { auto = true; }
+	if (auto) {
+		Movie.nextFrame = setTimeout(function() {
+			Movie.Controls.play();
+		}, pause);
+		Movie.playing(true);
+	}
+};
+
+Movie.showEpomeno = function() {
+	if (notSet(Movie.cursor) || (Movie.cursor >= (Movie.kinisi.length - 1))) {
+		return 100;
+	}
+
+	var xronos = Movie.kinisi[Movie.cursor + 1].pote - Movie.kinisi[Movie.cursor].pote;
 	if (Movie.realTime) {
-		var pause = (Movie.kinisi[Movie.cursor + 1].pote -
-			Movie.kinisi[Movie.cursor].pote) * Movie.timeScale;
+		var pause = xronos * Movie.timeScale;
 	}
 	else {
 		pause = Movie.timeScale;
 	}
-Movie.debug(pause);
 
-	if (notSet(auto)) { auto = true; }
-	if (auto) {
-		Movie.nextFrame = setTimeout(Movie.Controls.play, pause);
-		Movie.playing(true);
+	var x = getelid('epomeno');
+	if (notSet(x)) { return pause; }
+
+	var n = Movie.kinisi.length - 2;
+	while (n < 0) { n++; }
+
+	var html = '';
+	if (isSet(Movie.cursor) && (Movie.cursor > 0)) {
+		html += '<span class="partidaInfoData" title="Τρέχουσα κίνηση">' +
+			Movie.cursor + '</span> # ';
 	}
+	html += '<span class="partidaInfoData" title="Πλήθος κινήσεων">' + n + '</span>, ' +
+		'<span class="partidaInfoData" title="Πραγματικός επόμενης κίνησης">' +
+			xronos + '</span> ~ ' +
+		'<span class="partidaInfoData" title="Χρόνος επόμενου frame">' +
+			(pause / 1000) + '</span> sec';
+	x.innerHTML = html;
+	return pause;
 };
 
 Movie.Controls.pause = function() {
@@ -282,6 +358,7 @@ Movie.Controls.prevDianomi = function() {
 	else {
 		Movie.Controls.dianomi(-1);
 	}
+	Movie.showEpomeno();
 };
 
 Movie.Controls.nextDianomi = function() {
@@ -295,16 +372,17 @@ Movie.Controls.nextDianomi = function() {
 	else {
 		Movie.Controls.dianomi(1);
 	}
+	Movie.showEpomeno();
 };
 
-Movie.Controls.dianomi = function(step) {
+Movie.Controls.dianomi = function(vima) {
 	if (Movie.dianomes.length <= 0) {
 		mainFyi('Δεν υπάρχουν διανομές!');
 		return;
 	}
 
 	if (notSet(Movie.dianomi)) {
-		if (step > 0) {
+		if (isSet(vima) && (vima > 0)) {
 			if (Movie.enarxi) {
 				Movie.selectDianomi(Movie.dianomes[0]);
 			}
@@ -327,7 +405,7 @@ Movie.Controls.dianomi = function(step) {
 		return;
 	}
 
-	if (step > 0) {
+	if (isSet(vima) && (vima > 0)) {
 		i++;
 		if (i >= Movie.dianomes.length) {
 			Movie.selectDianomi();
@@ -360,4 +438,7 @@ window.onload = function() {
 			x.title = "Αλλαγή θέσης"
 		}
 	}
+
+	Movie.showTimeSettings();
+	Movie.showEpomeno();
 };

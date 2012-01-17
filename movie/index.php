@@ -39,7 +39,7 @@ Movie.dianomi = <?php print isset($dianomi) ? $dianomi->kodikos : "null"; ?>;
 Movie.enarxi = <?php print $enarxi ? "true" : "false"; ?>;
 Movie.dianomes = [];
 Movie.kinisi = [];
-Movie.debugger = <?php print $debugger ? "true" : "false"; ?>;
+Movie.dbg = <?php print $debugger ? "true" : "false"; ?>;
 pektis = {};
 pektis.login = '<?php print $globals->pektis->login; ?>';
 pektis.enalagi = <?php print $globals->pektis->enalagi ? 'true' : 'false'; ?>;
@@ -159,6 +159,7 @@ function trapezi($trapezi, $dianomi) {
 				<?php check_dealer(1, $dianomi); ?>
 			</div>
 		</div>
+		<div id="epomeno" class="movieEpomeno"></div>
 	</div>
 	<?php
 }
@@ -414,12 +415,12 @@ function controls() {
 	global $globals;
 	?>
 	<div class="movieControlsLeft">
-		<img class="movieControlIcon" src="<?php print $globals->server;
+		<img class="movieControlIcon movieTimeIcon" src="<?php print $globals->server;
 			?>images/movie/roloi.png" alt="" title="Πραγματικός χρόνος"
-			onclick="Movie.setRealTime(true);" />
-		<img class="movieControlIcon" src="<?php print $globals->server;
+			id="roloi" onclick="Movie.setRealTime(true);" />
+		<img class="movieControlIcon movieTimeIcon" src="<?php print $globals->server;
 			?>images/movie/metronomos.png" alt="" title="Μηχανικός χρόνος"
-			onclick="Movie.setRealTime(false);" />
+			id="metronomos" onclick="Movie.setRealTime(false);" />
 	</div>
 	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/stop.png" alt="" title="Διακοπή"
@@ -446,12 +447,12 @@ function controls() {
 		<img id="playing" class="movieControlIcon" src="<?php print $globals->server;
 			?>images/rollStar.gif" alt="" title="Playing…"
 			style="display: none;" />
-		<img class="movieControlIcon" src="<?php print $globals->server;
+		<img class="movieControlIcon movieTimeIcon" src="<?php print $globals->server;
 			?>images/movie/xelonaki.png" alt="" title="Επιβράδυνση"
-			onclick="Movie.slower();" />
-		<img class="movieControlIcon" src="<?php print $globals->server;
+			id="slow" onclick="Movie.slower();" />
+		<img class="movieControlIcon movieTimeIcon" src="<?php print $globals->server;
 			?>images/movie/piravlos.png" alt="" title="Επιτάχυνση"
-			onclick="Movie.faster();" />
+			id="fast" onclick="Movie.faster();" />
 	</div>
 	<?php
 }
