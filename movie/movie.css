@@ -150,6 +150,18 @@ background-color: magenta;
 	border-width: 2px;
 }
 
+.movieControlsLeft {
+	position: absolute;
+	bottom: 0.1cm;
+	left: 0.4cm;
+}
+
+.movieControlsRight {
+	position: absolute;
+	bottom: 0.1cm;
+	right: 0.4cm;
+}
+
 .movieControlIcon {
 	margin-left: 0.2cm;
 	margin-right: 0.2cm;
@@ -174,7 +186,7 @@ background-color: gold;
 	position: relative;
 	font-size: 0.5cm;
 	height: 0.54cm;
-	padding: 0px 0.1cm 0.2cm 0.1cm;
+	padding-bottom: 0.2cm;
 	cursor: pointer;
 }
 
@@ -182,6 +194,7 @@ background-color: gold;
 	position: absolute;
 	left: 0.02cm;
 	letter-spacing: -0.02cm;
+margin-left: 0.06cm;
 }
 
 .movieDianomesTzogadoros2 {
@@ -217,6 +230,7 @@ background-color: gold;
 	position: absolute;
 	top: 0px;
 	right: 0.02cm;
+margin-right: 0.08cm;
 }
 
 .movieDianomesAgora {
@@ -345,8 +359,11 @@ background-color: teal;
 	height: 4.0cm;
 	padding: 0px 0.2cm 0px 0.2cm;
 	overflow-y: auto;
-	color: #FFFF99;
-background-color: teal;
+
+	border-style: solid;
+	border-color: #4D944D;
+	border-width: 2px;
+	background-color: #FFFF99;
 }
 
 .movieDianomesSpot {

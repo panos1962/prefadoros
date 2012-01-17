@@ -24,6 +24,7 @@ else {
 	$trapezi->calc_ipolipo($dianomes);
 }
 $kinisi = fetch_kinisi($dianomi);
+$debugger = Globals::perastike('debug');
 Page::head("Πρεφαδόρος -- Παρτίδα " . $trapezi->kodikos);
 Page::stylesheet('prefadoros/prefadoros');
 Page::stylesheet('movie/movie');
@@ -38,6 +39,7 @@ Movie.dianomi = <?php print isset($dianomi) ? $dianomi->kodikos : "null"; ?>;
 Movie.enarxi = <?php print $enarxi ? "true" : "false"; ?>;
 Movie.dianomes = [];
 Movie.kinisi = [];
+Movie.debugger = <?php print $debugger ? "true" : "false"; ?>;
 pektis = {};
 pektis.login = '<?php print $globals->pektis->login; ?>';
 pektis.enalagi = <?php print $globals->pektis->enalagi ? 'true' : 'false'; ?>;
@@ -75,7 +77,7 @@ Page::fyi("margin-bottom: 0.2cm; width: 24.4cm;");
 	<div class="movieControls">
 		<?php controls(); ?>
 	</div>
-	<?php debug_area(); ?>
+	<?php if ($debugger) { debug_area(); } ?>
 </div>
 <?php
 Page::close(FALSE);
@@ -411,22 +413,46 @@ function decode_simetoxi($n) {
 function controls() {
 	global $globals;
 	?>
+	<div class="movieControlsLeft">
+		<img class="movieControlIcon" src="<?php print $globals->server;
+			?>images/movie/roloi.png" alt="" title="Πραγματικός χρόνος"
+			onclick="Movie.setRealTime(true);" />
+		<img class="movieControlIcon" src="<?php print $globals->server;
+			?>images/movie/metronomos.png" alt="" title="Μηχανικός χρόνος"
+			onclick="Movie.setRealTime(false);" />
+	</div>
 	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/stop.png" alt="" />
+		?>images/movie/stop.png" alt="" title="Διακοπή"
+		onclick="Movie.Controls.stop();" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/rev.png" alt="" title="Προηγούμενη διανομή"
-		onclick="Movie.Controls.dianomi(-1);" />
+		onclick="Movie.Controls.prevDianomi();" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
 		?>images/movie/fwd.png" alt="" title="Επόμενη διανομή"
-		onclick="Movie.Controls.dianomi(1);" />
+		onclick="Movie.Controls.nextDianomi();" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/end.png" alt="" />
+		?>images/movie/end.png" title="Επόμενη κίνηση" alt=""
+		onclick="Movie.Controls.play(1);" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/start.png" alt="" />
+		?>images/movie/start.png" title="Προηγούμενη κίνηση" alt=""
+		onclick="Movie.Controls.play(-1);" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/pause.png" alt="" />
+		?>images/movie/pause.png" alt="" title="Προσωρινή διακοπή"
+		onclick="Movie.Controls.pause();" />
 	<img class="movieControlIcon" src="<?php print $globals->server;
-		?>images/movie/play.png" alt="" onclick="Movie.Controls.play();" />
+		?>images/movie/play.png" alt="" title="Αναπαραγωγή κινήσεων"
+		onclick="Movie.Controls.play();" />
+	<div class="movieControlsRight">
+		<img id="playing" class="movieControlIcon" src="<?php print $globals->server;
+			?>images/rollStar.gif" alt="" title="Playing…"
+			style="display: none;" />
+		<img class="movieControlIcon" src="<?php print $globals->server;
+			?>images/movie/xelonaki.png" alt="" title="Επιβράδυνση"
+			onclick="Movie.slower();" />
+		<img class="movieControlIcon" src="<?php print $globals->server;
+			?>images/movie/piravlos.png" alt="" title="Επιτάχυνση"
+			onclick="Movie.faster();" />
+	</div>
 	<?php
 }
 
@@ -440,18 +466,11 @@ function print_kapikia($x) {
 }
 
 function debug_area() {
-	if (!Globals::perastike("debug")) {
-		return;
-	}
-
 	?>
-	<div class="movieDebugArea">
-		Welcome!
-<?php
-for ($i = 0; $i < 20; $i++) {
-	print $i . "<br />";
-}
-?>
+	<div id="debugArea" class="movieDebugArea">
+		<span style="text-decoration: underline;">
+			Welcome to the movie debugger!
+		</span>
 	</div>
 	<?php
 }
