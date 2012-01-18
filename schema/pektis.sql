@@ -17,6 +17,8 @@ CREATE TABLE `pektis` (
 	`minimadirty`	ENUM('NO', 'YES') NOT NULL DEFAULT 'NO' COMMENT 'Αλλαγές στα PM',
 	`prosklidirty`	ENUM('NO', 'YES') NOT NULL DEFAULT 'NO' COMMENT 'Αλλαγές στις προσκλήσεις',
 	`sxesidirty`	ENUM('NO', 'YES') NOT NULL DEFAULT 'NO' COMMENT 'Αλλαγές στις σχέσεις',
+	`movietime`	ENUM('REAL', 'METRONOME') NOT NULL DEFAULT 'REAL' COMMENT 'Μέτρηση χρόνου',
+	`moviescale`	SMALLINT(4) NOT NULL DEFAULT 1000 COMMENT 'Ταχύτητα',
 	PRIMARY KEY (
 		`login`
 	) USING BTREE,
