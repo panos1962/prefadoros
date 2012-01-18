@@ -441,25 +441,42 @@ Movie.displayPektis = function(thesi) {
 		x.innerHTML = html;
 	}
 
-	var html = Movie.Partida.paso[thesi];
 	var x = getelid('dilosi' + thesi);
+	if (notSet(x)) { return; }
+
+	if (thesi == Movie.Partida.tzogadoros) {
+		Movie.displayAgora(x);
+		return;
+	}
+
+	var html = Movie.Partida.paso[thesi];
 	if (isSet(x)) {
+		x.setAttribute('class', 'movieDilosi movieDilosi' + thesi);
 		switch (Movie.Partida.dilosi[thesi]) {
 		case '':
 			break;
 		default:
-			if (html != '') { html += ' '; }
-			html += Pexnidi.xromaBazesHTML(Movie.Partida.dilosi[thesi]);
+			if (html != '') {
+				x.setAttribute('class', x.getAttribute('class') +
+					' protasiAgoraOxi');
+			}
+			html = Pexnidi.xromaBazesHTML(Movie.Partida.dilosi[thesi]);
 			break;
 		}
 	}
 	x.innerHTML = html;
 };
 
+Movie.displayAgora = function(div) {
+	div.setAttribute('class', div.getAttribute('class') + ' dilosiAgora');
+	var html = Pexnidi.xromaBazesHTML(Movie.Partida.agora);
+	div.innerHTML = html;
+};
+
 Movie.reset = function() {
 	Movie.Partida = {};
 	Movie.Partida.agora = null;
-	Movie.Partida.tzogadoros = null;
+	Movie.Partida.tzogadoros = 0;
 	Movie.Partida.fila = [];
 	Movie.Partida.tzogos = true;
 	Movie.Partida.dilosi = ['', '', '', ''];
@@ -499,7 +516,11 @@ Movie.processTzogos = function(thesi, data) {
 	Movie.Partida.tzogos = false;
 };
 
-Movie.processAgora = function(thesi, data) {
+Movie.processAgora = function(i, thesi, data) {
+	var x = data.split(':');
+	if (x.length != 2) { return; }
+	Movie.Partida.tzogadoros = thesi;
+	Movie.Partida.agora = x[0];
 };
 
 Movie.showEpomeno = function() {
