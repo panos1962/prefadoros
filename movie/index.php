@@ -26,10 +26,11 @@ else {
 $kinisi = fetch_kinisi($dianomi);
 $debugger = Globals::perastike('debug');
 Page::head("Πρεφαδόρος -- Παρτίδα " . $trapezi->kodikos);
-Page::stylesheet('prefadoros/prefadoros');
 Page::stylesheet('movie/movie');
+Page::stylesheet('prefadoros/prefadoros');
 Page::javascript('movie/movie');
 Page::javascript('prefadoros/pexnidi');
+Page::javascript('prefadoros/misc');
 ?>
 <script type="text/javascript">
 //<![CDATA[
@@ -121,7 +122,7 @@ function trapezi($trapezi, $dianomi) {
 	?>
 	<div style="position: relative; height: 14.0cm;">
 		<div id="pektis3" class="moviePektisArea moviePektisArea3">
-			<div class="moviePektisMain moviePektisMain3">
+			<div id="pektisMain3" class="moviePektisMain moviePektisMain3">
 				<div class="moviePektis moviePektis3">
 					<?php
 					print $trapezi->pektis3;
@@ -131,9 +132,10 @@ function trapezi($trapezi, $dianomi) {
 				<div id="filaArea3" class="movieFilaArea movieFilaArea3"></div>
 				<?php check_dealer(3, $dianomi); ?>
 			</div>
+			<div id="dilosi3" class="movieDilosi movieDilosi3"></div>
 		</div>
 		<div id="pektis2" class="moviePektisArea moviePektisArea2">
-			<div class="moviePektisMain moviePektisMain2">
+			<div id="pektisMain2" class="moviePektisMain moviePektisMain2">
 				<div class="moviePektis moviePektis2">
 					<?php
 					print $trapezi->pektis2;
@@ -143,13 +145,15 @@ function trapezi($trapezi, $dianomi) {
 				<div id="filaArea2" class="movieFilaArea movieFilaArea2"></div>
 				<?php check_dealer(2, $dianomi); ?>
 			</div>
+			<div id="dilosi2" class="movieDilosi movieDilosi2"></div>
 		</div>
 		<div id="gipedo" class="movieGipedo">
 			<?php tzogos($dianomi); ?>
 		</div>
 		<div id="pektis1" class="moviePektisArea moviePektisArea1">
+			<div id="dilosi1" class="movieDilosi movieDilosi1"></div>
 			<div id="filaArea1" class="movieFilaArea movieFilaArea1"></div>
-			<div class="moviePektisMain moviePektisMain1">
+			<div id="pektisMain1" class="moviePektisMain moviePektisMain1">
 				<div class="moviePektis moviePektis1">
 					<?php
 					print $trapezi->pektis1;
