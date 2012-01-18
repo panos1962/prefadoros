@@ -441,20 +441,19 @@ Movie.displayPektis = function(thesi) {
 		x.innerHTML = html;
 	}
 
+	var html = Movie.Partida.paso[thesi];
 	var x = getelid('dilosi' + thesi);
 	if (isSet(x)) {
 		switch (Movie.Partida.dilosi[thesi]) {
-		case 'ΠΑΣΟ':
-			x.setAttribute('class', x.getAttribute('class') + ' movieDilosiPaso');
-			x.innerHTML = 'ΠΑΣΟ';
-			break;
 		case '':
 			break;
 		default:
-			x.innerHTML = Pexnidi.xromaBazesHTML(Movie.Partida.dilosi[thesi]);
+			if (html != '') { html += ' '; }
+			html += Pexnidi.xromaBazesHTML(Movie.Partida.dilosi[thesi]);
 			break;
 		}
 	}
+	x.innerHTML = html;
 };
 
 Movie.reset = function() {
@@ -464,6 +463,7 @@ Movie.reset = function() {
 	Movie.Partida.fila = [];
 	Movie.Partida.tzogos = true;
 	Movie.Partida.dilosi = ['', '', '', ''];
+	Movie.Partida.paso = ['', '', '', ''];
 	Movie.Partida.simetoxi = ['', '', '', ''];
 	Movie.Partida.bazes = [0, 0, 0, 0];
 
@@ -487,7 +487,12 @@ Movie.processDianomi = function(i, thesi, data) {
 };
 
 Movie.processDilosi = function(i, thesi, data) {
-	Movie.Partida.dilosi[thesi] = data.match(/^P/) ? 'ΠΑΣΟ' : data;
+	if (data.match(/^P/)) {
+		Movie.Partida.paso[thesi] = 'ΠΑΣΟ';
+	}
+	else {
+		Movie.Partida.dilosi[thesi] = data;
+	}
 };
 
 Movie.processTzogos = function(thesi, data) {
