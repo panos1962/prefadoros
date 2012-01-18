@@ -459,7 +459,7 @@ var Pexnidi = new function() {
 		if (de == 'Y') {
 			html += '&nbsp;+&nbsp;';
 			html += '<img class="' + xc + '" src="' + globals.server +
-				'images/trapoula/asoi.png" style="width: 0.8cm; height: 0.8cm;" alt="" />';
+				'images/trapoula/asoi.png" style="width: 0.7cm; height: 0.6cm;" alt="" />';
 		}
 		return html;
 	};
