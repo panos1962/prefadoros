@@ -37,6 +37,28 @@ Movie.pexeDianomi = function() {
 	Movie.Controls.play();
 };
 
+Movie.tzogosDefault = true;
+
+Movie.tzogosDefaultOnOff = function(img) {
+	Movie.tzogosDefault = !Movie.tzogosDefault;
+	Movie.showTzogosDefault(img);
+	Movie.keepMovieSettings();
+};
+
+Movie.showTzogosDefault = function(img) {
+	if (notSet(img)) { img = getelid('tzogosDflt'); }
+	if (notSet(img)) { return; }
+	img.style.display = 'inline';
+	if (Movie.tzogosDefault) {
+		img.src = globals.server + 'images/trapoula/tzogos.png';
+		img.title = 'Τζόγος κλειστός';
+	}
+	else {
+		img.src = globals.server + 'images/movie/tzogosAniktos.png';
+		img.title = 'Τζόγος ανοικτός';
+	}
+};
+
 Movie.tzogosAniktos = null;
 
 Movie.tzogosOnOff = function(div, fila) {
@@ -51,13 +73,13 @@ Movie.tzogosOnOff = function(div, fila) {
 			'style="left: 4.2cm; top: 0.5cm; padding-left: 0.2cm;" />';
 	}
 	if (Movie.tzogosAniktos) {
-		var html = '<img class="movieTzogosIcon" src="' + globals.server +
-			'images/trapoula/tzogos.png" alt="" />';
-		div.title = 'Άνοιγμα τζόγου';
+		var html = div.filaHTML;
+		div.title = 'Κλείσιμο τζόγου';
 	}
 	else {
-		html = div.filaHTML;
-		div.title = 'Κλείσιμο τζόγου';
+		html = '<img class="movieTzogosIcon" src="' + globals.server +
+			'images/trapoula/tzogos.png" alt="" />';
+		div.title = 'Άνοιγμα τζόγου';
 	}
 	div.innerHTML = html;
 	Movie.tzogosAniktos = !Movie.tzogosAniktos;
@@ -86,7 +108,7 @@ Movie.miraseFila = function() {
 		p.innerHTML = html;
 	}
 
-	Movie.tzogosAniktos = true;
+	Movie.tzogosAniktos = !Movie.tzogosDefault;
 	Movie.tzogosOnOff(getelid('tzogos'), x[0]);
 
 	Movie.cursor = 0;
@@ -191,6 +213,7 @@ Movie.keepMovieSettings = function() {
 	};
 	var params = 'time=' + (Movie.realTime ? 'REAL' : 'METRONOME');
 	params += '&scale=' + Movie.timeScale;
+	params += '&tzogos=' + (Movie.tzogosDefault ? 'CLOSED' : 'OPEN');
 	req.send(params);
 };
 
@@ -201,19 +224,14 @@ Movie.keepMovieSettingsCheck = function(req) {
 };
 
 Movie.getMovieSettings = function() {
-	var req = new Request('pektis/getMovie');
-	req.xhr.onreadystatechange = function() {
-		Movie.getMovieSettingsCheck(req);
-	};
+	var req = new Request('pektis/getMovie', false);
 	req.send();
-};
-
-Movie.getMovieSettingsCheck = function(req) {
 	if (req.xhr.readyState != 4) { return; }
 	var rsp = req.getResponse();
 	try {
 		eval(rsp);
 		Movie.showTimeSettings();
+		Movie.showTzogosDefault();
 	} catch (e) {
 		mainFyi(rsp);
 	}
@@ -466,6 +484,7 @@ window.onload = function() {
 		window.location.hash = '#dianomi' + Movie.dianomiSpot;
 	}
 
+	Movie.getMovieSettings();
 	if (isSet(Movie.dianomi)) {
 		Movie.miraseFila();
 	}
@@ -477,6 +496,5 @@ window.onload = function() {
 		}
 	}
 
-	Movie.getMovieSettings();
 	Movie.showEpomeno();
 };
