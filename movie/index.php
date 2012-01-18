@@ -416,6 +416,10 @@ function controls() {
 	?>
 	<div class="movieControlsLeft">
 		<img class="movieControlIcon movieTimeIcon" src="<?php print $globals->server;
+			?>images/trapoula/tzogos.png" alt="" title="Εμφάνιση τζόγου"
+			style="display: none;" id="tzogosDflt"
+			onclick="Movie.tzogosDefaultOnOff(this);" />
+		<img class="movieControlIcon movieTimeIcon" src="<?php print $globals->server;
 			?>images/movie/roloi.png" alt="" title="Πραγματικός χρόνος"
 			id="roloi" onclick="Movie.setRealTime(true);" />
 		<img class="movieControlIcon movieTimeIcon" src="<?php print $globals->server;

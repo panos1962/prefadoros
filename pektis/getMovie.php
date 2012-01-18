@@ -6,13 +6,14 @@ Page::data();
 set_globals();
 Prefadoros::pektis_check();
 
-$query = "SELECT `movietime`, `moviescale` FROM `pektis` WHERE `login` = " .
-	$globals->pektis->slogin . " LIMIT 1";
+$query = "SELECT `movietime`, `moviescale`, `movietzogos` " .
+	"FROM `pektis` WHERE `login` = " . $globals->pektis->slogin . " LIMIT 1";
 $result = $globals->sql_query($query);
 $row = @mysqli_fetch_array($result, MYSQLI_NUM);
 if ($row) {
 	print "Movie.realTime=" . ($row[0] == "REAL" ? "true" : "false") . ";";
 	print "Movie.timeScale=" . $row[1] . ";";
+	print "Movie.tzogosDefault=" . ($row[2] == "CLOSED" ? "true" : "false") . ";";
 }
 $globals->klise_fige();
 ?>
