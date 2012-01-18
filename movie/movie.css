@@ -54,7 +54,7 @@
 .moviePektisArea {
 	position: absolute;
 	width: 8.6cm;
-	height: 4.6cm;
+	height: 4.7cm;
 	background-color: #8CAA88;
 	cursor: crosshair;
 /*
@@ -301,7 +301,7 @@ background-color: teal;
 }
 
 .movieFilaArea1 {
-	top: 0.7cm;
+	bottom: 0.9cm;
 	left: 0.18cm;
 }
 
@@ -379,6 +379,11 @@ background-color: teal;
 	background-color: #FFFF99;
 }
 
+.movieDebugData {
+	margin-left: 1.0cm;
+	color: blue;
+}
+
 .movieDianomesSpot {
 	font-weight: bold;
 	background-color: #FFCCFF;
@@ -395,4 +400,38 @@ background-color: teal;
 	bottom: 0.2cm;
 	left: 14.8cm;
 	font-size: 0.3cm;
+}
+
+.movieDilosi {
+	position: absolute;
+	width: 4.2cm;
+	height: 0.68cm;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	font-family: "Comic Sans MS", cursive;
+	font-size: 0.45cm;
+	font-weight: bold;
+
+	text-align: center;
+}
+
+.movieDilosi3 {
+	bottom: 0px;
+	left: 0px;
+}
+
+.movieDilosi2 {
+	bottom: 0px;
+	right: 0px;
+}
+
+.movieDilosi1 {
+	top: 0px;
+	left: 0px;
+}
+
+.movieDilosiPaso {
 }
