@@ -155,6 +155,7 @@ Movie.setRealTime = function(yes) {
 	Movie.realTime = yes;
 	Movie.timeScale = 1000;
 	Movie.showTimeSettings();
+	Movie.keepMovieSettings();
 Movie.debug((Movie.realTime ? 'Real time' : 'Fixed time') + ', step = ' + Movie.timeScale);
 };
 
@@ -170,6 +171,7 @@ Movie.slower = function() {
 		Movie.timeScale = 3000;
 	}
 	Movie.showTimeSettings();
+	Movie.keepMovieSettings();
 Movie.debug((Movie.realTime ? 'Real time' : 'Fixed time') + ', step = ' + Movie.timeScale);
 };
 
@@ -178,7 +180,43 @@ Movie.faster = function() {
 		Movie.timeScale = 50;
 	}
 	Movie.showTimeSettings();
+	Movie.keepMovieSettings();
 Movie.debug((Movie.realTime ? 'Real time' : 'Fixed time') + ', step = ' + Movie.timeScale);
+};
+
+Movie.keepMovieSettings = function() {
+	var req = new Request('pektis/setMovie');
+	req.xhr.onreadystatechange = function() {
+		Movie.keepMovieSettingsCheck(req);
+	};
+	var params = 'time=' + (Movie.realTime ? 'REAL' : 'METRONOME');
+	params += '&scale=' + Movie.timeScale;
+	req.send(params);
+};
+
+Movie.keepMovieSettingsCheck = function(req) {
+	if (req.xhr.readyState != 4) { return; }
+	var rsp = req.getResponse();
+	mainFyi(rsp);
+};
+
+Movie.getMovieSettings = function() {
+	var req = new Request('pektis/getMovie');
+	req.xhr.onreadystatechange = function() {
+		Movie.getMovieSettingsCheck(req);
+	};
+	req.send();
+};
+
+Movie.getMovieSettingsCheck = function(req) {
+	if (req.xhr.readyState != 4) { return; }
+	var rsp = req.getResponse();
+	try {
+		eval(rsp);
+		Movie.showTimeSettings();
+	} catch (e) {
+		mainFyi(rsp);
+	}
 };
 
 Movie.entopiseDianomi = function() {
@@ -439,6 +477,6 @@ window.onload = function() {
 		}
 	}
 
-	Movie.showTimeSettings();
+	Movie.getMovieSettings();
 	Movie.showEpomeno();
 };
