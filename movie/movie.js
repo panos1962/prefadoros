@@ -411,13 +411,13 @@ Movie.display = function() {
 		}
 	}
 
+	Movie.displayTzogos();
 	for (i = 1; i <= 3; i++) {
 		Movie.displayPektis(i);
 	}
 	Movie.displayIpolipo();
 	Movie.displayEpomenos();
 	Movie.displayBaza();
-	Movie.displayTzogos();
 };
 
 Movie.displayPektis = function(thesi) {
@@ -574,6 +574,7 @@ Movie.displayEpomenos = function() {
 };
 
 Movie.displayBaza = function() {
+	if (Movie.Partida.tzogos) { return; }
 	var x = getelid('gipedo');
 	if (notSet(x)) { return; }
 	var html = '';
