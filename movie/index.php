@@ -37,9 +37,11 @@ Page::javascript('prefadoros/misc');
 if (notSet(window.Movie)) { var Movie = {}; }
 Movie.trapezi = <?php print $trapezi->kodikos; ?>;
 Movie.dianomi = <?php print isset($dianomi) ? $dianomi->kodikos : "null"; ?>;
+Movie.ipolipo = <?php print $trapezi->ipolipo; ?>;
 Movie.enarxi = <?php print $enarxi ? "true" : "false"; ?>;
 Movie.dianomes = [];
 Movie.kinisi = [];
+Movie.kapikia = [];
 Movie.dbg = <?php print $debugger ? "true" : "false"; ?>;
 pektis = {};
 pektis.login = '<?php print $globals->pektis->login; ?>';
@@ -58,6 +60,9 @@ for ($i = 0; $i < $n; $i++) {
 	<?php
 }
 ?>
+Movie.kapikia[1] = <?php print $trapezi->kapikia1; ?>;
+Movie.kapikia[2] = <?php print $trapezi->kapikia2; ?>;
+Movie.kapikia[3] = <?php print $trapezi->kapikia3; ?>;
 //]]>
 </script>
 <?php
@@ -92,7 +97,7 @@ function epikefalida($trapezi, $dianomi, $enarxi) {
 		print $trapezi->kodikos; ?></span>,
 		κάσα <span class="partidaInfoData"><?php
 		print $trapezi->kasa; ?></span>,
-		υπόλοιπο <span class="partidaInfoData"><?php
+		υπόλοιπο <span id="ipolipo" class="partidaInfoData"><?php
 		print $trapezi->ipolipo; ?></span>
 	</td>
 	<td class="movieEpikefalidaRight tbldbg">
@@ -126,7 +131,7 @@ function trapezi($trapezi, $dianomi) {
 				<div class="moviePektis moviePektis3">
 					<?php
 					print $trapezi->pektis3;
-					print_kapikia($trapezi->kapikia3);
+					print_kapikia(3, $trapezi->kapikia3);
 					?>
 				</div>
 				<div id="filaArea3" class="movieFilaArea movieFilaArea3"></div>
@@ -139,7 +144,7 @@ function trapezi($trapezi, $dianomi) {
 				<div class="moviePektis moviePektis2">
 					<?php
 					print $trapezi->pektis2;
-					print_kapikia($trapezi->kapikia2);
+					print_kapikia(2, $trapezi->kapikia2);
 					?>
 				</div>
 				<div id="filaArea2" class="movieFilaArea movieFilaArea2"></div>
@@ -157,7 +162,7 @@ function trapezi($trapezi, $dianomi) {
 				<div class="moviePektis moviePektis1">
 					<?php
 					print $trapezi->pektis1;
-					print_kapikia($trapezi->kapikia1);
+					print_kapikia(1, $trapezi->kapikia1);
 					?>
 				</div>
 				<?php check_dealer(1, $dianomi); ?>
@@ -465,13 +470,29 @@ function controls() {
 	<?php
 }
 
-function print_kapikia($x) {
-	if ($x > 0) {
-		?>&nbsp;<span class="kapikiaSin">+<?php print $x; ?></span><?php
+function print_kapikia($thesi, $x) {
+	if ($x < 0) {
+		$class = "kapikiaMion";
+		$prosimo = "";
+		$kapikia = $x;
+		$left = "0.2cm";
 	}
-	elseif ($x < 0) {
-		?>&nbsp;<span class="kapikiaMion"><?php print $x; ?></span><?php
+	elseif ($x > 0) {
+		$class = "kapikiaSin";
+		$prosimo = "+";
+		$kapikia = $x;
+		$left = "0.2cm";
 	}
+	else {
+		$class = "";
+		$prosimo = "";
+		$kapikia = "";
+		$left = "0px";
+	}
+	?><span id="kapikia<?php print $thesi; ?>" class="<?php
+		print $class; ?>" style="padding-left: <?php
+		print $left; ?>"><?php print $prosimo . $kapikia;
+		?></span><?php
 }
 
 function debug_area() {
