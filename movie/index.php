@@ -138,6 +138,7 @@ function trapezi($trapezi, $dianomi) {
 				<?php check_dealer(3, $dianomi); ?>
 			</div>
 			<div id="dilosi3" class="movieDilosi movieDilosi3"></div>
+			<div id="simetoxi3" class="movieDilosi movieSimetoxi3"></div>
 		</div>
 		<div id="pektis2" class="moviePektisArea moviePektisArea2">
 			<div id="pektisMain2" class="moviePektisMain moviePektisMain2">
@@ -151,12 +152,14 @@ function trapezi($trapezi, $dianomi) {
 				<?php check_dealer(2, $dianomi); ?>
 			</div>
 			<div id="dilosi2" class="movieDilosi movieDilosi2"></div>
+			<div id="simetoxi2" class="movieDilosi movieSimetoxi2"></div>
 		</div>
 		<div id="gipedo" class="movieGipedo">
 			<?php tzogos($dianomi); ?>
 		</div>
 		<div id="pektis1" class="moviePektisArea moviePektisArea1">
 			<div id="dilosi1" class="movieDilosi movieDilosi1"></div>
+			<div id="simetoxi1" class="movieDilosi movieSimetoxi1"></div>
 			<div id="filaArea1" class="movieFilaArea movieFilaArea1"></div>
 			<div id="pektisMain1" class="moviePektisMain moviePektisMain1">
 				<div class="moviePektis moviePektis1">
@@ -210,6 +213,11 @@ function check_dealer($pektis, $dianomi) {
 			?>images/protos.png" title="Πρώτος" alt="" />
 		<?php
 	}
+	?>
+	<img id="mazi<?php print $pektis; ?>" class="movieDealerIcon" src="<?php
+		print $globals->server; ?>images/mazi.png" title="Πρώτος" alt=""
+		style="display: none; top: 1.8cm;" />
+	<?php
 }
 
 function entopise_trapezi() {

@@ -330,6 +330,16 @@ background-color: teal;
 	height: 2.96cm;
 }
 
+.movieFilaPaso {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+.movieFilaVoithao {
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+}
+
 .movieFiloSteno {
 	width: 1.9cm;
 }
@@ -404,7 +414,7 @@ background-color: teal;
 
 .movieDilosi {
 	position: absolute;
-	width: 4.2cm;
+	width: 4.3cm;
 	height: 0.68cm;
 
 	-moz-border-radius: 5px;
@@ -431,4 +441,77 @@ background-color: teal;
 .movieDilosi1 {
 	top: 0px;
 	left: 0px;
+}
+
+.movieSimetoxi3 {
+	bottom: 0px;
+	right: 0px;
+}
+
+.movieSimetoxi2 {
+	bottom: 0px;
+	left: 0px;
+}
+
+.movieSimetoxi1 {
+	top: 0px;
+	right: 0px;
+}
+
+.movieBazaIcon {
+	width: 0.4cm;
+	height: 0.6cm;
+	margin-top: 0.06cm;
+	margin-left: 0.05cm;
+	margin-right: 0.05cm;
+}
+
+.movieBazaFilo {
+	position: absolute;
+	width: 2.1cm;
+	height: 2.96cm;
+}
+
+.movieBazaFilo3 {
+	top: 0.5cm;
+	left: 2.4cm;
+}
+
+.movieBazaFilo2 {
+	top: 0.1cm;
+	right: 2.6cm;
+}
+
+.movieBazaFilo1 {
+	bottom: 0.1cm;
+	left: 3.2cm;
+}
+
+.movieBazaVelos {
+	position: absolute;
+	width: 1.2cm;
+	height: 1.2cm;
+	z-index: 10;
+}
+
+.movieBazaVelos3 {
+	top: -0.6cm;
+	left: 1.2cm;
+}
+
+.movieBazaVelos2 {
+	top: -0.9cm;
+	right: 1.5cm;
+}
+
+.movieBazaVelos1 {
+	bottom: -1.0cm;
+	left: 2.0cm;
+}
+
+.movieClaimIcon {
+	position: absolute;
+	top: 0.6cm;
+	left: 2.6cm;
+	width: 3.0cm;
 }

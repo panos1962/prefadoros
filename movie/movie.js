@@ -105,7 +105,7 @@ Movie.miraseFila = function() {
 	for (var i = 1; i <= 3; i++) {
 		var p = getelid('filaArea' + i);
 		if (isSet(p)) {
-			var html = Movie.filaHTML(Pexnidi.spaseFila(x[i]));
+			var html = Movie.filaHTML(i, Pexnidi.spaseFila(x[i]));
 			p.innerHTML = html;
 		}
 	}
@@ -124,11 +124,20 @@ Movie.mavroKokino = {
 	'H':	'K'
 };
 
-Movie.filaHTML = function(fila) {
+Movie.filaHTML = function(thesi, fila) {
 	var html = '';
 	if (fila.length <= 0) { return html; }
 
-	html = '<div class="movieFilaXeri">';
+	html = '<div class="movieFilaXeri';
+	switch (Movie.Partida.simetoxi[thesi]) {
+	case 'ΠΑΣΟ':
+		html += ' movieFilaPaso';
+		break;
+	case 'ΒΟΗΘΑΩ':
+		html += ' movieFilaVoithao';
+		break;
+	}
+	html += '">';
 	var tzogos = (fila.length > 10);
 	var proto = ' style="margin-left: 0px;"';
 	var prevXroma = '';
@@ -384,6 +393,18 @@ Movie.display = function() {
 		case 'ΑΓΟΡΑ':
 			Movie.processAgora(i, thesi, data);
 			break;
+		case 'ΣΥΜΜΕΤΟΧΗ':
+			Movie.processSimetoxi(i, thesi, data);
+			break;
+		case 'ΦΥΛΛΟ':
+			Movie.processFilo(i, thesi, data);
+			break;
+		case 'ΜΠΑΖΑ':
+			Movie.processBaza(i, thesi, data);
+			break;
+		case 'CLAIM':
+			Movie.processClaim(i, thesi, data);
+			break;
 		case 'ΠΛΗΡΩΜΗ':
 			Movie.processPliromi(i, thesi, data);
 			break;
@@ -393,42 +414,115 @@ Movie.display = function() {
 	Movie.displayTzogos();
 	for (i = 1; i <= 3; i++) {
 		Movie.displayPektis(i);
-		Movie.displayKapikia(i);
 	}
 	Movie.displayIpolipo();
 	Movie.displayEpomenos();
+	Movie.displayBaza();
 };
 
 Movie.displayPektis = function(thesi) {
-	var x = getelid('filaArea' + thesi);
-	if (isSet(x)) {
-		var html = Movie.filaHTML(Pexnidi.spaseFila(Movie.Partida.fila[thesi]));
-		x.innerHTML = html;
+	Movie.displayKapikia(thesi);
+	Movie.displayFila(thesi);
+	if (thesi == Movie.Partida.tzogadoros) {
+		Movie.displayAgora(thesi);
 	}
+	else {
+		Movie.displayDilosi(thesi);
+		Movie.displaySimetoxi(thesi);
+	}
+	Movie.displayBazes(thesi);
+};
 
-	var x = getelid('dilosi' + thesi);
+Movie.displayFila = function(thesi) {
+	var x = getelid('filaArea' + thesi);
+	if (notSet(x)) { return; }
+	var html = Movie.filaHTML(thesi, Pexnidi.spaseFila(Movie.Partida.fila[thesi]));
+	x.innerHTML = html;
+};
+
+Movie.displayAgora = function(thesi) {
+	x = getelid('dilosi' + thesi);
+	if (notSet(x)) { return; }
+	x.setAttribute('class', x.getAttribute('class') + ' dilosiAgora');
+	var html = Pexnidi.xromaBazesHTML(Movie.Partida.agora);
+	x.innerHTML = html;
+};
+
+Movie.displayDilosi = function(thesi) {
+	x = getelid('dilosi' + thesi);
 	if (notSet(x)) { return; }
 
-	if (thesi == Movie.Partida.tzogadoros) {
-		Movie.displayAgora(x);
-		return;
+	var html = '';
+	var klasi = 'movieDilosi movieDilosi' + thesi;
+	if (Movie.Partida.paso[thesi] != '') {
+		klasi += ' protasiAgoraOxi';
+		x.setAttribute('class', x.getAttribute('class') + ' protasiAgoraOxi');
+		html = Movie.Partida.paso[thesi];
+	}
+	else if (Movie.Partida.dilosi[thesi] != '') {
+		html = Pexnidi.xromaBazesHTML(Movie.Partida.dilosi[thesi]);
 	}
 
-	var html = Movie.Partida.paso[thesi];
-	if (isSet(x)) {
-		x.setAttribute('class', 'movieDilosi movieDilosi' + thesi);
-		switch (Movie.Partida.dilosi[thesi]) {
-		case '':
+	x.setAttribute('class', klasi);
+	x.innerHTML = html;
+};
+
+Movie.displaySimetoxi = function(thesi) {
+	x = getelid('simetoxi' + thesi);
+	if (notSet(x)) { return; }
+
+	if (Movie.Partida.bazesOles > 0) {
+		var html = '';
+		var klasi = 'movieDilosi movieSimetoxi' + thesi;
+	}
+	else {
+		html = Movie.Partida.simetoxi[thesi];
+		klasi = 'movieDilosi movieSimetoxi' + thesi + ' simetoxi';
+		switch (Movie.Partida.simetoxi[thesi]) {
+		case 'ΠΑΙΖΩ':
+			klasi += ' simetoxiPezo'
 			break;
-		default:
-			if (html != '') {
-				x.setAttribute('class', x.getAttribute('class') +
-					' protasiAgoraOxi');
-			}
-			html = Pexnidi.xromaBazesHTML(Movie.Partida.dilosi[thesi]);
+		case 'ΠΑΣΟ':
+			klasi += ' simetoxiPaso'
+			break;
+		case 'ΜΟΝΟΣ':
+			klasi += ' simetoxiMonos'
+			break;
+		case 'ΜΑΖΙ':
+			klasi += ' simetoxiMazi'
+			var m = getelid('mazi' + thesi);
+			if (isSet(m)) { m.style.display = 'inline'; }
+			break;
+		case 'ΒΟΗΘΑΩ':
+			klasi += ' simetoxiVoithao'
 			break;
 		}
 	}
+
+	x.setAttribute('class', klasi);
+	x.innerHTML = html;
+};
+
+Movie.plati = [
+	'B', 'B', 'B',
+	'R', 'R', 'R',
+	'B', 'B', 'B',
+	'R', 'R', 'R', 
+	'B'
+];
+
+Movie.displayBazes = function(thesi) {
+	if (Movie.Partida.bazesOles <= 0) { return; }
+	x = getelid('simetoxi' + thesi);
+	if (notSet(x)) { return; }
+
+	var html = '';
+	for (var i = 0; i < Movie.Partida.bazes[thesi]; i++) {
+		html += '<img class="movieBazaIcon" src="' + globals.server +
+			'images/trapoula/' + Movie.plati[i] + 'V.png" alt="" />';
+	}
+
+	x.setAttribute('class', 'movieDilosi movieSimetoxi' + thesi);
 	x.innerHTML = html;
 };
 
@@ -479,10 +573,30 @@ Movie.displayEpomenos = function() {
 	x.setAttribute('class', 'moviePektisMain moviePektisMain' + epomenos + ' epomenos');
 };
 
-Movie.displayAgora = function(div) {
-	div.setAttribute('class', div.getAttribute('class') + ' dilosiAgora');
-	var html = Pexnidi.xromaBazesHTML(Movie.Partida.agora);
-	div.innerHTML = html;
+Movie.displayBaza = function() {
+	var x = getelid('gipedo');
+	if (notSet(x)) { return; }
+	var html = '';
+	if (Movie.Partida.claim) {
+		html += '<img class="movieClaimIcon" src="' + globals.server +
+			'images/controlPanel/claim.png" alt="" />';
+	}
+	else {
+		for (var i = 0; i < Movie.Partida.bazaFilo.length; i++) {
+			html += '<img class="movieBazaFilo movieBazaFilo' +
+				Movie.Partida.bazaFilo[i].pektis + '" src="' +
+				globals.server + 'images/trapoula/' + Movie.Partida.bazaFilo[i].filo +
+				'.png" alt="" style="z-index: ' + (10 + i) + ';" />';
+			html += '<img class="movieBazaVelos movieBazaVelos' +
+				Movie.Partida.bazaFilo[i].pektis + '" src="' +
+				globals.server + 'images/velos' + Movie.Partida.bazaFilo[i].pektis;
+			if (Movie.Partida.bazaPektis == Movie.Partida.bazaFilo[i].pektis) {
+				html += 'pare';
+			}
+			html += '.png" alt="" />';
+		}
+	}
+	x.innerHTML = html;
 };
 
 Movie.reset = function() {
@@ -497,6 +611,8 @@ Movie.reset = function() {
 	Movie.Partida.bazes = [0, 0, 0, 0];
 	Movie.Partida.pliromi = [0, 0, 0, 0];
 	Movie.Partida.ipolipo = 0;
+	Movie.Partida.bazesOles = 0;
+	Movie.resetBaza();
 
 	Movie.debug('<hr />');
 	for (var i = 0; i <= 3; i++) {
@@ -505,7 +621,15 @@ Movie.reset = function() {
 			p.setAttribute('class', 'movieDilosi movieDilosi' + i);
 			p.innerHTML = '';
 		}
+		p = getelid('mazi' + i);
+		if (isSet(p)) { p.style.display = 'none'; }
 	}
+};
+
+Movie.resetBaza = function() {
+	Movie.Partida.bazaFilo = [];
+	Movie.Partida.bazaPektis = 0;
+	Movie.Partida.claim = false;
 };
 
 Movie.debugKinisi = function(i, idos, thesi, data) {
@@ -526,7 +650,8 @@ Movie.processDilosi = function(i, thesi, data) {
 	}
 };
 
-Movie.processTzogos = function(thesi, data) {
+Movie.processTzogos = function(i, thesi, data) {
+	Movie.Partida.fila[thesi] += data;
 	Movie.Partida.tzogos = false;
 };
 
@@ -535,9 +660,43 @@ Movie.processAgora = function(i, thesi, data) {
 	if (x.length != 2) { return; }
 	Movie.Partida.tzogadoros = thesi;
 	Movie.Partida.agora = x[0];
+	Movie.Partida.fila[thesi] = x[1];
+};
+
+Movie.processSimetoxi = function(i, thesi, data) {
+	Movie.Partida.simetoxi[thesi] = data;
+	if (data == 'ΜΑΖΙ') {
+		for (var i = 1; i <= 3; i++) {
+			if (Movie.Partida.simetoxi[i] == 'ΠΑΣΟ') {
+				Movie.Partida.simetoxi[i] = 'ΒΟΗΘΑΩ';
+			}
+		}
+	}
+};
+
+Movie.processFilo = function(i, thesi, data) {
+	if (Movie.Partida.bazaPektis != 0) { Movie.resetBaza(); }
+	var pat = new RegExp(data);
+	Movie.Partida.fila[thesi] = Movie.Partida.fila[thesi].replace(pat, '');
+	Movie.Partida.bazaFilo[Movie.Partida.bazaFilo.length] = {
+		"pektis":	thesi,
+		"filo":		data
+	};
+};
+
+Movie.processBaza = function(i, thesi, data) {
+	Movie.Partida.bazes[thesi]++;
+	Movie.Partida.bazesOles++;
+	Movie.Partida.bazaPektis = thesi;
+};
+
+Movie.processClaim = function(i, thesi, data) {
+	Movie.resetBaza();
+	Movie.Partida.claim = thesi;
 };
 
 Movie.processPliromi = function(i, thesi, data) {
+	Movie.resetBaza();
 	var x = data.split(':');
 	if (x.length != 7) { return; }
 
