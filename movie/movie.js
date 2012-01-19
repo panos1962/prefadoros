@@ -348,11 +348,12 @@ Movie.Controls.play = function(vima) {
 		return;
 	}
 
+	Movie.display();
+
 	if (Movie.cursor >= Movie.kinisi.length - 1) {
 		return;
 	}
 
-	Movie.display();
 	var pause = Movie.showEpomeno();
 	if (notSet(auto)) { auto = true; }
 	if (auto) {
@@ -383,55 +384,19 @@ Movie.display = function() {
 		case 'ΑΓΟΡΑ':
 			Movie.processAgora(i, thesi, data);
 			break;
+		case 'ΠΛΗΡΩΜΗ':
+			Movie.processPliromi(i, thesi, data);
+			break;
 		}
 	}
 
 	Movie.displayTzogos();
 	for (i = 1; i <= 3; i++) {
 		Movie.displayPektis(i);
+		Movie.displayKapikia(i);
 	}
+	Movie.displayIpolipo();
 	Movie.displayEpomenos();
-};
-
-Movie.displayTzogos = function() {
-	var x = getelid('tzogos');
-	if (notSet(x)) { return; }
-	if (Movie.Partida.tzogos) {
-		x.style.display = 'inline';
-	}
-	else {
-		x.style.display = 'none';
-	}
-};
-
-Movie.displayEpomenos = function() {
-	for (var i = 1; i <= 3; i++) {
-		var x = getelid('pektisMain' + i);
-		if (notSet(x)) { continue; }
-		x.setAttribute('class', 'moviePektisMain moviePektisMain' + i);
-	}
-
-	var epomenos = null;
-	for (i = Movie.cursor + 1; i < Movie.kinisi.length; i++) {
-		switch (Movie.kinisi[i].idos) {
-		case 'ΔΗΛΩΣΗ':
-		case 'ΣΥΜΜΕΤΟΧΗ':
-		case 'ΦΥΛΛΟ':
-		case 'ΤΖΟΓΟΣ':
-		case 'ΑΓΟΡΑ':
-		case 'ΜΠΑΖΑ':
-		case 'CLAIM':
-			epomenos = Movie.kinisi[i].pektis;
-			break;
-		}
-		if (isSet(epomenos)) {
-			break;
-		}
-	}
-	if (notSet(epomenos)) { return;}
-	var x = getelid('pektisMain' + epomenos);
-	if (notSet(x)) { return; }
-	x.setAttribute('class', 'moviePektisMain moviePektisMain' + epomenos + ' epomenos');
 };
 
 Movie.displayPektis = function(thesi) {
@@ -467,6 +432,53 @@ Movie.displayPektis = function(thesi) {
 	x.innerHTML = html;
 };
 
+Movie.displayTzogos = function() {
+	var x = getelid('tzogos');
+	if (notSet(x)) { return; }
+	if (Movie.Partida.tzogos) {
+		x.style.display = 'inline';
+	}
+	else {
+		x.style.display = 'none';
+	}
+};
+
+Movie.displayIpolipo = function() {
+	var x = getelid('ipolipo');
+	if (notSet(x)) { return; }
+	x.innerHTML = Movie.ipolipo - (Movie.Partida.ipolipo / 10);
+};
+
+Movie.displayEpomenos = function() {
+	for (var i = 1; i <= 3; i++) {
+		var x = getelid('pektisMain' + i);
+		if (notSet(x)) { continue; }
+		x.setAttribute('class', 'moviePektisMain moviePektisMain' + i);
+	}
+
+	var epomenos = null;
+	for (i = Movie.cursor + 1; i < Movie.kinisi.length; i++) {
+		switch (Movie.kinisi[i].idos) {
+		case 'ΔΗΛΩΣΗ':
+		case 'ΣΥΜΜΕΤΟΧΗ':
+		case 'ΦΥΛΛΟ':
+		case 'ΤΖΟΓΟΣ':
+		case 'ΑΓΟΡΑ':
+		case 'ΜΠΑΖΑ':
+		case 'CLAIM':
+			epomenos = Movie.kinisi[i].pektis;
+			break;
+		}
+		if (isSet(epomenos)) {
+			break;
+		}
+	}
+	if (notSet(epomenos)) { return;}
+	var x = getelid('pektisMain' + epomenos);
+	if (notSet(x)) { return; }
+	x.setAttribute('class', 'moviePektisMain moviePektisMain' + epomenos + ' epomenos');
+};
+
 Movie.displayAgora = function(div) {
 	div.setAttribute('class', div.getAttribute('class') + ' dilosiAgora');
 	var html = Pexnidi.xromaBazesHTML(Movie.Partida.agora);
@@ -483,6 +495,8 @@ Movie.reset = function() {
 	Movie.Partida.paso = ['', '', '', ''];
 	Movie.Partida.simetoxi = ['', '', '', ''];
 	Movie.Partida.bazes = [0, 0, 0, 0];
+	Movie.Partida.pliromi = [0, 0, 0, 0];
+	Movie.Partida.ipolipo = 0;
 
 	Movie.debug('<hr />');
 	for (var i = 0; i <= 3; i++) {
@@ -521,6 +535,48 @@ Movie.processAgora = function(i, thesi, data) {
 	if (x.length != 2) { return; }
 	Movie.Partida.tzogadoros = thesi;
 	Movie.Partida.agora = x[0];
+};
+
+Movie.processPliromi = function(i, thesi, data) {
+	var x = data.split(':');
+	if (x.length != 7) { return; }
+
+	for (var i = 1; i <= 3; i++) {
+		var kasa = parseInt(x[(2 * i) - 1]);
+		var kapikia = parseInt(x[2 * i]);
+		if (kasa != 0) {
+			Movie.Partida.ipolipo += kasa;
+			kasa = parseInt(kasa / 3);
+			Movie.Partida.pliromi[i] += kasa * 2;
+			for (var j = 1; j <= 3; j++) {
+				if (j != i) {
+					Movie.Partida.pliromi[j] -= kasa;
+				}
+			}
+		}
+		Movie.Partida.pliromi[i] += parseInt(kapikia);
+	}
+};
+
+Movie.displayKapikia = function(thesi) {
+	var x = getelid('kapikia' + thesi);
+	if (notSet(x)) { return; }
+	var kapikia = Movie.kapikia[thesi] + Movie.Partida.pliromi[thesi];
+	if (kapikia < 0) {
+		x.setAttribute('class', 'kapikiaMion');
+		x.style.paddingLeft = '0.2cm';
+		x.innerHTML = kapikia;
+	}
+	else if (kapikia > 0) {
+		x.setAttribute('class', 'kapikiaSin');
+		x.style.paddingLeft = '0.2cm';
+		x.innerHTML = '+' + kapikia;
+	}
+	else {
+		x.setAttribute('class', '');
+		x.style.paddingLeft = '0px';
+		x.innerHTML = '';
+	}
 };
 
 Movie.showEpomeno = function() {
