@@ -411,13 +411,13 @@ Movie.display = function() {
 		}
 	}
 
-	Movie.displayTzogos();
 	for (i = 1; i <= 3; i++) {
 		Movie.displayPektis(i);
 	}
 	Movie.displayIpolipo();
 	Movie.displayEpomenos();
 	Movie.displayBaza();
+	Movie.displayTzogos();
 };
 
 Movie.displayPektis = function(thesi) {
