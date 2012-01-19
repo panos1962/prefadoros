@@ -50,7 +50,7 @@ Movie.showTzogosDefault = function(img) {
 	if (notSet(img)) { return; }
 	img.style.display = 'inline';
 	if (Movie.tzogosDefault) {
-		img.src = globals.server + 'images/trapoula/tzogos.png';
+		img.src = globals.server + 'images/movie/tzogosKlistos.png';
 		img.title = 'Τζόγος κλειστός';
 	}
 	else {
