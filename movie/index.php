@@ -3,7 +3,7 @@ require_once '../lib/standard.php';
 require_once '../prefadoros/prefadoros.php';
 require_once '../pektis/pektis.php';
 set_globals();
-Prefadoros::pektis_check();
+Prefadoros::pektis_check(FALSE, TRUE);
 $globals->thesi = Globals::perastike('thesi') ? $_REQUEST["thesi"] : 1;
 $trapezi = entopise_trapezi();
 $dianomes = fetch_dianomes($trapezi);
