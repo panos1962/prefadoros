@@ -33,12 +33,23 @@ class Prefadoros {
 		}
 	}
 
-	public static function pektis_check($login = FALSE) {
+	public static function pektis_check($login = FALSE, $forma = FALSE) {
 		global $globals;
 
 		if (!$globals->is_pektis()) {
 			self::set_pektis($login);
 			if (!$globals->is_pektis()) {
+				if ($forma) {
+					?>
+					<script type="text/javascript">
+					var href = window.location.href;
+					window.location = '<?php print $globals->server;
+						?>account/login.php?aftonomo=yes&main=' +
+						encodeURIComponent(href);
+					</script>
+					<?php
+					$globals->klise_fige(0);
+				}
 				Globals::fatal('Ακαθόριστος παίκτης');
 			}
 		}

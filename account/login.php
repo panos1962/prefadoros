@@ -12,8 +12,9 @@ Page::epikefalida(FALSE);
 Page::fyi();
 ?>
 <div class="mainArea">
-<form class="forma" method="post" action="<?php print $globals->server; ?>index.php"
-	style="margin-top: padding-top: 1em;">
+<form class="forma" method="post" action="<?php
+	print $globals->perastike("main") ? $_REQUEST["main"] : ($globals->server . "index.php");
+	?>" style="margin-top: padding-top: 1em;">
 <table class="formaData tbldbg">
 <tr>
 	<td class="formaHeader tbldbg" colspan="2">
@@ -54,8 +55,9 @@ Page::fyi();
 		<input type="reset" value="Reset" class="button formaButton" />
 	</td>
 	<td class="tbldbg">
-		<input type="button" value="Cancel" class="button formaButton"
-			onclick="return exitChild();" />
+		<input type="button" value="Cancel" class="button formaButton" onclick="<?php
+			print $globals->perastike('aftonomo') ?
+				"self.close();" : "exitChild();"; ?> return false;" />
 	</td>
 </tr>
 </table>
