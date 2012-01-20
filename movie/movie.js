@@ -7,7 +7,9 @@ function isPektis() {
 
 Movie.alagiThesis = function(thesi) {
 	Movie.thesi = thesi;
-	Movie.selectDianomi(Movie.dianomi);
+	var d = Movie.dianomi;
+	Movie.dianomi = null;
+	Movie.selectDianomi(d);
 };
 
 Movie.nextFrame = null;

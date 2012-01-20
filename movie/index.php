@@ -133,9 +133,8 @@ function trapezi($trapezi, $dianomi) {
 	global $globals;
 	?>
 	<div style="position: relative; height: 14.0cm;">
-		<div id="pektis3" class="moviePektisArea moviePektisArea3"
-			title="Αλλαγή θέσης" onclick="Movie.alagiThesis(<?php
-				print map_thesi(3); ?>);">
+		<div id="pektis3" class="moviePektisArea moviePektisArea3" title="Αλλαγή θέσης"
+			onclick="Movie.alagiThesis(<?php print map_thesi(3); ?>);">
 			<div id="pektisMain3" class="moviePektisMain moviePektisMain3">
 				<div class="moviePektis moviePektis3">
 					<?php
@@ -149,9 +148,8 @@ function trapezi($trapezi, $dianomi) {
 			<div id="dilosi3" class="movieDilosi movieDilosi3"></div>
 			<div id="simetoxi3" class="movieDilosi movieSimetoxi3"></div>
 		</div>
-		<div id="pektis2" class="moviePektisArea moviePektisArea2"
-			title="Αλλαγή θέσης" onclick="Movie.alagiThesis(<?php
-				print map_thesi(2); ?>);">
+		<div id="pektis2" class="moviePektisArea moviePektisArea2" title="Αλλαγή θέσης"
+			onclick="Movie.alagiThesis(<?php print map_thesi(2); ?>);">
 			<div id="pektisMain2" class="moviePektisMain moviePektisMain2">
 				<div class="moviePektis moviePektis2">
 					<?php
@@ -168,7 +166,7 @@ function trapezi($trapezi, $dianomi) {
 		<div id="gipedo" class="movieGipedo">
 			<?php tzogos($dianomi); ?>
 		</div>
-		<div id="pektis1" class="moviePektisArea moviePektisArea1">
+		<div id="pektis1" class="moviePektisArea moviePektisArea1" style="cursor: auto;">
 			<div id="dilosi1" class="movieDilosi movieDilosi1"></div>
 			<div id="simetoxi1" class="movieDilosi movieSimetoxi1"></div>
 			<div id="filaArea1" class="movieFilaArea movieFilaArea1"></div>
