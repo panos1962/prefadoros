@@ -49,6 +49,7 @@ Movie.enarxi = <?php print $enarxi ? "true" : "false"; ?>;
 Movie.dianomes = [];
 Movie.kinisi = [];
 Movie.kapikia = [];
+Movie.autoplay = <?php print $globals->perastike("autoplay") ? 'true' : 'false'; ?>;
 Movie.dbg = <?php print $debugger ? "true" : "false"; ?>;
 pektis = {};
 pektis.login = '<?php print $globals->pektis->login; ?>';

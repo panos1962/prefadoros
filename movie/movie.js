@@ -885,4 +885,7 @@ window.onload = function() {
 	}
 
 	Movie.showEpomeno();
+	if (Movie.autoplay) {
+		Movie.pexeDianomi();
+	}
 };
