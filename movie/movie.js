@@ -101,8 +101,8 @@ Movie.miraseFila = function() {
 	if (notSet(Movie.kinisi)) { return; }
 	if (Movie.kinisi.length <= 0) { return; }
 	if (Movie.kinisi[0].idos != 'ΔΙΑΝΟΜΗ') { return; }
-	var x = Movie.kinisi[0].data.split(':');
-	if (x.length != 4) {
+	var fila = Movie.kinisi[0].data.split(':');
+	if (fila.length != 4) {
 		mainFyi(Movie.kinisi[0].data + ': λανθασμένα στοιχεία διανομής');
 		return;
 	}
@@ -110,13 +110,13 @@ Movie.miraseFila = function() {
 	for (var i = 1; i <= 3; i++) {
 		var p = getelid('filaArea' + i);
 		if (isSet(p)) {
-			var html = Movie.filaHTML(i, Pexnidi.spaseFila(x[i]));
+			var html = Movie.filaHTML(i, Pexnidi.spaseFila(fila[Movie.mapThesi[i]]));
 			p.innerHTML = html;
 		}
 	}
 
 	Movie.tzogosAniktos = !Movie.tzogosDefault;
-	Movie.tzogosOnOff(getelid('tzogos'), x[0]);
+	Movie.tzogosOnOff(getelid('tzogos'), fila[0]);
 
 	Movie.cursor = 0;
 	Movie.displayEpomenos();
@@ -644,7 +644,10 @@ Movie.debugKinisi = function(i, idos, thesi, data) {
 };
 
 Movie.processDianomi = function(i, thesi, data) {
-	Movie.Partida.fila = data.split(':');
+	var fila = data.split(':');
+	for (var i = 1; i <= 3; i++) {
+		Movie.Partida.fila[i] = fila[Movie.mapThesi[i]];
+	}
 };
 
 Movie.processDilosi = function(i, thesi, data) {

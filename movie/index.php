@@ -37,6 +37,11 @@ Page::javascript('prefadoros/misc');
 //<![CDATA[
 if (notSet(window.Movie)) { var Movie = {}; }
 Movie.thesi = <?php print $globals->thesi; ?>;
+Movie.mapThesi = [0<?php
+for ($i = 1; $i <= 3; $i++) {
+	print "," . map_thesi($i);
+}
+?>];
 Movie.trapezi = <?php print $trapezi->kodikos; ?>;
 Movie.dianomi = <?php print isset($dianomi) ? $dianomi->kodikos : "null"; ?>;
 Movie.ipolipo = <?php print $trapezi->ipolipo; ?>;
