@@ -5,6 +5,11 @@ function isPektis() {
 	return(isSet(window.pektis) && isSet(pektis.login));
 }
 
+Movie.alagiThesis = function(thesi) {
+	var href = window.location.href.replace(/&thesi=[123]/, '') + '&thesi=' + thesi;
+	window.location.href = href;
+};
+
 Movie.nextFrame = null;
 
 Movie.clearNextFrame = function() {
@@ -871,13 +876,6 @@ window.onload = function() {
 	Movie.getMovieSettings();
 	if (isSet(Movie.dianomi)) {
 		Movie.miraseFila();
-	}
-
-	for (var i = 1; i <= 3; i++) {
-		var x = getelid('pektis' + i);
-		if (isSet(x)) {
-			x.title = "Αλλαγή θέσης"
-		}
 	}
 
 	Movie.showEpomeno();

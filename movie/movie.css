@@ -414,7 +414,7 @@ background-color: teal;
 
 .movieDilosi {
 	position: absolute;
-	width: 4.3cm;
+	width: 3.3cm;
 	height: 0.68cm;
 
 	-moz-border-radius: 5px;
@@ -440,22 +440,25 @@ background-color: teal;
 
 .movieDilosi1 {
 	top: 0px;
-	left: 0px;
+	right: 0px;
 }
 
 .movieSimetoxi3 {
+	width: 5.3cm;
 	bottom: 0px;
 	right: 0px;
 }
 
 .movieSimetoxi2 {
+	width: 5.3cm;
 	bottom: 0px;
 	left: 0px;
 }
 
 .movieSimetoxi1 {
+	width: 5.3cm;
 	top: 0px;
-	right: 0px;
+	left: 0px;
 }
 
 .movieBazaIcon {
@@ -492,6 +495,8 @@ background-color: teal;
 	width: 1.2cm;
 	height: 1.2cm;
 	z-index: 10;
+	opacity: 0.8;
+	filter: alpha(opacity=80);
 }
 
 .movieBazaVelos3 {
