@@ -6,8 +6,8 @@ function isPektis() {
 }
 
 Movie.alagiThesis = function(thesi) {
-	var href = window.location.href.replace(/&thesi=[123]/, '') + '&thesi=' + thesi;
-	window.location.href = href;
+	Movie.thesi = thesi;
+	Movie.selectDianomi(Movie.dianomi);
 };
 
 Movie.nextFrame = null;
@@ -34,6 +34,7 @@ Movie.selectDianomi = function(d) {
 		if (d > 0) { href += '&dianomi=' + uri(d); }
 		else { href += '&enarxi=yes'; }
 	}
+	href += '&thesi=' + Movie.thesi;
 	window.location.href = href;
 };
 
