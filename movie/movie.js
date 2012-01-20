@@ -459,7 +459,7 @@ Movie.displayDilosi = function(thesi) {
 		x.setAttribute('class', x.getAttribute('class') + ' protasiAgoraOxi');
 		html = Movie.Partida.paso[thesi];
 	}
-	else if (Movie.Partida.dilosi[thesi] != '') {
+	if (Movie.Partida.dilosi[thesi] != '') {
 		html = Pexnidi.xromaBazesHTML(Movie.Partida.dilosi[thesi]);
 	}
 
@@ -645,9 +645,14 @@ Movie.processDianomi = function(i, thesi, data) {
 Movie.processDilosi = function(i, thesi, data) {
 	if (data.match(/^P/)) {
 		Movie.Partida.paso[thesi] = 'ΠΑΣΟ';
+		return;
 	}
-	else {
-		Movie.Partida.dilosi[thesi] = data;
+
+	Movie.Partida.dilosi[thesi] = data;
+	for (var i = 1; i <= 3; i++) {
+		if ((i != thesi) && (Movie.Partida.dilosi[i] == 'DTG')) {
+			Movie.Partida.paso[i] = 'ΠΑΣΟ';
+		}
 	}
 };
 
