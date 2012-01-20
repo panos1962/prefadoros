@@ -4,6 +4,7 @@ require_once '../prefadoros/prefadoros.php';
 require_once '../pektis/pektis.php';
 set_globals();
 Prefadoros::pektis_check();
+$globals->thesi = Globals::perastike('thesi') ? $_REQUEST["thesi"] : 1;
 $trapezi = entopise_trapezi();
 $dianomes = fetch_dianomes($trapezi);
 if (count($dianomes) <= 0) {
@@ -35,6 +36,7 @@ Page::javascript('prefadoros/misc');
 <script type="text/javascript">
 //<![CDATA[
 if (notSet(window.Movie)) { var Movie = {}; }
+Movie.thesi = <?php print $globals->thesi; ?>;
 Movie.trapezi = <?php print $trapezi->kodikos; ?>;
 Movie.dianomi = <?php print isset($dianomi) ? $dianomi->kodikos : "null"; ?>;
 Movie.ipolipo = <?php print $trapezi->ipolipo; ?>;
@@ -126,7 +128,9 @@ function trapezi($trapezi, $dianomi) {
 	global $globals;
 	?>
 	<div style="position: relative; height: 14.0cm;">
-		<div id="pektis3" class="moviePektisArea moviePektisArea3">
+		<div id="pektis3" class="moviePektisArea moviePektisArea3"
+			title="Αλλαγή θέσης" onclick="Movie.alagiThesis(<?php
+				print map_thesi(3); ?>);">
 			<div id="pektisMain3" class="moviePektisMain moviePektisMain3">
 				<div class="moviePektis moviePektis3">
 					<?php
@@ -140,7 +144,9 @@ function trapezi($trapezi, $dianomi) {
 			<div id="dilosi3" class="movieDilosi movieDilosi3"></div>
 			<div id="simetoxi3" class="movieDilosi movieSimetoxi3"></div>
 		</div>
-		<div id="pektis2" class="moviePektisArea moviePektisArea2">
+		<div id="pektis2" class="moviePektisArea moviePektisArea2"
+			title="Αλλαγή θέσης" onclick="Movie.alagiThesis(<?php
+				print map_thesi(2); ?>);">
 			<div id="pektisMain2" class="moviePektisMain moviePektisMain2">
 				<div class="moviePektis moviePektis2">
 					<?php
@@ -224,7 +230,8 @@ function entopise_trapezi() {
 	global $globals;
 
 	$t = Globals::perastike_check('trapezi');
-	$query = "SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3`, `kasa`, " .
+	$query = "SELECT `kodikos`, `pektis" . map_thesi(1) . "`, `pektis" .
+		map_thesi(2) . "`, `pektis" . map_thesi(3) . "`, `kasa`, " .
 		"`pasopasopaso`, `asoi` FROM `trapezi_log` WHERE `kodikos` = " .
 		$globals->asfales($t) . " LIMIT 1";
 	$result = @mysqli_query($globals->db, $query);
@@ -232,7 +239,7 @@ function entopise_trapezi() {
 		die($t . ": λανθασμένος κωδικός παρτίδας");
 	}
 
-	$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
+	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
 	if (!$row) {
 		die($t . ": δεν βρέθηκε το τραπέζι");
 	}
@@ -246,12 +253,15 @@ function fetch_dianomes($trapezi) {
 
 	$n = 0;
 	$dianomes = array();
-	$query = "SELECT `kodikos`, `dealer`, `kasa1`, `metrita1`, " .
-		"`kasa2`, `metrita2`, `kasa3`, `metrita3` FROM `dianomi_log` " .
+	$query = "SELECT `kodikos`, `dealer`, `kasa" . map_thesi(1) .
+		"`, `metrita" . map_thesi(1) . "`, `kasa" . map_thesi(2) .
+		"`, `metrita" . map_thesi(2) . "`, `kasa" . map_thesi(3) .
+		"`, `metrita" . map_thesi(3) . "` FROM `dianomi_log` " .
 		"WHERE `trapezi` = " . $globals->asfales($trapezi->kodikos) .
 		" ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
-	while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		$row[1] = pam_thesi($row[1]);
 		$dianomes[$n] = new Dianomi($row, $trapezi);
 		$n++;
 	}
@@ -271,6 +281,7 @@ function fetch_kinisi($dianomi) {
 			" ORDER BY `kodikos`";
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+			$row['pektis'] = pam_thesi($row['pektis']);
 			$kinisi[$n] = new Kinisi($row);
 			$n++;
 		}
@@ -503,6 +514,42 @@ function print_kapikia($thesi, $x) {
 		?></span><?php
 }
 
+function map_thesi($thesi) {
+	global $globals;
+
+	switch ($globals->thesi) {
+	case 2:
+		$map = array(0, 2, 3, 1);
+		break;
+	case 3:
+		$map = array(0, 3, 1, 2);
+		break;
+	default:
+		$map = array(0, 1, 2, 3);
+		break;
+	}
+
+	return($map[$thesi]);
+}
+
+function pam_thesi($thesi) {
+	global $globals;
+
+	switch ($globals->thesi) {
+	case 2:
+		$pam = array(0, 3, 1, 2);
+		break;
+	case 3:
+		$pam = array(0, 2, 3, 1);
+		break;
+	default:
+		$pam = array(0, 1, 2, 3);
+		break;
+	}
+
+	return($pam[$thesi]);
+}
+
 function debug_area() {
 	?>
 	<div id="debugArea" class="movieDebugArea">
@@ -527,13 +574,14 @@ class Trapezi {
 	public $kapikia3;
 
 	public function __construct($row) {
-		$this->kodikos = $row['kodikos'];
-		$this->pektis1 = $row['pektis1'];
-		$this->pektis2 = $row['pektis2'];
-		$this->pektis3 = $row['pektis3'];
-		$this->kasa = $row['kasa'];
-		$this->ppp = $row['pasopasopaso'] == 'YES';
-		$this->asoi = $row['asoi'] == 'YES';
+		$n = 0;
+		$this->kodikos = $row[$n++];
+		$this->pektis1 = $row[$n++];
+		$this->pektis2 = $row[$n++];
+		$this->pektis3 = $row[$n++];
+		$this->kasa = $row[$n++];
+		$this->ppp = $row[$n++] == 'YES';
+		$this->asoi = $row[$n++] == 'YES';
 		$this->ipolipo = $this->kasa * 30;
 		$this->kapikia1 = -$this->kasa * 10;
 		$this->kapikia2 = -$this->kasa * 10;
@@ -585,14 +633,15 @@ class Dianomi {
 	public $simetoxi;
 
 	public function __construct($row, $trapezi) {
-		$this->kodikos = $row['kodikos'];
-		$this->dealer = $row['dealer'];
-		$this->kasa1 = $row['kasa1'];
-		$this->metrita1 = $row['metrita1'];
-		$this->kasa2 = $row['kasa2'];
-		$this->metrita2 = $row['metrita2'];
-		$this->kasa3 = $row['kasa3'];
-		$this->metrita3 = $row['metrita3'];
+		$n = 0;
+		$this->kodikos = $row[$n++];
+		$this->dealer = $row[$n++];
+		$this->kasa1 = $row[$n++];
+		$this->metrita1 = $row[$n++];
+		$this->kasa2 = $row[$n++];
+		$this->metrita2 = $row[$n++];
+		$this->kasa3 = $row[$n++];
+		$this->metrita3 = $row[$n++];
 		$this->set_agora($trapezi);
 	}
 
@@ -604,6 +653,7 @@ class Dianomi {
 			$this->kodikos . " AND `idos` IN ('ΑΓΟΡΑ', 'ΣΥΜΜΕΤΟΧΗ')";
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+			$row[0] = pam_thesi($row[0]);
 			switch ($row[1]) {
 			case 'ΑΓΟΡΑ':
 				switch ($row[0]) {
