@@ -75,6 +75,7 @@ Movie.kapikia[3] = <?php print $trapezi->kapikia3; ?>;
 </script>
 <?php
 Page::body();
+Page::epikefalida(TRUE);
 Page::fyi("margin-bottom: 0.2cm; width: 24.4cm;");
 ?>
 <div id="main" class="movieMain">
