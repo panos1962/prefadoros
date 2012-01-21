@@ -10,6 +10,7 @@ Page::javascript('account/account');
 Page::body();
 Page::epikefalida(FALSE);
 Page::fyi();
+aftonomo_check();
 ?>
 <div class="mainArea">
 <form class="forma" method="post" action="<?php
@@ -56,8 +57,13 @@ Page::fyi();
 	</td>
 	<td class="tbldbg">
 		<input type="button" value="Cancel" class="button formaButton" onclick="<?php
-			print $globals->perastike('aftonomo') ?
-				"self.close();" : "exitChild();"; ?> return false;" />
+			if ($globals->perastike('aftonomo')) {
+				?>window.self.close(); return false;<?php
+			}
+			else {
+				?>return exitChild();<?php
+			}
+			?>" />
 	</td>
 </tr>
 </table>
@@ -65,4 +71,38 @@ Page::fyi();
 </div>
 <?php
 Page::close();
+
+function aftonomo_check() {
+	global $globals;
+	?>
+	<div id="simiomaEgrafis" class="simantiko" style="top: 1.8cm; width: 16.0cm;"
+		onmouseover="getelid('apokripsisimiomaEgrafis').style.visibility='visible';"
+		onmouseout="getelid('apokripsisimiomaEgrafis').style.visibility='hidden';">
+	<?php Page::apokripsi('simiomaEgrafis'); ?>
+	<div style="text-align: center; margin-bottom: 0.2cm;">
+	<div class="simantikoHeader">ΣΗΜΑΝΤΙΚΟ</div>
+	</div>
+	Η παρούσα σελίδα προϋποθέτει την είσοδό σας στον «Πρεφαδόρο».
+	Εφόσον είστε εγγεγραμμένοι στον «Πρεφαδόρο», εισέλθετε δίνοντας
+	το όνομά σας και τον κωδικό σας, αλλιώς θα πρέπει να
+	<a href="<?php print $globals->server; ?>account/signup.php?aftonomo=yes<?php
+		if ($globals->perastike("main")) {
+			print "&main=" . urlencode($_REQUEST["main"]);
+		}
+		?>">εγγραφείτε</a>
+	στον «Πρεφαδόρο» προκειμένου να προβληθεί το περιεχόμενο αυτής
+	της σελίδας.
+	</div>
+	<script type="text/javascript">
+	//<![CDATA[
+	setTimeout(function() {
+		var x = getelid('simiomaEgrafis');
+		if (notSet(x)) { return; }
+		if (isSet(x.pineza) && x.pineza) {return; }
+		sviseNode(x, 500);
+	}, 50000);
+	//]]>
+	</script>
+	<?php
+}
 ?>

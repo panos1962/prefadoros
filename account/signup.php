@@ -27,7 +27,12 @@ setTimeout(function() {
 <div class="mainArea">
 <form class="forma" method="post" action="<?php print $globals->server;
 	?>account/uploadPhoto.php" enctype="multipart/form-data"
-	target="uploadFrame" style="position: relative; padding-top: 1em; z-index:1;">
+	target="uploadFrame" style="position: relative; padding-top: 1em;">
+	<input type="hidden" name="goURL" value="<?php
+		if ($globals->perastike("main")) {
+			print $_REQUEST["main"];
+		}
+		?>" />
 <table class="formaData tbldbg">
 <tr>
 	<td class="formaHeader tbldbg" colspan="2">
@@ -188,7 +193,14 @@ if ($globals->is_pektis()) {
 	</td>
 	<td class="tbldbg">
 		<input type="button" value="Cancel" class="button formaButton"
-			onfocus="formaFyi('Έξοδος από τη φόρμα');" onclick="return exitChild();" />
+			onfocus="formaFyi('Έξοδος από τη φόρμα');" onclick="<?php
+			if ($globals->perastike('aftonomo')) {
+				?>window.self.close(); return false;<?php
+			}
+			else {
+				?>return exitChild();<?php
+			}
+			?>" />
 	</td>
 	<?php photo_input() ?>
 </tr>
@@ -325,9 +337,9 @@ function photo_input() {
 
 function simantiko() {
 	?>
-	<div id="simantiko" class="simantiko" style="top: 1.2cm; width: 18.0cm; z-index:2;"
-		onmouseover="this.style.zIndex=2;getelid('apokripsisimantiko').style.visibility='visible';"
-		onmouseout="this.style.zIndex=0;getelid('apokripsisimantiko').style.visibility='hidden';">
+	<div id="simantiko" class="simantiko" style="top: 1.2cm; width: 18.0cm;"
+		onmouseover="getelid('apokripsisimantiko').style.visibility='visible';"
+		onmouseout="getelid('apokripsisimantiko').style.visibility='hidden';">
 	<?php Page::apokripsi('simantiko'); ?>
 	<div style="text-align: center; margin-bottom: 0.2cm;">
 	<div class="simantikoHeader">ΣΗΜΑΝΤΙΚΟ</div>
