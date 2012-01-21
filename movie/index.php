@@ -183,6 +183,13 @@ function trapezi($trapezi, $dianomi) {
 			</div>
 		</div>
 		<div id="epomeno" class="movieEpomeno"></div>
+		<div class="movieMail"><a href="mailto:?subject=<?php
+			print urlencode("Πρεφαδόρος -- Παρτίδα " . $trapezi->kodikos);
+			?>&body=<?php print urlencode("Ανασκόπηση παρτίδας " .
+			$trapezi->kodikos . ": " . $globals->server . "movie/index.php?trapezi=" .
+			$trapezi->kodikos); ?>"><img src="<?php print $globals->server;
+			?>images/email.png" alt="" title="Ταχυδρομήστε αυτή την παρτίδα" /></a>
+		</div>
 	</div>
 	<?php
 }

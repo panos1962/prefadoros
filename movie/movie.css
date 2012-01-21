@@ -520,3 +520,10 @@ background-color: teal;
 	left: 2.6cm;
 	width: 3.0cm;
 }
+
+.movieMail {
+	position: absolute;
+	bottom: 0.2cm;
+	left: 0.2cm;
+	width: 1.2cm;
+}
