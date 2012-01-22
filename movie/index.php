@@ -250,10 +250,14 @@ function mail_trapezi($trapezi, $dianomi) {
 	}
 	$body .= "&thesi=" . $globals->thesi;
 	?>
-	<div class="movieMail"><a href="mailto:?subject=<?php print urlencode($subject);
-		?>&body=<?php print urlencode($body); ?>"><img src="<?php print $globals->server;
-		?>images/email.png" alt="" title="Ταχυδρομήστε αυτή <?php
-		print isset($dianomi) ?  "τη διανομή" : "την παρτίδα"; ?>" /></a>
+	<div class="movieMail">
+		<a href="mailto:?subject=<?php print urlencode($subject);
+		?>&body=<?php print urlencode($body); ?>"><img src="<?php
+		print $globals->server; ?>images/email.png" alt=""
+		class="movieMailIcon" title="Ταχυδρομήστε αυτή <?php
+		print isset($dianomi) ?  "τη διανομή" : "την παρτίδα"; ?>"
+		onmouseover="this.style.width='1.4cm';"
+		onmouseout="this.style.width='1.2cm';" /></a>
 	</div>
 	<?php
 }
