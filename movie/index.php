@@ -421,7 +421,7 @@ function idieterotites($trapezi) {
 			'title="Παίζεται το πάσο, πάσο, πάσο" alt="" />';
 	}
 
-	if (!$trapezi->asoi) {
+	if (!($trapezi->asoi)) {
 		$idieterotites .= '<img class="movieIdieterotitesIcon" src="' .
 			$globals->server . 'images/trapoula/asoi.png" ' .
 			'title="Δεν παίζουν οι άσοι" alt="" />';
@@ -613,7 +613,7 @@ class Trapezi {
 		$this->pektis3 = $row[$n++];
 		$this->kasa = $row[$n++];
 		$this->ppp = ($row[$n++] == 'YES');
-		$this->asoi = ($row[$n++] == 'YES)';
+		$this->asoi = ($row[$n++] == 'YES');
 		$this->ipolipo = $this->kasa * 30;
 		$this->kapikia1 = -$this->kasa * 10;
 		$this->kapikia2 = -$this->kasa * 10;
