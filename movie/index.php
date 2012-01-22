@@ -243,7 +243,7 @@ function mail_trapezi($trapezi, $dianomi) {
 	$body = "Ο παίκτης " . $globals->pektis->login .
 		" σας έστειλε τον παρακάτω σύνδεσμο για να παρακολουθήσετε " .
 		(isSet($dianomi) ? "τη διανομή " . $dianomi->kodikos . " της παρτίδας" :
-		"την παρτίδα") . $trapezi->kodikos . "\n\n" . $globals->server .
+		"την παρτίδα") . $trapezi->kodikos . "%0A%0A" . $globals->server .
 		"movie/index.php?trapezi=" . $trapezi->kodikos;
 	if (isSet($dianomi)) {
 		$body .= "&dianomi=" . $dianomi->kodikos;
@@ -251,8 +251,8 @@ function mail_trapezi($trapezi, $dianomi) {
 	$body .= "&thesi=" . $globals->thesi;
 	?>
 	<div class="movieMail">
-		<a href="mailto:?subject=<?php print urlencode($subject);
-		?>&body=<?php print urlencode($body); ?>"><img src="<?php
+		<a href="mailto:?subject=<?php print $subject;
+		?>&body=<?php print $body; ?>"><img src="<?php
 		print $globals->server; ?>images/email.png" alt=""
 		class="movieMailIcon" title="Ταχυδρομήστε αυτή <?php
 		print isset($dianomi) ?  "τη διανομή" : "την παρτίδα"; ?>"
