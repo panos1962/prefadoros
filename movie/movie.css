@@ -525,5 +525,8 @@ background-color: teal;
 	position: absolute;
 	bottom: 0.2cm;
 	left: 0.2cm;
+}
+
+.movieMailIcon {
 	width: 1.2cm;
 }
