@@ -14,7 +14,10 @@ aftonomo_check();
 ?>
 <div class="mainArea">
 <form class="forma" method="post" action="<?php
-	print $globals->perastike("main") ? $_REQUEST["main"] : ($globals->server . "index.php");
+	// Αν έχει περαστεί URL παράμετρος "main", τότε πρόκειται για τη
+	// διεύθυνση σελίδας στην οποία θα μεταβεί ο παίκτης αμέσως μετά
+	// την (επιτυχημένη) είσοδό του στον «Πρεφαδόρο».
+	print $globals->perastike("main") ?  $_REQUEST["main"] : ($globals->server . "index.php");
 	?>" style="margin-top: padding-top: 1em;">
 <table class="formaData tbldbg">
 <tr>
@@ -74,6 +77,9 @@ Page::close();
 
 function aftonomo_check() {
 	global $globals;
+	if (!$globals->perastike('aftonomo')) {
+		return;
+	}
 	?>
 	<div id="simiomaEgrafis" class="simantiko" style="top: 1.8cm; width: 16.0cm;"
 		onmouseover="getelid('apokripsisimiomaEgrafis').style.visibility='visible';"
@@ -82,16 +88,16 @@ function aftonomo_check() {
 	<div style="text-align: center; margin-bottom: 0.2cm;">
 	<div class="simantikoHeader">ΣΗΜΑΝΤΙΚΟ</div>
 	</div>
-	Η παρούσα σελίδα προϋποθέτει την είσοδό σας στον «Πρεφαδόρο».
-	Εφόσον είστε εγγεγραμμένοι στον «Πρεφαδόρο», εισέλθετε δίνοντας
-	το όνομά σας και τον κωδικό σας, αλλιώς θα πρέπει να
-	<a href="<?php print $globals->server; ?>account/signup.php?aftonomo=yes<?php
+	Η σελίδα που ζητήσατε προϋποθέτει την είσοδό σας στον «<a href="<?php
+	print $globals->server . "index.php"; ?>">Πρεφαδόρο</a>». Εφόσον είστε
+	ήδη εγγεγραμμένοι στον «Πρεφαδόρο», εισέλθετε δίνοντας το όνομά σας και
+	τον κωδικό σας, αλλιώς θα πρέπει να <a href="<?php print $globals->server;
+	?>account/signup.php?aftonomo=yes<?php
 		if ($globals->perastike("main")) {
 			print "&main=" . urlencode($_REQUEST["main"]);
 		}
 		?>">εγγραφείτε</a>
-	στον «Πρεφαδόρο» προκειμένου να προβληθεί το περιεχόμενο αυτής
-	της σελίδας.
+	στον «Πρεφαδόρο» προκειμένου να προβληθεί το περιεχόμενο αυτής της σελίδας.
 	</div>
 	<script type="text/javascript">
 	//<![CDATA[

@@ -183,13 +183,7 @@ function trapezi($trapezi, $dianomi) {
 			</div>
 		</div>
 		<div id="epomeno" class="movieEpomeno"></div>
-		<div class="movieMail"><a href="mailto:?subject=<?php
-			print urlencode("Πρεφαδόρος -- Παρτίδα " . $trapezi->kodikos);
-			?>&body=<?php print urlencode("Ανασκόπηση παρτίδας " .
-			$trapezi->kodikos . ": " . $globals->server . "movie/index.php?trapezi=" .
-			$trapezi->kodikos); ?>"><img src="<?php print $globals->server;
-			?>images/email.png" alt="" title="Ταχυδρομήστε αυτή την παρτίδα" /></a>
-		</div>
+		<?php mail_trapezi($trapezi, $dianomi); ?>
 	</div>
 	<?php
 }
@@ -235,6 +229,32 @@ function check_dealer($pektis, $dianomi) {
 	<img id="mazi<?php print $pektis; ?>" class="movieDealerIcon" src="<?php
 		print $globals->server; ?>images/mazi.png" title="Πρώτος" alt=""
 		style="display: none; top: 1.8cm;" />
+	<?php
+}
+
+function mail_trapezi($trapezi, $dianomi) {
+	global $globals;
+
+	$subject = "Πρεφαδόρος -- Παρτίδα " . $trapezi->kodikos;
+	if (isSet($dianomi)) {
+		$subject .= ", διανομή " . $dianomi->kodikos;
+	}
+
+	$body = "Ο παίκτης " . $globals->pektis->login .
+		" σας έστειλε τον παρακάτω σύνδεσμο για να παρακολουθήσετε " .
+		(isSet($dianomi) ? "τη διανομή " . $dianomi->kodikos . " της παρτίδας" :
+		"την παρτίδα") . $trapezi->kodikos . "\n\n" . $globals->server .
+		"movie/index.php?trapezi=" . $trapezi->kodikos;
+	if (isSet($dianomi)) {
+		$body .= "&dianomi=" . $dianomi->kodikos;
+	}
+	$body .= "&thesi=" . $globals->thesi;
+	?>
+	<div class="movieMail"><a href="mailto:?subject=<?php print urlencode($subject);
+		?>&body=<?php print urlencode($body); ?>"><img src="<?php print $globals->server;
+		?>images/email.png" alt="" title="Ταχυδρομήστε αυτή <?php
+		print isset($dianomi) ?  "τη διανομή" : "την παρτίδα"; ?>" /></a>
+	</div>
 	<?php
 }
 

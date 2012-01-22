@@ -149,12 +149,7 @@ account.onload = function() {
 			return false;
 		}
 
-		if (form.goURL.value != '') {
-			window.location.href = form.goURL.value;
-		}
-		else {
-			window.location.href = globals.server + 'index.php';
-		}
+		window.location.href = form.goURL.value;
 		return false;
 	};
 

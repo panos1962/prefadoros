@@ -29,9 +29,11 @@ setTimeout(function() {
 	?>account/uploadPhoto.php" enctype="multipart/form-data"
 	target="uploadFrame" style="position: relative; padding-top: 1em;">
 	<input type="hidden" name="goURL" value="<?php
-		if ($globals->perastike("main")) {
-			print $_REQUEST["main"];
-		}
+		// Αν έχει περαστεί URL παράμετρος "main", τότε πρόκειται για τη
+		// διεύθυνση σελίδας στην οποία θα μεταβεί ο παίκτης αμέσως μετά
+		// την (επιτυχημένη) εγγραφή του στον «Πρεφαδόρο».
+		print $globals->perastike("main") ? $_REQUEST["main"] :
+			($globals->server . "index.php");
 		?>" />
 <table class="formaData tbldbg">
 <tr>
