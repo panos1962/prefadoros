@@ -410,6 +410,9 @@ Movie.display = function() {
 		case 'ΜΠΑΖΑ':
 			Movie.processBaza(i, thesi, data);
 			break;
+		case 'AFTER_BAZA':
+			Movie.processAfterBaza(i, thesi, data);
+			break;
 		case 'CLAIM':
 			Movie.processClaim(i, thesi, data);
 			break;
@@ -567,6 +570,7 @@ Movie.displayEpomenos = function() {
 		case 'ΤΖΟΓΟΣ':
 		case 'ΑΓΟΡΑ':
 		case 'ΜΠΑΖΑ':
+		case 'AFTER_BAZA':
 		case 'CLAIM':
 			epomenos = Movie.kinisi[i].pektis;
 			break;
@@ -705,6 +709,10 @@ Movie.processBaza = function(i, thesi, data) {
 	Movie.Partida.bazes[thesi]++;
 	Movie.Partida.bazesOles++;
 	Movie.Partida.bazaPektis = thesi;
+};
+
+Movie.processAfterBaza = function(i, thesi, data) {
+	Movie.resetBaza();
 };
 
 Movie.processClaim = function(i, thesi, data) {

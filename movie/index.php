@@ -309,6 +309,7 @@ function fetch_kinisi($dianomi) {
 	global $globals;
 
 	$kinisi = array();
+	$pote_offset = 0;
 	if (isset($dianomi)) {
 		$n = 0;
 		$query = "SELECT `kodikos`, `pektis`, `idos`, `data`, " .
@@ -318,8 +319,17 @@ function fetch_kinisi($dianomi) {
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$row['pektis'] = pam_thesi($row['pektis']);
-			$kinisi[$n] = new Kinisi($row);
-			$n++;
+			$row['pote'] += $pote_offset;
+			$kinisi[$n++] = new Kinisi($row);
+			// Προσθέτω τεχνητή καθυστέρηση μετά από κάποιες κινήσεις.
+			switch ($row['idos']) {
+			case 'ΜΠΑΖΑ':
+				$row['idos'] = 'AFTER_BAZA';
+				$row['pote'] += 1;
+				$pote_offset += 1;
+				$kinisi[$n++] = new Kinisi($row);
+				break;
+			}
 		}
 	}
 
