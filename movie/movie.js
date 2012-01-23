@@ -548,7 +548,6 @@ Movie.displayBazes = function(thesi) {
 };
 
 Movie.displayTzogos = function() {
-mainFyi('Movie.cursor = ' + Movie.cursor);
 	var x = getelid('tzogos');
 	if (notSet(x)) { return; }
 	if (Movie.Partida.tzogos) {
