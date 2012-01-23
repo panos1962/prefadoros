@@ -73,12 +73,7 @@ Movie.tzogosOnOff = function(div, fila) {
 	if (notSet(div)) { return; }
 	if (notSet(Movie.tzogosAniktos)) { return; }
 	if (isSet(fila)) {
-		div.filaHTML = '<img class="movieFilaSiraIcon" src="' + globals.server +
-			'images/trapoula/' + fila.substr(0, 2) + '.png" alt="" ' +
-			'style="left: 2.1cm; top: 0.5cm;" />' +
-			'<img class="movieFilaSiraIcon" src="' + globals.server +
-			'images/trapoula/' + fila.substr(2, 2) + '.png" alt="" ' +
-			'style="left: 4.2cm; top: 0.5cm; padding-left: 0.2cm;" />';
+		div.filaHTML = Movie.tzogosHTML(fila);
 	}
 	if (Movie.tzogosAniktos) {
 		var html = div.filaHTML;
@@ -93,9 +88,15 @@ Movie.tzogosOnOff = function(div, fila) {
 	Movie.tzogosAniktos = !Movie.tzogosAniktos;
 };
 
-Movie.dioxeTzogo = function() {
-	sviseNode(getelid('tzogos'));
-	Movie.tzogosAniktos = null;
+Movie.tzogosHTML = function(fila) {
+	var html = '';
+	html += '<img class="movieFilaSiraIcon" src="' + globals.server +
+		'images/trapoula/' + fila.substr(0, 2) + '.png" alt="" ' +
+		'style="left: 2.1cm; top: 0.5cm;" />';
+	html += '<img class="movieFilaSiraIcon" src="' + globals.server +
+		'images/trapoula/' + fila.substr(2, 2) + '.png" alt="" ' +
+		'style="left: 4.2cm; top: 0.5cm; padding-left: 0.2cm;" />';
+	return html;
 };
 
 Movie.miraseFila = function() {
@@ -355,14 +356,20 @@ Movie.Controls.play = function(vima) {
 		auto = false;
 	}
 
-	Movie.cursor += vima;
-	if (Movie.cursor >= Movie.kinisi.length) {
-		Movie.Controls.dianomi(1);
-		return;
-	}
-	if (Movie.cursor < 0) {
-		Movie.Controls.dianomi(-1);
-		return;
+	while (true) {
+		Movie.cursor += vima;
+		if (Movie.cursor >= Movie.kinisi.length) {
+			Movie.Controls.dianomi(1);
+			return;
+		}
+
+		if (Movie.cursor < 0) {
+			Movie.Controls.dianomi(-1);
+			return;
+		}
+
+		if (auto) { break; }
+		if (Movie.kinisi[Movie.cursor].idos != 'DELAY') { break; }
 	}
 
 	Movie.display();
@@ -397,6 +404,9 @@ Movie.display = function() {
 			break;
 		case 'ΤΖΟΓΟΣ':
 			Movie.processTzogos(i, thesi, data);
+			break;
+		case 'BEFORE_AGORA':
+			Movie.processBeforeAgora(i, thesi, data);
 			break;
 		case 'ΑΓΟΡΑ':
 			Movie.processAgora(i, thesi, data);
@@ -538,6 +548,7 @@ Movie.displayBazes = function(thesi) {
 };
 
 Movie.displayTzogos = function() {
+mainFyi('Movie.cursor = ' + Movie.cursor);
 	var x = getelid('tzogos');
 	if (notSet(x)) { return; }
 	if (Movie.Partida.tzogos) {
@@ -571,6 +582,7 @@ Movie.displayEpomenos = function() {
 		case 'ΑΓΟΡΑ':
 		case 'ΜΠΑΖΑ':
 		case 'AFTER_BAZA':
+		case 'AFTER_TZOGOS':
 		case 'CLAIM':
 			epomenos = Movie.kinisi[i].pektis;
 			break;
@@ -587,12 +599,15 @@ Movie.displayEpomenos = function() {
 
 Movie.displayBaza = function() {
 	if (Movie.Partida.tzogos) { return; }
-	var x = getelid('gipedo');
+	var x = getelid('baza');
 	if (notSet(x)) { return; }
 	var html = '';
 	if (Movie.Partida.claim) {
 		html += '<img class="movieClaimIcon" src="' + globals.server +
 			'images/controlPanel/claim.png" alt="" />';
+	}
+	else if (Movie.Partida.alagi != '') {
+		html += '<div class="movieAlagi">' + Movie.tzogosHTML(Movie.Partida.alagi) + '</div>';
 	}
 	else {
 		for (var i = 0; i < Movie.Partida.bazaFilo.length; i++) {
@@ -618,6 +633,7 @@ Movie.reset = function() {
 	Movie.Partida.tzogadoros = 0;
 	Movie.Partida.fila = [];
 	Movie.Partida.tzogos = true;
+	Movie.Partida.alagi = '';
 	Movie.Partida.dilosi = ['', '', '', ''];
 	Movie.Partida.paso = ['', '', '', ''];
 	Movie.Partida.simetoxi = ['', '', '', ''];
@@ -674,6 +690,21 @@ Movie.processDilosi = function(i, thesi, data) {
 Movie.processTzogos = function(i, thesi, data) {
 	Movie.Partida.fila[thesi] += data;
 	Movie.Partida.tzogos = false;
+	Movie.Partida.alagi = '';
+};
+
+Movie.processBeforeAgora = function(i, thesi, data) {
+	var x = data.split(':');
+	if (x.length != 2) { return; }
+	var fila10 = x[1];
+	var fila12 = Movie.Partida.fila[thesi];
+	for (var i = 0; i < 20; i += 2) {
+		var filo = fila10.substr(i, 2);
+		var pat = new RegExp(filo, '');
+		fila12 = fila12.replace(pat, '');
+	}
+	Movie.Partida.fila[thesi] = fila10;
+	Movie.Partida.alagi = fila12;
 };
 
 Movie.processAgora = function(i, thesi, data) {
@@ -682,6 +713,7 @@ Movie.processAgora = function(i, thesi, data) {
 	Movie.Partida.tzogadoros = thesi;
 	Movie.Partida.agora = x[0];
 	Movie.Partida.fila[thesi] = x[1];
+	Movie.Partida.alagi = '';
 };
 
 Movie.processSimetoxi = function(i, thesi, data) {

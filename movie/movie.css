@@ -530,3 +530,9 @@ background-color: teal;
 .movieMailIcon {
 	width: 1.2cm;
 }
+
+.movieAlagi {
+	position: absolute;
+	top: 0.2cm;
+	left: 0.2cm;
+}
