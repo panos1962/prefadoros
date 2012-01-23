@@ -477,10 +477,12 @@ Movie.displayDilosi = function(thesi) {
 	var klasi = 'movieDilosi movieDilosi' + thesi;
 	if (Movie.Partida.paso[thesi] != '') {
 		klasi += ' protasiAgoraOxi';
-		x.setAttribute('class', x.getAttribute('class') + ' protasiAgoraOxi');
 		html = Movie.Partida.paso[thesi];
 	}
 	if (Movie.Partida.dilosi[thesi] != '') {
+		if (Movie.Partida.dilosi[thesi] == Movie.Partida.dilosi[0]) {
+			klasi += ' movieDilosiLast';
+		}
 		html = Pexnidi.xromaBazesHTML(Movie.Partida.dilosi[thesi]);
 	}
 
@@ -679,6 +681,7 @@ Movie.processDilosi = function(i, thesi, data) {
 	}
 
 	Movie.Partida.dilosi[thesi] = data;
+	Movie.Partida.dilosi[0] = data;
 	for (var i = 1; i <= 3; i++) {
 		if ((i != thesi) && (Movie.Partida.dilosi[i] == 'DTG')) {
 			Movie.Partida.paso[i] = 'ΠΑΣΟ';
