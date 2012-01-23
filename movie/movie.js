@@ -618,14 +618,26 @@ Movie.displayBaza = function() {
 				'.png" alt="" style="z-index: ' + (10 + i) + ';" />';
 			html += '<img class="movieBazaVelos movieBazaVelos' +
 				Movie.Partida.bazaFilo[i].pektis + '" src="' +
-				globals.server + 'images/velos' + Movie.Partida.bazaFilo[i].pektis;
+				globals.server + 'images/';
 			if (Movie.Partida.bazaPektis == Movie.Partida.bazaFilo[i].pektis) {
-				html += 'pare';
+				html += 'baza.gif" onload="Movie.pareBaza(this, ' +
+					 Movie.Partida.bazaFilo[i].pektis + ');"';
 			}
-			html += '.png" alt="" />';
+			else {
+				html += 'velos' + Movie.Partida.bazaFilo[i].pektis + '.png"'
+			}
+			html += ' alt="" />';
 		}
 	}
 	x.innerHTML = html;
+};
+
+Movie.pareBaza = function(img, thesi) {
+	setTimeout(function() {
+		try {
+			img.src = globals.server + 'images/velos' + thesi + 'pare.png';
+		} catch (e) {};
+	}, 200);
 };
 
 Movie.reset = function() {
