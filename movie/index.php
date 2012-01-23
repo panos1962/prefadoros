@@ -246,9 +246,9 @@ function mail_trapezi($trapezi, $dianomi) {
 		"την παρτίδα") . $trapezi->kodikos . "%0A%0A" . $globals->server .
 		"movie/index.php?trapezi=" . $trapezi->kodikos;
 	if (isSet($dianomi)) {
-		$body .= "&dianomi=" . $dianomi->kodikos;
+		$body .= urlencode("&dianomi=" . $dianomi->kodikos);
 	}
-	$body .= "&thesi=" . $globals->thesi;
+	$body .= urlencode("&thesi=" . $globals->thesi);
 	?>
 	<div class="movieMail">
 		<a href="mailto:?subject=<?php print $subject;
