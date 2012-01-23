@@ -167,6 +167,7 @@ function trapezi($trapezi, $dianomi) {
 		</div>
 		<div id="gipedo" class="movieGipedo">
 			<?php tzogos($dianomi); ?>
+			<div id="baza"></div>
 		</div>
 		<div id="pektis1" class="moviePektisArea moviePektisArea1" style="cursor: auto;">
 			<div id="dilosi1" class="movieDilosi movieDilosi1"></div>
@@ -318,6 +319,22 @@ function fetch_kinisi($dianomi) {
 			" ORDER BY `kodikos`";
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+			// Προσθέτω τεχνητή καθυστέρηση πριν από κάποιες κινήσεις.
+			switch ($row['idos']) {
+			case 'ΑΓΟΡΑ':
+				$row['idos'] = 'BEFORE_AGORA';
+				$row['pote'] += 1;
+				$pote_offset += 1;
+				$kinisi[$n++] = new Kinisi($row);
+
+				$row['idos'] = 'DELAY';
+				$row['pote'] += 1;
+				$pote_offset += 1;
+				$kinisi[$n++] = new Kinisi($row);
+
+				$row['idos'] = 'ΑΓΟΡΑ';
+				break;
+			}
 			$row['pektis'] = pam_thesi($row['pektis']);
 			$row['pote'] += $pote_offset;
 			$kinisi[$n++] = new Kinisi($row);
