@@ -116,7 +116,7 @@ Movie.miraseFila = function() {
 	for (var i = 1; i <= 3; i++) {
 		var p = getelid('filaArea' + i);
 		if (isSet(p)) {
-			var html = Movie.filaHTML(i, Pexnidi.spaseFila(fila[Movie.mapThesi[i]]));
+			var html = Movie.filaHTML(i, Pexnidi.spaseFila(fila[i]));
 			p.innerHTML = html;
 		}
 		p = getelid('dilosi' + i);
@@ -691,7 +691,7 @@ Movie.debugKinisi = function(i, idos, thesi, data) {
 Movie.processDianomi = function(i, thesi, data) {
 	var fila = data.split(':');
 	for (var i = 1; i <= 3; i++) {
-		Movie.Partida.fila[i] = fila[Movie.mapThesi[i]];
+		Movie.Partida.fila[i] = fila[i];
 	}
 };
 

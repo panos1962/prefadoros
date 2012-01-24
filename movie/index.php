@@ -37,11 +37,6 @@ Page::javascript('prefadoros/misc');
 //<![CDATA[
 if (notSet(window.Movie)) { var Movie = {}; }
 Movie.thesi = <?php print $globals->thesi; ?>;
-Movie.mapThesi = [0<?php
-for ($i = 1; $i <= 3; $i++) {
-	print "," . map_thesi($i);
-}
-?>];
 Movie.trapezi = <?php print $trapezi->kodikos; ?>;
 Movie.dianomi = <?php print isset($dianomi) ? $dianomi->kodikos : "null"; ?>;
 Movie.ipolipo = <?php print $trapezi->ipolipo; ?>;
@@ -303,8 +298,15 @@ function fetch_kinisi($dianomi) {
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$row['pektis'] = pam_thesi($row['pektis']);
-			// Προσθέτω τεχνητή καθυστέρηση πριν από κάποιες κινήσεις.
+			// Προσθέτω τεχνητή καθυστέρηση πριν από κάποιες κινήσεις
+			// και κάνω αντιστοίχιση θέσεων.
 			switch ($row['idos']) {
+			case 'ΔΙΑΝΟΜΗ':
+				$row['data'] = map_dianomi($row['data']);
+				break;
+			case 'ΠΛΗΡΩΜΗ':
+				$row['data'] = map_pliromi($row['data']);
+				break;
 			case 'ΑΓΟΡΑ':
 				$row['idos'] = 'BEFORE_AGORA';
 				$row['pote'] += 1;
@@ -558,6 +560,30 @@ function print_kapikia($thesi, $x) {
 		print $class; ?>" style="padding-left: <?php
 		print $left; ?>"><?php print $prosimo . $kapikia;
 		?></span><?php
+}
+
+function map_dianomi($data) {
+	$fila = explode(":", $data);
+	if (count($fila) >= 4) {
+		$data = $fila[0] . ":" . $fila[map_thesi(1)] . ":" .
+			$fila[map_thesi(2)] . ":" . $fila[map_thesi(3)];
+	}
+	return $data;
+}
+
+function map_pliromi($data) {
+	$x = explode(":", $data);
+	if (count($x) >= 7) {
+		$neo = array(
+			$x[0],
+			$x[1] . ":" . $x[2],
+			$x[3] . ":" . $x[4],
+			$x[5] . ":" . $x[6]
+		);
+		$data = $neo[0] . ":" . $neo[map_thesi(1)] . ":" .
+			$neo[map_thesi(2)] . ":" . $neo[map_thesi(3)];
+	}
+	return $data;
 }
 
 function map_thesi($thesi) {
