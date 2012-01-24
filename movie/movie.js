@@ -85,6 +85,7 @@ Movie.tzogosOnOff = function(div, fila) {
 		div.title = 'Άνοιγμα τζόγου';
 	}
 	div.innerHTML = html;
+	div.style.display = Movie.tzogosAniktos ? 'inline' : 'none';
 	Movie.tzogosAniktos = !Movie.tzogosAniktos;
 };
 
@@ -102,6 +103,7 @@ Movie.tzogosHTML = function(fila) {
 Movie.miraseFila = function() {
 	Movie.cursor = null;
 	Movie.reset();
+	Movie.resetGipedo();
 	if (notSet(Movie.kinisi)) { return; }
 	if (Movie.kinisi.length <= 0) { return; }
 	if (Movie.kinisi[0].idos != 'ΔΙΑΝΟΜΗ') { return; }
@@ -599,9 +601,9 @@ Movie.displayEpomenos = function() {
 };
 
 Movie.displayBaza = function() {
-	if (Movie.Partida.tzogos) { return; }
 	var x = getelid('baza');
 	if (notSet(x)) { return; }
+
 	var html = '';
 	if (Movie.Partida.claim) {
 		html += '<img class="movieClaimIcon" src="' + globals.server +
@@ -928,12 +930,22 @@ Movie.Controls.dianomi = function(vima) {
 	Movie.selectDianomi(Movie.dianomes[i]);
 };
 
+Movie.resetGipedo = function() {
+	var x = getelid('gipedo');
+	if (notSet(x)) { return; }
+
+	var html = '<div id="tzogos" title="Άνοιγμα τζόγου" style="cursor: pointer;" ' +
+		'onclick="Movie.tzogosOnOff(this);"></div><div id="baza"></div>';
+	x.innerHTML = html;
+};
+
 window.onload = function() {
 	init();
 	if (isSet(Movie.dianomiSpot)) {
 		window.location.hash = '#dianomi' + Movie.dianomiSpot;
 	}
 
+	Movie.resetGipedo();
 	Movie.getMovieSettings();
 	if (isSet(Movie.dianomi)) {
 		Movie.miraseFila();
