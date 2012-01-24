@@ -119,6 +119,11 @@ Movie.miraseFila = function() {
 			var html = Movie.filaHTML(i, Pexnidi.spaseFila(fila[Movie.mapThesi[i]]));
 			p.innerHTML = html;
 		}
+		p = getelid('dilosi' + i);
+		if (isSet(p)) { p.innerHTML = ''; }
+		p = getelid('simetoxi' + i);
+		if (isSet(p)) { p.innerHTML = ''; }
+		Movie.displayKapikia(i);
 	}
 
 	Movie.tzogosAniktos = !Movie.tzogosDefault;
@@ -126,6 +131,7 @@ Movie.miraseFila = function() {
 
 	Movie.cursor = 0;
 	Movie.displayEpomenos();
+	Movie.displayIpolipo();
 };
 
 Movie.mavroKokino = {
