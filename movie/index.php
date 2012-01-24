@@ -319,6 +319,7 @@ function fetch_kinisi($dianomi) {
 			" ORDER BY `kodikos`";
 		$result = $globals->sql_query($query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+			$row['pektis'] = pam_thesi($row['pektis']);
 			// Προσθέτω τεχνητή καθυστέρηση πριν από κάποιες κινήσεις.
 			switch ($row['idos']) {
 			case 'ΑΓΟΡΑ':
@@ -335,7 +336,6 @@ function fetch_kinisi($dianomi) {
 				$row['idos'] = 'ΑΓΟΡΑ';
 				break;
 			}
-			$row['pektis'] = pam_thesi($row['pektis']);
 			$row['pote'] += $pote_offset;
 			$kinisi[$n++] = new Kinisi($row);
 			// Προσθέτω τεχνητή καθυστέρηση μετά από κάποιες κινήσεις.
