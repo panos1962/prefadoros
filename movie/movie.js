@@ -608,7 +608,8 @@ Movie.displayBaza = function() {
 			'images/controlPanel/claim.png" alt="" />';
 	}
 	else if (Movie.Partida.alagi != '') {
-		html += '<div class="movieAlagi">' + Movie.tzogosHTML(Movie.Partida.alagi) + '</div>';
+		html += '<div class="movieAlagi" title="Σκάρτα">' +
+			Movie.tzogosHTML(Movie.Partida.alagi) + '</div>';
 	}
 	else {
 		for (var i = 0; i < Movie.Partida.bazaFilo.length; i++) {
