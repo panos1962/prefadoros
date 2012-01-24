@@ -165,10 +165,7 @@ function trapezi($trapezi, $dianomi) {
 			<div id="dilosi2" class="movieDilosi movieDilosi2"></div>
 			<div id="simetoxi2" class="movieDilosi movieSimetoxi2"></div>
 		</div>
-		<div id="gipedo" class="movieGipedo">
-			<?php tzogos($dianomi); ?>
-			<div id="baza"></div>
-		</div>
+		<div id="gipedo" class="movieGipedo"></div>
 		<div id="pektis1" class="moviePektisArea moviePektisArea1" style="cursor: auto;">
 			<div id="dilosi1" class="movieDilosi movieDilosi1"></div>
 			<div id="simetoxi1" class="movieDilosi movieSimetoxi1"></div>
@@ -188,20 +185,6 @@ function trapezi($trapezi, $dianomi) {
 	</div>
 	<?php
 }
-
-function tzogos($dianomi) {
-	global $globals;
-
-	if (isset($dianomi)) {
-		?>
-		<div id="tzogos" title="Άνοιγμα τζόγου"
-			style="position: relative; cursor: pointer;"
-			onclick="Movie.tzogosOnOff(this);">
-		</div>
-		<?php
-	}
-}
-
 function check_dealer($pektis, $dianomi) {
 	global $globals;
 
