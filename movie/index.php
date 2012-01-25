@@ -219,7 +219,7 @@ function mail_trapezi($trapezi, $dianomi) {
 		$subject .= ", διανομή " . $dianomi->kodikos;
 	}
 
-	$body = "Ο παίκτης " . $globals->pektis->login .
+	$body = urlencode("Ο παίκτης " . $globals->pektis->login .
 		" σας έστειλε τον παρακάτω σύνδεσμο για να παρακολουθήσετε " .
 		(isSet($dianomi) ? "τη διανομή " . $dianomi->kodikos . " της παρτίδας" :
 		"την παρτίδα") . $trapezi->kodikos . "%0A%0A" . $globals->server .
