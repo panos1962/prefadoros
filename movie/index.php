@@ -223,7 +223,8 @@ function mail_trapezi($trapezi, $dianomi) {
 		" σας έστειλε τον παρακάτω σύνδεσμο για να παρακολουθήσετε " .
 		(isSet($dianomi) ? "τη διανομή " . $dianomi->kodikos . " της παρτίδας" :
 		"την παρτίδα") . $trapezi->kodikos . "%0A%0A" . $globals->server .
-		"movie/index.php?trapezi=" . $trapezi->kodikos;
+		"movie/index.php";
+	$body .= urlencode("?trapezi=" . $trapezi->kodikos);
 	if (isSet($dianomi)) {
 		$body .= urlencode("&dianomi=" . $dianomi->kodikos);
 	}
