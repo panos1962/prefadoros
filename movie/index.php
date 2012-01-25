@@ -222,7 +222,7 @@ function mail_trapezi($trapezi, $dianomi) {
 	$body = urlencode("Ο παίκτης " . $globals->pektis->login .
 		" σας έστειλε τον παρακάτω σύνδεσμο για να παρακολουθήσετε " .
 		(isSet($dianomi) ? "τη διανομή " . $dianomi->kodikos . " της παρτίδας" :
-		"την παρτίδα") . $trapezi->kodikos . "%0A%0A" . $globals->server .
+		"την παρτίδα")) . $trapezi->kodikos . "%0A%0A" . $globals->server .
 		"movie/index.php";
 	$body .= urlencode("?trapezi=" . $trapezi->kodikos);
 	if (isSet($dianomi)) {
