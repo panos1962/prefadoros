@@ -1,38 +1,15 @@
 <?php
 require_once '../lib/standard.php';
-set_globals(TRUE);
+require_once '../prefadoros/prefadoros.php';
+require_once '../pektis/pektis.php';
+set_globals();
+Prefadoros::set_pektis();
 Page::head();
-?>
-<style type="text/css">
-p {
-	background-image: none;
-	background-color: #FFFFFF;
-	padding-left: 0.2cm;
-	padding-right: 0.2cm;
-}
-
-.mainArea {
-	margin-top: 0px;
-	margin-bottom: 0px;
-	margin-left: 1.5cm;
-	max-width: 20.0cm;
-	line-height: 150%;
-	text-align: justify;
-	max-height: 13.8cm;
-	min-height: 13.8cm;
-	height: 13.8cm;
-}
-
-.dexia {
-	text-align: right;
-	font-style: italic;
-}
-</style>
-<?php
+Page::stylesheet("dorea/dorea");
 Page::body();
 Page::epikefalida(Globals::perastike('pedi'));
 ?>
-<div class="mainArea">
+<div class="mainArea" style="height: 13.8cm; min-height: 13.8 cm; max-height: 13.8cm;">
 <p class="dexia">
 Θεσσαλονίκη, 25 Σεπτεμβρίου 2011
 </p>
