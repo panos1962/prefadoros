@@ -39,8 +39,11 @@ if ($globals->is_pektis()) {
 	Prefadoros::set_params();
 }
 Page::body();
-if (!Globals::perastike('motd')) {
-	Page::motd();
+if ($globals->is_pektis()) {
+	Prefadoros::pektis_check();
+	if (!Globals::perastike('motd')) {
+		Page::motd();
+	}
 }
 if ($globals->is_pektis()) {
 	Prefadoros::pektis_check();
