@@ -26,9 +26,14 @@ a img {
 }
 
 .motdArea {
+/*
 	background-color: #4D704D;
 	background-color: #FFD6AD;
+*/
 	padding: 0.1cm;
+background-image: url('../images/motd.png');
+background-repeat: no-repeat;
+background-size: cover;
 	margin-top: 0.2cm;
 	margin-bottom: 0.2cm;
 	opacity: 1.0;
@@ -40,11 +45,14 @@ a img {
 }
 
 .motdInnerArea {
-	padding: 0.2cm 0.4cm 0.2cm 0.4cm;
+/*
 	border-style: solid;
 	border-width: 2px;
+*/
+	padding: 0.2cm 0.4cm 0.2cm 0.4cm;
 	color: #FFFF88;
 	color: #002900;
+	color: #006666;
 	text-align: justify;
 }
 
@@ -211,6 +219,11 @@ a img {
 
 .entono {
 	font-weight: bold;
+}
+
+.dexia {
+	text-align: right;
+	font-style: italic;
 }
 
 .nobr {
