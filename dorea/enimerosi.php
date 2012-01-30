@@ -126,8 +126,11 @@ style="width: 3.2cm; float: left; margin-right: 0.4cm; margin-top: 0.2cm;
 και τα στοιχεία της κάρτας.
 Θα ήταν, επίσης, πολύ βοηθητικό να μου γράψετε το login σας
 (χωρίς τον κωδικό, φυσικά), στο πεδίο σχολίων που παρέχει
-η φόρμα δωρεάς της PayPal, π.χ. panos, jimhaidari, marinikol κλπ,
-ώστε να γνωρίζω την ταυτότητά σας καθώς το email που έχετε
+η φόρμα δωρεάς της PayPal, π.χ.
+<span class="plagio">panos</span>,
+<span class="plagio">jimhaidari</span>,
+<span class="plagio">marinikol</span>
+κλπ, ώστε να γνωρίζω την ταυτότητά σας καθώς το email που έχετε
 δηλώσει στον πρεφαδόρο πιθανόν να μην συμφωνεί με αυτό
 που χρησιμοποιείτε κατά την πληρωμή.
 </p>
