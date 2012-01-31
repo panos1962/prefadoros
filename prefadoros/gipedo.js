@@ -163,9 +163,9 @@ var Gipedo = new function() {
 			html += Gipedo.dianomiHTML();
 			html += '</div>';
 			html += '<div class="dixeTzogo">';
-			html += '<img class="dixeTzogoIcon" src="' + globals.server +
+			html += '<img class="dixeTzogoIcon dixeTzogoIcon1" src="' + globals.server +
 				'images/trapoula/' + pexnidi.tzogos.substr(0, 2) + '.png" alt="" />';
-			html += '<img class="dixeTzogoIcon" src="' + globals.server +
+			html += '<img class="dixeTzogoIcon dixeTzogoIcon2" src="' + globals.server +
 				'images/trapoula/' + pexnidi.tzogos.substr(2, 2) + '.png" alt="" />';
 			html += '</div>';
 			return html;

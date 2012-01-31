@@ -1385,13 +1385,30 @@ font-weight: bold;
 
 .dixeTzogo {
 	position: absolute;
-	bottom: 0;
-	left: 3.0cm;
+	bottom: 1.0cm;
+	left: 1.6cm;
 }
 
 .dixeTzogoIcon {
-	width: 2.1cm;
+	width: 2.0cm;
 	margin-right: 0.2cm;
+}
+
+.dixeTzogoIcon1 {
+	transform: rotate(170deg);
+	-moz-transform: rotate(170deg);
+	-webkit-transform: rotate(170deg);
+	-o-transform: rotate(170deg);
+	-ms-transform: rotate(170deg);
+}
+
+.dixeTzogoIcon2 {
+	transform: rotate(-170deg);
+	-moz-transform: rotate(-170deg);
+	-webkit-transform: rotate(-170deg);
+	-o-transform: rotate(-170deg);
+	-ms-transform: rotate(-170deg);
+	margin-left: -0.8cm;
 }
 
 .telefteaBaza {
