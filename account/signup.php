@@ -38,7 +38,7 @@ setTimeout(function() {
 <table class="formaData tbldbg">
 <tr>
 	<td class="formaHeader tbldbg" colspan="2">
-		<?php print ($globals->is_pektis() ? 'Update' : 'Create'); ?> account
+		<?php print ($globals->is_pektis() ? 'Ενημέρωση στοιχείων' : 'Δημιουργία λογαριασμού'); ?>
 	</td>
 </tr>
 <tr>
@@ -184,7 +184,7 @@ if ($globals->is_pektis()) {
 <tr style="vertical-align: top;">
 	<td class="tbldbg">
 		<input type="submit" value="<?php
-			print ($globals->is_pektis() ? 'Update' : 'Create') ; ?> account"
+			print ($globals->is_pektis() ? 'Ενημέρωση' : 'Εγγραφή') ; ?>"
 			class="button formaButton"
 			onclick="return account.<?php print ($globals->is_pektis() ?
 				'update' : 'add' ); ?>Pektis(this.form);" />

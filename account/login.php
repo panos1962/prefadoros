@@ -36,7 +36,7 @@ aftonomo_check();
 </tr>
 <tr>
 	<td class="formaPrompt tbldbg">
-		Password
+		Κωδικός
 	</td>
 	<td class="tbldbg">
 		<input name="password" type="password" maxlength="50" size="16"
