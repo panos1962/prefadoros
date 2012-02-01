@@ -166,6 +166,7 @@ Movie.filaHTML = function(thesi, fila) {
 		proto = '';
 		html += '<img class="movieFilaSiraIcon';
 		if (tzogos) { html += ' movieFiloSteno'; }
+		if (i > 0) { html += ' movieFiloSkia'; }
 		var curXroma = fila[i].substr(0, 1);
 		if (curXroma != prevXroma) {
 			prevXroma = curXroma;

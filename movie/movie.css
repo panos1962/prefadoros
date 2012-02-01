@@ -344,6 +344,12 @@ background-color: teal;
 	width: 1.9cm;
 }
 
+.movieFiloSkia {
+	-webkit-box-shadow: -1px 0px 3px #2E2E2E;
+	-moz-box-shadow: -1px 0px 3px #2E2E2E;
+	box-shadow: -1px 0px 3px #2E2E2E;
+}
+
 .movieFiloDiaxorM {
 	border-style: outset;
 	border-width: 0px 0px 0px 4px;
