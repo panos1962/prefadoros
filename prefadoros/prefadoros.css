@@ -1392,22 +1392,26 @@ font-weight: bold;
 .dixeTzogoIcon {
 	width: 2.0cm;
 	margin-right: 0.2cm;
+
+	-webkit-box-shadow: 3px 3px 6px #3E3E3E;
+	-moz-box-shadow: 3px 3px 6px #3E3E3E;
+	box-shadow: 3px 3px 6px #3E3E3E;
 }
 
 .dixeTzogoIcon1 {
-	transform: rotate(170deg);
-	-moz-transform: rotate(170deg);
-	-webkit-transform: rotate(170deg);
-	-o-transform: rotate(170deg);
-	-ms-transform: rotate(170deg);
+	transform: rotate(-10deg);
+	-moz-transform: rotate(-10deg);
+	-webkit-transform: rotate(-10deg);
+	-o-transform: rotate(-10deg);
+	-ms-transform: rotate(-10deg);
 }
 
 .dixeTzogoIcon2 {
-	transform: rotate(-170deg);
-	-moz-transform: rotate(-170deg);
-	-webkit-transform: rotate(-170deg);
-	-o-transform: rotate(-170deg);
-	-ms-transform: rotate(-170deg);
+	transform: rotate(10deg);
+	-moz-transform: rotate(10deg);
+	-webkit-transform: rotate(10deg);
+	-o-transform: rotate(10deg);
+	-ms-transform: rotate(10deg);
 	margin-left: -0.8cm;
 }
 
