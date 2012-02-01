@@ -427,6 +427,7 @@ var Partida = new function() {
 			proto = '';
 			html += '<img id="filo_' + i + '" class="filaSiraIcon';
 			if (tzogos) { html += ' filoSteno'; }
+			if (i > 0) { html += ' filoSkia'; }
 			var curXroma = fila[i].substr(0, 1);
 			if (curXroma != prevXroma) {
 				prevXroma = curXroma;
