@@ -1350,7 +1350,7 @@ var Dekada = new function() {
 		Sizitisi.sxolioFocus();
 		var x = getelid('bazaFilo1');
 		if (notSet(x)) { fatalError('Dekada.valeFilo: bazaFilo1: not found'); }
-		x.innerHTML = '<img class="bazaFilo bazaFilo1" src="' + globals.server +
+		x.innerHTML = '<img class="bazaFilo bazaFilo1 bazaFiloSkia" src="' + globals.server +
 			'images/trapoula/' + xa + '.png" alt="" style="z-index: 3;" />';
 		sviseNode(img);
 		Pexnidi.addKinisi('ΦΥΛΛΟ', xa);

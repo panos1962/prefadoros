@@ -408,10 +408,11 @@ var Gipedo = new function() {
 			html += '<div id="bazaFilo' + i + '">';
 			for (var j = 0; j < pektis.length; j++) {
 				if (pektis[j] == i) {
-					html += '<img class="bazaFilo bazaFilo' + i + '" src="' +
-						globals.server + 'images/trapoula/' +
-						filo[j] + '.png" alt="" ' +
-						'style="z-index: ' + j + ';" />';
+					html += '<img class="bazaFilo bazaFilo' + i;
+					if (j > 0) { html += ' bazaFiloSkia'; }
+					html += '" src="' + globals.server + 'images/trapoula/' +
+						filo[j] + '.png" alt="" ' + 'style="z-index: ' +
+						j + ';" />';
 					break;
 				}
 			}

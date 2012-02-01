@@ -622,8 +622,10 @@ Movie.displayBaza = function() {
 	else {
 		for (var i = 0; i < Movie.Partida.bazaFilo.length; i++) {
 			html += '<img class="movieBazaFilo movieBazaFilo' +
-				Movie.Partida.bazaFilo[i].pektis + '" src="' +
-				globals.server + 'images/trapoula/' + Movie.Partida.bazaFilo[i].filo +
+				Movie.Partida.bazaFilo[i].pektis;
+			if (i > 0) { html += ' bazaFiloSkia'; }
+			html += '" src="' + globals.server + 'images/trapoula/' +
+				Movie.Partida.bazaFilo[i].filo +
 				'.png" alt="" style="z-index: ' + (10 + i) + ';" />';
 			html += '<img class="movieBazaVelos movieBazaVelos' +
 				Movie.Partida.bazaFilo[i].pektis + '" src="' +
