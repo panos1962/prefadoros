@@ -1296,6 +1296,12 @@ font-weight: bold;
 	width: 2.1cm;
 }
 
+.bazaFiloSkia {
+	-webkit-box-shadow: -2px -2px 6px #2E2E2E;
+	-moz-box-shadow: -2px -2px 6px #2E2E2E;
+	box-shadow: -2px -2px 6px #2E2E2E;
+}
+
 .bazaFilo3 {
 	position: absolute;
 	top: 0.6cm;
