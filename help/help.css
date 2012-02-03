@@ -9,6 +9,36 @@ li {
 	line-height: 150%;
 }
 
+.helpTutorialVideos {
+	display: inline-block;
+	transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	background-color: #FFFFFF;
+}
+
+.helpTutorialVideos0 {
+	display: inline-block;
+	transform: rotate(-2deg);
+	-moz-transform: rotate(-2deg);
+	-webkit-transform: rotate(-2deg);
+	-o-transform: rotate(-2deg);
+	-ms-transform: rotate(-2deg);
+	background-color: #FFFF99;
+}
+
+.helpTutorialVideos1 {
+	display: inline-block;
+	transform: rotate(2deg);
+	-moz-transform: rotate(2deg);
+	-webkit-transform: rotate(2deg);
+	-o-transform: rotate(2deg);
+	-ms-transform: rotate(2deg);
+	background-color: #FFFF99;
+}
+
 .helpPeriexomena {
 	background-color: #FFFFFF;
 	line-height: 150%;

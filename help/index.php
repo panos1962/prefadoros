@@ -4,16 +4,35 @@ set_globals(TRUE);
 Page::head();
 Page::stylesheet('help/help');
 Page::body();
-Page::epikefalida(Globals::perastike('pedi'));
+Page::epikefalida(Globals::perastike('pedi'), '<div id="tutorialVideos" ' .
+	'class="helpTutorialVideos">[&nbsp;<a target="_self" ' .
+	'href="http://www.youtube.com/playlist?list=PL07F1583FEB191C3D&feature=mh_lolz">' .
+	'Εκπαιδευτικά βίντεο</a>&nbsp;]</div>');
 ?>
 <script type="text/javascript">
 //<![CDATA[
-setTimeout(function() {
-	var x = getelid('simantiko');
-	if (notSet(x)) { return; }
-	if (isSet(x.pineza) && x.pineza) {return; }
-	sviseNode(x, 2200);
-}, 30000);
+function kouniseTutorialVideo(div, i) {
+	if (notSet(div)) { return; }
+	if (i > 10) {
+		div.setAttribute('class', 'helpTutorialVideos');
+		return;
+	}
+
+	div.setAttribute('class', 'helpTutorialVideos' + (i % 2));
+	setTimeout(function() {
+		kouniseTutorialVideo(div, i + 1);
+	}, 100);
+}
+
+window.onload = function() {
+	setTimeout(function() {
+		var x = getelid('simantiko');
+		if (notSet(x)) { return; }
+		if (isSet(x.pineza) && x.pineza) {return; }
+		sviseNode(x, 2200);
+	}, 30000);
+	kouniseTutorialVideo(getelid('tutorialVideos'), 0);
+};
 //]]>
 </script>
 <div class="helpArea">
