@@ -212,17 +212,41 @@ var Sizitisi = new function() {
 		return ikona + video + titlos;
 	};
 
+	// Τα βίντεο που φορτώνονται σε iframes αποκτούν id της μορφής "videoNNN",
+	// όπου "NNN" είναι κάποιος αύξων αριθμός. Αυτά τα id χρησιμοποιούνται κατά
+	// τη διαγραφή για να γίνει ουσιαστικά διακοπή του βίντεο, εφόσον αυτό
+	// ενοχλεί. Θυμίζω ότι τα βίντεο φορτώνονται σε iframes μόνο για τον ήχο.
+
+	var vdid = 0;
+
+	this.videoId = function() {
+		vdid++;
+		return ' id="video' + vdid + '" ';
+	};
+
+	this.akirosiVideo = function() {
+		var video = false;
+		while (vdid > 0) {
+			sviseNode(getelid('video' + vdid));
+			vdid--;
+			video = true;
+		}
+		return video;
+	};
+
 	this.pexeIxoVideo = function(iv) {
 		var html = '';
 		if (iv.match(/^https?:\/\/youtu\.be\//)) {
-			html += '<iframe width="300" height="203" src="http://www.youtube.com/embed/';
+			html += '<iframe width="300" height="203"' + Sizitisi.videoId();
+			html += 'src="http://www.youtube.com/embed/';
 			html += iv.replace(/^https?:\/\/youtu\.be\//, '');
 			html += html.match(/\?start=[0-9]+/) ? '&' : '?';
 			html += 'autoplay=1&rel=0&controls=0&showinfo=0" ';
 			html += 'frameborder="0" style="display: none;"></iframe>';
 		}
 		else if (iv.match(/^https?:\/\/splicd\.com\//)) {
-			html += '<iframe width="300" height="203" src="' + iv;
+			html += '<iframe width="300" height="203"';
+			html += Sizitisi.videoId() + 'src="' + iv;
 			html += '" frameborder="0" style="display: none;"></iframe>';
 		}
 		else {
@@ -575,6 +599,7 @@ var Sizitisi = new function() {
 		Sizitisi.sxolioFocus();
 		if (notSet(ico)) { ico = getelid('sxolioDiagrafi'); }
 		if (notSet(ico)) { return; }
+		if (Sizitisi.akirosiVideo()) { return; }
 		if (Prefadoros.show != 'partida') {
 			playSound('beep');
 			errorIcon(ico);
@@ -658,7 +683,7 @@ var Sizitisi = new function() {
 			html += '<img id="sxolioDiagrafi" src="' + globals.server +
 				'images/Xred.png" class="pssIcon" ' +
 				'style="margin-right: 0px;" ' +
-				'title="Διαγραφή σχολίων" alt="" ' +
+				'title="Διαγραφή σχολίων / Παύση video" alt="" ' +
 				'onclick="Sizitisi.diagrafi(this);" />';
 		}
 		return html;
