@@ -266,6 +266,8 @@ function print_panel() {
 	$item_list[] = new Item("pipaKaroto.gif", "", 3.3);
 	$item_list[] = new Item("pipa.gif", "Πίπα, όπως λέμε Φελίπα…");
 	$item_list[] = new Item("dontiToulipa.gif");
+	$item_list[] = new Item("manoula.jpg", "Μανούλααα…", 3.5,
+		"http://splicd.com/G6XPvONk8bk/14/16");
 	$item_list[] = new Item("klamaEmoticon.gif");
 	$item_list[] = new Item("klapsEmoticon.gif", "Κλαψ…");
 	$item_list[] = new Item("tsopaTsopa.gif", "Τσώπα, τσώπα…");
