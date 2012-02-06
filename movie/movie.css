@@ -345,9 +345,9 @@ background-color: teal;
 }
 
 .movieFiloSkia {
-	-webkit-box-shadow: -1px 0px 3px #2E2E2E;
-	-moz-box-shadow: -1px 0px 3px #2E2E2E;
-	box-shadow: -1px 0px 3px #2E2E2E;
+	-webkit-box-shadow: -0.04cm 0px 0.08cm #2E2E2E;
+	-moz-box-shadow: -0.04cm 0px 0.08cm #2E2E2E;
+	box-shadow: -0.04cm 0px 0.08cm #2E2E2E;
 }
 
 .movieFiloDiaxorM {
