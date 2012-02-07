@@ -4,6 +4,7 @@ require_once 'pektis/pektis.php';
 require_once 'trapezi/trapezi.php';
 require_once 'lib/trapoula.php';
 require_once 'prefadoros/prefadoros.php';
+require_once 'account/photo.php';
 set_globals();
 $globals->klista = "lock/klista.php";
 if (file_exists($globals->klista)) {
@@ -79,6 +80,7 @@ function prefadoros() {
 		$_SERVER["REMOTE_ADDR"] : "";
 
 	Prefadoros::klise_sinedria();
+	check_photo($globals->pektis->login);
 	$query = "INSERT INTO `sinedria` (`pektis`, `ip`) VALUES (" .
 		$globals->pektis->slogin . ", '" . $ip . "')";
 	$globals->sql_query($query);
