@@ -287,10 +287,7 @@ function photo_area() {
 		onmouseover="diafaniaSet(getelid('photo')); formaFyi('<?php
 			print "Αρχείο εικόνας τύπου JPEG/JPG, μικρότερο από " . MAX_PHOTO_SIZE . " bytes";
 		?>');" onmouseout="diafaniaSet(getelid('photo'), 50); formaFyi();">
-		<img id="photo" class="signupPhoto" src="<?php print $globals->server;
-			?>photo/<?php print strtolower(substr($globals->pektis->login, 0, 1));
-			?>/<?php print $globals->pektis->login; ?>.jpg" onerror="this.src='<?php
-			print $globals->server; ?>/images/missingPhoto.png';" alt="" />
+		<?php display_player_photo(); ?>
 	</div>
 	<div class="signupPhotoToolArea">
 		<img class="signupPhotoTool" src="<?php print $globals->server;
@@ -380,6 +377,24 @@ function simantiko() {
 	προχωρήσετε στην εγγραφή σας στο διαδικτυακό καφενείο της πρέφας.
 	Καλή διασκέδαση!
 	</div>
+	<?php
+}
+
+function display_player_photo() {
+	global $globals;
+
+	$photo = "../photo/" . strtolower(substr($globals->pektis->login, 0, 1)) .
+		"/" . $globals->pektis->login . ".jpg";
+	if (file_exists($photo)) {
+		if (file_get_contents($photo) === file_get_contents("../images/nophoto.png")) {
+			$photo = "../images/missingPhoto.png";
+		}
+	}
+	else {
+		$photo = "../images/missingPhoto.png";
+	}
+	?>
+	<img id="photo" class="signupPhoto" src="<?php print $photo; ?>" alt="" />
 	<?php
 }
 
