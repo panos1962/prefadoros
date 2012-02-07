@@ -5,12 +5,12 @@
 // υπάρχει δημιουργείται από το "nophoto.png". Κατόπιν ο παίκτης
 // μπορεί να αλλάξει τη φωτογραφία του.
 
-function check_photo($login) {
-	$base = "../photo/" . strtolower(substr($login, 0, 1));
+function check_photo($login, $path = "../") {
+	$base = $path . "photo/" . strtolower(substr($login, 0, 1));
 	$photo = $base . "/" . $login . ".jpg";
 	if (!file_exists($photo)) {
 		@mkdir($base, 0777);
-		@copy("../images/nophoto.png", $photo);
+		@copy($path . "images/nophoto.png", $photo);
 	}
 }
 ?>
