@@ -1,5 +1,6 @@
 <?php
 require_once '../lib/standard.php';
+require_once 'photo.php';
 unset($_SESSION['ps_login']);
 unset($_SESSION['ps_paraskinio']);
 Page::data();
@@ -18,9 +19,10 @@ $query = "SELECT `login`, `paraskinio` FROM `pektis` WHERE `login` = '" .
 $result = $globals->sql_query($query);
 $row = @mysqli_fetch_array($result, MYSQLI_NUM);
 if (!$row) {
-	die('Access denied');
+	$globals->klise_fige('Access denied');
 }
 
+check_photo($_REQUEST['login']);
 @mysqli_free_result($result);
 $_SESSION['ps_login'] = $row[0];
 $_SESSION['ps_paraskinio'] = $row[1];
