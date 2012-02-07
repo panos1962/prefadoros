@@ -637,6 +637,11 @@ background-color: magenta;
 	cursor: pointer;
 }
 
+.pssSizitisiIcon {
+	margin-left: 0.04cm;
+	margin-right: 0.04cm;
+}
+
 .pssSizing {
 	float: right;
 	display: inline-block;
@@ -652,7 +657,7 @@ background-color: magenta;
 }
 
 .pssInput {
-	font-size: 0.4cm;
+	font-size: 0.39cm;
 }
 
 .prosklisiArea {

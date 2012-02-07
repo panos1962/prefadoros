@@ -224,7 +224,7 @@ var Sizitisi = new function() {
 		return ' id="video' + vdid + '" ';
 	};
 
-	this.akirosiVideo = function() {
+	this.sigasiVideo = function() {
 		var video = false;
 		while (vdid > 0) {
 			sviseNode(getelid('video' + vdid));
@@ -599,7 +599,6 @@ var Sizitisi = new function() {
 		Sizitisi.sxolioFocus();
 		if (notSet(ico)) { ico = getelid('sxolioDiagrafi'); }
 		if (notSet(ico)) { return; }
-		if (Sizitisi.akirosiVideo()) { return; }
 		if (Prefadoros.show != 'partida') {
 			playSound('beep');
 			errorIcon(ico);
@@ -666,14 +665,11 @@ var Sizitisi = new function() {
 			s.disabled = false;
 			if (notSet(fs)) { Sizitisi.sxolioFocus() };
 			html += '<img id="sxolioApostoli" src="' + globals.server +
-				'images/controlPanel/talk.png" class="pssIcon" ' +
-				'title="Αποστολή σχολίου" alt="" ' +
-				'onclick="Sizitisi.apostoli(null, this);" />';
+				'images/controlPanel/talk.png" class="pssIcon pssSizitisiIcon" alt="" ' +
+				'title="Αποστολή σχολίου" onclick="Sizitisi.apostoli(null, this);" />';
 			html += '<img id="sxolioErase" src="' + globals.server +
-				'images/skoupaki.png" class="pssIcon" ' +
-				'style="margin-right: 0px;" ' +
-				'title="Καθαρισμός πεδίου" alt="" ' +
-				'onclick="Sizitisi.resetSxolioInput();" />';
+				'images/skoupaki.png" class="pssIcon pssSizitisiIcon" alt="" ' +
+				'title="Καθαρισμός πεδίου" onclick="Sizitisi.resetSxolioInput();" />';
 		}
 		else {
 			s.disabled = true;
@@ -681,11 +677,12 @@ var Sizitisi = new function() {
 		if (isPartida() && (Prefadoros.show == 'partida') &&
 			(notTheatis() || isProsklisi())) {
 			html += '<img id="sxolioDiagrafi" src="' + globals.server +
-				'images/Xred.png" class="pssIcon" ' +
-				'style="margin-right: 0px;" ' +
-				'title="Διαγραφή σχολίων / Παύση video" alt="" ' +
-				'onclick="Sizitisi.diagrafi(this);" />';
+				'images/Xred.png" class="pssIcon pssSizitisiIcon" alt="" ' +
+				'title="Διαγραφή σχολίων" onclick="Sizitisi.diagrafi(this);" />';
 		}
+		html += '<img id="sxolioDiagrafi" src="' + globals.server +
+			'images/sigasiVideo.png" class="pssIcon pssSizitisiIcon" alt="" ' +
+			'title="Σίγαση funchat video" onclick="Sizitisi.sigasiVideo(this);" />';
 		return html;
 	};
 };
