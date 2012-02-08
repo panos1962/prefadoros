@@ -22,7 +22,7 @@ if (!$row) {
 	$globals->klise_fige('Access denied');
 }
 
-check_photo($_REQUEST['login']);
+check_pektis_photo($_REQUEST['login']);
 @mysqli_free_result($result);
 $_SESSION['ps_login'] = $row[0];
 $_SESSION['ps_paraskinio'] = $row[1];

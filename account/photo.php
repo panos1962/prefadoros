@@ -5,7 +5,7 @@
 // υπάρχει δημιουργείται από το "nophoto.png". Κατόπιν ο παίκτης
 // μπορεί να αλλάξει τη φωτογραφία του.
 
-function check_photo($login, $path = "../") {
+function check_pektis_photo($login, $path = "../") {
 	$base = $path . "photo/" . strtolower(substr($login, 0, 1));
 	$photo = $base . "/" . $login . ".jpg";
 	if (!file_exists($photo)) {
