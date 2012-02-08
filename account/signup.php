@@ -287,7 +287,7 @@ function photo_area() {
 		onmouseover="diafaniaSet(getelid('photo')); formaFyi('<?php
 			print "Αρχείο εικόνας τύπου JPEG/JPG, μικρότερο από " . MAX_PHOTO_SIZE . " bytes";
 		?>');" onmouseout="diafaniaSet(getelid('photo'), 50); formaFyi();">
-		<?php display_player_photo(); ?>
+		<?php display_pektis_photo(); ?>
 	</div>
 	<div class="signupPhotoToolArea">
 		<img class="signupPhotoTool" src="<?php print $globals->server;
@@ -380,7 +380,7 @@ function simantiko() {
 	<?php
 }
 
-function display_player_photo() {
+function display_pektis_photo() {
 	global $globals;
 
 	$photo = "../photo/" . strtolower(substr($globals->pektis->login, 0, 1)) .

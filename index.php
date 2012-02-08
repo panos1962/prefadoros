@@ -80,7 +80,7 @@ function prefadoros() {
 		$_SERVER["REMOTE_ADDR"] : "";
 
 	Prefadoros::klise_sinedria();
-	check_photo($globals->pektis->login, "");
+	check_pektis_photo($globals->pektis->login, "");
 	$query = "INSERT INTO `sinedria` (`pektis`, `ip`) VALUES (" .
 		$globals->pektis->slogin . ", '" . $ip . "')";
 	$globals->sql_query($query);

@@ -39,7 +39,7 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 	die(1);
 }
 
-check_photo($_REQUEST['login']);
+check_pektis_photo($_REQUEST['login']);
 $_SESSION['ps_login'] = $_REQUEST['login'];
 $_SESSION['ps_paraskinio'] = DEFAULT_PARASKINIO;
 ?>

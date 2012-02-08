@@ -107,7 +107,7 @@ function delete_photo() {
 	$ikona = $basi . "." . $tipos;
 
 	@unlink($ikona);
-	check_photo($globals->pektis->login);
+	check_pektis_photo($globals->pektis->login);
 }
 
 ?>
