@@ -361,6 +361,8 @@ class Page {
 		globals.server = '<?php print $globals->server; ?>';
 		globals.timeDif = <?php print time(); ?>;
 		globals.administrator = <?php print $globals->is_administrator() ? 'true' : 'false'; ?>;
+		globals.praskinio = '<?php print (Globals::session_set('ps_paraskinio') ?
+			$_SESSION['ps_paraskinio'] : DEFAULT_PARASKINIO); ?>';
 		var pektis = {};
 		<?php
 		if (Globals::session_set('ps_login')) {
@@ -653,7 +655,7 @@ class Page {
 			alt="Valid CSS!" height="24" /></a>
 		*/
 		?>
-		<a href="http://www.bridgebase.com" target="_blank"title="Bridge Base Online"><img
+		<a href="http://www.bridgebase.com" target="_blank" title="Bridge Base Online"><img
 			src="<?php print $globals->server; ?>images/bbo.png"
 			alt="http://www.bridgebase.com" height="24" /></a>
 		<br />
@@ -666,7 +668,7 @@ class Page {
 			"action=like&amp;colorscheme=light&amp;font&amp;height=35";
 			?>" scrolling="no" frameborder="0" style="<?php
 			print "margin-left: 8px; border: none; overflow: hidden; width: 90px; height: 20px;";
-			?> allowTransparency="true"></iframe>
+			?>"></iframe>
 		<?php
 		if ($globals->is_pektis()) {
 			?>
@@ -742,16 +744,6 @@ class Page {
 		}
 		?>
 		</body>
-		<script type="text/javascript">
-		//<![CDATA[
-		try {
-			document.body.style.backgroundImage = 'url(<?php
-			print $globals->server . "images/background/" .
-				(Globals::session_set('ps_paraskinio') ?
-				$_SESSION['ps_paraskinio'] : DEFAULT_PARASKINIO); ?>)';
-		} catch(e) {};
-		//]]>
-		</script>
 		</html>
 		<?php
 	}
