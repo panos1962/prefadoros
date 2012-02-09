@@ -644,7 +644,7 @@ class Page {
 			src="<?php print $globals->server; ?>images/agplv3.png"
 			alt="GNU Affero General Public License" height="24" /></a>
 		<a href="http://validator.w3.org/check?uri=referer"
-			title="Validate XHTML for this page"><img
+			title="Validate XHTML for this page" target="_blank"><img
 			src="<?php print $globals->server; ?>images/valid-xhtml10.png"
 			alt="Valid XHTML 1.0!" height="24" /></a>
 		<?php
