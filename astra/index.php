@@ -10,7 +10,7 @@ Page::stylesheet('astra/astra');
 Page::javascript('lib/forma');
 Page::javascript('astra/astra');
 Page::body();
-Prefadoros::pektis_check(FALSE, TRUE);
+Prefadoros::pektis_check(FALSE, TRUE, TRUE);
 Prefadoros::set_trapezi();
 Page::epikefalida(Globals::perastike('pedi'), "[<a target=\"_blank\" href=\"" .
 	$globals->server . "stats/index.php?pedi=yes\" ".
