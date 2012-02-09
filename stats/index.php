@@ -3,7 +3,7 @@ require_once '../lib/standard.php';
 require_once '../prefadoros/prefadoros.php';
 require_once '../pektis/pektis.php';
 set_globals();
-Prefadoros::pektis_check(FALSE, TRUE);
+Prefadoros::pektis_check(FALSE, TRUE, TRUE);
 if (Globals::perastike('pektis')) {
 	$pektis = $_REQUEST['pektis'];
 }
