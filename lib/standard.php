@@ -664,7 +664,7 @@ class Page {
 			"href=http%3A%2F%2Fwww.prefadoros.gr&amp;send=false&amp;" .
 			"layout=button_count&amp;width=90&amp;show_faces=false&amp;" .
 			"action=like&amp;colorscheme=light&amp;font&amp;height=35";
-			?> scrolling="no" frameborder="0" style="<?php
+			?>" scrolling="no" frameborder="0" style="<?php
 			print "margin-left: 8px; border: none; overflow: hidden; width: 90px; height: 20px;";
 			?> allowTransparency="true"></iframe>
 		<?php
