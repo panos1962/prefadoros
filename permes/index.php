@@ -12,7 +12,7 @@ Page::javascript('permes/permes');
 Page::javascript('prefadoros/sxesi');
 Page::javascript('lib/soundmanager');
 Page::body();
-Prefadoros::pektis_check();
+Prefadoros::pektis_check(FALSE, TRUE, TRUE);
 Prefadoros::set_trapezi();
 Page::epikefalida(Globals::perastike('pedi'));
 Page::fyi();
