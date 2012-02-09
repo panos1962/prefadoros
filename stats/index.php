@@ -3,6 +3,11 @@ require_once '../lib/standard.php';
 require_once '../prefadoros/prefadoros.php';
 require_once '../pektis/pektis.php';
 set_globals();
+Page::head();
+Page::stylesheet('lib/forma');
+Page::stylesheet('stats/stats');
+Page::javascript('stats/stats');
+Page::body();
 Prefadoros::pektis_check(FALSE, TRUE, TRUE);
 if (Globals::perastike('pektis')) {
 	$pektis = $_REQUEST['pektis'];
@@ -13,11 +18,6 @@ elseif ($globals->is_pektis()) {
 else {
 	$pektis = "";
 }
-Page::head();
-Page::stylesheet('lib/forma');
-Page::stylesheet('stats/stats');
-Page::javascript('stats/stats');
-Page::body();
 if (Globals::perastike('pedi')) {
 	$pedi = TRUE;
 	?>

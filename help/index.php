@@ -6,7 +6,7 @@ Page::stylesheet('help/help');
 Page::body();
 Page::epikefalida(Globals::perastike('pedi'), '<div id="tutorialVideos" ' .
 	'class="helpTutorialVideos">[&nbsp;<a target="_self" ' .
-	'href="http://www.youtube.com/playlist?list=PL07F1583FEB191C3D&feature=mh_lolz">' .
+	'href="http://www.youtube.com/playlist?list=PL07F1583FEB191C3D&amp;feature=mh_lolz">' .
 	'Εκπαιδευτικά βίντεο</a>&nbsp;]</div>');
 ?>
 <script type="text/javascript">
@@ -350,7 +350,6 @@ window.onload = function() {
 	Γενικά, στο control panel εμφανίζονται τα παρακάτω εικονίδια:
 </p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -368,9 +367,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -389,9 +386,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -419,9 +414,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -446,9 +439,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -465,9 +456,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -489,9 +478,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -511,9 +498,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -530,9 +515,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -546,9 +529,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -562,9 +543,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -605,9 +584,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -653,9 +630,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -686,9 +661,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -712,9 +685,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -740,9 +711,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -756,9 +725,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -775,9 +742,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -795,9 +760,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -819,9 +782,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -844,9 +805,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -881,7 +840,6 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
 <?php titlos('Προσκλήσεις'); ?>
 
@@ -905,7 +863,6 @@ window.onload = function() {
 	Πάνω στις προσκλήσεις θα δείτε τα παρακάτω εικονίδια:
 </div>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -921,9 +878,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -940,9 +895,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -956,9 +909,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -971,7 +922,6 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
 <?php titlos('Φίλοι και ανεπιθύμητοι'); ?>
 
@@ -1008,7 +958,6 @@ window.onload = function() {
 	τα εξής εικονίδια:
 </p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -1023,9 +972,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -1043,9 +990,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -1059,9 +1004,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -1076,9 +1019,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -1093,9 +1034,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -1116,9 +1055,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -1137,9 +1074,7 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
-<p>
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
@@ -1157,7 +1092,6 @@ window.onload = function() {
 		</td>
 		</tr>
 	</table>
-</p>
 
 <?php titlos('Στήσιμο τραπεζιού'); ?>
 
