@@ -643,12 +643,12 @@ class Page {
 			title="GNU Affero General Public License"><img
 			src="<?php print $globals->server; ?>images/agplv3.png"
 			alt="GNU Affero General Public License" height="24" /></a>
+		<?php
+		/*
 		<a href="http://validator.w3.org/check?uri=referer"
 			title="Validate XHTML for this page" target="_blank"><img
 			src="<?php print $globals->server; ?>images/valid-xhtml10.png"
 			alt="Valid XHTML 1.0!" height="24" /></a>
-		<?php
-		/*
 		<a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3"
 			title="Validate CSS for this page"><img
 			src="<?php print $globals->server; ?>images/vcss.gif"
@@ -657,6 +657,10 @@ class Page {
 		?>
 		<a href="http://www.bridgebase.com" target="_blank" title="Bridge Base Online"><img
 			src="<?php print $globals->server; ?>images/bbo.png"
+			alt="http://www.bridgebase.com" height="24" /></a>
+		<a href="http://www.hellasbridge.org" target="_blank"
+			title="Ελληνική Ομοσπονδία Μπριτζ"><img
+			src="<?php print $globals->server; ?>images/eom.png"
 			alt="http://www.bridgebase.com" height="24" /></a>
 		<br />
 		<a href="https://twitter.com/prefadorosTT" target="_blank"><img
