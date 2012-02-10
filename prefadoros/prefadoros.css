@@ -1003,6 +1003,10 @@ font-weight: normal;
 	width: 2.1cm;
 	height: 2.96cm;
 	cursor: pointer;
+	transition: bottom 100ms;
+	-webkit-transition: bottom 100ms;
+	-moz-transition: bottom 100ms;
+	-o-transition: bottom 100ms;
 }
 
 .filoSteno {
