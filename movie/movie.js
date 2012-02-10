@@ -745,6 +745,8 @@ Movie.processAgora = function(i, thesi, data) {
 Movie.processSimetoxi = function(i, thesi, data) {
 	Movie.Partida.simetoxi[thesi] = data;
 	if (data == 'ΜΑΖΙ') {
+		var x = getelid('mazi' + thesi);
+		if (isSet(x)) { x.style.display = 'inline'; }
 		for (var i = 1; i <= 3; i++) {
 			if (Movie.Partida.simetoxi[i] == 'ΠΑΣΟ') {
 				Movie.Partida.simetoxi[i] = 'ΒΟΗΘΑΩ';
