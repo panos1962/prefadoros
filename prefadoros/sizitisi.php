@@ -483,6 +483,7 @@ class Sizitisi {
 		static $stmnt2 = NULL;
 		$errmsg = "Sizitisi::set_dirty(): ";
 
+$ola = TRUE;
 		if ($ola) {
 			if ($stmnt1 == NULL) {
 				$query = "UPDATE `sinedria` SET `sizitisidirty` = 'YES' " .
