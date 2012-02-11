@@ -10,3 +10,4 @@ glob:diafimisi/*.png
 glob:stats/rank.txt
 glob:data/*.txt
 glob:dorea/*.jpg
+glob:dorea/enimerosi2[0-9]*.php
