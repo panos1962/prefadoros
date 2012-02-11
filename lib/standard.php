@@ -361,7 +361,7 @@ class Page {
 		globals.server = '<?php print $globals->server; ?>';
 		globals.timeDif = <?php print time(); ?>;
 		globals.administrator = <?php print $globals->is_administrator() ? 'true' : 'false'; ?>;
-		globals.praskinio = '<?php print (Globals::session_set('ps_paraskinio') ?
+		globals.paraskinio = '<?php print (Globals::session_set('ps_paraskinio') ?
 			$_SESSION['ps_paraskinio'] : DEFAULT_PARASKINIO); ?>';
 		var pektis = {};
 		<?php
