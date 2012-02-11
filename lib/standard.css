@@ -234,6 +234,12 @@ background-size: cover;
 	white-space: nowrap;
 }
 
+.leftRibbonIcon {
+	-webkit-box-shadow: 0.05cm 0.05cm 0.08cm #2E2E2E;
+	-moz-box-shadow: 0.05cm 0.05cm 0.08cm #2E2E2E;
+	box-shadow: 0.05cm 0.05cm 0.08cm #2E2E2E;
+}
+
 /*
 .tbldbg {
 	border-style: solid;

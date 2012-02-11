@@ -659,7 +659,7 @@ class Page {
 			src="<?php print $globals->server; ?>images/bbo.png"
 			alt="http://www.bridgebase.com" height="24" /></a>
 		<a href="http://www.hellasbridge.org" target="_blank"
-			title="Ελληνική Ομοσπονδία Μπριτζ"><img
+			title="Ελληνική Ομοσπονδία Μπριτζ"><img class="leftRibbonIcon"
 			src="<?php print $globals->server; ?>images/eom.png"
 			alt="http://www.bridgebase.com" height="24" /></a>
 		<br />
