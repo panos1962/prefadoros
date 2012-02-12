@@ -662,7 +662,7 @@ class Page {
 		<a href="http://www.bridgebase.com" target="_blank" title="Bridge Base Online"><img
 			src="<?php print $globals->server; ?>images/bbo.png"
 			alt="http://www.bridgebase.com" height="24" /></a>
-		<br />
+		<div style="margin-bottom: 0.1cm;"></div>
 		<a href="https://twitter.com/prefadorosTT" target="_blank"><img
 			src="<?php print $globals->server; ?>images/twitter.png"
 			alt="Ο «Πρεφαδόρος» στο twitter" height="19" /></a>
