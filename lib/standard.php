@@ -639,10 +639,6 @@ class Page {
 	protected static function leftRB() {
 		global $globals;
 		?>
-		<a href="http://www.gnu.org/licenses/agpl.html" target="_blank"
-			title="GNU Affero General Public License"><img
-			src="<?php print $globals->server; ?>images/agplv3.png"
-			alt="GNU Affero General Public License" height="24" /></a>
 		<?php
 		/*
 		<a href="http://validator.w3.org/check?uri=referer"
@@ -655,24 +651,21 @@ class Page {
 			alt="Valid CSS!" height="24" /></a>
 		*/
 		?>
-		<a href="http://www.bridgebase.com" target="_blank" title="Bridge Base Online"><img
-			src="<?php print $globals->server; ?>images/bbo.png"
-			alt="http://www.bridgebase.com" height="24" /></a>
+		<a href="http://www.gnu.org/licenses/agpl.html" target="_blank"
+			title="GNU Affero General Public License"><img
+			src="<?php print $globals->server; ?>images/agplv3.png"
+			alt="GNU Affero General Public License" height="24" /></a>
 		<a href="http://www.hellasbridge.org" target="_blank"
 			title="Ελληνική Ομοσπονδία Μπριτζ"><img class="leftRibbonIcon"
 			src="<?php print $globals->server; ?>images/eom.png"
+			alt="http://www.bridgebase.com" height="24" /></a>
+		<a href="http://www.bridgebase.com" target="_blank" title="Bridge Base Online"><img
+			src="<?php print $globals->server; ?>images/bbo.png"
 			alt="http://www.bridgebase.com" height="24" /></a>
 		<br />
 		<a href="https://twitter.com/prefadorosTT" target="_blank"><img
 			src="<?php print $globals->server; ?>images/twitter.png"
 			alt="Ο «Πρεφαδόρος» στο twitter" height="19" /></a>
-		<iframe src="<?php print "//www.facebook.com/plugins/like.php?" .
-			"href=http%3A%2F%2Fwww.prefadoros.gr&amp;send=false&amp;" .
-			"layout=button_count&amp;width=90&amp;show_faces=false&amp;" .
-			"action=like&amp;colorscheme=light&amp;font&amp;height=35";
-			?>" scrolling="no" frameborder="0" style="<?php
-			print "margin-left: 8px; border: none; overflow: hidden; width: 90px; height: 20px;";
-			?>"></iframe>
 		<?php
 		if ($globals->is_pektis()) {
 			?>
@@ -688,6 +681,15 @@ class Page {
 			</div>
 			<?php
 		}
+		?>
+		<iframe src="<?php print "//www.facebook.com/plugins/like.php?" .
+			"href=http%3A%2F%2Fwww.prefadoros.gr&amp;send=false&amp;" .
+			"layout=button_count&amp;width=90&amp;show_faces=false&amp;" .
+			"action=like&amp;colorscheme=light&amp;font&amp;height=35";
+			?>" scrolling="no" frameborder="0" style="<?php
+			print "margin-left: 1px; border: none; overflow: hidden; width: 90px; height: 20px;";
+			?>"></iframe>
+		<?php
 	}
 
 	protected static function centerRB() {
