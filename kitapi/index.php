@@ -14,7 +14,7 @@ global $hpektis;
 $id = 0;
 $height = Globals::perastike('height')? $_REQUEST['height'] : 600;
 $fsize = (int)($height / 35);
-$hpektis = (int)($height / 2.2);
+$hpektis = (int)($height / 1.9);
 $wkapikia = (int)($height / 16);
 
 Page::head();
