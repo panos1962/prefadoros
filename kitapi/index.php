@@ -129,15 +129,15 @@ function kitapi() {
 	?>
 	<table width="100%" style="border-spacing: 0px;">
 	<tr>
-		<td class="kitapi kitapi3">
+		<td class="kitapi kitapi3" title="<?php print $globals->trapezi->pektis3; ?>">
 			<?php print_pektis($globals->trapezi->pektis3, 3, 'bottom', 'top'); ?>
 		</td>
-		<td class="kitapi kitapi2">
+		<td class="kitapi kitapi2" title="<?php print $globals->trapezi->pektis2; ?>">
 			<?php print_pektis($globals->trapezi->pektis2, 2, 'top', 'bottom'); ?>
 		</td>
 	</tr>
 	<tr>
-		<td class="kitapi kitapi1" colspan="3">
+		<td class="kitapi kitapi1" colspan="3" title="<?php print $globals->trapezi->pektis1; ?>">
 			<?php print_pektis($globals->trapezi->pektis1, 1); ?>
 		</td>
 	</tr>
