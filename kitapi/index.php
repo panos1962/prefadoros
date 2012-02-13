@@ -129,15 +129,15 @@ function kitapi() {
 	?>
 	<table width="100%" style="border-spacing: 0px;">
 	<tr>
-		<td class="kitapi kitapi3" title="<?php print $globals->trapezi->pektis3; ?>">
+		<td class="kitapi kitapi3">
 			<?php print_pektis($globals->trapezi->pektis3, 3, 'bottom', 'top'); ?>
 		</td>
-		<td class="kitapi kitapi2" title="<?php print $globals->trapezi->pektis2; ?>">
+		<td class="kitapi kitapi2">
 			<?php print_pektis($globals->trapezi->pektis2, 2, 'top', 'bottom'); ?>
 		</td>
 	</tr>
 	<tr>
-		<td class="kitapi kitapi1" colspan="3" title="<?php print $globals->trapezi->pektis1; ?>">
+		<td class="kitapi kitapi1" colspan="3">
 			<?php print_pektis($globals->trapezi->pektis1, 1); ?>
 		</td>
 	</tr>
@@ -257,7 +257,8 @@ function print_pektis($onoma, $pektis, $btl = 'top', $btr = 'top') {
 			style="vertical-align: top; height: <?php print $hpektis; ?>px;">
 			<div id="na<?php print $pektis; ?>" class="pektisNameArea">
 				<div id="n<?php print $pektis; ?>" class="pektisName">
-					<span class="pektisNameData"><?php print $onoma; ?></span>
+					<span class="pektisNameData" title="<?php
+						print $onoma; ?>"><?php print $onoma; ?></span>
 				</div>
 			</div>
 			<div class="kasa">
