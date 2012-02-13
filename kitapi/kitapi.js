@@ -2,6 +2,7 @@ window.onload = function() {
 	var w = window.opener;
 	if (isSet(w) && isSet(w.controlPanel)) { w.controlPanel.kitapiWindow = window; }
 	stixisi();
+	onomata();
 }
 
 window.onunload = function() {
@@ -43,16 +44,18 @@ function stixisi() {
 			}
 		}
 	}
+}
 
-	for (i = 1; i <= 3; i++) {
-		k = getelid('na' + i);
-		if (notSet(k)) { continue; }
-		var w = parseInt(k.clientWidth * 0.99) + 'px';
+function onomata() {
+	for (var i = 1; i <= 3; i++) {
+		var x = getelid('na' + i);
+		if (notSet(x)) { continue; }
+		var w = parseInt(x.clientWidth * 0.99) + 'px';
 
-		k = getelid('n' + i);
-		if (notSet(k)) { continue; }
+		x = getelid('n' + i);
+		if (notSet(x)) { continue; }
 
-		k.style.maxWidth = w;
-		k.style.width = w;
+		x.style.maxWidth = w;
+		x.style.width = w;
 	}
-};
+}

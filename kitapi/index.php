@@ -112,7 +112,7 @@ body {
 }
 </style>
 </head>
-<body id="selida">
+<body id="selida" onresize="onomata();">
 	<?php
 	if ($globals->is_trapezi()) {
 		kitapi();
