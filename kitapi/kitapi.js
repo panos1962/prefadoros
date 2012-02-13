@@ -43,4 +43,16 @@ function stixisi() {
 			}
 		}
 	}
+
+	for (i = 1; i <= 3; i++) {
+		k = getelid('na' + i);
+		if (notSet(k)) { continue; }
+		var w = parseInt(k.clientWidth * 0.99) + 'px';
+
+		k = getelid('n' + i);
+		if (notSet(k)) { continue; }
+
+		k.style.maxWidth = w;
+		k.style.width = w;
+	}
 };
