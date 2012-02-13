@@ -14,7 +14,7 @@ global $hpektis;
 $id = 0;
 $height = Globals::perastike('height')? $_REQUEST['height'] : 600;
 $fsize = (int)($height / 35);
-$hpektis = (int)($height / 1.9);
+$hpektis = (int)($height / 2.2);
 $wkapikia = (int)($height / 16);
 
 Page::head();
@@ -83,19 +83,25 @@ body {
 }
 
 .pektisName {
+	display: inline-block;
+	width: 0px;
+	max-width: 0px;
+	overflow: hidden;
+
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+.pektisNameData {
 	font-weight: bold;
 	font-size: <?php print (int)($fsize * 1.2); ?>px;
-	color: #333333;
-	border-style: none none solid solid;
+	color: #003366;
+	background-color: #FFFF66;
+	border-style: solid;
 	border-width: 1px;
 	border-color: #C2C2C2;
-	padding-left: 8px;
-	padding-right: 8px;
-	padding-top: 0px;
-	padding-bottom: 2px;
-/*
-	background-color: #FFFFD6;
-*/
+	padding-left: 2px;
+	padding-right: 2px;
 }
 
 .kasa {
@@ -249,8 +255,10 @@ function print_pektis($onoma, $pektis, $btl = 'top', $btr = 'top') {
 		</td>
 		<td id="ks<?php print $id++; ?>" class="tbldbg"
 			style="vertical-align: top; height: <?php print $hpektis; ?>px;">
-			<div class="pektisNameArea">
-				<span class="pektisName"><?php print $onoma; ?></span>
+			<div id="na<?php print $pektis; ?>" class="pektisNameArea">
+				<div id="n<?php print $pektis; ?>" class="pektisName">
+					<span class="pektisNameData"><?php print $onoma; ?></span>
+				</div>
 			</div>
 			<div class="kasa">
 				<?php print_kasa($pektis); ?>
