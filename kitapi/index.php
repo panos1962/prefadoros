@@ -23,8 +23,12 @@ Page::javascript('kitapi/kitapi');
 <style type="text/css">
 body {
 	background-image: none;
+	background-image: url(../images/kitapi.jpg);
+	background-repeat: repeat;
 	font-size: <?php print $fsize; ?>px;
+/*
 	background-color: #FFFFC8;
+*/
 	margin: 0px;
 	font-family: "Comic Sans MS", cursive;
 }
@@ -33,7 +37,9 @@ body {
 	font-style: italic;
 	font-size: 90%;
 	color: #191970;
+/*
 	background-color: #FFFFD6;
+*/
 	width: <?php print $wkapikia; ?>px;
 	text-align: right;
 	padding-right: <?php print $fsize; ?>px;
@@ -87,7 +93,9 @@ body {
 	padding-right: 8px;
 	padding-top: 0px;
 	padding-bottom: 2px;
+/*
 	background-color: #FFFFD6;
+*/
 }
 
 .kasa {
