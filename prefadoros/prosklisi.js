@@ -26,7 +26,10 @@ var Prosklisi = new function() {
 		// εγγραφές τις οποίες θα εμφανίσω πρώτες.
 		if (isSet(dedomena.prosklisiNew)) {
 			for (var i = 0; i < dedomena.prosklisiNew.length; i++) {
-				if (dedomena.prosklisiNew[i].a != pektis.login) { nea = true; }
+				if ((dedomena.prosklisiNew[i].a != pektis.login) &&
+					(dedomena.prosklisiNew[i].a != globals.systemAccount)) {
+					nea = true;
+				}
 				prosklisi1.push(dedomena.prosklisiNew[i]);
 			}
 			if (nea && notFreska(dedomena) && isDiathesimos()) { playSound('sfirigma'); }
@@ -56,7 +59,8 @@ var Prosklisi = new function() {
 
 		for (var i = 0; i < dedomena.prosklisi.length; i++) {
 			if ((dedomena.prosklisi[i].a != pektis.login) &&
-				(!(dedomena.prosklisi[i].a in palia))) {
+				(!(dedomena.prosklisi[i].a in palia)) &&
+				(dedomena.prosklisi[i].a != globals.systemAccount)) {
 				playSound('sfirigma');
 				return;
 			}
