@@ -109,7 +109,9 @@ var Prosklisi = new function() {
 				'images/Xred.png" onclick="Prosklisi.skisimo(this, ' +
 				prosklisi[i].k + ', true);" title="Απόρριψη πρόσκλησης" alt="" />';
 			html += '<span' + apodoxi + 'style="cursor: pointer;">' +
-				'από <div class="prosklisiData">' + prosklisi[i].a + '</div>';
+				'από <div class="prosklisiData">';
+			html += (prosklisi[i].a == globals.systemAccount ?
+					pektis.login : prosklisi[i].a) + '</div>';
 		}
 		html += ', τραπέζι <div class="prosklisiData">' + prosklisi[i].t + '</div>';
 		html += '</span></div>';
