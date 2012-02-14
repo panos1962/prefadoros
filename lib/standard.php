@@ -788,7 +788,7 @@ class Page {
 }
 
 class Xronos {
-	public static function pote($ts, $offset = 0, $format = 'd/m/Y, h:m', $prin = TRUE) {
+	public static function pote($ts, $offset = 0, $format = 'd/m/Y, h:i', $prin = TRUE) {
 		$ts += $offset;
 		if ($prin) {
 			$dif = time() - $ts;

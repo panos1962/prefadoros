@@ -66,7 +66,7 @@ function dianomi_json($row, $kinisi_table, &$koma) {
 		",k3:" . $row['kasa3'] .
 		",m3:" . $row['metrita3'] .
 		",x:'" . addslashes(Xronos::pote($row['xronos'],
-			$globals->time_dif, "h:m:s", FALSE)) . "'";
+			$globals->time_dif, "h:i:s", FALSE)) . "'";
 	agora_json($row['kodikos'], $kinisi_table);
 	print "}";
 	$koma = ",";
