@@ -52,8 +52,14 @@ Page::fyi();
 <img src="<?php print $globals->server; ?>images/fakos.png" alt=""
 	style="width: 0.6cm; margin-bottom: -0.15cm; cursor: pointer;"
 	title="Εντοπισμός παίκτη" onclick="Stats.reload(getelid('pektis'));" />
+<div style="display: inline-block; margin-left: 0.8cm;">
+	(<span style="font-style: italic;">Λαμβάνονται υπόψιν οι παρτίδες του
+	τελευταίου αρτίδες τελευταίου μήνα</span>)
+</div>
+<div style="min-height: 12.0cm;">
+	<?php print_stats($pektis); ?>
+</div>
 <?php
-print_stats($pektis);
 Page::close();
 
 function print_stats($pektis = "") {
@@ -62,7 +68,12 @@ function print_stats($pektis = "") {
 	$file = "rank.txt";
 	$fp = @fopen($file, "r");
 	if (!$fp) {
-		die($file . ": cannot open file");
+		?>
+		<div>
+			<?php print ($file . ": cannot open file"); ?>
+		</div>
+		<?php
+		return;
 	}
 
 	?>
