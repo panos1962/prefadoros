@@ -80,7 +80,7 @@ function kinisi_json($row, &$koma) {
 		",i:'" . $row['idos'] .
 		"',d:'" . $row['data'] .
 		"',x:'" . addslashes(Xronos::pote($row['xronos'],
-			$globals->time_dif, "h:m:s", FALSE)) .
+			$globals->time_dif, "h:i:s", FALSE)) .
 		"'}";
 	$koma = ",";
 }
