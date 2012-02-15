@@ -417,6 +417,8 @@ background-color: magenta;
 .kafenioTrapeziPrive {
 	border-style: solid;
 	border-color: #6B8E23;
+	opacity: 0.9;
+	filter: alpha(opacity=90);
 }
 
 .kafenioTrapeziAttrArea {
