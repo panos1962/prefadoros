@@ -343,7 +343,7 @@ function torina_dedomena($prev = NULL) {
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
 		$dedomena->kafenio = Sizitisi::process_kafenio();
 	}
-	elseif ($sinedria->sizitisidirty) {
+	elseif ($sinedria->sizitisidirty > 0) {
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
 		$dedomena->kafenio = Sizitisi::process_kafenio();
 		$sinedria->clear_sizitisidirty();
@@ -437,7 +437,7 @@ class Sinedria {
 		unset($this->enimerosi);
 		unset($this->peknpat);
 		unset($this->pekstat);
-		unset($this->sizitisidirty);
+		$this->sizitisidirty = 0;
 	}
 
 	public function fetch() {
@@ -448,7 +448,7 @@ class Sinedria {
 		unset($this->enimerosi);
 		unset($this->peknpat);
 		unset($this->pekstat);
-		unset($this->sizitisidirty);
+		$this->sizitisidirty = 0;
 
 		if ($stmnt == NULL) {
 			$query = "SELECT `enimerosi`, `peknpat`, `pekstat`, `sizitisidirty` " .
@@ -461,11 +461,10 @@ class Sinedria {
 
 		$stmnt->bind_param("i", $this->kodikos);
 		$stmnt->execute();
-		$stmnt->bind_result($this->enimerosi, $peknpat, $this->pekstat, $sizitisidirty);
+		$stmnt->bind_result($this->enimerosi, $peknpat, $this->pekstat, $this->sizitisidirty);
 		while ($stmnt->fetch()) {
 			$this->peknpat = $peknpat == '' ?
 				NULL : ("%" . $globals->asfales($peknpat) . "%");
-			$this->sizitisidirty = ($sizitisidirty == 'YES');
 		}
 
 		return(isset($this->enimerosi));
@@ -477,7 +476,7 @@ class Sinedria {
 		$errmsg = "Sinedria::clear_sizitisidirty(): ";
 
 		if ($stmnt == NULL) {
-			$query = "UPDATE `sinedria` SET `sizitisidirty` = 'NO' " .
+			$query = "UPDATE `sinedria` SET `sizitisidirty` = `sizitisidirty` - 1 " .
 				"WHERE `kodikos` = " . $this->kodikos;
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
