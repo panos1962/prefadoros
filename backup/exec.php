@@ -83,6 +83,7 @@ function backup_trapezi() {
 	global $globals;
 
 	$trapezi = apo_trapezi();
+	$eos = 0;
 	$fp = anixe_arxio("trapezi");
 	$query = "SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3`, " .
 		"`pasopasopaso`, `asoi`, `stisimo`, `telos` FROM `trapezi_log` " .
@@ -90,9 +91,12 @@ function backup_trapezi() {
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
+		if ($row[0] > $eos) {
+			$eos = $row[0];
+		}
 	}
 	fclose($fp);
-	print_data($count);
+	print_data($count . " (" . $trapezi . " - " . $eos . ")");
 }
 
 function backup_dianomi() {
@@ -169,8 +173,8 @@ function count_ola($pinakas) {
 	return($row[0]);
 }
 
-function print_data($count) {
-	print $count . ":ok";
+function print_data($data) {
+	print $data . ":ok";
 }
 
 function anixe_arxio($arxio) {
