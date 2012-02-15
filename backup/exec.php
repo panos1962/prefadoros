@@ -96,7 +96,8 @@ function backup_trapezi() {
 		}
 	}
 	fclose($fp);
-	print_data($count . " (" . $trapezi . " - " . $eos . ")");
+	print_data($count . ' [<span style="background-color: #FFFF66;">' .
+		$trapezi . " - " . $eos . "</span>]");
 }
 
 function backup_dianomi() {
@@ -174,7 +175,7 @@ function count_ola($pinakas) {
 }
 
 function print_data($data) {
-	print $data . ":ok";
+	print $data . "@@ok";
 }
 
 function anixe_arxio($arxio) {

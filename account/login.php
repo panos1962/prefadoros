@@ -18,7 +18,7 @@ aftonomo_check();
 	// διεύθυνση σελίδας στην οποία θα μεταβεί ο παίκτης αμέσως μετά
 	// την (επιτυχημένη) είσοδό του στον «Πρεφαδόρο».
 	print $globals->perastike("main") ?  $_REQUEST["main"] : ($globals->server . "index.php");
-	?>" style="margin-top: padding-top: 1em;">
+	?>" style="padding-top: 1em;">
 <table class="formaData tbldbg">
 <tr>
 	<td class="formaHeader tbldbg" colspan="2">

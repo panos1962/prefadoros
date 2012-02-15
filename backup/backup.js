@@ -63,14 +63,14 @@ Backup.exec = function(pinakas) {
 Backup.execCheck = function(pinakas, req) {
 	if (req.xhr.readyState != 4) { return; }
 	var rsp = req.getResponse();
-	var x = rsp.split(':');
+	var x = rsp.split('@@');
 	if ((x.length != 2) || (x[1] != 'ok')) {
 		alert(rsp);
 		window.location.reload();
 		return;
 	}
-	var count = parseInt(x[0]);
 
+	var count = x[0];
 	var x = getelid(pinakas + 'Count');
 	if (notSet(x)) { return; }
 	x.innerHTML = '<span class="data">' + count + '</span>';

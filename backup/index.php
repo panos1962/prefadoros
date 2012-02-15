@@ -4,6 +4,7 @@ set_globals(TRUE);
 Page::head();
 Page::administrator_check();
 Page::stylesheet('backup/backup');
+Page::stylesheet('lib/forma');
 Page::javascript('backup/backup');
 Page::body();
 Page::epikefalida($globals->perastike("pedi"));
@@ -17,10 +18,18 @@ Page::fyi();
 		<div class="backupEpikefalida">
 			<span class="data">Database backup</span>
 		</div>
-		<div style="width: 60%; margin-left: auto; margin-right: auto; background-color: #D6D6C2;">
-		<span style="font-weight: normal; font-style: italic;">Από τραπέζι</span>
-		<input id="apoTrapezi" type="text" value="100" size="10" maxlength="10"
-			onchange="Backup.checkApoTrapezi();" />
+		<div class="forma" style="font-weight: normal; padding-top: 0px; padding-left: 1.2cm;">
+		<table class="formaData tbldbg">
+		<tr>
+			<td class="formaPrompt tbldbg">
+				Από&nbsp;τραπέζι
+			</td>
+			<td class="tbldbg">
+				<input id="apoTrapezi" type="text" value="1" size="10" maxlength="10"
+					onchange="Backup.checkApoTrapezi();" class="formaField" />
+			</td>
+		</tr>
+		</table>
 		</div>
 	</th>
 </tr>
