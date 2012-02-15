@@ -716,6 +716,7 @@ var Pliromi = new function() {
 	};
 
 	this.doseTaPoulia = function(aplaSolo) {
+		aplaSolo = 1;	// μάλλον αυτό είναι το σωστό.
 		for (var i = 1; i <= 3; i++) {
 			if (i == pexnidi.tzogadoros) {
 				this.taPoulia[i] -= aplaSolo * 2 * this.axiaTaPoulia;
