@@ -1,0 +1,1588 @@
+body {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	-khtml-user-select: none;
+	-ms-user-select: none;
+}
+
+.prefadorosColumn {
+	width: 1px;
+}
+
+.prefadoros {
+	width: 14.0cm;
+	min-width: 14.0cm;
+	max-width: 14.0cm;
+
+	height: 13.0cm;
+	max-height: 13.0cm;
+	min-height: 13.0cm;
+	padding-bottom: 0.1cm;
+}
+
+.prefadorosSteno {
+	width: 0px;
+	max-width: 0px;
+	display: none;
+}
+
+.partida {
+	position: relative;
+	width: 13.5cm;
+	min-width: 13.5cm;
+	max-width: 13.5cm;
+
+	height: 12.6cm;
+	max-height: 12.6cm;
+	min-height: 12.6cm;
+
+	margin-left: auto;
+	margin-right: auto;
+
+	border-style: dotted;
+	border-width: 0.13cm;
+	border-color: #4D944D;
+
+	background-image: url('../images/partida.jpg');
+	background-repeat: repeat;
+
+	color: #333333;
+
+	-webkit-box-shadow: 2px 2px 6px #2E2E2E;
+	-moz-box-shadow: 2px 2px 6px #2E2E2E;
+	box-shadow: 2px 2px 6px #2E2E2E;
+}
+
+.partidaTheatis {
+	border-color: #928864;
+	background-image: url('../images/theatis.jpg');
+}
+
+.partidaPrive {
+	border-style: solid;
+}
+
+.partidaAttrArea {
+	position: absolute;
+	right: 0.26cm;
+	top: -0.01cm;
+}
+
+.partidaAttrIcon {
+	width: 0.60cm;
+}
+
+.partidaMinima {
+	padding-top: 0.5cm;
+	padding-left: 0.2cm;
+	padding-right: 0.2cm;
+	font-size: 0.55cm;
+	font-style: italic;
+	font-weight: bold;
+	line-height: 0.7cm;
+	text-align: center;
+}
+
+.partidaInfo {
+	position: absolute;
+	left: 0.2cm;
+	height: 0.64cm;
+	max-height: 0.64cm;
+	font-size: 0.45cm;
+	font-style: italic;
+	overflow: hidden;
+
+	width: 12.7cm;
+}
+
+.partidaInfoData {
+	font-weight: bold;
+	color: #003366;
+	background-color: #8AA886;
+	cursor: crosshair;
+}
+
+.partidaInfoTop {
+	top: 0px;
+	font-style: normal
+}
+
+.partidaInfoBottom {
+	bottom: 0px;
+}
+
+.warningBottom {
+	color: #FF0000;
+	background-color: #FFFF00;
+	padding-left: 0.1cm;
+}
+
+.partidaInfoSimantiko {
+	background-color: #FFFF80;
+	color: #003366;
+}
+
+.kasaPanoKato {
+	padding-left: 0.14cm;
+	width: 0.38cm;
+	height: 0.46cm;
+	background-color: #8AA886;
+	margin-bottom: -0.14cm;
+	cursor: pointer;
+}
+
+.pektis {
+	position: absolute;
+
+	width: 6.0cm;
+	height: 3.2cm;
+
+	background-color: #8AA886;
+	border-style: dotted;
+	border-color: #4D944D;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+	
+
+.pektis3 {
+	left: 0.2cm;
+	top: 0.66cm;
+
+	border-width: 0 0 1px 1px;
+}
+
+.pektis2 {
+	right: 0.2cm;
+	top: 0.66cm;
+
+	border-width: 0 1px 1px 0;
+}
+
+.pektis1 {
+	left: 3.6cm;
+	bottom: 0.66cm;
+
+	border-width: 1px 0 0 1px;
+}
+
+.pektis1akri {
+	left: 0.2cm;
+	width: 4.5cm;
+/*
+background-color: magenta;
+*/
+}
+
+.pektisMain {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+
+	width: 5.82cm;
+	height: 2.3cm;
+
+	border-style: solid;
+	border-width: 0.10cm;
+	border-color: #6B8E23;
+	background-color: #8AA886;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	-webkit-box-shadow: 2px 2px 6px #2E2E2E;
+	-moz-box-shadow: 2px 2px 6px #2E2E2E;
+	box-shadow: 2px 2px 6px #2E2E2E;
+}
+
+.pektisInfo {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+
+	width: 1.0cm;
+	height: 1.0cm;
+
+	cursor: pointer;
+}
+
+.pektisPhotoContainer {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	display: none;
+	z-index: 1;
+
+	max-width: 4.3cm;
+	height: 2.3cm;
+
+	overflow: hidden;
+}
+
+.pektisPhoto {
+	float: right;
+	height: 2.3cm;
+
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+.pektis1Main {
+	top: auto;
+	bottom: 0px;
+}
+
+.pektis1MainAkri {
+	width: 4.3cm;
+}
+
+.pektisName {
+	font-size: 0.76cm;
+	font-weight: bold;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.pektisGone {
+	margin-left: 15%;
+	margin-right: 15%;
+	width: 70%;
+	
+}
+
+.dealerIcon {
+	position: absolute;
+	top: 0.0cm;
+	left: -0.5cm;
+	width: 1.0cm;
+}
+
+.protosIcon {
+	position: absolute;
+	top: 0.0cm;
+	left: -0.5cm;
+	width: 1.1cm;
+}
+
+.maziIcon {
+	position: absolute;
+	top: 1.1cm;
+	left: -0.5cm;
+	width: 1.1cm;
+}
+
+.claimIcon {
+	position: absolute;
+	top: 0.0cm;
+	right: -0.4cm;
+	width: 1.1cm;
+}
+
+.kapikiaArea {
+	position: absolute;
+	top: 0.84cm;
+	font-size: 0.40cm;
+	text-align: center;
+	overflow: hidden;
+	width: 100%;
+	padding-top: 0.05cm;
+/*
+	background-color: teal;
+*/
+}
+
+.kapikia {
+	font-style: italic;
+	padding-right: 0.2cm;
+	color: #666633;
+}
+
+.kapikiaIcon {
+	height: 0.46cm;
+}
+
+.kapikiaSin {
+	font-weight: bold;
+	color: #003366;
+}
+
+.kapikiaMion {
+	font-weight: bold;
+	color: #B20000;
+}
+
+.theatisArea {
+	position: absolute;
+	left: 0.2cm;
+	top: 4.0cm;
+	font-size: 0.38cm;
+	font-style: italic;
+
+	width: 2.6cm;
+	max-width: 3.0cm;
+	max-height: 4.3cm;
+	overflow: hidden;
+}
+
+.theatisData {
+	position: relative;
+	white-space: nowrap;
+
+	border-style: solid;
+	border-width: 1px;
+	border-color: #928864;
+
+	background-color: #B7AA7D;
+
+	margin-bottom: 1px;
+	padding-left: 3px;
+	padding-bottom: 2px;
+
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.theatisProsklisi {
+	position: absolute;
+	right: 0.1cm;
+	top: 0.05cm;
+	width: 0.4cm;
+
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+}
+
+.kafenio {
+	position: relative;
+	font-size: 0.4cm;
+	letter-spacing: 0.01cm;
+}
+
+.kafenioRebels {
+	width: 12.7cm;
+	min-width: 12.7cm;
+	max-width: 12.7cm;
+
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.kafenioTrapeziLine {
+	margin-top: 0.2cm;
+	margin-bottom: 0px;
+
+	width: 12.7cm;
+	min-width: 12.7cm;
+	max-width: 12.7cm;
+}
+
+.kafenioTrapezi {
+	position: relative;
+	color: #333333;
+	margin-top: 0.2cm;
+
+	padding-top: 0.2cm;
+	padding-bottom: 0.12cm;
+
+	width: 12.7cm;
+	min-width: 12.7cm;
+	max-width: 12.7cm;
+
+	height: 0.8cm;
+	min-height: 0.8cm;
+	max-height: 0.8cm;
+
+	margin-left: auto;
+	margin-right: auto;
+
+	border-style: dotted;
+	border-width: 0.085cm;
+	border-color: #4D944D;
+
+	background-image: url('../images/trapeziPartida.jpg');
+	background-repeat: repeat;
+
+	-webkit-box-shadow: 2px 2px 6px #2E2E2E;
+	-moz-box-shadow: 2px 2px 6px #2E2E2E;
+	box-shadow: 2px 2px 6px #2E2E2E;
+}
+
+.kafenioTrapeziPrive {
+	border-style: solid;
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+}
+
+.kafenioTrapeziAttrArea {
+	position: absolute;
+	left: 0.1cm;
+	top: 0.90cm;
+}
+
+.kafenioTrapeziAttrIcon {
+	width: 0.6cm;
+}
+
+.kafenioTrapeziTheatis {
+	border-color: #928864;
+	background-image: url('../images/trapeziTheatis.jpg');
+}
+
+.kafenioFotismeno {
+	color: #111111;
+	font-weight: bold;
+}
+
+.kafenioBox {
+	position: relative;
+	display: inline-block;
+	margin-right: 0.2cm;
+	text-align: center;
+
+	padding-top: 0.02cm;
+	padding-bottom: 0.08cm;
+
+	width: 2.8cm;
+	min-width: 2.8cm;
+	max-width: 2.8cm;
+
+	border-width: 0.08cm;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.kafenioTrapeziInfo {
+	border-style: dotted;
+	border-color: #8AA886;
+}
+
+.kafenioTrapeziInfoTheatis {
+	border-color: #B7AA7D;
+}
+
+.kafenioPektis {
+	border-style: solid;
+	border-color: #6B8E23;
+
+	background-color: #8AA886;
+
+	-webkit-box-shadow: 2px 2px 6px #2E2E2E;
+	-moz-box-shadow: 2px 2px 6px #2E2E2E;
+	box-shadow: 2px 2px 6px #2E2E2E;
+}
+
+.noshadow {
+	-webkit-box-shadow: 0px 0px 0px #FFFFFF;
+	-moz-box-shadow: 0px 0px 0px #FFFFFF;
+	box-shadow: 0px 0px 0px #FFFFFF;
+}
+
+.kafenioBoxData {
+	max-width: 2.8cm;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.theatis {
+	border-color: #928864;
+	background-color: #B7AA7D;
+}
+
+.kafenioFilos {
+	color: #006600;
+	background-color: #FFB84D;
+	font-weight: bold;
+}
+
+.keniThesi {
+	border-style: dotted;
+	border-color: #928864;
+}
+
+.ego {
+	color: #003366;
+	font-weight: bold;
+	background-color: #FFFF99;
+}
+
+.katazitoumenos {
+	color: #003366;
+	font-weight: bold;
+	background-color: #FFF0D1;
+}
+
+.offline {
+	border-style: dotted;
+}
+
+.oxiApodoxi {
+	border-color: #B22222;
+}
+
+.apodoxi {
+	border-color: #6B8E23;
+}
+
+.voithao {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+.paso {
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	background-image: url('../images/diagrafi.png');
+	background-repeat: repeat;
+}
+
+.pasoTheatis {
+	background-image: url('../images/diagrafiTheatis.png');
+}
+
+.epomenos {
+	border-color: #FFD700;
+}
+
+.rebelos {
+	margin-top: 0.2cm;
+}
+
+.controlPanelColumn {
+	width: 1px;
+	vertical-align: top;
+	border-style: dotted;
+	border-width: 1px;
+	border-color: #E0E0D1;
+}
+
+.controlPanelIcon {
+	border-style: dotted;
+	border-width: 1px;
+	border-color: #FFFFFF;
+	width: 0.80cm;
+	margin-bottom: 0.35cm;
+	cursor: pointer;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #FFFFFF;
+}
+
+.emoticonsColumn {
+	width: 1px;
+	display: none;
+	vertical-align: top;
+	border-style: dotted;
+	border-width: 1px;
+	border-color: #E0E0D1;
+}
+
+.emoticonsIcon {
+	width: 0.80cm;
+	margin-bottom: 0.35cm;
+	cursor: pointer;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.pssColumn {
+	width: 1px;
+	vertical-align: top;
+	padding-left: 0.1cm;
+}
+
+.pss {
+	width: 9.6cm;
+	min-width: 9.6cm;
+	max-width: 9.6cm;
+}
+
+.pssFardi {
+	width: 21.5cm;
+	min-width: 21.5cm;
+	max-width: 21.5cm;
+}
+
+.pssHeaderArea {
+	font-style: italic;
+	height: 0.7cm;
+	margin-bottom: 0.04cm;
+}
+
+.pssArea {
+	margin-bottom: 0.04cm;
+	border-style: solid;
+	border-width: 2px 1px 1px 2px;
+	border-color: #CCCCCC #999966 #999966 #CCCCCC;
+	overflow-y: auto;
+	overflow-x: auto;
+	white-space: nowrap;
+	background-image: url('../images/pss.jpg');
+	background-repeat: repeat;
+}
+
+.pssIcon {
+	margin-bottom: -0.15cm;
+	margin-left: 0.2cm;
+	margin-right: 0.2cm;
+	width: 0.65cm;
+	cursor: pointer;
+}
+
+.pssSizitisiIcon {
+	margin-left: 0.07cm;
+	margin-right: 0.07cm;
+}
+
+.pssSizing {
+	float: right;
+	display: inline-block;
+}
+
+.pssSizingIcon {
+	margin-left: 0.2cm;
+	margin-right: 0.2cm;
+	width: 0.5cm;
+	cursor: pointer;
+	background-color: #FFFFFF;
+	margin-bottom: -0.2cm;
+}
+
+.pssInput {
+	font-size: 0.39cm;
+}
+
+.prosklisiArea {
+	height: 3cm;
+	max-height: 3cm;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.prosklisiLine {
+	height: 0.76cm;
+	max-height: 0.76cm;
+	min-height: 0.76cm;
+}
+
+.prosklisiData {
+	display: inline-block;
+	font-weight: bold;
+	color: #003366;
+}
+
+.prosklisiApo {
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+}
+
+.prosklisiIcon {
+	height: 0.7cm;
+	width: 0.66cm;
+	margin-right: 0.16cm;
+	margin-bottom: -0.23cm;
+	cursor: pointer;
+}
+
+.sxesiArea {
+	height: 3.3cm;
+	max-height: 4.3cm;
+	font-size: 0.45cm;
+	white-space: nowrap;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.sxesiLine {
+	height: 0.8cm;
+	max-height: 0.8cm;
+}
+
+.sxesiData {
+	display: inline-block;
+	font-weight: bold;
+	color: #003366;
+}
+
+.sxesiDiathesimotita {
+	height: 0.66cm;
+	width: 0.66cm;
+	padding-top: 0.07cm;
+	margin-right: 0.15cm;
+	margin-bottom: -0.2cm;
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+	cursor: default;
+}
+
+.sxesiIcon {
+	height: 0.7cm;
+	width: 0.66cm;
+	margin-right: 0.15cm;
+	margin-bottom: -0.2cm;
+	cursor: pointer;
+}
+
+.sxesiFilos {
+	color: #006600;
+}
+
+.sxesiApoklismenos {
+	color: #990000;
+}
+
+.sxesiAsxetos {
+	color: #333300;
+}
+
+.sxesiOffline {
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+}
+
+.sizitisiArea {
+	height: 4.7cm;
+	max-height: 4.7cm;
+	overflow-y: auto;
+	overflow-x: hidden;
+	white-space: normal;
+	user-select: text;
+	-moz-user-select: text;
+	-webkit-user-select: text;
+	-o-user-select: text;
+	-khtml-user-select: text;
+	-ms-user-select: text;
+}
+
+.sizitisiSxolio {
+	position: relative;
+	font-size: 0.36cm;
+	letter-spacing: 0px;
+	margin-bottom: 0.1cm;
+	margin-left: 0.5cm;
+}
+
+.sizitisiPreviewLine {
+	border-style: dotted;
+	border-width: 1px 0px 0px 0px;
+	border-color: #999966;
+	height: 1px;
+	max-height: 1px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.sizitisiPreview {
+	color: #003366;
+}
+
+.sizitisiPektis {
+	display: inline-block;
+	font-weight: bold;
+	font-style: italic;
+	padding-right: 0.2cm;
+	margin-left: -0.5cm;
+}
+
+.sizitisiEmoticon {
+	width: 0.8cm;
+}
+
+.sizitisiFunchatImage {
+	max-width: 8.0cm;
+}
+
+.sizitisiOra {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	color: #999966;
+	background-color: #FFFFFF;
+	padding-left: 0.5em;
+	max-width: 0;
+	overflow: hidden;
+	visibility: hidden;
+}
+
+.moliviPartida {
+	width: 1.2cm;
+	min-width: 1.2cm;
+	max-width: 1.2cm;
+	height: 0.4cm;
+	max-height: 0.4cm;
+	min-height: 0.4cm;
+}
+
+.moliviKafenio {
+	width: 1.4cm;
+	min-width: 1.4cm;
+	max-width: 1.4cm;
+	height: 0.3cm;
+	max-height: 0.3cm;
+	min-height: 0.3cm;
+}
+
+.kafedaki {
+	border-style: dotted;
+	border-width: 2px;
+	border-color: #999900;
+	padding: 0.2cm;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 0.5cm;
+	background-color: #FFFF99;
+	color: #333300;
+	z-index: 10;
+}
+
+.permesArea {
+	color: #003366;
+	height: 1.1em;
+	margin-top: 0px;
+	margin-bottom: 0.1cm;
+	text-align: right;
+	cursor: pointer;
+}
+
+.permesData {
+	background-color: #FFFF80;
+}
+
+.permes0 {
+	color: #003366;
+	margin-right: 0.2cm;
+	font-style: normal;
+	margin-right: 1.2cm;
+}
+
+.permes1 {
+	color: #FF1919;
+	margin-right: 0.2cm;
+	font-style: italic;
+	margin-right: 1.2cm;
+}
+
+.permesPektis {
+	font-weight: bold;
+	margin-right: 0.2cm;
+}
+
+.permesPektis0 {
+	color: #FF1919;
+}
+
+.permesPektis1 {
+	color: #003366;
+}
+
+.permesDate {
+	margin-left: 0.2cm;
+	margin-right: 0.2cm;
+	font-style: normal;
+	font-size: 90%;
+	color: #000000;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+}
+
+.trapoulaParousiasi {
+	text-align: center;
+}
+
+.trapoulaFilo {
+	width: 1.4cm;
+}
+
+.monitor {
+	color: #B8B894;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 0.8em;
+	cursor: default;
+	background-color: #FFFFFF;
+}
+
+.monitorSinedria {
+	margin-left: 0.3em;
+	font-size: 90%;
+	color: #336600;
+	cursor: default;
+}
+
+.monitorId {
+	font-size: 90%;
+	color: #CC9900;
+	cursor: default;
+}
+
+.epilogi {
+	display: inline-block;
+	padding-left: 0.2cm;
+	padding-right: 0.2cm;
+	padding-top: 0.04cm;
+	padding-bottom: 0.08cm;
+	text-align: center;
+
+	font-size: 0.5cm;
+/*
+font-weight: bold;
+*/
+font-weight: normal;
+	font-family: "Comic Sans MS", cursive;
+	font-style: normal;
+
+	border-style: solid;
+	border-width: 2px;
+	border-color: #5D7247;
+	border-color: #A3C266;
+	background-color: #FFFF99;
+
+	cursor: pointer;
+}
+
+.epilogiOxi {
+	opacity: 0.4;
+	filter: alpha(opacity=40);
+	cursor: auto;
+}
+
+.epilogiData {
+	margin-top: -0.06cm;
+}
+
+.epilogiSolo {
+	width: 2.0cm;
+	color: red;
+}
+
+.epilogiXromaIcon {
+	height: 0.40cm;
+}
+
+.epilogiAnamoni {
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	cursor: wait;
+}
+
+.fila1Area {
+	position: absolute;
+	bottom: 0.66cm;
+	left: 4.9cm;
+	text-align: center;
+	width: 8.4cm;
+/*
+	background-color: teal;
+*/
+}
+
+.filaSira {
+	position: relative;
+	display: inline-block;
+	margin-left: -1.44cm;
+	width: 2.1cm;
+	height: 3.0cm;
+}
+
+.filaSiraSteno {
+	margin-left: -1.34cm;
+}
+
+.filaSiraIcon {
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	width: 2.1cm;
+	height: 2.96cm;
+	cursor: pointer;
+	transition: bottom 100ms;
+	-webkit-transition: bottom 100ms;
+	-moz-transition: bottom 100ms;
+	-o-transition: bottom 100ms;
+}
+
+.filoSteno {
+	width: 1.9cm;
+}
+
+.filoSkia {
+	-webkit-box-shadow: -0.04cm 0px 0.08cm #585858;
+	-moz-box-shadow: -0.04cm 0px 0.08cm #585858;
+	box-shadow: -0.04cm 0px 0.08cm #585858;
+}
+
+.filoDiaxorM {
+	border-style: outset;
+	border-width: 0px 0px 0px 4px;
+	border-color: #FF9696;
+}
+
+.filoDiaxorK {
+	border-style: outset;
+	border-width: 0px 0px 0px 4px;
+	border-color: #66FF33;
+}
+
+.gipedo {
+	position: absolute;
+	top: 4.0cm;
+	left: 3.6cm;
+
+	width: 9.66cm;
+	height: 4.6cm;
+
+	font-size: 0.42cm;
+	font-style: italic;
+	font-weight: bold;
+	text-align: left;
+/*
+	background-color: magenta;
+*/
+}
+
+.gipedoTextIcon {
+	display: inline-block;
+	width: 0.44cm;
+	margin-bottom: -0.1cm;
+	white-space: nowrap;
+}
+
+.tzogosIcon {
+	position: absolute;
+	top: 0.6cm;
+	left: 1.0cm;
+	width: 4.0cm;
+}
+
+.telosAlert {
+	position: absolute;
+	top: -0.8cm;
+	left: -2.4cm;
+	width: 11.7cm;
+
+	padding: 0.1cm 0.2cm 0.1cm 0.2cm;
+	font-size: 0.4cm;
+	line-height: 0.54cm;
+
+	font-size: 100%;
+	font-weight: normal;
+	background-color: #FFB280;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	-webkit-box-shadow: 3px 3px 6px #3E3E3E;
+	-moz-box-shadow: 3px 3px 6px #3E3E3E;
+	box-shadow: 3px 3px 6px #3E3E3E;
+
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+
+	cursor: pointer;
+	z-index: 2;
+}
+
+.gipedoProvlimaIcon {
+	position: absolute;
+	top: 0.4cm;
+	left: -3.4cm;
+	width: 2.8cm;
+}
+
+.protasiArea {
+	position: absolute;
+	top: 1.0cm;
+	left: 5.4cm;
+	width: 3.8cm;
+}
+
+.protasi {
+	width: 100%;
+	margin-bottom: 0.2cm;
+	font-size: 0.6cm;
+	border-width: 2px;
+}
+
+.protasiKeno {
+	margin-top: -0.4cm;
+}
+
+.protasiBazes {
+	display: inline-block;
+	font-weight: bold;
+}
+
+.protasiXroma {
+	display: inline-block;
+	height: 0.6cm;
+}
+
+.dilosiArea {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 0.8cm;
+/*
+	background-color: teal;
+*/
+
+	font-family: "Comic Sans MS", cursive;
+	font-size: 0.60cm;
+	padding-bottom: 0.1cm;
+}
+
+.dilosiPekti {
+	font-weight: bold;
+	text-align: center;
+}
+
+.dilosiPaso {
+	font-size: 80%;
+	padding-top: 0.14cm;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+}
+
+.dilosiAgora {
+	background-color: #FFFF99;
+}
+
+.pasoSimetoxi {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	text-align: center;
+
+	font-family: "Comic Sans MS", cursive;
+	font-size: 0.50cm;
+	font-weight: bold;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.pasoSimetoxi3 {
+	bottom: 0;
+}
+
+.pasoSimetoxi2 {
+	bottom: 0;
+}
+
+.pasoSimetoxi1 {
+	top: 0;
+}
+
+.simetoxiPaso {
+	background-color: #FF9966;
+}
+
+/*
+Εμφανίζεται στην περιοχή δήλωσης συμμετοχής
+κατά τη διάρκεια της σκέψης στην αρχική φάση
+των δηλώσεων αγοράς.
+*/
+
+.simetoxiDilosi {
+	background-color: #66A3A3;
+}
+
+.skepsiBazes {
+	display: inline-block;
+	font: 0.4cm;
+}
+
+.skepsiXroma {
+	width: 0.5cm;
+	height: 0.45cm;
+}
+
+.simetoxiArea {
+	position: absolute;
+	top: 1.2cm;
+	right: 0.4cm;
+	width: 2.4cm;
+}
+
+.simetoxiEpilogi {
+	width: 100%;
+	margin-top: 0.2cm;
+	padding: 0px;
+}
+
+.simetoxi {
+	color: yellow;
+}
+
+.simetoxiMazi {
+	background-color: #5F9EA0;
+}
+
+.simetoxiMonos {
+	background-color: #CD5C5C;
+}
+
+.simetoxiPezo {
+	background-color: #70944D;
+}
+
+.simetoxiVoithao {
+	background-color: #70944D;
+}
+
+.rologakiIcon {
+	position: absolute;
+	bottom: 0.1cm;
+	right: 0.1cm;
+	width: 0.7cm;
+}
+
+.pektisTzogosIcon {
+	position: absolute;
+	bottom: 0.1cm;
+	left: 0.1cm;
+	width: 1.0cm;
+}
+
+.anamoniTzogosIcon {
+	position: absolute;
+	bottom: 0.3cm;
+	left: 0.3cm;
+	width: 0.3cm;
+}
+
+.protasiAgora {
+	width: 1.3cm;
+	height: 0.57cm;
+	margin-bottom: 0.1cm;
+	margin-right: 0.2cm;
+	font-size: 0.42cm;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.protasiAgoraBazes {
+	display: inline-block;
+/*
+font-weight: bold;
+*/
+}
+
+.protasiAgoraXroma {
+	display: inline-block;
+	height: 0.38cm;
+}
+
+.protasiAgoraOxi {
+	opacity: 0.4;
+	filter: alpha(opacity=40);
+	background-image: url('../images/diagrafiSmall.png');
+	background-repeat: repeat;
+	cursor: auto;
+}
+
+.spotAsoi {
+	position: absolute;
+	top: 1.0cm;
+	right: 0.1cm;
+	width: 1.4cm;
+}
+
+.baza {
+	position: absolute;
+	top: 0.0cm;
+	left: 0.0cm;
+}
+
+.bazaFilo {
+	width: 2.1cm;
+}
+
+.bazaFiloSkia {
+	-webkit-box-shadow: -0.04cm -0.04cm 0.1cm #2E2E2E;
+	-moz-box-shadow: -0.04cm -0.04cm 0.1cm #2E2E2E;
+	box-shadow: -0.04cm -0.04cm 0.1cm #2E2E2E;
+}
+
+.bazaFilo3 {
+	position: absolute;
+	top: 0.6cm;
+	left: 1.2cm;
+}
+
+.bazaFilo2 {
+	position: absolute;
+	top: 0.2cm;
+	left: 2.8cm;
+}
+
+.bazaFilo1 {
+	position: absolute;
+	top: 1.4cm;
+	left: 2.0cm;
+}
+
+.pektisBazaArea {
+	position: absolute;
+	display: inline-block;
+}
+
+.pektisBazaArea1 {
+	left: 0px;
+	top: 0.14cm;
+}
+
+.pektisBazaArea2 {
+	right: 0px;
+	bottom: 0.08cm;
+}
+
+.pektisBazaArea3 {
+	left: 0px;
+	bottom: 0.08cm;
+}
+
+.pektisBazaIcon {
+	width: 0.44cm;
+}
+
+.velos3 {
+	position: absolute;
+	bottom: -0.8cm;
+	left: 3.4cm;
+	z-index: 1;
+}
+
+.velos2 {
+	position: absolute;
+	bottom: -0.5cm;
+	left: 1.2cm;
+	z-index: 1;
+}
+
+.velos1 {
+	position: absolute;
+	bottom: 2.7cm;
+	left: 4.2cm;
+	z-index: 1;
+}
+
+.claim {
+	margin-bottom: 0.2cm;
+	font-size: 0.6cm;
+	border-width: 2px;
+}
+
+.claimYes {
+	position: absolute;
+	top: 0.4cm;
+	right: 0.2cm;
+}
+
+.claimNo {
+	position: absolute;
+	top: 1.8cm;
+	right: 0.2cm;
+	color: #FF0000;
+}
+
+.axno {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+.dixeTzogo {
+	position: absolute;
+	bottom: 1.0cm;
+	left: 1.6cm;
+}
+
+.dixeTzogoIcon {
+	width: 2.0cm;
+	margin-right: 0.2cm;
+
+	-webkit-box-shadow: 3px 3px 6px #3E3E3E;
+	-moz-box-shadow: 3px 3px 6px #3E3E3E;
+	box-shadow: 3px 3px 6px #3E3E3E;
+}
+
+.dixeTzogoIcon1 {
+	transform: rotate(-10deg);
+	-moz-transform: rotate(-10deg);
+	-webkit-transform: rotate(-10deg);
+	-o-transform: rotate(-10deg);
+	-ms-transform: rotate(-10deg);
+}
+
+.dixeTzogoIcon2 {
+	transform: rotate(10deg);
+	-moz-transform: rotate(10deg);
+	-webkit-transform: rotate(10deg);
+	-o-transform: rotate(10deg);
+	-ms-transform: rotate(10deg);
+	margin-left: -0.8cm;
+}
+
+.telefteaBaza {
+	position: relative;
+	top: 3.4cm;
+	left: 9.1cm;
+	border-style: solid;
+	border-color: #61767A;
+	background-image: url('../images/telefteaBaza.jpg');
+	width: 4.1cm;
+	height: 4.4cm;
+	z-index: -1;
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+}
+
+.telefteaBazaFilo3 {
+	position: absolute;
+	top: 0.6cm;
+	left: 0.2cm;
+}
+
+.telefteaBazaFilo2 {
+	position: absolute;
+	top: 0.2cm;
+	left: 1.8cm;
+}
+
+.telefteaBazaFilo1 {
+	position: absolute;
+	top: 1.4cm;
+	left: 1.0cm;
+}
+
+.galleryPhoto {
+	position: absolute;
+	top: 3.4cm;
+	left: 0.6cm;
+	width: 12.4cm;
+	cursor: pointer;
+	opacity: 0.0;
+	filter: alpha(opacity=0);
+}
+
+.telos {
+	position: absolute;
+	top: -0.2cm;
+	left: -0.13cm;
+	z-index: 10;
+	opacity: 0.3;
+	filter: alpha(opacity=30);
+	cursor: pointer;
+}
+
+.motto {
+	position: absolute;
+	top: 6.0cm;
+	left: 1.0cm;
+	display: none;
+	margin-right: 1.0cm;
+	z-index: 20;
+
+	font-family: "Comic Sans MS", cursive;
+	color: #005A5A;
+
+	background-color: #FFFFFF;
+	background-repeat: repeat;
+	padding: 0.2cm 0.4cm 0.2cm 0.4cm;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #999966;
+	cursor: pointer;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	-webkit-box-shadow: 3px 3px 6px #3E3E3E;
+	-moz-box-shadow: 3px 3px 6px #3E3E3E;
+	box-shadow: 3px 3px 6px #3E3E3E;
+
+	user-select: text;
+	-moz-user-select: text;
+	-webkit-user-select: text;
+	-o-user-select: text;
+	-khtml-user-select: text;
+	-ms-user-select: text;
+}
+
+.mottoAuthor {
+	margin-top: 0.2cm;
+	font-style: italic;
+	color: #DC143C;
+	text-align: right;
+}
+
+.dialogos {
+	position: absolute;
+	top: 5.5cm;
+	left: 3.4cm;
+	display: none;
+	z-index: 10;
+
+	font-style: italic;
+
+	padding: 0.4cm 0.6cm 0.6cm 0.6cm;
+	border-style: double;
+	border-width: 3px;
+	border-color: #999966;
+	background-color: #FFEB99;
+	background-color: #FFF0B2;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	-webkit-box-shadow: 2px 2px 3px #656565;
+	-moz-box-shadow: 2px 2px 3px #656565;
+	box-shadow: 2px 2px 3px #656565;
+}
+
+.dialogosYesNo {
+	display: inline;
+
+	font-style: normal;
+	background-color: #FFFF99;
+
+	border-width: 1px;
+	border-style: outset;
+	padding: 0.1cm 0.2cm 0.1cm 0.2cm;
+	margin-right: 1.0cm;
+
+	cursor: pointer;
+}
+
+.dialogosAsoiArea {
+	display: inline;
+	width: 3.0cm;
+	margin-right: 1.0cm;
+}
+
+.dialogosAsoiIcon {
+	width: 1.0cm;
+	margin-bottom: -0.2cm;
+}
+
+.dialogosAsoiOff {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}

@@ -1,0 +1,48 @@
+th {
+	padding: 0 0.2cm 0 0.2cm;
+}
+
+td {
+	padding: 0.1cm 0.2cm 0 0.2cm;
+}
+
+.statsEpikefalida {
+	color: #003399;
+	background-color: #FDC953;
+}
+
+.statsAa {
+	font-weight: bold;
+	color: #003399;
+}
+
+.statsPektis {
+	font-weight: bold;
+}
+
+.statsEgo {
+	background-color: #99ADC2;
+}
+
+.statsPlithos {
+	text-align: right;
+	font-family: "Lucida Console", "Monaco", monospace;
+}
+
+.statsBathmos {
+	font-weight: bold;
+	text-align: right;
+	font-family: "Lucida Console", "Monaco", monospace;
+}
+
+.statsThetikos {
+	color: green;
+}
+
+.statsArnitikos {
+	color: red;
+}
+
+.statsPano {
+	width: 0.4cm;
+}
