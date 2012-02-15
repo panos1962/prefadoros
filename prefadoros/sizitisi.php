@@ -472,8 +472,8 @@ class Sizitisi {
 		return (@mysqli_affected_rows($globals->db));
 	}
 
-	// Η μέθοδος "set_dirty" θέτει το πεδίο "sizitisidirty" σε 'YES' για όλες
-	// τις συνεδρίες που δεν το έχουν 'YES'. Για λόγους που αφορούν στο μολύβι
+	// Η μέθοδος "set_dirty" θέτει το πεδίο "sizitisidirty" σε 2 για όλες
+	// τις συνεδρίες που δεν το έχουν 2. Για λόγους που αφορούν στο μολύβι
 	// δίνεται η δυνατότητα να ενημερώσουμε μόνο τις συνεδρίες των άλλων παικτών
 	// περνώντας μια false τιμή.
 
@@ -483,11 +483,10 @@ class Sizitisi {
 		static $stmnt2 = NULL;
 		$errmsg = "Sizitisi::set_dirty(): ";
 
-$ola = TRUE;
 		if ($ola) {
 			if ($stmnt1 == NULL) {
-				$query = "UPDATE `sinedria` SET `sizitisidirty` = 'YES' " .
-					"WHERE `sizitisidirty` <> 'YES'";
+				$query = "UPDATE `sinedria` SET `sizitisidirty` = 2 " .
+					"WHERE `sizitisidirty` <> 2";
 				$stmnt1 = $globals->db->prepare($query);
 				if (!$stmnt1) {
 					$globals->klise_fige($errmsg . $query . ": failed to prepare");
@@ -498,8 +497,8 @@ $ola = TRUE;
 		}
 		else {
 			if ($stmnt2 == NULL) {
-				$query = "UPDATE `sinedria` SET `sizitisidirty` = 'YES' " .
-					"WHERE (`sizitisidirty` <> 'YES') AND " .
+				$query = "UPDATE `sinedria` SET `sizitisidirty` = 2 " .
+					"WHERE (`sizitisidirty` <> 2) AND " .
 					"(`pektis` != BINARY " . $globals->pektis->slogin . ")";
 				$stmnt2 = $globals->db->prepare($query);
 				if (!$stmnt2) {
