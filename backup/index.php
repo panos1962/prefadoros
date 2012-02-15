@@ -17,6 +17,11 @@ Page::fyi();
 		<div class="backupEpikefalida">
 			<span class="data">Database backup</span>
 		</div>
+		<div style="width: 60%; margin-left: auto; margin-right: auto; background-color: #D6D6C2;">
+		<span style="font-weight: normal; font-style: italic;">Από τραπέζι</span>
+		<input id="apoTrapezi" type="text" value="100" size="10" maxlength="10"
+			onchange="Backup.checkApoTrapezi();" />
+		</div>
 	</th>
 </tr>
 <tr>
@@ -86,7 +91,7 @@ Page::fyi();
 	<td class="backupStatus">
 	</td>
 	<td id="ekinisi" class="backupPinakas" colspan="100">
-		<button class="backupButton" type="button"
+		<button id="startupButton" class="backupButton" type="button"
 			onclick="return Backup.ekinisi();">Start backup</button>
 	</td>
 </tr>

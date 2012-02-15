@@ -82,10 +82,11 @@ function backup_minima() {
 function backup_trapezi() {
 	global $globals;
 
+	$trapezi = apo_trapezi();
 	$fp = anixe_arxio("trapezi");
 	$query = "SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3`, " .
-		"`pasopasopaso`, `asoi`, `stisimo`, `telos` " .
-		"FROM `trapezi_log` ORDER BY `kodikos`";
+		"`pasopasopaso`, `asoi`, `stisimo`, `telos` FROM `trapezi_log` " .
+		"WHERE `kodikos` >= " . $trapezi . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
@@ -97,10 +98,11 @@ function backup_trapezi() {
 function backup_dianomi() {
 	global $globals;
 
+	$trapezi = apo_trapezi();
 	$fp = anixe_arxio("dianomi");
 	$query = "SELECT `kodikos`, `trapezi`, `dealer`, `kasa1`, `metrita1`, " .
-		"`kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi`" .
-		"FROM `dianomi_log` ORDER BY `kodikos`";
+		"`kasa2`, `metrita2`, `kasa3`, `metrita3`, `enarxi` FROM `dianomi_log` " .
+		"WHERE `trapezi` >= " . $trapezi . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
@@ -112,9 +114,11 @@ function backup_dianomi() {
 function backup_kinisi() {
 	global $globals;
 
+	$trapezi = apo_trapezi();
 	$fp = anixe_arxio("kinisi");
 	$query = "SELECT `kodikos`, `dianomi`, `pektis`, `idos`, `data`, `pote` " .
-		"FROM `kinisi_log` ORDER BY `kodikos`";
+		"FROM `kinisi_log` WHERE `dianomi` IN (SELECT `kodikos` " .
+		"FROM `dianomi_log` WHERE `trapezi` >= " . $trapezi . ") ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
@@ -135,6 +139,21 @@ function backup_sinedria() {
 	}
 	fclose($fp);
 	print_data($count);
+}
+
+function apo_trapezi() {
+	global $globals;
+
+	if (!Globals::perastike('trapezi')) {
+		return 1;
+	}
+
+	$trapezi = $_REQUEST['trapezi'];
+	if (preg_match("/^[0-9]+$/", $trapezi)) {
+		return $trapezi;
+	}
+
+	$globals->klise_fige($trapezi . ": λάθος αριθμός πρώτου τραπεζιού");
 }
 
 function count_ola($pinakas) {

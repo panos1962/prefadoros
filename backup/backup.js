@@ -5,7 +5,6 @@ Backup.ekinisi = function() {
 	if (notSet(x)) { return false; }
 	x.innerHTML = '<img src="' + globals.server +
 		'images/elika.gif" class="backupButton" alt="" />';
-
 	Backup.pinakas('pektis');
 	return false;
 };
@@ -23,6 +22,21 @@ Backup.pinakas = function(pinakas) {
 	Backup.exec(pinakas)
 };
 
+Backup.checkApoTrapezi = function() {
+	var x = getelid('apoTrapezi');
+	if (notSet(x)) { return false; }
+	if (!x.value.match(/^[0-9]+$/)) {
+		mainFyi('Δώστε τον αριθμό τραπεζιού από το οποίο και μετά θα παραχθύν δεδομένα');
+		x.select();
+		return false;
+	}
+
+	x = getelid('startupButton');
+	if (notSet(x)) { return false; }
+	x.focus();
+	return false;
+};
+
 Backup.exec = function(pinakas) {
 	var req = new Request('backup/exec');
 	req.xhr.onreadystatechange = function() {
@@ -30,9 +44,17 @@ Backup.exec = function(pinakas) {
 	};
 
 	var params = 'pinakas=' + uri(pinakas);
+	switch (pinakas) {
+	case 'trapezi':
+	case 'dianomi':
+	case 'kinisi':
+		var x = getelid('apoTrapezi');
+		if (isSet(x)) { params += '&trapezi=' + x.value; }
+		break;
+	}
 	req.send(params);
 
-	var x = getelid(pinakas + 'Count');
+	x = getelid(pinakas + 'Count');
 	if (notSet(x)) { return; }
 	x.innerHTML = '<img style="width: 2.2cm;" src="' + globals.server +
 		'images/riges.gif" alt="" />';
@@ -44,6 +66,7 @@ Backup.execCheck = function(pinakas, req) {
 	var x = rsp.split(':');
 	if ((x.length != 2) || (x[1] != 'ok')) {
 		alert(rsp);
+		window.location.reload();
 		return;
 	}
 	var count = parseInt(x[0]);
@@ -87,4 +110,8 @@ Backup.execCheck = function(pinakas, req) {
 
 window.onload = function() {
 	init();
+
+	var x = getelid('apoTrapezi');
+	if (notSet(x)) { return; }
+	x.select();
 };
