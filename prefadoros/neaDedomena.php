@@ -448,7 +448,7 @@ class Sinedria {
 		unset($this->enimerosi);
 		unset($this->peknpat);
 		unset($this->pekstat);
-		$this->sizitisidirty = 0;
+		unset($this->sizitisidirty);
 
 		if ($stmnt == NULL) {
 			$query = "SELECT `enimerosi`, `peknpat`, `pekstat`, `sizitisidirty` " .
@@ -475,9 +475,14 @@ class Sinedria {
 		static $stmnt = NULL;
 		$errmsg = "Sinedria::clear_sizitisidirty(): ";
 
+		if ($this->sizitisidirty <= 0) {
+			return;
+		}
+
+		$this->sizitisidirty--;
 		if ($stmnt == NULL) {
-			$query = "UPDATE `sinedria` SET `sizitisidirty` = `sizitisidirty` - 1 " .
-				"WHERE `kodikos` = " . $this->kodikos;
+			$query = "UPDATE `sinedria` SET `sizitisidirty` = " .
+				$this->sizitisidirty . " WHERE `kodikos` = " . $this->kodikos;
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
 				$globals->klise_fige($errmsg . $query . ": failed to prepare");
