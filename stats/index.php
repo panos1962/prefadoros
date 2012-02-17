@@ -80,7 +80,7 @@ function print_stats($pektis = "") {
 	<table style="margin-top: 0.2cm;">
 	<tr class="statsEpikefalida">
 		<th>
-			Α/Α
+			<span class="nobr">Α/Α</span>
 		</th>
 		<th>
 			Παίκτης
