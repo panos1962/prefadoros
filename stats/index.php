@@ -54,7 +54,7 @@ Page::fyi();
 	title="Εντοπισμός παίκτη" onclick="Stats.reload(getelid('pektis'));" />
 <div style="display: inline-block; margin-left: 0.8cm;">
 (<span style="font-style: italic;">για τη μέθοδο αξιολόγησης διαβάστε
-<a target="_blank" href="<?php print $globals->server; ?>stats/methodos.php?pedi=yes">εδώ</a></span>)
+<a target="_blank" href="http://wp.me/p1wjyj-60">εδώ</a></span>)
 </div>
 <div style="min-height: 12.0cm;">
 	<?php print_stats($pektis); ?>
