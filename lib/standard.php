@@ -56,6 +56,7 @@ class Globals {
 	public $server;
 	public $db;
 	public $administrator;
+	public $phpmyadmin;
 	public $time_dif;
 	public $pektis;
 	public $trapezi;
