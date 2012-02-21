@@ -435,11 +435,6 @@ background-color: magenta;
 	background-image: url('../images/trapeziTheatis.jpg');
 }
 
-.kafenioFotismeno {
-	color: #111111;
-	font-weight: bold;
-}
-
 .kafenioBox {
 	position: relative;
 	display: inline-block;
@@ -500,6 +495,11 @@ background-color: magenta;
 .kafenioFilos {
 	color: #006600;
 	background-color: #FFB84D;
+	font-weight: bold;
+}
+
+.kafenioFotismeno {
+	color: #111111;
 	font-weight: bold;
 }
 
