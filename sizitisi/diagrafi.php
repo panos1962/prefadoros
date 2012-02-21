@@ -10,7 +10,8 @@ set_globals();
 Prefadoros::pektis_check();
 $trapezi = vres_trapezi();
 
-$query = "DELETE FROM `sizitisi` WHERE (`trapezi` = " . $trapezi . ")";
+$query = "DELETE FROM `sizitisi` WHERE (`trapezi` = " . $trapezi . ") " .
+	"AND (`pektis` != BINARY '" . SYSTEM_ACCOUNT . "')";
 if (!Globals::perastike('delall')) {
 	$query .= " AND (`sxolio` NOT REGEXP '^@W[PK]@$') ".
 		"ORDER BY `kodikos` DESC LIMIT 1";
