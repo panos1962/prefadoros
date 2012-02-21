@@ -125,19 +125,27 @@ var Sizitisi = new function() {
 	this.HTML = function(s) {
 		var sxolio = Sizitisi.decode(s);
 		var html = '';
-		if (isPektis() && (s.p == pektis.login)) {
-			var color = Sizitisi.zebraColor[0];
-		}
-		else if (s.p in pektisColor) {
-			color = pektisColor[s.p];
+		if (s.p == globals.systemAccount) {
+			html += '<img src="' + globals.server + 'images/warning.png" ' +
+				'alt="" style="width: 0.6cm; margin-left: -0.5cm; ' +
+				'margin-bottom: -0.14cm;" />';
 		}
 		else {
-			color = (pektisColor[s.p] = Sizitisi.zebraColor[zebraLast]);
-			zebraLast++;
-			if (zebraLast >= Sizitisi.zebraColor.length) { zebraLast = 1; }
+			if (isPektis() && (s.p == pektis.login)) {
+				var color = Sizitisi.zebraColor[0];
+			}
+			else if (s.p in pektisColor) {
+				color = pektisColor[s.p];
+			}
+			else {
+				color = (pektisColor[s.p] = Sizitisi.zebraColor[zebraLast]);
+				zebraLast++;
+				if (zebraLast >= Sizitisi.zebraColor.length) { zebraLast = 1; }
+			}
+			html += '<div class="sizitisiPektis" style="color: #' +
+				color + ';">' + s.p + '</div>';
 		}
-		html += '<div class="sizitisiPektis" style="color: #' +
-			color + ';">' + s.p + '</div>';
+
 		html += sxolio;
 		html += Sizitisi.oraSxoliou(s.k, s.w);
 		return html;

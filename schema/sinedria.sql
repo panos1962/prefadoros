@@ -28,6 +28,10 @@ CREATE TABLE `sinedria` (
 		`kodikos`
 	) USING HASH,
 
+	KEY (
+		`ip`
+	) USING HASH,
+
 	FOREIGN KEY (
 		`pektis`
 	) REFERENCES `pektis` (
