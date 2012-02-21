@@ -144,7 +144,7 @@ function check_idio_ip() {
 	@mysqli_free_result($result);
 
 	$prothema1 = "Ο θεατής <strong>" . $globals->pektis->login .
-		"</strong> ίσως βρίσκεται στον ίδιο χώρο με ";
+		"</strong> ίσως βρίσκεται στον ίδιο φυσικό χώρο με ";
 	$pektes = NULL;
 	$query = "SELECT `pektis` FROM `sinedria` WHERE `ip` = BINARY '" . $row[0] . "'";
 	$result = $globals->sql_query($query);
