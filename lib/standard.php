@@ -351,8 +351,10 @@ class Page {
 		<meta name="description" content="Παίξτε πρέφα on-line!" />
 		<meta name="keywords" content="πρέφα,πρεφαδόρος,πρεφα,πρεφαδορος,prefa,prefadoros" />
 		<meta name="author" content="Panos Papadopoulos" />
-		<meta name="copyright" content="Copyright by Panos Papadopoulos. All rights reserved" />
+		<meta name="copyright" content="Copyright by Panos Papadopoulos. All Rights Reserved." />
 
+		<link rel="icon" type="image/png" href="<?php
+			print $globals->server; ?>images/controlPanel/kitapi.png" />
 		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="<?php
 			print $globals->server; ?>favicon.ico" />
 		<title><?php print $titlos; ?></title>
