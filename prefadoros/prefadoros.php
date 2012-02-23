@@ -44,7 +44,7 @@ class Prefadoros {
 					<script type="text/javascript">
 					var href = window.location.href;
 					window.location = '<?php print $globals->server;
-						?>account/login.php?aftonomo=yes&amp;main=' +
+						?>account/login.php?aftonomo=yes&main=' +
 						encodeURIComponent(href);
 					</script>
 					<?php
