@@ -297,6 +297,12 @@ function set_globals($anonima = FALSE) {
 		$dbuser = 'panos62_pineza';
 		$dbpassword = $dpass;
 		break;
+	case '78.46.77.106':
+		$globals->server = 'http://78.46.77.106/';
+		$dbname = 'prefadoros';
+		$dbuser = 'prefadoros';
+		$dbpassword = $dpass;
+		break;
 	default:
 		Globals::fatal($_SERVER['SERVER_NAME'] . ': unknown server');	
 	}
