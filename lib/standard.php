@@ -48,6 +48,7 @@ else {
 }
 mb_internal_encoding('UTF-8');
 mb_regex_encoding('UTF-8');
+date_default_timezone_set('Europe/Athens');
 global $globals;
 unset($globals);
 
