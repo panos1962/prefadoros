@@ -293,7 +293,7 @@ class Dedomena {
 	private static function open_file($rw) {
 		global $globals;
 
-		$fname = '../dedomena/' . $globals->pektis->login;
+		$fname = "../dedomena/" . $globals->pektis->login;
 		$fh = @fopen($fname, $rw);
 		return($fh);
 	}
