@@ -405,7 +405,7 @@ class Page {
 	public static function diafimisi() {
 		global $globals;
 
-		$diafimisi = @file_get_contents($globals->server . 'diafimisi.html');
+		$diafimisi = @file_get_contents("diafimisi.html");
 		if (!$diafimisi) { return; }
 		?>
 		<div id="diafimisi" class="diafimisiArea"
