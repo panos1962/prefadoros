@@ -190,7 +190,7 @@ class Globals {
 	public static function get_line($fh) {
 		$line = fgets($fh);
 		if ($line) {
-			return(rtrim($line));
+			return(preg_replace("/[\r\n].*/", '', $line));
 		}
 		return(FALSE);
 	}
