@@ -41,13 +41,11 @@ if ($globals->is_pektis()) {
 }
 Page::body();
 if ($globals->is_pektis()) {
-	Prefadoros::pektis_check();
 	if (!Globals::perastike('motd')) {
 		Page::motd();
 	}
 }
 if ($globals->is_pektis()) {
-	Prefadoros::pektis_check();
 	if (!Globals::perastike('diafimisi')) {
 		Page::diafimisi();
 	}
