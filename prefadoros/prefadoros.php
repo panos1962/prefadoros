@@ -478,7 +478,7 @@ class Prefadoros {
 		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
 			$data_file = $base_dir . "dedomena/" . $row[0];
 			if (is_file($data_file)) {
-				unlink($data_file);
+				@unlink($data_file);
 			}
 		}
 	}
