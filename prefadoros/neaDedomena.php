@@ -275,6 +275,12 @@ class Dedomena {
 			Globals::fatal('cannot write data file');
 		}
 
+		// Για λόγους ασφαλείας ονομάζουμε τα αρχεία με επίθεμα ".php"
+		// και γράφουμε στην πρώτη γραμμή ένα πολύ απλό πρόγραμμα με
+		// το οποίο εκτυπώνεται μήνυμα σε περίπτωση που κάποιος επιχειρεί
+		// να προβάλλει ή να κατεβάσει το περιεχόμενο.
+		Globals::put_line($fh, "<?php die('inaccessible data'); ?>");
+
 		Partida::grapse($fh, $this->partida);
 		Dianomi::grapse($fh, $this->dianomi);
 		Kinisi::grapse($fh, $this->kinisi);
@@ -293,7 +299,7 @@ class Dedomena {
 	private static function open_file($rw) {
 		global $globals;
 
-		$fname = "../dedomena/" . $globals->pektis->login;
+		$fname = "../dedomena/" . $globals->pektis->login . ".php";
 		$fh = @fopen($fname, $rw);
 		return($fh);
 	}

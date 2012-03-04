@@ -476,7 +476,7 @@ class Prefadoros {
 
 		$result = $globals->sql_query($anenergos);
 		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
-			$data_file = $base_dir . "dedomena/" . $row[0];
+			$data_file = $base_dir . "dedomena/" . $row[0] . ".php";
 			if (is_file($data_file)) {
 				@unlink($data_file);
 			}
