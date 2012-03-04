@@ -439,7 +439,7 @@ class Prefadoros {
 		return(substr($data, 0, 1) == "P");
 	}
 
-	static public function klise_sinedria() {
+	static public function klise_sinedria($base_dir = "") {
 		global $globals;
 
 		if ($globals->not_pektis()) { return; }
@@ -456,22 +456,31 @@ class Prefadoros {
 		// Μια στις 50 φορές επιχειρούμε να κλείσουμε συνεδρίες παικτών
 		// που δεν έχουν επαφή με το πρόγραμμα για αρκετή ώρα.
 		if (mt_rand(1, 50) == 10) {
-			self::klise_palies_sinedries();
+			self::klise_palies_sinedries($base_dir);
 		}
 	}
 
-	private static function klise_palies_sinedries() {
+	private static function klise_palies_sinedries($base_dir) {
 		global $globals;
 
-		$where = "`pektis` IN (SELECT `login` FROM `pektis` " .
-			"WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) > 3600)";
+		$anenergos = "SELECT `login` FROM `pektis` WHERE " .
+			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) > 3600";
 		$query = "INSERT INTO `sinedria_log` (`kodikos`, `pektis`, `ip`, " .
 			"`dimiourgia`, `enimerosi`, `telos`) SELECT `kodikos`, `pektis`, `ip`, " .
-			"`dimiourgia`, `enimerosi`, NOW() FROM `sinedria` WHERE " . $where;
+			"`dimiourgia`, `enimerosi`, NOW() FROM `sinedria` WHERE `pektis` IN (" .
+			$anenergos . ")";
 		@mysqli_query($globals->db, $query);
 
-		$query = "DELETE FROM `sinedria` WHERE " . $where;
+		$query = "DELETE FROM `sinedria` WHERE `pektis` IN (" . $anenergos . ")";
 		$globals->sql_query($query);
+
+		$result = $globals->sql_query($anenergos);
+		while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+			$data_file = $base_dir . "dedomena/" . $row[0];
+			if (is_file($data_file)) {
+				unlink($data_file);
+			}
+		}
 	}
 }
 ?>
