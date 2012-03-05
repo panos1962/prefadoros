@@ -85,7 +85,7 @@ check_neotero_id();
 // δεδομένα της ίδιας συνεδρίας, οπότε μαζεύουμε τα τρέχοντα
 // δεδομένα και τα επιστρέφουμε στον client.
 monitor_write("freska");
-if (Globals::perastike('freska')) {
+if (Globals::perastike("freska")) {
 	freska_dedomena(torina_dedomena());
 	monitor_write("exit");
 	$globals->klise_fige();
