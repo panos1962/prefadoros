@@ -167,14 +167,14 @@ function select_partida($sql) {
 	$columns = "`kodikos`, `pektis1`, `pektis2`, `pektis3`, `kasa`, ";
 	$koma = "";
 
-	$query = "SELECT " . $columns . "UNIX_TIMESTAMP(`stisimo`) AS `xronos` " .
+	$query = "SELECT SQL_NO_CACHE " . $columns . "UNIX_TIMESTAMP(`stisimo`) AS `xronos` " .
 		"FROM `trapezi` WHERE " . $sql . " ORDER BY `kodikos` DESC";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		partida_json($row, $koma);
 	}
 
-	$query = "SELECT " . $columns . "UNIX_TIMESTAMP(`telos`) AS `xronos` " .
+	$query = "SELECT SQL_NO_CACHE " . $columns . "UNIX_TIMESTAMP(`telos`) AS `xronos` " .
 		"FROM `trapezi_log` WHERE " . $sql . " ORDER BY `kodikos` DESC";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -217,7 +217,7 @@ function doune_lavin($trapezi, $kasa, $log, &$kapikia) {
 	$kapikia = array(0, -$kasa, -$kasa, -$kasa);
 	$kasa *= 3;
 
-	$query = "SELECT * FROM `dianomi" . $log . "` WHERE `trapezi` = " . $trapezi;
+	$query = "SELECT SQL_NO_CACHE * FROM `dianomi" . $log . "` WHERE `trapezi` = " . $trapezi;
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$kasa -= $row['kasa1'] + $row['kasa2'] + $row['kasa3'];

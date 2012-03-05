@@ -17,7 +17,7 @@ while ($row = @mysqli_fetch_array($result, MYSQL_NUM)) {
 }
 
 if (!isset($found)) {
-	$query = "SELECT `kodikos` FROM `trapezi_log` WHERE `kodikos` = " .
+	$query = "SELECT SQL_NO_CACHE `kodikos` FROM `trapezi_log` WHERE `kodikos` = " .
 		$globals->asfales($trapezi);
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQL_NUM)) {
@@ -44,8 +44,8 @@ function select_dianomi($trapezi, $dianomi_table, $kinisi_table) {
 	global $globals;
 
 	$koma = "";
-	$query = "SELECT `kodikos`, `dealer`, `kasa1`, `metrita1`, `kasa2`, `metrita2`, " .
-		"`kasa3`, `metrita3`, UNIX_TIMESTAMP(`enarxi`) AS `xronos` " .
+	$query = "SELECT SQL_NO_CACHE `kodikos`, `dealer`, `kasa1`, `metrita1`, `kasa2`, " .
+		"`metrita2`, `kasa3`, `metrita3`, UNIX_TIMESTAMP(`enarxi`) AS `xronos` " .
 		"FROM `" . $dianomi_table . "` WHERE `trapezi` = " .
 		$trapezi . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
@@ -81,7 +81,7 @@ function agora_json($dianomi, $kinisi_table) {
 	$simetoxi = array('', '', '', '');
 	$bazes = array(0, 0, 0, 0);
 	$claim = FALSE;
-	$query = "SELECT * FROM `" . $kinisi_table . "` WHERE `dianomi` = " .
+	$query = "SELECT SQL_NO_CACHE * FROM `" . $kinisi_table . "` WHERE `dianomi` = " .
 		$dianomi . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
