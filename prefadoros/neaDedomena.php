@@ -277,9 +277,10 @@ class Dedomena {
 
 		// Για λόγους ασφαλείας ονομάζουμε τα αρχεία με επίθεμα ".php"
 		// και γράφουμε στην πρώτη γραμμή ένα πολύ απλό πρόγραμμα με
-		// το οποίο εκτυπώνεται μήνυμα σε περίπτωση που κάποιος επιχειρεί
-		// να προβάλλει ή να κατεβάσει το περιεχόμενο.
-		Globals::put_line($fh, "<?php die('inaccessible data'); ?>");
+		// το οποίο εκτυπώνεται σελίδα oops σε περίπτωση που κάποιος
+		// επιχειρεί να προβάλλει ή να κατεβάσει το περιεχόμενο.
+		Globals::put_line($fh, '<?php header("Location: ' . $globals->server .
+			'lib/oops.php"); die("Oops!"); ?>');
 
 		Partida::grapse($fh, $this->partida);
 		Dianomi::grapse($fh, $this->dianomi);
