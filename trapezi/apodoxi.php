@@ -22,6 +22,11 @@ if ((!isset($globals->trapezi->$pektis)) ||
 Prefadoros::klidose_trapezi();
 
 if (Globals::perastike('apodoxi')) {
+	if (iparxi_dianomi()) {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		$globals->klise_fige('Το παιχνίδι έχει ξεκινήσει');
+	}
+
 	$nea = $_REQUEST['apodoxi'];
 
 	$query = "UPDATE `trapezi` SET `apodoxi" . $thesi . "` = '" .
@@ -48,6 +53,7 @@ if (Globals::perastike('apodoxi')) {
 	// του τραπεζιού, γίνεται η πρώτη διανομή από τυχαίο dealer.
 	if ($count >= 3) {
 		kane_dianomi(mt_rand(1, 3));
+		fix_apodoxi();
 	}
 }
 else if (Globals::perastike('dianomi')) {
@@ -137,6 +143,28 @@ function find_the_dealer() {
 		$dealer = 1;
 	}
 	return($dealer);
+}
+
+function iparxi_dianomi() {
+	global $globals;
+
+	$query = "SELECT `kodikos` FROM `dianomi` WHERE `trapezi` = " .
+		$globals->trapezi->kodikos;
+	$result = $globals->sql_query($query);
+	$count = 0;
+	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		$count++;
+	}
+
+	return($count > 0);
+}
+
+function fix_apodoxi() {
+	global $globals;
+
+	$query = "UPDATE `trapezi` SET `apodoxi1` = 'YES', `apodoxi2` = 'YES', " .
+		"`apodoxi2` = 'YES' WHERE `kodikos` = " . $globals->trapezi->kodikos;
+	$globals->sql_query($query);
 }
 
 ?>
