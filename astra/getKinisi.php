@@ -8,7 +8,7 @@ $globals->time_dif = Globals::perastike_check('timeDif');
 $dianomi_table = NULL;
 $kinisi_table = NULL;
 $dianomi = Globals::perastike_check('dianomi');
-$query = "SELECT `kodikos` FROM `dianomi` WHERE `kodikos` = " .
+$query = "SELECT SQL_NO_CACHE `kodikos` FROM `dianomi` WHERE `kodikos` = " .
 	$globals->asfales($dianomi);
 $result = $globals->sql_query($query);
 while ($row = @mysqli_fetch_array($result, MYSQL_NUM)) {
@@ -16,7 +16,7 @@ while ($row = @mysqli_fetch_array($result, MYSQL_NUM)) {
 }
 
 if (!isset($found)) {
-	$query = "SELECT `kodikos` FROM `dianomi_log` WHERE `kodikos` = " .
+	$query = "SELECT SQL_NO_CACHE `kodikos` FROM `dianomi_log` WHERE `kodikos` = " .
 		$globals->asfales($dianomi);
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQL_NUM)) {
@@ -42,7 +42,8 @@ function select_kinisi($dianomi, $kinisi_table) {
 	global $globals;
 
 	$koma = "";
-	$query = "SELECT `kodikos`, `pektis`, `idos`, `data`, UNIX_TIMESTAMP(`pote`) AS `xronos` " .
+	$query = "SELECT SQL_NO_CACHE `kodikos`, `pektis`, `idos`, `data`, " .
+		"UNIX_TIMESTAMP(`pote`) AS `xronos` " .
 		"FROM `" . $kinisi_table . "` WHERE `dianomi` = " .
 		$dianomi . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
