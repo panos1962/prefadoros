@@ -223,6 +223,11 @@ class Sxesi {
 		if ($tora_ts - $last_hour_ts < 300) {
 			$last_hour_ts -= 3600;
 		}
+
+		/*
+		// Το παρακάτω μπλοκ έχει αντικατασταθεί με το μπλοκ που ακολουθεί για λόγους
+		// αποφόρτισης του SQL server.
+
 		$query = "SELECT `login`, `onoma`, UNIX_TIMESTAMP(`poll`) FROM `pektis` ";
 		if (isset($sinedria->peknpat)) {
 			$query .= "WHERE (`onoma` LIKE '" . $sinedria->peknpat . "') OR " .
@@ -234,6 +239,25 @@ class Sxesi {
 		else {
 			$query .= "WHERE (`login` IN (SELECT `sxetizomenos` FROM `sxesi` " .
 				"WHERE `pektis` = BINARY " . $globals->pektis->slogin . "))";
+		}
+		$query .= " ORDER BY `login`";
+
+		*/
+
+		if (isset($sinedria->peknpat)) {
+			$query = "SELECT `login`, `onoma`, UNIX_TIMESTAMP(`poll`) FROM `pektis` " .
+				"WHERE (`onoma` LIKE '" . $sinedria->peknpat . "') OR " .
+				"(`login` LIKE '" . $sinedria->peknpat . "')";
+		}
+		elseif ($online) {
+			$query = "SELECT `login`, `onoma`, UNIX_TIMESTAMP(`poll`) FROM `pektis` " .
+				"WHERE UNIX_TIMESTAMP(`poll`) > " . $last_hour_ts;
+		}
+		else {
+			$query = "SELECT DISTINCT `pektis`.`login`, `pektis`.`onoma`, " .
+				"UNIX_TIMESTAMP(`pektis`.`poll`) FROM `pektis`, `sxesi` " .
+				"WHERE (`pektis`.`login` = `sxesi`.`sxetizomenos`) AND " .
+				"(`sxesi`.`pektis` = BINARY " . $globals->pektis->slogin . ")";
 		}
 		$query .= " ORDER BY `login`";
 
