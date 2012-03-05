@@ -291,8 +291,8 @@ class Prefadoros {
 
 	public static function energos_pektis() {
 		global $globals;
-		static $etrexe_ts = 0.0;
 		global $kiklos;
+		static $etrexe_ts = 0.0;
 		static $etrexe_kiklos = -1;
 		static $energos = NULL;
 		$errmsg = "Prefadoros::energos_pektis(): ";
@@ -333,9 +333,9 @@ class Prefadoros {
 
 	public static function lista_theaton() {
 		global $globals;
+		global $kiklos;
 		static $stmnt = NULL;
 		static $etrexe_ts = 0.0;
-		global $kiklos;
 		static $etrexe_kiklos = -1;
 		static $theatis = NULL;
 		$errmsg = "Prefadoros::lista_theaton(): ";
@@ -375,10 +375,10 @@ class Prefadoros {
 
 	public static function pezon_pektis() {
 		global $globals;
+		global $kiklos;
 		static $stmnt = NULL;
 		static $pezon = NULL;
 		static $etrexe_ts = 0.0;
-		global $kiklos;
 		static $etrexe_kiklos = -1;
 		$errmsg = "Prefadoros::pezon_pektis(): ";
 
