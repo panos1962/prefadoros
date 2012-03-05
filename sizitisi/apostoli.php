@@ -37,11 +37,11 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 	@mysqli_rollback($globals->db);
 	$globals->klise_fige('Απέτυχε η εισαγωγή σχολίου');
 }
+$kodikos = @mysqli_insert_id($globals->db);
 
 Sizitisi::set_dirty();
-
 @mysqli_commit($globals->db);
-$globals->klise_fige();
+$globals->klise_fige($kodikos . "@OK");
 
 function vres_to_trapezi() {
 	global $globals;

@@ -67,7 +67,10 @@ var Sizitisi = new function() {
 	var telefteaEpafi = currentTimestamp();
 
 	this.sxolioAdd = function(s) {
-		var p = document.createElement('div');
+		var p = getelid('st_' + s.k);
+		if (isSet(p)) { try { p.parentNode.removeChild(p); } catch(e) {}; }
+
+		p = document.createElement('div');
 		if (notSet(p)) {
 			mainFyi('cannot create "sizitisiSxolio" element');
 			return;
@@ -574,7 +577,7 @@ var Sizitisi = new function() {
 
 		var req = new Request('sizitisi/apostoli');
 		req.xhr.onreadystatechange = function() {
-			Sizitisi.apostoliCheck(req, fld, ico);
+			Sizitisi.apostoliCheck(req, fld, pk, sxolio, ico);
 		};
 
 		var params = 'pk=' + pk;
@@ -582,21 +585,29 @@ var Sizitisi = new function() {
 		req.send(params);
 	};
 
-	this.apostoliCheck = function(req, fld, ico) {
+	this.apostoliCheck = function(req, fld, pk, sxolio, ico) {
 		if (req.xhr.readyState != 4) { return; }
 		ico.src = globals.server + 'images/controlPanel/talk.png';
 		var rsp = req.getResponse();
-		if (rsp) {
-			mainFyi(rsp);
-			errorIcon(ico);
-			playSound('beep');
-		}
-		else {
+		if (rsp.match(/@OK$/)) {
+			var s = {
+				k:	rsp.replace(/@OK$/, ''),
+				p:	pektis.login,
+				s:	sxolio,
+				w:	parseInt((new Date).getTime() / 1000)
+			};
+			if (pk == 'K') { Kafenio.sxolioAdd(s); }
+			else { Sizitisi.sxolioAdd(s); }
 			writing = '';
 			neoWriting = '';
 			if (isSet(fld.id) && (fld.id == 'sxolioInput')) {
 				Sizitisi.resetSxolioInput(fld);
 			}
+		}
+		else {
+			mainFyi(rsp);
+			errorIcon(ico);
+			playSound('beep');
 		}
 	};
 
@@ -756,7 +767,10 @@ var Kafenio = new function() {
 	};
 
 	this.sxolioAdd = function(s) {
-		var p = document.createElement('div');
+		var p = getelid('sk_' + s.k);
+		if (isSet(p)) { try { p.parentNode.removeChild(p); } catch(e) {}; }
+
+		p = document.createElement('div');
 		if (notSet(p)) {
 			mainFyi('cannot create "sizitisiSxolio" element');
 			return;
