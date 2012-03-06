@@ -66,7 +66,7 @@ var Sizitisi = new function() {
 
 	var telefteaEpafi = currentTimestamp();
 
-	this.sxolioAdd = function(s) {
+	this.sxolioAdd = function(s, proxiro) {
 		var p = getelid('st_' + s.k);
 		if (isSet(p)) { try { p.parentNode.removeChild(p); } catch(e) {}; }
 
@@ -93,7 +93,8 @@ var Sizitisi = new function() {
 			x.style.visibility = 'hidden';
 		};
 
-		p.innerHTML = Sizitisi.HTML(s);
+		if (notSet(proxiro)) { proxiro = false; }
+		p.innerHTML = Sizitisi.HTML(s, proxiro);
 		sizitisi.insertBefore(p, telos);
 
 		var tora = currentTimestamp();
@@ -125,7 +126,7 @@ var Sizitisi = new function() {
 		p.innerHTML = Sizitisi.HTML(s);
 	};
 
-	this.HTML = function(s) {
+	this.HTML = function(s, proxiro) {
 		var sxolio = Sizitisi.decode(s);
 		var html = '';
 		if (s.p == globals.systemAccount) {
@@ -145,8 +146,9 @@ var Sizitisi = new function() {
 				zebraLast++;
 				if (zebraLast >= Sizitisi.zebraColor.length) { zebraLast = 1; }
 			}
-			html += '<div class="sizitisiPektis" style="color: #' +
-				color + ';">' + s.p + '</div>';
+			html += '<div class="sizitisiPektis';
+			if (proxiro == true) { html += ' sizitisiPektisProxiro'; }
+			html += '" style="color: #' + color + ';">' + s.p + '</div>';
 		}
 
 		html += sxolio;
@@ -596,8 +598,8 @@ var Sizitisi = new function() {
 				s:	sxolio,
 				w:	parseInt((new Date).getTime() / 1000)
 			};
-			if (pk == 'K') { Kafenio.sxolioAdd(s); }
-			else { Sizitisi.sxolioAdd(s); }
+			if (pk == 'K') { Kafenio.sxolioAdd(s, true); }
+			else { Sizitisi.sxolioAdd(s, true); }
 			writing = '';
 			neoWriting = '';
 			if (isSet(fld.id) && (fld.id == 'sxolioInput')) {
@@ -766,7 +768,7 @@ var Kafenio = new function() {
 		}
 	};
 
-	this.sxolioAdd = function(s) {
+	this.sxolioAdd = function(s, proxiro) {
 		var p = getelid('sk_' + s.k);
 		if (isSet(p)) { try { p.parentNode.removeChild(p); } catch(e) {}; }
 
@@ -793,7 +795,8 @@ var Kafenio = new function() {
 			x.style.visibility = 'hidden';
 		};
 
-		p.innerHTML = Sizitisi.HTML(s);
+		if (notSet(proxiro)) { proxiro = false; }
+		p.innerHTML = Sizitisi.HTML(s, proxiro);
 		sizitisi.insertBefore(p, telos);
 	};
 
