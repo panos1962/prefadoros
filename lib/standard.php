@@ -694,13 +694,7 @@ class Page {
 			<?php
 		}
 		?>
-		<iframe src="<?php print "//www.facebook.com/plugins/like.php?" .
-			"href=http%3A%2F%2Fwww.prefadoros.gr&amp;send=false&amp;" .
-			"layout=button_count&amp;width=90&amp;show_faces=false&amp;" .
-			"action=like&amp;colorscheme=light&amp;font&amp;height=35";
-			?>" scrolling="no" frameborder="0" style="<?php
-			print "margin-left: 1px; border: none; overflow: hidden; width: 90px; height: 20px;";
-			?>"></iframe>
+		<div id="facebook" style="display: inline-block;"></div>
 		<?php
 	}
 
