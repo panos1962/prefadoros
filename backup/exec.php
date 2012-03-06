@@ -121,9 +121,10 @@ function backup_kinisi() {
 
 	$trapezi = apo_trapezi();
 	$fp = anixe_arxio("kinisi");
-	$query = "SELECT `kodikos`, `dianomi`, `pektis`, `idos`, `data`, `pote` " .
-		"FROM `kinisi_log` WHERE `dianomi` IN (SELECT `kodikos` " .
-		"FROM `dianomi_log` WHERE `trapezi` >= " . $trapezi . ") ORDER BY `kodikos`";
+	$query = "SELECT DISTINCT `kinisi_log`.`kodikos`, `kinisi_log`.`dianomi`, `kinisi_log`.`pektis`, " .
+		"`kinisi_log`.`idos`, `kinisi_log`.`data`, `kinisi_log`.`pote` " .
+		"FROM `kinisi_log`, `dianomi_log` WHERE (`kinisi_log`.`dianomi` = `dianomi_log`.`kodikos`) " .
+		"AND (`dianomi_log`.`trapezi` >= " . $trapezi . ") ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	for ($count = 0; $row = @mysqli_fetch_array($result, MYSQLI_NUM); $count++) {
 		write_grami($fp, $row);
