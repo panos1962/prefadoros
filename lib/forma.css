@@ -9,6 +9,10 @@
 	border-width: 1px;
 	border-color: #888888;
 	background-color: #CCCCB2;
+
+	-webkit-box-shadow: 6px 6px 8px #606366;
+	-moz-box-shadow: 6px 6px 8px #606366;
+	box-shadow: 6px 6px 8px #606366;
 }
 
 .formaHeader {
