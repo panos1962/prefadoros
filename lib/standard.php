@@ -675,19 +675,15 @@ class Page {
 			src="<?php print $globals->server; ?>images/bbo.png"
 			alt="http://www.bridgebase.com" height="24" /></a>
 		<div style="margin-bottom: 0.1cm;"></div>
-		<a href="https://twitter.com/prefadorosTT" target="_blank"><img
-			src="<?php print $globals->server; ?>images/twitter.png"
-			alt="Ο «Πρεφαδόρος» στο twitter" height="19" /></a>
+		<div id="twitter" style="display: inline-block;"></div>
 		<?php
 		if ($globals->is_pektis()) {
 			?>
-			<div id="donate" title="Για τις ανάγκες του server…" style="display: inline-block;">
-			</div>
+			<div id="donate" title="Για τις ανάγκες του server…"
+				style="display: inline-block;"></div>
+			<div id="facebook" style="display: inline-block;"></div>
 			<?php
 		}
-		?>
-		<div id="facebook" style="display: inline-block;"></div>
-		<?php
 	}
 
 	protected static function centerRB() {
