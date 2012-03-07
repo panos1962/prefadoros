@@ -18,24 +18,29 @@ else {
 Page::head();
 if ($globals->is_pektis()) {
 	Page::stylesheet('prefadoros/prefadoros');
-	Page::javascript('prefadoros/dedomena');
-	Page::javascript('prefadoros/misc');
-	Page::javascript('prefadoros/prefadoros');
-	Page::javascript('prefadoros/partida');
-	Page::javascript('prefadoros/dianomi');
-	Page::javascript('prefadoros/kinisi');
-	Page::javascript('prefadoros/prosklisi');
-	Page::javascript('prefadoros/sxesi');
-	Page::javascript('prefadoros/permes');
-	Page::javascript('prefadoros/trapezi');
-	Page::javascript('prefadoros/sizitisi');
-	Page::javascript('prefadoros/pexnidi');
-	Page::javascript('prefadoros/gipedo');
-	Page::javascript('prefadoros/pliromi');
-	Page::javascript('lib/controlPanel');
-	Page::javascript('lib/pss');
-	Page::javascript('lib/emoticons');
-	Page::javascript('lib/soundmanager');
+	if (file_exists("PRODUCTION")) {
+		Page::stylesheet('PRODUCTION/compress.js');
+	}
+	else {
+		Page::javascript('prefadoros/dedomena');
+		Page::javascript('prefadoros/misc');
+		Page::javascript('prefadoros/prefadoros');
+		Page::javascript('prefadoros/partida');
+		Page::javascript('prefadoros/dianomi');
+		Page::javascript('prefadoros/kinisi');
+		Page::javascript('prefadoros/prosklisi');
+		Page::javascript('prefadoros/sxesi');
+		Page::javascript('prefadoros/permes');
+		Page::javascript('prefadoros/trapezi');
+		Page::javascript('prefadoros/sizitisi');
+		Page::javascript('prefadoros/pexnidi');
+		Page::javascript('prefadoros/gipedo');
+		Page::javascript('prefadoros/pliromi');
+		Page::javascript('lib/controlPanel');
+		Page::javascript('lib/pss');
+		Page::javascript('lib/emoticons');
+		Page::javascript('lib/soundmanager');
+	}
 	Prefadoros::set_trapezi();
 	Prefadoros::set_params();
 }
