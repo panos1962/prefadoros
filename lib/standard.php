@@ -692,7 +692,7 @@ class Page {
 		[&nbsp;<a target="_blank" href="<?php print $globals->server;
 			?>copyright/index.php?pedi=yes" class="data">Copyright</a>&nbsp;]
 		[&nbsp;<a target="_blank" href="<?php print $globals->server;
-			?>adia/index.php?pedi=yes" class="data nobr">Άδεια&nbsp;χρήσης</a>&nbsp;]
+			?>adia/index.php?pedi=yes" class="data nobr">Όροι&nbsp;χρήσης</a>&nbsp;]
 		<?php
 		if ($globals->is_administrator()) {
 			$class = 'data administrator';
