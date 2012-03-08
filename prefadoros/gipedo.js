@@ -567,7 +567,7 @@ var Gipedo = new function() {
 		if (notSet(ena)) { ena = 'Ο παίκτης που παρακολουθείτε '; }
 		else { ena += ' '; }
 		if (notSet(dio)) { dio = ''; }
-		else { dio + ' '; }
+		else { dio += ' '; }
 		switch (thesi) {
 		case 1:		return ena;
 		case 2:		return 'Ο παίκτης στα δεξιά σας ' + dio;
