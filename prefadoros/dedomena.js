@@ -176,6 +176,7 @@ var Dedomena = new function() {
 		if (isSet(dedomena) && isSet(dedomena.sinedria)) {
 			pektis.kapikia = (!(isSet(dedomena.sinedria.p) && (dedomena.sinedria.p == 0)));
 			pektis.available = (!(isSet(dedomena.sinedria.b) && (dedomena.sinedria.b == 0)));
+			pektis.blockImage = (isSet(dedomena.sinedria.x) && dedomena.sinedria.x);
 		}
 
 		if (isSet(dedomena.sinedria.s)) {
