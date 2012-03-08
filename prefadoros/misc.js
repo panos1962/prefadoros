@@ -96,7 +96,7 @@ var Dumprsp = new function() {
 				wdump.document.body.insertBefore(p, eod);
 				scrollBottom(wdump.document.body);
 			}
-		} catch(e) { Dumprsp.reset };
+		} catch(e) { Dumprsp.reset(); };
 	};
 
 	this.lathos = function() {
