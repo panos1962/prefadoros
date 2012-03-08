@@ -151,7 +151,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 	σε πραγματικό (όχι εικονικό) server που φιλοξενείται στις
 	εγκαταστάσεις της εταιρείας HETZNER, μετά από προτροπή
 	του <span class="nobr">-απίστευτου-</span>
-	Γιάννη Οικονόμου της <a target="_blank"
+	Γιάννη Οικονόμου και της <a target="_blank"
 	href="http://www.antithesis.gr">Antithesis&nbsp;Group</a>,
 	ο οποίος ανέλαβε και όλη τη διαδικασία του στησίματος
 	και της ρύθμισης τόσο του server όσο και του ίδιου
