@@ -533,6 +533,23 @@ window.onload = function() {
 	<table width="100%">
 		<tr>
 		<td class="helpIconColumn">
+			<img src="<?php print $globals->server; ?>images/controlPanel/blockImage.png"
+				class="helpIcon" alt="" />
+		</td>
+		<td class="helpKimeno">
+			Κάνοντας κλικ σε αυτό το εικονίδιο αποκλείουμε εικόνες, βίντεο
+			κλπ από το χώρο ανταλλαγής μηνυμάτων. Ο αποκλεισμός παραμένει
+			μέχρι να πατήσουμε εκ νέου το πλήκτρο (πράσινο), ενώ για να
+			αποκλείσουμε ανεπιθύμητο περιεχόμενο το οποίο βρίσκεται ήδη
+			στο χώρο συζήτησης, πρέπει να πατήσουμε την πασχαλίτσα
+			μετά τον αποκλεισμό.
+		</td>
+		</tr>
+	</table>
+
+	<table width="100%">
+		<tr>
+		<td class="helpIconColumn">
 			<img src="<?php print $globals->server; ?>images/controlPanel/misoLepto.gif"
 				class="helpIcon" alt="" />
 		</td>
