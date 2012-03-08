@@ -202,6 +202,7 @@ function print_epikefalida() {
 	print "sinedria:{k:{$sinedria->kodikos},i:{$id}";
 	if ($globals->pektis->kapikia != 'YES') { print ",p:0"; }
 	if ($globals->pektis->katastasi != 'AVAILABLE') { print ",b:0"; }
+	if ($globals->pektis->blockimage) { print ",x:true"; }
 }
 
 class Dedomena {

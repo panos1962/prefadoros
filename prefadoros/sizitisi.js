@@ -151,6 +151,10 @@ var Sizitisi = new function() {
 			html += '" style="color: #' + color + ';">' + s.p + '</div>';
 		}
 
+		if (pektis.blockImage && (s.p != pektis.login) && sxolio.match(/img|script|ifrma/i)) {
+			sxolio = '&hellip;';
+		}
+
 		html += sxolio;
 		html += Sizitisi.oraSxoliou(s.k, s.w);
 		return html;

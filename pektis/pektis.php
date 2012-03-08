@@ -6,6 +6,7 @@ class Pektis {
 	public $email;
 	public $kapikia;
 	public $katastasi;
+	public $blockimage;
 	public $plati;
 	public $plati_filo;
 	public $plati_other;
@@ -31,6 +32,7 @@ class Pektis {
 		unset($this->email);
 		unset($this->kapikia);
 		unset($this->katastasi);
+		unset($this->blockimage);
 		unset($this->plati);
 		unset($this->plati_filo);
 		unset($this->plati_other);
@@ -67,6 +69,7 @@ class Pektis {
 			$this->email = $row['email'];
 			$this->kapikia = $row['kapikia'];
 			$this->katastasi = $row['katastasi'];
+			$this->blockimage = ($row['blockimage'] == 'YES');
 			$this->plati = $row['plati'];
 			$this->enalagi = ($row['enalagi'] == 'YES');
 			$this->paraskinio = $row['paraskinio'];
