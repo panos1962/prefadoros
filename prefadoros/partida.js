@@ -972,6 +972,8 @@ var Partida = new function() {
 		return html ;
 	};
 
+	var protosTheatis = 0;
+
 	this.theatisHTML = function() {
 		var html = '';
 		if (notSet(rebelos)) { return html; }
@@ -979,23 +981,26 @@ var Partida = new function() {
 		var protos = '<div class="theatisArea">';
 		var count = 0;
 		var more = 0;
-		for (var i = 0; i < rebelos.length; i++) {
-			if (isSet(rebelos[i].t) && (rebelos[i].t == partida.kodikos) &&
-				(rebelos[i].l != pektis.login)) {
+		if (protosTheatis >= rebelos.length) { protosTheatis = 0; }
+		var mexri = protosTheatis + rebelos.length;
+		for (var i = protosTheatis; i < mexri; i++) {
+			j = i % rebelos.length;
+			if (isSet(rebelos[j].t) && (rebelos[j].t == partida.kodikos) &&
+				(rebelos[j].l != pektis.login)) {
 				if (count > 5) {
 					if (more <= 0) {
-						var moreProtos = rebelos[i].l;
-						var moreOnomata = rebelos[i].l;
+						var moreProtos = rebelos[j].l;
+						var moreOnomata = rebelos[j].l;
 					}
 					else {
-						moreOnomata += ', ' + rebelos[i].l;
+						moreOnomata += ', ' + rebelos[j].l;
 					}
 					more++;
 					continue;
 				}
 				html += protos;
 				protos = '';
-				html += Partida.theatisItemHTML(rebelos[i].l);
+				html += Partida.theatisItemHTML(rebelos[j].l);
 				count++;
 			}
 		}
@@ -1003,11 +1008,19 @@ var Partida = new function() {
 			html += Partida.theatisItemHTML(moreProtos);
 		}
 		else if (more > 0) {
-			html += '<div title="' + moreOnomata + '">και άλλοι ' + more + '</div>';
+			html += '<div title="' + moreOnomata +'" ' +
+				'onclick="Partida.moreTheatis();" ' +
+				'style="cursor: pointer;">και άλλοι ' + more + '</div>';
 		}
 
 		if (protos == '') { html += '</div>'; }
 		return html;
+	};
+
+	this.moreTheatis = function() {
+		protosTheatis++;
+		Partida.updateHTML();
+		Prefadoros.display();
 	};
 
 	this.theatisItemHTML = function(pektis) {
