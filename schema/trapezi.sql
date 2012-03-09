@@ -17,6 +17,10 @@ CREATE TABLE `trapezi` (
 	)		NOT NULL DEFAULT 'NO' COMMENT 'Αποδοχή όρων από τον τρίτο παίκτη',
 	`kasa`		INTEGER(4) NOT NULL DEFAULT 50 COMMENT 'Ποσό κάσας',
 	`pistosi`	INTEGER(4) NOT NULL DEFAULT 0 COMMENT 'Αναληφθέντα ποσά',
+	`idioktisia`	ENUM(
+		'ΕΛΕΥΘΕΡΟ',
+		'ΙΔΙΟΚΤΗΤΟ'
+	)		NOT NULL DEFAULT 'ΕΛΕΥΘΕΡΟ' COMMENT 'Ιδιοκτησιακό καθεστώς',
 	`pasopasopaso`	ENUM(
 		'NO',
 		'YES'
