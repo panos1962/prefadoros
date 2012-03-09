@@ -209,8 +209,8 @@ var Trapezi = new function() {
 		html += '</div>';
 		html += '</div>';
 		var giortes = Partida.giortesHTML('kafenioTrapeziAttrIcon');
-		if ((isSet(t.b) && (t.b == 1)) || (isSet(t.ppp) && (t.ppp == 1)) ||
-			(notSet(t.asoi) || (t.asoi == 0)) || giortes) {
+		if ((isSet(t.d) && (t.d == 1)) || (isSet(t.b) && (t.b == 1)) ||
+			(isSet(t.ppp) && (t.ppp == 1)) || (notSet(t.asoi) || (t.asoi == 0)) || giortes) {
 			html += '<div class="kafenioTrapeziAttrArea">';
 			html += giortes;
 			if (isSet(t.d) && (t.d == 1)) {
