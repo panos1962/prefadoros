@@ -362,6 +362,7 @@ class Page {
 		<meta name="keywords" content="πρέφα,πρεφαδόρος,πρεφα,πρεφαδορος,prefa,prefadoros" />
 		<meta name="author" content="Panos Papadopoulos" />
 		<meta name="copyright" content="Copyright by Panos Papadopoulos. All Rights Reserved." />
+		<meta name="wot-verification" content="07bfa86d13e2bf3e15d2" />
 
 		<link rel="icon" type="image/png" href="<?php
 			print $globals->server; ?>images/controlPanel/kitapi.png" />
