@@ -328,6 +328,11 @@ var Sxesi = new function() {
 			mainFyi('Δεν μπορείτε να αποστείλετε πρόσκληση ως θεατής');
 			return;
 		}
+		if (!dikeomaRithmisis()) {
+			playSound('beep');
+			mainFyi('Μόνο ο δημιουργός του τραπεζιού μπορεί να αποστείλει προσκλήσεις');
+			return;
+		}
 		if (notSet(img)) { img = getelid('sxi_' + pektis); }
 		if (notSet(img)) { return; }
 		img.prevSrc = img.src;
