@@ -299,7 +299,7 @@ function set_globals($anonima = FALSE) {
 		$dbpassword = $dpass;
 		break;
 	case 'www.prefadoros.gr':
-	//case '78.46.77.106':
+	case '78.46.77.106':
 		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/';
 		$dbname = 'prefadoros';
 		$dbuser = 'prefadoros';
