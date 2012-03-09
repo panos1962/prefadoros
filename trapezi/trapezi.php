@@ -10,6 +10,7 @@ class Trapezi {
 	public $pektis3;
 	public $apodoxi3;
 	public $online3;
+	public $idioktito;
 	public $kasa;
 	public $ppp;
 	public $asoi;
@@ -37,6 +38,7 @@ class Trapezi {
 		unset($this->apodoxi2);
 		unset($this->pektis3);
 		unset($this->apodoxi3);
+		unset($this->idioktito);
 		unset($this->kasa);
 		unset($this->ppp);
 		unset($this->asoi);
@@ -128,6 +130,7 @@ class Trapezi {
 		$this->apodoxi2 = ($row['apodoxi2'] == 'YES' ? 1 : 0);
 		$this->pektis3 = $row['pektis3'];
 		$this->apodoxi3 = ($row['apodoxi3'] == 'YES' ? 1 : 0);
+		$this->idioktito = ($row['idioktisia'] == 'ΙΔΙΟΚΤΗΤΟ' ? 1 : 0);
 		$this->kasa = $row['kasa'];
 		$this->ppp = ($row['pasopasopaso'] == 'YES' ? 1 : 0);
 		$this->asoi = ($row['asoi'] == 'YES' ? 1 : 0);
@@ -178,7 +181,7 @@ class Trapezi {
 
 	public function set_from_file($line) {
 		$cols = explode("\t", $line);
-		if (count($cols) != 16) { return(FALSE); }
+		if (count($cols) != 17) { return(FALSE); }
 
 		$nf = 0;
 		$this->kodikos = $cols[$nf++];
@@ -191,6 +194,7 @@ class Trapezi {
 		$this->pektis3 = $cols[$nf++];
 		$this->apodoxi3 = $cols[$nf++];
 		$this->online3 = $cols[$nf++];
+		$this->idioktito = $cols[$nf++];
 		$this->kasa = $cols[$nf++];
 		$this->ppp = $cols[$nf++];
 		$this->asoi = $cols[$nf++];
@@ -266,6 +270,7 @@ class Trapezi {
 			$this->pektis3 . "\t" .
 			$this->apodoxi3 . "\t" .
 			$this->online3 . "\t" .
+			$this->idioktito . "\t" .
 			$this->kasa . "\t" .
 			$this->ppp . "\t" .
 			$this->asoi . "\t" .
@@ -294,6 +299,7 @@ class Trapezi {
 				print ",o" . $i . ":1";
 			}
 		}
+		if ($this->idioktito == 1) { print ",d:1"; }
 		print ",s:" . $this->kasa;
 		print ",i:" . $this->ipolipo;
 		if ($this->ppp == 1) { print ",ppp:1"; }

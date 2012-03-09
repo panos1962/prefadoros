@@ -213,6 +213,10 @@ var Trapezi = new function() {
 			(notSet(t.asoi) || (t.asoi == 0)) || giortes) {
 			html += '<div class="kafenioTrapeziAttrArea">';
 			html += giortes;
+			if (isSet(t.d) && (t.d == 1)) {
+				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
+					'images/controlPanel/idioktito.png" title="Ιδιόκτητο τραπέζι" />';
+			}
 			if (isSet(t.b) && (t.b == 1)) {
 				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
 					'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';

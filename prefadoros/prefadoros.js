@@ -263,6 +263,20 @@ function notPartida() {
 	return(!isPartida());
 }
 
+function isIdioktito() {
+	return(isSet(window.partida) && isSet(partida.idioktito) && partida.idioktito);
+}
+
+function notIdioktito() {
+	return(!isIdioktito());
+}
+
+function dikeomaRithmisis() {
+	if (notPartida()) { return false; }
+	if (notIdioktito()) { return true; }
+	return (partida.thesi == 1);
+}
+
 function isPrive() {
 	return(isSet(window.partida) && isSet(partida.prive) && partida.prive);
 }

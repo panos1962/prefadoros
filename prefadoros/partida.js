@@ -52,7 +52,7 @@ var Partida = new function() {
 			'p1', 'a1', 'o1',
 			'p2', 'a2', 'o2',
 			'p3', 'a3', 'o3',
-			's', 'p', 'b',
+			'd', 's', 'p', 'b',
 			'ppp', 'asoi',
 			'h', 't'
 		];
@@ -76,6 +76,7 @@ var Partida = new function() {
 		if (notSet(partida.h)) { return fatalError('Partida.setData: ακαθόριστη θέση παίκτη'); }
 
 		partida.kodikos = parseInt(partida.k);
+		partida.idioktito = (partida.d == 1);
 		partida.kasa = parseInt(partida.s);
 		partida.ppp = (partida.ppp == 1);
 		partida.asoi = (partida.asoi == 1);
@@ -291,8 +292,12 @@ var Partida = new function() {
 		html += pexnidi.ipolipo + '</span>';
 		html += '</div>';
 		var giortes = Partida.giortesHTML();
-		if (giortes || isKlisto() || isPasoPasoPaso() || notAsoiKolos()) {
+		if (giortes || isIdioktito() || isKlisto() || isPasoPasoPaso() || notAsoiKolos()) {
 			html += '<div class="partidaAttrArea">';
+			if (isIdioktito()) {
+				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
+					'images/controlPanel/idioktito.png" title="Ιδιόκτητο τραπέζι" />';
+			}
 			if (isKlisto()) {
 				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
 					'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
