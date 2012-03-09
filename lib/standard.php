@@ -279,7 +279,6 @@ function set_globals($anonima = FALSE) {
 		$dbpassword = '';
 		$globals->phpmyadmin = 'http://127.0.0.1/phpmyadmin/index.php?db=prefadoros';
 		break;
-	case 'www.prefadoros.gr':
 	case '178.21.171.4':
 		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/';
 		$dbname = 'prefadoros';
@@ -299,11 +298,14 @@ function set_globals($anonima = FALSE) {
 		$dbuser = 'panos62_pineza';
 		$dbpassword = $dpass;
 		break;
+	case 'www.prefadoros.gr':
 	case '78.46.77.106':
-		$globals->server = 'http://78.46.77.106/';
+		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/';
 		$dbname = 'prefadoros';
 		$dbuser = 'prefadoros';
 		$dbpassword = $dpass;
+		$globals->phpmyadmin = 'http://78.46.77.106:8081/prfdrs-phpmyadmin/' .
+			'index.php?db=prefadoros';
 		break;
 	default:
 		Globals::fatal($_SERVER['SERVER_NAME'] . ': unknown server');	
