@@ -111,6 +111,14 @@ function pezi_sto_trapezi() {
 		return(FALSE);
 	}
 
-	return(!$globals->trapezi->is_theatis());
+	if ($globals->trapezi->is_theatis()) {
+		return(FALSE);
+	}
+
+	if ($globals->trapezi->not_idioktito()) {
+		return(TRUE);
+	}
+
+	return($globals->trapezi->thesi == 1);
 }
 ?>
