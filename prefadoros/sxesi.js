@@ -320,7 +320,7 @@ var Sxesi = new function() {
 		}
 	};
 
-	this.addProsklisi = function(pektis, img, checkTheatis) {
+	this.addProsklisi = function(pektis, img, checkTheatis, checkIdioktito) {
 		if (isSet(window.Sizitisi)) { Sizitisi.sxolioFocus(); }
 		if (notSet(checkTheatis)) { checkTheatis = true; }
 		if (checkTheatis && isTheatis()) {
@@ -328,7 +328,8 @@ var Sxesi = new function() {
 			mainFyi('Δεν μπορείτε να αποστείλετε πρόσκληση ως θεατής');
 			return;
 		}
-		if (!dikeomaRithmisis()) {
+		if (notSet(checkIdioktito)) { checkIdioktito = true; }
+		if (checkIdioktito && (!dikeomaRithmisis())) {
 			playSound('beep');
 			mainFyi('Μόνο ο δημιουργός του τραπεζιού μπορεί να αποστείλει προσκλήσεις');
 			return;

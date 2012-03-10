@@ -223,6 +223,14 @@ class Trapezi {
 		return(!$this->is_theatis());
 	}
 
+	public function is_idioktito() {
+		return($this->idioktito == 1);
+	}
+
+	public function not_idioktito() {
+		return(!$this->is_idioktito());
+	}
+
 	public function is_prosklisi($pektis = FALSE) {
 		global $globals;
 		if (!$pektis) {

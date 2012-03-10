@@ -58,7 +58,7 @@ var Permes = new function() {
 			return false;
 		}
 
-		Sxesi.addProsklisi(pros.value, img, false);
+		Sxesi.addProsklisi(pros.value, img, false, false);
 		return false;
 	};
 

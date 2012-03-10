@@ -276,7 +276,7 @@ var Partida = new function() {
 		}
 		html += '&nbsp;]&nbsp;<span title="Αρχική κάσα" class="partidaInfoData' + tbc + '">';
 		html += partida.kasa + '</span>';
-		if (notTheatis()) {
+		if (notTheatis() && dikeomaRithmisis()) {
 			html += '<img id="pliktroPanoKasa" class="kasaPanoKato' + tbc + '" alt="" src="' +
 				globals.server + 'images/panoKasa.png" ' +
 				'title="Αύξηση κάσας κατά 300 καπίκια" ' +
