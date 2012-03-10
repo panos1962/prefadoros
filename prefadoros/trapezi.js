@@ -215,7 +215,8 @@ var Trapezi = new function() {
 			html += giortes;
 			if (isSet(t.d) && (t.d == 1)) {
 				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
-					'images/controlPanel/idioktito.png" title="Ιδιόκτητο τραπέζι" />';
+					'images/controlPanel/idioktitoKafenio.png" ' +
+					'title="Ιδιόκτητο τραπέζι" />';
 			}
 			if (isSet(t.b) && (t.b == 1)) {
 				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
