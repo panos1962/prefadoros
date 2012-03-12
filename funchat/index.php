@@ -335,6 +335,7 @@ function print_panel() {
 	$item_list[] = new Item("taXoni.gif");
 	$item_list[] = new Item("bounidiEmoticon.gif", "Άμα σ' αρχίσω τώρα στα μπουνίδια θα φταίω;");
 	$item_list[] = new Item("giatiMePires.gif", "Εγώ γιατί σε πήρα, ρε;", 1.6);
+	$item_list[] = new Item("tiKanisRe.gif", "Τι έκανες, ρε;", 1.6);
 	$item_list[] = new Item("limaExo.gif", "Έχω πήξει στο λιμό…");
 	$item_list[] = new Item("ouraKoutavi.gif");
 	$item_list[] = new Item("prasiniGlosa.gif");
