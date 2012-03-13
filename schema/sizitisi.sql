@@ -26,4 +26,4 @@ CREATE TABLE `sizitisi` (
 	KEY (
 		`pote`
 	) USING BTREE
-) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας συζητήσεων'
+) ENGINE=MEMORY CHARSET=utf8 COMMENT='Πίνακας συζητήσεων'
