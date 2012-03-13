@@ -487,10 +487,9 @@ class Sinedria {
 			return;
 		}
 
-		$this->sizitisidirty--;
 		if ($stmnt == NULL) {
-			$query = "UPDATE `sinedria` SET `sizitisidirty` = " .
-				$this->sizitisidirty . " WHERE `kodikos` = " . $this->kodikos;
+			$query = "UPDATE `sinedria` SET `sizitisidirty` = `sizitisidirty` - 1 " .
+				"WHERE `kodikos` = " . $this->kodikos;
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
 				$globals->klise_fige($errmsg . $query . ": failed to prepare");
