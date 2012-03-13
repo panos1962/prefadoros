@@ -4,7 +4,7 @@ CREATE TABLE `sizitisi` (
 	-- Αν ο κωδικός τραπεζιού είναι κενός, τότε πρόκειται για σχόλιο
 	-- που αφορά στη συζήτηση του καφενείου.
 	`trapezi`	INTEGER(10) NULL COMMENT 'Κωδικός τραπεζιού',
-	`sxolio`	VARCHAR(16384) NOT NULL COMMENT 'Κείμενο σχολίου',
+	`sxolio`	VARCHAR(512) NOT NULL COMMENT 'Κείμενο σχολίου',
 	`pote`		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Πότε ειπώθηκε',
 
 	PRIMARY KEY (
