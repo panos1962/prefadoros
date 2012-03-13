@@ -7,6 +7,10 @@ require_once '../prefadoros/prefadoros.php';
 set_globals();
 Prefadoros::set_pektis();
 Prefadoros::set_trapezi();
+if ($globals->not_trapezi()) {
+	$globals->klise_fige("κιτάπι: ακαθόριστο τραπέζι");
+}
+
 $globals->trapezi->fetch_dianomi();
 global $id;
 global $hpektis;
