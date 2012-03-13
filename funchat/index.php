@@ -242,6 +242,7 @@ function print_panel() {
 	$item_list[] = new Item("michaelJackson.gif", "Είμαι μεγάλος μάστορας!");
 	$item_list[] = new Item("imeApisteftos.gif", "Είμαι απίστευτος!");
 	$item_list[] = new Item("xorosSpagato.gif", "Είμαι μεγάλος παίκτης!");
+	$item_list[] = new Item("imeMegalos.gif");
 	$item_list[] = new Item("isePextaras.gif", "Είσαι παιχταράς!", 1.0);
 	$item_list[] = new Item("iseTerastios.gif", "Είσαι τεράστιος!");
 	$item_list[] = new Item("axtipitoDidimo.gif", "Είμαστε αχτύπητο δίδυμο!");
@@ -319,6 +320,7 @@ function print_panel() {
 	$item_list[] = new Item("kobra.gif");
 	$item_list[] = new Item("tinPatisame.jpg", "Την πατήσαμε…", "6.0",
 		"http://splicd.com/rvwSqsAoeq4/0/1");
+	$item_list[] = new Item("xtipoKefali.gif");
 	$item_list[] = new Item("sfiriEmoticon.gif", "Θα το σπάσω!!!");
 	$item_list[] = new Item("parathiro.gif", "", "", "tzamia:1500");
 	$item_list[] = new Item("astrapesEmoticon.gif", "@#!%@^&#*!@");
