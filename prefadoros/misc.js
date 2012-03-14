@@ -66,9 +66,9 @@ var monitor = new function() {
 		if (isSet(window.trapezi)) {
 			for (var i = 0; i < trapezi.length; i++) {
 				nt++;
-				if (isSet(trapezi[i].p1)) { np++; }
-				if (isSet(trapezi[i].p2)) { np++; }
-				if (isSet(trapezi[i].p3)) { np++; }
+				if (trapezi[i].p1) { np++; }
+				if (trapezi[i].p2) { np++; }
+				if (trapezi[i].p3) { np++; }
 			}
 		}
 
