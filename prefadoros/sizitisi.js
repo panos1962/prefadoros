@@ -67,6 +67,7 @@ var Sizitisi = new function() {
 	var telefteaEpafi = currentTimestamp();
 
 	this.sxolioAdd = function(s, proxiro) {
+		if (notSet(proxiro)) { proxiro = false; }
 		var p = getelid('st_' + s.k);
 		if (isSet(p)) { try { p.parentNode.removeChild(p); } catch(e) {}; }
 
@@ -93,7 +94,6 @@ var Sizitisi = new function() {
 			x.style.visibility = 'hidden';
 		};
 
-		if (notSet(proxiro)) { proxiro = false; }
 		p.innerHTML = Sizitisi.HTML(s, proxiro);
 		sizitisi.insertBefore(p, telos);
 
@@ -127,7 +127,8 @@ var Sizitisi = new function() {
 	};
 
 	this.HTML = function(s, proxiro) {
-		var sxolio = Sizitisi.decode(s);
+		if (notSet(proxiro)) { proxiro = false; }
+		var sxolio = Sizitisi.decode(s, proxiro);
 		var html = '';
 		if (s.p == globals.systemAccount) {
 			html += '<img src="' + globals.server + 'images/warning.png" ' +
@@ -147,7 +148,7 @@ var Sizitisi = new function() {
 				if (zebraLast >= Sizitisi.zebraColor.length) { zebraLast = 1; }
 			}
 			html += '<div class="sizitisiPektis';
-			if (proxiro == true) { html += ' sizitisiPektisProxiro'; }
+			if (proxiro) { html += ' sizitisiPektisProxiro'; }
 			html += '" style="color: #' + color + ';">' + s.p + '</div>';
 		}
 
@@ -162,7 +163,8 @@ var Sizitisi = new function() {
 
 	var epexeIxos = [];
 
-	this.decode = function(s) {
+	this.decode = function(s, proxiro) {
+		if (notSet(proxiro)) { proxiro = false; }
 		s.s = akirosiScript(s.s);
 		if (s.s == "@WP@") {
 			return '<img class="moliviPartida" src="' + globals.server +
@@ -187,7 +189,7 @@ var Sizitisi = new function() {
 		}
 
 		if ((s.s).match(/^@FC@/)) {
-			return Sizitisi.funchatDecode(s);
+			return Sizitisi.funchatDecode(s, proxiro);
 		}
 
 		return Sizitisi.textDecode(s.s);
@@ -201,7 +203,8 @@ var Sizitisi = new function() {
 	}
 		
 
-	this.funchatDecode = function(s) {
+	this.funchatDecode = function(s, proxiro) {
+		if (notSet(proxiro)) { proxiro = false; }
 		var x = (s.s).split('@');
 		if (x.length < 6) { return Sizitisi.textDecode(s.s); }
 
@@ -215,11 +218,10 @@ var Sizitisi = new function() {
 		}
 
 		var k = 'k' + s.k;
-		if (x[4] && (!epexeIxos.hasOwnProperty(k)) && isSet(s.w) &&
-			((currentTimestamp() - (s.w * 1000)) < 5000)) {
+		if ((!proxiro) && x[4] && (!epexeIxos.hasOwnProperty(k)) && isSet(s.w) &&
+			((currentTimestamp() - (s.w * 1000)) < 15000)) {
 			video = Sizitisi.pexeIxoVideo(x[4]);
 			epexeIxos[k] = true;
-			// if (video != '') { ikona = ''; }
 		}
 
 		var titlos = x[5];
@@ -773,6 +775,7 @@ var Kafenio = new function() {
 	};
 
 	this.sxolioAdd = function(s, proxiro) {
+		if (notSet(proxiro)) { proxiro = false; }
 		var p = getelid('sk_' + s.k);
 		if (isSet(p)) { try { p.parentNode.removeChild(p); } catch(e) {}; }
 
@@ -799,7 +802,6 @@ var Kafenio = new function() {
 			x.style.visibility = 'hidden';
 		};
 
-		if (notSet(proxiro)) { proxiro = false; }
 		p.innerHTML = Sizitisi.HTML(s, proxiro);
 		sizitisi.insertBefore(p, telos);
 	};
