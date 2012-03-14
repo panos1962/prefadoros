@@ -66,6 +66,7 @@ var Prefadoros = new function() {
 		}
 		Prefadoros.clearBikeNeos();
 		controlPanel.display();
+		monitor.displayStats();
 	};
 
 	this.clearBikeNeos = function() {

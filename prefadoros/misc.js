@@ -8,6 +8,8 @@ var monitor = new function() {
 		var x = getelid('monitorArea');
 		if (notSet(x)) { return; }
 
+		var statsHTML = '<span class="monitorStats" id="monitorStats"></span>';
+
 		monitor.count++;
 		if ((monitor.count % 10) == 1) { monitor.dotsHTML = ''; }
 		monitor.dotsHTML = '<span title="' + title + '" style="color: ' +
@@ -20,7 +22,8 @@ var monitor = new function() {
 			html += '#<span title="Λανθασμένες ενημερώσεις" style="color: ' +
 				globals.color.error + ';">' + monitor.errorCount + '</span>';
 		}
-		x.innerHTML =  monitor.dotsHTML + html;
+
+		x.innerHTML =  statsHTML + monitor.dotsHTML + html;
 	};
 
 	this.ignore = function() {
@@ -50,6 +53,31 @@ var monitor = new function() {
 		}
 
 		monitor.updateHTML('Λανθασμένα δεδομένα', globals.color.error);
+	};
+
+	this.displayStats = function() {
+		var x = getelid('monitorStats');
+		if (notSet(x)) { return; }
+
+		var html = '';
+		var nt = 0;
+		var np = 0;
+
+		if (isSet(window.trapezi)) {
+			for (var i = 0; i < trapezi.length; i++) {
+				nt++;
+				if (isSet(trapezi[i].p1)) { np++; }
+				if (isSet(trapezi[i].p2)) { np++; }
+				if (isSet(trapezi[i].p3)) { np++; }
+			}
+		}
+
+		if (isSet(window.rebelos)) {
+			np += rebelos.length;
+		}
+
+		x.innerHTML = '<span class="monitorStatsData" title="Τραπέζια">' + nt +
+			'</span>#<span class="monitorStatsData" title="Παίκτες">' + np + '</span>';
 	};
 };
 
