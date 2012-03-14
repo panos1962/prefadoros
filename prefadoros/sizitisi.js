@@ -219,7 +219,7 @@ var Sizitisi = new function() {
 
 		var k = 'k' + s.k;
 		if ((!proxiro) && x[4] && (!epexeIxos.hasOwnProperty(k)) && isSet(s.w) &&
-			((currentTimestamp() - (s.w * 1000)) < 15000)) {
+			((currentTimestamp() - (s.w * 1000)) < 5000)) {
 			video = Sizitisi.pexeIxoVideo(x[4]);
 			epexeIxos[k] = true;
 		}
