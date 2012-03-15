@@ -79,8 +79,17 @@ var monitor = new function() {
 		html = '<span class="monitorStatsData" title="Τραπέζια">' + nt + '</span>';
 		html += '#<span class="monitorStatsData" title="Παίκτες">' + np + '</span>';
 		if (isSet(sinedria.load)) {
-			html += '#<span class="monitorStatsData" title="Φόρτος">' +
-				sinedria.load + '%</span>';
+			html += '#<span class="monitorStatsData';
+			if (sinedria.load > 80) {
+				html += ' fortos80';
+			}
+			else if (sinedria.load > 60) {
+				html += ' fortos60';
+			}
+			else if (sinedria.load > 40) {
+				html += ' fortos40';
+			}
+			html += '" title="Φόρτος">' + sinedria.load + '%</span>';
 		}
 		x.innerHTML = html;
 	};
