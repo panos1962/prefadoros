@@ -1,4 +1,5 @@
 <?php
+
 // Αρχικά θέτουμε το content type σε plain/text καθώς μπορεί να
 // παρουσιαστούν σφάλματα τα οποία θα τυπωθούν ως απλό κείμενο.
 // Αργότερα και ακριβώς πριν την αποστολή των data σε JSON format
@@ -79,6 +80,10 @@ Prefadoros::pektis_check(Globals::perastike_check('login'));
 Prefadoros::set_trapezi();
 $globals->pektis->poll_update($sinedria->kodikos, $id);
 check_neotero_id();
+
+global $procstat;
+$procstat = new Procstat();
+
 
 // Αν έχει περαστεί παράμετρος "freska", τότε ζητάμε όλα τα δεδομένα
 // χωρίς να μπούμε στη διαδικασία της σύγκρισης με προηγούμενα
@@ -192,6 +197,7 @@ function print_epikefalida() {
 	global $globals;
 	global $sinedria;
 	global $id;
+	global $procstat;
 
 	// Για να έχουμε ενημερωμένα στοιχεία σχετικά με την κατάσταση
 	// του παίκτη επαναπροσπελαύνουμε τον παίκτη πριν την επιστροφή.
@@ -203,6 +209,7 @@ function print_epikefalida() {
 	if ($globals->pektis->kapikia != 'YES') { print ",p:0"; }
 	if ($globals->pektis->katastasi != 'AVAILABLE') { print ",b:0"; }
 	if ($globals->pektis->blockimage) { print ",x:true"; }
+	if (isSet($procstat->load)) { printf(",l:%.0f", $procstat->load); }
 }
 
 class Dedomena {
@@ -232,6 +239,7 @@ class Dedomena {
 
 	public function diavase() {
 		global $globals;
+		global $procstat;
 
 		if (!$globals->klidoma($globals->pektis->login)) {
 			Globals::fatal('cannot lock in order to read data file');
@@ -255,6 +263,7 @@ class Dedomena {
 			case '@REBELOS@':	Rebelos::diavase($fh, $this->rebelos); break;
 			case '@SIZITISI@':	Sizitisi::diavase($fh, $this->sizitisi); break;
 			case '@KAFENIO@':	Sizitisi::diavase($fh, $this->kafenio); break;
+			case '@PROCSTAT@':	$procstat->diavase($fh);
 			}
 		}
 
@@ -265,6 +274,7 @@ class Dedomena {
 
 	public function grapse() {
 		global $globals;
+		global $procstat;
 
 		if (!$globals->klidoma($globals->pektis->login)) {
 			Globals::fatal('cannot lock in order to write data file');
@@ -293,6 +303,7 @@ class Dedomena {
 		Rebelos::grapse($fh, $this->rebelos);
 		Sizitisi::grapse($fh, $this->sizitisi, 'SIZITISI');
 		Sizitisi::grapse($fh, $this->kafenio, 'KAFENIO');
+		$procstat->grapse($fh);
 
 		fclose($fh);
 		$globals->xeklidoma($globals->pektis->login);
@@ -499,4 +510,78 @@ class Sinedria {
 		$stmnt->execute();
 	}
 }
+
+class Procstat {
+	public $total;
+	public $idle;
+	public $load;
+
+	public function __construct() {
+		$total = NULL;
+		$idle = NULL;
+		$load = NULL;
+	}
+
+	public function diavase($fh) {
+		$line = Globals::get_line($fh);
+		if (!$line) {
+			return(FALSE);
+		}
+
+		$cols = explode("\t", $line);
+		if (count($cols) != 2) {
+			return(FALSE);
+		}
+
+		$nf = 0;
+		$this->total = $cols[$nf++];
+		$this->idle = $cols[$nf++];
+		return(TRUE);
+	}
+
+	public function grapse($fh) {
+		$fp = @fopen("../PROCSTAT", "r");
+		if (!$fp) {
+			return(FALSE);
+		}
+
+		$tag = "";
+		while ($line = Globals::get_line($fp)) {
+			if (sscanf($line, "%s%d%d%d%d", $tag, $user, $nice, $system, $idle) != 5) {
+				continue;
+			}
+
+			if ($tag != "cpu") {
+				continue;
+			}
+
+			$total = $user + $nice + $system + $idle;
+			break;
+		}
+		@fclose($fp);
+
+		if ($tag != "cpu") {
+			return(FALSE);
+		}
+
+		Globals::put_line($fh, "@PROCSTAT@");
+		Globals::put_line($fh, $total . "\t" . $idle);
+
+		$this->load = NULL;
+		if (!isset($this->total)) {
+			return(TRUE);
+		}
+
+		$total -= $this->total;
+		if ($total <= 0) {
+			return(FALSE);
+		}
+
+		$idle -= $this->idle;
+		$total += 0.0;
+		$this->load = (($total - $idle) / $total) * 100;
+		return(TRUE);
+	}
+}
+
 ?>
