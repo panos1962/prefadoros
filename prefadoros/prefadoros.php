@@ -287,7 +287,7 @@ class Prefadoros {
 	// βρίσκονται online στο σύστημα. Online θεωρούνται οι παίκτες οι οποίοι
 	// έχουν κάνει poll μέσα στο διάστημα ενός πλήρους, ήρεμου κύκλου ελέγχου
 	// που καθορίζεται από τη σταθερά "XRONOS_PEKTIS_IDLE_MAX" (τάξη μεγέθους
-	// λεπτού και άνω).
+	// μισού λεπτού και άνω).
 
 	public static function energos_pektis() {
 		global $globals;
@@ -334,19 +334,24 @@ class Prefadoros {
 		return($energos);
 	}
 
+	// Προστέθηκε αργότερα. Δέχεται ως παράμετρο ένα login name και επιστρέφει
+	// true, αν ο παίκτης με το συγκεκριμένο login name είναι απασχολημένος.
+	// Μπορεί, όμως, η παράμετρος που δέχεται να είναι και array δεικτοδοτημένο
+	// με τα login names. Τέτοιου είδους κλήση έχουμε κατά την ανίχνευση των
+	// ενεργών παικτών.
+
 	public static function apasxolimenos($login) {
 		static $apasxolimenos = NULL;
+
+		// Αν η κλήση έγινε με array παικτών, τότε θέτουμε
+		// το array και επιστρέφουμε.
 
 		if (is_array($login)) {
 			$apasxolimenos = $login;
 			return;
 		}
 
-		if (!isset($apasxolimenos)) {
-			return(FALSE);
-		}
-
-		return(array_key_exists($login, $apasxolimenos));
+		return (isset($apasxolimenos) && array_key_exists($login, $apasxolimenos));
 	}
 
 	// Η παρακάτω (static) μέθοδος δημιουργεί λίστα όλων των θεατών,
