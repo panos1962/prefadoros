@@ -311,20 +311,42 @@ class Prefadoros {
 		if ($now_ts - $last_hour_ts < 300) {
 			$last_hour_ts -= 3600;
 		}
-		$query = "SELECT `login`, UNIX_TIMESTAMP(`poll`) FROM `pektis` " .
+		$query = "SELECT `login`, UNIX_TIMESTAMP(`poll`), `katastasi` FROM `pektis` " .
 			"WHERE UNIX_TIMESTAMP(`poll`) > " . $last_hour_ts;
 		$result = $globals->sql_query($query);
 
 		$energos = array();
+		$apasxolimenos = array();
 		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 			if (($now_ts - $row[1]) <= XRONOS_PEKTIS_IDLE_MAX) {
 				$energos[$row[0]] = TRUE;
+				switch ($row[2]) {
+				case 'BUSY':
+					$apasxolimenos[$row[0]] = TRUE;
+					break;
+				}
 			}
 		}
 
 		$etrexe_ts = microtime(TRUE);
 		$etrexe_kiklos = $kiklos;
+		self::apasxolimenos($apasxolimenos);
 		return($energos);
+	}
+
+	public static function apasxolimenos($login) {
+		static $apasxolimenos = NULL;
+
+		if (is_array($login)) {
+			$apasxolimenos = $login;
+			return;
+		}
+
+		if (!isset($apasxolimenos)) {
+			return(FALSE);
+		}
+
+		return(array_key_exists($login, $apasxolimenos));
 	}
 
 	// Η παρακάτω (static) μέθοδος δημιουργεί λίστα όλων των θεατών,

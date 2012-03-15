@@ -134,7 +134,7 @@ var Trapezi = new function() {
 			Trapezi.HTML += '<div class="kafenioRebels">';
 			for (var i = 0; i < rebelos.length; i++) {
 				if (notSet(rebelos[i].t)) {
-					Trapezi.HTML += Trapezi.rebelosHTML(rebelos[i].l, false, peknpat);
+					Trapezi.HTML += Trapezi.rebelosHTML(rebelos[i], false, peknpat);
 				}
 			}
 			Trapezi.HTML += '</div>';
@@ -156,7 +156,7 @@ var Trapezi = new function() {
 				if (isSet(rebelos[j].t) && (rebelos[j].t == trapezi[i].k)) {
 					Trapezi.HTML += protos;
 					protos = '';
-					Trapezi.HTML += Trapezi.rebelosHTML(rebelos[j].l, true, peknpat);
+					Trapezi.HTML += Trapezi.rebelosHTML(rebelos[j], true, peknpat);
 				}
 			}
 			if (protos === '') { Trapezi.HTML += '</div>'; }
@@ -347,16 +347,17 @@ var Trapezi = new function() {
 		}
 	};
 
-	this.rebelosHTML = function(t, theatis, peknpat) {
+	this.rebelosHTML = function(r, theatis, peknpat) {
 		var html = '<div class="kafenioBox kafenioPektis rebelos';
 		if (theatis) { html += ' theatis'; }
-		if (Trapezi.isFilos(t)) { html += ' kafenioFilos'; }
-		if (isPektis() && (t == pektis.login)) { html += ' ego'; }
-		else if (Trapezi.loginMatch(t, peknpat)) { html += ' katazitoumenos'; }
+		if (Trapezi.isFilos(r.l)) { html += ' kafenioFilos'; }
+		if (isPektis() && (r.l == pektis.login)) { html += ' ego'; }
+		else if (Trapezi.loginMatch(r.l, peknpat)) { html += ' katazitoumenos'; }
+		if (isSet(r.b)) { html += ' apasxolimenos'; }
 		html += '"';
-		html += Trapezi.permesHTML(t);
+		html += Trapezi.permesHTML(r.l);
 		html += '>';
-		html += '<div class="kafenioBoxData">' + t + '</div>';
+		html += '<div class="kafenioBoxData">' + r.l + '</div>';
 		html += '</div>';
 		return html;
 	};
