@@ -76,8 +76,13 @@ var monitor = new function() {
 			np += rebelos.length;
 		}
 
-		x.innerHTML = '<span class="monitorStatsData" title="Τραπέζια">' + nt +
-			'</span>#<span class="monitorStatsData" title="Παίκτες">' + np + '</span>';
+		html = '<span class="monitorStatsData" title="Τραπέζια">' + nt + '</span>';
+		html += '#<span class="monitorStatsData" title="Παίκτες">' + np + '</span>';
+		if (isSet(sinedria.l)) {
+			html += '#<span class="monitorStatsData" title="Φόρτος">' +
+				sinedria.l + '%</span>';
+		}
+		x.innerHTML = html;
 	};
 };
 
