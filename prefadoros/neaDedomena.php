@@ -1,5 +1,8 @@
 <?php
 
+define('PROCSTAT_FILE', "../PROCSTAT");
+define('MIN_PROCSTAT_INTERVAL', 10);
+
 // Αρχικά θέτουμε το content type σε plain/text καθώς μπορεί να
 // παρουσιαστούν σφάλματα τα οποία θα τυπωθούν ως απλό κείμενο.
 // Αργότερα και ακριβώς πριν την αποστολή των data σε JSON format
@@ -514,11 +517,13 @@ class Sinedria {
 class Procstat {
 	public $total;
 	public $idle;
+	public $pote;
 	public $load;
 
 	public function __construct() {
 		$total = NULL;
 		$idle = NULL;
+		$pote = NULL;
 		$load = NULL;
 	}
 
@@ -529,18 +534,34 @@ class Procstat {
 		}
 
 		$cols = explode("\t", $line);
-		if (count($cols) != 2) {
+		if (count($cols) != 3) {
 			return(FALSE);
 		}
 
 		$nf = 0;
 		$this->total = $cols[$nf++];
 		$this->idle = $cols[$nf++];
+		$this->pote = $cols[$nf++];
 		return(TRUE);
 	}
 
 	public function grapse($fh) {
-		$fp = @fopen("../PROCSTAT", "r");
+		// Για να αποφύγουμε περιττά ανοίγματα του αρχείου κατάστασης
+		// της CPU, ελέγχουμε το χρόνο προηγούμενης καταγραφής και αν
+		// η καταγραφή είναι σχετικά πρόσφατη, δεν ανοίγουμε το αρχείο.
+		//
+		// Θυμίζουμε ότι το αρχείο είναι symbolic link του αρχείου
+		// "/proc/stat" με όνομα "PROCSTAT" στο home directory της
+		// εφαρμογής.
+
+		if (isset($this->total) && ($this->total > 0) && isset($this->idle) &&
+			isset($this->pote) && ((($tora = time()) - $this->pote) < MIN_PROCSTAT_INTERVAL)) {
+			$this->load = (($this->total - $this->idle) / $this->total) * 100;
+			$this->grapse_data($fh, $this->total, $this->idle, $this->pote);
+			return(TRUE);
+		}
+
+		$fp = @fopen(PROCSTAT_FILE, "r");
 		if (!$fp) {
 			return(FALSE);
 		}
@@ -564,8 +585,7 @@ class Procstat {
 			return(FALSE);
 		}
 
-		Globals::put_line($fh, "@PROCSTAT@");
-		Globals::put_line($fh, $total . "\t" . $idle);
+		$this->grapse_data($fh, $total, $idle, $tora);
 
 		$this->load = NULL;
 		if (!isset($this->total)) {
@@ -580,7 +600,13 @@ class Procstat {
 		$idle -= $this->idle;
 		$total += 0.0;
 		$this->load = (($total - $idle) / $total) * 100;
+		$this->pote = $tora;
 		return(TRUE);
+	}
+
+	private function grapse_data($fh, $total, $idle, $pote) {
+		Globals::put_line($fh, "@PROCSTAT@");
+		Globals::put_line($fh, $total . "\t" . $idle . "\t" . $pote);
 	}
 }
 
