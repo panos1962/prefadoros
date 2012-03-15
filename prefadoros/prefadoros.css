@@ -939,6 +939,18 @@ background-color: magenta;
 	color: #CC9900;
 }
 
+.fortos80 {
+	color: #FF0000;
+}
+
+.fortos60 {
+	color: #CC4040;
+}
+
+.fortos40 {
+	color: #006600;
+}
+
 .epilogi {
 	display: inline-block;
 	padding-left: 0.2cm;
