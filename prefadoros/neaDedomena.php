@@ -1,7 +1,8 @@
 <?php
 
 define('PROCSTAT_FILE', "../PROCSTAT");
-define('MIN_PROCSTAT_INTERVAL', 10);
+define('MIN_PROCSTAT_INTERVAL1', 5);
+define('MIN_PROCSTAT_INTERVAL2', 10);
 
 // Αρχικά θέτουμε το content type σε plain/text καθώς μπορεί να
 // παρουσιαστούν σφάλματα τα οποία θα τυπωθούν ως απλό κείμενο.
@@ -212,7 +213,7 @@ function print_epikefalida() {
 	if ($globals->pektis->kapikia != 'YES') { print ",p:0"; }
 	if ($globals->pektis->katastasi != 'AVAILABLE') { print ",b:0"; }
 	if ($globals->pektis->blockimage) { print ",x:true"; }
-	if (isSet($procstat->load)) { printf(",l:%.0f", $procstat->load); }
+	if ($procstat->calc) { printf(",l:%.0f", $procstat->load); }
 }
 
 class Dedomena {
@@ -519,30 +520,42 @@ class Procstat {
 	public $idle;
 	public $pote;
 	public $load;
+	public $calc;
 
 	public function __construct() {
 		$total = NULL;
 		$idle = NULL;
 		$pote = NULL;
 		$load = NULL;
+		$calc = FALSE;
 	}
 
 	public function diavase($fh) {
+		$total = NULL;
+		$idle = NULL;
+		$pote = NULL;
+		$load = NULL;
+		$calc = FALSE;
+
 		$line = Globals::get_line($fh);
 		if (!$line) {
-			return(FALSE);
+			return;
 		}
 
 		$cols = explode("\t", $line);
-		if (count($cols) != 3) {
-			return(FALSE);
+		$ncol = count($cols);
+		if ($ncol < 3) {
+			return;
 		}
 
 		$nf = 0;
 		$this->total = $cols[$nf++];
 		$this->idle = $cols[$nf++];
 		$this->pote = $cols[$nf++];
-		return(TRUE);
+
+		if ($ncol > 3) {
+			$this->load = $cols[$nf++];
+		}
 	}
 
 	public function grapse($fh) {
@@ -554,16 +567,15 @@ class Procstat {
 		// "/proc/stat" με όνομα "PROCSTAT" στο home directory της
 		// εφαρμογής.
 
-		if (isset($this->total) && ($this->total > 0) && isset($this->idle) &&
-			isset($this->pote) && ((($tora = time()) - $this->pote) < MIN_PROCSTAT_INTERVAL)) {
-			$this->load = (($this->total - $this->idle) / $this->total) * 100;
-			$this->grapse_data($fh, $this->total, $this->idle, $this->pote);
-			return(TRUE);
+		$tora = time();
+		if ($this->trexon_entaxi($fh, $tora)) {
+			$this->grapse_data($fh);
+			return;
 		}
 
 		$fp = @fopen(PROCSTAT_FILE, "r");
 		if (!$fp) {
-			return(FALSE);
+			return;
 		}
 
 		$tag = "";
@@ -582,31 +594,59 @@ class Procstat {
 		@fclose($fp);
 
 		if ($tag != "cpu") {
-			return(FALSE);
+			return;
 		}
 
-		$this->grapse_data($fh, $total, $idle, $tora);
 
-		$this->load = NULL;
-		if (!isset($this->total)) {
-			return(TRUE);
-		}
-
-		$total -= $this->total;
-		if ($total <= 0) {
-			return(FALSE);
-		}
-
-		$idle -= $this->idle;
-		$total += 0.0;
-		$this->load = (($total - $idle) / $total) * 100;
 		$this->pote = $tora;
-		return(TRUE);
+
+		if (!isset($this->total)) {
+			$this->total = $total;
+			$this->idle = $idle;
+			$this->load = NULL;
+			$this->grapse_data($fh);
+			return;
+		}
+
+		$total_dif = $total - $this->total;
+		$idle_dif = $idle - $this->idle;
+		if ($total_dif <= 0) {
+			$this->total = $total;
+			$this->idle = $idle;
+			$this->load = NULL;
+			$this->grapse_data($fh);
+			return;
+		}
+
+		$this->total = $total;
+		$this->idle = $idle;
+		$total_dif += 0.0;
+		$this->load = (($total_dif - $idle_dif) / $total_dif) * 100;
+		$this->calc = TRUE;
+		$this->grapse_data($fh);
 	}
 
-	private function grapse_data($fh, $total, $idle, $pote) {
+	private function trexon_entaxi($fh, $tora) {
+		if (!isset($this->pote)) {
+			return(FALSE);
+		}
+
+		$interval = $tora - $this->pote;
+		if (isset($this->load)) {
+			return($interval < MIN_PROCSTAT_INTERVAL2);
+		}
+
+		return($interval < MIN_PROCSTAT_INTERVAL1);
+	}
+
+	private function grapse_data($fh) {
 		Globals::put_line($fh, "@PROCSTAT@");
-		Globals::put_line($fh, $total . "\t" . $idle . "\t" . $pote);
+		$data = $this->total . "\t" . $this->idle . "\t" . $this->pote;
+		if (isset($this->load)) {
+			$data .= "\t" . $this->load;
+		}
+
+		Globals::put_line($fh, $data);
 	}
 }
 
