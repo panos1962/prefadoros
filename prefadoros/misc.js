@@ -78,9 +78,9 @@ var monitor = new function() {
 
 		html = '<span class="monitorStatsData" title="Τραπέζια">' + nt + '</span>';
 		html += '#<span class="monitorStatsData" title="Παίκτες">' + np + '</span>';
-		if (isSet(sinedria.l)) {
+		if (isSet(sinedria.load)) {
 			html += '#<span class="monitorStatsData" title="Φόρτος">' +
-				sinedria.l + '%</span>';
+				sinedria.load + '%</span>';
 		}
 		x.innerHTML = html;
 	};
