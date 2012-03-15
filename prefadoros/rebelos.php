@@ -2,32 +2,37 @@
 class Rebelos {
 	public $login;
 	public $theatis;
+	public $apasxolimenos;
 
 	public function __construct($login = FALSE, $trapezi = 0) {
 		if ($login === FALSE) {
 			unset($this->login);
 			unset($this->theatis);
+			unset($this->apasxolimenos);
 		}
 		else {
 			$this->login = $login;
 			$this->theatis = $trapezi;
+			$this->apasxolimenos = (Prefadoros::apasxolimenos($login) ? 1 : 0);
 		}
 	}
 
 	public function set_from_file($line) {
 		$cols = explode("\t", $line);
-		if (count($cols) != 2) {
+		if (count($cols) != 3) {
 			return(FALSE);
 		}
 
 		$nf = 0;
 		$this->login = $cols[$nf++];
 		$this->theatis = $cols[$nf++];
+		$this->apasxolimenos = $cols[$nf++];
 		return(TRUE);
 	}
 
 	public function print_raw_data($fh) {
-		Globals::put_line($fh, $this->login . "\t" . $this->theatis);
+		Globals::put_line($fh, $this->login . "\t" .
+			$this->theatis . "\t" . $this->apasxolimenos);
 	}
 
 	public static function diavase($fh, &$rlist) {
@@ -155,6 +160,9 @@ class Rebelos {
 		print "{l:'" . $this->login . "'";
 		if ($this->theatis != 0) {
 			print ",t:" . $this->theatis;
+		}
+		if ($this->apasxolimenos != 0) {
+			print ",b:1";
 		}
 		print "}";
 	}
