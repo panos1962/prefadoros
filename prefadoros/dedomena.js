@@ -179,6 +179,10 @@ var Dedomena = new function() {
 			pektis.blockImage = (isSet(dedomena.sinedria.x) && dedomena.sinedria.x);
 		}
 
+		if (isSet(dedomena.sinedria.l)) {
+			sinedria.load = dedomena.sinedria.l;
+		}
+
 		if (isSet(dedomena.sinedria.s)) {
 			monitor.idia();
 			Dedomena.schedule();
