@@ -568,6 +568,36 @@ window.onload = function() {
 <table width="100%">
 	<tr>
 	<td class="helpIconColumn">
+		<img src="<?php print $globals->server; ?>images/controlPanel/busy.png"
+			class="helpIcon" alt="" />
+	</td>
+	<td class="helpKimeno">
+		Κάνοντας κλικ σε αυτό το εικονίδιο υποδηλώνουμε ότι δεν είμαστε
+		διαθέσιμοι για παιχνίδι και εμφανιζόμαστε στο χώρο του καφενείου
+		με αχνότερα χρώματα ως απασχολημένοι. Οι απασχολημένοι παίκτες
+		δεν δέχονται προσκλήσεις παρά μόνον από παίκτες τους οποίους
+		έχουν χαρακτηρίσει ως φίλους.
+	</td>
+	</tr>
+</table>
+
+<table width="100%">
+	<tr>
+	<td class="helpIconColumn">
+		<img src="<?php print $globals->server; ?>images/controlPanel/available.png"
+			class="helpIcon" alt="" />
+	</td>
+	<td class="helpKimeno">
+		Κάνοντας κλικ σε αυτό το εικονίδιο δηλώνουμε ότι είμαστε διαθέσιμοι
+		για παιχνίδι αίροντας προηγούμενη ενέργειά μας με την οποία
+		είχαμε τεθεί σε κατάσταση μη αποδοχής προσκλήσεων ως απασχολημένοι.
+	</td>
+	</tr>
+</table>
+
+<table width="100%">
+	<tr>
+	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/blockImage.png"
 			class="helpIcon" alt="" />
 	</td>
