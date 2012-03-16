@@ -270,7 +270,7 @@ function print_panel() {
 	$item_list[] = new Item("pipa.gif", "Πίπα, όπως λέμε Φελίπα…");
 	$item_list[] = new Item("dontiToulipa.gif");
 	$item_list[] = new Item("manoula.jpg", "Μανούλααα…", 3.5,
-		"http://splicd.com/G6XPvONk8bk/14/16");
+		"http://youtu.be/EMGNdy7gVMM");
 	$item_list[] = new Item("klamaEmoticon.gif");
 	$item_list[] = new Item("klapsEmoticon.gif", "Κλαψ…");
 	$item_list[] = new Item("tsopaTsopa.gif", "Τσώπα, τσώπα…");
@@ -310,12 +310,12 @@ function print_panel() {
 	$item_list[] = new Item("minBisMesa.gif", "Ένα, δύο, τρία και… Ουπς!", "", "blioup:1500:20");
 	$item_list[] = new Item("migaki.gif", "Μια μύγα!");
 	$item_list[] = new Item("notaraTaTheli.jpg", "Τα θέλει κι εσένα ο οργανισμός σου!", "4.0",
-		"http://youtu.be/HMguQXzgcd0");
+		"http://youtu.be/Y9fNnTZeZU4");
 	$item_list[] = new Item("notaraSodoma.jpg", "Εδώ μέσα γίνονται Σόδομα και Γόμορα!", "6.0",
-		"http://youtu.be/-wYfPfJshSM");
+		"http://youtu.be/bthnzH5-4gw");
 	$item_list[] = new Item("chuckNoris.jpg", "Ούτε εγώ δεν τις βγάζω αυτές!");
 	$item_list[] = new Item("vegosPelates.jpg", "Πελάτες μου!", "3.5",
-		"http://splicd.com/0iFeP8zlmFU/0/2");
+		"http://youtu.be/LpX2T8IenD8");
 	$item_list[] = new Item("moxthiroEmoticon.gif");
 	$item_list[] = new Item("kobra.gif");
 	$item_list[] = new Item("tinPatisame.jpg", "Την πατήσαμε…", "6.0",
@@ -329,7 +329,7 @@ function print_panel() {
 	$item_list[] = new Item("denAntexo.png", "Όχι, δεν αντέχω άλλο!", "5.0",
 		"http://youtu.be/aEOcb4DD6xw");
 	$item_list[] = new Item("aiStoDiaolo.jpg", "Άι στο διάολο…", "6.0",
-		"http://youtu.be/A6LAyK5l8AU");
+		"http://youtu.be/3cFXA3OaI4U");
 	$item_list[] = new Item("miGamiso.jpg", "", 2.0);
 	$item_list[] = new Item("kokiniKarta.jpg", "", 3.0, "sfirixtra");
 	$item_list[] = new Item("binelikia.gif", "Δεν αντέχω τα μπινελίκια!");
