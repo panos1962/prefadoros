@@ -233,11 +233,21 @@ class Globals {
 		return(TRUE);
 	}
 
-	public function klise_fige($msg = 0) {
+	public function klise_fige($msg = NULL) {
 		if (isset($this->db)) {
 			@mysqli_kill($this->db, @mysqli_thread_id($this->db));
 			@mysqli_close($this->db);
 		}
+
+		if (!isset($msg)) {
+			$msg = 0;
+		}
+		elseif (!is_int($msg)) {
+			print $msg;
+			$msg = 0;
+		}
+
+		while (@ob_end_flush());
 		die($msg);
 	}
 
