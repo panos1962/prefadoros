@@ -8,14 +8,15 @@ var monitor = new function() {
 		var x = getelid('monitorArea');
 		if (notSet(x)) { return; }
 
-		var statsHTML = '<span class="monitorStats" id="monitorStats"></span>';
-
 		monitor.count++;
 		if ((monitor.count % 10) == 1) { monitor.dotsHTML = ''; }
 		monitor.dotsHTML = '<span title="' + title + '" style="color: ' +
 			color + ';">&bull;</span>' + monitor.dotsHTML;
 
-		var html = '<span title="Συνεδρία" class="monitorSinedria">' +
+		var html = '<span class="monitorStats" id="monitorStats">' +
+			this.statsHTML() + '</span>';
+		html += monitor.dotsHTML;
+		html += '<span title="Συνεδρία" class="monitorSinedria">' +
 			sinedria.kodikos + '</span>';
 		html += '#<span title="Ενημέρωση" class="monitorId">' + sinedria.id + '</span>';
 		if (monitor.errorCount) {
@@ -23,7 +24,7 @@ var monitor = new function() {
 				globals.color.error + ';">' + monitor.errorCount + '</span>';
 		}
 
-		x.innerHTML =  statsHTML + monitor.dotsHTML + html;
+		x.innerHTML = html;
 	};
 
 	this.ignore = function() {
@@ -55,20 +56,16 @@ var monitor = new function() {
 		monitor.updateHTML('Λανθασμένα δεδομένα', globals.color.error);
 	};
 
-	this.displayStats = function() {
-		var x = getelid('monitorStats');
-		if (notSet(x)) { return; }
-
-		var html = '';
+	this.statsHTML = function() {
 		var nt = 0;
 		var np = 0;
 
 		if (isSet(window.trapezi)) {
 			for (var i = 0; i < trapezi.length; i++) {
 				nt++;
-				if (trapezi[i].p1) { np++; }
-				if (trapezi[i].p2) { np++; }
-				if (trapezi[i].p3) { np++; }
+				if (trapezi[i].p1 && isSet(trapezi[i].o1)) { np++; }
+				if (trapezi[i].p2 && isSet(trapezi[i].o2)) { np++; }
+				if (trapezi[i].p3 && isSet(trapezi[i].o3)) { np++; }
 			}
 		}
 
@@ -76,8 +73,9 @@ var monitor = new function() {
 			np += rebelos.length;
 		}
 
-		html = '<span class="monitorStatsData" title="Τραπέζια">' + nt + '</span>';
-		html += '#<span class="monitorStatsData" title="Παίκτες">' + np + '</span>';
+		html = '';
+		if (nt > 0) { html += '<span class="monitorStatsData" title="Τραπέζια">' + nt + '</span>'; }
+		if (np > 0) { html += '#<span class="monitorStatsData" title="Παίκτες">' + np + '</span>'; }
 		if (isSet(sinedria.load)) {
 			html += '#<span class="monitorStatsData';
 			if (sinedria.load > 80) {
@@ -91,7 +89,14 @@ var monitor = new function() {
 			}
 			html += '" title="Φόρτος">' + sinedria.load + '%</span>';
 		}
-		x.innerHTML = html;
+		return html;
+	};
+
+	this.displayStats = function() {
+		var x = getelid('monitorStats');
+		if (notSet(x)) { return; }
+
+		x.innerHTML = this.statsHTML();
 	};
 };
 
