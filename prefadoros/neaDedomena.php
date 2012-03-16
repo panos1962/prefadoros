@@ -524,7 +524,13 @@ class Procstat {
 	public $calc;
 
 	public function __construct() {
-		$use = file_exists(PROCSTAT_FILE);
+		// Ο παρακάτω έλεγχος μπορεί να μην λειτουργεί με
+		// symbolic links, οπότε ξεκινάμε με TRUE και το
+		// θέτουμε off αν αποτύχουμε να ανοίξουμε το file.
+
+		// $use = file_exists(PROCSTAT_FILE);
+
+		$use = TRUE;
 		$total = NULL;
 		$idle = NULL;
 		$pote = NULL;
@@ -585,6 +591,7 @@ class Procstat {
 
 		$fp = @fopen(PROCSTAT_FILE, "r");
 		if (!$fp) {
+			$this->use = FALSE;
 			return;
 		}
 
