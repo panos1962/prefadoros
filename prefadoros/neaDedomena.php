@@ -1,5 +1,7 @@
 <?php
 
+ob_start();
+
 define('PROCSTAT_FILE', "../PROCSTAT");
 define('PROCSTAT_INTERVAL1', 2);
 define('PROCSTAT_INTERVAL2', 10);
