@@ -5,6 +5,11 @@
 // ορίζεται σε δευτερόλεπτα.
 define('WRITING_ACTIVE', 20);
 
+// Η σταθερά "WRITING_PALIO" είναι ο χρόνος που ένα σχόλιο ένδειξης
+// γραφής σχολίου ("@WP", ή "@WK@") θεωρείται παλιό. Ο χρόνος αυτός
+// ορίζεται σε δευτερόλεπτα.
+define('WRITING_PALIO', 120);
+
 // Ένα 24ωρο = 60 * 60 * 24 = 86400
 define('WRITING_CLEANUP', 86400);
 
@@ -468,6 +473,19 @@ class Sizitisi {
 			"WHERE (`pektis` = BINARY " . $globals->pektis->slogin . ") " .
 			"AND (`sxolio` REGEXP '^@W[PK]@$') " .
 			"AND (UNIX_TIMESTAMP(`pote`) > " . $prosfata . ")";
+		$globals->sql_query($query);
+		return (@mysqli_affected_rows($globals->db));
+	}
+
+	// Η function "καθαρίζει" τα παλαιά writing σχόλια όλων των παικτών και
+	// τρέχει κατά το logout οποιουδήποτε παίκτη.
+
+	public static function cleanup_old_writing() {
+		global $globals;
+
+		$palia_ts = time() - WRITING_PALIO;
+		$query = "DELETE FROM `sizitisi` WHERE (UNIX_TIMESTAMP(`pote`) < " .
+			$palia_ts . ") AND (`sxolio` REGEXP '^@W[PK]@$')";
 		$globals->sql_query($query);
 		return (@mysqli_affected_rows($globals->db));
 	}
