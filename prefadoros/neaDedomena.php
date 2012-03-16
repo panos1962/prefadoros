@@ -1,8 +1,8 @@
 <?php
 
 define('PROCSTAT_FILE', "../PROCSTAT");
-define('MIN_PROCSTAT_INTERVAL1', 2);
-define('MIN_PROCSTAT_INTERVAL2', 10);
+define('PROCSTAT_INTERVAL1', 2);
+define('PROCSTAT_INTERVAL2', 10);
 
 // Αρχικά θέτουμε το content type σε plain/text καθώς μπορεί να
 // παρουσιαστούν σφάλματα τα οποία θα τυπωθούν ως απλό κείμενο.
@@ -516,6 +516,7 @@ class Sinedria {
 }
 
 class Procstat {
+	public $use;
 	public $total;
 	public $idle;
 	public $pote;
@@ -523,6 +524,7 @@ class Procstat {
 	public $calc;
 
 	public function __construct() {
+		$use = file_exists(PROCSTAT_FILE);
 		$total = NULL;
 		$idle = NULL;
 		$pote = NULL;
@@ -531,6 +533,10 @@ class Procstat {
 	}
 
 	public function diavase($fh) {
+		if (!$this->use) {
+			return;
+		}
+
 		$total = NULL;
 		$idle = NULL;
 		$pote = NULL;
@@ -559,6 +565,10 @@ class Procstat {
 	}
 
 	public function grapse($fh) {
+		if (!$this->use) {
+			return;
+		}
+
 		// Για να αποφύγουμε συνεχή ανοίγματα του αρχείου κατάστασης
 		// της CPU, ελέγχουμε το χρόνο προηγούμενης καταγραφής και αν
 		// η καταγραφή είναι σχετικά πρόσφατη, δεν ανοίγουμε το αρχείο.
@@ -656,7 +666,7 @@ class Procstat {
 		// μεγάλο (π.χ. 10 δευτερόλπετα).
 
 		if (isset($this->load)) {
-			return($interval < MIN_PROCSTAT_INTERVAL2);
+			return($interval < PROCSTAT_INTERVAL2);
 		}
 
 		// Ακόμη δεν έχει υπολογιστεί φόρτος, επομένως ως διάστημα
@@ -664,7 +674,7 @@ class Procstat {
 		// 2 δευτερόλεπτα), ώστε να έχουμε σχετικά σύντομα τα πρώτα
 		// στοιχεία φόρτου.
 
-		return($interval < MIN_PROCSTAT_INTERVAL1);
+		return($interval < PROCSTAT_INTERVAL1);
 	}
 
 	private function grapse_data($fh) {
