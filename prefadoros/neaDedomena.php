@@ -524,18 +524,12 @@ class Procstat {
 	public $calc;
 
 	public function __construct() {
-		// Ο παρακάτω έλεγχος μπορεί να μην λειτουργεί με
-		// symbolic links, οπότε ξεκινάμε με TRUE και το
-		// θέτουμε off αν αποτύχουμε να ανοίξουμε το file.
-
-		// $use = file_exists(PROCSTAT_FILE);
-
-		$use = TRUE;
-		$total = NULL;
-		$idle = NULL;
-		$pote = NULL;
-		$load = NULL;
-		$calc = FALSE;
+		$this->use = file_exists(PROCSTAT_FILE);
+		$this->total = NULL;
+		$this->idle = NULL;
+		$this->pote = NULL;
+		$this->load = NULL;
+		$this->calc = FALSE;
 	}
 
 	public function diavase($fh) {
@@ -543,11 +537,11 @@ class Procstat {
 			return;
 		}
 
-		$total = NULL;
-		$idle = NULL;
-		$pote = NULL;
-		$load = NULL;
-		$calc = FALSE;
+		$this->total = NULL;
+		$this->idle = NULL;
+		$this->pote = NULL;
+		$this->load = NULL;
+		$this->calc = FALSE;
 
 		$line = Globals::get_line($fh);
 		if (!$line) {
