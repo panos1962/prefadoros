@@ -26,11 +26,9 @@ default:
 
 // Πρώτα δοκιμάζουμε να ενημερώσουμε τυχόν υπάρχοντα writing
 // σχόλια για τον παίκτη.
-$prosfata = time() - WRITING_CLEANUP;
 $query = "UPDATE `sizitisi` SET `sxolio` = '" . $globals->asfales($sxolio) .
  	"', `trapezi` = " . $trapezi . " WHERE (`pektis` = BINARY " .
-	$globals->pektis->slogin . ") AND (`sxolio` REGEXP '^@W[PK]@$') " .
-	"AND (UNIX_TIMESTAMP(`pote`) > " . $prosfata . ")";
+	$globals->pektis->slogin . ") AND (`sxolio` IN ('@WP@', '@WK@'))";
 @mysqli_query($globals->db, $query);
 if (@mysqli_affected_rows($globals->db) > 0) {
 	Sizitisi::set_dirty(FALSE);

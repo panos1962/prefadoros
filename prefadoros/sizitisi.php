@@ -5,9 +5,6 @@
 // ορίζεται σε δευτερόλεπτα.
 define('WRITING_ACTIVE', 20);
 
-// Ένα 24ωρο = 60 * 60 * 24 = 86400
-define('WRITING_CLEANUP', 86400);
-
 // Η σταθερά "KAFENIO_TREXONTA_SXOLIA" δείχνει το πλήθος των σχολίων της
 // δημόσιας συζήτησης που επιστρέφονται αρχικά στον παίκτη.
 define('KAFENIO_TREXONTA_SXOLIA', 30);
@@ -454,20 +451,15 @@ class Sizitisi {
 	}
 
 	// Η function "καθαρίζει" τα πρόσφατα writing σχόλια του παίκτη και καλείται
-	// κατά την αποστολή σχολίων από τον παίκτη. Θα μπορούσαμε απλώς να διαγράφουμε
-	// όλα τα writing σχόλια του παίκτη, αλλά αυτό θα είχε ως αποτέλεσμα να
-	// διατρέξουμε αν όχι όλο τον πίνακα των σχολίων, τουλάχιστον όλα τα σχόλια
-	// του παίκτη. Για να το αποφύγουμε αυτό περιοριζόμαστε χρονικά.
+	// κατά την αποστολή σχολίων από τον παίκτη.
 
 	public static function cleanup_writing() {
 		global $globals;
 		if ($globals->not_pektis()) { return 0; }
 
-		$prosfata = time() - WRITING_CLEANUP;
 		$query = "DELETE FROM `sizitisi` " .
 			"WHERE (`pektis` = BINARY " . $globals->pektis->slogin . ") " .
-			"AND (`sxolio` REGEXP '^@W[PK]@$') " .
-			"AND (UNIX_TIMESTAMP(`pote`) > " . $prosfata . ")";
+			"AND (`sxolio` IN ('@WP@', '@WK@'))";
 		$globals->sql_query($query);
 		return (@mysqli_affected_rows($globals->db));
 	}
