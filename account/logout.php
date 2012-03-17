@@ -15,7 +15,6 @@ if (isset($globals->pektis->login)) {
 	Sizitisi::cleanup_writing();
 }
 
-Sizitisi::cleanup_old_writing();
 if (!Globals::perastike('offlineOnly')) {
 	unset($_SESSION['ps_login']);
 	unset($_SESSION['ps_paraskinio']);
