@@ -542,6 +542,16 @@ var Sizitisi = new function() {
 	};
 
 	this.resetSxolioInput = function(fld, preview) {
+		// Αν έγινε κλήση από το σκουπάκι, τότε καθαρίζουμε τα μολύβια
+		// τόσο του παίκτη, όσο και τα παλιά άλλων παικτών.
+		if (arguments.length < 1) {
+			var req = new Request('sizitisi/cleanupWriting');
+			req.xhr.onreadystatechange = function() {
+				Sizitisi.resetSxolioInputCheck(req);
+			};
+			req.send();
+		}
+
 		if (notSet(preview)) {
 			preview = getelid('sxolioPreview');
 		}
@@ -554,6 +564,11 @@ var Sizitisi = new function() {
 			"images/sizitisiPrompt.png')";
 		if (isSet(preview)) { preview.innerHTML = ''; }
 		fld.focus();
+	};
+
+	this.resetSxolioInputCheck = function(req) {
+		if (req.xhr.readyState != 4) { return; }
+		mainFyi(req.getResponse());
 	};
 
 	this.apostoli = function(fld, ico, pk) {
