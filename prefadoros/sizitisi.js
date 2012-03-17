@@ -552,6 +552,8 @@ var Sizitisi = new function() {
 			req.send();
 		}
 
+		writing = '';
+		neoWriting = '';
 		if (notSet(preview)) {
 			preview = getelid('sxolioPreview');
 		}
