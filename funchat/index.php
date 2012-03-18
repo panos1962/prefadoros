@@ -285,7 +285,7 @@ function print_panel() {
 	$item_list[] = new Item("lolEmoticon.gif");
 	$item_list[] = new Item("stroumfaki.gif", "Α, χα, χα, χαααα!");
 	$item_list[] = new Item("haHaHa.gif");
-	$item_list[] = new Item("hahahaSteno.gif");
+	$item_list[] = new Item("hahahaSteno.gif", "", 3.0);
 	$item_list[] = new Item("xekardismenoEmoticon.gif");
 	$item_list[] = new Item("gelia.gif", "Ε, ρε γέλια που θα κάνουμε!", 3.2);
 	$item_list[] = new Item("no.gif", "", 3.0);
