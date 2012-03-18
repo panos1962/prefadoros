@@ -7,6 +7,7 @@ require_once '../prefadoros/prefadoros.php';
 Page::data();
 set_globals();
 Prefadoros::pektis_check();
+Prefadoros::set_trapezi();
 
 // Μας έχει έρθει σχόλιο για καταχώρηση (παράμετρος "sxolio")
 // και μαζί μας έχει έρθει και παράμετρος "pk" με τιμή "P",
@@ -15,7 +16,8 @@ Prefadoros::pektis_check();
 
 switch ($pk = Globals::perastike_check('pk')) {
 case 'P':
-	$trapezi = vres_to_trapezi();
+	check_trapezi();
+	$trapezi = $globals->trapezi->kodikos;
 	break;
 case 'K':
 	$trapezi = "NULL";
@@ -39,16 +41,25 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 }
 $kodikos = @mysqli_insert_id($globals->db);
 
-Sizitisi::set_dirty();
+Sizitisi::set_dirty(TRUE, $trapezi);
+if ($trapezi == "NULL") {
+	if ($globals->is_trapezi() && $globals->trapezi->is_pektis()) {
+		Sizitisi::set_dirty(FALSE, $globals->trapezi->kodikos);
+	}
+}
+
 @mysqli_commit($globals->db);
 $globals->klise_fige($kodikos . "@OK");
 
-function vres_to_trapezi() {
+function check_trapezi() {
 	global $globals;
-	Prefadoros::trapezi_check();
+
+	if ($globals->not_trapezi()) {
+		$globals->klise_fige();
+	}
+
 	if ($globals->trapezi->is_theatis() && (!$globals->trapezi->is_prosklisi()) &&
 		($globals->pektis->login != 'panos')) {
 		$globals->klise_fige('Δεν έχετε προσκληθεί στη συζήτηση αυτού του τραπεζιού');
 	}
-	return $globals->trapezi->kodikos;
 }

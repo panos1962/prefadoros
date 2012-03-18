@@ -134,7 +134,7 @@ var Prefadoros = new function() {
 			controlPanel.confirmClaim();
 		}
 
-		Prefadoros.setOptiki(isPartida() ? partida.kodikos : 0);
+		Prefadoros.setOptiki(isPartida() ? partida.kodikos : -1);
 		return false;
 	};
 

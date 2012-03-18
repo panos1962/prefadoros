@@ -171,7 +171,7 @@ function check_idio_ip() {
 		"VALUES ('" . SYSTEM_ACCOUNT . "', " . $strapezi . ", '" .
 		$globals->asfales($prothema1 . $prothema2 . $pektes) . ".')";
 	@mysqli_query($globals->db, $query);
-	Sizitisi::set_dirty();
+	Sizitisi::set_dirty(TRUE, $trapezi);
 	@mysqli_commit($globals->db);
 }
 

@@ -469,13 +469,24 @@ class Sizitisi {
 	// δίνεται η δυνατότητα να ενημερώσουμε μόνο τις συνεδρίες των άλλων παικτών
 	// περνώντας μια false τιμή.
 
-	public static function set_dirty($ola = TRUE) {
+	public static function set_dirty($ola = TRUE, $trapezi = NULL) {
 		global $globals;
 
 		$query = "UPDATE `sinedria` SET `sizitisidirty` = 2 WHERE (`sizitisidirty` <> 2)";
+
 		if (!$ola) {
 			$query .= " AND (`pektis` != BINARY " . $globals->pektis->slogin . ")";
 		}
+
+		if (isset($trapezi)) {
+			if ($trapezi == "NULL") {
+				$query .= " AND (`trapezi` = 0)";
+			}
+			else {
+				$query .= " AND (`trapezi` = " . $trapezi . ")";
+			}
+		}
+
 		@mysqli_query($globals->db, $query);
 	}
 }

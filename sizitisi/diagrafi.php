@@ -20,7 +20,7 @@ $globals->sql_query($query);
 if (@mysqli_affected_rows($globals->db) < 1) {
 	$globals->klise_fige('Δεν έγινε διαγραφή');
 }
-Sizitisi::set_dirty();
+Sizitisi::set_dirty(TRUE, $trapezi);
 $globals->klise_fige();
 
 function vres_trapezi() {

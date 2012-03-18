@@ -81,15 +81,27 @@ $kiklos = 0;
 // πεδίο "poll" του παίκτη, που δείχνει πότε ο παίκτης έκανε
 // την τελευταία κλήση για δεδομένα στον server, όσο και το
 // πεδίο "id" της συνεδρίας, που δείχνει τον τελευταίο κύκλο
-// ελέγχου σταπλαίσια της τρέχουσας συνεδρίας.
+// ελέγχου στα πλαίσια της τρέχουσας συνεδρίας.
+
 Prefadoros::pektis_check(Globals::perastike_check('login'));
 Prefadoros::set_trapezi();
-$globals->pektis->poll_update($sinedria->kodikos, $id);
+
+if ($globals->is_trapezi()) {
+	if (($sinedria->trapezi != 0) &&
+		($sinedria->trapezi != $globals->trapezi->kodikos)) {
+		$sinedria->trapezi = $globals->trapezi->kodikos;
+		$sinedria->sizitisidirty = 1;
+	}
+}
+elseif ($sinedria->trapezi > 0) {
+	$sinedria->trapezi = -1;
+	$sinedria->sizitisidirty = 1;
+}
+$globals->pektis->poll_update($sinedria, $id);
 check_neotero_id();
 
 global $procstat;
 $procstat = new Procstat();
-
 
 // Αν έχει περαστεί παράμετρος "freska", τότε ζητάμε όλα τα δεδομένα
 // χωρίς να μπούμε στη διαδικασία της σύγκρισης με προηγούμενα
@@ -456,6 +468,7 @@ class Sinedria {
 	public $peknpat;
 	public $pekstat;
 	public $sizitisidirty;
+	public $trapezi;
 
 	public function __construct() {
 		unset($this->kodikos);
@@ -463,6 +476,7 @@ class Sinedria {
 		unset($this->peknpat);
 		unset($this->pekstat);
 		$this->sizitisidirty = 0;
+		$this->trapezi = -2;
 	}
 
 	public function fetch() {
@@ -474,10 +488,11 @@ class Sinedria {
 		unset($this->peknpat);
 		unset($this->pekstat);
 		unset($this->sizitisidirty);
+		unset($this->trapezi);
 
 		if ($stmnt == NULL) {
-			$query = "SELECT `enimerosi`, `peknpat`, `pekstat`, `sizitisidirty` " .
-				"FROM `sinedria` WHERE `kodikos` = ?";
+			$query = "SELECT `enimerosi`, `peknpat`, `pekstat`, `sizitisidirty`, " .
+				"`trapezi` FROM `sinedria` WHERE `kodikos` = ?";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
 				$globals->klise_fige($errmsg . $query . ": failed to prepare");
@@ -486,7 +501,8 @@ class Sinedria {
 
 		$stmnt->bind_param("i", $this->kodikos);
 		$stmnt->execute();
-		$stmnt->bind_result($this->enimerosi, $peknpat, $this->pekstat, $this->sizitisidirty);
+		$stmnt->bind_result($this->enimerosi, $peknpat, $this->pekstat,
+			$this->sizitisidirty, $this->trapezi);
 		while ($stmnt->fetch()) {
 			$this->peknpat = $peknpat == '' ?
 				NULL : ("%" . $globals->asfales($peknpat) . "%");
