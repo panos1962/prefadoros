@@ -491,7 +491,7 @@ class Prefadoros {
 		global $globals;
 
 		$anenergos = "SELECT `login` FROM `pektis` WHERE " .
-			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) > 3600";
+			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) > 300";
 		$query = "INSERT INTO `sinedria_log` (`kodikos`, `pektis`, `ip`, " .
 			"`dimiourgia`, `enimerosi`, `telos`) SELECT `kodikos`, `pektis`, `ip`, " .
 			"`dimiourgia`, `enimerosi`, NOW() FROM `sinedria` WHERE `pektis` IN (" .
