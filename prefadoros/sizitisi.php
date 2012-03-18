@@ -471,35 +471,12 @@ class Sizitisi {
 
 	public static function set_dirty($ola = TRUE) {
 		global $globals;
-		static $stmnt1 = NULL;
-		static $stmnt2 = NULL;
-		$errmsg = "Sizitisi::set_dirty(): ";
 
-		if ($ola) {
-			if ($stmnt1 == NULL) {
-				$query = "UPDATE `sinedria` SET `sizitisidirty` = 2 " .
-					"WHERE `sizitisidirty` <> 2";
-				$stmnt1 = $globals->db->prepare($query);
-				if (!$stmnt1) {
-					$globals->klise_fige($errmsg . $query . ": failed to prepare");
-				}
-			}
-
-			$stmnt1->execute();
+		$query = "UPDATE `sinedria` SET `sizitisidirty` = 2 WHERE (`sizitisidirty` <> 2)";
+		if (!$ola) {
+			$query .= " AND (`pektis` != BINARY " . $globals->pektis->slogin . ")";
 		}
-		else {
-			if ($stmnt2 == NULL) {
-				$query = "UPDATE `sinedria` SET `sizitisidirty` = 2 " .
-					"WHERE (`sizitisidirty` <> 2) AND " .
-					"(`pektis` != BINARY " . $globals->pektis->slogin . ")";
-				$stmnt2 = $globals->db->prepare($query);
-				if (!$stmnt2) {
-					$globals->klise_fige($errmsg . $query . ": failed to prepare");
-				}
-			}
-
-			$stmnt2->execute();
-		}
+		@mysqli_query($globals->db, $query);
 	}
 }
 ?>

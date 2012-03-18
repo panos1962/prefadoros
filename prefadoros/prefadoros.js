@@ -133,6 +133,8 @@ var Prefadoros = new function() {
 		else if (isSet(controlPanel) && controlPanel.claimConfirmation) {
 			controlPanel.confirmClaim();
 		}
+
+		Prefadoros.setOptiki(isPartida() ? partida.kodikos : 0);
 		return false;
 	};
 
@@ -181,7 +183,26 @@ var Prefadoros = new function() {
 			}
 			Sizitisi.sxolioFocus();
 		}
+
+		Prefadoros.setOptiki(0);
 		return false;
+	};
+
+	this.setOptiki = function(trapezi) {
+		var req = new Request('prefadoros/setOptiki');
+		req.xhr.onreadystatechange = function() {
+			Prefadoros.setOptikiCheck(req);
+		};
+
+		var params = 'sinedria=' + uri(sinedria.kodikos);
+		params += '&trapezi=' + trapezi;
+		req.send(params);
+	};
+
+	this.setOptikiCheck = function(req) {
+		if (req.xhr.readyState != 4) { return; }
+		var rsp = req.getResponse();
+		if (rsp) { mainFyi(rsp); }
 	};
 
 	this.prosklisiControls = function() {
