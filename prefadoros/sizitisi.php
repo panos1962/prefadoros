@@ -472,7 +472,6 @@ class Sizitisi {
 	public static function set_dirty($ola = TRUE, $trapezi = NULL) {
 		global $globals;
 
-		//$query = "UPDATE `sinedria` SET `sizitisidirty` = 2 WHERE (`sizitisidirty` <> 2)";
 		$query = "UPDATE `sinedria` SET `sizitisidirty` = 2";
 
 	/*
