@@ -40,5 +40,9 @@ CREATE TABLE `sinedria` (
 		`pektis`
 	) REFERENCES `pektis` (
 		`login`
-	) ON DELETE CASCADE ON UPDATE CASCADE
+	) ON DELETE CASCADE ON UPDATE CASCADE,
+
+	KEY (
+		`trapezi`
+	) USING BTREE
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='Πίνακας ενημερώσεων'
