@@ -8,9 +8,12 @@ Page::data();
 set_globals();
 
 Prefadoros::pektis_check();
+Prefadoros::set_trapezi();
+
 switch ($pk = Globals::perastike_check('pk')) {
 case 'P':
-	$trapezi = vres_trapezi();
+	check_trapezi();
+	$trapezi = $globals->trapezi->kodikos;
 	$sxolio = "@WP@";
 	break;
 case 'K':
@@ -30,25 +33,33 @@ $query = "UPDATE `sizitisi` SET `sxolio` = '" . $globals->asfales($sxolio) .
  	"', `trapezi` = " . $trapezi . " WHERE (`pektis` = BINARY " .
 	$globals->pektis->slogin . ") AND (`sxolio` IN ('@WP@', '@WK@'))";
 @mysqli_query($globals->db, $query);
-if (@mysqli_affected_rows($globals->db) > 0) {
-	Sizitisi::set_dirty(FALSE);
-	$globals->klise_fige();
-}
 
 // Εφόσον δεν ενημερώθηκαν υπάρχοντα writing σχόλια για τον
 // παίκτη, εισάγουμε νέο writing σχόλιο.
-$query = "INSERT INTO `sizitisi` (`pektis`, `trapezi`, `sxolio`) " .
-	"VALUES (" . $globals->pektis->slogin . ", " . $trapezi . ", '" .
-	$globals->asfales($sxolio) . "')";
-$globals->sql_query($query);
-Sizitisi::set_dirty(FALSE);
+
+if (@mysqli_affected_rows($globals->db) < 1) {
+	$query = "INSERT INTO `sizitisi` (`pektis`, `trapezi`, `sxolio`) " .
+		"VALUES (" . $globals->pektis->slogin . ", " . $trapezi . ", '" .
+		$globals->asfales($sxolio) . "')";
+	$globals->sql_query($query);
+}
+
+Sizitisi::set_dirty(FALSE, $trapezi);
+if ($trapezi == "NULL") {
+	if ($globals->is_trapezi() && $globals->trapezi->is_pektis()) {
+		Sizitisi::set_dirty(FALSE, $globals->trapezi->kodikos);
+	}
+}
 $globals->klise_fige();
 
-function vres_trapezi() {
+function check_trapezi() {
 	global $globals;
-	Prefadoros::trapezi_check();
+
+	if ($globals->not_trapezi()) {
+		$globals->klise_fige();
+	}
+
 	if ($globals->trapezi->is_theatis() && (!$globals->trapezi->is_prosklisi())) {
 		$globals->klise_fige();
 	}
-	return $globals->trapezi->kodikos;
 }
