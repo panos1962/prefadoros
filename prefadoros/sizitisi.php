@@ -481,7 +481,7 @@ class Sizitisi {
 	*/
 
 		if (isset($trapezi)) {
-			$query .= " WHERE (`trapezi` = " . ($trapezi == "NULL" ? 0 : $trapezi);
+			$query .= " WHERE `trapezi` = " . ($trapezi == "NULL" ? 0 : $trapezi);
 		}
 
 		@mysqli_query($globals->db, $query);
