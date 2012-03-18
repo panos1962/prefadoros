@@ -513,23 +513,14 @@ class Sinedria {
 
 	public function clear_sizitisidirty() {
 		global $globals;
-		static $stmnt = NULL;
-		$errmsg = "Sinedria::clear_sizitisidirty(): ";
 
 		if ($this->sizitisidirty <= 0) {
 			return;
 		}
 
-		if ($stmnt == NULL) {
-			$query = "UPDATE `sinedria` SET `sizitisidirty` = `sizitisidirty` - 1 " .
-				"WHERE `kodikos` = " . $this->kodikos;
-			$stmnt = $globals->db->prepare($query);
-			if (!$stmnt) {
-				$globals->klise_fige($errmsg . $query . ": failed to prepare");
-			}
-		}
-
-		$stmnt->execute();
+		$query = "UPDATE `sinedria` SET `sizitisidirty` = `sizitisidirty` - 1 " .
+			"WHERE `kodikos` = " . $this->kodikos;
+		@mysqli_query($globals->db, $query);
 	}
 }
 
