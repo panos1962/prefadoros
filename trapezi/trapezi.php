@@ -414,6 +414,12 @@ class Trapezi {
 		$query = "DELETE FROM `prosklisi` WHERE `trapezi` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
 
+		// Η διαγραφή της συζήτησης γίνεται χωριστά επειδή ο πίνακας
+		// είναι memory και μάλλον μετατρέπει το foreign key σε απλό
+		// index.
+		$query = "DELETE FROM `sizitisi` WHERE `trapezi` = " . $trapezi;
+		@mysqli_query($globals->db, $query);
+
 		$query = "DELETE FROM `trapezi` WHERE `kodikos` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
 	}
