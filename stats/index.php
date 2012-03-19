@@ -86,13 +86,15 @@ function print_stats($pektis = "") {
 		<th>
 			<span class="nobr">Α/Α</span>
 		</th>
-		<th span onclick="Stats.setSort();" style="cursor: pointer;">
+		<th span onclick="Stats.setSort();" title="Ταξινόμηση ως προς όνομα"
+			style="cursor: pointer;">
 			Παίκτης
 		</th>
 		<th>
 			Παρτίδες
 		</th>
-		<th onclick="Stats.setSort('dianomi');" style="cursor: pointer;">
+		<th onclick="Stats.setSort('dianomi');" title="Ταξινόμηση ως προς πλήθος διανομών"
+			style="cursor: pointer;">
 			Διανομές
 		</th>
 		<th>
@@ -101,7 +103,8 @@ function print_stats($pektis = "") {
 		<th>
 			Μουαγέν
 		</th>
-		<th onclick="Stats.setSort('bathmos');" style="cursor: pointer;">
+		<th onclick="Stats.setSort('bathmos');" title="Ταξινόμηση ως προς βαθμό"
+			style="cursor: pointer;">
 			Βαθμός
 		</th>
 		<th>
