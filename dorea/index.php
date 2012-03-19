@@ -38,7 +38,9 @@ server. Επειδή τα απαιτούμενα ποσά δεν είναι ευ
 <span class="nobr">(<img src="<?php print $globals->server; ?>images/donate.gif" alt=""
 	style="height: 0.45cm; margin-bottom: -0.1cm;" />)</span>
 με το οποίο μπορείτε να καταθέσετε οποιοδήποτε ποσό στο λογαριασμό
-μου στο <a target="_blank" href="http://www.paypal.com">PayPal</a>.
+μου στο <a target="_blank" href="http://www.paypal.com">PayPal</a>,
+που θεωρείται παγκοσμίως από τους πλέον ασφαλείς τρόπους πληρωμής
+όσον αφορά στην ιδιωτικότητα των στοιχείων σας.
 Η κατάθεσή σας μπορεί να γίνει είτε μέσω πιστωτικής κάρτας, είτε
 εκταμιεύοντας το σχετικό ποσό από τυχόν δικό σας PayPal λογαριασμό.
 Η αμοιβή της PayPal είναι <span class="nobr">0.35€ + 3%</span> για κάθε πληρωμή,
