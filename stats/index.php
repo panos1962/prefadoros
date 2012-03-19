@@ -65,7 +65,11 @@ Page::close();
 function print_stats($pektis = "") {
 	global $globals;
 
-	$file = "rank.txt";
+	$file = "rank";
+	if (Globals::perastike('sort')) {
+		$file .= "." . $_REQUEST['sort'];
+	}
+	$file .= ".txt";
 	$fp = @fopen($file, "r");
 	if (!$fp) {
 		?>
@@ -82,19 +86,22 @@ function print_stats($pektis = "") {
 		<th>
 			<span class="nobr">Α/Α</span>
 		</th>
-		<th>
+		<th span onclick="Stats.setSort();" style="cursor: pointer;">
 			Παίκτης
 		</th>
 		<th>
 			Παρτίδες
 		</th>
-		<th>
+		<th onclick="Stats.setSort('dianomi');" style="cursor: pointer;">
 			Διανομές
 		</th>
 		<th>
 			Καπίκια
 		</th>
 		<th>
+			Μουαγέν
+		</th>
+		<th onclick="Stats.setSort('bathmos');" style="cursor: pointer;">
 			Βαθμός
 		</th>
 		<th>
@@ -105,11 +112,11 @@ function print_stats($pektis = "") {
 	$n = 0;
 	while ($row = fgets($fp)) {
 		$cols = explode("\t", $row);
-		if (count($cols) != 5) {
+		if (count($cols) != 6) {
 			continue;
 		}
 
-		$sp = sin_plin($cols[4]);
+		$sp = sin_plin($cols[5]);
 		$pk = ($pektis != "") && preg_match("/" . $pektis . "/", $cols[0]);
 		print '<tr class="zebra' . ($n++ % 2);
 		if ($pk) {
@@ -127,6 +134,7 @@ function print_stats($pektis = "") {
 		print '<td class="statsPlithos">' . $cols[2] . '</td>';
 		print '<td class="statsPlithos">' . $cols[3] . '</td>';
 		print '<td class="statsBathmos' . $sp . '">' . $cols[4] . '</td>';
+		print '<td class="statsBathmos' . $sp . '">' . $cols[5] . '</td>';
 		print '<td><a href="#" onclick="getelid(\'pektis\').select(); return true;">' .
 			'<img src="' . $globals->server . 'images/dixePano.png" ' .
 				'title="Εντοπισμός παίκτη" class="statsPano" alt="" /></a>';
