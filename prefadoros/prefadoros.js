@@ -52,9 +52,14 @@ function diafimisiSetup() {
 
 var Prefadoros = new function() {
 	this.show = null;
+	this.egineExodos = false;
 
 	this.display = function() {
-		if (notSet(this.show)) {
+		if (this.egineExodos) {
+			this.show = isPartida() ? 'partida' : 'kafenio';
+			this.egineExodos = false;
+		}
+		else if (notSet(this.show)) {
 			this.show = isPartida() ? 'partida' : 'kafenio';
 		}
 

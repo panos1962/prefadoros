@@ -226,9 +226,6 @@ class Prefadoros {
 				return(FALSE);
 			}
 
-			$query = "UPDATE `sinedria` SET `sizitisidirty` = 2 " .
-				"WHERE `pektis` = BINARY " . $globals->pektis->slogin;
-			@mysqli_query($globals->db, $query);
 			return(TRUE);
 		}
 
