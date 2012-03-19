@@ -7,8 +7,8 @@ glob:motd_all.html
 glob:Desktop.ini
 glob:photo/?/*
 glob:diafimisi/*.png
-glob:stats/rank.txt
 glob:data/*.txt
 glob:lock/*
 glob:diafimisi.html
 glob:PROCSTAT
+glob:stats/rank*.txt
