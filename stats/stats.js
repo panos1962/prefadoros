@@ -1,21 +1,26 @@
 var Stats = {};
-Stats.pedi = '';
+Stats.pedi = false;
+Stats.onoma = null;
+Stats.sort = null;
 
-Stats.reload = function(fld) {
-	window.location = globals.server + 'stats/index.php?pektis=' +
-		uri(fld.value) + Stats.pedi + '#pkspot';
+Stats.setOnoma = function(fld, spot) {
+	var onoma = fld.value;
+	Stats.onoma = isSet(onoma) ? onoma : null;
+	Stats.reload(spot);
 };
 
 Stats.setSort = function(scol) {
-	var sok = { dianomi:null, bathmos:null };
-	if (notSet(scol)) { scol = ''; }
-	else {
-		if (!sok.hasOwnProperty(scol)) { return; }
-		scol = '&sort=' + scol;
-	}
+	Stats.sort = isSet(scol) ? scol : null;
+	Stats.reload();
+};
 
-	window.location = globals.server + 'stats/index.php?dummy=yes' +
-		Stats.pedi + scol;
+Stats.reload = function(spot) {
+	var loc = globals.server + 'stats/index.php?dummy=yes';
+	if (Stats.pedi) { loc += '&pedi=yes'; }
+	if (Stats.sort) { loc += '&sort=' + uri(Stats.sort); }
+	if (Stats.onoma) { loc += '&pektis=' + uri(Stats.onoma); }
+	if (isSet(spot)) { loc += '#pkspot'; }
+	window.location = loc;
 };
 
 window.onload = function() {

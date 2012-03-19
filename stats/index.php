@@ -18,19 +18,33 @@ elseif ($globals->is_pektis()) {
 else {
 	$pektis = "";
 }
+?>
+<script type="text/javascript">
+//<![CDATA[
+<?php
 if (Globals::perastike('pedi')) {
 	$pedi = TRUE;
 	?>
-	<script type="text/javascript">
-	//<![CDATA[
-	Stats.pedi = '&pedi=yes';
-	//]]>
-	</script>
+	Stats.pedi = true;
 	<?php
 }
 else {
 	$pedi = FALSE;
 }
+if (Globals::perastike('sort')) {
+	?>
+	Stats.sort = '<?php print $_REQUEST['sort']; ?>';
+	<?php
+}
+if (Globals::perastike('pektis')) {
+	?>
+	Stats.onoma = '<?php print $_REQUEST['pektis']; ?>';
+	<?php
+}
+?>
+//]]>
+</script>
+<?php
 Page::epikefalida($pedi);
 Page::fyi();
 // Το παρακάτω κομμάτι έως το __END__ είναι πρόσθετο.
@@ -48,10 +62,10 @@ Page::fyi();
 ?>
 <span class="formaPrompt">Παίκτης</span>
 <input id="pektis" type="text" class="formaField" value="<?php
-	print $pektis; ?>" onchange="Stats.reload(this);" />
+	print $pektis; ?>" onchange="Stats.setOnoma(this, true);" />
 <img src="<?php print $globals->server; ?>images/fakos.png" alt=""
 	style="width: 0.6cm; margin-bottom: -0.15cm; cursor: pointer;"
-	title="Εντοπισμός παίκτη" onclick="Stats.reload(getelid('pektis'));" />
+	title="Εντοπισμός παίκτη" onclick="Stats.setOnoma(getelid('pektis'), true);" />
 <div style="display: inline-block; margin-left: 0.8cm;">
 (<span style="font-style: italic;">για τη μέθοδο αξιολόγησης διαβάστε
 <a target="_blank" href="http://wp.me/p1wjyj-60">εδώ</a></span>)
@@ -66,7 +80,7 @@ function print_stats($pektis = "") {
 	global $globals;
 
 	$file = "rank";
-	if (Globals::perastike('sort')) {
+	if (Globals::perastike('sort') && ($_REQUEST['sort'] != "")) {
 		$file .= "." . $_REQUEST['sort'];
 	}
 	$file .= ".txt";
