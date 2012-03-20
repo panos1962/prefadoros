@@ -129,7 +129,7 @@ function print_stats($pektis = "") {
 	$n = 0;
 	while ($row = fgets($fp)) {
 		$cols = explode("\t", $row);
-		if (count($cols) != 6) {
+		if (count($cols) < 5) {
 			continue;
 		}
 
