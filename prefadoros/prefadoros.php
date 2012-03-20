@@ -304,7 +304,7 @@ class Prefadoros {
 		}
 
 		// Ακόμη κι αν δεν έχει τρέξει σε αυτόν τον μικροκύκλο ελέγχου,
-		// ελέγχω την ώρα και αν έχει περάσει λίγος χρόνος δεν τρέχει
+		// ελέγχω την ώρα και αν έχει περάσει μόνο λίγος χρόνος δεν τρέχει
 		// αυτή τη φορά.
 
 		$tora_ts = microtime(TRUE);
@@ -333,10 +333,10 @@ class Prefadoros {
 				}
 			}
 		}
-		self::apasxolimenos($apasxolimenos);
 
 		$etrexe_ts = microtime(TRUE);
 		$etrexe_kiklos = $kiklos;
+		self::apasxolimenos($apasxolimenos);
 		return($energos);
 	}
 
