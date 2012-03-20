@@ -1,5 +1,9 @@
 <?php
 
+// Ελάχιστος χρόνος ανανέωσης κάποιων πληροφοριών ακόμη και αν
+// είμαστε σε νέο μικροκύκλο ελέγχου.
+define('XRONOS_KIKLOS_MIN', 2.5);
+
 class Theatis {
 	public $trapezi;
 	public $thesi;
@@ -308,7 +312,7 @@ class Prefadoros {
 		// αυτή τη φορά.
 
 		$tora_ts = microtime(TRUE);
-		if (($tora_ts - $etrexe_ts) <= 1.2) {
+		if (($tora_ts - $etrexe_ts) <= XRONOS_KIKLOS_MIN) {
 			return($energos);
 		}
 
@@ -377,8 +381,12 @@ class Prefadoros {
 			return($theatis);
 		}
 
+		// Ακόμη κι αν δεν έχει τρέξει σε αυτόν τον μικροκύκλο ελέγχου,
+		// ελέγχω την ώρα και αν έχει περάσει μόνο λίγος χρόνος δεν τρέχει
+		// αυτή τη φορά.
+
 		$tora_ts = microtime(TRUE);
-		if (($tora_ts - $etrexe_ts) <= 1.2) {
+		if (($tora_ts - $etrexe_ts) <= XRONOS_KIKLOS_MIN) {
 			return($theatis);
 		}
 
@@ -419,8 +427,12 @@ class Prefadoros {
 			return($pezon);
 		}
 
+		// Ακόμη κι αν δεν έχει τρέξει σε αυτόν τον μικροκύκλο ελέγχου,
+		// ελέγχω την ώρα και αν έχει περάσει μόνο λίγος χρόνος δεν τρέχει
+		// αυτή τη φορά.
+
 		$tora_ts = microtime(TRUE);
-		if (($tora_ts - $etrexe_ts) <= 1.5) {
+		if (($tora_ts - $etrexe_ts) <= XRONOS_KIKLOS_MIN) {
 			return($pezon);
 		}
 
