@@ -312,68 +312,32 @@ class Prefadoros {
 			return($energos);
 		}
 
-		// Ελέγχω την κατάσταση στην shared memory. Αν δεν υποστηρίζεται
-		// shared memory, επιστρέφεται αρνητική τιμή. Αν η shared memory
-		// είναι κλειδωμένη, επιστρέφεται μηδέν, αλλιώς κλειδώνεται και
-		// επιστρέφεται η χρονική στιγμή που είχε ενημερωθεί.
+		$now_ts = time();
+		$last_hour_ts = $now_ts - ($now_ts % 3600);
+		if ($now_ts - $last_hour_ts < 300) {
+			$last_hour_ts -= 3600;
+		}
+		$query = "SELECT `login`, UNIX_TIMESTAMP(`poll`), `katastasi` FROM `pektis` " .
+			"WHERE UNIX_TIMESTAMP(`poll`) > " . $last_hour_ts;
+		$result = $globals->sql_query($query);
 
-		$lock_ts = self::energos_in_memory_slock();
-
-		if (($lock_ts <= 0) || (($tora_ts - $lock_ts) > 1.2)) {
-			$now_ts = time();
-			$last_hour_ts = $now_ts - ($now_ts % 3600);
-			if ($now_ts - $last_hour_ts < 300) {
-				$last_hour_ts -= 3600;
-			}
-			$query = "SELECT `login`, UNIX_TIMESTAMP(`poll`), `katastasi` FROM `pektis` " .
-				"WHERE UNIX_TIMESTAMP(`poll`) > " . $last_hour_ts;
-			$result = $globals->sql_query($query);
-
-			$energos = array();
-			$apasxolimenos = array();
-			while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
-				if (($now_ts - $row[1]) <= XRONOS_PEKTIS_IDLE_MAX) {
-					$energos[$row[0]] = TRUE;
-					switch ($row[2]) {
-					case 'BUSY':
-						$apasxolimenos[$row[0]] = TRUE;
-						break;
-					}
+		$energos = array();
+		$apasxolimenos = array();
+		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+			if (($now_ts - $row[1]) <= XRONOS_PEKTIS_IDLE_MAX) {
+				$energos[$row[0]] = TRUE;
+				switch ($row[2]) {
+				case 'BUSY':
+					$apasxolimenos[$row[0]] = TRUE;
+					break;
 				}
 			}
-			self::apasxolimenos($apasxolimenos);
-
-			// Αν έτρεξε το παραπάνω query επειδή η shared memory ήταν
-			// ανενημέρωτη, τότε επιχειρώ να την ενημερώσω τώρα.
-
-			if ($lock_ts > 0) {
-				self::energos_in_memory_refresh($energos, $apasxolimenos);
-			}
 		}
-		else {
-			$energos = self::energos_from_memory();
-			self::energos_in_memory_unlock();
-		}
+		self::apasxolimenos($apasxolimenos);
 
 		$etrexe_ts = microtime(TRUE);
 		$etrexe_kiklos = $kiklos;
 		return($energos);
-	}
-
-	private static function energos_in_memory_slock() {
-		return(-1);
-	}
-
-	private static function energos_in_memory_refresh($energos, $apasxolimenos) {
-		self::apasxolimenos($apasxolimenos);
-	}
-
-	private static function energos_from_memory() {
-		// self::apasxolimenos($inmem_apasxolimenos);
-		// return($inmem_energos);
-	}
-
-	private static function energos_in_memory_unlock() {
 	}
 
 	// Προστέθηκε αργότερα. Δέχεται ως παράμετρο ένα login name και επιστρέφει
