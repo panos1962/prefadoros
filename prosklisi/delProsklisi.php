@@ -9,9 +9,11 @@ set_globals();
 Prefadoros::pektis_check();
 
 if (Globals::perastike('oles')) {
-	$query = "DELETE FROM `prosklisi` WHERE (`pios` = " .
-		$globals->pektis->slogin . ") OR (`pion` = " .
-		$globals->pektis->slogin . ")";
+	$query = "DELETE FROM `prosklisi` WHERE ((`pios` = BINARY " .
+		$globals->pektis->slogin . ") AND (`pion` <> BINARY " .
+		$globals->pektis->slogin . ")) OR ((`pion` = BINARY " .
+		$globals->pektis->slogin . ") AND (`pios` <> BINARY " .
+		$globals->pektis->slogin . "))";
 	$errmsg = "των προσκλήσεων";
 }
 else {
