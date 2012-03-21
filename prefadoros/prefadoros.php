@@ -385,7 +385,7 @@ class Prefadoros {
 		}
 
 		$datafile = "../ENERGOSD/data" . $id;
-		$data = file_get_contents($datafile);
+		$data = @file_get_contents($datafile);
 		if ($data === FALSE) {
 			return(FALSE);
 		}
