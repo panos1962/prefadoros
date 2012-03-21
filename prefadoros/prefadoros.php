@@ -2,7 +2,7 @@
 
 // Ελάχιστος χρόνος ανανέωσης κάποιων πληροφοριών ακόμη και αν
 // είμαστε σε νέο μικροκύκλο ελέγχου.
-define('XRONOS_KIKLOS_MIN', 2.5);
+define('XRONOS_KIKLOS_MIN', 3.2);
 
 class Theatis {
 	public $trapezi;
@@ -317,12 +317,9 @@ class Prefadoros {
 		}
 
 		$now_ts = time();
-		$last_hour_ts = $now_ts - ($now_ts % 3600);
-		if ($now_ts - $last_hour_ts < 300) {
-			$last_hour_ts -= 3600;
-		}
+		$pentalepto_ts = $now_ts - 300;
 		$query = "SELECT `login`, UNIX_TIMESTAMP(`poll`), `katastasi` FROM `pektis` " .
-			"WHERE UNIX_TIMESTAMP(`poll`) > " . $last_hour_ts;
+			"WHERE UNIX_TIMESTAMP(`poll`) > " . $pentalepto_ts;
 		$result = $globals->sql_query($query);
 
 		$energos = array();
