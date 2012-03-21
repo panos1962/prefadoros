@@ -317,26 +317,84 @@ class Prefadoros {
 		}
 
 		$now_ts = time();
-		$pentalepto_ts = $now_ts - 300;
-		$query = "SELECT `login`, UNIX_TIMESTAMP(`poll`), `katastasi` FROM `pektis` " .
-			"WHERE UNIX_TIMESTAMP(`poll`) > " . $pentalepto_ts;
-		$result = $globals->sql_query($query);
+		$energos = self::external_energos_data($now_ts);
+		if ($energos === FALSE) {
+			$pentalepto_ts = $now_ts - 300;
+			$query = "SELECT `login`, UNIX_TIMESTAMP(`poll`), `katastasi` FROM `pektis` " .
+				"WHERE UNIX_TIMESTAMP(`poll`) > " . $pentalepto_ts;
+			$result = $globals->sql_query($query);
 
-		$energos = array();
-		$apasxolimenos = array();
-		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
-			if (($now_ts - $row[1]) <= XRONOS_PEKTIS_IDLE_MAX) {
-				$energos[$row[0]] = TRUE;
-				switch ($row[2]) {
-				case 'BUSY':
-					$apasxolimenos[$row[0]] = TRUE;
-					break;
+			$energos = array();
+			$apasxolimenos = array();
+			while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+				if (($now_ts - $row[1]) <= XRONOS_PEKTIS_IDLE_MAX) {
+					$energos[$row[0]] = TRUE;
+					switch ($row[2]) {
+					case 'BUSY':
+						$apasxolimenos[$row[0]] = TRUE;
+						break;
+					}
 				}
 			}
+			self::apasxolimenos($apasxolimenos);
 		}
 
 		$etrexe_ts = microtime(TRUE);
 		$etrexe_kiklos = $kiklos;
+		return($energos);
+	}
+
+	private static function external_energos_data($ts) {
+		$id = ($ts % 10) - 1;
+		if ($id < 0) {
+			$id += 10;
+		}
+
+		$datafile = "../ENERGOSD/data" . $id;
+		$data = file_get_contents($datafile);
+		if ($data === FALSE) {
+			return(FALSE);
+		}
+
+		$line = explode("\n", $data);
+		if (count($line) < 3) {
+			return(FALSE);
+		}
+
+		$line[0] = (int)$line[0];
+		$line[1] = (int)$line[1];
+		$line[2] = (int)$line[2];
+
+		if (!is_int($line[0])) {
+			return(FALSE);
+		}
+
+		if (!is_int($line[1])) {
+			return(FALSE);
+		}
+
+		if (!is_int($line[2])) {
+			return(FALSE);
+		}
+
+		if (count($line) != ($line[1] + $line[2] + 3)) {
+			return(FALSE);
+		}
+
+		if ($ts - $line[0] > 2) {
+			return(FALSE);
+		}
+
+		$energos = array();
+		for ($i = 0; $i < $line[1]; $i++) {
+			$energos[$line[$i + 3]] = TRUE;
+		}
+
+		$apasxolimenos = array();
+		for ($i = 0; $i < $line[2]; $i++) {
+			$apasxolimenos[$line[$i + 3 + $line[1]]] = TRUE;
+		}
+
 		self::apasxolimenos($apasxolimenos);
 		return($energos);
 	}
