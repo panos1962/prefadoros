@@ -12,3 +12,4 @@ glob:lock/*
 glob:diafimisi.html
 glob:PROCSTAT
 glob:stats/rank*.txt
+glob:ENERGOSD/*
