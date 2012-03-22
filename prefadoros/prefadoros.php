@@ -379,6 +379,8 @@ class Prefadoros {
 	// αναζήτησης ενεργών/απασχολημένων παικτών.
 
 	private static function external_energos_data($ts) {
+		global $globals;
+
 		$id = ($ts % 10) - 1;
 		if ($id < 0) {
 			$id += 10;
@@ -421,6 +423,12 @@ class Prefadoros {
 			$apasxolimenos[$line[$i + 3 + $line[1]]] = TRUE;
 		}
 
+		if ((mt_rand(1, $logfreq = 100) == 1) && file_exists($logfile = "../ENERGOSD/log")) {
+			file_put_contents($logfile, date("D, d M, H:i:s") . ", " .
+				$globals->pektis->login . ", data" . $id .
+				" (log frequency 1:" . $logfreq . ")\n", FILE_APPEND);
+		}
+	
 		self::apasxolimenos($apasxolimenos);
 		return($energos);
 	}
