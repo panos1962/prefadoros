@@ -330,7 +330,7 @@ class Prefadoros {
 		$energos = self::external_energos_data($now_ts);
 
 		if ($energos === FALSE) {
-			if (file_exists(ENERGOSD_LOG) && (filesize(ENERGOSD_LOG) < 5000)) {
+			if ((($logsize = @filesize(ENERGOSD_LOG)) !== FALSE) && ($logsize < 5000)) {
 				@file_put_contents(ENERGOSD_LOG, date("D, d M, H:i:s") . ", " .
 					$globals->pektis->login . ", *** NOT USING FILE ***\n",
 					FILE_APPEND);
@@ -433,7 +433,7 @@ class Prefadoros {
 			$apasxolimenos[$line[$i + 3 + $line[1]]] = TRUE;
 		}
 
-		if ((mt_rand(1, ENERGOSD_LOGFREQ) == 1) && file_exists(ENERGOSD_LOG)) {
+		if ((mt_rand(1, ENERGOSD_LOGFREQ) == 1) && @file_exists(ENERGOSD_LOG)) {
 			@file_put_contents(ENERGOSD_LOG, date("D, d M, H:i:s") . ", " .
 				$globals->pektis->login . ", data" . $id .
 				" (log frequency 1:" . ENERGOSD_LOGFREQ . ")\n", FILE_APPEND);
