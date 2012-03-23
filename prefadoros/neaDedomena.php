@@ -49,6 +49,7 @@ $globals->time_dif = Globals::perastike_check('timeDif');
 global $sinedria;
 $sinedria = new Sinedria();
 $sinedria->kodikos = Globals::perastike_check('sinedria');
+$sinedria->fetch();
 
 global $id;
 $id = Globals::perastike_check('id');
@@ -66,6 +67,7 @@ $id = Globals::perastike_check('id');
 // αυτής της (πρώτης) παραλαβής και θα μας στέλνει έτοιμο τον κωδικό
 // του παλαιοτέρου σχολίου, ώστε να ελέγχεται η ΔΣ από εκείνο το
 // σχόλιο και ύστερα.
+
 global $kafenio_apo;
 $kafenio_apo = Globals::perastike_check('kafenioApo');
 
@@ -86,7 +88,14 @@ $kiklos = 0;
 Prefadoros::pektis_check(Globals::perastike_check('login'));
 Prefadoros::set_trapezi();
 
+// Το πεδίο "sinedria->trapezi" δείχνει το τραπέζι του οποίου μας
+// αφορά η συζήτηση, ή είναι μηδενικό εφόσον είμαστε στο καφενείο.
+
 if ($globals->is_trapezi()) {
+	// Αν μόλις έχουμε αλλάξει τραπέζι τότε θέτουμε το dirty
+	// της συζήτησης για να ανανεωθεί η συζήτηση με τη συζήτηση
+	// από το νέο τραπέζι.
+
 	if (($sinedria->trapezi != 0) &&
 		($sinedria->trapezi != $globals->trapezi->kodikos)) {
 		$sinedria->trapezi = $globals->trapezi->kodikos;
@@ -94,11 +103,14 @@ if ($globals->is_trapezi()) {
 	}
 }
 elseif ($sinedria->trapezi > 0) {
+	// Ήμασταν σε τραπέζι, αλλά τώρα εν είμαστε σε τραπέζι.
+	// Επομένως πρέπει να πάρω ανανεωμένη πληροφορία συζήτησης.
+
 	$sinedria->trapezi = -1;
 	$sinedria->sizitisidirty = 1;
 }
+
 $globals->pektis->poll_update($sinedria, $id);
-check_neotero_id();
 
 global $procstat;
 $procstat = new Procstat();
@@ -197,13 +209,7 @@ function check_neotero_id() {
 	global $sinedria;
 	global $id;
 
-	if (!$sinedria->fetch()) {
-		print_epikefalida();
-		print ",fatalError: 'Ακαθόριστη συνεδρία (" . $sinedria->kodikos .
-			"). Δοκιμάστε επαναφόρτωση της σελίδας'}";
-		$globals->klise_fige();
-	}
-
+	$sinedria->fetch();
 	if ($sinedria->enimerosi != $id) {
 		print_epikefalida();
 		print "}";
@@ -373,8 +379,14 @@ function torina_dedomena($prev = NULL) {
 		$sxesi_same = TRUE;
 	}
 
-	$dedomena->trapezi = Kafenio::process();
-	$dedomena->rebelos = Rebelos::process();
+	if (($prev == NULL) || ($sinedria->trapezi <= 0)) {
+		$dedomena->trapezi = Kafenio::process();
+		$dedomena->rebelos = Rebelos::process();
+	}
+	else {
+		$dedomena->trapezi = $prev->trapezi;
+		$dedomena->rebelos = $prev->rebelos;
+	}
 
 	if ($prev == NULL) {
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
@@ -508,7 +520,12 @@ class Sinedria {
 				NULL : ("%" . $globals->asfales($peknpat) . "%");
 		}
 
-		return(isset($this->enimerosi));
+		if (!isset($this->enimerosi)) {
+			print_epikefalida();
+			print ",fatalError: 'Ακαθόριστη συνεδρία (" . $sinedria->kodikos .
+				"). Δοκιμάστε επαναφόρτωση της σελίδας'}";
+			$globals->klise_fige();
+		}
 	}
 
 	public function clear_sizitisidirty() {
