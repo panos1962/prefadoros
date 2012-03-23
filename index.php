@@ -98,6 +98,7 @@ function prefadoros() {
 	sinedria.dumprsp = <?php print Globals::perastike('dumprsp') ? 'true' : 'false'; ?>;
 	globals.funchatServer = '<?php print FUNCHAT_SERVER; ?>';
 	globals.systemAccount = '<?php print SYSTEM_ACCOUNT; ?>';
+	globals.mobile = <?php print Globals::session_set('ps_mobile') ? "true" : "false"; ?>;
 	pektis.superuser = <?php print $globals->pektis->superuser ? 'true' : 'false'; ?>;
 	pektis.system = <?php print $globals->pektis->login == SYSTEM_ACCOUNT ? 'true' : 'false'; ?>;
 	pektis.enalagi = <?php print $globals->pektis->enalagi ? 'true' : 'false'; ?>;

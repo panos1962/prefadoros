@@ -294,6 +294,12 @@ var Partida = new function() {
 		var giortes = Partida.giortesHTML();
 		if (giortes || isIdioktito() || isKlisto() || isPasoPasoPaso() || notAsoiKolos()) {
 			html += '<div class="partidaAttrArea">';
+			if (globals.mobile) {
+				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
+					'images/controlPanel/mobile.png" title="Επανεμφάνιση ' +
+					'πληκτρολογίου οθόνης συσκευής κινητού" style="cursor: pointer;" ' +
+					'onclick="controlPanel.mobile();" />';
+			}
 			if (isIdioktito()) {
 				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
 					'images/controlPanel/idioktito.png" title="Ιδιόκτητο τραπέζι" />';
@@ -1138,7 +1144,6 @@ var Partida = new function() {
 			controlPanel.refreshKitapi();
 		}
 	};
-		
 };
 
 Partida.noPartidaHTML();
