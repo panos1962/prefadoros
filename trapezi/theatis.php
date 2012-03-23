@@ -56,13 +56,11 @@ else {
 	$partida = TRUE;
 }
 $globals->sql_query($query);
-
-// Εξαναγκάζουμε ενημέρωση για ρέμπελους και καφενείο, ώστε να φανεί ο νέος
-// θεατής στο τραπέζι, αλλιώς θα είναι "αόρατος".
+@mysqli_commit($globals->db);
 
 Prefadoros::set_trapezi_dirty($trapezi);
-
 @mysqli_commit($globals->db);
+
 if ($partida) {
 	check_idio_ip();
 	print 'partida';

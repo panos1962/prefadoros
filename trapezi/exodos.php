@@ -13,13 +13,11 @@ if (Globals::perastike('deleteProsklisi')) {
 }
 
 Prefadoros::klidose_trapezi();
-
-// Εξαναγκάζουμε ενημέρωση για ρέμπελους και καφενείο, ώστε να φανεί η αποχώρηση
-// του θεατή από το τραπέζι, αλλιώς θα συνεχίσει να φαίνεται μέσα.
+Prefadoros::xeklidose_trapezi(Prefadoros::exodos());
+@mysqli_commit($globals->db);
 
 Prefadoros::set_trapezi_dirty($globals->trapezi->kodikos);
-
-Prefadoros::xeklidose_trapezi(Prefadoros::exodos());
+@mysqli_commit($globals->db);
 $globals->klise_fige();
 
 // Κατά την έξοδο που κάνουν οι παίκτες στο τέλος του παιχνιδιού, διαγράφονται

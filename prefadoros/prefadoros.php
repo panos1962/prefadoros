@@ -630,9 +630,10 @@ class Prefadoros {
 	// Εξαναγκάζουμε ενημέρωση για ρέμπελους και καφενείο,
 	// ώστε να πάρουμε πληροφορία ρέμπελων, καφενείου κλπ.
 
-	static function set_trapezi_dirty($trapezi) {
+	static function set_trapezi_dirty($trapezi, $delay = DELAY_TRAPEZI_DIRTY) {
 		global $globals;
 
+		usleep($delay);
 		$query = "UPDATE `sinedria` SET `trapezi` = -1 WHERE `trapezi` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
 		return(@mysqli_affected_rows($globals->db));

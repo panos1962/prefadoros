@@ -18,6 +18,10 @@ define('XRONOS_PEKTIS_IDLE_MAX', (XRONOS_DEDOMENA_MAX + (2 * XRONOS_POLL_GRANULE
 // μέγιστο επιτρεπτό διάστημα μεταξύ απαντήσεων από τον server (milliseconds)
 define('XRONOS_NO_ANSWER_MAX', ((XRONOS_DEDOMENA_MAX + 5) * 1000));
 
+// Καθυστέρηση σε λειτουργίες εισόδου/εξόδου θεατών και εναλλαγής
+// παικτών/θεατών. Ο χρόνος αυτός είναι σε microseconds.
+define('DELAY_TRAPEZI_DIRTY', (2 * XRONOS_DEDOMENA_TIC));
+
 // διάστημα στο οποίο ελέγχεται το φαινόμενο πολυβόλου (milliseconds)
 define('XRONOS_POLIVOLO1', 2000);
 
