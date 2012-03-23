@@ -690,6 +690,7 @@ var Sizitisi = new function() {
 	
 
 	this.sxolioFocus = function() {
+		if (globals.mobile) { return; }
 		var x = getelid('sxolioInput');
 		if (isSet(x.disabled) && x.disabled) { return; }
 		if (isSet(x)) { x.focus(); }
