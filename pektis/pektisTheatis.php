@@ -13,13 +13,25 @@ if (!Prefadoros::set_trapezi()) {
 }
 
 @mysqli_autocommit($globals->db, FALSE);
+
 if ($globals->trapezi->theatis == 1) {
 	apo_theatis_pektis();
 }
 else {
 	apo_pektis_theatis();
 }
+
+// Ενημερώνω τις συνεδρίες του τραπεζιού ώστε να πάρω πληροφορία
+// ρέμπελων, καφενείου κλπ, αλλιώς θα φαίνεται και παίκτης και θεατής.
+
+Prefadoros::set_trapezi_dirty($globals->trapezi->kodikos);
+
 @mysqli_commit($globals->db);
+
+// Η καθυστέρηση παρακάτω κρίνεται μάλλον απαραίτητη.
+
+sleep(1);
+
 $globals->klise_fige();
 
 function apo_pektis_theatis() {
