@@ -11,7 +11,15 @@ Prefadoros::trapezi_check();
 if (Globals::perastike('deleteProsklisi')) {
 	delete_prosklisi();
 }
+
 Prefadoros::klidose_trapezi();
+
+// Εξαναγκάζουμε ενημέρωση για ρέμπελους και καφενείο, ώστε να φανεί η αποχώρηση
+// του θεατή από το τραπέζι, αλλιώς θα συνεχίσει να φαίνεται μέσα.
+
+$query = "UPDATE `sinedria` SET `trapezi` = -1 WHERE `trapezi` = " . $globals->trapezi->kodikos;
+$globals->sql_query($query);
+
 Prefadoros::xeklidose_trapezi(Prefadoros::exodos());
 $globals->klise_fige();
 

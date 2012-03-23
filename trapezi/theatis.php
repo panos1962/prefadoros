@@ -57,6 +57,12 @@ else {
 }
 $globals->sql_query($query);
 
+// Εξαναγκάζουμε ενημέρωση για ρέμπελους και καφενείο, ώστε να φανεί ο νέος
+// θεατής στο τραπέζι, αλλιώς θα είναι "αόρατος".
+
+$query = "UPDATE `sinedria` SET `trapezi` = -1 WHERE `trapezi` = " . $trapezi;
+$globals->sql_query($query);
+
 @mysqli_commit($globals->db);
 if ($partida) {
 	check_idio_ip();
