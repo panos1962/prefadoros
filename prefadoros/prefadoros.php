@@ -4,6 +4,10 @@
 // είμαστε σε νέο μικροκύκλο ελέγχου.
 define('XRONOS_KIKLOS_MIN', 3.2);
 
+define('ENERGOSD_DIR', "../ENERGOSD");
+define('ENERGOSD_LOG', "../ENERGOSD/log");
+define('ENERGOSD_LOGFREQ', 100);
+
 class Theatis {
 	public $trapezi;
 	public $thesi;
@@ -326,6 +330,12 @@ class Prefadoros {
 		$energos = self::external_energos_data($now_ts);
 
 		if ($energos === FALSE) {
+			if (file_exists(ENERGOSD_LOG) && (filesize(ENERGOSD_LOG) < 5000)) {
+				@file_put_contents(ENERGOSD_LOG, date("D, d M, H:i:s") . ", " .
+					$globals->pektis->login . ", *** NOT USING FILE ***\n",
+					FILE_APPEND);
+			}
+
 			$pentalepto_ts = $now_ts - 300;
 			$query = "SELECT `login`, UNIX_TIMESTAMP(`poll`), `katastasi` FROM `pektis` " .
 				"WHERE UNIX_TIMESTAMP(`poll`) > " . $pentalepto_ts;
@@ -386,7 +396,7 @@ class Prefadoros {
 			$id += 10;
 		}
 
-		$datafile = "../ENERGOSD/data" . $id;
+		$datafile = ENERGOSD_DIR . "/data" . $id;
 		$data = @file_get_contents($datafile);
 		if ($data === FALSE) {
 			return(FALSE);
@@ -423,10 +433,10 @@ class Prefadoros {
 			$apasxolimenos[$line[$i + 3 + $line[1]]] = TRUE;
 		}
 
-		if ((mt_rand(1, $logfreq = 100) == 1) && file_exists($logfile = "../ENERGOSD/log")) {
-			@file_put_contents($logfile, date("D, d M, H:i:s") . ", " .
+		if ((mt_rand(1, ENERGOSD_LOGFREQ) == 1) && file_exists(ENERGOSD_LOG)) {
+			@file_put_contents(ENERGOSD_LOG, date("D, d M, H:i:s") . ", " .
 				$globals->pektis->login . ", data" . $id .
-				" (log frequency 1:" . $logfreq . ")\n", FILE_APPEND);
+				" (log frequency 1:" . ENERGOSD_LOGFREQ . ")\n", FILE_APPEND);
 		}
 	
 		self::apasxolimenos($apasxolimenos);
