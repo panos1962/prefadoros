@@ -292,7 +292,8 @@ var Partida = new function() {
 		html += pexnidi.ipolipo + '</span>';
 		html += '</div>';
 		var giortes = Partida.giortesHTML();
-		if (giortes || isIdioktito() || isKlisto() || isPasoPasoPaso() || notAsoiKolos()) {
+		if (giortes || isIdioktito() || isKlisto() || isPasoPasoPaso() ||
+			notAsoiKolos() || globals.mobile) {
 			html += '<div class="partidaAttrArea">';
 			if (globals.mobile) {
 				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
