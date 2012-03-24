@@ -19,6 +19,5 @@ $query = "INSERT IGNORE INTO `prosklisi` (`pios`, `pion`, `trapezi`) SELECT " .
 	" FROM `theatis` WHERE (`trapezi` = " . $globals->trapezi->kodikos .
 	") AND (`pektis` != '" . SYSTEM_ACCOUNT . "')";
 @mysqli_query($globals->db, $query);
-Prefadoros::set_trapezi_dirty($globals->trapezi->kodikos, FALSE);
 Prefadoros::set_trapezi_dirty($globals->trapezi->kodikos);
 $globals->klise_fige();
