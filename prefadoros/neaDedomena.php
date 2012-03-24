@@ -100,8 +100,8 @@ if ($globals->is_trapezi()) {
 	if (($sinedria->trapezi != 0) &&
 		($sinedria->trapezi != $globals->trapezi->kodikos)) {
 		$sinedria->trapezi = $globals->trapezi->kodikos;
-		$sinedria->sizitisidirty = 2;
-		$sinedria->trapezidirty = 2;
+		$sinedria->sizitisidirty = 1;
+		$sinedria->trapezidirty = 1;
 	}
 }
 elseif ($sinedria->trapezi > 0) {
@@ -110,8 +110,8 @@ elseif ($sinedria->trapezi > 0) {
 	// θεατών κλπ.
 
 	$sinedria->trapezi = -2;
-	$sinedria->sizitisidirty = 2;
-	$sinedria->trapezidirty = 2;
+	$sinedria->sizitisidirty = 1;
+	$sinedria->trapezidirty = 1;
 }
 
 $globals->pektis->poll_update($sinedria, $id);
@@ -390,21 +390,23 @@ function torina_dedomena($prev = NULL) {
 	elseif ($sinedria->trapezidirty != 0) {
 		$dedomena->trapezi = Kafenio::process();
 		$dedomena->rebelos = Rebelos::process();
-		$sinedria->clear_dirty("trapezidirty", $sinedria->trapezidirty);
+		$sinedria->clear_trapezidirty($sinedria->trapezidirty);
+@file_put_contents("../LOG/stats", ".", FILE_APPEND);
 	}
 	else {
 		$dedomena->trapezi = $prev->trapezi;
 		$dedomena->rebelos = $prev->rebelos;
+@file_put_contents("../LOG/stats", ".", FILE_APPEND);
 	}
 
 	if ($prev == NULL) {
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
 		$dedomena->kafenio = Sizitisi::process_kafenio();
 	}
-	elseif ($sinedria->sizitisidirty != 0) {
+	elseif ($sinedria->sizitisidirty > 0) {
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
 		$dedomena->kafenio = Sizitisi::process_kafenio();
-		$sinedria->clear_dirty("sizitisidirty", $sinedria->sizitisidirty);
+		$sinedria->clear_sizitisidirty();
 	}
 	elseif (($dedomena->partida != NULL) && (($prev->partida == NULL) ||
 		($dedomena->partida->kodikos != $prev->partida->kodikos))) {
@@ -424,7 +426,6 @@ function torina_dedomena($prev = NULL) {
 		$dedomena->sxesi = Sxesi::process();
 	}
 
-	$sinedria->clear_dirty();
 	return($dedomena);
 }
 
@@ -543,31 +544,20 @@ class Sinedria {
 		}
 	}
 
-	public function clear_dirty($what = NULL, $count = 0) {
+	public function clear_sizitisidirty() {
 		global $globals;
 
-		if (isset($what)) {
-			if (isset($this->clear)) {
-				$this->clear .= ", ";
-			}
-			else {
-				$this->clear = "";
-			}
+		$query = "UPDATE `sinedria` SET `sizitisidirty` = (`sizitisidirty` - 1) " .
+			" WHERE (`kodikos` = " . $this->kodikos . ") AND (`sizitisidirty` > 0)";
+		@mysqli_query($globals->db, $query);
+	}
 
-			if ($count <= 0) {
-				$count = 2;
-			}
+	public function clear_trapezidirty($cur_dirty) {
+		global $globals;
 
-			$this->clear .= "`" . $what . "` = " . ($count - 1);
-			return;
-		}
-
-		if (!isset($this->clear)) {
-			return;
-		}
-
-		$query = "UPDATE `sinedria` SET " . $this->clear .
-			" WHERE `kodikos` = " . $this->kodikos;
+		$query = "UPDATE `sinedria` SET `trapezidirty` = " .
+			($cur_dirty < 0 ? 1 : "(`trapezidirty` - 1)") .
+			" WHERE (`kodikos` = " . $this->kodikos . ") AND (`trapezidirty` > 0)";
 		@mysqli_query($globals->db, $query);
 	}
 }

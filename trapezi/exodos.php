@@ -8,13 +8,15 @@ set_globals();
 
 Prefadoros::pektis_check();
 Prefadoros::trapezi_check();
+$trapezi = $globals->trapezi->kodikos;
 if (Globals::perastike('deleteProsklisi')) {
 	delete_prosklisi();
 }
 
-Prefadoros::set_trapezi_dirty($globals->trapezi->kodikos);
 Prefadoros::klidose_trapezi();
 Prefadoros::xeklidose_trapezi(Prefadoros::exodos());
+Prefadoros::set_trapezi_dirty($trapezi);
+@mysqli_commit($globals->db);
 $globals->klise_fige();
 
 // Κατά την έξοδο που κάνουν οι παίκτες στο τέλος του παιχνιδιού, διαγράφονται

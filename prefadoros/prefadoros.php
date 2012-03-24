@@ -629,11 +629,20 @@ class Prefadoros {
 
 	// Εξαναγκάζουμε ενημέρωση για ρέμπελους και καφενείο,
 	// ώστε να πάρουμε πληροφορία ρέμπελων, καφενείου κλπ.
+	// Ως παρέμετρο περνάμε προαιρετικά κωδικό τραπεζιού.
+	// Ενημερώνονται όσες συνεδρίες δεν έχουν συμπληρωμένο
+	// κωδικό τραπεζιού (συνεδρίες σε φάση καφενείου, ή σε
+	// φάση αλλαγής) και οι συνεδρίες σε φάση τραπεζιού που
+	// αφορούν στο τραπέζι που περνάμε ως παράμετρο (προαιρετικά).
 
-	static function set_trapezi_dirty($trapezi) {
+	static function set_trapezi_dirty($trapezi = NULL) {
 		global $globals;
 
-		$query = "UPDATE `sinedria` SET `trapezidirty` = 1 WHERE `trapezi` = " . $trapezi;
+		$query = "UPDATE `sinedria` SET `trapezidirty` = -1 WHERE";
+		if (isset($trapezi)) {
+			$query .= " (`trapezi` = " . $trapezi . ") OR";
+		}
+		$query .= "(`trapezi` <= 0)";
 		@mysqli_query($globals->db, $query);
 	}
 }
