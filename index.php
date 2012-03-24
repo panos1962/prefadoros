@@ -104,6 +104,7 @@ function prefadoros() {
 	pektis.enalagi = <?php print $globals->pektis->enalagi ? 'true' : 'false'; ?>;
 	//]]>
 	</script>
+	<?php emfanisi_theatis(); ?>
 	<table class="tldbg" width="100%">
 	<tbody>
 	<tr>
@@ -139,6 +140,22 @@ function prefadoros() {
 	<div id="permesArea" class="permesArea" title="Χώρος εμφάνισης μηνυμάτων"
 		onclick="Permes.stripShow(this, false);"></div>
 	<?php
+}
+
+function emfanisi_theatis() {
+	global $globals;
+
+	$query = "SELECT `trapezi` FROM `theatis` WHERE `pektis` = BINARY '" .
+		$globals->pektis->login . "'";
+	$result = @mysqli_query($globals->db, $query);
+	$row = @mysqli_fetch_array($result, MYSQLI_NUM);
+	if (!$row) {
+		Prefadoros::set_trapezi_dirty();
+		return;
+	}
+
+	@mysql_free_result($result);
+	Prefadoros::set_trapezi_dirty($row[0]);
 }
 
 function control_panel() {
