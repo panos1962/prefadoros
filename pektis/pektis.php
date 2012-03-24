@@ -117,8 +117,10 @@ class Pektis {
 			}
 		}
 
-		$query = "UPDATE `sinedria` SET `enimerosi` = " . $id . ", `trapezi` = " .
-			$sinedria->trapezi . ", `sizitisidirty` = " . $sinedria->sizitisidirty .
+		$query = "UPDATE `sinedria` SET `enimerosi` = " . $id . ", " .
+			"`trapezi` = " . $sinedria->trapezi . ", " .
+			"`sizitisidirty` = " . $sinedria->sizitisidirty . ", " .
+			"`trapezidirty` = " . $sinedria->trapezidirty .
 			" WHERE `kodikos` = " . $sinedria->kodikos;
 		$globals->sql_query($query);
 	}
