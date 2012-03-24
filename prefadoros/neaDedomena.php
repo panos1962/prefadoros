@@ -100,8 +100,8 @@ if ($globals->is_trapezi()) {
 	if (($sinedria->trapezi != 0) &&
 		($sinedria->trapezi != $globals->trapezi->kodikos)) {
 		$sinedria->trapezi = $globals->trapezi->kodikos;
-		$sinedria->sizitisidirty = 1;
-		$sinedria->trapezidirty = 1;
+		$sinedria->sizitisidirty = 2;
+		$sinedria->trapezidirty = 2;
 	}
 }
 elseif ($sinedria->trapezi > 0) {
@@ -109,9 +109,9 @@ elseif ($sinedria->trapezi > 0) {
 	// Επομένως πρέπει να πάρω ανανεωμένη πληροφορία συζήτησης,
 	// θεατών κλπ.
 
-	$sinedria->trapezi = -1;
-	$sinedria->sizitisidirty = 1;
-	$sinedria->trapezidirty = 1;
+	$sinedria->trapezi = -2;
+	$sinedria->sizitisidirty = 2;
+	$sinedria->trapezidirty = 2;
 }
 
 $globals->pektis->poll_update($sinedria, $id);
@@ -383,10 +383,14 @@ function torina_dedomena($prev = NULL) {
 		$sxesi_same = TRUE;
 	}
 
-	if (($prev == NULL) || ($sinedria->trapezidirty > 0)) {
+	if ($prev == NULL) {
 		$dedomena->trapezi = Kafenio::process();
 		$dedomena->rebelos = Rebelos::process();
-		$sinedria->clear_dirty("trapezidirty");
+	}
+	elseif ($sinedria->trapezidirty != 0) {
+		$dedomena->trapezi = Kafenio::process();
+		$dedomena->rebelos = Rebelos::process();
+		$sinedria->clear_dirty("trapezidirty", $sinedria->trapezidirty);
 	}
 	else {
 		$dedomena->trapezi = $prev->trapezi;
@@ -397,10 +401,10 @@ function torina_dedomena($prev = NULL) {
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
 		$dedomena->kafenio = Sizitisi::process_kafenio();
 	}
-	elseif ($sinedria->sizitisidirty > 0) {
+	elseif ($sinedria->sizitisidirty != 0) {
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
 		$dedomena->kafenio = Sizitisi::process_kafenio();
-		$sinedria->clear_dirty("sizitisidirty");
+		$sinedria->clear_dirty("sizitisidirty", $sinedria->sizitisidirty);
 	}
 	elseif (($dedomena->partida != NULL) && (($prev->partida == NULL) ||
 		($dedomena->partida->kodikos != $prev->partida->kodikos))) {
@@ -539,7 +543,7 @@ class Sinedria {
 		}
 	}
 
-	public function clear_dirty($what = NULL) {
+	public function clear_dirty($what = NULL, $count = 0) {
 		global $globals;
 
 		if (isset($what)) {
@@ -549,7 +553,12 @@ class Sinedria {
 			else {
 				$this->clear = "";
 			}
-			$this->clear .= "`" . $what . "` = `" . $what . "` - 1";
+
+			if ($count <= 0) {
+				$count = 2;
+			}
+
+			$this->clear .= "`" . $what . "` = " . ($count - 1);
 			return;
 		}
 
