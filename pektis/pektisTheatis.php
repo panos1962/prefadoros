@@ -19,6 +19,7 @@ if ($globals->trapezi->theatis == 1) {
 else {
 	apo_pektis_theatis();
 }
+Prefadoros::set_trapezi_dirty($globals->trapezi->kodikos, FALSE);
 @mysqli_commit($globals->db);
 
 Prefadoros::set_trapezi_dirty($globals->trapezi->kodikos);

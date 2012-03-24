@@ -14,6 +14,7 @@ if (Globals::perastike('deleteProsklisi')) {
 
 Prefadoros::klidose_trapezi();
 Prefadoros::xeklidose_trapezi(Prefadoros::exodos());
+Prefadoros::set_trapezi_dirty($globals->trapezi->kodikos, FALSE);
 @mysqli_commit($globals->db);
 
 Prefadoros::set_trapezi_dirty($globals->trapezi->kodikos);
