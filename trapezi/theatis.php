@@ -56,9 +56,6 @@ else {
 	$partida = TRUE;
 }
 $globals->sql_query($query);
-Prefadoros::set_trapezi_dirty($trapezi, FALSE);
-@mysqli_commit($globals->db);
-
 Prefadoros::set_trapezi_dirty($trapezi);
 @mysqli_commit($globals->db);
 

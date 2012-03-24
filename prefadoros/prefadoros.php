@@ -633,7 +633,7 @@ class Prefadoros {
 	static function set_trapezi_dirty($trapezi) {
 		global $globals;
 
-		$query = "UPDATE `sinedria` SET `trapezidirty` = 1 WHERE `trapezi` = " . $trapezi;
+		$query = "UPDATE `sinedria` SET `trapezidirty` = 2 WHERE `trapezi` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
 	}
 }
