@@ -400,7 +400,7 @@ function torina_dedomena($prev = NULL) {
 	elseif ($sinedria->sizitisidirty > 0) {
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
 		$dedomena->kafenio = Sizitisi::process_kafenio();
-		$sinedria->clear_dirty("sizitisi");
+		$sinedria->clear_dirty("sizitisidirty");
 	}
 	elseif (($dedomena->partida != NULL) && (($prev->partida == NULL) ||
 		($dedomena->partida->kodikos != $prev->partida->kodikos))) {
