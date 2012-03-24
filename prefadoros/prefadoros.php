@@ -630,13 +630,10 @@ class Prefadoros {
 	// Εξαναγκάζουμε ενημέρωση για ρέμπελους και καφενείο,
 	// ώστε να πάρουμε πληροφορία ρέμπελων, καφενείου κλπ.
 
-	static function set_trapezi_dirty($trapezi, $delay = TRUE) {
+	static function set_trapezi_dirty($trapezi) {
 		global $globals;
 
-		if ($delay) {
-			usleep(6 * XRONOS_DEDOMENA_TIC);
-		}
-		$query = "UPDATE `sinedria` SET `trapezi` = -1 WHERE `trapezi` = " . $trapezi;
+		$query = "UPDATE `sinedria` SET `trapezidirty` = 1 WHERE `trapezi` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
 	}
 }

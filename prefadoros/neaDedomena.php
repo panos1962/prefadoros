@@ -94,20 +94,24 @@ Prefadoros::set_trapezi();
 if ($globals->is_trapezi()) {
 	// Αν μόλις έχουμε αλλάξει τραπέζι τότε θέτουμε το dirty
 	// της συζήτησης για να ανανεωθεί η συζήτηση με τη συζήτηση
-	// από το νέο τραπέζι.
+	// από το νέο τραπέζι. Θέτουμε επίσης το dirty του τραπεζιού
+	// για να πάρουμε πληροφορία σχετική με τους θεατές.
 
 	if (($sinedria->trapezi != 0) &&
 		($sinedria->trapezi != $globals->trapezi->kodikos)) {
 		$sinedria->trapezi = $globals->trapezi->kodikos;
 		$sinedria->sizitisidirty = 1;
+		$sinedria->trapezidirty = 1;
 	}
 }
 elseif ($sinedria->trapezi > 0) {
-	// Ήμασταν σε τραπέζι, αλλά τώρα εν είμαστε σε τραπέζι.
-	// Επομένως πρέπει να πάρω ανανεωμένη πληροφορία συζήτησης.
+	// Ήμασταν σε τραπέζι, αλλά τώρα δεν είμαστε σε τραπέζι.
+	// Επομένως πρέπει να πάρω ανανεωμένη πληροφορία συζήτησης,
+	// θεατών κλπ.
 
 	$sinedria->trapezi = -1;
 	$sinedria->sizitisidirty = 1;
+	$sinedria->trapezidirty = 1;
 }
 
 $globals->pektis->poll_update($sinedria, $id);
@@ -379,9 +383,10 @@ function torina_dedomena($prev = NULL) {
 		$sxesi_same = TRUE;
 	}
 
-	if (($prev == NULL) || ($sinedria->trapezi <= 0)) {
+	if (($prev == NULL) || ($sinedria->trapezidirty > 0)) {
 		$dedomena->trapezi = Kafenio::process();
 		$dedomena->rebelos = Rebelos::process();
+		$sinedria->clear_dirty("trapezidirty");
 	}
 	else {
 		$dedomena->trapezi = $prev->trapezi;
@@ -395,7 +400,7 @@ function torina_dedomena($prev = NULL) {
 	elseif ($sinedria->sizitisidirty > 0) {
 		$dedomena->sizitisi = Sizitisi::process_sizitisi();
 		$dedomena->kafenio = Sizitisi::process_kafenio();
-		$sinedria->clear_sizitisidirty();
+		$sinedria->clear_dirty("sizitisi");
 	}
 	elseif (($dedomena->partida != NULL) && (($prev->partida == NULL) ||
 		($dedomena->partida->kodikos != $prev->partida->kodikos))) {
@@ -415,6 +420,7 @@ function torina_dedomena($prev = NULL) {
 		$dedomena->sxesi = Sxesi::process();
 	}
 
+	$sinedria->clear_dirty();
 	return($dedomena);
 }
 
@@ -481,6 +487,8 @@ class Sinedria {
 	public $pekstat;
 	public $sizitisidirty;
 	public $trapezi;
+	public $trapezidirty;
+	private $clear;
 
 	public function __construct() {
 		unset($this->kodikos);
@@ -489,6 +497,8 @@ class Sinedria {
 		unset($this->pekstat);
 		$this->sizitisidirty = 0;
 		$this->trapezi = -2;
+		$this->trapezidirty = 0;
+		unset($this->clear);
 	}
 
 	public function fetch() {
@@ -501,10 +511,11 @@ class Sinedria {
 		unset($this->pekstat);
 		unset($this->sizitisidirty);
 		unset($this->trapezi);
+		unset($this->trapezidirty);
 
 		if ($stmnt == NULL) {
 			$query = "SELECT `enimerosi`, `peknpat`, `pekstat`, `sizitisidirty`, " .
-				"`trapezi` FROM `sinedria` WHERE `kodikos` = ?";
+				"`trapezi`, `trapezidirty` FROM `sinedria` WHERE `kodikos` = ?";
 			$stmnt = $globals->db->prepare($query);
 			if (!$stmnt) {
 				$globals->klise_fige($errmsg . $query . ": failed to prepare");
@@ -514,7 +525,7 @@ class Sinedria {
 		$stmnt->bind_param("i", $this->kodikos);
 		$stmnt->execute();
 		$stmnt->bind_result($this->enimerosi, $peknpat, $this->pekstat,
-			$this->sizitisidirty, $this->trapezi);
+			$this->sizitisidirty, $this->trapezi, $this->trapezidirty);
 		while ($stmnt->fetch()) {
 			$this->peknpat = $peknpat == '' ?
 				NULL : ("%" . $globals->asfales($peknpat) . "%");
@@ -528,15 +539,26 @@ class Sinedria {
 		}
 	}
 
-	public function clear_sizitisidirty() {
+	public function clear_dirty($what = NULL) {
 		global $globals;
 
-		if ($this->sizitisidirty <= 0) {
+		if (isset($what)) {
+			if (isset($this->clear)) {
+				$this->clear .= ", ";
+			}
+			else {
+				$this->clear = "";
+			}
+			$this->clear .= "`" . $what . "` = `" . $what . "` - 1";
 			return;
 		}
 
-		$query = "UPDATE `sinedria` SET `sizitisidirty` = `sizitisidirty` - 1 " .
-			"WHERE `kodikos` = " . $this->kodikos;
+		if (!isset($this->clear)) {
+			return;
+		}
+
+		$query = "UPDATE `sinedria` SET " . $this->clear .
+			" WHERE `kodikos` = " . $this->kodikos;
 		@mysqli_query($globals->db, $query);
 	}
 }
