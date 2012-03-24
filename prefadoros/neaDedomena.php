@@ -391,12 +391,10 @@ function torina_dedomena($prev = NULL) {
 		$dedomena->trapezi = Kafenio::process();
 		$dedomena->rebelos = Rebelos::process();
 		$sinedria->clear_trapezidirty($sinedria->trapezidirty);
-@file_put_contents("../LOG/stats", ".", FILE_APPEND);
 	}
 	else {
 		$dedomena->trapezi = $prev->trapezi;
 		$dedomena->rebelos = $prev->rebelos;
-@file_put_contents("../LOG/stats", ".", FILE_APPEND);
 	}
 
 	if ($prev == NULL) {
