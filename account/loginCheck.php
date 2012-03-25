@@ -1,5 +1,6 @@
 <?php
 require_once '../lib/standard.php';
+require_once '../prefadoros/prefadoros.php';
 require_once 'photo.php';
 unset($_SESSION['ps_login']);
 unset($_SESSION['ps_paraskinio']);
@@ -23,6 +24,7 @@ if (!$row) {
 }
 
 check_pektis_photo($_REQUEST['login']);
+Prefadoros::set_trapezi_dirty();
 @mysqli_free_result($result);
 $_SESSION['ps_login'] = $row[0];
 $_SESSION['ps_paraskinio'] = $row[1];
