@@ -68,6 +68,10 @@ aftonomo_check();
 			}
 			?>" />
 	</td>
+	<td class="tbldbg">
+		<a title="Εγγραφείτε στον «Πρεφαδόρο»" style="margin-left: 0.8cm;" href="<?php
+			print $globals->server; ?>/account/signup.php">Εγγραφή</a>
+	</td>
 </tr>
 </table>
 </form>
