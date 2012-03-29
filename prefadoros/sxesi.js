@@ -110,6 +110,7 @@ var Sxesi = new function() {
 			break;
 		}
 		html += Sxesi.permesHTML(sxesi[i]);
+		html += Sxesi.profinfoHTML(sxesi[i]);
 		if (isPektis() && isSet(pektis.superuser) && pektis.superuser) {
 			html += Sxesi.dixeTopoHTML(sxesi[i].l);
 		}
@@ -270,6 +271,13 @@ var Sxesi = new function() {
 		msg = isSet(msg) ? '&minima=' + uri(msg) : '';
 		var w = window.open(globals.server + 'permes/index.php?' +
 			'pedi=yes&pros=' + uri(login) + msg);
+	};
+
+	this.profinfoHTML = function(s) {
+		var html = '<img alt="" title="Προφίλ παίκτη" class="sxesiIcon" src="' +
+			globals.server + 'images/profinfo.png" ' +
+			'onclick="Tools.profinfo(\'' + s.l + '\');" />';
+		return html;
 	};
 
 	this.dixeTopoHTML = function(pektis) {

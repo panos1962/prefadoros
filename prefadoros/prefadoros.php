@@ -337,8 +337,8 @@ class Prefadoros {
 			}
 
 			$pentalepto_ts = $now_ts - 300;
-			$query = "SELECT `login`, UNIX_TIMESTAMP(`poll`), `katastasi` FROM `pektis` " .
-				"WHERE UNIX_TIMESTAMP(`poll`) > " . $pentalepto_ts;
+			$query = "SELECT `login`, UNIX_TIMESTAMP(`poll`), `katastasi` " .
+				"FROM `pektis` WHERE UNIX_TIMESTAMP(`poll`) > " . $pentalepto_ts;
 			$result = $globals->sql_query($query);
 
 			$energos = array();
@@ -363,7 +363,7 @@ class Prefadoros {
 
 	// Η μέθοδος που ακολουθεί επιχειρεί να διαβάσει δεδομένα
 	// ενεργών/απασχολημένων παικτών από files καταγραφής τα
-	// οποία τοιμάζει σε συνεχή βάση δαίμονας που τρέχει στον
+	// οποία ετοιμάζει σε συνεχή βάση δαίμονας που τρέχει στον
 	// server. Τα files βρίσκονται στο subdirectory "ENERGOSD"
 	// και φέρουν ονόματα της μορφής "dataN" όπου "N" είναι
 	// ψηφίο από 0 έως 9 και προκύπτει από το υπόλοιπο της

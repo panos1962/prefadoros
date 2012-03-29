@@ -868,14 +868,24 @@ var Partida = new function() {
 			}
 		}
 
+		var katoFree = true;
 		if (pexnidi.simetoxi[thesi] == 'ΜΑΖΙ') {
+			katoFree = false;
 			html += '<img class="maziIcon" src="' + globals.server +
 				'images/mazi.png" title="Μαζί" alt="" />';
 		}
 
 		if (pexnidi.claim[thesi]) {
+			katoFree = false;
 			html += '<img class="claimIcon" alt="" src="' + globals.server +
 				'images/controlPanel/claim.png" title="Τις δίνω όλες…" />';
+		}
+
+		if (globals.server.match(/http:\/\/127/) && partida.pektis[thesi] && katoFree) {
+			html += '<img class="profinfoIcon" src="' + globals.server +
+				'images/profinfo.png" title="Προφίλ παίκτη" alt="" ' +
+				'onclick="Tools.profinfo(\'' + partida.pektis[thesi] +
+				'\', ' + thesi + ');" />';
 		}
 
 		return html;

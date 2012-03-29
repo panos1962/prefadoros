@@ -270,6 +270,14 @@ background-color: magenta;
 	width: 1.1cm;
 }
 
+.profinfoIcon {
+	position: absolute;
+	top: 1.1cm;
+	left: -0.55cm;
+	width: 1.0cm;
+	cursor: pointer;
+}
+
 .maziIcon {
 	position: absolute;
 	top: 1.1cm;
