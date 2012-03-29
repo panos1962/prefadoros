@@ -301,6 +301,11 @@ var Tools = new function() {
 		x.zIndex = 0;
 	};
 
+	// Πρόκειται για τις πληροφορίες προφίλ παίκτη. Κάνοντας κλικ στο
+	// σχετικό εικονίδιο ανοίγει νέο παράθυρο στο οποίο εμφανίζονται
+	// οι πληροφορίες προφίλ του παίκτη και παρέχεται η δυνατότητα
+	// εισαγωγής δικών μας προσωπικών πληροφοριών για τον παίκτη.
+
 	this.profinfo = function(e, login, thesi) {
 		if (!e) var e = window.event;
 		e.cancelBubble = true;
@@ -313,5 +318,33 @@ var Tools = new function() {
 		var w = window.open(globals.server + 'permes/index.php?' +
 			'pedi=yes&pros=' + uri(login) + msg);
 		*/
+	};
+
+	// Η επόμενη μέθοδος καλείται όταν βάζουμε ή βγάζουμε το ποντίκι μας
+	// στο εικονίδιο πληροφοριών προφίλ του παίκτη. Βάζοντας το ποντίκι
+	// επάνω στο σχετικό εικονίδιο, εμφανίζεται περίληψη του προφίλ στο
+	// fyi πεδίο στο επάνω μέρος της οθόνης, ενώ βγάζοντας το ποντίκι μας
+	// από την εν λόγω περιοχή, καθαρίζει το fyi πεδίο. Ως παρενέργεια
+	// μεταβάλλεται και ο βαθμός διαφάνειας του εικονιδίου, αλλά μόνον
+	// εφόσον έχει περαστεί το εικονίδιο.
+
+	this.profinfoOmo = function(login, thesi, dixe, img) {
+		var fyi = 'παίκτης: ' + login;
+		if (isSet(thesi)) { fyi += ', θέση: ' + thesi; }
+
+		if (dixe) {
+			if (isSet(img)) {
+				try { img.style.opacity = 1.0; } catch(e) {};
+				try { img.filters.alpha.opacity = 100; } catch(e) { };
+			}
+			mainFyi(fyi);
+		}
+		else {
+			if (isSet(img)) {
+				try { img.style.opacity = 0.6; } catch(e) {};
+				try { img.filters.alpha.opacity = 60; } catch(e) { };
+			}
+			mainFyi();
+		}
 	};
 }
