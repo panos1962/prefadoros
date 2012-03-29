@@ -885,7 +885,10 @@ var Partida = new function() {
 			html += '<img class="profinfoIcon" src="' + globals.server +
 				'images/profinfo.png" title="Προφίλ παίκτη" alt="" ' +
 				'onclick="Tools.profinfo(event, \'' + partida.pektis[thesi] +
-				'\', ' + thesi + ');" />';
+				'\', ' + thesi + ');" onmouseover="Tools.profinfoOmo(\'' +
+				partida.pektis[thesi] + '\', ' + thesi + ', true, this);" ' +
+				'onmouseout="Tools.profinfoOmo(\'' + partida.pektis[thesi] +
+				'\', ' + thesi + ', false, this);" />';
 		}
 
 		return html;
