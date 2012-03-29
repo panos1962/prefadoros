@@ -300,4 +300,14 @@ var Tools = new function() {
 		x.style.top = '5.5cm';
 		x.zIndex = 0;
 	};
+
+	this.profinfo = function(login, thesi) {
+		var fyi = 'παίκτης: ' + login;
+		if (isSet(thesi)) { fyi += ', θέση: ' + thesi; }
+		mainFyi(fyi);
+		/*
+		var w = window.open(globals.server + 'permes/index.php?' +
+			'pedi=yes&pros=' + uri(login) + msg);
+		*/
+	};
 }
