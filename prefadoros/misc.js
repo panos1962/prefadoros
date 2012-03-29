@@ -301,7 +301,11 @@ var Tools = new function() {
 		x.zIndex = 0;
 	};
 
-	this.profinfo = function(login, thesi) {
+	this.profinfo = function(e, login, thesi) {
+		if (!e) var e = window.event;
+		e.cancelBubble = true;
+		if (e.stopPropagation) e.stopPropagation();
+
 		var fyi = 'παίκτης: ' + login;
 		if (isSet(thesi)) { fyi += ', θέση: ' + thesi; }
 		mainFyi(fyi);

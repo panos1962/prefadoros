@@ -884,7 +884,7 @@ var Partida = new function() {
 		if (globals.server.match(/http:\/\/127/) && partida.pektis[thesi] && katoFree) {
 			html += '<img class="profinfoIcon" src="' + globals.server +
 				'images/profinfo.png" title="Προφίλ παίκτη" alt="" ' +
-				'onclick="Tools.profinfo(\'' + partida.pektis[thesi] +
+				'onclick="Tools.profinfo(event, \'' + partida.pektis[thesi] +
 				'\', ' + thesi + ');" />';
 		}
 

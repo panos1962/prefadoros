@@ -276,7 +276,7 @@ var Sxesi = new function() {
 	this.profinfoHTML = function(s) {
 		var html = '<img alt="" title="Προφίλ παίκτη" class="sxesiIcon" src="' +
 			globals.server + 'images/profinfo.png" ' +
-			'onclick="Tools.profinfo(\'' + s.l + '\');" />';
+			'onclick="Tools.profinfo(event, \'' + s.l + '\');" />';
 		return html;
 	};
 
