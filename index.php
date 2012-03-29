@@ -60,6 +60,7 @@ Page::toolbar();
 <div id="motto" class="motto" title="Κλικ για απόκρυψη"
 	onclick="this.style.display='none';"></div>
 <div id="giortes" style="display: none;"></div>
+<div id="profinfo" class="profinfo"></div>
 <div class="mainArea">
 <?php
 Page::fyi();

@@ -1628,3 +1628,105 @@ font-weight: bold;
 	opacity: 0.7;
 	filter: alpha(opacity=70);
 }
+
+.profinfo {
+	display: none;
+	position: absolute;
+	top: 4.6cm;
+	left: 1.6cm;
+	width: 16.5cm;
+	height: 10.7cm;
+	z-index: 30;
+
+	background-color: #FFFFCC;
+
+	border-style: double;
+	border-width: 3px;
+	border-color: #999966;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	-webkit-box-shadow: 2px 2px 6px #2E2E2E;
+	-moz-box-shadow: 2px 2px 6px #2E2E2E;
+	box-shadow: 2px 2px 6px #2E2E2E;
+
+	user-select: auto;
+	-moz-user-select: auto;
+	-webkit-user-select: auto;
+	-o-user-select: auto;
+	-khtml-user-select: auto;
+	-ms-user-select: auto;
+}
+
+.profinfoClose {
+	position: absolute;
+	right: 0.2cm;
+	top: 0.2cm;
+	width: 0.6cm;
+	cursor: pointer;
+}
+
+.profinfoHeader {
+	position: absolute;
+	left: 0.2cm;
+	top: 0.2cm;
+	width: 93%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.profinfoHeaderData {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.profinfoArea {
+	position: absolute;
+	top: 0.8cm;
+	left: 0.2cm;
+	height: 9.0cm;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.profinfoMine {
+	position: relative;
+	padding-top: 0.2cm;
+	padding-bottom: 0.2cm;
+	padding-right: 0.2cm;
+	background-color: #FFFF99;
+
+	border-width: 0.05cm 0px 0.05cm 0px;
+	border-style: solid;
+	border-color: #003366;
+}
+
+.profinfoPektis {
+	position: relative;
+	padding-top: 0.2cm;
+	padding-right: 0.2cm;
+	width: 15.9cm;
+}
+
+.profinfoInput {
+	position: absolute;
+	top: 0.8cm;
+	left: 0.2cm;
+	height: 0px;
+	display: none;
+}
+
+.profinfoButtonArea {
+	position: absolute;
+	bottom: 0.1cm;
+	left: 0.2cm;
+	font-size: 0.4cm;
+}
+
+.profinfoHelp {
+	font-style: italic;
+	font-size: 80%;
+	text-align: center;
+}
