@@ -365,7 +365,7 @@ var Tools = new function() {
 		// είναι το προφίλ του παίκτη και tab είναι ο χαρακτήρας tab.
 
 		var x = rsp.split('\t');
-		if (x.length != 3) {
+		if (x.length != 5) {
 			errorIcon(img);
 			return;
 		}
@@ -373,7 +373,7 @@ var Tools = new function() {
 		// Εφόσον όλα πήγαν καλά, εμφανίζω το προφίλ του παίκτη με
 		// όλα τα σχετικά εργαλεία και κρατώ το όνομά του.
 
-		div.innerHTML = this.profinfoHTML(login, x[0], x[1]);
+		div.innerHTML = this.profinfoHTML(login, x[0], x[1], x[2], x[3]);
 		div.style.display = 'inline';
 		profinfoPektis = login;
 	};
@@ -410,13 +410,24 @@ var Tools = new function() {
 	// Στον κώδικα περιέχεται πλήκτρο κλεισίματος, επικεφαλίδα, το δικό μας
 	// κείμενο, το κείμενο του παίκτη και τα πλήκτρα διαχείρισης.
 
-	this.profinfoHTML = function(login, mine, pektis) {
+	this.profinfoHTML = function(login, onoma, filos, mine, pektis) {
 		var html = '<img class="profinfoClose" src="' + globals.server + 'images/Xgrey.png" ' +
 			'title="Κλείσιμο" alt="" onclick="Tools.profinfoClose(this.parentNode);" />';
 
 		html += '<div class="profinfoHeader">';
-		html += 'Παίκτης: <span class="profinfoHeaderData">' + login + '</span>';
-		html += ' [ <span class="profinfoHeaderData">' + 'SDS sdhsdhskhdjsk' + '</span> ]';
+		html += 'Παίκτης: <span class="profinfoHeaderData';
+		switch (filos) {
+		case 'ΦΙΛΟΣ':
+			html += ' sxesiFilos';
+			break;
+		case 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ':
+			html += ' sxesiApoklismenos';
+		default:
+			html += ' sxesiAsxestos';
+			break;
+		}
+		html += '">' + login + '</span>';
+		html += ' [ <span class="profinfoHeaderData" style="color: #003366;">' + onoma + '</span> ]';
 		html += '</div>';
 
 		html += '<div id="profinfoInput" class="profinfoInput">';
