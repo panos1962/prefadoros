@@ -275,6 +275,7 @@ background-color: magenta;
 	top: 1.1cm;
 	left: -0.55cm;
 	width: 1.0cm;
+	z-index: 2;
 	cursor: pointer;
 
 	opacity: 0.6;
