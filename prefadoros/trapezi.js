@@ -253,9 +253,20 @@ var Trapezi = new function() {
 			html += '>';
 			html += '<div class="kafenioBoxData">' + (p == '' ? '&nbsp;' : p) + '</div>';
 			if (partida.k == t.k) { html += Trapezi.miposBikeTora(p); }
+			html += this.profinfoHTML(p);
 			html += '</div>';
 		}
 		html += '</div>';
+		return html;
+	};
+
+	this.profinfoHTML = function(pektis) {
+		html = '<img id="profinfo:' + pektis + '" class="profinfoIcon" src="' +
+			globals.server + 'images/profinfo.png" title="Προφίλ παίκτη" alt="" ' +
+			'onclick="Tools.profinfo(event, \'' + pektis + '\', null, this);" ' +
+			'onmouseover="Tools.profinfoOmo(\'' + pektis + '\', null, true, this);" ' +
+			'onmouseout="Tools.profinfoOmo(\'' + pektis + '\', null, false, this);" ' +
+			'style="width: 0.6cm; top: -0.1cm; left: -0.4cm;">';
 		return html;
 	};
 
@@ -294,8 +305,8 @@ var Trapezi = new function() {
 	this.permesHTML = function(p, msg) {
 		if (notSet(msg)) { msg = ''; }
 		var html = '';
-		html += ' onmouseover="Trapezi.fotise(this);"';
-		html += ' onmouseout="Trapezi.xefotise(this);"';
+		html += ' onmouseover="Trapezi.fotise(this, \'' + p + '\');"';
+		html += ' onmouseout="Trapezi.xefotise(this, \'' + p + '\');"';
 		html += ' onclick="Sxesi.permesWindow(\'' + p + '\', \'' + msg + '\');"';
 		// Εδώ υπάρχει ένα ανώδυνο bug· αν ο παίκτης είναι θεατής σε τραπέζι,
 		// θα εμφανίζεται μήνυμα για πρόσκληση, ακόμη και αν ο παίκτης δεν
@@ -308,16 +319,26 @@ var Trapezi = new function() {
 		return html;
 	};
 
-	this.fotise = function(div) {
+	this.fotise = function(div, pektis) {
 		if (notSet(div)) { return; }
 		div.oldClass = div.getAttribute('class');
 		if (notSet(div.oldClass)) { return; }
 		div.setAttribute('class', div.oldClass + ' kafenioFotismeno');
+
+		if (!pektis) { return; }
+		var x = getelid('profinfo:' + pektis);
+		if (notSet(x)) { return; }
+		x.style.display = 'inline';
 	};
 
-	this.xefotise = function(div) {
+	this.xefotise = function(div, pektis) {
 		if (notSet(div) || notSet(div.oldClass)) { return; }
 		div.setAttribute('class', div.oldClass);
+
+		if (!pektis) { return; }
+		var x = getelid('profinfo:' + pektis);
+		if (notSet(x)) { return; }
+		x.style.display = 'none';
 	};
 
 	this.theatis = function(t) {
@@ -357,6 +378,7 @@ var Trapezi = new function() {
 		html += '"';
 		html += Trapezi.permesHTML(r.l);
 		html += '>';
+		html += this.profinfoHTML(r.l);
 		html += '<div class="kafenioBoxData">' + r.l + '</div>';
 		html += '</div>';
 		return html;
