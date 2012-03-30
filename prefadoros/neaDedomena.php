@@ -237,7 +237,7 @@ function print_epikefalida() {
 	if ($globals->pektis->kapikia != 'YES') { print ",p:0"; }
 	if ($globals->pektis->katastasi != 'AVAILABLE') { print ",b:0"; }
 	if ($globals->pektis->blockimage) { print ",x:true"; }
-	if ($procstat->calc) { printf(",l:%.0f", $procstat->load); }
+	if (isset($procstat) && $procstat->calc) { printf(",l:%.0f", $procstat->load); }
 }
 
 class Dedomena {
@@ -536,7 +536,7 @@ class Sinedria {
 
 		if (!isset($this->enimerosi)) {
 			print_epikefalida();
-			print ",fatalError: 'Ακαθόριστη συνεδρία (" . $sinedria->kodikos .
+			print ",fatalError: 'Ακαθόριστη συνεδρία (" . $this->kodikos .
 				"). Δοκιμάστε επαναφόρτωση της σελίδας'}";
 			$globals->klise_fige();
 		}
