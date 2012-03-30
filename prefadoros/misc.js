@@ -442,7 +442,7 @@ var Tools = new function() {
 		html += '<div id="profinfoMine" class="profinfoMine">';
 		html += this.profinfoMineHTML(mine);
 		html += '</div>';
-		html += '<div class="profinfoPektis">' + pektis + '</div>';
+		html += '<div class="profinfoPektis">' + this.profinfoDecode(pektis) + '</div>';
 		html += '</div>';
 
 		html += '<div id="profinfoButtonArea" class="profinfoButtonArea">';
@@ -454,10 +454,14 @@ var Tools = new function() {
 
 	this.profinfoMineHTML = function(txt) {
 		if (!txt) {
-			txt = '<div class="profinfoHelp">' +
+			return '<div class="profinfoHelp">' +
 				'Συμπληρώσετε τις προσωπικές σας παρατηρήσεις</div>';
 		}
-		return txt;
+		return this.profinfoDecode(txt);
+	};
+
+	this.profinfoDecode = function(s) {
+		return s.replace(/(\r\n|\n|\r)/gm, '<br />');
 	};
 
 	this.profinfoEditHTML = function(login, mine) {
