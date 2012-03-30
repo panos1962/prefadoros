@@ -1074,6 +1074,7 @@ var Partida = new function() {
 		html += Trapezi.permesHTML(pektis);
 		html += '>';
 		html += pektis;
+		html += Trapezi.profinfoHTML(pektis);
 		if (Partida.proskeklimenos(pektis)) {
 			html += '<img class="theatisProsklisi" src="' + globals.server +
 				'images/controlPanel/check.png" alt="" />';
