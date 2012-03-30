@@ -348,6 +348,7 @@ var Partida = new function() {
 		if (isTheatis()) { html += ' theatis'; }
 		html += '"';
 		html += Partida.thesiTheasisHTML(3);
+		html += Partida.profinfoHTML(3);
 		html += '>';
 		html += '<div class="pektisMain';
 		html += Partida.pektisMainHTML(3);
@@ -370,6 +371,7 @@ var Partida = new function() {
 		if (isTheatis()) { html += ' theatis'; }
 		html += '"';
 		html += Partida.thesiTheasisHTML(2);
+		html += Partida.profinfoHTML(2);
 		html += '>';
 		html += '<div class="pektisMain';
 		html += Partida.pektisMainHTML(2);
@@ -391,7 +393,9 @@ var Partida = new function() {
 		html += '<div class="pektis pektis1';
 		if (isDianomi()) { html += ' pektis1akri'; }
 		if (isTheatis()) { html += ' theatis'; }
-		html += '">';
+		html += '"';
+		html += Partida.profinfoHTML(1);
+		html += '>';
 		html += Partida.pasoSimetoxiHTML(1);
 		html += '<div class="pektisMain pektis1Main';
 		if (isDianomi()) { html += ' pektis1MainAkri'; }
@@ -869,6 +873,7 @@ var Partida = new function() {
 		}
 
 		var katoFree = true;
+
 		if (pexnidi.simetoxi[thesi] == 'ΜΑΖΙ') {
 			katoFree = false;
 			html += '<img class="maziIcon" src="' + globals.server +
@@ -881,14 +886,16 @@ var Partida = new function() {
 				'images/controlPanel/claim.png" title="Τις δίνω όλες…" />';
 		}
 
-		if (partida.pektis[thesi] && katoFree) {
-			html += '<img class="profinfoIcon" src="' + globals.server +
-				'images/profinfo.png" title="Προφίλ παίκτη" alt="" ' +
+		if (partida.pektis[thesi]) {
+			html += '<img id="profinfo' + thesi + '" class="profinfoIcon" src="' +
+				globals.server + 'images/' + (katoFree ? 'profinfo' : 'ofniforp') +
+				'.png" title="Προφίλ παίκτη" alt="" ' +
 				'onclick="Tools.profinfo(event, \'' + partida.pektis[thesi] +
 				'\', ' + thesi + ', this);" onmouseover="Tools.profinfoOmo(\'' +
 				partida.pektis[thesi] + '\', ' + thesi + ', true, this);" ' +
 				'onmouseout="Tools.profinfoOmo(\'' + partida.pektis[thesi] +
-				'\', ' + thesi + ', false, this);" />';
+				'\', ' + thesi + ', false, this);" style="' + (katoFree ?
+				'left' : 'right') + ': -0.55cm;">';
 		}
 
 		return html;
@@ -901,6 +908,19 @@ var Partida = new function() {
 		html += ' style="cursor: crosshair;"';
 		html += ' title="Αλλαγή παρακολουθούμενου παίκτη"';
 		return html;
+	};
+
+	this.profinfoHTML = function(thesi) {
+		var html = '';
+		html += ' onmouseover="Partida.profinfoShow(' + thesi + ', true);"';
+		html += ' onmouseout="Partida.profinfoShow(' + thesi + ', false);"';
+		return html;
+	};
+
+	this.profinfoShow = function(thesi, dixe) {
+		var x = getelid('profinfo' + thesi);
+		if (notSet(x)) { return; }
+		x.style.display = dixe ? 'inline' : 'none';
 	};
 
 	this.thesiTheasis = function(thesi, ico) {
