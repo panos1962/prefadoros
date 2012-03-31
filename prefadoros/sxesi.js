@@ -276,9 +276,9 @@ var Sxesi = new function() {
 	this.profinfoHTML = function(s) {
 		var html = '<img alt="" title="Προφίλ παίκτη" class="sxesiIcon" src="' +
 			globals.server + 'images/profinfo.png" ' +
-			'onclick="Tools.profinfo(event, \'' + s.l + '\', null, this);" ' +
-			'onmouseover="Tools.profinfoOmo(\'' + s.l + '\', null, true);" ' +
-			'onmouseout="Tools.profinfoOmo(\'' + s.l + '\', null, false);" />';
+			'onclick="Profinfo.dixe(event, \'' + s.l + '\', null, this);" ' +
+			'onmouseover="Profinfo.omo(\'' + s.l + '\', null, true);" ' +
+			'onmouseout="Profinfo.omo(\'' + s.l + '\', null, false);" />';
 		return html;
 	};
 

@@ -890,10 +890,10 @@ var Partida = new function() {
 			html += '<img id="profinfo' + thesi + '" class="profinfoIcon" src="' +
 				globals.server + 'images/' + (katoFree ? 'profinfo' : 'ofniforp') +
 				'.png" title="Προφίλ παίκτη" alt="" ' +
-				'onclick="Tools.profinfo(event, \'' + partida.pektis[thesi] +
-				'\', ' + thesi + ', this);" onmouseover="Tools.profinfoOmo(\'' +
+				'onclick="Profinfo.dixe(event, \'' + partida.pektis[thesi] +
+				'\', ' + thesi + ', this);" onmouseover="Profinfo.omo(\'' +
 				partida.pektis[thesi] + '\', ' + thesi + ', true, this);" ' +
-				'onmouseout="Tools.profinfoOmo(\'' + partida.pektis[thesi] +
+				'onmouseout="Profinfo.omo(\'' + partida.pektis[thesi] +
 				'\', ' + thesi + ', false, this);" style="' + (katoFree ?
 				'left' : 'right') + ': -0.55cm;">';
 		}

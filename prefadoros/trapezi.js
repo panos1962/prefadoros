@@ -263,9 +263,9 @@ var Trapezi = new function() {
 	this.profinfoHTML = function(pektis) {
 		html = '<img id="profinfo:' + pektis + '" class="profinfoIcon" src="' +
 			globals.server + 'images/profinfo.png" title="Προφίλ παίκτη" alt="" ' +
-			'onclick="Tools.profinfo(event, \'' + pektis + '\', null, this);" ' +
-			'onmouseover="Tools.profinfoOmo(\'' + pektis + '\', null, true, this);" ' +
-			'onmouseout="Tools.profinfoOmo(\'' + pektis + '\', null, false, this);" ' +
+			'onclick="Profinfo.dixe(event, \'' + pektis + '\', null, this);" ' +
+			'onmouseover="Profinfo.omo(\'' + pektis + '\', null, true, this);" ' +
+			'onmouseout="Profinfo.omo(\'' + pektis + '\', null, false, this);" ' +
 			'style="width: 0.6cm; top: -0.1cm; left: -0.4cm;">';
 		return html;
 	};
