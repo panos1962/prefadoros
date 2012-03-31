@@ -300,26 +300,28 @@ var Tools = new function() {
 		x.style.top = '5.5cm';
 		x.zIndex = 0;
 	};
+};
 
-	// Ακολουθούν μέθοδοι και πεδία σχετικά με το προφίλ των παικτών.
-	// Το προφίλ του παίκτη είναι ένα σύνολο πληροφοριών που έχει
-	// εισαγάγει ο παίκτης και επιθυμεί να γνωρίζουμε. Μπορεί, π.χ.
-	// να μας εξηγεί πώς παίζει, τι συμβάσεις ακολουθεί κλπ.
-	// Κάνοντας κλικ στο σχετικό εικονίδιο, μπορούμε να διαβάσουμε
-	// τις πληροφορίες αυτές. Μπορούμε, ακόμη, να προσθέσουμε
-	// δικές μας, προσωπικές, πληροφορίες σχετικές με τον συγκεκριμένο
-	// παίκτη, π.χ. το τι πρέπει να προσέχουμε, κάποιον αριθμό
-	// τηλεφώνου κλπ. Αυτές οι προσωπικές πληροφορίες δεν δημοσιοποιούνται.
+// Ακολουθούν μέθοδοι και πεδία σχετικά με το προφίλ των παικτών.
+// Το προφίλ του παίκτη είναι ένα σύνολο πληροφοριών που έχει
+// εισαγάγει ο παίκτης και επιθυμεί να γνωρίζουμε. Μπορεί, π.χ.
+// να μας εξηγεί πώς παίζει, τι συμβάσεις ακολουθεί κλπ.
+// Κάνοντας κλικ στο σχετικό εικονίδιο, μπορούμε να διαβάσουμε
+// τις πληροφορίες αυτές. Μπορούμε, ακόμη, να προσθέσουμε
+// δικές μας, προσωπικές, πληροφορίες σχετικές με τον συγκεκριμένο
+// παίκτη, π.χ. το τι πρέπει να προσέχουμε, κάποιον αριθμό
+// τηλεφώνου κλπ. Αυτές οι προσωπικές πληροφορίες δεν δημοσιοποιούνται.
 
+Profinfo = new function() {
 	// Η παρακάτω μεταβλητή κρατάει τον παίκτη του οποίου το προφίλ
 	// είναι ανοικτό την οποιαδήποτε χρονική στιγμή.
 
-	var profinfoPektis = null;
+	var curPektis = null;
 
 	// Η μέθοδος που ακολουθεί καλείται όταν κάνουμε κλικ στο
 	// εικονίδιο εμφάνισης/διαχείρισης προφίλ παίκτη.
 
-	this.profinfo = function(e, login, thesi, img) {
+	this.dixe = function(e, login, thesi, img) {
 		if (!e) var e = window.event;
 		e.cancelBubble = true;
 		if (e.stopPropagation) e.stopPropagation();
@@ -334,8 +336,8 @@ var Tools = new function() {
 		// Αν ήδη το προφίλ του παίκτη είναι ανοικτό, τότε
 		// το κλείνουμε.
 
-		if (profinfoPektis == login) {
-			Tools.profinfoClose(x);
+		if (curPektis == login) {
+			this.klise(x);
 			return;
 		}
 
@@ -344,14 +346,14 @@ var Tools = new function() {
 
 		var req = new Request('profinfo/getInfo');
 		req.xhr.onreadystatechange = function() {
-			Tools.profinfoGetCheck(req, login, x, img, src);
+			Profinfo.getInfoCheck(req, login, x, img, src);
 		};
 
 		var params = 'pektis=' + uri(login);
 		req.send(params);
 	};
 
-	this.profinfoGetCheck = function(req, login, div, img, src) {
+	this.getInfoCheck = function(req, login, div, img, src) {
 		if (req.xhr.readyState != 4) { return; }
 		img.src = src;
 		var rsp = req.getResponse();
@@ -375,9 +377,9 @@ var Tools = new function() {
 		// Εφόσον όλα πήγαν καλά, εμφανίζω το προφίλ του παίκτη με
 		// όλα τα σχετικά εργαλεία και κρατώ το όνομά του.
 
-		div.innerHTML = this.profinfoHTML(login, x[0], x[1], x[2], x[3]);
+		div.innerHTML = this.HTML(login, x[0], x[1], x[2], x[3]);
 		div.style.display = 'inline';
-		profinfoPektis = login;
+		curPektis = login;
 	};
 
 	// Η επόμενη μέθοδος καλείται όταν βάζουμε ή βγάζουμε το ποντίκι μας
@@ -388,7 +390,7 @@ var Tools = new function() {
 	// μεταβάλλεται και ο βαθμός διαφάνειας του εικονιδίου, αλλά μόνον
 	// εφόσον έχει περαστεί το εικονίδιο.
 
-	this.profinfoOmo = function(login, thesi, dixe, img) {
+	this.omo = function(login, thesi, dixe, img) {
 		if (dixe) {
 			if (isSet(img)) {
 				try { img.style.opacity = 1.0; } catch(e) {};
@@ -412,9 +414,9 @@ var Tools = new function() {
 	// Στον κώδικα περιέχεται πλήκτρο κλεισίματος, επικεφαλίδα, το δικό μας
 	// κείμενο, το κείμενο του παίκτη και τα πλήκτρα διαχείρισης.
 
-	this.profinfoHTML = function(login, onoma, filos, mine, pektis) {
+	this.HTML = function(login, onoma, filos, mine, pektis) {
 		var html = '<img class="profinfoClose" src="' + globals.server + 'images/Xgrey.png" ' +
-			'title="Κλείσιμο" alt="" onclick="Tools.profinfoClose(this.parentNode);" />';
+			'title="Κλείσιμο" alt="" onclick="Profinfo.klise(this.parentNode);" />';
 
 		html += '<div class="profinfoHeader">';
 		html += 'Παίκτης: <span class="profinfoHeaderData';
@@ -440,40 +442,40 @@ var Tools = new function() {
 
 		html += '<div id="profinfoArea" class="profinfoArea">';
 		html += '<div id="profinfoMine" class="profinfoMine">';
-		html += this.profinfoMineHTML(mine);
+		html += this.mineHTML(mine);
 		html += '</div>';
-		html += '<div class="profinfoPektis">' + this.profinfoDecode(pektis) + '</div>';
+		html += '<div class="profinfoPektis">' + this.decode(pektis) + '</div>';
 		html += '</div>';
 
 		html += '<div id="profinfoButtonArea" class="profinfoButtonArea">';
-		html += this.profinfoEditHTML(login, mine);
+		html += this.editHTML(login, mine);
 		html += '</div>';
 
 		return html;
 	};
 
-	this.profinfoMineHTML = function(txt) {
+	this.mineHTML = function(txt) {
 		if (!txt) {
 			return '<div class="profinfoHelp">' +
 				'Συμπληρώσετε τις προσωπικές σας παρατηρήσεις</div>';
 		}
-		return this.profinfoDecode(txt);
+		return this.decode(txt);
 	};
 
-	this.profinfoDecode = function(s) {
+	this.decode = function(s) {
 		return s.replace(/(\r\n|\n|\r)/gm, '<br />');
 	};
 
-	this.profinfoEditHTML = function(login, mine) {
+	this.editHTML = function(login, mine) {
 		var html = '';
-		html += '<button type="button" onclick="Tools.profinfoEdit(\'' +
+		html += '<button type="button" onclick="Profinfo.edit(\'' +
 			login + '\');">' + (mine ? 'Διόρθωση' : 'Εισαγωγή') + '</button>';
-		html += '<button type="button" onclick="Tools.profinfoClose(this.parentNode.' +
+		html += '<button type="button" onclick="Profinfo.klise(this.parentNode.' +
 			'parentNode);">Άκυρο</button>';
 		return html;
 	};
 
-	this.profinfoEdit = function(login) {
+	this.edit = function(login) {
 		var x = getelid('profinfoArea');
 		if (notSet(x)) { return; }
 		var y = getelid('profinfoInput');
@@ -491,29 +493,29 @@ var Tools = new function() {
 		y.style.height = '5.0cm';
 		y.style.display = 'inline';
 
-		var html = '<button type="button" onclick="Tools.profinfoSave(\'' +
+		var html = '<button type="button" onclick="Profinfo.save(\'' +
 			login + '\');">Αποθήκευση</button>';
-		html += '<button type="button" onclick="Tools.profinfoCancel(\'' +
+		html += '<button type="button" onclick="Profinfo.cancel(\'' +
 			login + '\');">Άκυρο</button>';
 		z.innerHTML = html;
 		t.focus();
 	};
 
-	this.profinfoSave = function(login) {
+	this.save = function(login) {
 		var x = getelid('profinfoInputText');
 		if (notSet(x)) { return; }
 
 		x.value = x.value.trim();
 		var req = new Request('profinfo/setInfo');
 		req.xhr.onreadystatechange = function() {
-			Tools.profinfoSetCheck(req, login, x.value);
+			Profinfo.setInfoCheck(req, login, x.value);
 		};
 
 		var params = 'pektis=' + uri(login) + '&kimeno=' + uri(x.value);
 		req.send(params);
 	};
 
-	this.profinfoSetCheck = function(req, login, txt) {
+	this.setInfoCheck = function(req, login, txt) {
 		if (req.xhr.readyState != 4) { return; }
 		var rsp = req.getResponse();
 		if (rsp) {
@@ -525,11 +527,11 @@ var Tools = new function() {
 		var x = getelid('profinfoMine');
 		if (notSet(x)) { return; }
 
-		x.innerHTML = this.profinfoMineHTML(txt);
-		this.profinfoCancel(login, txt);
+		x.innerHTML = this.mineHTML(txt);
+		this.cancel(login, txt);
 	};
 
-	this.profinfoCancel = function(login, txt) {
+	this.cancel = function(login, txt) {
 		var x = getelid('profinfoArea');
 		if (notSet(x)) { return; }
 		var y = getelid('profinfoInput');
@@ -542,11 +544,11 @@ var Tools = new function() {
 		y.style.display = 'none';
 		y.style.height = '0px';
 
-		z.innerHTML = this.profinfoEditHTML(login, txt);
+		z.innerHTML = this.editHTML(login, txt);
 	};
 
-	this.profinfoClose = function(div) {
+	this.klise = function(div) {
 		div.style.display = 'none';
-		profinfoPektis = null;
+		curPektis = null;
 	};
-}
+};
