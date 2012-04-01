@@ -895,7 +895,7 @@ var Partida = new function() {
 				partida.pektis[thesi] + '\', ' + thesi + ', true, this);" ' +
 				'onmouseout="Profinfo.omo(\'' + partida.pektis[thesi] +
 				'\', ' + thesi + ', false, this);" style="' + (katoFree ?
-				'left' : 'right') + ': -0.55cm;">';
+				'left' : 'right') + ': -0.55cm;" />';
 		}
 
 		return html;
