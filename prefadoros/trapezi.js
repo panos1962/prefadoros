@@ -266,7 +266,7 @@ var Trapezi = new function() {
 			'onclick="Profinfo.dixe(event, \'' + pektis + '\', null, this);" ' +
 			'onmouseover="Profinfo.omo(\'' + pektis + '\', null, true, this);" ' +
 			'onmouseout="Profinfo.omo(\'' + pektis + '\', null, false, this);" ' +
-			'style="width: 0.6cm; top: -0.1cm; left: -0.4cm;">';
+			'style="width: 0.6cm; top: -0.1cm; left: -0.4cm;" />';
 		return html;
 	};
 

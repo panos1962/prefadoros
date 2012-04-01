@@ -6,10 +6,12 @@ define('MAX_PHOTO_SIZE', 50000);
 set_globals();
 Prefadoros::set_pektis();
 Page::head();
+Page::stylesheet('prefadoros/prefadoros');
 Page::stylesheet('lib/forma');
 Page::stylesheet('account/signup');
 Page::javascript('lib/forma');
 Page::javascript('account/account');
+Page::javascript('prefadoros/misc');
 Page::body();
 Page::epikefalida($globals->is_pektis());
 Page::fyi();
@@ -46,6 +48,7 @@ setTimeout(function() {
 		Login
 	</td>
 	<td class="tbldbg">
+		<div style="position: relative;">
 		<input name="login" id="login" type="text" maxlength="32"
 			size="32" class="formaField"
 			<?php
@@ -62,6 +65,21 @@ setTimeout(function() {
 				<?php
 			}
 			?> />
+		<div id="profinfo" class="profinfo" style="top: 0.8cm; left: -4.2cm;"></div>
+		<?php if ($globals->is_pektis()) {
+			?>
+			<img class="profinfoIcon" src="<?php print $globals->server;
+				?>images/ofniforp.png" title="Προφίλ παίκτη" alt=""
+				onclick="Profinfo.dixe(event, '<?php print $globals->pektis->login;
+				?>', null, this);" onmouseover="Profinfo.omo('<?php
+				print $globals->pektis->login;
+				?>', null, true, this);" onmouseout="Profinfo.omo('<?php
+				print $globals->pektis->login; ?>', null, false, this);"
+				style="display: inline; top: -0.6cm; right: 2.0cm;" />
+			<?php
+		}
+		?>
+		</div>
 	</td>
 </tr>
 <tr>
