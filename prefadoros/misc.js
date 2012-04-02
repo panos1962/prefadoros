@@ -322,9 +322,7 @@ Profinfo = new function() {
 	// εικονίδιο εμφάνισης/διαχείρισης προφίλ παίκτη.
 
 	this.dixe = function(e, login, thesi, img) {
-		if (!e) var e = window.event;
-		e.cancelBubble = true;
-		if (e.stopPropagation) e.stopPropagation();
+		stopProp(e);
 
 		var fyi = 'παίκτης: ' + login;
 		if (isSet(thesi)) { fyi += ', θέση: ' + thesi; }
@@ -418,7 +416,7 @@ Profinfo = new function() {
 		var html = '<img class="profinfoClose" src="' + globals.server + 'images/Xgrey.png" ' +
 			'title="Κλείσιμο" alt="" onclick="Profinfo.klise(this.parentNode);" />';
 
-		html += '<div class="profinfoHeader">';
+		html += '<div class="profinfoHeader" onmousedown="Profinfo.grab(event, this);">';
 		html += 'Παίκτης: <span class="profinfoHeaderData';
 		switch (filos) {
 		case 'ΦΙΛΟΣ':
@@ -452,6 +450,53 @@ Profinfo = new function() {
 		html += '</div>';
 
 		return html;
+	};
+
+	var profinfoDiv = null;
+	var x0 = 0;
+	var y0 = 0;
+	var l0 = 0;
+	var t0 = 0;
+
+	this.grab = function(e, div) {
+		if (notSet(e)) { e = window.event; }
+		stopProp(e);
+
+		if (notSet(div)) {
+			window.document.body.onmousemove = null;
+			window.document.body.onmouseup = null;
+			profinfoDiv = null;
+			x0 = 0;
+			y0 = 0;
+			l0 = 0;
+			t0 = 0;
+			return;
+		}
+
+		profinfoDiv = div.parentNode;
+		profinfoDiv.style.top = (t0 = profinfoDiv.offsetTop) + 'px';
+		profinfoDiv.style.left = (l0 = profinfoDiv.offsetLeft) + 'px';
+		x0 = e.clientX;
+		y0 = e.clientY;
+		window.document.body.onmousemove = function(e) {
+			Profinfo.move(e);
+		};
+		window.document.body.onmouseup = function(e) {
+			Profinfo.grab(e);
+		};
+	};
+
+	this.move = function(e) {
+		if (notSet(e)) { e = window.event; }
+		stopProp(e);
+
+		if (notSet(profinfoDiv)) {
+			mainFyi('asdad');
+			return;
+		}
+
+		profinfoDiv.style.top = (t0 + e.clientY - y0) + 'px';
+		profinfoDiv.style.left = (l0 + e.clientX - x0) + 'px';
 	};
 
 	this.mineHTML = function(txt) {

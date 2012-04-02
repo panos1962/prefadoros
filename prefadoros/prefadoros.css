@@ -1654,13 +1654,6 @@ font-weight: bold;
 	-webkit-box-shadow: 2px 2px 6px #2E2E2E;
 	-moz-box-shadow: 2px 2px 6px #2E2E2E;
 	box-shadow: 2px 2px 6px #2E2E2E;
-
-	user-select: auto;
-	-moz-user-select: auto;
-	-webkit-user-select: auto;
-	-o-user-select: auto;
-	-khtml-user-select: auto;
-	-ms-user-select: auto;
 }
 
 .profinfoClose {
@@ -1678,6 +1671,7 @@ font-weight: bold;
 	width: 93%;
 	white-space: nowrap;
 	overflow: hidden;
+	cursor: move;
 }
 
 .profinfoHeaderData {
@@ -1693,6 +1687,13 @@ font-weight: bold;
 	padding-right: 0.5cm;
 	overflow-y: auto;
 	overflow-x: hidden;
+
+	user-select: auto;
+	-moz-user-select: auto;
+	-webkit-user-select: auto;
+	-o-user-select: auto;
+	-khtml-user-select: auto;
+	-ms-user-select: auto;
 }
 
 .profinfoMine {
