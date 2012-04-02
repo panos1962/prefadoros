@@ -770,6 +770,7 @@ background-color: magenta;
 	overflow-y: auto;
 	overflow-x: hidden;
 	white-space: normal;
+
 	user-select: text;
 	-moz-user-select: text;
 	-webkit-user-select: text;
@@ -1694,6 +1695,15 @@ font-weight: bold;
 	-o-user-select: auto;
 	-khtml-user-select: auto;
 	-ms-user-select: auto;
+}
+
+.profinfoAreaSelectOff {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	-khtml-user-select: none;
+	-ms-user-select: none;
 }
 
 .profinfoMine {
