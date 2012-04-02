@@ -416,7 +416,8 @@ Profinfo = new function() {
 		var html = '<img class="profinfoClose" src="' + globals.server + 'images/Xgrey.png" ' +
 			'title="Κλείσιμο" alt="" onclick="Profinfo.klise(this.parentNode);" />';
 
-		html += '<div class="profinfoHeader" onmousedown="Profinfo.grab(event, this);">';
+		html += '<div class="profinfoHeader" title="Μετακίνηση φόρμας" ' +
+			'onmousedown="Profinfo.grab(event, this);">';
 		html += 'Παίκτης: <span class="profinfoHeaderData';
 		switch (filos) {
 		case 'ΦΙΛΟΣ':
@@ -453,6 +454,7 @@ Profinfo = new function() {
 	};
 
 	var profinfoDiv = null;
+	var profinfoArea = null;
 	var x0 = 0;
 	var y0 = 0;
 	var l0 = 0;
@@ -462,22 +464,37 @@ Profinfo = new function() {
 		if (notSet(e)) { e = window.event; }
 		stopProp(e);
 
+		// Κατά το άφημα της φόρμας δεν περνάμε division
+
 		if (notSet(div)) {
 			window.document.body.onmousemove = null;
 			window.document.body.onmouseup = null;
-			profinfoDiv = null;
 			x0 = 0;
 			y0 = 0;
 			l0 = 0;
 			t0 = 0;
+			profinfoDiv = null;
+			if (isSet(profinfoArea)) {
+				try { profinfoArea.setAttribute('class', 'profinfoArea'); }
+					catch(e) {};
+				profinfoArea = null;
+			}
 			return;
 		}
+
+		// Έχει περαστεί division, επομένως είμαστε στη φάση που έχουμε
+		// πατήσει το ποντίκι στην περιοχή επικεφαλίδας για μετακίνηση
+		// της φόρμας πληροφοριών προφίλ.
 
 		profinfoDiv = div.parentNode;
 		profinfoDiv.style.top = (t0 = profinfoDiv.offsetTop) + 'px';
 		profinfoDiv.style.left = (l0 = profinfoDiv.offsetLeft) + 'px';
 		x0 = e.clientX;
 		y0 = e.clientY;
+		profinfoArea = getelid('profinfoArea');
+		if (isSet(profinfoArea)) {
+			profinfoArea.setAttribute('class', 'profinfoArea profinfoAreaSelectOff');
+		}
 		window.document.body.onmousemove = function(e) {
 			Profinfo.move(e);
 		};

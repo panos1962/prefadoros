@@ -886,6 +886,10 @@ var Partida = new function() {
 				'images/controlPanel/claim.png" title="Τις δίνω όλες…" />';
 		}
 
+		if (pexnidi.ipolipo <= 0) {
+			katoFree = false;
+		}
+
 		if (partida.pektis[thesi]) {
 			html += '<img id="profinfo' + thesi + '" class="profinfoIcon" src="' +
 				globals.server + 'images/' + (katoFree ? 'profinfo' : 'ofniforp') +
