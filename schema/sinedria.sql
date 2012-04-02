@@ -27,6 +27,7 @@ CREATE TABLE `sinedria` (
 	-- Αν βρίσκεται στο χώρο του καφενείου, τότε τίθεται μηδέν. Το πεδίο δεν είναι
 	-- σημαντικό και χρησιμοποιείται μόνο για τη συζήτηση.
 	`trapezi`	NUMERIC(10) NOT NULL DEFAULT 0 COMMENT 'Τρέχον τραπέζι άποψης του παίκτη',
+	`trapezidirty`	TINYINT NOT NULL DEFAULT 2 COMMENT 'Αλλαγές καφενείου',
 
 	PRIMARY KEY (
 		`kodikos`
