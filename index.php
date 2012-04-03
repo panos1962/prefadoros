@@ -57,8 +57,7 @@ if ($globals->is_pektis()) {
 }
 Page::toolbar();
 ?>
-<div id="motto" class="motto" title="Κλικ για απόκρυψη"
-	onclick="Motto.klise(event, this);"></div>
+<div id="motto" class="motto" title="Κλικ για απόκρυψη"></div>
 <div id="giortes" style="display: none;"></div>
 <div id="profinfo" class="profinfo"></div>
 <div class="mainArea">
