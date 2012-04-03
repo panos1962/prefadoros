@@ -467,8 +467,9 @@ Profinfo = new function() {
 		// Κατά το άφημα της φόρμας δεν περνάμε division
 
 		if (notSet(div)) {
-			window.document.body.onmousemove = null;
-			window.document.body.onmouseup = null;
+			document.onselectstart = null;
+			document.body.onmousemove = null;
+			document.body.onmouseup = null;
 			x0 = 0;
 			y0 = 0;
 			l0 = 0;
@@ -486,6 +487,7 @@ Profinfo = new function() {
 		// πατήσει το ποντίκι στην περιοχή επικεφαλίδας για μετακίνηση
 		// της φόρμας πληροφοριών προφίλ.
 
+		document.onselectstart = function() { return false; };
 		profinfoDiv = div.parentNode;
 		profinfoDiv.style.top = (t0 = profinfoDiv.offsetTop) + 'px';
 		profinfoDiv.style.left = (l0 = profinfoDiv.offsetLeft) + 'px';
@@ -495,10 +497,10 @@ Profinfo = new function() {
 		if (isSet(profinfoArea)) {
 			profinfoArea.setAttribute('class', 'profinfoArea profinfoAreaSelectOff');
 		}
-		window.document.body.onmousemove = function(e) {
+		document.body.onmousemove = function(e) {
 			Profinfo.move(e);
 		};
-		window.document.body.onmouseup = function(e) {
+		document.body.onmouseup = function(e) {
 			Profinfo.grab(e);
 		};
 	};
