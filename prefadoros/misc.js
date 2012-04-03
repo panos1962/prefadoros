@@ -468,8 +468,8 @@ Profinfo = new function() {
 
 		if (notSet(div)) {
 			document.onselectstart = null;
-			document.body.onmousemove = null;
-			document.body.onmouseup = null;
+			document.onmousemove = null;
+			document.onmouseup = null;
 			x0 = 0;
 			y0 = 0;
 			l0 = 0;
@@ -497,10 +497,10 @@ Profinfo = new function() {
 		if (isSet(profinfoArea)) {
 			profinfoArea.setAttribute('class', 'profinfoArea selectOff');
 		}
-		document.body.onmousemove = function(e) {
+		document.onmousemove = function(e) {
 			Profinfo.move(e);
 		};
-		document.body.onmouseup = function(e) {
+		document.onmouseup = function(e) {
 			Profinfo.grab(e);
 		};
 	};
@@ -615,6 +615,9 @@ Profinfo = new function() {
 };
 
 Motto = new function() {
+	var mottoDiv = null;
+	var lcur = null;
+	var tcur = null;
 	var bi = [
 		"bez.jpg",
 		"marmaro.jpg",
@@ -625,27 +628,84 @@ Motto = new function() {
 	];
 
 	this.dixe = function(motto) {
-		var x = getelid('motto');
-		if (notSet(x)) { return; }
+		mottoDiv = getelid('motto');
+		if (notSet(mottoDiv)) { return; }
 
 		var html = '';
-		html = '<div>';
+		html += '<div>';
 		html += motto.text;
 		html += '</div>';
 		html += '<div class="mottoAuthor">';
 		html += motto.author;
 		html += '</div>';
 
-		x.innerHTML = html;
-		x.style.backgroundImage = 'url(' + globals.server + 'images/motto/' +
+		mottoDiv.innerHTML = html;
+		mottoDiv.style.backgroundImage = 'url(' + globals.server + 'images/motto/' +
 			bi[Math.floor(Math.random() * bi.length)] + ')';
-		x.style.left = ((Math.random() * 4) + 0.5) + 'cm';
-		x.style.top = ((Math.random() * 4) + 5) + 'cm';
-		x.style.display = 'inline';
+		mottoDiv.style.left = isSet(lcur) ? lcur + 'px' : ((Math.random() * 4) + 0.5) + 'cm';
+		mottoDiv.style.top = isSet(tcur) ? tcur + 'px' : ((Math.random() * 4) + 5) + 'cm';
+		mottoDiv.style.display = 'inline';
+		mottoDiv.onmousedown = function(e) {
+			if (notSet(e)) { e = window.event; }
+			Motto.piase(e);
+		};
+		mottoDiv.onmouseup = function(e) {
+			if (notSet(e)) { e = window.event; }
+			Motto.ase(e);
+		};
+		document.onmousemove = function(e) {
+			if (notSet(e)) { e = window.event; }
+			Motto.move(e);
+		};
 	};
 
-	this.klise = function(e, div) {
-		stopProp(e);
-		div.style.display = 'none';
+	var ts = null;
+	var l0 = 0;
+	var t0 = 0;
+	var x0 = 0;
+	var y0 = 0;
+
+	this.piase = function(e) {
+		document.onselectstart = function() { return false; };
+		mottoDiv.style.cursor = 'move';
+		mottoDiv.setAttribute('class', 'motto selectOff');
+		mottoDiv.style.display = 'inline';
+		mottoDiv.style.top = (t0 = mottoDiv.offsetTop) + 'px';
+		mottoDiv.style.left = (l0 = mottoDiv.offsetLeft) + 'px';
+		ts = (new Date()).getTime();
+		x0 = e.clientX;
+		y0 = e.clientY;
+	};
+
+	this.ase = function(e) {
+		document.onselectstart = null;
+		mottoDiv.style.cursor = 'pointer';
+		var klise = false;
+		if (isSet(ts)) {
+			if (((new Date()).getTime() - ts) < 200) {
+				klise = true;
+			}
+			ts = null;
+		}
+
+		if (klise) { this.klise(); }
+	};
+
+	this.move = function(e) {
+		if (notSet(ts)) { return; }
+		if (notSet(e)) { e = window.event; }
+
+		if (notSet(mottoDiv)) { return; }
+
+		mottoDiv.style.top = (tcur = (t0 + e.clientY - y0)) + 'px';
+		mottoDiv.style.left = (lcur = (l0 + e.clientX - x0)) + 'px';
+	};
+
+	this.klise = function() {
+		try { mottoDiv.style.display = 'none'; } catch(e) { return; }
+		document.onselectstart = null;
+		document.onmousemove = null;
+		document.onmouseup = null;
+		ts = null;
 	};
 };
