@@ -1697,15 +1697,6 @@ font-weight: bold;
 	-ms-user-select: auto;
 }
 
-.profinfoAreaSelectOff {
-	user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-o-user-select: none;
-	-khtml-user-select: none;
-	-ms-user-select: none;
-}
-
 .profinfoMine {
 	position: relative;
 	padding-top: 0.2cm;
