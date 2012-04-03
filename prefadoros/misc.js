@@ -495,7 +495,7 @@ Profinfo = new function() {
 		y0 = e.clientY;
 		profinfoArea = getelid('profinfoArea');
 		if (isSet(profinfoArea)) {
-			profinfoArea.setAttribute('class', 'profinfoArea profinfoAreaSelectOff');
+			profinfoArea.setAttribute('class', 'profinfoArea selectOff');
 		}
 		document.body.onmousemove = function(e) {
 			Profinfo.move(e);
@@ -509,10 +509,7 @@ Profinfo = new function() {
 		if (notSet(e)) { e = window.event; }
 		stopProp(e);
 
-		if (notSet(profinfoDiv)) {
-			mainFyi('asdad');
-			return;
-		}
+		if (notSet(profinfoDiv)) { return; }
 
 		profinfoDiv.style.top = (t0 + e.clientY - y0) + 'px';
 		profinfoDiv.style.left = (l0 + e.clientX - x0) + 'px';
@@ -614,5 +611,41 @@ Profinfo = new function() {
 	this.klise = function(div) {
 		div.style.display = 'none';
 		curPektis = null;
+	};
+};
+
+Motto = new function() {
+	var bi = [
+		"bez.jpg",
+		"marmaro.jpg",
+		"prasino.jpg",
+		"gramatosimo.jpg",
+		"pergamini.jpg",
+		"xartoni.jpg"
+	];
+
+	this.dixe = function(motto) {
+		var x = getelid('motto');
+		if (notSet(x)) { return; }
+
+		var html = '';
+		html = '<div>';
+		html += motto.text;
+		html += '</div>';
+		html += '<div class="mottoAuthor">';
+		html += motto.author;
+		html += '</div>';
+
+		x.innerHTML = html;
+		x.style.backgroundImage = 'url(' + globals.server + 'images/motto/' +
+			bi[Math.floor(Math.random() * bi.length)] + ')';
+		x.style.left = ((Math.random() * 4) + 0.5) + 'cm';
+		x.style.top = ((Math.random() * 4) + 5) + 'cm';
+		x.style.display = 'inline';
+	};
+
+	this.klise = function(e, div) {
+		stopProp(e);
+		div.style.display = 'none';
 	};
 };
