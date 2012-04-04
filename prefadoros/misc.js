@@ -541,7 +541,13 @@ Profinfo = new function() {
 	this.editHTML = function(login, mine) {
 		var html = '';
 		html += '<button type="button" onclick="Profinfo.edit(\'' +
-			login + '\');">' + (mine ? 'Διόρθωση' : 'Εισαγωγή') + '</button>';
+			login + '\');">' + (mine ? 'Διόρθωση' : 'Σχόλια') + '</button>';
+		html += '<button type="button" onclick="Sxesi.permesWindow(\'' +
+			login + '\');">Μήνυμα</button>';
+		if (dikeomaProsklisis()) {
+			html += '<button type="button" onclick="Sxesi.addProsklisi(\'' +
+				login + '\');">Πρόσκληση</button>';
+		}
 		html += '<button type="button" onclick="Profinfo.klise(this.parentNode.' +
 			'parentNode);">Άκυρο</button>';
 		return html;

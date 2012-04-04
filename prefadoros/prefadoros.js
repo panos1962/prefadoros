@@ -408,6 +408,12 @@ function isProsklisi() {
 	return false;
 }
 
+function dikeomaProsklisis() {
+	if (notPartida()) { return false; }
+	if (notPektis()) { return false; }
+	return dikeomaRithmisis();
+}
+
 function notProsklisi() {
 	return(!isProsklisi());
 }

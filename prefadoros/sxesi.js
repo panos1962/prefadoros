@@ -116,8 +116,12 @@ var Sxesi = new function() {
 		}
 		html += '</div>';
 		html += '</div>';
-		html += '<div style="display: inline-block; cursor: pointer;" title="Πρόσκληση"' +
-			' onclick="Sxesi.addProsklisi(\'' + sxesi[i].l + '\');">';
+		html += '<div style="display: inline-block;';
+		if (dikeomaProsklisis()) {
+			html += ' cursor: pointer;" title="Πρόσκληση"' +
+			' onclick="Sxesi.addProsklisi(\'' + sxesi[i].l + '\');';
+		}
+		html += '">';
 		html += '<div class="sxesiData">' + sxesi[i].n + '</div>';
 		html += '&nbsp;[&nbsp;<div class="sxesiData sxesi';
 		switch (sxesi[i].s) {
