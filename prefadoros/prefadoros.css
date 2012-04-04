@@ -1652,6 +1652,17 @@ font-weight: bold;
 	cursor: pointer;
 }
 
+.profinfoPhoto {
+	position: absolute;
+	left: 0.2cm;
+	top: 0.84cm;
+	height: 2.3cm;
+	z-index: 11;
+
+	opacity: 0.0;
+	filter: alpha(opacity=0);
+}
+
 .profinfoHeader {
 	position: absolute;
 	left: 0.2cm;

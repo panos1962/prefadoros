@@ -413,8 +413,12 @@ Profinfo = new function() {
 	// κείμενο, το κείμενο του παίκτη και τα πλήκτρα διαχείρισης.
 
 	this.HTML = function(login, onoma, filos, mine, pektis) {
-		var html = '<img class="profinfoClose" src="' + globals.server + 'images/Xgrey.png" ' +
+		var html = '';
+		html += '<img class="profinfoClose" src="' + globals.server + 'images/Xgrey.png" ' +
 			'title="Κλείσιμο" alt="" onclick="Profinfo.klise(this.parentNode);" />';
+		html += '<img id="profinfoPhoto" class="profinfoPhoto" src="' + globals.server +
+			'photo/' + (login.substr(0, 1)).toLowerCase() + '/' + login + '.jpg" ' +
+			'alt="" />';
 
 		html += '<div class="profinfoHeader" title="Μετακίνηση φόρμας" ' +
 			'onmousedown="Profinfo.grab(event, this);">';
@@ -429,7 +433,8 @@ Profinfo = new function() {
 			html += ' sxesiAsxestos';
 			break;
 		}
-		html += '">' + login + '</span>';
+		html += '" onmouseover="Profinfo.photo(true);" ' +
+			'onmouseout="Profinfo.photo(false);">' + login + '</span>';
 		html += ' [ <span class="profinfoHeaderData" style="color: #003366;">' + onoma + '</span> ]';
 		html += '</div>';
 
@@ -451,6 +456,12 @@ Profinfo = new function() {
 		html += '</div>';
 
 		return html;
+	};
+
+	this.photo = function(dixe) {
+		var x = getelid('profinfoPhoto');
+		if (notSet(x)) { return; }
+		setOpacity(x, dixe ? 100 : 0);
 	};
 
 	var profinfoDiv = null;
