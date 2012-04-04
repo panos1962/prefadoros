@@ -282,6 +282,24 @@ var Sizitisi = new function() {
 		return html;
 	};
 
+	var aixa  = {
+		"0":	"T",
+		"Δ":	"T",
+		"Τ":	"T",
+		"Β":	"J",
+		"Ν":	"Q",
+		"Ρ":	"K",
+		"Κ":	"K",
+		"Α":	"A"
+	};
+
+	var amorx  = {
+		"Μ":	"S",
+		"Σ":	"C",
+		"Κ":	"D",
+		"Π":	"H"
+	};
+
 	this.textDecode = function(s) {
 		var dfltw = 82;		// default πλάτος σε χιλιοστά
 
@@ -389,6 +407,18 @@ var Sizitisi = new function() {
 				}
 				s += '<img class="sizitisiEmoticon" alt="" src="' + globals.server +
 					'images/emoticons/set' + x[1] + '/' + eset[x[2]] + '" />';
+				fsok = false;
+				continue;
+			}
+
+			if (tmima[i].match(/^[789TJQKA0ΔΒΝΡΚΑ][SCDHΜΣΚΠ]$/i)) {
+				x = tmima[i].toUpperCase();
+				var axia = x.substr(0, 1);
+				if (aixa.hasOwnProperty(axia)) { axia = aixa[axia]; }
+				var xroma = x.substr(1, 1);
+				if (amorx.hasOwnProperty(xroma)) { xroma = amorx[xroma]; }
+				s += '<img class="sizitisiCard" alt="" src="' + globals.server +
+					'images/trapoula/' + xroma + axia + '.png" />';
 				fsok = false;
 				continue;
 			}
