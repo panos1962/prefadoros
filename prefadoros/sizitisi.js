@@ -411,6 +411,15 @@ var Sizitisi = new function() {
 				continue;
 			}
 
+			if (tmima[i].match(/^[SCDHΜΣΚΠ]$/i)) {
+				var xroma = tmima[i].toUpperCase();
+				if (amorx.hasOwnProperty(xroma)) { xroma = amorx[xroma]; }
+				s += '<img class="sizitisiXroma" alt="" src="' + globals.server +
+					'images/trapoula/xroma' + xroma + '.png" />';
+				fsok = false;
+				continue;
+			}
+
 			if (tmima[i].match(/^[789TJQKA0ΔΒΝΡΚΑ][SCDHΜΣΚΠ]$/i)) {
 				x = tmima[i].toUpperCase();
 				var axia = x.substr(0, 1);
