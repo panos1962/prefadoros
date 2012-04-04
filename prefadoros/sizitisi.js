@@ -432,6 +432,33 @@ var Sizitisi = new function() {
 				continue;
 			}
 
+			if (tmima[i] == '') {
+				s += '<br />';
+				fsok = false;
+				continue;
+			}
+
+			if (tmima[i] == '-') {
+				s += '<hr style="height: 0px; border-style: dotted; ' +
+					'border-width: 1px 0 0 0;" />';
+				fsok = false;
+				continue;
+			}
+
+			if (tmima[i] == '_') {
+				s += '<hr style="height: 0px; border-style: solid; ' +
+					'border-width: 1px 0 0 0;" />';
+				fsok = false;
+				continue;
+			}
+
+			if (tmima[i] == '=') {
+				s += '<hr style="height: 0px; border-style: double; ' +
+					'border-width: 3px 0 0 0;" />';
+				fsok = false;
+				continue;
+			}
+
 			if ((i > 0) && fsok) { s += fs; }
 			s += tmima[i];
 			fsok = true;
