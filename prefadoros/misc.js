@@ -367,7 +367,7 @@ Profinfo = new function() {
 		// το προφίλ του παίκτη και tab είναι ο χαρακτήρας tab.
 
 		var x = rsp.split('\t');
-		if (x.length != 5) {
+		if (x.length != 8) {
 			errorIcon(img);
 			return;
 		}
@@ -375,7 +375,7 @@ Profinfo = new function() {
 		// Εφόσον όλα πήγαν καλά, εμφανίζω το προφίλ του παίκτη με
 		// όλα τα σχετικά εργαλεία και κρατώ το όνομά του.
 
-		div.innerHTML = this.HTML(login, x[0], x[1], x[2], x[3]);
+		div.innerHTML = this.HTML(login, x[0], x[1], x[2], x[3], x[4], x[5], x[6]);
 		div.style.display = 'inline';
 		curPektis = login;
 	};
@@ -412,7 +412,7 @@ Profinfo = new function() {
 	// Στον κώδικα περιέχεται πλήκτρο κλεισίματος, επικεφαλίδα, το δικό μας
 	// κείμενο, το κείμενο του παίκτη και τα πλήκτρα διαχείρισης.
 
-	this.HTML = function(login, onoma, filos, mine, pektis) {
+	this.HTML = function(login, onoma, dianomes, moros, rank, filos, mine, pektis) {
 		var html = '';
 		html += '<img class="profinfoClose" src="' + globals.server + 'images/Xgrey.png" ' +
 			'title="Κλείσιμο" alt="" onclick="Profinfo.klise(this.parentNode);" />';
@@ -436,6 +436,18 @@ Profinfo = new function() {
 		html += '" onmouseover="Profinfo.photo(true);" ' +
 			'onmouseout="Profinfo.photo(false);">' + login + '</span>';
 		html += ' [ <span class="profinfoHeaderData" style="color: #003366;">' + onoma + '</span> ]';
+		if (dianomes) {
+			html += '<div class="profinfoStats" title="Στατιστικά στοιχεία">[ ' +
+				'<span class="profinfoHeaderData" title="Πλήθος παιγμένων διανομών" ' +
+				'style="color: #003366;">' + dianomes + '</span>#' +
+				'<span title="Μουαγέν σε καπίκια">' + moros + '</span>';
+			if (rank) {
+				html += '#<span class="profinfoHeaderData" title="Βαθμολογία"' +
+					'style="color: ' + (rank > 0 ? 'green' : 'red') + ';">' +
+					rank + '</span>';
+			}
+			html += ' ]</div>';
+		}
 		html += '</div>';
 
 		html += '<div id="profinfoInput" class="profinfoInput">';

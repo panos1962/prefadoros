@@ -1686,6 +1686,12 @@ font-weight: bold;
 	font-style: italic;
 }
 
+.profinfoStats {
+	position: absolute;
+	right: 0.2cm;
+	top: 0px;
+}
+
 .profinfoArea {
 	position: absolute;
 	top: 0.8cm;
