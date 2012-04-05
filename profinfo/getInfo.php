@@ -49,5 +49,38 @@ if ($globals->pektis->login != $pektis) {
 	@mysqli_free_result($result);
 }
 
-$globals->klise_fige($onoma . "\t" . $status . "\t" . $mine . "\t" . $enim . "\t");
+bathmologia($pektis, $dianomes, $moros, $rank);
+$globals->klise_fige($onoma . "\t" . $dianomes . "\t" . $moros . "\t" .
+	$rank . "\t" . $status . "\t" . $mine . "\t" . $enim . "\t");
+
+function bathmologia($pektis, &$dianomes, &$moros, &$rank) {
+	$dianomes = NULL;
+	$moros = NULL;
+	$rank = NULL;
+
+	$fname = "../stats/rank.txt";
+	$fp = @fopen($fname, "r");
+	if (!$fp) {
+		return;
+	}
+
+	while ($buf = Globals::get_line($fp)) {
+		$x = explode("\t", $buf);
+		if (count($x) < 4) {
+			continue;
+		}
+		if ($x[0] != $pektis) {
+			continue;
+		}
+
+		$dianomes = $x[2];
+		$moros = $x[4];
+		if (count($x) >= 5) {
+			$rank = $x[5];
+		}
+		break;
+	}
+
+	@fclose($fp);
+}
 ?>
