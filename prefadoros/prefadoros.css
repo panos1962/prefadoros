@@ -1688,8 +1688,10 @@ font-weight: bold;
 
 .profinfoStats {
 	position: absolute;
-	right: 0.2cm;
+	right: 0px;
 	top: 0px;
+	background-color: #FFFFCC;
+	z-index: 11;
 }
 
 .profinfoArea {
