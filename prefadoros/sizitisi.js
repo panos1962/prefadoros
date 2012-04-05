@@ -289,7 +289,7 @@ var Sizitisi = new function() {
 		"Β":	"J",
 		"Ν":	"Q",
 		"Ρ":	"K",
-		"Κ":	"K",
+		"Π":	"K",
 		"Α":	"A"
 	};
 
@@ -297,7 +297,10 @@ var Sizitisi = new function() {
 		"Μ":	"S",
 		"Σ":	"C",
 		"Κ":	"D",
-		"Π":	"H"
+		"Π":	"H",
+		"N":	"N",
+		"Χ":	"N",
+		"Α":	"N"
 	};
 
 	this.textDecode = function(s) {
@@ -411,7 +414,7 @@ var Sizitisi = new function() {
 				continue;
 			}
 
-			if (tmima[i].match(/^[SCDHΜΣΚΠ]$/i)) {
+			if (tmima[i].match(/^[SCDHNΜΣΚΠΧΑ]$/i)) {
 				var xroma = tmima[i].toUpperCase();
 				if (amorx.hasOwnProperty(xroma)) { xroma = amorx[xroma]; }
 				s += '<img class="sizitisiXroma" alt="" src="' + globals.server +
@@ -420,7 +423,7 @@ var Sizitisi = new function() {
 				continue;
 			}
 
-			if (tmima[i].match(/^[789TJQKA0ΔΒΝΡΚΑ][SCDHΜΣΚΠ]$/i)) {
+			if (tmima[i].match(/^[789TJQKA0ΔΒΝΡΠΑ][SCDHΜΣΚΠ]$/i)) {
 				x = tmima[i].toUpperCase();
 				var axia = x.substr(0, 1);
 				if (aixa.hasOwnProperty(axia)) { axia = aixa[axia]; }
@@ -432,7 +435,7 @@ var Sizitisi = new function() {
 				continue;
 			}
 
-			if (tmima[i] == ' ') {
+			if (tmima[i] == '~') {
 				s += '<br />';
 				fsok = false;
 				continue;
