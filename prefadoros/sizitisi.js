@@ -435,8 +435,10 @@ var Sizitisi = new function() {
 				continue;
 			}
 
-			if (tmima[i] == '~') {
-				s += '<br />';
+			if (tmima[i].match(/^~+$/)) {
+				for (var j = 0; j < tmima[i].length; j++) {
+					s += '<br />';
+				}
 				fsok = false;
 				continue;
 			}
