@@ -432,7 +432,7 @@ var Sizitisi = new function() {
 				continue;
 			}
 
-			if (tmima[i] == '') {
+			if (tmima[i] == ' ') {
 				s += '<br />';
 				fsok = false;
 				continue;
