@@ -449,8 +449,7 @@ var Sizitisi = new function() {
 			}
 
 			if (tmima[i] == '_') {
-				s += '<hr style="height: 0px; border-style: solid; ' +
-					'border-width: 1px 0 0 0;" />';
+				s += '<hr />';
 				fsok = false;
 				continue;
 			}
