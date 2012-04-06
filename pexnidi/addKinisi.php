@@ -51,6 +51,9 @@ case 'ΔΗΛΩΣΗ':
 case 'ΤΖΟΓΟΣ':
 	$data = fila_tzogou($dianomi);
 	break;
+case 'ΣΥΜΜΕΤΟΧΗ':
+	check_simetoxi($dianomi);
+	break;
 case 'ΠΛΗΡΩΜΗ':
 	kane_pliromi($dianomi, $data);
 	break;
@@ -136,6 +139,25 @@ function check_trito_paso($dianomi, $data, $pektis) {
 	}
 
 	return($data);
+}
+
+// Εάν έχει ήδη δηλωθεί συμμετοχή "ΜΑΖΙ" από κάποιον παίκτη, τότε δεν
+// γίνεται δεκτή οποιαδήποτε άλλη δήλωση συμμετοχής.
+
+function check_simetoxi($dianomi) {
+	global $globals;
+
+	$mazi = FALSE;
+	$query = "SELECT `pektis` FROM `kinisi` WHERE (`dianomi` = " .
+		$dianomi . ") AND (`idos` = 'ΣΥΜΜΕΤΟΧΗ') AND (`data` = 'ΜΑΖΙ')";
+	$result = $globals->sql_query($query);
+	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		$mazi = TRUE;
+	}
+
+	if ($mazi) {
+		$globals->klise_fige('Απόπειρα συμμετοχής μετά από "ΜΑΖΙ"');
+	}
 }
 
 function kane_pliromi($dianomi, $data) {
