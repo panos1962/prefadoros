@@ -33,6 +33,15 @@ else {
 	$thesi = $globals->trapezi->thesi;
 }
 
+switch ($thesi = (int)$thesi) {
+case 1:
+case 2:
+case 3:
+	break;
+default:
+	$globals->klise_fige('Λάθος θέση παίκτη');
+}
+
 Prefadoros::klidose_trapezi();
 
 switch ($idos) {
@@ -105,11 +114,13 @@ function check_trito_paso($dianomi, $data, $pektis) {
 	$tzogos = "";
 	$paso_count = 0;
 	$pektis_telefteas_dilosis = 0;
+	$paso_pektis = array(NULL, FALSE, FALSE, FALSE);
 
 	$query = "SELECT `idos`, `data`, `pektis` FROM `kinisi` " .
 		"WHERE `dianomi` = " . $dianomi . " ORDER BY `kodikos`";
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		$row[2] = (int)$row[2];		// just to be sure
 		switch ($row[0]) {
 		case 'ΔΙΑΝΟΜΗ':
 			$x = explode(":", $row[1]);
@@ -118,6 +129,7 @@ function check_trito_paso($dianomi, $data, $pektis) {
 		case 'ΔΗΛΩΣΗ':
 			$pektis_telefteas_dilosis = $row[2];
 			if (Prefadoros::is_dilosi_paso($row[1])) {
+				$paso_pektis[$row[2]] = TRUE;
 				$paso_count++;
 			}
 			break;
@@ -133,9 +145,17 @@ function check_trito_paso($dianomi, $data, $pektis) {
 	// Αν πρόκειται για δήλωση πάσο, ελέγχω αν έχω ήδη δύο προηγούμενα
 	// πάσο. Αν, όντως, έχω δύο προηγούμενα πάσο, τότε στα δεδομένα
 	// της δήλωσης θα "κολλήσω" και τα φύλλα του τζόγου, ώστε να
-	// είναι εύκολα τα αποκαλυπτήρια.
-	if (Prefadoros::is_dilosi_paso($data) && ($paso_count >= 2)) {
-		$data .= ":" . $tzogos;
+	// είναι εύκολα τα αποκαλυπτήρια. Πρώτα, όμως, ελέγχω μην τυχόν
+	// και έχω δεύτερο πάσο από παίκτη που έχει ήδη δηλώσει πάσο.
+	if (Prefadoros::is_dilosi_paso($data)) {
+		if ($paso_pektis[$pektis]) {
+			Prefadoros::xeklidose_trapezi(FALSE);
+			$globals->klise_fige('Απόπειρα διπλοδήλωσης πάσο');
+		}
+
+		if ($paso_count >= 2) {
+			$data .= ":" . $tzogos;
+		}
 	}
 
 	return($data);
