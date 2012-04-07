@@ -219,6 +219,7 @@ function print_panel() {
 	$item_list[] = new Item("kremastika.gif", "Κρεμάστηκα τώρα!", 3.3);
 	$item_list[] = new Item("xipna.gif", "Ξύπνα, ρεεεε!", 5.1, "bell:1000");
 	$item_list[] = new Item("mafalda.gif", "Παίξτο ανέμελα…");
+	$item_list[] = new Item("nailbiter.gif", "", 1.2);
 	$item_list[] = new Item("toraTiKano.gif", "Τώρα;", 4.0);
 	$item_list[] = new Item("oniropoloEmoticon.gif", "Λες η τύχη να είναι μαζί μου;");
 	$item_list[] = new Item("lesEmoticon.gif", "Λες;");
