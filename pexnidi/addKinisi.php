@@ -34,6 +34,7 @@ else {
 }
 
 switch ($thesi = (int)$thesi) {
+case 0:
 case 1:
 case 2:
 case 3:
@@ -114,7 +115,7 @@ function check_trito_paso($dianomi, $data, $pektis) {
 	$tzogos = "";
 	$paso_count = 0;
 	$pektis_telefteas_dilosis = 0;
-	$paso_pektis = array(NULL, FALSE, FALSE, FALSE);
+	$paso_pektis = array(TRUE, FALSE, FALSE, FALSE);
 
 	$query = "SELECT `idos`, `data`, `pektis` FROM `kinisi` " .
 		"WHERE `dianomi` = " . $dianomi . " ORDER BY `kodikos`";
