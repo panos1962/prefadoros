@@ -677,8 +677,8 @@ Motto = new function() {
 			'onclick="Motto.copyData(event, this);">';
 		html += 'Αντιγραφή';
 		html += '</div>';
-		html += '<input id="mottoBuffer" class="mottoBuffer" type="text" value="' +
-			motto.text + motto.author + '" title="Copy motto text" />';
+		html += '<textarea id="mottoBuffer" class="mottoBuffer" title="Copy motto">' +
+			motto.buffer + '</textarea>';
 
 		mottoDiv.innerHTML = html;
 		mottoDiv.style.backgroundImage = 'url(' + globals.server + 'images/motto/' +
