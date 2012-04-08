@@ -656,7 +656,12 @@ Motto = new function() {
 		"xartoni.jpg"
 	];
 
+	var antigrafi = false;
+	var copybuf = false;
+
 	this.dixe = function(motto) {
+		antigrafi = false;
+		copybuf = false;
 		mottoDiv = getelid('motto');
 		if (notSet(mottoDiv)) { return; }
 
@@ -667,6 +672,13 @@ Motto = new function() {
 		html += '<div class="mottoAuthor">';
 		html += motto.author;
 		html += '</div>';
+		html += '<div class="mottoCopy" title="Κλικ για δυνατότητα αντιγραφής κειμένου" ' +
+			'onmouseover="Motto.copy(this, true);" onmouseout="Motto.copy(this, false);" ' +
+			'onclick="Motto.copyData(event, this);">';
+		html += 'Αντιγραφή';
+		html += '</div>';
+		html += '<input id="mottoBuffer" class="mottoBuffer" type="text" value="' +
+			motto.text + motto.author + '" title="Copy motto text" />';
 
 		mottoDiv.innerHTML = html;
 		mottoDiv.style.backgroundImage = 'url(' + globals.server + 'images/motto/' +
@@ -688,6 +700,34 @@ Motto = new function() {
 		};
 	};
 
+	this.copy = function(div, dixe) {
+		if (dixe) {
+			setOpacity(div, 70);
+			antigrafi = true;
+		}
+		else {
+			setOpacity(div, 0);
+			antigrafi = false;
+		}
+	};
+
+	this.copyData = function(e, div) {
+		stopProp(e);
+		this.copy(div, false);
+		copybuf = !copybuf;
+
+		var x = getelid('mottoBuffer');
+		if (notSet(x)) { return; }
+
+		if (copybuf) {
+			x.style.display = 'inline';
+			x.select();
+		}
+		else {
+			x.style.display = 'none';
+		}
+	};
+
 	var ts = null;
 	var l0 = 0;
 	var t0 = 0;
@@ -695,6 +735,8 @@ Motto = new function() {
 	var y0 = 0;
 
 	this.piase = function(e) {
+		if (antigrafi) { return; }
+		if (copybuf) { return; }
 		document.onselectstart = function() { return false; };
 		mottoDiv.style.cursor = 'move';
 		mottoDiv.setAttribute('class', 'motto selectOff');
@@ -707,6 +749,8 @@ Motto = new function() {
 	};
 
 	this.ase = function(e) {
+		if (antigrafi) { return; }
+		if (copybuf) { return; }
 		document.onselectstart = null;
 		mottoDiv.style.cursor = 'pointer';
 		var klise = false;

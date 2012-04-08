@@ -1568,6 +1568,34 @@ font-weight: bold;
 	text-align: right;
 }
 
+.mottoCopy {
+	position: absolute;
+	bottom: 0.2cm;
+	left: 0.2cm;
+
+	padding: 0px 0.1cm 0px 0.1cm;
+	font-size: 0.4cm;
+	color: #666699;
+
+	border-style: outset;
+	border-width: 2px;
+	border-color: grey;
+
+	opacity: 0.0;
+	filter: alpha(opacity=0);
+}
+
+.mottoBuffer {
+	position: absolute;
+	bottom: 0.2cm;
+	left: 2.6cm;
+	display: none;
+
+	padding: 0px 0.1cm 0px 0.1cm;
+	font-size: 80%;
+	color: #666699;
+}
+
 .dialogos {
 	position: absolute;
 	top: 5.5cm;
