@@ -226,7 +226,8 @@ function sxesi_area() {
 function sizitisi_area() {
 	global $globals;
 	?>
-	<div class="pssHeaderArea">
+	<div class="pssHeaderArea" style="position: relative;">
+		<?php filo_paleta(); ?>
 		<input id="sxolioInput" class="pssInput" type="text" value="" maxlength="4096" <?php
 			if ($globals->is_pektis() && ($globals->pektis->login == SYSTEM_ACCOUNT)) {
 				?>disabled="disabled" <?php
@@ -251,6 +252,55 @@ function sizitisi_area() {
 	<div id="sizitisiTrapezi" style="display: none;"></div>
 	<div id="sizitisiKafenio" style="display: none;"></div>
 	<div id="sxolioPreview"></div>
+	</div>
+	<?php
+}
+
+function filo_paleta() {
+	global $globals;
+	$axia = array("7", "8", "9", "T", "J", "Q", "K", "A");
+	$m = count($axia);
+	?>
+	<div id="filoPaleta" class="filoPaleta" title="Παλέτα χρωμάτων και φύλλων">
+	<?php
+	$xroma = array("N", "H", "D", "C", "S");
+	$n = count($xroma);
+	for ($i = 1; $i < $n; $i++) {
+		?>
+		<div class="filoPaletaFili">
+		<?php
+		for ($j = 0; $j < $m; $j++) {
+			?>
+			<img class="filoPaletaIcon" alt="" src="<?php print $globals->server;
+				?>images/trapoula/<?php print $xroma[$i] . $axia[$j];
+				?>.png" onclick="Sizitisi.filoPaleta('<?php print $xroma[$i];
+				?>', '<?php print $axia[$j]; ?>');" title="" />
+			<?php
+		}
+		?>
+		</div>
+		<?php
+	}
+	?>
+	<div class="filoPaletaFili">
+	<?php
+	for ($i = $n - 1; $i >= 0; $i--) {
+		?>
+		<img class="filoPaletaIcon" alt="" src="<?php print $globals->server;
+			?>images/trapoula/xroma<?php print $xroma[$i]; ?>.png" title=""
+			onclick="Sizitisi.filoPaleta('<?php print $xroma[$i]; ?>');" />
+		<?php
+	}
+	?>
+	<img class="filoPaletaIcon" alt="" src="<?php print $globals->server;
+		?>images/lineBreak.png" title="Αλλαγή γραμμής"
+		onclick="Sizitisi.filoPaleta('~');" />
+	</div>
+	<img src="<?php print $globals->server; ?>images/Xgrey.png" alt=""
+		title="Απόκρυψη παλέτας χρωμάτων και φύλλων"
+		onclick="this.parentNode.style.display='none';"
+		style="position: absolute; bottom: 0.2cm; left: 0.2cm;
+			width: 0.6cm; cursor: pointer;" />
 	</div>
 	<?php
 }

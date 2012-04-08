@@ -1779,3 +1779,24 @@ font-weight: bold;
 	font-size: 80%;
 	text-align: center;
 }
+
+.filoPaleta {
+	position: absolute;
+	bottom: 0.76cm;
+	left: 0px;
+	width: 100%;
+	background-image: url('../images/pss.jpg');
+	background-repeat: repeat;
+	display: none;
+}
+
+.filoPaletaFili {
+	text-align: center;
+}
+
+.filoPaletaIcon {
+	width: 0.8cm;
+	margin-right: 0.1cm;
+	display: inline-block;
+	cursor: pointer;
+}
