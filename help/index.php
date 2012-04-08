@@ -615,6 +615,21 @@ window.onload = function() {
 <table width="100%">
 	<tr>
 	<td class="helpIconColumn">
+		<img src="<?php print $globals->server; ?>images/trapoula/xromaS.png"
+			class="helpIcon" alt="" />
+	</td>
+	<td class="helpKimeno">
+		Κάνοντας κλικ σε αυτό το εικονίδιο εμφανίζεται ή αποκρύπτεται
+		παλέτα χρωμάτων και φύλλων, από την οποία μπορούμε να
+		επιλέξουμε χρώματα και φύλλα της τράπουλας με σκοπό
+		την ενσωμάτωση των αντίστοιχων εικονιδίων στη συζήτηση.
+	</td>
+	</tr>
+</table>
+
+<table width="100%">
+	<tr>
+	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/misoLepto.gif"
 			class="helpIcon" alt="" />
 	</td>
