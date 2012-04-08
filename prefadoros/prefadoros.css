@@ -1590,6 +1590,7 @@ font-weight: bold;
 	bottom: 0.2cm;
 	left: 2.6cm;
 	display: none;
+	overflow: hidden;
 
 	padding: 0px 0.1cm 0px 0.1cm;
 	font-size: 80%;
