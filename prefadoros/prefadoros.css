@@ -571,7 +571,6 @@ background-color: magenta;
 }
 
 .controlPanelColumn {
-	position: relative;
 	width: 1px;
 	vertical-align: top;
 	border-style: dotted;
