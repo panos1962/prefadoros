@@ -649,6 +649,7 @@ var FiloPaleta = new function() {
 	this.onOff = function(e, dixe) {
 		stopProp(e);
 		piasmeno = false;
+		Sizitisi.sxolioFocus();
 		var x = getelid('filoPaleta');
 		if (notSet(x)) { return; }
 
@@ -705,7 +706,7 @@ var FiloPaleta = new function() {
 		if (isSet(axia)) { x.value += axia; }
 		x.value += xroma + '^';
 		Sizitisi.parousiasi(x);
-		x.focus();
+		setTimeout(function() { x.focus(); }, 10);
 	};
 
 	var mx0 = 0;
@@ -748,6 +749,7 @@ var FiloPaleta = new function() {
 		document.onselectstart = null;
 		document.onmouseup = null;
 		document.onmousemove = null;
+		Sizitisi.sxolioFocus();
 		if (!piasmeno) { return; }
 		try {
 			div.style.borderWidth = '2px 1px 1px 2px';
