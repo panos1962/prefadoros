@@ -706,7 +706,7 @@ var FiloPaleta = new function() {
 		if (isSet(axia)) { x.value += axia; }
 		x.value += xroma + '^';
 		Sizitisi.parousiasi(x);
-		setTimeout(function() { x.focus(); }, 10);
+		setTimeout(function() { try { x.focus(); } catch(e) {} }, 10);
 	};
 
 	var mx0 = 0;
