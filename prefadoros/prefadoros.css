@@ -1784,18 +1784,30 @@ font-weight: bold;
 	position: absolute;
 	bottom: 0.76cm;
 	left: 0px;
-	width: 100%;
+	width: 9.6cm;
+	display: none;
+
+	border-style: solid;
+	border-width: 0px;
+	border-color: #CCCCCC #999966 #999966 #CCCCCC;
+
+	padding-top: 0.8cm;
 	background-image: url('../images/pss.jpg');
 	background-repeat: repeat;
-	display: none;
+	cursor: move;
+
+	opacity: 0.3;
+	filter: alpha(opacity=30);
 }
 
 .filoPaletaFili {
+	padding-bottom: 0.2cm;
 	text-align: center;
 }
 
 .filoPaletaIcon {
 	width: 0.8cm;
+	margin-left: 0.1cm;
 	margin-right: 0.1cm;
 	display: inline-block;
 	cursor: pointer;
