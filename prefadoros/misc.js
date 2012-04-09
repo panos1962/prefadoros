@@ -312,7 +312,7 @@ var Tools = new function() {
 // παίκτη, π.χ. το τι πρέπει να προσέχουμε, κάποιον αριθμό
 // τηλεφώνου κλπ. Αυτές οι προσωπικές πληροφορίες δεν δημοσιοποιούνται.
 
-Profinfo = new function() {
+var Profinfo = new function() {
 	// Η παρακάτω μεταβλητή κρατάει τον παίκτη του οποίου το προφίλ
 	// είναι ανοικτό την οποιαδήποτε χρονική στιγμή.
 
@@ -643,7 +643,119 @@ Profinfo = new function() {
 	};
 };
 
-Motto = new function() {
+var FiloPaleta = new function() {
+	var piasmeno = false;
+
+	this.onOff = function(e, dixe) {
+		stopProp(e);
+		piasmeno = false;
+		var x = getelid('filoPaleta');
+		if (notSet(x)) { return; }
+
+		if (!x.innerHTML) { x.innerHTML = this.HTML(); }
+		if (isSet(dixe)) { x.style.display = dixe ? 'inline' : 'none'; }
+		else { x.style.display = x.style.display == 'inline' ? 'none' : 'inline'; }
+	};
+
+	this.HTML = function() {
+		var html = '';
+		var xroma = [ 'N', 'H', 'D', 'C', 'S' ];
+		var axia = [ '7', '8', '9', 'T', 'J', 'Q', 'K', 'A' ];
+
+		for (var i = 1; i < xroma.length; i++) {
+			html += '<div class="filoPaletaFili">';
+			for (var j = 0; j < axia.length; j++) {
+				html += '<img class="filoPaletaIcon" alt="" src="' +
+					globals.server + 'images/trapoula/' + xroma[i] + axia[j] +
+					'.png" ' + 'onmousedown="FiloPaleta.sizitisi(event, \'' +
+					xroma[i] + '\', \'' + axia[j] + '\');" title="" />';
+			}
+			html += '</div>';
+		}
+
+		html += '<div class="filoPaletaFili">';
+		for (i = xroma.length - 1; i >= 0; i--) {
+			html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
+				'images/trapoula/xroma' + xroma[i] + '.png" title="" ' +
+				'onmousedown="FiloPaleta.sizitisi(event, \'' + xroma[i] + '\');" />';
+		}
+		html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
+			'images/lineBreak.png" title="Αλλαγή γραμμής" ' +
+			'onmousedown="FiloPaleta.sizitisi(event, \'~\');" />';
+		html += '</div>';
+
+		html += '<img src="' + globals.server + 'images/Xgrey.png" alt="" ' +
+			'title="Απόκρυψη παλέτας χρωμάτων και φύλλων" ' +
+			'onmousedown="FiloPaleta.onOff(event, false);" ' +
+			'style="position: absolute; bottom: 0.2cm; left: 0.2cm; ' +
+			'width: 0.6cm; cursor: pointer;" />';
+
+		return html;
+	};
+
+	this.sizitisi = function(e, xroma, axia) {
+		if (notSet(e)) { e = window.event; }
+		stopProp(e);
+		piasmeno = false;
+
+		var x = getelid('sxolioInput');
+		if (notSet(x)) { return; }
+
+		x.value += '^';
+		if (isSet(axia)) { x.value += axia; }
+		x.value += xroma + '^';
+		Sizitisi.parousiasi(x);
+		x.focus();
+	};
+
+	var mx0 = 0;
+	var my0 = 0;
+	var x0 = 0;
+	var y0 = 0;
+
+	this.piase = function(e) {
+		if (notSet(e)) { e = window.event; }
+		stopProp(e);
+		piasmeno = true;
+		var x = getelid('filoPaleta');
+		if (notSet(x)) { return; }
+
+		document.onselectstart = function() { return false; };
+		document.onmouseup = function(e) { FiloPaleta.ase(e, x); };
+		document.onmousemove = function(e) { FiloPaleta.move(e, x); };
+
+		mx0 = e.clientX;
+		my0 = e.clientY;
+		x0 = x.offsetLeft;
+		y0 = x.offsetTop;
+
+		x.style.left = x0 + 'px';
+		x.style.top = y0 + 'px';
+		x.style.bottom = 'auto';
+	};
+
+	this.move = function(e, div) {
+		if (notSet(e)) { e = window.event; }
+		try {
+			div.style.left = (x0 + e.clientX - mx0) + 'px';
+			div.style.top = (y0 + e.clientY - my0) + 'px';
+		} catch(e) {}
+	};
+
+	this.ase = function(e, div) {
+		if (notSet(e)) { e = window.event; }
+		stopProp(e);
+		document.onselectstart = null;
+		document.onmouseup = null;
+		document.onmousemove = null;
+		if (!piasmeno) { return; }
+		try {
+			div.style.borderWidth = '2px 1px 1px 2px';
+		} catch(e) {}
+	};
+};
+
+var Motto = new function() {
 	var mottoDiv = null;
 	var lcur = null;
 	var tcur = null;

@@ -800,16 +800,6 @@ var Sizitisi = new function() {
 			'title="Σίγαση funchat video" onclick="Sizitisi.sigasiVideo(this);" />';
 		return html;
 	};
-
-	this.filoPaleta = function(xroma, axia) {
-		var x = getelid('sxolioInput');
-		if (notSet(x)) { return; }
-		x.value += '^';
-		if (isSet(axia)) { x.value += axia; }
-		x.value += xroma + '^';
-		Sizitisi.parousiasi(x);
-		x.focus();
-	};
 };
 
 var Kafenio = new function() {
