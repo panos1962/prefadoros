@@ -19,6 +19,7 @@ if ((!isset($globals->trapezi->$pektis)) ||
 	$globals->klise_fige('Λάθος θέση παίκτη');
 }
 
+@mysqli_autocommit($globals->db, FALSE);
 Prefadoros::klidose_trapezi();
 
 if (Globals::perastike('apodoxi')) {
@@ -64,6 +65,7 @@ else if (Globals::perastike('dianomi')) {
 	kane_dianomi(find_the_dealer());
 }
 
+Prefadoros::set_trapezi_dirty();
 Prefadoros::xeklidose_trapezi(TRUE);
 $globals->klise_fige();
 

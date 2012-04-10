@@ -33,5 +33,6 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 }
 
 Prefadoros::xeklidose_trapezi(TRUE);
+Prefadoros::set_trapezi_dirty();
 $globals->klise_fige();
 ?>
