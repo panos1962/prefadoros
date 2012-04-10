@@ -554,11 +554,15 @@ var Profinfo = new function() {
 		var html = '';
 		html += '<button type="button" onclick="Profinfo.edit(\'' +
 			login + '\');">' + (mine ? 'Διόρθωση' : 'Σχόλια') + '</button>';
-		html += '<button type="button" onclick="Sxesi.permesWindow(\'' +
-			login + '\');">Μήνυμα</button>';
-		if (dikeomaProsklisis()) {
-			html += '<button type="button" onclick="Sxesi.addProsklisi(\'' +
-				login + '\');">Πρόσκληση</button>';
+		if (login != pektis.login) {
+			html += '<button type="button" onclick="Sxesi.permesWindow(\'' +
+				login + '\');">Μήνυμα</button>';
+			try {
+				if (dikeomaProsklisis()) {
+					html += '<button type="button" onclick="Sxesi.addProsklisi(\'' +
+						login + '\');">Πρόσκληση</button>';
+				}
+			} catch(e) {}
 		}
 		html += '<button type="button" onclick="Profinfo.klise(this.parentNode.' +
 			'parentNode);">Άκυρο</button>';
