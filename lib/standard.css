@@ -121,6 +121,11 @@ background-size: cover;
 	height: 1.3em;
 }
 
+.errorFyiData {
+	font-weight: bold;
+	color: #003366;
+}
+
 .button {
 	font-family: "Geneva", sans-serif;
 	font-size: 90%;

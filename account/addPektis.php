@@ -37,10 +37,15 @@ $password = $globals->asfales($_REQUEST['password']);
 $query = "INSERT INTO `pektis` (`login`, `onoma`, `email`, `plati`, `enalagi`, " .
 	"`poll`, `password`) VALUES ('" . $slogin . "', '" . $sonoma . "', "
 	. $semail . ", " . $plati . ", " . $enalagi . ", NOW(), '" . sha1($password) . "')";
-$result = $globals->sql_query($query);
+$result = mysqli_query($globals->db, $query);
 if (@mysqli_affected_rows($globals->db) != 1) {
-	print 'Δεν δημιουργήθηκε λογαριασμός (' . @mysqli_error($globals->db) . ')';
-	die(1);
+	switch (@mysqli_errno($globals->db)) {
+	case 1062:
+		$globals->klise_fige('Το όνομα <span class="errorFyiData">' .
+			$login . '</span> υπάρχει ήδη');
+	}
+
+	$globals->klise_fige('Δεν δημιουργήθηκε λογαριασμός (' . @mysqli_error($globals->db) . ')');
 }
 
 if (isset($email)) {
