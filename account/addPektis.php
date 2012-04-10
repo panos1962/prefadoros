@@ -37,7 +37,7 @@ $password = $globals->asfales($_REQUEST['password']);
 $query = "INSERT INTO `pektis` (`login`, `onoma`, `email`, `plati`, `enalagi`, " .
 	"`poll`, `password`) VALUES ('" . $slogin . "', '" . $sonoma . "', "
 	. $semail . ", " . $plati . ", " . $enalagi . ", NOW(), '" . sha1($password) . "')";
-$result = mysqli_query($globals->db, $query);
+$result = @mysqli_query($globals->db, $query);
 if (@mysqli_affected_rows($globals->db) != 1) {
 	switch (@mysqli_errno($globals->db)) {
 	case 1062:
