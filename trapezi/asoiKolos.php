@@ -32,7 +32,7 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 	$globals->klise_fige('Δεν έγινε η αλλαγή στο καθεστώς των άσων');
 }
 
-Prefadoros::xeklidose_trapezi(TRUE);
 Prefadoros::set_trapezi_dirty();
+Prefadoros::xeklidose_trapezi(TRUE);
 $globals->klise_fige();
 ?>
