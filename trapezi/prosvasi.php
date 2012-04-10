@@ -21,5 +21,7 @@ $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	$globals->klise_fige('Δεν άλλαξε η ιδιωτικότητα του τραπεζιού');
 }
+
+Prefadoros::set_trapezi_dirty();
 $globals->klise_fige();
 ?>
