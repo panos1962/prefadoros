@@ -8,10 +8,10 @@ set_globals();
 
 Prefadoros::pektis_check();
 if (!Prefadoros::set_trapezi()) {
-	die('Ακαθόριστο τραπέζι');
+	$globals->klise_fige('Ακαθόριστο τραπέζι');
 }
 if (!$globals->trapezi->is_pektis()) {
-	die('Δεν έχετε δικαίωμα αλλαγής της ιδιωτικότητας του τραπεζιού');
+	$globals->klise_fige('Δεν έχετε δικαίωμα αλλαγής της ιδιωτικότητας του τραπεζιού');
 }
 
 $idiotikotita = Globals::perastike_check('idiotikotita');
@@ -22,7 +22,7 @@ $query = "UPDATE `trapezi` SET `idiotikotita` = '" . $globals->asfales($idiotiko
 $globals->sql_query($query);
 if (mysqli_affected_rows($globals->db) != 1) {
 	@mysqli_rollback($globals->db);
-	die('Δεν άλλαξε η ιδιωτικότητα του τραπεζιού');
+	$globals->klise_fige('Δεν άλλαξε η ιδιωτικότητα του τραπεζιού');
 }
 
 if ($idiotikotita != 'ΔΗΜΟΣΙΟ') {
@@ -32,9 +32,10 @@ if ($idiotikotita != 'ΔΗΜΟΣΙΟ') {
 	$result = @mysqli_query($globals->db, $query);
 	if (!$result) {
 		@mysqli_rollback($globals->db);
-		die('Απέτυχε η αποπομπή των απρόσκλητων θεατών');
+		$globals->klise_fige('Απέτυχε η αποπομπή των απρόσκλητων θεατών');
 	}
 }
 
+Prefadoros::set_trapezi_dirty();
 @mysqli_commit($globals->db);
 ?>

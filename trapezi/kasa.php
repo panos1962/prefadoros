@@ -35,5 +35,6 @@ if (@mysqli_affected_rows($globals->db) != 1) {
 	die('Δεν έγινε η αλλαγή της κάσας');
 }
 
+Prefadoros::set_trapezi_dirty();
 Prefadoros::xeklidose_trapezi(TRUE);
 ?>
