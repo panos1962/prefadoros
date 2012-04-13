@@ -65,6 +65,12 @@ background-size: cover;
 	padding: 0.2cm 0.5cm 0px 0.5cm;
 }
 
+.motdData {
+	font-weight: bold;
+	font-style: italic;
+	color: #666633;
+}
+
 .toolbarArea {
 	border-style: solid;
 	border-width: 0 0 2px 0;
