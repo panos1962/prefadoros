@@ -354,6 +354,23 @@ window.onload = function() {
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server;
+			?>images/controlPanel/default.png"
+			class="helpIcon" alt="" />
+	</td>
+	<td class="helpKimeno">
+		Το control panel αποτελείται από αρκετές σειρές εργαλείων
+		που εναλλάσσονται κατά το δοκούν.
+		Κάνοντας κλικ στο εικονίδιο επανεμφάνισης βασικών εργαλείων
+		επιστρέφουμε στην ομάδα βασικών εργαλείων της εκάστοτε φάσης
+		του παιχνιδιού.
+	</td>
+	</tr>
+</table>
+
+<table width="100%">
+	<tr>
+	<td class="helpIconColumn">
+		<img src="<?php print $globals->server;
 			?>images/controlPanel/idioktito.png"
 			class="helpIcon" alt="" />
 	</td>
