@@ -324,7 +324,7 @@ function welcome() {
 		<span style="color: #FF0000;">αποφύγετε τον Internet Explorer</span>.
 		Είναι καλός browser, αλλά για να δουλέψει σωστά και γρήγορα με το παιχνίδι
 		απαιτεί πολλές ρυθμίσεις.
-		Προτιμήστε τους <a href="http://www.google.com/chrome/?brand=CHLI"
+		Προτιμήστε τους <a href="http://www.google.com/chrome/?brand=CHLI&hl=el"
 			title="Εγκαταστήστε τον Chrome της Google στον υπολογιστή σας"
 			target="_blank" style="color: #006400;">Chrome</a>,
 		<span style="color: #006400;">Firefox</span>,
