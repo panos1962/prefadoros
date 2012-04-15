@@ -30,22 +30,11 @@ li {
 	margin-bottom: -0.3cm;
 }
 
-.faqIcon {
-	background-color: #FFFFFF;
-	width: 1.2cm;
-	margin-top: 0.2cm;
-	display: inline;
-}
-
 .faqIconInline {
 	background-color: #FFFFFF;
 	width: 1em;
+	max-height: 0.6cm;
 	margin-bottom: -0.1cm;
-}
-
-.faqIconColumn {
-	width: 2.2cm;
-	vertical-align: top;
 }
 
 .faqKorifi {
