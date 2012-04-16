@@ -1,6 +1,6 @@
-window.onlad = function() {
+window.onload = function() {
 	init();
-}
+};
 
 var faq = {};
 faq.anixeKlise = function(id) {
