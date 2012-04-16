@@ -741,7 +741,7 @@ class Page {
 				title="Send mail to &quot;<?php print MY_EMAIL_ADDRESS; ?>&quot;"
 				href="mailto:<?php print MY_EMAIL_ADDRESS; ?>"><img
 				src="<?php print $globals->server; ?>images/email.png"
-				style="width: 0.6cm; height: 0.5cm; margin-bottom: -0.108cm;"
+				style="width: 0.6cm; height: 0.5cm; margin-bottom: -0.105cm;"
 					alt="" /></a>]</span> 2011&ndash;
 		</div>
 		<div id="monitorArea" class="monitor"></div>
