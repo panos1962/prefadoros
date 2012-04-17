@@ -574,12 +574,18 @@ class Page {
 		<?php
 	}
 
-	protected static function centerTB($titlos = 'Πρεφαδόρος') {
+	protected static function centerTB($titlos = 'Πρεφαδόρος', $link = "http://www.prefadoros.net") {
+		if (isset($link)) {
+			print '<a href="' . $link . '" target="_blank">';
+		}
 		?>
 		<span class="data">
-			<?php print $titlos; ?>
+		<?php print $titlos; ?>
 		</span>
 		<?php
+		if (isset($link)) {
+			print '</a>';
+		}
 	}
 
 	protected static function rightTB() {
