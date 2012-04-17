@@ -576,7 +576,8 @@ class Page {
 
 	protected static function centerTB($titlos = 'Πρεφαδόρος', $link = "http://www.prefadoros.net") {
 		if (isset($link)) {
-			print '<a href="' . $link . '" target="_blank">';
+			print '<a href="' . $link . '" target="_blank" ' .
+				'title="Κέντρο υποστήριξης «Πρεφαδόρου»">';
 		}
 		?>
 		<span class="data">
