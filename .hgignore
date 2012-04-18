@@ -14,3 +14,4 @@ glob:PROCSTAT
 glob:stats/rank*.txt
 glob:ENERGOSD/*
 glob:diafimisi/*
+glob:motd/*.jpg
