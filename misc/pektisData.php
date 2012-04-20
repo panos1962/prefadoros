@@ -72,10 +72,10 @@ function energos_pektis() {
 	global $globals;
 
 	$enegros = array();
-	$pentalepto_ts = time() - 300;
+	$tora_ts = time() - XRONOS_PEKTIS_IDLE_MAX;
 	$query = "SELECT `login`, `onoma`, `katastasi` " .
 		"FROM `pektis` WHERE UNIX_TIMESTAMP(`poll`) > " .
-		$pentalepto_ts . " ORDER BY `login`";
+		$tora_ts . " ORDER BY `login`";
 	$result = $globals->sql_query($query);
 	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 		$energos[] = new OLP($row);
