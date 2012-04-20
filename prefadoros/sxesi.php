@@ -55,7 +55,9 @@ class Sxesi {
 			$ol = 0;
 		}
 
-		print "{l:'" . $this->login . "',n:'" . $this->onoma .
+		$onoma = str_replace('\\', '\\\\', $this->onoma);
+		$onoma = str_replace("'", "\'", $onoma);
+		print "{l:'" . $this->login . "',n:'" . $onoma .
 			"',o:" . $ol . ",s:'" . $this->status . "'}";
 	}
 
