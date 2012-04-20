@@ -1,21 +1,49 @@
 <?php
 require_once '../lib/standard.php';
 require_once '../pektis/pektis.php';
-require_once '../trapezi/trapezi.php';
-require_once '../lib/trapoula.php';
 require_once '../prefadoros/prefadoros.php';
-require_once '../account/photo.php';
 set_globals();
-$energos = Prefadoros::energos_pektis();
-print count($energos);
-
+Prefadoros::set_pektis();
 Page::head();
-Page::stylesheet('prefadoros/prefadoros');
+?>
+<style type="text/css">
+.pektis {
+	position: relative;
+	margin-bottom: 0.2cm;
+	max-width: 16.0cm;
+	font-weight: bold;
+}
+
+.busy {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+.filos {
+	color: green;
+}
+
+.block {
+	color: red;
+}
+
+.onoma {
+	margin-left: 0.4cm;
+	color: #333333;
+	font-style: italic;
+}
+</style>
+<?php
+Page::javascript('misc/pektis');
 Page::javascript('lib/soundmanager');
 ?>
 </head>
 <body>
-AAA
+<div>
+<input type="text" style="width: 10.0cm;" />
+</div>
+<div id="pektis">
+</div>
 </body>
 </html>
 <?php
