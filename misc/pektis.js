@@ -20,6 +20,8 @@ var sxesi = {
 	"b":	"block"
 };
 
+var cur = {};
+
 function pektisDataCheck(req, div) {
 	if (req.xhr.readyState != 4) { return; }
 	var rsp = req.getResponse();
@@ -30,8 +32,10 @@ function pektisDataCheck(req, div) {
 	}
 
 	var html = '';
-	ok = {};
+	var ok = {};
+	var filos = false;
 	for (var i = 0; i < pektis.length; i++) {
+		ok[id] = true;
 		var cl = 'pektis';
 		if (isSet(pektis[i].s)) { cl += ' ' + sxesi[pektis[i].s]; }
 		if (isSet(pektis[i].b)) { cl += ' busy'; }
@@ -40,7 +44,6 @@ function pektisDataCheck(req, div) {
 		var x = getelid(id);
 		if (isSet(x)) {
 			x.setAttribute('class', cl);
-			ok[id] = true;
 			continue;
 		}
 
@@ -48,8 +51,19 @@ function pektisDataCheck(req, div) {
 		html += '<span>' + pektis[i].l + '</span>';
 		html += '<span class="onoma">' + pektis[i].o + '</span>';
 		html += '</div>';
+		cur[id] = true;
+
+		if (isSet(pektis[i].s) && (pektis[i].s == 'f')) { filos = true; }
 	}
 
 	div.innerHTML = html + div.innerHTML;
+	for (id in cur) {
+		x = getelid(id);
+		if (!isSet(x)) { continue; }
+		if (ok.hasOwnProperty(id)) { continue; }
+		sviseNode(x);
+		delete cur[i];
+	}
+	if (filos) { playSound('tic'); }
 	setTimeout(pektisData, 5000);
 }
