@@ -9,22 +9,24 @@ Page::head();
 <style type="text/css">
 .pektis {
 	position: relative;
-	margin-bottom: 0.2cm;
+	margin-bottom: 0.1cm;
 	max-width: 16.0cm;
+	font-size: 0.4cm;
 	font-weight: bold;
+	color: #193A59;
 }
 
 .busy {
-	opacity: 0.5;
-	filter: alpha(opacity=50);
+	opacity: 0.6;
+	filter: alpha(opacity=60);
 }
 
 .filos {
-	color: green;
+	color: #007700;
 }
 
 .block {
-	color: red;
+	color: #990000;
 }
 
 .onoma {
