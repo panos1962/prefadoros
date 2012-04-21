@@ -34,34 +34,43 @@ Page::head();
 	color: #333333;
 	font-style: italic;
 }
+
+.olpMatch {
+	background-color: yellow;
+}
 </style>
 <script type="text/javascript">
 //<![CDATA[
 window.onload = function() {
 	init();
-	olpData();
+	OLP.olpData();
+	var x = getelid('onoma');
+	if (isSet(x)) { x.select(); }
 };
 
-function olpData() {
+var OLP = {};
+
+OLP.olpData = function() {
 	var x = getelid('olp');
 	if (notSet(x)) { return; }
 
 	var req = new Request('misc/olpData');
 	req.xhr.onreadystatechange = function() {
-		olpDataCheck(req, x);
+		OLP.olpDataCheck(req, x);
 	};
 
 	req.send();
-}
+};
 
-var sxesi = {
+OLP.sxesi = {
 	"f":	"olpFilos",
 	"b":	"olpBlock"
 };
 
-var cur = {};
+OLP.cur = {};
+OLP.cl0 = {};
 
-function olpDataCheck(req, div) {
+OLP.olpDataCheck = function(req, div) {
 	if (req.xhr.readyState != 4) { return; }
 	var rsp = req.getResponse();
 	try {
@@ -75,12 +84,13 @@ function olpDataCheck(req, div) {
 	var filos = false;
 
 	for (var i = 0; i < olp.length; i++) {
+		var id = 'l:' + olp[i].l;
 		ok[id] = true;
 		var cl = 'olpPektis';
-		if (isSet(olp[i].s)) { cl += ' ' + sxesi[olp[i].s]; }
+		if (isSet(olp[i].s)) { cl += ' ' + OLP.sxesi[olp[i].s]; }
 		if (isSet(olp[i].b)) { cl += ' olpBusy'; }
+		OLP.cl0[id] = cl;
 
-		var id = 'l:' + olp[i].l;
 		var x = getelid(id);
 		if (isSet(x)) {
 			x.setAttribute('class', cl);
@@ -91,22 +101,43 @@ function olpDataCheck(req, div) {
 		html += '<span>' + olp[i].l + '</span>';
 		html += '<span class="olpOnoma">' + olp[i].o + '</span>';
 		html += '</div>';
-		cur[id] = true;
+		OLP.cur[id] = olp[i].l + olp[i].o;
 
 		if (isSet(olp[i].s) && (olp[i].s == 'f')) { filos = true; }
 	}
 
 	div.innerHTML = html + div.innerHTML;
-	for (id in cur) {
+	for (id in OLP.cur) {
 		x = getelid(id);
 		if (!isSet(x)) { continue; }
 		if (ok.hasOwnProperty(id)) { continue; }
 		sviseNode(x);
-		delete cur[i];
+		delete OLP.cur[i];
 	}
 	if (filos) { playSound('tic'); }
-	setTimeout(olpData, 10000);
-}
+	OLP.matchOnoma();
+	setTimeout(OLP.olpData, 10000);
+};
+
+OLP.matchOnoma = function(fld) {
+	if (notSet(fld)) { fld = getelid('onoma'); }
+	if (notSet(fld)) { return; }
+	fld.value = fld.value.trim();
+	var o = fld.value.split(',');
+	for (var id in OLP.cur) {
+		var x = getelid(id);
+		if (notSet(x)) { continue; }
+
+		x.setAttribute('class', OLP.cl0[id]);
+		for (var i = 0; i < o.length; i++) {
+			if (o[i] == '') { continue; }
+			if (OLP.cur[id].match(new RegExp(o[i], 'i'))) {
+				x.setAttribute('class', OLP.cl0[id] + ' olpMatch');
+				break;
+			}
+		}
+	}
+};
 //]]>
 </script>
 <?php
@@ -115,7 +146,7 @@ Page::javascript('lib/soundmanager');
 </head>
 <body>
 <div>
-<input type="text" style="width: 10.0cm;" />
+<input id="onoma" type="text" style="width: 6.0cm; font-size: 0.4cm;" onkeyup="OLP.matchOnoma(this);" />
 </div>
 <div id="olp">
 </div>
