@@ -53,8 +53,7 @@ class Sizitisi {
 
 	public function json_data() {
 		global $globals;
-		$sxolio = str_replace('\\', '\\\\', $this->sxolio);
-		$sxolio = str_replace("'", "\'", $sxolio);
+		$sxolio = Globals::asfales_json($this->sxolio);
 		print "{k:" . $this->kodikos . ",p:'" . $this->pektis . "',s:'" .
 			$sxolio . "',w:" . ($this->pote - $globals->time_dif) . "}";
 	}

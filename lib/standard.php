@@ -171,6 +171,11 @@ class Globals {
 		return(preg_replace("/script/i", "&#8203;script", $s));
 	}
 
+	public static function asfales_json($s) {
+		$s = str_replace('\\', '\\\\', $s);
+		return(str_replace("'", "\'", $s));
+	}
+
 	public function sql_query($query, $msg = 'SQL error') {
 		$result = @mysqli_query($this->db, $query);
 		if ($result) { return($result); }
