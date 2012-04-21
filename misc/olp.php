@@ -36,7 +36,20 @@ Page::head();
 }
 
 .olpMatch {
-	background-color: yellow;
+	background-color: #FFFF66;
+	border-style: solid;
+	border-width: 0 0 1px 0;
+	border-color: #336600;
+}
+
+.olpCount {
+	font-size: 0.4cm;
+	margin-bottom: 0.2cm;
+}
+
+.olpCountData {
+	font-weight: bold;
+	color: #193A59;
 }
 </style>
 <script type="text/javascript">
@@ -45,7 +58,10 @@ window.onload = function() {
 	init();
 	OLP.olpData();
 	var x = getelid('onoma');
-	if (isSet(x)) { x.select(); }
+	if (isSet(x)) {
+		x.select();
+		x.focus();
+	}
 };
 
 var OLP = {};
@@ -106,6 +122,12 @@ OLP.olpDataCheck = function(req, div) {
 		if (isSet(olp[i].s) && (olp[i].s == 'f')) { filos = true; }
 	}
 
+	x = getelid('olpCount');
+	if (isSet(x)) {
+		x.innerHTML = olp.length > 0 ? 'Παίκτες online: <span class="olpCountData">' +
+			olp.length + '</span>' : 'Δεν υπάρχουν online παίκτες';
+	}
+
 	div.innerHTML = html + div.innerHTML;
 	for (id in OLP.cur) {
 		x = getelid(id);
@@ -122,7 +144,6 @@ OLP.olpDataCheck = function(req, div) {
 OLP.matchOnoma = function(fld) {
 	if (notSet(fld)) { fld = getelid('onoma'); }
 	if (notSet(fld)) { return; }
-	fld.value = fld.value.trim();
 	var o = fld.value.split(',');
 	for (var id in OLP.cur) {
 		var x = getelid(id);
@@ -130,7 +151,9 @@ OLP.matchOnoma = function(fld) {
 
 		x.setAttribute('class', OLP.cl0[id]);
 		for (var i = 0; i < o.length; i++) {
+			o[i] = o[i].trim();
 			if (o[i] == '') { continue; }
+			if (o[i].length < 3) { continue; }
 			if (OLP.cur[id].match(new RegExp(o[i], 'i'))) {
 				x.setAttribute('class', OLP.cl0[id] + ' olpMatch');
 				break;
@@ -147,6 +170,7 @@ Page::javascript('lib/soundmanager');
 <body>
 <div>
 <input id="onoma" type="text" style="width: 6.0cm; font-size: 0.4cm;" onkeyup="OLP.matchOnoma(this);" />
+<div id="olpCount" class="olpCount"></div>
 </div>
 <div id="olp">
 </div>
