@@ -42,9 +42,9 @@ Page::head();
 	margin-bottom: 1px;
 }
 
-.olpCount {
+#olpCount {
 	font-size: 0.4cm;
-	margin-bottom: 0.2cm;
+	margin: 0.2cm 0 0.2cm 0;
 }
 
 .olpCountData {
@@ -77,7 +77,7 @@ window.onload = function() {
 	}
 	OLP.loginArea(<?php
 	if ($globals->is_pektis()) {
-		print "'" . Globals::safe_json($globals->pektis->login) . "'";
+		print "'" . Globals::asfales_json($globals->pektis->login) . "'";
 	}
 	?>);
 	setTimeout(OLP.olpData, 10);
@@ -236,10 +236,10 @@ OLP.loginCheck = function() {
 	return false;
 };
 
-OLP.pektis = '';
+OLP.pektis = null;
 
 OLP.loginArea = function(pektis) {
-	if (OLP.pektis == pektis) { return; }
+	if ((arguments.length == 1) && (OLP.pektis === pektis)) { return; }
 	OLP.pektis = pektis;
 	var x = getelid('loginArea');
 	if (notSet(x)) { return; }
@@ -274,10 +274,9 @@ Page::javascript('lib/soundmanager');
 			onclick="OLP.olpData(true);" />
 		<div id="loginArea"></div>
 	</div>
-
-	<div id="olpCount" class="olpCount"></div>
+	<br />
 </div>
-
+<div id="olpCount"></div>
 <div id="olp"></div>
 
 </body>
