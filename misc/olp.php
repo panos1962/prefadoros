@@ -246,7 +246,7 @@ OLP.loginArea = function(pektis) {
 
 	var html = '';
 	if (isSet(pektis)) {
-		html += '<div class="login">' + pektis + '</span>';
+		html += '<div class="login" title="Επώνυμη χρήση">' + pektis + '</span>';
 	}
 	else {
 		html += '<form>Login <input id="login" type="text" ' +
@@ -269,7 +269,8 @@ Page::javascript('lib/soundmanager');
 <div>
 	<div style="position: relative;">
 		<input id="onoma" type="text" autocomplete="off" style="position: absolute; left: 0px;
-			top: 0px; width: 6.0cm; font-size: 0.4cm;" onkeyup="OLP.matchOnoma(event, this);" />
+			top: 0px; width: 6.0cm; font-size: 0.4cm;" onkeyup="OLP.matchOnoma(event, this);"
+			title="Αναζήτηση παικτών" />
 		<img id="refresh" src="../images/controlPanel/refresh.png" alt=""
 			onclick="OLP.olpData(true);" />
 		<div id="loginArea"></div>
