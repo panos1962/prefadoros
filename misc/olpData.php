@@ -87,11 +87,11 @@ function energos_pektis() {
 function sxesi() {
 	global $globals;
 
+	$sxesi = array();
 	if (!$globals->is_pektis()) {
-		return;
+		return($sxesi);
 	}
 
-	$sxesi = array();
 	$query = "SELECT `sxetizomenos`, `status` FROM `sxesi` " .
 		"WHERE `pektis` = BINARY " . $globals->pektis->slogin;
 	$result = $globals->sql_query($query);
