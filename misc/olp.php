@@ -51,28 +51,49 @@ Page::head();
 	font-weight: bold;
 	color: #193A59;
 }
+
+#refresh {
+	position: absolute;
+	top: 0px;
+	left: 6.6cm;
+	width: 0.6cm;
+}
 </style>
 <script type="text/javascript">
 //<![CDATA[
 window.onload = function() {
 	init();
-	OLP.olpData();
+	OLP.refreshReset();
 	var x = getelid('onoma');
 	if (isSet(x)) {
 		x.select();
 		x.focus();
 	}
+	setTimeout(OLP.olpData, 10);
 };
 
 var OLP = {};
 
-OLP.olpData = function() {
+OLP.refreshReset = function(x) {
+	if (notSet(x)) { x = getelid('refresh'); }
+	if (notSet(x)) { return; }
+	x.title = 'Ανανέωση πληροφοριών'
+	x.src = '../images/controlPanel/refresh.png';
+};
+
+OLP.olpData = function(xeri) {
 	var x = getelid('olp');
 	if (notSet(x)) { return; }
 
+	if (notSet(xeri)) { xeri = false; }
+
+	var rfr = getelid('refresh');
+	rfr.src = '../images/working.gif';
+	rfr.title = 'Ανανέωση πληροφοριών σε εξέλιξη…';
+
 	var req = new Request('misc/olpData');
 	req.xhr.onreadystatechange = function() {
-		OLP.olpDataCheck(req, x);
+		OLP.olpDataCheck(req, x, rfr, xeri);
 	};
 
 	req.send();
@@ -86,9 +107,12 @@ OLP.sxesi = {
 OLP.cur = {};
 OLP.cl0 = {};
 
-OLP.olpDataCheck = function(req, div) {
+OLP.olpDataCheck = function(req, div, rfr, xeri) {
 	if (req.xhr.readyState != 4) { return; }
 	var rsp = req.getResponse();
+	setTimeout(function() {
+		OLP.refreshReset(rfr);
+	}, 100);
 	try {
 		var olp = eval('[' + rsp + ']');
 	} catch(e) {
@@ -138,7 +162,9 @@ OLP.olpDataCheck = function(req, div) {
 	}
 	if (filos) { playSound('tic'); }
 	OLP.matchOnoma();
-	setTimeout(OLP.olpData, 10000);
+	if (!xeri) {
+		setTimeout(OLP.olpData, 10000);
+	}
 };
 
 OLP.matchOnoma = function(e, fld) {
@@ -183,8 +209,12 @@ Page::javascript('lib/soundmanager');
 </head>
 <body>
 <div>
-<input id="onoma" type="text" autocomplete="off"
-	style="width: 6.0cm; font-size: 0.4cm;" onkeyup="OLP.matchOnoma(event, this);" />
+<div style="position: relative;">
+<input id="onoma" type="text" autocomplete="off" style="position: absolute; left: 0px;
+	top: 0px; width: 6.0cm; font-size: 0.4cm;" onkeyup="OLP.matchOnoma(event, this);" />
+<img id="refresh" src="../images/controlPanel/refresh.png" alt=""
+	onclick="OLP.olpData(true);" />
+</div>
 <div id="olpCount" class="olpCount"></div>
 </div>
 <div id="olp">
