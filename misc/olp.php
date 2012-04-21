@@ -141,9 +141,23 @@ OLP.olpDataCheck = function(req, div) {
 	setTimeout(OLP.olpData, 10000);
 };
 
-OLP.matchOnoma = function(fld) {
-	if (notSet(fld)) { fld = getelid('onoma'); }
-	if (notSet(fld)) { return; }
+OLP.matchOnoma = function(e, fld) {
+	if (notSet(fld)) {
+		fld = getelid('onoma');
+		if (notSet(fld)) { return; }
+	}
+	else {
+		if (window.event) { var key = e.keyCode; }
+		else if (e.which) { key = e.which; }
+		else { key = -1; }
+
+		switch(key) {
+		case 27:	// Esc key
+			fld.value = '';
+			break;
+		}
+	}
+
 	var o = fld.value.split(',');
 	for (var id in OLP.cur) {
 		var x = getelid(id);
@@ -169,7 +183,8 @@ Page::javascript('lib/soundmanager');
 </head>
 <body>
 <div>
-<input id="onoma" type="text" style="width: 6.0cm; font-size: 0.4cm;" onkeyup="OLP.matchOnoma(this);" />
+<input id="onoma" type="text" autocomplete="off"
+	style="width: 6.0cm; font-size: 0.4cm;" onkeyup="OLP.matchOnoma(event, this);" />
 <div id="olpCount" class="olpCount"></div>
 </div>
 <div id="olp">
