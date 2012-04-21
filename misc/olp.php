@@ -10,7 +10,6 @@ Page::head();
 .olpPektis {
 	position: relative;
 	margin-bottom: 2px;
-	max-width: 16.0cm;
 	font-size: 0.4cm;
 	font-weight: bold;
 	color: #193A59;
