@@ -55,8 +55,7 @@ class Sxesi {
 			$ol = 0;
 		}
 
-		$onoma = str_replace('\\', '\\\\', $this->onoma);
-		$onoma = str_replace("'", "\'", $onoma);
+		$onoma = Globals::asfales_json($this->onoma);
 		print "{l:'" . $this->login . "',n:'" . $onoma .
 			"',o:" . $ol . ",s:'" . $this->status . "'}";
 	}

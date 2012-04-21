@@ -10,6 +10,9 @@ require_once '../prefadoros/prefadoros.php';
 set_globals();
 Prefadoros::set_pektis();
 
+print "login:" . ($globals->is_pektis() ?
+	"'" . Globals::asfales_json($globals->pektis->login) . "'" : "null");
+print ",olp:[";
 $energos = energos_pektis();
 $sxesi = sxesi();
 
@@ -35,6 +38,7 @@ for ($i = 0; $i < $n; $i++) {
 	}
 }
 
+print "]";
 while (@ob_end_flush());
 $globals->klise_fige();
 
@@ -53,10 +57,8 @@ class OLP {
 	public function json($sxesi = NULL) {
 		static $koma = "";
 
-		$onoma = str_replace('\\', '\\\\', $this->onoma);
-		$onoma = str_replace("'", "\'", $onoma);
-		print $koma . "{l:'" . $this->login .
-			"',o:'" . $onoma . "'";
+		print $koma . "{l:'" . $this->login . "',o:'" .
+			Globals::asfales_json($this->onoma) . "'";
 		if (isset($sxesi)) {
 			print ",s:'" . $sxesi . "'";
 		}
@@ -71,7 +73,7 @@ class OLP {
 function energos_pektis() {
 	global $globals;
 
-	$enegros = array();
+	$energos = array();
 	$tora_ts = time() - XRONOS_PEKTIS_IDLE_MAX;
 	$query = "SELECT `login`, `onoma`, `katastasi` " .
 		"FROM `pektis` WHERE UNIX_TIMESTAMP(`poll`) > " .

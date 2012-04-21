@@ -58,6 +58,12 @@ Page::head();
 	left: 6.6cm;
 	width: 0.6cm;
 }
+
+#loginArea {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
 </style>
 <script type="text/javascript">
 //<![CDATA[
@@ -69,6 +75,11 @@ window.onload = function() {
 		x.select();
 		x.focus();
 	}
+	OLP.loginArea(<?php
+	if ($globals->is_pektis()) {
+		print "'" . Globals::safe_json($globals->pektis->login) . "'";
+	}
+	?>);
 	setTimeout(OLP.olpData, 10);
 };
 
@@ -110,25 +121,29 @@ OLP.cl0 = {};
 OLP.olpDataCheck = function(req, div, rfr, xeri) {
 	if (req.xhr.readyState != 4) { return; }
 	var rsp = req.getResponse();
+	try {
+		var dedomena = eval('({' + rsp + '})');
+	} catch(e) {
+		rfr.src = '../images/Xred.png';
+		rfr.title = 'Πρόβλημα στην αναζήτηση πληροφοριών';
+		return;
+	}
+
+	OLP.loginArea(dedomena.login);
 	setTimeout(function() {
 		OLP.refreshReset(rfr);
 	}, 100);
-	try {
-		var olp = eval('[' + rsp + ']');
-	} catch(e) {
-		return;
-	}
 
 	var html = '';
 	var ok = {};
 	var filos = false;
 
-	for (var i = 0; i < olp.length; i++) {
-		var id = 'l:' + olp[i].l;
+	for (var i = 0; i < dedomena.olp.length; i++) {
+		var id = 'l:' + dedomena.olp[i].l;
 		ok[id] = true;
 		var cl = 'olpPektis';
-		if (isSet(olp[i].s)) { cl += ' ' + OLP.sxesi[olp[i].s]; }
-		if (isSet(olp[i].b)) { cl += ' olpBusy'; }
+		if (isSet(dedomena.olp[i].s)) { cl += ' ' + OLP.sxesi[dedomena.olp[i].s]; }
+		if (isSet(dedomena.olp[i].b)) { cl += ' olpBusy'; }
 		OLP.cl0[id] = cl;
 
 		var x = getelid(id);
@@ -138,18 +153,18 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 		}
 
 		html += '<div id="' + id + '" class="' + cl + '">';
-		html += '<span>' + olp[i].l + '</span>';
-		html += '<span class="olpOnoma">' + olp[i].o + '</span>';
+		html += '<span>' + dedomena.olp[i].l + '</span>';
+		html += '<span class="olpOnoma">' + dedomena.olp[i].o + '</span>';
 		html += '</div>';
-		OLP.cur[id] = olp[i].l + olp[i].o;
+		OLP.cur[id] = dedomena.olp[i].l + dedomena.olp[i].o;
 
-		if (isSet(olp[i].s) && (olp[i].s == 'f')) { filos = true; }
+		if (isSet(dedomena.olp[i].s) && (dedomena.olp[i].s == 'f')) { filos = true; }
 	}
 
 	x = getelid('olpCount');
 	if (isSet(x)) {
-		x.innerHTML = olp.length > 0 ? 'Παίκτες online: <span class="olpCountData">' +
-			olp.length + '</span>' : 'Δεν υπάρχουν online παίκτες';
+		x.innerHTML = dedomena.olp.length > 0 ? 'Παίκτες online: <span class="olpCountData">' +
+			dedomena.olp.length + '</span>' : 'Δεν υπάρχουν online παίκτες';
 	}
 
 	div.innerHTML = html + div.innerHTML;
@@ -201,6 +216,49 @@ OLP.matchOnoma = function(e, fld) {
 		}
 	}
 };
+
+OLP.loginCheck = function() {
+	var x = getelid('login');
+	if (notSet(x)) { return false; }
+	var login = (x.value = x.value.trim());
+	if (login === '') { return false; }
+
+	x = getelid('kodikos');
+	if (notSet(x)) { return false; }
+	var kodikos = x.value;
+
+	var req = new Request('account/loginCheck', false);
+	params = 'login=' + uri(login) + '&password=' + uri(kodikos);
+	req.send(params);
+	var rsp = req.getResponse();
+	if (rsp) { alert(rsp); }
+	else { OLP.olpData(true); }
+	return false;
+};
+
+OLP.pektis = '';
+
+OLP.loginArea = function(pektis) {
+	if (OLP.pektis == pektis) { return; }
+	OLP.pektis = pektis;
+	var x = getelid('loginArea');
+	if (notSet(x)) { return; }
+
+	var html = '';
+	if (isSet(pektis)) {
+		html += '<div class="login">' + pektis + '</span>';
+	}
+	else {
+		html += '<form>Login <input id="login" type="text" ' +
+			'style="width: 4.0cm; font-size: 0.4cm;" /> ' +
+			'Password <input id="kodikos" type="password" ' +
+			'style="width: 4.0cm; font-size: 0.4cm; margin" /> ' +
+			'<input type="submit" onclick="return OLP.loginCheck();" ' +
+			'value="Είσοδος" /></form>';
+	}
+
+	x.innerHTML = html;
+};
 //]]>
 </script>
 <?php
@@ -209,16 +267,19 @@ Page::javascript('lib/soundmanager');
 </head>
 <body>
 <div>
-<div style="position: relative;">
-<input id="onoma" type="text" autocomplete="off" style="position: absolute; left: 0px;
-	top: 0px; width: 6.0cm; font-size: 0.4cm;" onkeyup="OLP.matchOnoma(event, this);" />
-<img id="refresh" src="../images/controlPanel/refresh.png" alt=""
-	onclick="OLP.olpData(true);" />
+	<div style="position: relative;">
+		<input id="onoma" type="text" autocomplete="off" style="position: absolute; left: 0px;
+			top: 0px; width: 6.0cm; font-size: 0.4cm;" onkeyup="OLP.matchOnoma(event, this);" />
+		<img id="refresh" src="../images/controlPanel/refresh.png" alt=""
+			onclick="OLP.olpData(true);" />
+		<div id="loginArea"></div>
+	</div>
+
+	<div id="olpCount" class="olpCount"></div>
 </div>
-<div id="olpCount" class="olpCount"></div>
-</div>
-<div id="olp">
-</div>
+
+<div id="olp"></div>
+
 </body>
 </html>
 <?php
