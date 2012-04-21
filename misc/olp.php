@@ -9,7 +9,7 @@ Page::head();
 <style type="text/css">
 .olpPektis {
 	position: relative;
-	margin-bottom: 0.1cm;
+	margin-bottom: 2px;
 	max-width: 16.0cm;
 	font-size: 0.4cm;
 	font-weight: bold;
@@ -40,6 +40,7 @@ Page::head();
 	border-style: solid;
 	border-width: 0 0 1px 0;
 	border-color: #336600;
+	margin-bottom: 1px;
 }
 
 .olpCount {
