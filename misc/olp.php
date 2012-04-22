@@ -55,7 +55,7 @@ Page::head();
 #refresh {
 	position: absolute;
 	top: 0px;
-	left: 6.6cm;
+	left: 4.6cm;
 	width: 0.6cm;
 }
 
@@ -267,9 +267,9 @@ OLP.loginArea = function(pektis) {
 	}
 	else {
 		html += '<form>Login <input id="login" type="text" ' +
-			'style="width: 4.0cm; font-size: 0.4cm;" /> ' +
+			'style="width: 3.0cm; font-size: 0.4cm;" /> ' +
 			'Password <input id="kodikos" type="password" ' +
-			'style="width: 4.0cm; font-size: 0.4cm; margin" /> ' +
+			'style="width: 3.0cm; font-size: 0.4cm; margin" /> ' +
 			'<input type="submit" onclick="return OLP.loginCheck();" ' +
 			'value="Είσοδος" /></form>';
 	}
@@ -286,7 +286,7 @@ Page::javascript('lib/soundmanager');
 <div>
 	<div style="position: relative;">
 		<input id="onoma" type="text" autocomplete="off" style="position: absolute; left: 0px;
-			top: 0px; width: 6.0cm; font-size: 0.4cm;" onkeyup="OLP.matchOnoma(event, this);"
+			top: 0px; width: 4.0cm; font-size: 0.4cm;" onkeyup="OLP.matchOnoma(event, this);"
 			title="Αναζήτηση παικτών" />
 		<img id="refresh" src="../images/controlPanel/refresh.png" alt=""
 			onclick="OLP.olpData(true);" />
