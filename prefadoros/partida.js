@@ -334,6 +334,11 @@ var Partida = new function() {
 				'style="position: absolute; top: -0.8cm; left: -0.6cm; ' +
 				'width: 2.2cm;" alt="" />';
 			break;
+		case 'ROSES':
+			html += '<img src="images/giortes/roses.png" title="Επετειακή παρτίδα" ' +
+				'style="position: absolute; top: 4.8cm; left: 5.0cm; ' +
+				'width: 3.8cm; opacity: 0.5; filter: alpha(opacity=50);" alt="" />';
+			break;
 		case 'ΜΑΡΤΙΝΙ':
 			html += '<img src="images/giortes/martini.png" title="Στην υγειά μας!" ' +
 				'style="position: absolute; top: 5.2cm; left: 6.0cm; ' +
