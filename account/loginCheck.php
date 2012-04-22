@@ -2,6 +2,9 @@
 require_once '../lib/standard.php';
 require_once '../prefadoros/prefadoros.php';
 require_once 'photo.php';
+
+define('MAX_USERS', 60);
+
 unset($_SESSION['ps_login']);
 unset($_SESSION['ps_paraskinio']);
 Page::data();
@@ -20,9 +23,13 @@ $query = "SELECT `login`, `paraskinio` FROM `pektis` WHERE `login` = '" .
 $result = $globals->sql_query($query);
 $row = @mysqli_fetch_array($result, MYSQLI_NUM);
 if (!$row) {
-	$globals->klise_fige('Access denied');
+	$globals->klise_fige("Access denied");
 }
 
+if (count(Prefadoros::energos_pektis()) > MAX_USERS) {
+	$globals->klise_fige("Έχει δημιουργηθεί αδιαχώρητο στον «Πρεφαδόρο», δοκιμάστε πάλι αργότερα…");
+}
+	
 check_pektis_photo($_REQUEST['login']);
 Prefadoros::set_trapezi_dirty();
 @mysqli_free_result($result);
