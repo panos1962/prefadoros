@@ -321,6 +321,20 @@ var Partida = new function() {
 			html += giortes;
 			html += '</div>';
 		}
+
+		if (isSet(partida.e)) { html += this.efeHTML(partida.e); }
+		return html;
+	};
+
+	this.efeHTML = function(efe) {
+		var html = '';
+		switch (efe) {
+		case 'ΓΙΡΛΑΝΤΑ':
+			html += '<img src="images/giortes/girlanta.png" title="Επετειακή παρτίδα" ' +
+				'style="position: absolute; top: -0.8cm; left: -0.6cm; ' +
+				'z-index: 10; width: 2.2cm;" alt="" />';
+			break;
+		}
 		return html;
 	};
 

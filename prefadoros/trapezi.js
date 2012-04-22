@@ -256,7 +256,20 @@ var Trapezi = new function() {
 			html += this.profinfoHTML(p);
 			html += '</div>';
 		}
+		if (isSet(t.e)) { html += this.efeHTML(t.e); }
 		html += '</div>';
+		return html;
+	};
+
+	this.efeHTML = function(efe) {
+		var html = '';
+		switch (efe) {
+		case 'ΓΙΡΛΑΝΤΑ':
+			html += '<img src="images/giortes/girlanta.png" title="Επετειακή παρτίδα" ' +
+				'style="position: absolute; top: -0.6cm; left: -0.4cm; ' +
+				'z-index: 10; width: 1.8cm;" alt="" />';
+			break;
+		}
 		return html;
 	};
 
