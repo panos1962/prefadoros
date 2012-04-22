@@ -332,7 +332,12 @@ var Partida = new function() {
 		case 'ΓΙΡΛΑΝΤΑ':
 			html += '<img src="images/giortes/girlanta.png" title="Επετειακή παρτίδα" ' +
 				'style="position: absolute; top: -0.8cm; left: -0.6cm; ' +
-				'z-index: 10; width: 2.2cm;" alt="" />';
+				'width: 2.2cm;" alt="" />';
+			break;
+		case 'ΜΑΡΤΙΝΙ':
+			html += '<img src="images/giortes/martini.png" title="Στην υγειά μας!" ' +
+				'style="position: absolute; top: 5.2cm; left: 6.0cm; ' +
+				'width: 2.2cm;" alt="" />';
 			break;
 		}
 		return html;
