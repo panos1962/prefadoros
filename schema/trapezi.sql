@@ -21,6 +21,7 @@ CREATE TABLE `trapezi` (
 		'ΕΛΕΥΘΕΡΟ',
 		'ΙΔΙΟΚΤΗΤΟ'
 	)		NOT NULL DEFAULT 'ΕΛΕΥΘΕΡΟ' COMMENT 'Ιδιοκτησιακό καθεστώς',
+	`efe`	CHARACTER(32) NOT NULL DEFAULT '' COMMENT 'Εφέ εικόνας κλπ',
 	`pasopasopaso`	ENUM(
 		'NO',
 		'YES'
