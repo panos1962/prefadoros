@@ -117,6 +117,7 @@ OLP.sxesi = {
 
 OLP.cur = {};
 OLP.cl0 = {};
+OLP.onoma = [];
 
 OLP.olpDataCheck = function(req, div, rfr, xeri) {
 	if (req.xhr.readyState != 4) { return; }
@@ -137,14 +138,19 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 	var html = '';
 	var ok = {};
 	var filos = false;
+	var found = false;
 
 	for (var i = 0; i < dedomena.olp.length; i++) {
 		var id = 'l:' + dedomena.olp[i].l;
 		ok[id] = true;
+		OLP.cur[id] = dedomena.olp[i].l + dedomena.olp[i].o;
 		var cl = 'olpPektis';
 		if (isSet(dedomena.olp[i].s)) { cl += ' ' + OLP.sxesi[dedomena.olp[i].s]; }
 		if (isSet(dedomena.olp[i].b)) { cl += ' olpBusy'; }
 		OLP.cl0[id] = cl;
+
+		matched = OLP.matchEnaOnoma(OLP.cur[id]);
+		if (matched) { cl += ' olpMatch'; }
 
 		var x = getelid(id);
 		if (isSet(x)) {
@@ -156,9 +162,9 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 		html += '<span>' + dedomena.olp[i].l + '</span>';
 		html += '<span class="olpOnoma">' + dedomena.olp[i].o + '</span>';
 		html += '</div>';
-		OLP.cur[id] = dedomena.olp[i].l + dedomena.olp[i].o;
 
 		if (isSet(dedomena.olp[i].s) && (dedomena.olp[i].s == 'f')) { filos = true; }
+		if (matched) { found = true; }
 	}
 
 	x = getelid('olpCount');
@@ -175,8 +181,10 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 		sviseNode(x);
 		delete OLP.cur[i];
 	}
-	if (filos) { playSound('tic'); }
-	OLP.matchOnoma();
+
+	if (found) { playSound('hiThere'); }
+	else if (filos) { playSound('tic'); }
+
 	if (!xeri) {
 		setTimeout(OLP.olpData, 10000);
 	}
@@ -199,22 +207,31 @@ OLP.matchOnoma = function(e, fld) {
 		}
 	}
 
-	var o = fld.value.split(',');
+	OLP.onoma = fld.value.split(',');
+	for (var i = 0; i < OLP.onoma.length; i++) {
+		OLP.onoma[i] = OLP.onoma[i].trim();
+	}
+
 	for (var id in OLP.cur) {
 		var x = getelid(id);
 		if (notSet(x)) { continue; }
 
 		x.setAttribute('class', OLP.cl0[id]);
-		for (var i = 0; i < o.length; i++) {
-			o[i] = o[i].trim();
-			if (o[i] == '') { continue; }
-			if (o[i].length < 3) { continue; }
-			if (OLP.cur[id].match(new RegExp(o[i], 'i'))) {
-				x.setAttribute('class', OLP.cl0[id] + ' olpMatch');
-				break;
-			}
+		if (OLP.matchEnaOnoma(OLP.cur[id])) {
+			x.setAttribute('class', OLP.cl0[id] + ' olpMatch');
 		}
 	}
+};
+
+OLP.matchEnaOnoma = function(s) {
+	for (var i = 0; i < OLP.onoma.length; i++) {
+		if (OLP.onoma[i] == '') { continue; }
+		if (OLP.onoma[i].length < 3) { continue; }
+		if (s.match(new RegExp(OLP.onoma[i], 'i'))) {
+			return true;
+		}
+	}
+	return false;
 };
 
 OLP.loginCheck = function() {
