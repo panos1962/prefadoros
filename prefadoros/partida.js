@@ -331,13 +331,18 @@ var Partida = new function() {
 		switch (efe) {
 		case 'ΓΙΡΛΑΝΤΑ':
 			html += '<img src="images/giortes/girlanta.png" title="Επετειακή παρτίδα" ' +
-				'style="position: absolute; top: -0.8cm; left: -0.6cm; ' +
-				'width: 2.2cm;" alt="" />';
+				'style="position: absolute; top: -0.85cm; left: -0.5cm; ' +
+				'width: 2.4cm;" alt="" />';
 			break;
 		case 'ROSES':
 			html += '<img src="images/giortes/roses.png" title="Επετειακή παρτίδα" ' +
 				'style="position: absolute; top: 4.8cm; left: 5.0cm; ' +
 				'width: 3.8cm; opacity: 0.5; filter: alpha(opacity=50);" alt="" />';
+			break;
+		case 'ΜΠΑΛΟΝΙΑ':
+			html += '<img src="images/giortes/balonia.png" title="Επετειακή παρτίδα" ' +
+				'style="position: absolute; top: -0.9cm; left: -0.58cm; ' +
+				'width: 1.8cm;" alt="" />';
 			break;
 		case 'ΜΑΡΤΙΝΙ':
 			html += '<img src="images/giortes/martini.png" title="Στην υγειά μας!" ' +
