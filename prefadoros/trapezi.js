@@ -276,7 +276,7 @@ var Trapezi = new function() {
 			break;
 		case 'ΜΠΑΛΟΝΙΑ':
 			html += '<img src="images/giortes/balonia.png" title="Επετειακή παρτίδα" ' +
-				'style="position: absolute; top: -0.4cm; left: -0.2cm; ' +
+				'style="position: absolute; top: -0.4cm; left: -0.4cm; ' +
 				'width: 1.2cm;" alt="" />';
 			break;
 		case 'ΜΑΡΤΙΝΙ':
