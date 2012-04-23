@@ -274,6 +274,11 @@ var Trapezi = new function() {
 				'style="position: absolute; top: -0.4cm; left: -0.2cm; ' +
 				'width: 1.0cm;" alt="" />';
 			break;
+		case 'ΜΠΑΛΟΝΙΑ':
+			html += '<img src="images/giortes/balonia.png" title="Επετειακή παρτίδα" ' +
+				'style="position: absolute; top: -0.4cm; left: -0.2cm; ' +
+				'width: 1.2cm;" alt="" />';
+			break;
 		case 'ΜΑΡΤΙΝΙ':
 			html += '<img src="images/giortes/martini.png" title="Στην υγειά μας!" ' +
 				'style="position: absolute; top: 0.1cm; left: -0.4cm; ' +
