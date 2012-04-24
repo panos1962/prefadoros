@@ -19,6 +19,10 @@ Page::epikefalida(TRUE);
 <li class="menuItem"><a href="<?php print $globals->server;
 	?>backup/index.php?pedi=yes" target="_blank">Backup database</a></li>
 <li class="menuItem">Restore database</li>
+<li class="menuItem"><a href="<?php print $globals->server;
+	?>administrator/anixeKlise.php?pedi=yes&mode=klise" target="_blank">Κλείδωμα «Πρεφαδόρου»</a></li>
+<li class="menuItem"><a href="<?php print $globals->server;
+	?>administrator/anixeKlise.php?pedi=yes&mode=anixe" target="_blank">Ξεκλείδωμα «Πρεφαδόρου»</a></li>
 <li class="menuItem"><a href="<?php print $globals->server; ?>index.php"
 	onclick="return exitAdministrator();">Exit administrator</a></li>
 </ul>

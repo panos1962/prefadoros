@@ -32,6 +32,7 @@ define('FUNCHAT_SERVER', 'http://www.pineza.info/prefa/funchatImages/');
 define('MY_EMAIL_ADDRESS', 'panos@prefadoros.net');
 define('SYSTEM_ACCOUNT', 'www.prefadoros.gr');
 define('DEFAULT_PARASKINIO', 'standard.gif');
+define('KLISTA_SELIDA', 'lock/klista.php');
 
 if (isset($no_session)) {
 	$_SESSION = array();
