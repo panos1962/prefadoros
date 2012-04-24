@@ -6,7 +6,7 @@ require_once 'lib/trapoula.php';
 require_once 'prefadoros/prefadoros.php';
 require_once 'account/photo.php';
 set_globals();
-$globals->klista = "lock/klista.php";
+$globals->klista = KLISTA_SELIDA;
 if (file_exists($globals->klista)) {
 	unset($globals->pektis);
 }
