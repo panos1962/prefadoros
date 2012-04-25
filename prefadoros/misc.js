@@ -434,7 +434,8 @@ var Profinfo = new function() {
 			break;
 		}
 		html += '" onmouseover="Profinfo.photo(true);" ' +
-			'onmouseout="Profinfo.photo(false);">' + login + '</span>';
+			'onmouseout="Profinfo.photo(false);" ' +
+			'onclick="Profinfo.photoSize();">' + login + '</span>';
 		html += ' [ <span class="profinfoHeaderData" style="color: #003366;">' + onoma + '</span> ]';
 		if (dianomes) {
 			html += '<div class="profinfoStats" title="Στατιστικά στοιχεία">[ ' +
@@ -474,6 +475,24 @@ var Profinfo = new function() {
 		var x = getelid('profinfoPhoto');
 		if (notSet(x)) { return; }
 		setOpacity(x, dixe ? 100 : 0);
+	};
+
+	this.photoSize = function() {
+		var x = getelid('profinfoPhoto');
+		if (notSet(x)) { return; }
+
+		if (isSet(x.warxiko)) {
+			x.style.width = x.warxiko + 'px';
+			x.style.height = x.harxiko + 'px';
+			x.warxiko = null;
+			x.harxiko = null;
+		}
+		else {
+			x.warxiko = x.offsetWidth;
+			x.harxiko = x.offsetHeight;
+			x.style.width = parseInt(x.warxiko * 1.8) + 'px';
+			x.style.height = parseInt(x.harxiko * 1.8) + 'px';
+		}
 	};
 
 	var profinfoDiv = null;
