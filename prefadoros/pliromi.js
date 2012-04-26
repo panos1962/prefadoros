@@ -181,6 +181,11 @@ var Pliromi = new function() {
 			this.axiaBazas = pexnidi.ipolipo;
 		}
 
+		// Τον Απρίλιο του 2012 άλλαξε το παραπάνω σκεπτικό για τις μέσα
+		// αγορές και ισχύει κανονικά η πληρωμή με μειωμένη αξία.
+
+		this.axiaBazasMesa = this.axiaBazas;
+
 		// Αν δεν μετράνε οι άσοι μηδενίζω την αξία των άσων.
 		if (notAsoiKolos()) { this.axiaTaPoulia = 0; }
 
