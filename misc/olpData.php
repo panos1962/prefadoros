@@ -10,14 +10,16 @@ require_once '../prefadoros/prefadoros.php';
 set_globals();
 Prefadoros::set_pektis();
 
-print "login:" . ($globals->is_pektis() ?
-	"'" . Globals::asfales_json($globals->pektis->login) . "'" : "null");
-print ",olp:[";
+$tcount = trapezi_count();
 $energos = energos_pektis();
 $sxesi = sxesi();
 
-$n = count($energos);
+print "login:" . ($globals->is_pektis() ?
+	"'" . Globals::asfales_json($globals->pektis->login) . "'" : "null");
+print ",tc:" . (int)$tcount;
+print ",olp:[";
 
+$n = count($energos);
 for ($i = 0; $i < $n; $i++) {
 	if (array_key_exists($energos[$i]->login, $sxesi) &&
 		($sxesi[$energos[$i]->login] == "ΦΙΛΟΣ")) {
@@ -68,6 +70,22 @@ class OLP {
 		print "}";
 		$koma = ",";
 	}
+}
+
+function trapezi_count() {
+	global $globals;
+
+	$tcount = 0;
+	$tora_ts = time() - XRONOS_PEKTIS_IDLE_MAX;
+	$query = "SELECT COUNT(*) FROM `trapezi` " .
+		"WHERE UNIX_TIMESTAMP(`poll`) > " .
+		$tora_ts;
+	$result = $globals->sql_query($query);
+	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		$tcount = $row[0];
+	}
+
+	return($tcount);
 }
 
 function energos_pektis() {
