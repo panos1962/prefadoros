@@ -168,10 +168,7 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 	}
 
 	x = getelid('olpCount');
-	if (isSet(x)) {
-		x.innerHTML = dedomena.olp.length > 0 ? 'Παίκτες online: <span class="olpCountData">' +
-			dedomena.olp.length + '</span>' : 'Δεν υπάρχουν online παίκτες';
-	}
+	if (isSet(x)) { x.innerHTML = OLP.onlineHTML(dedomena); }
 
 	div.innerHTML = html + div.innerHTML;
 	for (id in OLP.cur) {
@@ -188,6 +185,14 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 	if (!xeri) {
 		setTimeout(OLP.olpData, 10000);
 	}
+};
+
+OLP.onlineHTML = function(x) {
+	var html = '';
+	html += x.olp.length > 0 ? 'Παίκτες online: <span class="olpCountData">' +
+		x.olp.length + '</span>' : 'Δεν υπάρχουν online παίκτες';
+	if (x.tc > 0) { html += ', τραπέζια: <span class="olpCountData">' + x.tc + '</span>'; }
+	return html;
 };
 
 OLP.matchOnoma = function(e, fld) {
