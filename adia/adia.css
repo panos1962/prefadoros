@@ -1,0 +1,23 @@
+.adiaArea {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 1.5cm;
+	max-width: 21cm;
+}
+
+.adiaTitlos {
+	padding-top: 1.0cm;
+	font-weight: bold;
+	font-size: 120%;
+	margin-bottom: 0.4cm;
+}
+
+.adiaKimeno {
+	background-color: #FFFFFF;
+	line-height: 150%;
+	text-align: justify;
+	margin-bottom: 0.4cm;
+	vertical-align: top;
+	padding-left: 0.2cm;
+	padding-right: 0.2cm;
+}
