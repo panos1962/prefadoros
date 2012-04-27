@@ -46,17 +46,26 @@ function delete_prosklisi() {
 		}
 	}
 
+	$proti_exodos = FALSE;
 	if ($pektes != "") {
 		$query = "UPDATE IGNORE `prosklisi` SET `pios` = '" . SYSTEM_ACCOUNT .
 			"' WHERE (`trapezi` = " . $globals->trapezi->kodikos .
 			") AND (`pion` IN (" . $pektes . "))";
-		mysqli_query($globals->db, $query);
+		@mysqli_query($globals->db, $query);
+		$proti_exodos = (@mysqli_affected_rows($globals->db) > 0);
 	}
 
 	// Στο δεύτερο μέρος διαγράφονται όλες οι υπόλοιπες προσκλήσεις.
 
 	$query = "DELETE FROM `prosklisi` WHERE (`trapezi` = " . $globals->trapezi->kodikos .
 		") AND (`pios` <> BINARY '" . SYSTEM_ACCOUNT . "')";
-	mysqli_query($globals->db, $query);
+	@mysqli_query($globals->db, $query);
+
+	if ($proti_exodos) {
+		$query = "INSERT INTO `sizitisi` (`pektis`, `trapezi`, `sxolio`) VALUES (" .
+			$globals->pektis->slogin . ", " . $globals->trapezi->kodikos .
+			", '<img src=\"images/theEnd.gif\" />')";
+		@mysqli_query($globals->db, $query);
+	}
 }
 ?>
