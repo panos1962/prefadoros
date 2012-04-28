@@ -268,7 +268,12 @@ OLP.loginArea = function(pektis) {
 
 	var html = '';
 	if (isSet(pektis)) {
-		html += '<div class="login" title="Επώνυμη χρήση">' + pektis + '</span>';
+		html += '<button><a target="_blank" href="' + globals.server +
+			'permes/index.php" style="text-decoration: none;">' +
+			'Αλληλογραφία</a></button>';
+		html += '<div class="login" title="Επώνυμη χρήση" ' +
+			'style="display: inline-block; margin-left: 0.8cm;">' +
+			pektis + '</span>';
 	}
 	else {
 		html += '<form>Login <input id="login" type="text" ' +
