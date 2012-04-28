@@ -1,3 +1,3 @@
 <?php
-$item_list[] = new Item("user/panos/geodim.gif");
+$item_list[] = new Item("user/geodim/geodim.png");
 ?>
