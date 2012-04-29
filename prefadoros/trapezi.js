@@ -342,7 +342,7 @@ var Trapezi = new function() {
 		// παρέχεται δυνατότητα πρόκσλησης.
 		html += ' title="';
 		html += isPartida() ? 'Πρόσκληση, ή προσωπικό μήνυμα' : 'Προσωπικό μήνυμα';
-		html += ' προς το χρήστη &quot;' + p + '&quot;"';
+		html += ' προς τον παίκτη &quot;' + p + '&quot;"';
 		html += ' style="cursor: pointer;"';
 		return html;
 	};
