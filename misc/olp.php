@@ -71,6 +71,10 @@ Page::head();
 </style>
 <script type="text/javascript">
 //<![CDATA[
+var OLP = {};
+OLP.pektis = <?php print ($globals->is_pektis() ?
+	"'" . Globals::asfales_json($globals->pektis->login) . "'" : "null"); ?>;
+
 window.onload = function() {
 	init();
 	OLP.refreshReset();
@@ -79,15 +83,9 @@ window.onload = function() {
 		x.select();
 		x.focus();
 	}
-	OLP.loginArea(<?php
-	if ($globals->is_pektis()) {
-		print "'" . Globals::asfales_json($globals->pektis->login) . "'";
-	}
-	?>);
+	OLP.loginArea();
 	setTimeout(OLP.olpData, 10);
 };
-
-var OLP = {};
 
 OLP.refreshReset = function(x) {
 	if (notSet(x)) { x = getelid('refresh'); }
@@ -134,7 +132,7 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 		return;
 	}
 
-	OLP.loginArea(dedomena.login);
+	OLP.loginArea();
 	setTimeout(function() {
 		OLP.refreshReset(rfr);
 	}, 100);
@@ -159,10 +157,25 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 		var x = getelid(id);
 		if (isSet(x)) {
 			x.setAttribute('class', cl);
+			if (notSet(OLP.pektis)) {
+				x.style.cursor = 'auto';
+				x.title = '';
+			}
+			else {
+				x.style.cursor = 'pointer';
+				x.title = 'Μήνυμα προς τον παίκτη "' +
+					dedomena.olp[i].l + '"';
+			}
 			continue;
 		}
 
-		html += '<div id="' + id + '" class="' + cl + '">';
+		html += '<div id="' + id + '" class="' + cl + '" onclick="if (isSet(OLP.pektis)) ' +
+			'{ Sxesi.permesWindow(\'' + dedomena.olp[i].l + '\'); }"';
+		if (isSet(OLP.pektis)) {
+			html += ' title="Μήνυμα προς τον παίκτη &quot;' +
+				dedomena.olp[i].l + '&quot;" style="cursor: pointer;"';
+		}
+		html += '>';
 		html += '<span>' + dedomena.olp[i].l + '</span>';
 		html += '<span class="olpOnoma">' + dedomena.olp[i].o + '</span>';
 		html += '</div>';
@@ -257,21 +270,23 @@ OLP.loginCheck = function() {
 	params = 'login=' + uri(login) + '&password=' + uri(kodikos);
 	req.send(params);
 	var rsp = req.getResponse();
-	if (rsp) { alert(rsp); }
-	else { OLP.olpData(true); }
+	if (rsp) {
+		OLP.pektis = null;
+		alert(rsp);
+	}
+	else {
+		OLP.pektis = login;
+		OLP.olpData(true);
+	}
 	return false;
 };
 
-OLP.pektis = null;
-
-OLP.loginArea = function(pektis) {
-	if ((arguments.length == 1) && (OLP.pektis === pektis)) { return; }
-	OLP.pektis = pektis;
+OLP.loginArea = function() {
 	var x = getelid('loginArea');
 	if (notSet(x)) { return; }
 
 	var html = '';
-	if (isSet(pektis)) {
+	if (isSet(OLP.pektis)) {
 		html += '<button class="olpButton"><a target="_blank" href="' + globals.server +
 			'permes/index.php" style="text-decoration: none;">' +
 			'Αλληλογραφία</a></button>';
@@ -279,7 +294,7 @@ OLP.loginArea = function(pektis) {
 			'onclick="return OLP.logout();" />';
 		html += '<div class="login" title="Επώνυμη χρήση" ' +
 			'style="display: inline-block;">' +
-			pektis + '</span>';
+			OLP.pektis + '</span>';
 	}
 	else {
 		html += '<form>Login <input id="login" type="text" ' +
@@ -306,12 +321,18 @@ OLP.logout = function() {
 OLP.logoutCheck = function(req) {
 	if (req.xhr.readyState != 4) { return; }
 	var rsp = req.getResponse();
-	if (rsp) { alert(rsp); }
-	else { OLP.olpData(true); }
+	if (rsp) {
+		alert(rsp);
+	}
+	else {
+		OLP.pektis = null;
+		OLP.olpData(true);
+	}
 };
 //]]>
 </script>
 <?php
+Page::javascript('prefadoros/sxesi');
 Page::javascript('lib/soundmanager');
 ?>
 </head>
