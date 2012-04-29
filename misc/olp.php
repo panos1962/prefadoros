@@ -281,12 +281,15 @@ OLP.loginCheck = function() {
 	return false;
 };
 
+OLP.eponima = true;
+
 OLP.loginArea = function() {
 	var x = getelid('loginArea');
 	if (notSet(x)) { return; }
 
 	var html = '';
 	if (isSet(OLP.pektis)) {
+		OLP.eponima = true;
 		html += '<button class="olpButton"><a target="_blank" href="' + globals.server +
 			'permes/index.php" style="text-decoration: none;">' +
 			'Αλληλογραφία</a></button>';
@@ -296,13 +299,17 @@ OLP.loginArea = function() {
 			'style="display: inline-block;">' +
 			OLP.pektis + '</span>';
 	}
-	else {
+	else if (OLP.eponima) {
+		OLP.eponima = false;
 		html += '<form>Login <input id="login" type="text" ' +
 			'style="width: 3.0cm; font-size: 0.4cm;" /> ' +
 			'Password <input id="kodikos" type="password" ' +
 			'style="width: 3.0cm; font-size: 0.4cm; margin" /> ' +
 			'<input type="submit" onclick="return OLP.loginCheck();" ' +
 			'value="Είσοδος" /></form>';
+	}
+	else {
+		return;
 	}
 
 	x.innerHTML = html;
