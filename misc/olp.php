@@ -206,7 +206,7 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 };
 
 OLP.fotise = function(div) {
-	div.oriBC = div.style.backgroundColor;
+	if (notSet(div.oriBC)) { div.oriBC = div.style.backgroundColor; }
 	div.style.backgroundColor = '#FFFFCC';
 };
 
