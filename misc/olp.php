@@ -64,6 +64,10 @@ Page::head();
 	right: 0px;
 	top: 0px;
 }
+
+.olpButton {
+	margin-right: 0.4cm;
+}
 </style>
 <script type="text/javascript">
 //<![CDATA[
@@ -268,11 +272,13 @@ OLP.loginArea = function(pektis) {
 
 	var html = '';
 	if (isSet(pektis)) {
-		html += '<button><a target="_blank" href="' + globals.server +
+		html += '<button class="olpButton"><a target="_blank" href="' + globals.server +
 			'permes/index.php" style="text-decoration: none;">' +
 			'Αλληλογραφία</a></button>';
+		html += '<input type="button" value="Έξοδος" class="olpButton" ' +
+			'onclick="return OLP.logout();" />';
 		html += '<div class="login" title="Επώνυμη χρήση" ' +
-			'style="display: inline-block; margin-left: 0.8cm;">' +
+			'style="display: inline-block;">' +
 			pektis + '</span>';
 	}
 	else {
@@ -285,6 +291,23 @@ OLP.loginArea = function(pektis) {
 	}
 
 	x.innerHTML = html;
+};
+
+OLP.logout = function() {
+	var req = new Request('account/logout');
+	req.xhr.onreadystatechange = function() {
+		OLP.logoutCheck(req);
+	};
+
+	req.send();
+	return false;
+};
+
+OLP.logoutCheck = function(req) {
+	if (req.xhr.readyState != 4) { return; }
+	var rsp = req.getResponse();
+	if (rsp) { alert(rsp); }
+	else { OLP.olpData(true); }
 };
 //]]>
 </script>
