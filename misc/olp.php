@@ -206,14 +206,11 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 };
 
 OLP.fotise = function(div) {
-	if (notSet(div.oriBC)) { div.oriBC = div.style.backgroundColor; }
 	div.style.backgroundColor = '#FFFFCC';
 };
 
 OLP.xefotise = function(div) {
-	if (isSet(div.oriBC)) {
-		div.style.backgroundColor = div.oriBC;
-	}
+	div.style.backgroundColor = '';
 };
 
 OLP.onlineHTML = function(x) {
