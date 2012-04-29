@@ -170,7 +170,8 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 		}
 
 		html += '<div id="' + id + '" class="' + cl + '" onclick="if (isSet(OLP.pektis)) ' +
-			'{ Sxesi.permesWindow(\'' + dedomena.olp[i].l + '\'); }"';
+			'{ Sxesi.permesWindow(\'' + dedomena.olp[i].l + '\'); }" ' +
+			'onmouseover="OLP.fotise(this);" onmouseout="OLP.xefotise(this);"';
 		if (isSet(OLP.pektis)) {
 			html += ' title="Μήνυμα προς τον παίκτη &quot;' +
 				dedomena.olp[i].l + '&quot;" style="cursor: pointer;"';
@@ -201,6 +202,17 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 
 	if (!xeri) {
 		setTimeout(OLP.olpData, 10000);
+	}
+};
+
+OLP.fotise = function(div) {
+	div.oriBC = div.style.backgroundColor;
+	div.style.backgroundColor = '#FFFFCC';
+};
+
+OLP.xefotise = function(div) {
+	if (isSet(div.oriBC)) {
+		div.style.backgroundColor = div.oriBC;
 	}
 };
 
