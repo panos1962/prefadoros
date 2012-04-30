@@ -346,7 +346,7 @@ function welcome() {
 }
 function Google_AdSense() {
 	?>
-	<div id="GoogleAdSense">
+	<div id="GoogleAdSense" style="width: 730px; margin-left: auto; margin-right: auto;">
 	<script type="text/javascript"><!--
 	google_ad_client = "ca-pub-2140287108424127";
 	/* test */
