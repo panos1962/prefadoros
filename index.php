@@ -344,12 +344,14 @@ function welcome() {
 	</p>
 	<?php
 }
+
 function Google_AdSense() {
 	?>
-	<div id="GoogleAdSense" style="width: 730px; margin-left: auto; margin-right: auto;">
+	<div id="GoogleAdSense" style="width: 730px; margin-left: auto;
+		margin-right: auto; margin-bottom: 0.2cm;">
 	<script type="text/javascript"><!--
 	google_ad_client = "ca-pub-2140287108424127";
-	/* test */
+	/* Πρεφαδόρος */
 	google_ad_slot = "8921606943";
 	google_ad_width = 728;
 	google_ad_height = 90;
