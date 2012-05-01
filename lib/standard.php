@@ -462,9 +462,9 @@ class Page {
 		<div id="motd" class="motdArea"
 			onmouseover="getelid('apokripsimotd').style.visibility='visible';"
 			onmouseout="getelid('apokripsimotd').style.visibility='hidden';">
+			<?php self::apokripsi('motd'); ?>
 			<div class="motdInnerArea">
 				<?php
-				self::apokripsi('motd');
 				if ($motd1) { print $motd1; }
 				if ($motd2) {
 					if ($motd1) { print '<hr class="motdLine" />'; }
