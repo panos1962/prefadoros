@@ -379,6 +379,12 @@ class Page {
 		<meta name="copyright" content="Copyright by Panos Papadopoulos. All Rights Reserved." />
 		<meta name="wot-verification" content="07bfa86d13e2bf3e15d2" />
 
+		<?php // Τα παρακάτω προετέθηκαν από το Google+ ?>
+		<html itemscope itemtype="http://schema.org/Game">
+		<meta itemprop="name" content="Πρεφαδόρος">
+		<meta itemprop="description" content="Παίξτε πρέφα online!">
+		<meta itemprop="image" content="http://www.prefadoros.gr/images/controlPanel/kitapi.png">
+
 		<link rel="icon" type="image/png" href="<?php
 			print $globals->server; ?>images/controlPanel/kitapi.png" />
 		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="<?php
@@ -679,12 +685,12 @@ class Page {
 			title="Validate CSS for this page"><img
 			src="<?php print $globals->server; ?>images/vcss.gif"
 			alt="Valid CSS!" height="24" /></a>
-		*/
-		?>
 		<a href="http://www.gnu.org/licenses/agpl.html" target="_blank"
 			title="GNU Affero General Public License"><img
 			src="<?php print $globals->server; ?>images/agplv3.png"
 			alt="GNU Affero General Public License" height="24" /></a>
+		*/
+		?>
 		<a href="http://www.hellasbridge.org" target="_blank"
 			title="Ελληνική Ομοσπονδία Μπριτζ"><img class="leftRibbonIcon"
 			src="<?php print $globals->server; ?>images/eom.png"
@@ -692,13 +698,20 @@ class Page {
 		<a href="http://www.bridgebase.com" target="_blank" title="Bridge Base Online"><img
 			src="<?php print $globals->server; ?>images/bbo.png"
 			alt="http://www.bridgebase.com" height="24" /></a>
-		<div style="margin-bottom: 0.1cm;"></div>
-		<div id="twitter" style="display: inline-block;"></div>
 		<?php
 		if ($globals->is_pektis()) {
 			?>
 			<div id="donate" title="Για τις ανάγκες του server…"
 				style="display: inline-block;"></div>
+			<?php
+		}
+		?>
+		<div style="margin-bottom: 0.1cm;"></div>
+		<div id="twitter" style="display: inline-block;"></div>
+		<?php
+		if ($globals->is_pektis()) {
+			// Στο σημείο αυτό θα εμφανιστούν τα πλήκτα like και Google+
+			?>
 			<div id="facebook" style="display: inline-block;"></div>
 			<?php
 		}
