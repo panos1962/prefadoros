@@ -231,10 +231,6 @@ var Prosklisi = new function() {
 		html += '<img class="pssIcon" src="' + globals.server + 'images/Xred.png" ' +
 			'title="Διαγραφή όλων των προσκλήσεων που σας αφορρούν" ' +
 			'alt="" onclick="Prosklisi.diagrafiOlon(this);" />';
-		html += '<img class="pssIcon" src="' + globals.server +
-			'images/controlPanel/activeRadio.png" ' +
-			'title="ActiveRadio Live!" ' +
-			'alt="" onclick="controlPanel.activeRadio();" />';
 		return html;
 	};
 };
