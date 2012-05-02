@@ -616,6 +616,7 @@ background-color: magenta;
 }
 
 .pss {
+	position: relative;
 	width: 9.6cm;
 	min-width: 9.6cm;
 	max-width: 9.6cm;
@@ -1811,4 +1812,11 @@ font-weight: bold;
 	margin-right: 0.1cm;
 	display: inline-block;
 	cursor: pointer;
+}
+
+.activeRadio {
+	position: absolute;
+	top: 0.8cm;
+	left: 0.1cm;
+	visibility: hidden;
 }

@@ -123,6 +123,7 @@ function prefadoros() {
 	</td>
 	<td class="pssColumn tbldbg">
 		<div id="pss" class="pss">
+			<div id="activeRadio" class="activeRadio"></div>
 			<?php
 			prosklisi_area();
 			sxesi_area();
