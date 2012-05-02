@@ -167,12 +167,12 @@ var Sizitisi = new function() {
 		if (notSet(proxiro)) { proxiro = false; }
 		s.s = akirosiScript(s.s);
 		if (s.s == "@WP@") {
-			return '<img class="moliviPartida" src="' + globals.server +
-				'images/moliviPartida.gif" alt="" />';
+			return '<img class="moliviPartida" alt="" src="' + globals.server +
+				'images/moliviPartida.gif" title="Γράφει στο τραπέζι…" />';
 		}
 		if (s.s == "@WK@") {
-			return '<img class="moliviKafenio" src="' + globals.server +
-				'images/moliviKafenio.gif" alt="" />';
+			return '<img class="moliviKafenio" alt="" src="' + globals.server +
+				'images/moliviKafenio.gif" title="Γράφει στο καφενείο…" />';
 		}
 		if (s.s == "@KN@") {
 			if (isSet(s.w)) {
