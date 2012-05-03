@@ -1820,3 +1820,14 @@ font-weight: bold;
 	left: 0.1cm;
 	visibility: hidden;
 }
+
+.activeRadioStation {
+	border-style: outset;
+	border-width: 3px;
+	border-color: grey;
+	background-color: #333333;
+	color: #FFFF99;
+	margin-top: 0.1cm;
+	padding: 0.1cm;
+	cursor: pointer;
+}
