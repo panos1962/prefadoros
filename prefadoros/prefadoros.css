@@ -1819,6 +1819,7 @@ font-weight: bold;
 	top: 0.8cm;
 	left: 0.1cm;
 	visibility: hidden;
+	z-index: 2;
 }
 
 .activeRadioStation {
