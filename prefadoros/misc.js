@@ -45,7 +45,7 @@ var monitor = new function() {
 	this.lathos = function() {
 		monitor.errorCount++;
 		monitor.successiveErrors++;
-		if (monitor.successiveErrors > 3) {
+		if (monitor.successiveErrors > 5) {
 			monitor.successiveErrors = 0;
 			alert('too many successive errors');
 			location.href = globals.server + 'error.php?minima=' +

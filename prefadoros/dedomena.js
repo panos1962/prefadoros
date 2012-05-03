@@ -22,7 +22,15 @@ var Dedomena = new function() {
 	this.schedule = function(freska) {
 		if (!reschedule) { return; }
 		if (notSet(freska)) { freska = false; }
-		setTimeout(function() { Dedomena.neaDedomena(freska); }, 200);
+		if (monitor.successiveErrors < 1) { var delay = 200; }
+		else if (monitor.successiveErrors < 3) { delay = 500; }
+		else { delay = 1000; }
+
+		if (monitor.successiveErrors > 2) {
+			mainFyi('Παρουσιάστηκαν διαδοχικά σφάλματα επικοινωνίας ' +
+				'(εφαρμόστηκε καθυστέρηση ' + delay + 'ms)');
+		}
+		setTimeout(function() { Dedomena.neaDedomena(freska); }, delay);
 	};
 
 	// Η μέθοδος "keepAlive" τρέχει σε τακτά χρονικά διαστήματα και ελέγχει
@@ -96,7 +104,10 @@ var Dedomena = new function() {
 		Dumprsp.dump(rsp);
 		try {
 			var dedomena = eval('({' + rsp + '})');
-			if (notSet(dedomena.sinedria) || isSet(dedomena.sinedria.fatalError)) {
+			if (notSet(dedomena) || notSet(dedomena.sinedria)) {
+				dedomena = { sinedria: { fatalError: 'Ακαθόριστη συνεδρία!' }};
+			}
+			if (isSet(dedomena.sinedria.fatalError)) {
 				reschedule = false;
 				mainFyi(dedomena.sinedria.fatalError, -1);
 				playSound('beep');
@@ -108,7 +119,7 @@ var Dedomena = new function() {
 
 			// Κατά την έξοδο, ή κατά το refresh παραλαμβάνονται ελλιπή
 			// δεδομένα. Αυτά δεν πρέπει να τα δείξω στον παίκτη, εκτός
-			// και αν επεναληφθούν.
+			// και αν επαναληφθούν.
 			var refreshError = (rsp == 'prefadoros/neaDedomena (status = 0)');
 			if (!refreshError) { var showError = true; }
 			else if (refreshErrorCount++ > 0) { showError = true; }
