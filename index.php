@@ -163,7 +163,7 @@ function emfanisi_theatis() {
 function control_panel() {
 	global $globals;
 	?>
-	<div>
+	<div style="position: absolute;">
 		<img id="controlPanelIcon" class="controlPanelIcon" alt="" src="<?php
 			print $globals->server; ?>images/controlPanel/4Balls.png"
 			style="border-style: dotted;"
