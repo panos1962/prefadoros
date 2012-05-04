@@ -1105,23 +1105,23 @@ var ProcessKinisi = new function() {
 
 var Xipnitiri = new function() {
 	var timer = null;
-	var xronos = [ 10000, 15000, 10000, 15000, 20000, 20000 ];
-	var ixos = [ 'kanarini', 'kabanaki', 'sfirixtra', 'korna2', 'korna3', 'dalika' ];
+	var ixos = [
+		{t: 1000, s: 'kanarini' },
+		{t: 1000, s: 'clocktickfast', i: 'Είναι η σειρά σας…' },
+		{t: 1500, s: 'kabanaki' },
+		{t: 1000, s: 'sfirixtra' },
+		{t: 1500, s: 'korna2' },
+		{t: 2000, s: 'korna3' },
+		{t: 2000, s: 'dalika', i: 'Οι συμπαίκτες σας περιμένουν…' }
+	];
 
 	this.vale = function(skala) {
 		if (isSet(timer)) { clearTimeout(timer); }
 		timer = null;
-		if (skala < xronos.length) {
+		if (skala < ixos.length) {
 			timer = setTimeout(function() {
 				Xipnitiri.vara(skala);
-			}, xronos[skala]);
-			return;
-		}
-		var x = getelid('infoBottom');
-		if (isSet(x)) {
-			x.innerHTML = '<div class="warningBottom">' +
-				'Οι συμπαίκτες σας περιμένουν…' +
-				'</div>';
+			}, ixos[skala].t);
 		}
 	};
 
@@ -1132,7 +1132,8 @@ var Xipnitiri = new function() {
 
 	this.vara = function(skala) {
 		if (notTheatis()) {
-			playSound(ixos[skala]);
+			playSound(ixos[skala].s);
+			if (isSet(ixos[skala].i)) { warningBottom(ixos[skala].i); }
 		}
 		Xipnitiri.vale(skala + 1);
 	};
