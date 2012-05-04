@@ -1106,13 +1106,13 @@ var ProcessKinisi = new function() {
 var Xipnitiri = new function() {
 	var timer = null;
 	var ixos = [
-		{t: 1000, s: 'kanarini' },
-		{t: 1000, s: 'clocktickfast', i: 'Είναι η σειρά σας…' },
-		{t: 1500, s: 'kabanaki' },
-		{t: 1000, s: 'sfirixtra' },
-		{t: 1500, s: 'korna2' },
-		{t: 2000, s: 'korna3' },
-		{t: 2000, s: 'dalika', i: 'Οι συμπαίκτες σας περιμένουν…' }
+		{t: 10000, s: 'kanarini' },
+		{t: 10000, s: 'clocktickfast', i: 'Είναι η σειρά σας…' },
+		{t: 15000, s: 'kabanaki' },
+		{t: 10000, s: 'sfirixtra' },
+		{t: 15000, s: 'korna2' },
+		{t: 20000, s: 'korna3' },
+		{t: 20000, s: 'dalika', i: 'Οι συμπαίκτες σας περιμένουν…' }
 	];
 
 	this.vale = function(skala) {
