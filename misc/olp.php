@@ -197,8 +197,8 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 		delete OLP.cur[i];
 	}
 
-	if (found) { playSound('deskbell'); }
-	else if (filos) { playSound('isodos'); }
+	if (found) { playSound('isodos'); }
+	else if (filos) { playSound('deskbell'); }
 
 	if (!xeri) {
 		setTimeout(OLP.olpData, 10000);
