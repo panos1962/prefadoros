@@ -573,6 +573,8 @@ background-color: magenta;
 .controlPanelColumn {
 	position: relative;
 	width: 0.86cm;
+	min-width: 0.86cm;
+	max-width: 0.86cm;
 	vertical-align: top;
 	border-style: dotted;
 	border-width: 1px;
