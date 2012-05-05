@@ -1107,8 +1107,8 @@ var Xipnitiri = new function() {
 	var timer = null;
 	var ixos = [
 		{t: 10000, s: 'kanarini' },
-		{t: 10000, s: 'clocktickfast', i: 'Είναι η σειρά σας…' },
-		{t: 15000, s: 'kabanaki' },
+		{t: 15000, s: 'clocktickfast', i: 'Είναι η σειρά σας…' },
+		{t: 10000, s: 'kabanaki' },
 		{t: 10000, s: 'sfirixtra' },
 		{t: 15000, s: 'korna2' },
 		{t: 20000, s: 'korna3' },
