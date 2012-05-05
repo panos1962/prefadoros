@@ -347,6 +347,7 @@ function welcome() {
 }
 
 function Google_AdSense() {
+	global $globals;
 	?>
 	<div id="GoogleAdSense" style="width: 730px; margin-left: auto;
 		margin-right: auto; margin-bottom: 0.2cm;">
@@ -361,6 +362,37 @@ function Google_AdSense() {
 	<script type="text/javascript"
 	src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 	</script>
+	</div>
+	<?php
+	if ($globals->not_pektis()) {
+		return;
+	}
+
+	$dianomes = 0;
+
+	$fname = "stats/rank.txt";
+	$fp = @fopen($fname, "r");
+	if (!$fp) { return; }
+
+	while ($buf = Globals::get_line($fp)) {
+		$x = explode("\t", $buf);
+		if (count($x) < 4) { continue; }
+		if ($x[0] != $globals->pektis->login) { continue; }
+
+		$dianomes = $x[2];
+		break;
+	}
+	@fclose($fp);
+
+	if ($dianomes < 10) {
+		return;
+	}
+	?>
+	<div style="width: 730px; margin-left: auto; margin-right: auto;
+		text-align: right; margin-bottom: 0.2cm; font-style: italic;
+		font-family: Trebucht-MS, sans-serif; font-size: 0.34cm;
+		color: #CC3300; font-weight: normal;">
+		Άνοιγμα διαφημιστικού σε νέα καρτέλα: Control+Click, σε νέο παράθυρο: Shift+Click
 	</div>
 	<?php
 }
