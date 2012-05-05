@@ -594,6 +594,11 @@ background-color: magenta;
 	background-color: #FFFFFF;
 }
 
+.controlPanelPatimeno {
+	border-style: solid;
+	border-color: #FF3333;
+}
+
 .emoticonsColumn {
 	width: 1px;
 	display: none;
