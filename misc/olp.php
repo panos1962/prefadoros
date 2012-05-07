@@ -343,6 +343,7 @@ OLP.loginArea = function() {
 	var html = '';
 	if (isSet(OLP.pektis)) {
 		OLP.eponima = true;
+		if (OLP.countPM <= 0) { OLP.displayPM = false; }
 		html += '<button class="olpButton" onclick="OLP.setNeoPM();">' +
 			'<a target="_blank" href="' + globals.server +
 			'permes/index.php?pedi=yes" style="text-decoration: none; position: relative;">' +
