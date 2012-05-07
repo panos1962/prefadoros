@@ -13,10 +13,14 @@ Prefadoros::set_pektis();
 $tcount = trapezi_count();
 $energos = energos_pektis();
 $sxesi = sxesi();
+$permes = permes_count();
 
 print "login:" . ($globals->is_pektis() ?
 	"'" . Globals::asfales_json($globals->pektis->login) . "'" : "null");
 print ",tc:" . (int)$tcount;
+if ($permes > 0) {
+	print ",pm:" . (int)$permes;
+}
 print ",olp:[";
 
 $n = count($energos);
@@ -121,3 +125,22 @@ function sxesi() {
 
 	return($sxesi);
 }
+
+function permes_count() {
+	global $globals;
+
+	if ($globals->not_pektis()) {
+		return(0);
+	}
+
+	$query = "SELECT COUNT(*) FROM `minima` WHERE `paraliptis` = BINARY " .
+		$globals->pektis->slogin . " AND `katastasi` = 'ΝΕΟ'";
+	$result = $globals->sql_query($query);
+	while ($row = @mysqli_fetch_array($result, MYSQL_NUM)) {
+		$cnt = $row[0];
+	}
+
+	return($cnt);
+}
+
+?>
