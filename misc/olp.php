@@ -347,7 +347,7 @@ OLP.loginArea = function() {
 		html += '<button class="olpButton" onclick="OLP.setNeoPM();">' +
 			'<a target="_blank" href="' + globals.server +
 			'permes/index.php?pedi=yes" style="text-decoration: none; position: relative;">' +
-			'Αλληλογραφία<div id="neoPM" class="olpNeoPM" style="';
+			'Αλληλογραφία<div id="neoPM" class="olpNeoPM" style="display: ';
 		if (OLP.displayPM) { html += 'inline-block;">' + OLP.countPM; }
 		else { html += 'none;">'; }
 		html += '</div></a></button>';
