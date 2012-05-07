@@ -68,6 +68,22 @@ Page::head();
 .olpButton {
 	margin-right: 0.4cm;
 }
+
+.olpNeoPM {
+	position: absolute;
+	right: -0.4cm;
+	bottom: -0.4cm;
+	display: none;
+
+	padding: 0.1cm;
+	color: #FFFFFF;
+	background-color: #CC0000;
+	font-weight: bold;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
 </style>
 <script type="text/javascript">
 //<![CDATA[
@@ -200,9 +216,29 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 	if (found) { playSound('isodos'); }
 	else if (filos) { playSound('deskbell'); }
 
+	if (notSet(dedomena.pm)) { dedomena.pm = 0; }
+	OLP.setNeoPM(dedomena.pm);
+
 	if (!xeri) {
 		setTimeout(OLP.olpData, 10000);
 	}
+};
+
+OLP.countPM = 0;
+
+OLP.setNeoPM = function(n) {
+	var x = getelid('neoPM');
+	if (notSet(x)) { return; }
+
+	if (notSet(n)) {
+		x.style.display = 'none';
+		return;
+	}
+
+	if (OLP.countPM == n) { return; }
+	x.innerHTML = (OLP.countPM = n);
+	if (n > 0) { x.style.display = 'inline-block'; }
+	else { x.style.display = 'none'; }
 };
 
 OLP.fotise = function(div) {
@@ -299,9 +335,10 @@ OLP.loginArea = function() {
 	var html = '';
 	if (isSet(OLP.pektis)) {
 		OLP.eponima = true;
-		html += '<button class="olpButton"><a target="_blank" href="' + globals.server +
-			'permes/index.php" style="text-decoration: none;">' +
-			'Αλληλογραφία</a></button>';
+		html += '<button class="olpButton" onclick="OLP.setNeoPM();">' +
+			'<a target="_blank" href="' + globals.server +
+			'permes/index.php?pedi=yes" style="text-decoration: none; position: relative;">' +
+			'Αλληλογραφία<div id="neoPM" class="olpNeoPM"></div></a></button>';
 		html += '<input type="button" value="Έξοδος" class="olpButton" ' +
 			'onclick="return OLP.logout();" />';
 		html += '<div class="login" title="Επώνυμη χρήση" ' +
