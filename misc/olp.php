@@ -73,7 +73,6 @@ Page::head();
 	position: absolute;
 	right: -0.4cm;
 	bottom: -0.4cm;
-	display: none;
 
 	padding: 0.1cm;
 	color: #FFFFFF;
@@ -225,6 +224,7 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 };
 
 OLP.countPM = 0;
+OLP.displayPM = false;
 
 OLP.setNeoPM = function(n) {
 	var x = getelid('neoPM');
@@ -232,13 +232,21 @@ OLP.setNeoPM = function(n) {
 
 	if (notSet(n)) {
 		x.style.display = 'none';
+		OLP.displayPM = false;
 		return;
 	}
 
 	if (OLP.countPM == n) { return; }
 	x.innerHTML = (OLP.countPM = n);
-	if (n > 0) { x.style.display = 'inline-block'; }
-	else { x.style.display = 'none'; }
+	if (n > 0) {
+		x.style.display = 'inline-block';
+		OLP.displayPM = true;
+		playSound('fiouit');
+	}
+	else {
+		x.style.display = 'none';
+		OLP.displayPM = false;
+	}
 };
 
 OLP.fotise = function(div) {
@@ -338,7 +346,10 @@ OLP.loginArea = function() {
 		html += '<button class="olpButton" onclick="OLP.setNeoPM();">' +
 			'<a target="_blank" href="' + globals.server +
 			'permes/index.php?pedi=yes" style="text-decoration: none; position: relative;">' +
-			'Αλληλογραφία<div id="neoPM" class="olpNeoPM"></div></a></button>';
+			'Αλληλογραφία<div id="neoPM" class="olpNeoPM" style="';
+		if (OLP.displayPM) { html += 'inline-block;">' + OLP.countPM; }
+		else { html += 'none;">'; }
+		html += '</div></a></button>';
 		html += '<input type="button" value="Έξοδος" class="olpButton" ' +
 			'onclick="return OLP.logout();" />';
 		html += '<div class="login" title="Επώνυμη χρήση" ' +
