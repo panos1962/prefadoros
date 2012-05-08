@@ -85,6 +85,14 @@ Page::head();
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 }
+
+.olpFotise {
+	background-color: #FFFFCC;
+}
+
+.olpTrapezi {
+	background-color: #CCE0E0;
+}
 </style>
 <script type="text/javascript">
 //<![CDATA[
@@ -177,6 +185,9 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 
 		var x = getelid(id);
 		if (isSet(x)) {
+			x.setAttribute('oricl', cl);
+			if (isSet(x.fotise)) { cl += ' olpFotise'; }
+			if (isSet(x.trapezi)) { cl += ' olpTrapezi'; }
 			x.setAttribute('class', cl);
 			if (notSet(OLP.pektis)) {
 				x.style.cursor = 'auto';
@@ -193,7 +204,7 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 		html += '<div id="' + id + '" class="' + cl + '" onclick="if (isSet(OLP.pektis)) ' +
 			'{ Sxesi.permesWindow(\'' + dedomena.olp[i].l + '\'); }" ' +
 			'onmouseover="OLP.fotise(this, \'' + dedomena.olp[i].l +
-			'\');" onmouseout="OLP.xefotise(this);"';
+			'\');" onmouseout="OLP.xefotise(this);" oricl="' + cl + '"';
 		if (isSet(OLP.pektis)) {
 			html += ' title="Μήνυμα προς τον παίκτη &quot;' +
 				dedomena.olp[i].l + '&quot;" style="cursor: pointer;"';
@@ -257,25 +268,31 @@ OLP.setNeoPM = function(n) {
 };
 
 OLP.fotise = function(div, login) {
-	div.style.backgroundColor = '#FFFFCC';
+	div.setAttribute('class', div.getAttribute('oricl') + ' olpFotise');
+	div.fotise = true;
 	if (!trapezi.hasOwnProperty(login)) { return; }
 	if (notSet(dedomena.olp)) { return; }
 	for (var i = 0; i < dedomena.olp.length; i++) {
 		if (!trapezi.hasOwnProperty(dedomena.olp[i].l)) { continue; }
 		if (dedomena.olp[i].l == login) { continue; }
 		if (trapezi[dedomena.olp[i].l] != trapezi[login]) { continue; }
+
 		var x = getelid('l:' + dedomena.olp[i].l);
 		if (notSet(x)) { continue; }
-		x.bc = x.style.backgroundColor;
-		x.style.backgroundColor = '#CCE0E0';
+		x.setAttribute('class', x.getAttribute('oricl') + ' olpTrapezi');
+		x.trapezi = true;
 	}
 };
 
 OLP.xefotise = function(div) {
-	div.style.backgroundColor = '';
+	div.setAttribute('class', div.getAttribute('oricl'));
+	div.fotise = null;
+	if (notSet(dedomena.olp)) { return; }
 	for (var i = 0; i < dedomena.olp.length; i++) {
 		var x = getelid('l:' + dedomena.olp[i].l);
-		x.style.backgroundColor = x.bc;
+		if (notSet(x)) { continue; }
+		x.setAttribute('class', x.getAttribute('oricl'));
+		x.trapezi = null;
 	}
 };
 
