@@ -180,7 +180,7 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 		if (isSet(dedomena.olp[i].b)) { cl += ' olpBusy'; }
 		OLP.cl0[id] = cl;
 
-		matched = OLP.matchEnaOnoma(OLP.cur[id]);
+		var matched = OLP.matchEnaOnoma(OLP.cur[id]);
 		if (matched) { cl += ' olpMatch'; }
 
 		var x = getelid(id);
@@ -291,6 +291,7 @@ OLP.xefotise = function(div) {
 	for (var i = 0; i < dedomena.olp.length; i++) {
 		var x = getelid('l:' + dedomena.olp[i].l);
 		if (notSet(x)) { continue; }
+		var cl = x.getAttribute('oricl');
 		x.setAttribute('class', x.getAttribute('oricl'));
 		x.trapezi = null;
 	}
@@ -331,8 +332,16 @@ OLP.matchOnoma = function(e, fld) {
 		if (notSet(x)) { continue; }
 
 		x.setAttribute('class', OLP.cl0[id]);
+		var cl = x.getAttribute('oricl');
 		if (OLP.matchEnaOnoma(OLP.cur[id])) {
+			if (!cl.match(/ olpMatch/)) {
+				cl += ' olpMatch';
+				x.setAttribute('oricl', cl);
+			}
 			x.setAttribute('class', OLP.cl0[id] + ' olpMatch');
+		}
+		else {
+			if (cl.match(/ olpMatch/)) { x.setAttribute('oricl', cl.replace(/ olpMatch/, '')); }
 		}
 	}
 };
