@@ -1,4 +1,8 @@
 var Prosklisi = new function() {
+	this.playSound = function() {
+		playSound(isDiathesimos() ? 'sfirigma' : 'pap');
+	};
+
 	this.processDedomena = function(dedomena) {
 		if (notSet(dedomena.prosklisi) && notSet(dedomena.prosklisiNew) &&
 			notSet(dedomena.prosklisiDel)) {
@@ -6,7 +10,7 @@ var Prosklisi = new function() {
 		}
 
 		if (isSet(dedomena.prosklisi)) {
-			if (notFreska(dedomena) && isDiathesimos()) {
+			if (notFreska(dedomena)) {
 				Prosklisi.ixitikoSima(dedomena);
 			}
 			prosklisi = dedomena.prosklisi;
@@ -32,7 +36,7 @@ var Prosklisi = new function() {
 				}
 				prosklisi1.push(dedomena.prosklisiNew[i]);
 			}
-			if (nea && notFreska(dedomena) && isDiathesimos()) { playSound('sfirigma'); }
+			if (nea && notFreska(dedomena)) { this.playSound(); }
 		}
 
 		// Διατρέχω το παλιό array "prosklisi" και ελέγχω αν κάποιες από τις
@@ -61,7 +65,7 @@ var Prosklisi = new function() {
 			if ((dedomena.prosklisi[i].a != pektis.login) &&
 				(!(dedomena.prosklisi[i].a in palia)) &&
 				(dedomena.prosklisi[i].a != globals.systemAccount)) {
-				playSound('sfirigma');
+				this.playSound();
 				return;
 			}
 		}
