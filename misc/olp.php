@@ -74,6 +74,8 @@ Page::head();
 	right: -0.4cm;
 	bottom: -0.4cm;
 
+	min-width: 1.1em;
+	text-align: center;
 	padding: 0.1cm;
 	color: #FFFFFF;
 	background-color: #CC0000;
