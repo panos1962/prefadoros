@@ -67,6 +67,7 @@ Page::head();
 
 .olpButton {
 	margin-right: 0.4cm;
+	cursor: pointer;
 }
 
 .olpNeoPM {
@@ -246,15 +247,15 @@ OLP.displayPM = false;
 
 OLP.setNeoPM = function(n) {
 	var x = getelid('neoPM');
-	if (notSet(x)) { return; }
+	if (notSet(x)) { return true; }
 
 	if (notSet(n)) {
 		x.style.display = 'none';
 		OLP.displayPM = false;
-		return;
+		return true;
 	}
 
-	if (OLP.countPM == n) { return; }
+	if (OLP.countPM == n) { return true; }
 	x.innerHTML = (OLP.countPM = n);
 	if (n > 0) {
 		x.style.display = 'inline-block';
@@ -265,6 +266,8 @@ OLP.setNeoPM = function(n) {
 		x.style.display = 'none';
 		OLP.displayPM = false;
 	}
+
+	return true;
 };
 
 OLP.fotise = function(div, login) {
@@ -392,9 +395,10 @@ OLP.loginArea = function() {
 	if (isSet(OLP.pektis)) {
 		OLP.eponima = true;
 		if (OLP.countPM <= 0) { OLP.displayPM = false; }
-		html += '<button class="olpButton" onclick="OLP.setNeoPM();">' +
+		html += '<button class="olpButton">' +
 			'<a target="_blank" href="' + globals.server +
-			'permes/index.php?pedi=yes" style="text-decoration: none; position: relative;">' +
+			'permes/index.php?pedi=yes" style="text-decoration: none; ' +
+			'position: relative;" onclick="return OLP.setNeoPM();">' +
 			'Αλληλογραφία<div id="neoPM" class="olpNeoPM" style="display: ';
 		if (OLP.displayPM) { html += 'inline-block;">' + OLP.countPM; }
 		else { html += 'none;">'; }

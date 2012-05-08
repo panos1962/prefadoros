@@ -276,7 +276,15 @@ var Sizitisi = new function() {
 				}, iv[1]);
 			}
 			else {
-				playSound(iv[0], iv[2]);
+				switch (iv[0]) {
+				case '_NC_':
+					html += '<embed src="sounds/nutcracker.mid" style="width: ' +
+						'8.0cm; height: 0.8cm;" />';
+					break;
+				default:
+					playSound(iv[0], iv[2]);
+					break;
+				}
 			}
 		}
 		return html;
