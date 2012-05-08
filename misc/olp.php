@@ -137,12 +137,14 @@ OLP.sxesi = {
 OLP.cur = {};
 OLP.cl0 = {};
 OLP.onoma = [];
+var trapezi = {};
+var dedomena = {};
 
 OLP.olpDataCheck = function(req, div, rfr, xeri) {
 	if (req.xhr.readyState != 4) { return; }
 	var rsp = req.getResponse();
 	try {
-		var dedomena = eval('({' + rsp + '})');
+		dedomena = eval('({' + rsp + '})');
 	} catch(e) {
 		rfr.src = '../images/Xred.png';
 		rfr.title = 'Πρόβλημα στην αναζήτηση πληροφοριών';
@@ -159,7 +161,9 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 	var filos = false;
 	var found = false;
 
+	trapezi = {};
 	for (var i = 0; i < dedomena.olp.length; i++) {
+		if (isSet(dedomena.olp[i].t)) { trapezi[dedomena.olp[i].l] = dedomena.olp[i].t; }
 		var id = 'l:' + dedomena.olp[i].l;
 		ok[id] = true;
 		OLP.cur[id] = dedomena.olp[i].l + dedomena.olp[i].o;
@@ -188,7 +192,8 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 
 		html += '<div id="' + id + '" class="' + cl + '" onclick="if (isSet(OLP.pektis)) ' +
 			'{ Sxesi.permesWindow(\'' + dedomena.olp[i].l + '\'); }" ' +
-			'onmouseover="OLP.fotise(this);" onmouseout="OLP.xefotise(this);"';
+			'onmouseover="OLP.fotise(this, \'' + dedomena.olp[i].l +
+			'\');" onmouseout="OLP.xefotise(this);"';
 		if (isSet(OLP.pektis)) {
 			html += ' title="Μήνυμα προς τον παίκτη &quot;' +
 				dedomena.olp[i].l + '&quot;" style="cursor: pointer;"';
@@ -251,12 +256,27 @@ OLP.setNeoPM = function(n) {
 	}
 };
 
-OLP.fotise = function(div) {
+OLP.fotise = function(div, login) {
 	div.style.backgroundColor = '#FFFFCC';
+	if (!trapezi.hasOwnProperty(login)) { return; }
+	if (notSet(dedomena.olp)) { return; }
+	for (var i = 0; i < dedomena.olp.length; i++) {
+		if (!trapezi.hasOwnProperty(dedomena.olp[i].l)) { continue; }
+		if (dedomena.olp[i].l == login) { continue; }
+		if (trapezi[dedomena.olp[i].l] != trapezi[login]) { continue; }
+		var x = getelid('l:' + dedomena.olp[i].l);
+		if (notSet(x)) { continue; }
+		x.bc = x.style.backgroundColor;
+		x.style.backgroundColor = '#CCE0E0';
+	}
 };
 
 OLP.xefotise = function(div) {
 	div.style.backgroundColor = '';
+	for (var i = 0; i < dedomena.olp.length; i++) {
+		var x = getelid('l:' + dedomena.olp[i].l);
+		x.style.backgroundColor = x.bc;
+	}
 };
 
 OLP.onlineHTML = function(x) {
