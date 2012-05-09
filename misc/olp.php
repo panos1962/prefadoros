@@ -66,8 +66,10 @@ Page::head();
 }
 
 .olpButton {
+	position: relative;
 	margin-right: 0.4cm;
 	cursor: pointer;
+	overflow: visible;
 }
 
 .olpNeoPM {
@@ -98,19 +100,27 @@ Page::head();
 <script type="text/javascript">
 //<![CDATA[
 var OLP = {};
-OLP.pektis = <?php print ($globals->is_pektis() ?
-	"'" . Globals::asfales_json($globals->pektis->login) . "'" : "null"); ?>;
+OLP.pektis = <?php
+print $globals->is_pektis() ?
+	("'" . Globals::asfales_json($globals->pektis->login) . "'") :
+	"null";
+?>;
 
 window.onload = function() {
 	init();
 	OLP.refreshReset();
+	OLP.onomaFocus();
+	OLP.loginArea();
+	setTimeout(function() { OLP.olpData(); }, 10);
+};
+
+OLP.onomaFocus = function() {
 	var x = getelid('onoma');
-	if (isSet(x)) {
+	if (notSet(x)) { return; }
+	try {
 		x.select();
 		x.focus();
-	}
-	OLP.loginArea();
-	setTimeout(OLP.olpData, 10);
+	} catch(e) {}
 };
 
 OLP.refreshReset = function(x) {
@@ -138,7 +148,7 @@ OLP.olpData = function(xeri) {
 	req.send();
 };
 
-OLP.sxesi = {
+OLP.sxesiClass = {
 	"f":	"olpFilos",
 	"b":	"olpBlock"
 };
@@ -146,14 +156,14 @@ OLP.sxesi = {
 OLP.cur = {};
 OLP.cl0 = {};
 OLP.onoma = [];
-var trapezi = {};
-var dedomena = {};
+OLP.trapezi = {};
+OLP.dedomena = {};
 
 OLP.olpDataCheck = function(req, div, rfr, xeri) {
 	if (req.xhr.readyState != 4) { return; }
 	var rsp = req.getResponse();
 	try {
-		dedomena = eval('({' + rsp + '})');
+		OLP.dedomena = eval('({' + rsp + '})');
 	} catch(e) {
 		rfr.src = '../images/Xred.png';
 		rfr.title = 'Πρόβλημα στην αναζήτηση πληροφοριών';
@@ -170,15 +180,18 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 	var filos = false;
 	var found = false;
 
-	trapezi = {};
-	for (var i = 0; i < dedomena.olp.length; i++) {
-		if (isSet(dedomena.olp[i].t)) { trapezi[dedomena.olp[i].l] = dedomena.olp[i].t; }
-		var id = 'l:' + dedomena.olp[i].l;
+	OLP.trapezi = {};
+	for (var i = 0; i < OLP.dedomena.olp.length; i++) {
+		if (isSet(OLP.dedomena.olp[i].t)) {
+			OLP.trapezi[OLP.dedomena.olp[i].l] = OLP.dedomena.olp[i].t;
+		}
+
+		var id = 'l:' + OLP.dedomena.olp[i].l;
 		ok[id] = true;
-		OLP.cur[id] = dedomena.olp[i].l + dedomena.olp[i].o;
+		OLP.cur[id] = OLP.dedomena.olp[i].l + OLP.dedomena.olp[i].o;
 		var cl = 'olpPektis';
-		if (isSet(dedomena.olp[i].s)) { cl += ' ' + OLP.sxesi[dedomena.olp[i].s]; }
-		if (isSet(dedomena.olp[i].b)) { cl += ' olpBusy'; }
+		if (isSet(OLP.dedomena.olp[i].s)) { cl += ' ' + OLP.sxesiClass[OLP.dedomena.olp[i].s]; }
+		if (isSet(OLP.dedomena.olp[i].b)) { cl += ' olpBusy'; }
 		OLP.cl0[id] = cl;
 
 		var matched = OLP.matchEnaOnoma(OLP.cur[id]);
@@ -197,30 +210,30 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 			else {
 				x.style.cursor = 'pointer';
 				x.title = 'Μήνυμα προς τον παίκτη "' +
-					dedomena.olp[i].l + '"';
+					OLP.dedomena.olp[i].l + '"';
 			}
 			continue;
 		}
 
 		html += '<div id="' + id + '" class="' + cl + '" onclick="if (isSet(OLP.pektis)) ' +
-			'{ Sxesi.permesWindow(\'' + dedomena.olp[i].l + '\'); }" ' +
-			'onmouseover="OLP.fotise(this, \'' + dedomena.olp[i].l +
+			'{ Sxesi.permesWindow(\'' + OLP.dedomena.olp[i].l + '\'); }" ' +
+			'onmouseover="OLP.fotise(this, \'' + OLP.dedomena.olp[i].l +
 			'\');" onmouseout="OLP.xefotise(this);" oricl="' + cl + '"';
 		if (isSet(OLP.pektis)) {
 			html += ' title="Μήνυμα προς τον παίκτη &quot;' +
-				dedomena.olp[i].l + '&quot;" style="cursor: pointer;"';
+				OLP.dedomena.olp[i].l + '&quot;" style="cursor: pointer;"';
 		}
 		html += '>';
-		html += '<span>' + dedomena.olp[i].l + '</span>';
-		html += '<span class="olpOnoma">' + dedomena.olp[i].o + '</span>';
+		html += '<span>' + OLP.dedomena.olp[i].l + '</span>';
+		html += '<span class="olpOnoma">' + OLP.dedomena.olp[i].o + '</span>';
 		html += '</div>';
 
-		if (isSet(dedomena.olp[i].s) && (dedomena.olp[i].s == 'f')) { filos = true; }
+		if (isSet(OLP.dedomena.olp[i].s) && (OLP.dedomena.olp[i].s == 'f')) { filos = true; }
 		if (matched) { found = true; }
 	}
 
 	x = getelid('olpCount');
-	if (isSet(x)) { x.innerHTML = OLP.onlineHTML(dedomena); }
+	if (isSet(x)) { x.innerHTML = OLP.onlineHTML(OLP.dedomena); }
 
 	div.innerHTML = html + div.innerHTML;
 	for (id in OLP.cur) {
@@ -234,8 +247,8 @@ OLP.olpDataCheck = function(req, div, rfr, xeri) {
 	if (found) { playSound('isodos'); }
 	else if (filos) { playSound('deskbell'); }
 
-	if (notSet(dedomena.pm)) { dedomena.pm = 0; }
-	OLP.setNeoPM(dedomena.pm);
+	if (notSet(OLP.dedomena.pm)) { OLP.dedomena.pm = 0; }
+	OLP.setNeoPM(OLP.dedomena.pm);
 
 	if (!xeri) {
 		setTimeout(OLP.olpData, 10000);
@@ -252,6 +265,7 @@ OLP.setNeoPM = function(n) {
 	if (notSet(n)) {
 		x.style.display = 'none';
 		OLP.displayPM = false;
+		window.open(globals.server + 'permes/index.php?pedi=yes');
 		return true;
 	}
 
@@ -273,14 +287,14 @@ OLP.setNeoPM = function(n) {
 OLP.fotise = function(div, login) {
 	div.setAttribute('class', div.getAttribute('oricl') + ' olpFotise');
 	div.fotise = true;
-	if (!trapezi.hasOwnProperty(login)) { return; }
-	if (notSet(dedomena.olp)) { return; }
-	for (var i = 0; i < dedomena.olp.length; i++) {
-		if (!trapezi.hasOwnProperty(dedomena.olp[i].l)) { continue; }
-		if (dedomena.olp[i].l == login) { continue; }
-		if (trapezi[dedomena.olp[i].l] != trapezi[login]) { continue; }
+	if (!OLP.trapezi.hasOwnProperty(login)) { return; }
+	if (notSet(OLP.dedomena.olp)) { return; }
+	for (var i = 0; i < OLP.dedomena.olp.length; i++) {
+		if (!OLP.trapezi.hasOwnProperty(OLP.dedomena.olp[i].l)) { continue; }
+		if (OLP.dedomena.olp[i].l == login) { continue; }
+		if (OLP.trapezi[OLP.dedomena.olp[i].l] != OLP.trapezi[login]) { continue; }
 
-		var x = getelid('l:' + dedomena.olp[i].l);
+		var x = getelid('l:' + OLP.dedomena.olp[i].l);
 		if (notSet(x)) { continue; }
 		x.setAttribute('class', x.getAttribute('oricl') + ' olpTrapezi');
 		x.trapezi = true;
@@ -290,9 +304,9 @@ OLP.fotise = function(div, login) {
 OLP.xefotise = function(div) {
 	div.setAttribute('class', div.getAttribute('oricl'));
 	div.fotise = null;
-	if (notSet(dedomena.olp)) { return; }
-	for (var i = 0; i < dedomena.olp.length; i++) {
-		var x = getelid('l:' + dedomena.olp[i].l);
+	if (notSet(OLP.dedomena.olp)) { return; }
+	for (var i = 0; i < OLP.dedomena.olp.length; i++) {
+		var x = getelid('l:' + OLP.dedomena.olp[i].l);
 		if (notSet(x)) { continue; }
 		var cl = x.getAttribute('oricl');
 		x.setAttribute('class', x.getAttribute('oricl'));
@@ -395,14 +409,11 @@ OLP.loginArea = function() {
 	if (isSet(OLP.pektis)) {
 		OLP.eponima = true;
 		if (OLP.countPM <= 0) { OLP.displayPM = false; }
-		html += '<button class="olpButton">' +
-			'<a target="_blank" href="' + globals.server +
-			'permes/index.php?pedi=yes" style="text-decoration: none; ' +
-			'position: relative;" onclick="return OLP.setNeoPM();">' +
+		html += '<button class="olpButton" onclick="OLP.setNeoPM();">' +
 			'Αλληλογραφία<div id="neoPM" class="olpNeoPM" style="display: ';
 		if (OLP.displayPM) { html += 'inline-block;">' + OLP.countPM; }
 		else { html += 'none;">'; }
-		html += '</div></a></button>';
+		html += 'XXX</div></button>';
 		html += '<input type="button" value="Έξοδος" class="olpButton" ' +
 			'onclick="return OLP.logout();" />';
 		html += '<div class="login" title="Επώνυμη χρήση" ' +
