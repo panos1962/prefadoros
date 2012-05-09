@@ -278,8 +278,9 @@ var Sizitisi = new function() {
 			else {
 				switch (iv[0]) {
 				case '_NC_':
-					html += '<embed src="sounds/nutcracker.mid" style="width: ' +
-						'8.0cm; height: 0.8cm;" />';
+					html += '<embed' + Sizitisi.videoId() + 'autoplay="true" ' +
+						'hidden="true" src="sounds/nutcracker.mid" ' +
+						'type="audio/mid" />';
 					break;
 				default:
 					playSound(iv[0], iv[2]);
