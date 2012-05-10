@@ -413,7 +413,7 @@ OLP.loginArea = function() {
 			'Αλληλογραφία<div id="neoPM" class="olpNeoPM" style="display: ';
 		if (OLP.displayPM) { html += 'inline-block;">' + OLP.countPM; }
 		else { html += 'none;">'; }
-		html += 'XXX</div></button>';
+		html += '</div></button>';
 		html += '<input type="button" value="Έξοδος" class="olpButton" ' +
 			'onclick="return OLP.logout();" />';
 		html += '<div class="login" title="Επώνυμη χρήση" ' +
