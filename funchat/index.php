@@ -298,6 +298,7 @@ function print_panel() {
 	$item_list[] = new Item("ok.gif");
 	$item_list[] = new Item("kalaPouMePires.gif", "Καλά που με πήρες!");
 	$item_list[] = new Item("egiptiakosXoros.gif");
+	$item_list[] = new Item("soldierDance.gif");
 	$item_list[] = new Item("kalimeraEmoticon.gif");
 	$item_list[] = new Item("goodNight.gif");
 	$item_list[] = new Item("helloEmoticon.gif");
