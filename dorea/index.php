@@ -15,7 +15,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 </p>
 <p>
 <img src="<?php print $globals->server; ?>dorea/panos.jpg" alt=""
-style="width: 3.2cm; float: left; margin-right: 0.4cm; margin-top: 0.2cm;
+style="width: 2.2cm; float: left; margin-right: 0.4cm; margin-top: 0.2cm;
 	border-style: solid; border-width: 2px; border-color: #003300;" />
 Ο ιστότοπος της διαδικτυακής πρέφας στήθηκε και
 συντηρείται από εμένα προσωπικά, τόσο όσον αφορά
@@ -45,6 +45,15 @@ server. Επειδή τα απαιτούμενα ποσά δεν είναι ευ
 επομένως αν καταθέσετε 10€,
 θα «χαθούν» περίπου 0.65€, ενώ αν καταθέσετε 20€, θα «χαθούν» περίπου
 0.95€. That's life…
+</p>
+<p>
+Υπάρχουν, τέλος, ασφαλείς διαφημίσεις που εμφανίζονται μέσω του Google
+<a target="_blank" href="http://en.wikipedia.org/wiki/AdSense">
+AdSense</a>
+στο επάνω μέρος της κεντρικής σελίδας.
+Κάθε κλικ στις διαφημίσεις αυτές μπορεί να αποφέρει έσοδα στον «Πρεφαδόρο».
+Για να εμφανίσετε τις διαφημίσεις σε άλλη καρτέλα, ή σε νέο παράθυρο,
+κάντε Control+κλικ, ή Shift+κλικ αντίστοιχα.
 </p>
 <p class="dexia">
 Με τιμή, Πάνος Παπαδόπουλος
