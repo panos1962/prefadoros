@@ -642,7 +642,7 @@ class Prefadoros {
 		if (isset($trapezi)) {
 			$query .= " (`trapezi` = " . $trapezi . ") OR";
 		}
-		$query .= "(`trapezi` <= 0)";
+		$query .= " (`trapezi` <= 0)";
 		@mysqli_query($globals->db, $query);
 	}
 }
