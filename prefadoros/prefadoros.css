@@ -600,7 +600,10 @@ background-color: magenta;
 }
 
 .emoticonsColumn {
-	width: 1px;
+	position: relative;
+	width: 0.86cm;
+	min-width: 0.86cm;
+	max-width: 0.86cm;
 	display: none;
 	vertical-align: top;
 	border-style: dotted;

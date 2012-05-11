@@ -263,7 +263,7 @@ function sizitisi_area() {
 function emoticons() {
 	global $globals;
 	?>
-	<div>
+	<div style="position: absolute;">
 		<img class="controlPanelIcon" alt="" src="<?php
 			print $globals->server; ?>images/controlPanel/4Balls.png"
 			style="border-style: dotted;"
