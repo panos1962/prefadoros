@@ -77,6 +77,8 @@ var Trapezi = new function() {
 		"xartokouti.jpg",
 		"pipes.jpg",
 		"kathisma.jpg",
+		"orino.jpg",
+		"amorgos.jpg",
 		"tzamaria.jpg"
 	];
 
