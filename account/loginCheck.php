@@ -33,6 +33,8 @@ if (count(Prefadoros::energos_pektis()) > MAX_USERS) {
 check_pektis_photo($_REQUEST['login']);
 Prefadoros::set_trapezi_dirty();
 @mysqli_free_result($result);
+
 $_SESSION['ps_login'] = $row[0];
 $_SESSION['ps_paraskinio'] = $row[1];
+$globals->klise_fige();
 ?>

@@ -11,4 +11,6 @@ $katastasi = $globals->asfales(Globals::perastike_check('katastasi'));
 $query = "UPDATE `pektis` SET `katastasi` = '" . $katastasi .
 	"' WHERE `login` = BINARY " . $globals->pektis->slogin;
 $globals->sql_query($query);
+Prefadoros::set_trapezi_dirty();
+$globals->klise_fige();
 ?>
