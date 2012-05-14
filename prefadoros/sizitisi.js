@@ -295,8 +295,24 @@ var Sizitisi = new function() {
 			}
 		}
 
-		if (sigasi) { this.sigasiVideo(); }
+		if (sigasi) {
+			setTimeout(this.dixeSigasiVideo(), 1000);
+			this.sigasiVideo();
+		}
 		return html;
+	};
+
+	this.dixeSigasiVideo = function() {
+		setTimeout(function() {
+			var x = getelid('sigasiVideo');
+			if (notSet(x)) { return; }
+			x.src = globals.server + 'images/svisimo.gif';
+		}, 10);
+		setTimeout(function() {
+			var x = getelid('sigasiVideo');
+			if (notSet(x)) { return; }
+			x.src = globals.server + 'images/sigasiVideo.png';
+		}, 1500);
 	};
 
 	var aixa  = {
@@ -812,7 +828,7 @@ var Sizitisi = new function() {
 				'images/Xred.png" class="pssIcon pssSizitisiIcon" alt="" ' +
 				'title="Διαγραφή σχολίων" onclick="Sizitisi.diagrafi(this);" />';
 		}
-		html += '<img id="sxolioDiagrafi" src="' + globals.server +
+		html += '<img id="sigasiVideo" src="' + globals.server +
 			'images/sigasiVideo.png" class="pssIcon pssSizitisiIcon" alt="" ' +
 			'title="Σίγαση funchat video" onclick="Sizitisi.sigasiVideo(this);" />';
 		return html;
