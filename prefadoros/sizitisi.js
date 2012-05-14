@@ -245,11 +245,14 @@ var Sizitisi = new function() {
 
 	this.sigasiVideo = function() {
 		var video = false;
-		while (vdid > 0) {
-			sviseNode(getelid('video' + vdid));
-			vdid--;
-			video = true;
+		for (var i = 1; i <= vdid; i++) {
+			var x = getelid('video' + i);
+			if (isSet(x)) {
+				sviseNode(x);
+				video = true;
+			}
 		}
+
 		return video;
 	};
 
