@@ -254,6 +254,7 @@ var Sizitisi = new function() {
 	};
 
 	this.pexeIxoVideo = function(iv) {
+		var sigasi = true;
 		var html = '';
 		if (iv.match(/^https?:\/\/youtu\.be\//)) {
 			html += '<iframe width="300" height="203"' + Sizitisi.videoId();
@@ -271,6 +272,7 @@ var Sizitisi = new function() {
 		else {
 			iv = iv.split(':');
 			if ((iv.length > 1) && (iv[1] > 0)) {
+				sigasi = false;
 				setTimeout(function() {
 					playSound(iv[0], iv[2]);
 				}, iv[1]);
@@ -279,15 +281,18 @@ var Sizitisi = new function() {
 				switch (iv[0]) {
 				case '_NC_':
 					html += '<embed' + Sizitisi.videoId() + 'autoplay="true" ' +
-						'hidden="true" src="sounds/nutcracker.mid" ' +
-						'type="audio/mid" />';
+						'hidden="true" src="' + globals.funchatServer +
+						'nutcracker.mp3" type="audio/mp3" />';
 					break;
 				default:
+					sigasi = false;
 					playSound(iv[0], iv[2]);
 					break;
 				}
 			}
 		}
+
+		if (sigasi) { this.sigasiVideo(); }
 		return html;
 	};
 
