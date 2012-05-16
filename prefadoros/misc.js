@@ -277,8 +277,9 @@ var Tools = new function() {
 		return b == 10 ? 'T' : b;
 	};
 
-	this.dialogos = function(msg, y, x) {
-		var d = getelid('dialogos');
+	this.dialogos = function(msg, y, x, id) {
+		if (notSet(id)) { id = 'dialogos'; }
+		var d = getelid(id);
 		if (notSet(d)) { return; }
 
 		if (notSet(msg)) {
@@ -292,8 +293,9 @@ var Tools = new function() {
 		d.zIndex = 1;
 	};
 
-	this.dialogosClear = function() {
-		var x = getelid('dialogos');
+	this.dialogosClear = function(id) {
+		if (notSet(id)) { id = 'dialogos'; }
+		var x = getelid(id);
 		if (notSet(x)) { return; }
 
 		x.style.display = 'none';
@@ -831,11 +833,11 @@ var FiloPaleta = new function() {
 			'ΑΚΥΡΟ</div></div>';
 		html += '</td></tr></table>';
 
-		Tools.dialogos(html, '2.2cm', '1.2cm');
+		Tools.dialogos(html, '3.2cm', '1.2cm', 'dialogosExo');
 	};
 
 	this.confirmDianomi = function(yes, fila) {
-		Tools.dialogosClear();
+		Tools.dialogosClear('dialogosExo');
 		if (yes) { this.sizitisi(event, fila); }
 	};
 };
