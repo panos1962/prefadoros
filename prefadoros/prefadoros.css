@@ -853,6 +853,45 @@ background-color: magenta;
 	visibility: hidden;
 }
 
+.sizitisiDianomi {
+	width: 8.3cm;
+	text-align: center;
+}
+
+.sizitisiDianomiSira {
+	position: relative;
+	display: inline-block;
+	margin-left: -1.44cm;
+	width: 2.1cm;
+	height: 3.0cm;
+}
+
+.sizitisDianomiIcon {
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	width: 2.1cm;
+	height: 2.96cm;
+}
+
+.sizitisiDianomiSkia {
+	-webkit-box-shadow: -0.04cm 0px 0.08cm #2E2E2E;
+	-moz-box-shadow: -0.04cm 0px 0.08cm #2E2E2E;
+	box-shadow: -0.04cm 0px 0.08cm #2E2E2E;
+}
+
+.sizitisDianomiDiaxorM {
+	border-style: outset;
+	border-width: 0px 0px 0px 4px;
+	border-color: #FF9696;
+}
+
+.sizitisiDianomiDiaxorK {
+	border-style: outset;
+	border-width: 0px 0px 0px 4px;
+	border-color: #66FF33;
+}
+
 .moliviPartida {
 	width: 1.2cm;
 	min-width: 1.2cm;

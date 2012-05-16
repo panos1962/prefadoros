@@ -2,6 +2,13 @@
 // αντικείμενα "pexnidi", "dianomi" και "kinisi".
 
 var Pexnidi = new function() {
+	this.mavroKokino = {
+		'S':	'M',
+		'C':	'M',
+		'D':	'K',
+		'H':	'K'
+	};
+
 	this.delay = {
 		'baza':			800,
 		'tzogos':		1500

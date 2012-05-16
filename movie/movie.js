@@ -134,13 +134,6 @@ Movie.miraseFila = function() {
 	Movie.displayIpolipo();
 };
 
-Movie.mavroKokino = {
-	'S':	'M',
-	'C':	'M',
-	'D':	'K',
-	'H':	'K'
-};
-
 Movie.filaHTML = function(thesi, fila) {
 	var html = '';
 	if (fila.length <= 0) { return html; }
@@ -170,7 +163,7 @@ Movie.filaHTML = function(thesi, fila) {
 		var curXroma = fila[i].substr(0, 1);
 		if (curXroma != prevXroma) {
 			prevXroma = curXroma;
-			var curMavroKokino = Movie.mavroKokino[curXroma];
+			var curMavroKokino = Pexnidi.mavroKokino[curXroma];
 			if (curMavroKokino == prevMavroKokino) {
 				html += ' movieFiloDiaxor' + curMavroKokino;
 			}

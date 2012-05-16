@@ -473,6 +473,12 @@ var Sizitisi = new function() {
 				continue;
 			}
 
+			if (tmima[i].match(/^([SCDH][789TJQKA]){10}$/i)) {
+				s += this.dianomiHTML(Pexnidi.spaseFila(tmima[i]));
+				fsok = false;
+				continue;
+			}
+
 			if (tmima[i].match(/^~+$/)) {
 				for (var j = 0; j < tmima[i].length; j++) {
 					s += '<br />';
@@ -507,6 +513,38 @@ var Sizitisi = new function() {
 		}
 
 		return s;
+	};
+
+	this.dianomiHTML = function(fila) {
+		var html = '';
+		if (fila.length < 1) { return html; }
+
+		html = '<div class="sizitisiDianomi">';
+		var proto = ' style="margin-left: 0px;"';
+		var prevXroma = '';
+		var prevMavroKokino = '';
+		for (var i = 0; i < fila.length; i++) {
+			html += '<div class="sizitisiDianomiSira"' + proto + '>';
+			proto = '';
+			html += '<img class="sizitisiDianomiIcon';
+			if (i > 0) { html += ' sizitisiDianomiSkia'; }
+			var curXroma = fila[i].substr(0, 1);
+			if (curXroma != prevXroma) {
+				prevXroma = curXroma;
+				var curMavroKokino = Pexnidi.mavroKokino[curXroma];
+				if (curMavroKokino == prevMavroKokino) {
+					html += ' sizitisiDianomiDiaxor' + curMavroKokino;
+				}
+				else {
+					prevMavroKokino = curMavroKokino;
+				}
+			}
+			html += '" src="' + globals.server + 'images/trapoula/' +
+				fila[i] + '.png" alt="" />';
+			html += '</div>';
+		}
+		html += '</div>';
+		return html;
 	};
 
 	this.oraSxoliou = function(k, t) {
