@@ -56,15 +56,15 @@ $result = $globals->sql_query($query);
 $idos = NULL;
 $data = NULL;
 while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
-	$idos = $row[1];
-	$data = $row[2];
-	if (($row[1] == 'ΔΙΑΝΟΜΗ') && ($row[0] == $globals->pektis->login)) {
+	if ($row[1] == 'ΔΙΑΝΟΜΗ') {
+		$idos = $row[1];
+		$data = $row[2];
+	}
+	elseif ($row[0] == $thesi) {
+		$idos = $row[1];
+		$data = $row[2];
 		break;
 	}
-}
-
-if (!isset($idos)) {
-	$globals->klise_fige();
 }
 
 switch ($idos) {
