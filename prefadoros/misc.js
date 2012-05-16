@@ -785,18 +785,18 @@ var FiloPaleta = new function() {
 		} catch(e) {}
 	};
 
-	this.dianomi = function(img, n) {
+	this.dianomi = function(img, offset) {
 		var req = new Request('misc/getDianomi');
 		var src = img.src;
 		req.xhr.onreadystatechange = function() {
-			FiloPaleta.getDianomiCheck(req, img, src);
+			FiloPaleta.getDianomiCheck(req, img, src, offset);
 		};
 
-		params = 'offset=' + n;
+		params = 'offset=' + offset;
 		req.send(params);
 	};
 
-	this.getDianomiCheck = function(req, img, src) {
+	this.getDianomiCheck = function(req, img, src, offset) {
 		if (req.xhr.readyState != 4) { return; }
 		img.src = src;
 		var rsp = req.getResponse();
@@ -806,7 +806,37 @@ var FiloPaleta = new function() {
 		}
 
 		var x = rsp.split(':');
-		this.sizitisi(event, x[0]);
+		if (x[0].length != 20) { retun; }
+
+		var html = '';
+		html += '<table style="width: 9.8cm;"><tr><td colspan="2" style="text-align: center;">';
+		html += Sizitisi.dianomiHTML(Pexnidi.spaseFila(x[0]));
+		html += '</td></tr><tr style="vertical-align: middle;"><td>';
+		html += '<div style="padding-right: 0.4cm;">' +
+			'Θέλετε, όντως, να φανερώσετε τα φύλλα ';
+		html += offset ? 'που κρατούσατε στην προηγούμενη διανομή' : 'σας';
+		html += ';</div></td><td style="text-align: right;">';
+		html += '<div class="dialogosYesNo" onclick="FiloPaleta.' +
+			'confirmDianomi(true, \'' + x[0] + '\');" ' +
+			'onmouseover="this.style.backgroundColor=\'#FFFF33\';" ' +
+			'onmouseout="this.style.backgroundColor=\'#FFFF99\';" ' +
+			'style="margin-right: 0px; padding-left: 0px; padding-right: 0px;">';
+		html += '<div style="display: inline-block; width: 2.4cm; text-align: center;' +
+			'margin-bottom: 0.6cm;">ΝΑΙ</div></div>';
+		html += '<div class="dialogosYesNo" onclick="FiloPaleta.confirmDianomi(false);" ' +
+			'onmouseover="this.style.backgroundColor=\'#FFFF33\';" ' +
+			'onmouseout="this.style.backgroundColor=\'#FFFF99\';" ' +
+			'style="margin-right: 0px; padding-left: 0px; padding-right: 0px;">';
+		html += '<div style="display: inline-block; width: 2.4cm; text-align: center;">' +
+			'ΑΚΥΡΟ</div></div>';
+		html += '</td></tr></table>';
+
+		Tools.dialogos(html, '2.2cm', '1.2cm');
+	};
+
+	this.confirmDianomi = function(yes, fila) {
+		Tools.dialogosClear();
+		if (yes) { this.sizitisi(event, fila); }
 	};
 };
 
