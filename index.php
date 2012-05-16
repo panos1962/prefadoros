@@ -62,6 +62,9 @@ Page::toolbar();
 <div id="giortes" style="display: none;"></div>
 <div id="profinfo" class="profinfo"></div>
 <div class="mainArea">
+<div style="position: relative;">
+<div id="dialogosExo" class="dialogos"></div>
+</div>
 <?php
 Page::fyi();
 if ($globals->is_pektis()) {
