@@ -706,6 +706,12 @@ var FiloPaleta = new function() {
 		html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
 			'images/lineBreak.png" title="Αλλαγή γραμμής" ' +
 			'onmousedown="FiloPaleta.sizitisi(event, \'~\');" />';
+		html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
+			'images/preDianomi.png" title="Προηγούμενη διανομή" ' +
+			'onclick="FiloPaleta.dianomi(this, 1);" />';
+		html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
+			'images/nowDianomi.png" title="Τελευταία διανομή" ' +
+			'onclick="FiloPaleta.dianomi(this, 0);" />';
 		html += '</div>';
 
 		html += '<img src="' + globals.server + 'images/Xgrey.png" alt="" ' +
@@ -777,6 +783,30 @@ var FiloPaleta = new function() {
 		try {
 			div.style.borderWidth = '2px 1px 1px 2px';
 		} catch(e) {}
+	};
+
+	this.dianomi = function(img, n) {
+		var req = new Request('misc/getDianomi');
+		var src = img.src;
+		req.xhr.onreadystatechange = function() {
+			FiloPaleta.getDianomiCheck(req, img, src);
+		};
+
+		params = 'offset=' + n;
+		req.send(params);
+	};
+
+	this.getDianomiCheck = function(req, img, src) {
+		if (req.xhr.readyState != 4) { return; }
+		img.src = src;
+		var rsp = req.getResponse();
+		if (!rsp.match(/:OK$/)) {
+			errorIcon(img);
+			return;
+		}
+
+		var x = rsp.split(':');
+		this.sizitisi(event, x[0]);
 	};
 };
 
