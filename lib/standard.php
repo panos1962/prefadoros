@@ -710,9 +710,9 @@ class Page {
 		<div id="twitter" style="display: inline-block;"></div>
 		<?php
 		if ($globals->is_pektis()) {
-			// Στο σημείο αυτό θα εμφανιστούν τα πλήκτα like και Google+
+			// Στο σημείο αυτό θα εμφανιστεί το πλήκτρο Google+
 			?>
-			<div id="facebook" style="display: inline-block;"></div>
+			<div id="googlePlus" style="display: inline-block;"></div>
 			<?php
 		}
 	}
