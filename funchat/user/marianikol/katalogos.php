@@ -10,7 +10,7 @@ $item_list[] = new Item("user/panos/orePouPame.jpg",
 $item_list[] = new Item("user/panos/denDrepese.jpg",
 	"Βρε δεν ντρέπεσαι, γέρος άνθρωπος βρε;", 6.0, "http://youtu.be/Daggdx-enM4");
 $item_list[] = new Item("spiderman.gif", "", "3.0", "_NC_");
-$item_list[] = new Item("soldierDance.gif", "", "", "http://youtu.be/rl8jXhh3Khg?start=5");
+$item_list[] = new Item("soldierDance.gif", "", "", "_BG_");
 $item_list[] = new Item("soloDance.gif", "", "", "_ITM_");
 $item_list[] = new Item("treno.gif", "", "3.0", "treno");
 $item_list[] = new Item("argoporia.gif", "", "2.0", "clocktickslow");

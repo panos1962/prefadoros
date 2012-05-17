@@ -292,6 +292,11 @@ var Sizitisi = new function() {
 						'hidden="true" src="' + globals.funchatServer +
 						'inthemood.mp3" type="audio/mp3" />';
 					break;
+				case '_BG_':
+					html += '<embed' + Sizitisi.videoId() + 'autoplay="true" ' +
+						'hidden="true" src="' + globals.funchatServer +
+						'clarinetitis.mp3" type="audio/mp3" />';
+					break;
 				default:
 					sigasi = false;
 					playSound(iv[0], iv[2]);
