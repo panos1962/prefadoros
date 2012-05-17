@@ -228,12 +228,17 @@ var Tools = new function() {
 	};
 
 	this.miaPrefaHTML = function(space) {
-		if (isSet(pektis) && isSet(pektis.system) && pektis.system) { return ''; }
-		var html = '<div style="text-align: center; margin-top: 0.2cm;';
-		if (isSet(space)) { html += 'padding-bottom: 0.2cm;'; }
-		html += '">';
+		var html = '';
+		if (isSet(pektis) && isSet(pektis.system) && pektis.system) { return html; }
+
+		var h = 1.0;
+		if (isSet(space)) { h += 0.6; }
+		html += '<div style="position: relative; text-align: center; ' +
+			'width: 100%; height: ' + h + 'cm;">';
+		html += '<div style="position: absolute; width: 100%; top: 0.2cm;">';
 		html += Tools.epilogiHTML('ΜΙΑ ΠΡΕΦΑ ΠΑΡΑΚΑΛΩ!', 'Partida.neoTrapezi();',
-			'Στήστε ένα τραπέζι για να παίξετε μια νέα παρτίδα') + '</div>';
+			'Στήστε ένα τραπέζι για να παίξετε μια νέα παρτίδα');
+		html += '</div></div>';
 		return html;
 	};
 
