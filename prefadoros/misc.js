@@ -708,12 +708,14 @@ var FiloPaleta = new function() {
 		html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
 			'images/lineBreak.png" title="Αλλαγή γραμμής" ' +
 			'onmousedown="FiloPaleta.sizitisi(event, \'~\');" />';
-		html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
-			'images/preDianomi.png" title="Προηγούμενη διανομή" ' +
-			'onclick="FiloPaleta.dianomi(this, 1);" />';
-		html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
-			'images/nowDianomi.png" title="Τελευταία διανομή" ' +
-			'onclick="FiloPaleta.dianomi(this, 0);" />';
+		if (isPektis() && isPartida() && notTheatis()) {
+			html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
+				'images/preDianomi.png" title="Προηγούμενη διανομή" ' +
+				'onclick="FiloPaleta.dianomi(this, 1);" />';
+			html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
+				'images/nowDianomi.png" title="Τελευταία διανομή" ' +
+				'onclick="FiloPaleta.dianomi(this, 0);" />';
+		}
 		html += '</div>';
 
 		html += '<img src="' + globals.server + 'images/Xgrey.png" alt="" ' +
