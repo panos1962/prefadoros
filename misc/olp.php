@@ -405,6 +405,7 @@ OLP.loginArea = function() {
 	var x = getelid('loginArea');
 	if (notSet(x)) { return; }
 
+	OLP.pektis = OLP.dedomena.login;
 	var html = '';
 	if (isSet(OLP.pektis)) {
 		OLP.eponima = true;
