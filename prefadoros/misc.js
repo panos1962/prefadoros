@@ -803,12 +803,16 @@ var FiloPaleta = new function() {
 	this.getDianomiCheck = function(req, img, src, offset) {
 		if (req.xhr.readyState != 4) { return; }
 		img.src = src;
+		Tools.dialogosClear('dialogosExo');
 		var rsp = req.getResponse();
 		if (!rsp.match(/:OK$/)) {
+			mainFyi('Δεν βρέθηκε διανομή!');
 			errorIcon(img);
+			playSound('beep');
 			return;
 		}
 
+		mainFyi();
 		var x = rsp.split(':');
 		if (x[0].length != 20) { retun; }
 
