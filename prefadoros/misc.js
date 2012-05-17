@@ -688,6 +688,7 @@ var FiloPaleta = new function() {
 		var xroma = [ 'N', 'H', 'D', 'C', 'S' ];
 		var axia = [ '7', '8', '9', 'T', 'J', 'Q', 'K', 'A' ];
 
+		// Εμφανίζονται εικονίδια για όλα τα φύλλα της τράπουλας.
 		for (var i = 1; i < xroma.length; i++) {
 			html += '<div class="filoPaletaFili">';
 			for (var j = 0; j < axia.length; j++) {
@@ -699,15 +700,21 @@ var FiloPaleta = new function() {
 			html += '</div>';
 		}
 
+		// Ακολουθούν εικονίδια για τα διάφορα χρώματα.
 		html += '<div class="filoPaletaFili">';
 		for (i = xroma.length - 1; i >= 0; i--) {
 			html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
 				'images/trapoula/xroma' + xroma[i] + '.png" title="" ' +
 				'onmousedown="FiloPaleta.sizitisi(event, \'' + xroma[i] + '\');" />';
 		}
+
+		// Ακολουθεί εικονίδιο για αλλαγή (σπάσιμο) γραμμής.
 		html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
 			'images/lineBreak.png" title="Αλλαγή γραμμής" ' +
 			'onmousedown="FiloPaleta.sizitisi(event, \'~\');" />';
+
+		// Ακολουθούν τα εικονίδια εμφάνισης προηγούμενης
+		// και τρέχουσας διανομής.
 		if (isPektis() && isPartida() && notTheatis()) {
 			html += '<img class="filoPaletaIcon" alt="" src="' + globals.server +
 				'images/preDianomi.png" title="Προηγούμενη διανομή" ' +
@@ -789,9 +796,15 @@ var FiloPaleta = new function() {
 		} catch(e) {}
 	};
 
+	// Η function που ακολουθεί καλείται όταν κάνουμε κλικ στα εικονίδια
+	// δημοσιοποίησης προηγούμενης, ή τρέχουσας διανομής. Ως πρώτη παράμετρο
+	// περνάμε το ίδιο το εικονίδιο, ενώ η δεύτερη παράμετρος είναι 0, ή 1,
+	// ανάλογα με το αν θέλουμε την τρέχουσα ή την προηγούμενη διανομή.
+
 	this.dianomi = function(img, offset) {
 		var req = new Request('misc/getDianomi');
 		var src = img.src;
+		img.src = globals.server + 'images/working.gif';
 		req.xhr.onreadystatechange = function() {
 			FiloPaleta.getDianomiCheck(req, img, src, offset);
 		};
