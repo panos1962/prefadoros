@@ -379,7 +379,7 @@ class Page {
 		<meta name="copyright" content="Copyright by Panos Papadopoulos. All Rights Reserved." />
 		<meta name="wot-verification" content="07bfa86d13e2bf3e15d2" />
 
-		<?php // Τα παρακάτω προετέθηκαν από το Google+ ?>
+		<?php // Τα παρακάτω προστέθηκαν από το Google+ ?>
 		<html itemscope itemtype="http://schema.org/Game">
 		<meta itemprop="name" content="Πρεφαδόρος">
 		<meta itemprop="description" content="Παίξτε πρέφα online!">
