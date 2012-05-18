@@ -679,24 +679,24 @@ class Page {
 		/*
 		<a href="http://validator.w3.org/check?uri=referer"
 			title="Validate XHTML for this page" target="_blank"><img
-			src="<?php print $globals->server; ?>images/valid-xhtml10.png"
+			src="<?php print $globals->server; ?>images/external/valid-xhtml10.png"
 			alt="Valid XHTML 1.0!" height="24" /></a>
 		<a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3"
 			title="Validate CSS for this page"><img
-			src="<?php print $globals->server; ?>images/vcss.gif"
+			src="<?php print $globals->server; ?>images/external/vcss.gif"
 			alt="Valid CSS!" height="24" /></a>
 		<a href="http://www.gnu.org/licenses/agpl.html" target="_blank"
 			title="GNU Affero General Public License"><img
-			src="<?php print $globals->server; ?>images/agplv3.png"
+			src="<?php print $globals->server; ?>images/external/agplv3.png"
 			alt="GNU Affero General Public License" height="24" /></a>
 		*/
 		?>
 		<a href="http://www.hellasbridge.org" target="_blank"
 			title="Ελληνική Ομοσπονδία Μπριτζ"><img class="leftRibbonIcon"
-			src="<?php print $globals->server; ?>images/eom.png"
+			src="<?php print $globals->server; ?>images/external/eom.png"
 			alt="http://www.bridgebase.com" height="24" /></a>
 		<a href="http://www.bridgebase.com" target="_blank" title="Bridge Base Online"><img
-			src="<?php print $globals->server; ?>images/bbo.png"
+			src="<?php print $globals->server; ?>images/external/bbo.png"
 			alt="http://www.bridgebase.com" height="24" /></a>
 		<?php
 		if ($globals->is_pektis()) {
