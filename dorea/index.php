@@ -33,7 +33,7 @@ server. Επειδή τα απαιτούμενα ποσά δεν είναι ευ
 <p>
 Για να συνεισφέρετε στα έξοδα του Πρεφαδόρου,
 έχω προσθέσει σχετικό κουμπάκι κάτω αριστερά
-<span class="nobr">(<img src="<?php print $globals->server; ?>images/donate.gif" alt=""
+<span class="nobr">(<img src="<?php print $globals->server; ?>images/external/donate.gif" alt=""
 	style="height: 0.45cm; margin-bottom: -0.1cm;" />)</span>
 με το οποίο μπορείτε να καταθέσετε οποιοδήποτε ποσό στο λογαριασμό
 μου στο <a target="_blank" href="http://www.paypal.com">PayPal</a>,
