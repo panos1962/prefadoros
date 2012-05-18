@@ -249,6 +249,12 @@ a img {
 	white-space: nowrap;
 }
 
+.skia {
+	-webkit-box-shadow: 2px 2px 4px #2E2E2E;
+	-moz-box-shadow: 2px 2px 4px #2E2E2E;
+	box-shadow: 2px 2px 4px #2E2E2E;
+}
+
 .selectOff {
 	user-select: none;
 	-moz-user-select: none;
