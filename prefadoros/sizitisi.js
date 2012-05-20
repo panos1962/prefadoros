@@ -256,6 +256,15 @@ var Sizitisi = new function() {
 		return video;
 	};
 
+	// Ακολουθούν διάφορα κωδικοποιημένα αρχεία ήχου mp3 που
+	// βρίσκονται ανεβασμένα στον funchat server.
+	var mp3Funchat = {
+		'_NC_':			'nutcracker',
+		'_ITM_':		'inthemood',
+		'_BG_':			'clarinetitis',
+		'_KL_':			'aomatos'
+	};
+
 	this.pexeIxoVideo = function(iv) {
 		var sigasi = true;
 		var html = '';
@@ -280,28 +289,14 @@ var Sizitisi = new function() {
 					playSound(iv[0], iv[2]);
 				}, iv[1]);
 			}
+			else if (mp3Funchat.hasOwnProperty(iv[0])) {
+				html += '<embed' + Sizitisi.videoId() + 'autoplay="true" ' +
+					'hidden="true" src="' + globals.funchatServer +
+					mp3Funchat[iv[0]] + '.mp3" type="audio/mp3" />';
+			}
 			else {
-				switch (iv[0]) {
-				case '_NC_':
-					html += '<embed' + Sizitisi.videoId() + 'autoplay="true" ' +
-						'hidden="true" src="' + globals.funchatServer +
-						'nutcracker.mp3" type="audio/mp3" />';
-					break;
-				case '_ITM_':
-					html += '<embed' + Sizitisi.videoId() + 'autoplay="true" ' +
-						'hidden="true" src="' + globals.funchatServer +
-						'inthemood.mp3" type="audio/mp3" />';
-					break;
-				case '_BG_':
-					html += '<embed' + Sizitisi.videoId() + 'autoplay="true" ' +
-						'hidden="true" src="' + globals.funchatServer +
-						'clarinetitis.mp3" type="audio/mp3" />';
-					break;
-				default:
-					sigasi = false;
-					playSound(iv[0], iv[2]);
-					break;
-				}
+				sigasi = false;
+				playSound(iv[0], iv[2]);
 			}
 		}
 
