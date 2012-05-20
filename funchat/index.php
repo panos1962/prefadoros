@@ -200,8 +200,7 @@ function print_panel() {
 	$item_list[] = new Item("telia.gif");
 	$item_list[] = new Item("thaVgaloMati.gif", "Θα βγει κανένα μάτι;");
 	$item_list[] = new Item("gavosEmoticon.gif", "Θα στραβωθώ ρε!");
-	$item_list[] = new Item("aomatos.jpg", "Αόμματος!", 3.5,
-		"http://splicd.com/vK3mwtOy3gQ/0/3");
+	$item_list[] = new Item("aomatos.jpg", "Αόμματος!", 3.5, "_KL_");
 	$item_list[] = new Item("vgaleMati.gif", "Θα μου βγάλεις το μάτι;");
 	$item_list[] = new Item("meTrelanes.gif", "Με τρέλανες τώρα!");
 	$item_list[] = new Item("efkoloItan.gif", "Όχι να το παινευτώ, αλλά είμαι μάστορας.", 2.0);
