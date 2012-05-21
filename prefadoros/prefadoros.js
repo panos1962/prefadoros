@@ -114,7 +114,10 @@ var Prefadoros = new function() {
 				'Καφενείο</a>&nbsp;]';
 		}
 
-		if (isSet(fs) && fs) { Sizitisi.sxolioFocus(); }
+		if (isSet(fs) && fs) {
+			Sizitisi.sigasiVideo();
+			Sizitisi.sxolioFocus();
+		}
 
 		// Εδώ υπάρχει ένα λεπτό σημείο του προγράμματος. Πρόκειται
 		// για διαλόγους επιβεβαίωσης είτε της αγοράς, είτε του claim.
@@ -186,6 +189,7 @@ var Prefadoros = new function() {
 			if (isSet(x)) {
 				x.src = globals.server + 'images/gallery/' + Trapezi.randomPhoto();
 			}
+			Sizitisi.sigasiVideo();
 			Sizitisi.sxolioFocus();
 		}
 
