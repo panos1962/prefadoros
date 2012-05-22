@@ -424,6 +424,7 @@ function Google_AdSearch() {
 		</div>
 	</form>
 	</div>
+	<br />
 	<script type="text/javascript" src="<?php
 		print "http://www.google.gr/coop/cse/brand?form=cse-search-box&amp;lang=el";
 		?>">
