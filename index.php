@@ -56,6 +56,7 @@ if ($globals->is_pektis()) {
 		Page::diafimisi();
 	}
 }
+Google_AdSearch();
 Page::toolbar();
 ?>
 <div id="motto" class="motto" title="Κλικ για απόκρυψη"></div>
@@ -406,6 +407,27 @@ function Google_AdSense() {
 		color: #CC3300; font-weight: normal;">
 		Άνοιγμα διαφημιστικού σε νέα καρτέλα: Control+Click, σε νέο παράθυρο: Shift+Click
 	</div>
+	<?php
+}
+
+function Google_AdSearch() {
+	global $globals;
+	?>
+	<div style="width: 11.0cm; float: right;">
+	<form action="http://www.google.gr" id="cse-search-box" target="_blank">
+		<div>
+			<input type="hidden" name="cx"
+				value="partner-pub-2140287108424127:8475141205" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" size="30" />
+			<input type="submit" name="sa" value="Αναζήτηση" />
+		</div>
+	</form>
+	</div>
+	<script type="text/javascript" src="<?php
+		print "http://www.google.gr/coop/cse/brand?form=cse-search-box&amp;lang=el";
+		?>">
+	</script>
 	<?php
 }
 ?>
