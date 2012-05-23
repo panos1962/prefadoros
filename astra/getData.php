@@ -1,5 +1,5 @@
 <?php
-define('MAX_LOG_RECORDS', 400);
+define('MAX_LOG_RECORDS', 200);
 require_once '../lib/standard.php';
 require_once '../prefadoros/prefadoros.php';
 require_once '../pektis/pektis.php';
@@ -140,6 +140,10 @@ function parse_partida(&$prev) {
 		elseif (preg_match("/^[0-9]+\\-$/", $tmima[$i])) {
 			$ipotmima = explode("-", $tmima[$i]);
 			$query .= ">= " . $ipotmima[0] . ")";
+		}
+		elseif (preg_match("/^\\-[0-9]+$/", $tmima[$i])) {
+			$ipotmima = explode("-", $tmima[$i]);
+			$query .= "<= " . $ipotmima[1] . ")";
 		}
 		else {
 			lathos_kritiria($partida . ": λανθασμένα κριτήρια παρτίδας");
