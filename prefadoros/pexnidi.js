@@ -10,7 +10,7 @@ var Pexnidi = new function() {
 	};
 
 	this.delay = {
-		'baza':			800,
+		'baza':			200,
 		'tzogos':		1500
 	};
 
