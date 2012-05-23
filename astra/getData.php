@@ -1,4 +1,5 @@
 <?php
+define('MAX_LOG_RECORDS', 200);
 require_once '../lib/standard.php';
 require_once '../prefadoros/prefadoros.php';
 require_once '../pektis/pektis.php';
@@ -175,7 +176,8 @@ function select_partida($sql) {
 	}
 
 	$query = "SELECT SQL_NO_CACHE " . $columns . "UNIX_TIMESTAMP(`telos`) AS `xronos` " .
-		"FROM `trapezi_log` WHERE " . $sql . " ORDER BY `kodikos` DESC";
+		"FROM `trapezi_log` WHERE " . $sql . " ORDER BY `kodikos` DESC LIMIT " .
+		MAX_LOG_RECORDS;
 	$result = $globals->sql_query($query);
 	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		partida_json($row, $koma, '_log');
