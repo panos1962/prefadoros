@@ -159,14 +159,19 @@ var Gipedo = new function() {
 	this.pasoPasoPasoHTML = function() {
 		var html = '';
 		if (notPasoPasoPaso()) {
+			pexnidi.prevBazaFilo = [];
+			pexnidi.prevBazaPektis = [];
+			pexnidi.prevTzogosFilo[0] = pexnidi.tzogos.substr(0, 2);
+			pexnidi.prevTzogosFilo[1] = pexnidi.tzogos.substr(2, 2);
+
 			html += '<div>';
 			html += Gipedo.dianomiHTML();
 			html += '</div>';
 			html += '<div class="dixeTzogo">';
 			html += '<img class="dixeTzogoIcon dixeTzogoIcon1" src="' + globals.server +
-				'images/trapoula/' + pexnidi.tzogos.substr(0, 2) + '.png" alt="" />';
+				'images/trapoula/' + pexnidi.prevTzogosFilo[0] + '.png" alt="" />';
 			html += '<img class="dixeTzogoIcon dixeTzogoIcon2" src="' + globals.server +
-				'images/trapoula/' + pexnidi.tzogos.substr(2, 2) + '.png" alt="" />';
+				'images/trapoula/' + pexnidi.prevTzogosFilo[1] + '.png" alt="" />';
 			html += '</div>';
 			return html;
 		}
@@ -424,18 +429,33 @@ var Gipedo = new function() {
 
 	this.telefteaBazaHTML = function() {
 		var html = '';
-		if (pexnidi.prevBazaFilo.length <= 0) { return html; }
-		for (var i = 1; i <= 3; i++) {
-			html += '<div>';
-			for (var j = 0; j < pexnidi.prevBazaFilo.length; j++) {
-				if (pexnidi.prevBazaPektis[j] == i) {
-					html += '<img class="bazaFilo telefteaBazaFilo' + i + '" src="' +
-						globals.server + 'images/trapoula/' +
-						pexnidi.prevBazaFilo[j] + '.png" alt="" ' +
-						'style="z-index: 1' + j + ';" />';
-					break;
+		var ok = false;
+		if (pexnidi.prevBazaFilo.length > 0) {
+			for (var i = 1; i <= 3; i++) {
+				html += '<div>';
+				for (var j = 0; j < pexnidi.prevBazaFilo.length; j++) {
+					if (pexnidi.prevBazaPektis[j] == i) {
+						ok = true;
+						html += '<img class="bazaFilo telefteaBazaFilo' + i +
+							'" src="' + globals.server + 'images/trapoula/' +
+							pexnidi.prevBazaFilo[j] + '.png" alt="" ' +
+							'style="z-index: 1' + j + ';" />';
+						break;
+					}
 				}
+				html += '</div>';
 			}
+		}
+		if (ok) { return html; }
+
+		html = '';
+		if (pexnidi.prevTzogosFilo.length != 2) { return html; }
+		for (i = 0; i < 2; i++) {
+			html += '<div class="prevTzogos' + (i + 1) + '">';
+			html += '<img class="dixeTzogoIcon dixeTzogoIcon' + (i + 1) + '" src="' +
+				globals.server + 'images/trapoula/' +
+				pexnidi.prevTzogosFilo[i] + '.png" alt="" ' +
+				'style="z-index: 1' + i + '; width: 2.1cm;" />';
 			html += '</div>';
 		}
 		return html;
