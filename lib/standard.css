@@ -120,6 +120,10 @@ a img {
 	height: 1.3em;
 }
 
+.error {
+	color: #FF0000;
+}
+
 .errorFyiData {
 	font-weight: bold;
 	color: #003366;
