@@ -34,6 +34,7 @@ var Pexnidi = new function() {
 
 	pexnidi.prevBazaFilo = [];
 	pexnidi.prevBazaPektis = [];
+	pexnidi.prevTzogosFilo = [];
 
 	this.reset = function() {
 		pexnidi.akirosi = 0;

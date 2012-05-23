@@ -1524,6 +1524,18 @@ font-weight: bold;
 	margin-left: -0.8cm;
 }
 
+.prevTzogos1 {
+	position: absolute;
+	top: 0.8cm;
+	left: 0.6cm;
+}
+
+.prevTzogos2 {
+	position: absolute;
+	top: 0.8cm;
+	left: 2.2cm;
+}
+
 .telefteaBaza {
 	position: relative;
 	top: 3.4cm;
