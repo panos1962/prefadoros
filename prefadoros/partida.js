@@ -1038,9 +1038,9 @@ var Partida = new function() {
 		}
 
 		html += '</div>';
-		html += '<div id="telefteaBaza" class="telefteaBaza" title="Προηγούμενη μπάζα"';
+		html += '<div id="telefteaBaza" class="telefteaBaza" title="Προηγούμενη μπάζα/τζόγος"';
 		if (controlPanel.xanaBazaOn) {
-			html += ' style="z-index: 10;" title="Προηγούμενη μπάζα">';
+			html += ' style="z-index: 10;">';
 			html += Gipedo.telefteaBazaHTML();
 		}
 		else {
