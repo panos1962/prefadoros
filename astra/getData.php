@@ -1,5 +1,5 @@
 <?php
-define('MAX_LOG_RECORDS', 200);
+define('MAX_LOG_RECORDS', 400);
 require_once '../lib/standard.php';
 require_once '../prefadoros/prefadoros.php';
 require_once '../pektis/pektis.php';
