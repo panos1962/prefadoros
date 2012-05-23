@@ -862,7 +862,7 @@ var FiloPaleta = new function() {
 
 	this.confirmDianomi = function(yes, fila) {
 		Tools.dialogosClear('dialogosExo');
-		if (yes) { this.sizitisi(event, fila); }
+		if (yes) { this.sizitisi(window.event, fila); }
 	};
 };
 
