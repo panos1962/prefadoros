@@ -18,12 +18,24 @@ Page::fyi();
 ?>
 <script type="text/javascript">
 //<![CDATA[
-setTimeout(function() {
+var Egrafi = {};
+
+Egrafi.ost = setTimeout(function() {
 	var x = getelid('simantiko');
 	if (notSet(x)) { return; }
 	if (isSet(x.pineza) && x.pineza) {return; }
-	sviseNode(x, 500);
+	sviseNode(x, 500, true);
 }, 50000);
+
+Egrafi.oroiSimetoxis = function () {
+	clearTimeout(Egrafi.ost);
+	var x = getelid('simantiko');
+	if (isSet(x)) {
+		setOpacity(x, 100);
+		x.style.visibility = 'visible';
+	}
+	return false;
+}
 //]]>
 </script>
 <div class="mainArea">
@@ -321,13 +333,12 @@ function photo_area() {
 function photo_input() {
 	global $globals;
 
-	/*
-	if ($globals->server != "http://127.0.0.1/prefadoros/") {
-		return;
-	}
-	*/
-
 	if ($globals->not_pektis()) {
+		?>
+		<td class="nobr tbldbg">
+			<a href="#" onclick="return Egrafi.oroiSimetoxis();">Όροι εγγραφής και συμμετοχής</a>
+		</td>
+		<?php
 		return;
 	}
 
@@ -357,7 +368,7 @@ function simantiko() {
 	<div id="simantiko" class="simantiko" style="top: 1.2cm; width: 18.0cm;"
 		onmouseover="getelid('apokripsisimantiko').style.visibility='visible';"
 		onmouseout="getelid('apokripsisimantiko').style.visibility='hidden';">
-	<?php Page::apokripsi('simantiko'); ?>
+	<?php Page::apokripsi('simantiko', TRUE); ?>
 	<div style="text-align: center; margin-bottom: 0.2cm;">
 	<div class="simantikoHeader">ΣΗΜΑΝΤΙΚΟ</div>
 	</div>
