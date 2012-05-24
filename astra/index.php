@@ -19,7 +19,7 @@ Page::fyi();
 ?>
 <div id="astraArea" class="mainArea astraArea">
 <div id="ruler" style="width: 10.0cm; height: 1px;"></div>
-<form onsubmit="return Astra.getData();" class="astraInputArea">
+<form onsubmit="Omada.clear(); return Astra.getData(true);" class="astraInputArea">
 <div class="astraInput">
 	<div class="formaPrompt astraPrompt">Παίκτης</div>
 	<input id="pektis" class="formaField" value="<?php print $globals->pektis->login; ?>"
@@ -47,6 +47,10 @@ Page::fyi();
 	<img id="searchIcon" class="astraSearchIcon" src="<?php
 		print $globals->server; ?>images/workingRed.gif" alt="" />
 	<input class="formaField astraGo" value="Go!!!" type="submit" />
+	<input class="formaField astraGo" value="<" type="button"
+		title="Προηγούμενα" onclick="return Omada.proigoumena();" />
+	<input class="formaField astraGo" value=">" type="button"
+		title="Περισσότερα" onclick="return Omada.perisotera();" />
 </div>
 </form>
 <div id="dataArea" class="astraDataArea"></div>
