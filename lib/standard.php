@@ -779,7 +779,7 @@ class Page {
 		<?php
 	}
 
-	public static function apokripsi($id) {
+	public static function apokripsi($id, $stay = FALSE) {
 		global $globals;
 		?>
 		<div id="apokripsi<?php print $id; ?>" class="apokripsi">
@@ -788,7 +788,8 @@ class Page {
 				onclick="karfitsoma('<?php print $id; ?>', this);" />
 			<img class="apokripsiIcon" title="Απόκρυψη" src="<?php
 				print $globals->server; ?>images/Xgrey.png" alt=""
-				onclick="sviseNode(getelid('<?php print $id; ?>'));" />
+				onclick="sviseNode(getelid('<?php print $id; ?>')<?php
+				if ($stay) { print ", 10, true"; }?>);" />
 		</div>
 		<?php
 	}
