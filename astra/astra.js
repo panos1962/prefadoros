@@ -132,8 +132,8 @@ var Astra = new function() {
 		}
 		else {
 			partida.value = partida.value.trim();
-			params +=  'partida=' + uri(partida.value);
-			if (!partida.value.match(/^[0-9]+/)) {
+			params += 'partida=' + uri(partida.value);
+			if (!partida.value.match(/^[0-9]+$/)) {
 				params +=  '&pektis=' + uri(pektis.value.trim());
 				params +=  '&apo=' + uri(apo.value.trim());
 				params +=  '&eos=' + uri(eos.value.trim());
