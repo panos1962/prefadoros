@@ -30,7 +30,9 @@ var Pexnidi = new function() {
 	// Τα arrays "prevBazaFilo" και "prevBazaPektis" χρησιμοποιούνται
 	// στην επανεμφάνιση της προηγούμενης (τελευταίας) μπάζας. Ο παίκτης
 	// μπορεί να δει ακόμη και μπάζα από την προηγούμενη διανομή, εφόσον
-	// βρίσκεται στην αρχή νέας διανομής.
+	// βρίσκεται στην αρχή νέας διανομής. Σε περίπτωση που έχει ανοίξει
+	// ο τζόγος μετά από πάσο, στη θέση της τελευταίας μπάζας εμφανίζονται
+	// τα φύλλα του τζόγου.
 
 	pexnidi.prevBazaFilo = [];
 	pexnidi.prevBazaPektis = [];
@@ -83,6 +85,7 @@ var Pexnidi = new function() {
 		if (pexnidi.bazaFilo.length > 0) {
 			pexnidi.prevBazaFilo = pexnidi.bazaFilo;
 			pexnidi.prevBazaPektis = pexnidi.bazaPektis;
+			pexnidi.prevTzogosFilo = [];
 		}
 
 		pexnidi.bazaFilo = [];
