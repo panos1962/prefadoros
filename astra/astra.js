@@ -15,7 +15,7 @@ var Omada = new function() {
 		omada[cur = ruc] = { 'min': min, 'max': max };
 	};
 
-	this.perisotera = function() {
+	this.paleotera = function() {
 		var x = getelid('partida');
 		if (notSet(x)) { return false; }
 
@@ -35,7 +35,7 @@ var Omada = new function() {
 		return false;
 	};
 
-	this.proigoumena = function() {
+	this.neotera = function() {
 		var x = getelid('partida');
 		if (notSet(x)) { return false; }
 

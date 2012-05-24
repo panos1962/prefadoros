@@ -48,9 +48,9 @@ Page::fyi();
 		print $globals->server; ?>images/workingRed.gif" alt="" />
 	<input class="formaField astraGo" value="Go!!!" type="submit" />
 	<input class="formaField astraGo" value="<" type="button"
-		title="Προηγούμενα" onclick="return Omada.proigoumena();" />
+		title="Νεότερα" onclick="return Omada.neotera();" />
 	<input class="formaField astraGo" value=">" type="button"
-		title="Περισσότερα" onclick="return Omada.perisotera();" />
+		title="Παλαιότερα" onclick="return Omada.paleotera();" />
 </div>
 </form>
 <div id="dataArea" class="astraDataArea"></div>
