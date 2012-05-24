@@ -1,3 +1,56 @@
+var Omada = new function() {
+	var omada = [];
+	var cur = null;
+	var ruc = null;
+
+	this.clear = function() {
+		omada = [];
+		cur = null;
+		ruc = null;
+	};
+
+	this.add = function(min, max) {
+		if (notSet(ruc)) { ruc = 0; }
+		else { ruc++; }
+		omada[cur = ruc] = { 'min': min, 'max': max };
+	};
+
+	this.perisotera = function() {
+		var x = getelid('partida');
+		if (notSet(x)) { return false; }
+
+		if (notSet(ruc) || (cur > ruc)) {
+			mainFyi('Δεν υπάρχει επόμενη ενότητα');
+		}
+
+		if (cur == ruc) {
+			x.value = '-' + (omada[cur].min - 1);
+			Astra.getData(true);
+		}
+		else if (cur < ruc) {
+			cur++;
+			x.value = omada[cur].min + '-' + omada[cur].max;
+			Astra.getData();
+		}
+		return false;
+	};
+
+	this.proigoumena = function() {
+		var x = getelid('partida');
+		if (notSet(x)) { return false; }
+
+		if (notSet(cur) || (cur <= 0)) {
+			mainFyi('Δεν υπάρχει προηγούμενη ενότητα');
+		}
+		else {
+			cur--;
+			x.value = omada[cur].min + '-' + omada[cur].max;
+			Astra.getData();
+		}
+		return false;
+	};
+};
+
 var Astra = new function() {
 	this.setHeight = function() {
 		var wh = diathesimosXoros();
@@ -27,7 +80,8 @@ var Astra = new function() {
 
 	var protiFora = true;
 
-	this.getData = function() {
+	this.getData = function(go) {
+		if (notSet(go)) { go = false; }
 		var pektis = getelid('pektis');
 		if (notSet(pektis)) {
 			mainFyi('pektis: misssing input field');
@@ -69,7 +123,7 @@ var Astra = new function() {
 
 		var req = new Request('astra/getData');
 		req.xhr.onreadystatechange = function() {
-			getDataCheck(req, ico, plist);
+			getDataCheck(req, ico, plist, go);
 		};
 
 		var params = '';
@@ -90,7 +144,7 @@ var Astra = new function() {
 		return false;
 	};
 
-	function getDataCheck(req, ico, plist) {
+	function getDataCheck(req, ico, plist, go) {
 		if (req.xhr.readyState != 4) { return; }
 
 		ico.style.visibility = 'hidden';
@@ -109,10 +163,24 @@ var Astra = new function() {
 			return;
 		}
 
+		var min = null;
+		var max = null;
 		var html = '';
 		for (var i = 0; i < dedomena.partida.length; i++) {
 			html += Astra.partidaHTML(dedomena.partida[i], i, plist);
+			if (isSet(dedomena.partida[i].a)) { continue; }
+			if (notSet(min)) {
+				min = dedomena.partida[i].t;
+				max = dedomena.partida[i].t;
+			}
+			else if (dedomena.partida[i].t < min) {
+				min = dedomena.partida[i].t;
+			}
+			else if (dedomena.partida[i].t > max) {
+				max = dedomena.partida[i].t;
+			}
 		}
+		if (go && isSet(min)) { Omada.add(min, max); }
 
 		var x = getelid('dataArea');
 		if (notSet(x)) { return; }
@@ -722,6 +790,6 @@ var Astra = new function() {
 window.onload = function() {
 	init();
 	Astra.setHeight();
-	Astra.getData();
+	Astra.getData(true);
 	Astra.ruler();
 };
