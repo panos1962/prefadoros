@@ -31,8 +31,13 @@ Egrafi.oroiSimetoxis = function () {
 	clearTimeout(Egrafi.ost);
 	var x = getelid('simantiko');
 	if (isSet(x)) {
-		setOpacity(x, 100);
-		x.style.visibility = 'visible';
+		if (x.style.visibility == 'visible') {
+			x.style.visibility = 'hidden';
+		}
+		else {
+			setOpacity(x, 100);
+			x.style.visibility = 'visible';
+		}
 	}
 	return false;
 }
@@ -365,7 +370,8 @@ function photo_input() {
 
 function simantiko() {
 	?>
-	<div id="simantiko" class="simantiko" style="top: 1.2cm; width: 18.0cm;"
+	<div id="simantiko" class="simantiko"
+		style="top: 1.2cm; width: 18.0cm; visibility: visible;"
 		onmouseover="getelid('apokripsisimantiko').style.visibility='visible';"
 		onmouseout="getelid('apokripsisimantiko').style.visibility='hidden';">
 	<?php Page::apokripsi('simantiko', TRUE); ?>
