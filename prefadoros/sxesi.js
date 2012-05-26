@@ -349,9 +349,10 @@ var Sxesi = new function() {
 			return;
 		}
 		if (notSet(img)) { img = getelid('sxi_' + pektis); }
-		if (notSet(img)) { return; }
-		img.prevSrc = img.src;
-		img.src = globals.server + 'images/working.gif';
+		if (isSet(img)) {
+			img.prevSrc = img.src;
+			img.src = globals.server + 'images/working.gif';
+		}
 		var req = new Request('sxesi/addProsklisi');
 		req.xhr.onreadystatechange = function() {
 			addProsklisiCheck(req, img, pektis);
@@ -366,18 +367,24 @@ var Sxesi = new function() {
 		var rsp = req.getResponse();
 		if (rsp.match(/^OK@/)) {
 			playSound('pop');
-			img.src = img.prevSrc;
 			mainFyi('Έχει αποσταλεί πρόσκληση στον παίκτη "' + pektis +
 				'" για το τραπέζι ' + rsp.replace(/^OK@/, ''));
+			if (notSet(img)) { return; }
+
+			try { img.src = img.prevSrc; } catch(e) {}
+			return;
 		}
-		else if (rsp) {
-			playSound('beep');
-			mainFyi(rsp);
-			try { img.src = globals.server + 'images/X.png'; } catch(e) {};
-			setTimeout(function() {
-				try { img.src = img.prevSrc; } catch(e) {};
-			}, globals.duration.errorIcon);
-		}
+
+		if (!rsp) { return; }
+
+		playSound('beep');
+		mainFyi(rsp);
+		if (notSet(img)) { return; }
+
+		try { img.src = globals.server + 'images/X.png'; } catch(e) {}
+		setTimeout(function() {
+			try { img.src = img.prevSrc; } catch(e) {};
+		}, globals.duration.errorIcon);
 	};
 
 	var searchPektisTimer = null;
