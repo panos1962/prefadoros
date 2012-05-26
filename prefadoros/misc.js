@@ -584,7 +584,7 @@ var Profinfo = new function() {
 			html += '<button type="button" onclick="Sxesi.permesWindow(\'' +
 				login + '\');">Μήνυμα</button>';
 			try {
-				if (dikeomaProsklisis()) {
+				if (dikeomaProsklisis() && notTheatis()) {
 					html += '<button type="button" onclick="Sxesi.addProsklisi(\'' +
 						login + '\');">Πρόσκληση</button>';
 				}
