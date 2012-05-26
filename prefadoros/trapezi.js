@@ -251,11 +251,11 @@ var Trapezi = new function() {
 				else if (Trapezi.isFilos(p)) { html += ' kafenioFilos'; }
 			}
 			html += ' noshadow"';
-			if (p) { html += Trapezi.permesHTML(p); }
+			if (p) { html += Trapezi.permesHTML(p, null, t.k); }
 			html += '>';
 			html += '<div class="kafenioBoxData">' + (p == '' ? '&nbsp;' : p) + '</div>';
 			if (partida.k == t.k) { html += Trapezi.miposBikeTora(p); }
-			html += this.profinfoHTML(p);
+			html += this.profinfoHTML(p, t.k);
 			html += '</div>';
 		}
 		if (isSet(t.e)) { html += this.efeHTML(t.e); }
@@ -290,9 +290,12 @@ var Trapezi = new function() {
 		return html;
 	};
 
-	this.profinfoHTML = function(pektis) {
-		html = '<img id="profinfo:' + pektis + '" class="profinfoIcon" src="' +
-			globals.server + 'images/profinfo.png" title="Προφίλ παίκτη" alt="" ' +
+	this.profinfoHTML = function(pektis, trapezi) {
+		var html = '';
+		html = '<img id="profinfo:' + pektis;
+		if (isSet(trapezi)) { html += ':' + trapezi; }
+		html += '" class="profinfoIcon" src="' + globals.server +
+			'images/profinfo.png" title="Προφίλ παίκτη" alt="" ' +
 			'onclick="Profinfo.dixe(event, \'' + pektis + '\', null, this);" ' +
 			'onmouseover="Profinfo.omo(\'' + pektis + '\', null, true, this);" ' +
 			'onmouseout="Profinfo.omo(\'' + pektis + '\', null, false, this);" ' +
@@ -332,11 +335,15 @@ var Trapezi = new function() {
 		return html;
 	};
 
-	this.permesHTML = function(p, msg) {
+	this.permesHTML = function(p, msg, trapezi) {
 		if (notSet(msg)) { msg = ''; }
 		var html = '';
-		html += ' onmouseover="Trapezi.fotise(this, \'' + p + '\');"';
-		html += ' onmouseout="Trapezi.xefotise(this, \'' + p + '\');"';
+		html += ' onmouseover="Trapezi.fotise(this, \'' + p + '\'';
+		if (isSet(trapezi)) { html += ', ' + trapezi; }
+		html += ');"';
+		html += ' onmouseout="Trapezi.xefotise(this, \'' + p + '\'';
+		if (isSet(trapezi)) { html += ', ' + trapezi; }
+		html += ');"';
 		html += ' onclick="Sxesi.permesWindow(\'' + p + '\', \'' + msg + '\');"';
 		// Εδώ υπάρχει ένα ανώδυνο bug· αν ο παίκτης είναι θεατής σε τραπέζι,
 		// θα εμφανίζεται μήνυμα για πρόσκληση, ακόμη και αν ο παίκτης δεν
@@ -349,24 +356,28 @@ var Trapezi = new function() {
 		return html;
 	};
 
-	this.fotise = function(div, pektis) {
+	this.fotise = function(div, pektis, trapezi) {
 		if (notSet(div)) { return; }
 		div.oldClass = div.getAttribute('class');
 		if (notSet(div.oldClass)) { return; }
 		div.setAttribute('class', div.oldClass + ' kafenioFotismeno');
 
 		if (!pektis) { return; }
-		var x = getelid('profinfo:' + pektis);
+		var id = 'profinfo:' + pektis;
+		if (isSet(trapezi)) { id += ':' + trapezi; }
+		var x = getelid(id);
 		if (notSet(x)) { return; }
 		x.style.display = 'inline';
 	};
 
-	this.xefotise = function(div, pektis) {
+	this.xefotise = function(div, pektis, trapezi) {
 		if (notSet(div) || notSet(div.oldClass)) { return; }
 		div.setAttribute('class', div.oldClass);
 
 		if (!pektis) { return; }
-		var x = getelid('profinfo:' + pektis);
+		var id = 'profinfo:' + pektis;
+		if (isSet(trapezi)) { id += ':' + trapezi; }
+		var x = getelid(id);
 		if (notSet(x)) { return; }
 		x.style.display = 'none';
 	};
