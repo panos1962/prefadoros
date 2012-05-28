@@ -77,6 +77,7 @@ aftonomo_check();
 </form>
 </div>
 <?php
+neos_kodikos();
 Page::close();
 
 function aftonomo_check() {
@@ -113,6 +114,26 @@ function aftonomo_check() {
 	}, 50000);
 	//]]>
 	</script>
+	<?php
+}
+
+function neos_kodikos() {
+	$subject = "Πρεφαδόρος -- Αίτηση νέου κωδικού";
+	$body = "Παρακαλώ να μου αποστείλετε νέο κωδικό στο email που έχω δηλώσει " .
+		"στον «Πρεφαδόρο».\r\n\r\nΤο login μου είναι: \r\n\r\n" .
+		"Αν δεν θυμάστε το login σας, γράψτε το email που είχατε " .
+		"δηλώσει κατά την εγγραφή σας: \r\n";
+	?>
+	<div id="neos_kodikos" class="simantiko"
+		style="top: 10.2cm; width: 14.0cm; visibility: visible;">
+	Αν έχετε ξεχάσει το login ή τον κωδικό σας, στείλτε μου σχετικό
+	<a target="_blank" href="mailto:panos@prefadoros.net?subject=<?php
+		print urlencode($subject); ?>&body=<?php
+		print urlencode($body); ?>">email</a>
+	και θα σας στείλω νέο κωδικό στο email που έχετε δηλώσει στον «Πρεφαδόρο».
+	Αν δεν είχατε δηλώσει σωστό email, τότε, δυστυχώς, θα πρέπει να 
+	δημιουργήσετε νέο λογαριασμό.
+	</div>
 	<?php
 }
 ?>
