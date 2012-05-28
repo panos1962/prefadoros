@@ -127,7 +127,8 @@ function neos_kodikos() {
 	<div id="neos_kodikos" class="simantiko"
 		style="top: 10.2cm; width: 14.0cm; visibility: visible;">
 	Αν έχετε ξεχάσει το login ή τον κωδικό σας, στείλτε μου σχετικό
-	<a target="_blank" href="mailto:panos@prefadoros.net?subject=<?php
+	<a target="_blank" href="mailto:panos@<?php
+		print "prefadoros.net"; ?>?subject=<?php
 		print urlencode($subject); ?>&body=<?php
 		print urlencode($body); ?>">email</a>
 	και θα σας στείλω νέο κωδικό στο email που έχετε δηλώσει στον «Πρεφαδόρο».
