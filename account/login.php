@@ -158,7 +158,10 @@ function neos_kodikos() {
 		"Τηλέφωνο: \r\n";
 	?>
 	<div id="neosKodikos" class="simantiko"
-		style="position: absolute; top: 10.2cm; width: 14.0cm; display: none;">
+		style="position: absolute; top: 7.2cm; left: 6.2cm; width: 14.0cm; display: none;">
+	<div style="text-align: center; margin-bottom: 0.2cm;">
+	<div class="simantikoHeader">Επαναφορά κωδικού</div>
+	</div>
 	Αν έχετε ξεχάσει το login ή τον κωδικό σας, στείλτε μου σχετικό
 	<a target="_blank" href="#" onclick="return mailme();">email</a>
 	και θα σας στείλω νέο κωδικό στο email που έχετε δηλώσει στον «Πρεφαδόρο».
