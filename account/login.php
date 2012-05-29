@@ -7,6 +7,17 @@ Page::head();
 Page::stylesheet('lib/forma');
 Page::javascript('lib/forma');
 Page::javascript('account/account');
+?>
+<script type="text/javascript">
+//<![CDATA[
+function neosKodikosSwitch() {
+	var x = getelid('neosKodikos');
+	if (notSet(x)) { return; }
+	x.style.display = x.style.display == 'none' ? 'inline-block' : 'none';
+}
+//]]>
+</script>
+<?php
 Page::body();
 Page::epikefalida(FALSE);
 Page::fyi();
@@ -41,6 +52,11 @@ aftonomo_check();
 	<td class="tbldbg">
 		<input name="password" type="password" maxlength="50" size="16"
 			value="" class="formaField" />
+		<div style="position: relative; display: inline-block;">&nbsp;
+		<img src="<?php print $globals->server; ?>images/misc/sosivio.png" alt=""
+			style="position: absolute; width: 1.0cm; top: 0px; left: 1.0cm;"
+			title="Ξεχάσατε τον κωδικό σας;" onclick="neosKodikosSwitch();" />
+		</div>
 	</td>
 </tr>
 <tr>
@@ -127,8 +143,8 @@ function neos_kodikos() {
 		"Αν δεν θυμάστε το login σας, γράψτε το email που είχατε " .
 		"δηλώσει κατά την εγγραφή σας: \r\n";
 	?>
-	<div id="neos_kodikos" class="simantiko"
-		style="top: 10.2cm; width: 14.0cm; visibility: visible;">
+	<div id="neosKodikos" class="simantiko"
+		style="position: absolute; top: 10.2cm; width: 14.0cm; display: none;">
 	Αν έχετε ξεχάσει το login ή τον κωδικό σας, στείλτε μου σχετικό
 	<a target="_blank" href="mailto:panos@<?php
 		print "prefadoros.net"; ?>?subject=<?php
