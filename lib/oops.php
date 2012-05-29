@@ -50,9 +50,9 @@ window.onload = function() {
 </script>
 <div class="main">
 <img id="iris" class="irisIcon" src="<?php print $globals->server;
-	?>images/iris.gif" alt="" alt="inaccessible data" />
+	?>images/misc/iris.gif" alt="" alt="inaccessible data" />
 <img id="oops" class="oopsIcon" src="<?php print $globals->server;
-	?>images/oops.gif" alt="" alt="" />
+	?>images/misc/oops.gif" alt="" alt="" />
 </div>
 <?php
 Page::close();
