@@ -54,7 +54,7 @@ aftonomo_check();
 			value="" class="formaField" />
 		<div style="position: relative; display: inline-block;">&nbsp;
 		<img src="<?php print $globals->server; ?>images/misc/sosivio.png" alt=""
-			style="position: absolute; width: 1.0cm; top: 0px; left: 1.0cm;"
+			style="position: absolute; width: 1.0cm; top: 0px; left: 1.0cm; cursor: pointer"
 			title="Ξεχάσατε τον κωδικό σας;" onclick="neosKodikosSwitch();" />
 		</div>
 	</td>
@@ -139,9 +139,10 @@ function aftonomo_check() {
 function neos_kodikos() {
 	$subject = "Πρεφαδόρος -- Αίτηση νέου κωδικού";
 	$body = "Παρακαλώ να μου αποστείλετε νέο κωδικό στο email που έχω δηλώσει " .
-		"στον «Πρεφαδόρο».\r\n\r\nΤο login μου είναι: \r\n\r\n" .
-		"Αν δεν θυμάστε το login σας, γράψτε το email που είχατε " .
-		"δηλώσει κατά την εγγραφή σας: \r\n";
+		"στον «Πρεφαδόρο».\r\n\r\n" .
+		"Login: \r\n\r\n" .
+		"Email: \r\n\r\n" .
+		"Τηλέφωνο: \r\n";
 	?>
 	<div id="neosKodikos" class="simantiko"
 		style="position: absolute; top: 10.2cm; width: 14.0cm; display: none;">
@@ -151,8 +152,8 @@ function neos_kodikos() {
 		print urlencode($subject); ?>&body=<?php
 		print urlencode($body); ?>">email</a>
 	και θα σας στείλω νέο κωδικό στο email που έχετε δηλώσει στον «Πρεφαδόρο».
-	Αν δεν είχατε δηλώσει σωστό email, τότε, δυστυχώς, θα πρέπει να 
-	δημιουργήσετε νέο λογαριασμό.
+	Αν δεν είχατε δηλώσει σωστό email, τότε γράψτε μου έναν αρ. τηλεφώνου
+	για να επικοινωνήσω μαζί σας, αλλιώς θα πρέπει να δημιουργήσετε νέο λογαριασμό.
 	</div>
 	<?php
 }
