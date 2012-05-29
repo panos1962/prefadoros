@@ -15,6 +15,19 @@ function neosKodikosSwitch() {
 	if (notSet(x)) { return; }
 	x.style.display = x.style.display == 'none' ? 'inline-block' : 'none';
 }
+
+function mailme() {
+	var sub = 'Πρεφαδόρος -- Αίτηση νέου κωδικού';
+	var bod = 'Παρακαλώ να μου αποστείλετε νέο κωδικό στο email που έχω δηλώσει ' +
+		'στον «Πρεφαδόρο».\r\n\r\nLogin: ';
+	var x = getelid('login');
+	if (isSet(x) && isSet(x.value)) { bod += x.value.trim(); }
+	bod += '\r\n\r\nEmail: \r\n\r\nΤηλέφωνο: \r\n';
+	var lnk = 'mailto:panos' + '@' + 'prefadoros.net?subject=' + uri(sub) +
+		'&body=' + uri(bod);
+	var win = window.open(lnk, 'emailWindow');
+	return false;
+}
 //]]>
 </script>
 <?php
@@ -147,10 +160,7 @@ function neos_kodikos() {
 	<div id="neosKodikos" class="simantiko"
 		style="position: absolute; top: 10.2cm; width: 14.0cm; display: none;">
 	Αν έχετε ξεχάσει το login ή τον κωδικό σας, στείλτε μου σχετικό
-	<a target="_blank" href="mailto:panos@<?php
-		print "prefadoros.net"; ?>?subject=<?php
-		print urlencode($subject); ?>&body=<?php
-		print urlencode($body); ?>">email</a>
+	<a target="_blank" href="#" onclick="return mailme();">email</a>
 	και θα σας στείλω νέο κωδικό στο email που έχετε δηλώσει στον «Πρεφαδόρο».
 	Αν δεν είχατε δηλώσει σωστό email, τότε γράψτε μου έναν αρ. τηλεφώνου
 	για να επικοινωνήσω μαζί σας, αλλιώς θα πρέπει να δημιουργήσετε νέο λογαριασμό.
