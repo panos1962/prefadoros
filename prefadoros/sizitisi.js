@@ -262,6 +262,7 @@ var Sizitisi = new function() {
 		'_NC_':			'nutcracker',
 		'_ITM_':		'inthemood',
 		'_BG_':			'clarinetitis',
+		'_SKL_':		'skoulikantera',
 		'_KL_':			'aomatos'
 	};
 
