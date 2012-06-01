@@ -321,8 +321,7 @@ function print_panel() {
 		"http://youtu.be/LpX2T8IenD8");
 	$item_list[] = new Item("moxthiroEmoticon.gif");
 	$item_list[] = new Item("skoulikantera.jpg", "Α, πανάθεμά σε, σκουληκαντέρα!", "5.6", "_SKL_");
-	$item_list[] = new Item("tinPatisame.jpg", "Την πατήσαμε…", "6.0",
-		"http://splicd.com/rvwSqsAoeq4/0/1");
+	$item_list[] = new Item("tinPatisame.jpg", "Την πατήσαμε…", "6.0", "_TP_");
 	$item_list[] = new Item("xtipoKefali.gif");
 	$item_list[] = new Item("sfiriEmoticon.gif", "Θα το σπάσω!!!");
 	$item_list[] = new Item("parathiro.gif", "", "", "tzamia:1500");
