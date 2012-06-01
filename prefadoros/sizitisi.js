@@ -302,7 +302,7 @@ var Sizitisi = new function() {
 		}
 
 		if (sigasi) {
-			setTimeout(this.dixeSigasiVideo(), 1000);
+			setTimeout(Sizitisi.dixeSigasiVideo, 1000);
 			this.sigasiVideo();
 		}
 		return html;
