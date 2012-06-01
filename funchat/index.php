@@ -320,7 +320,7 @@ function print_panel() {
 	$item_list[] = new Item("vegosPelates.jpg", "Πελάτες μου!", "3.5",
 		"http://youtu.be/LpX2T8IenD8");
 	$item_list[] = new Item("moxthiroEmoticon.gif");
-	$item_list[] = new Item("kobra.gif");
+	$item_list[] = new Item("skoulikantera.jpg", "Α, πανάθεμά σε, σκουληκαντέρα!", "5.6", "_SKL_");
 	$item_list[] = new Item("tinPatisame.jpg", "Την πατήσαμε…", "6.0",
 		"http://splicd.com/rvwSqsAoeq4/0/1");
 	$item_list[] = new Item("xtipoKefali.gif");
