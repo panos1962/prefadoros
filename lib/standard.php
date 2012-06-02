@@ -29,7 +29,7 @@ define('XRONOS_POLIVOLO2', 20000);
 define('MAX_POLIVOLO2', 30);
 
 define('FUNCHAT_SERVER', 'http://www.pineza.info/prefa/funchatImages/');
-define('MY_EMAIL_ADDRESS', 'panos@prefadoros.net');
+define('MY_EMAIL_ADDRESS', 'panos' . '@prefadoros.net');
 define('SYSTEM_ACCOUNT', 'www.prefadoros.gr');
 define('DEFAULT_PARASKINIO', 'standard.gif');
 define('KLISTA_SELIDA', 'lock/klista.php');
@@ -758,7 +758,7 @@ class Page {
 		<div class="data" style="font-style: italic; white-space: nowrap;">
 			&copy; Panos I. Papadopoulos <span style="font-style: normal;">[<a
 				title="Send mail to &quot;<?php print MY_EMAIL_ADDRESS; ?>&quot;"
-				href="mailto:<?php print MY_EMAIL_ADDRESS; ?>"><img
+				target="_blank" href="mailto:<?php print MY_EMAIL_ADDRESS; ?>"><img
 				src="<?php print $globals->server; ?>images/email.png"
 				style="width: 0.6cm; height: 0.5cm; margin-bottom: -0.105cm;"
 					alt="" /></a>]</span> 2011&ndash;
