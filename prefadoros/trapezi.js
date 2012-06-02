@@ -184,6 +184,7 @@ var Trapezi = new function() {
 		if (t.r) { html += ' kafenioTrapeziPrive'; }
 		if (theatis) { html += ' kafenioTrapeziTheatis'; }
 		html += '">';
+		if (isSet(t.i) && (t.i <= 0)) { html += Trapezi.telosHTML(); }
 		html += '<div class="kafenioBox kafenioTrapeziInfo';
 		if (theatis) { html += ' kafenioTrapeziInfoTheatis'; }
 		html += '"';
@@ -261,6 +262,13 @@ var Trapezi = new function() {
 		}
 		if (isSet(t.e)) { html += this.efeHTML(t.e); }
 		html += '</div>';
+		return html;
+	};
+
+	this.telosHTML = function() {
+		var html = '';
+		html += '<img class="telosKafenio" alt="" src="' + globals.server + 'images/telos.png" ';
+		html += 'title="Η παρτίδα έχει τελειώσει" />'
 		return html;
 	};
 
