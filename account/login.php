@@ -23,7 +23,7 @@ function mailme() {
 	var x = getelid('login');
 	if (isSet(x) && isSet(x.value)) { bod += x.value.trim(); }
 	bod += '\r\n\r\nEmail: \r\n\r\nΤηλέφωνο: \r\n';
-	var lnk = 'mailto:panos' + '@' + 'prefadoros.net?subject=' + uri(sub) +
+	var lnk = 'mailto:support' + '@' + 'prefadoros.net?subject=' + uri(sub) +
 		'&body=' + uri(bod);
 	var win = window.open(lnk, 'emailWindow');
 	return false;
