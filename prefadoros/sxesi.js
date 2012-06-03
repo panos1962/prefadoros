@@ -286,10 +286,10 @@ var Sxesi = new function() {
 		return html;
 	};
 
-	this.dixeTopoHTML = function(pektis) {
+	this.dixeTopoHTML = function(pektis, style) {
 		var html = '<img alt="" title="Εντοπισμός παίκτη" class="sxesiIcon" src="' +
 			globals.server + 'images/iplocator.png" onclick="Sxesi.dixeTopo(event, this, \'' +
-			pektis + '\');" />';
+			pektis + '\');" style="' + style + ';" />';
 		return html;
 	};
 
