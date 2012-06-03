@@ -592,6 +592,9 @@ var Profinfo = new function() {
 		}
 		html += '<button type="button" onclick="Profinfo.klise(this.parentNode.' +
 			'parentNode);">Άκυρο</button>';
+		if (isPektis() && isSet(pektis.superuser) && pektis.superuser) {
+			html += Sxesi.dixeTopoHTML(login, 'margin-left: 0.8cm');
+		}
 		return html;
 	};
 
