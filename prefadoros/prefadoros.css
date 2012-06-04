@@ -1580,7 +1580,7 @@ font-weight: bold;
 
 .telos {
 	position: absolute;
-	top: -0.12cm;
+	top: -0.125cm;
 	left: -0.13cm;
 	z-index: 9;
 	opacity: 0.3;
@@ -1590,8 +1590,8 @@ font-weight: bold;
 
 .telosKafenio {
 	position: absolute;
-	top: -0.09cm;
-	left: -0.10cm;
+	top: -0.085cm;
+	left: -0.085cm;
 	width: 1.2cm;
 	z-index: 10;
 	opacity: 0.3;
