@@ -1578,14 +1578,23 @@ font-weight: bold;
 	filter: alpha(opacity=0);
 }
 
-.telos {
+.telosArea {
 	position: absolute;
-	top: -0.125cm;
-	left: -0.13cm;
+	top: 0px;
+	left: 0px;
+	width: 5.0cm;
+	height: 5.0cm;
+	overflow: hidden;
 	z-index: 9;
 	opacity: 0.3;
 	filter: alpha(opacity=30);
 	cursor: pointer;
+}
+
+.telos {
+	position: absolute;
+	top: 0px;
+	left: 0px;
 }
 
 .telosKafenio {
