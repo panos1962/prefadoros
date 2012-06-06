@@ -232,9 +232,11 @@ var Prosklisi = new function() {
 				'title="Προσκαλέστε όλους τους θεατές" ' +
 				'alt="" onclick="Prosklisi.theates(this);" />';
 		}
-		html += '<img class="pssIcon" src="' + globals.server + 'images/Xred.png" ' +
-			'title="Διαγραφή όλων των προσκλήσεων που σας αφορρούν" ' +
-			'alt="" onclick="Prosklisi.diagrafiOlon(this);" />';
+		if (prosklisi.length > 0) {
+			html += '<img class="pssIcon" src="' + globals.server + 'images/Xred.png" ' +
+				'title="Διαγραφή όλων των προσκλήσεων που σας αφορρούν" ' +
+				'alt="" onclick="Prosklisi.diagrafiOlon(this);" />';
+		}
 		return html;
 	};
 };
