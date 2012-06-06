@@ -211,8 +211,10 @@ var Partida = new function() {
 
 	this.telosHTML = function() {
 		var html = '';
-		html += '<img class="telos" alt="" src="' + globals.server + 'images/telos.png" ';
-		html += 'onclick="sviseNode(this);" title="Η παρτίδα έχει τελειώσει" />'
+		html += '<div class="telosArea" onclick="sviseNode(this);">';
+		html += '<img class="telos" alt="" src="' + globals.server;
+		html += 'images/telos.png" title="Η παρτίδα έχει τελειώσει" />'
+		html += '</div>';
 		return html;
 	};
 
