@@ -1591,20 +1591,9 @@ font-weight: bold;
 	cursor: pointer;
 }
 
-.telos {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-}
-
-.telosKafenio {
-	position: absolute;
-	top: -0.085cm;
-	left: -0.085cm;
-	width: 1.2cm;
-	z-index: 10;
-	opacity: 0.3;
-	filter: alpha(opacity=30);
+.telosAreaKafenio {
+	width: 1.0cm;
+	height: 1.0cm;
 }
 
 .motto {
