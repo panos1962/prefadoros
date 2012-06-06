@@ -184,7 +184,7 @@ var Trapezi = new function() {
 		if (t.r) { html += ' kafenioTrapeziPrive'; }
 		if (theatis) { html += ' kafenioTrapeziTheatis'; }
 		html += '">';
-		if (isSet(t.i) && (t.i <= 0)) { html += this.telosHTML(true); }
+		if (isSet(t.i) && (t.i <= 0)) { html += this.telosHTML(); }
 		html += '<div class="kafenioBox kafenioTrapeziInfo';
 		if (theatis) { html += ' kafenioTrapeziInfoTheatis'; }
 		html += '"';
