@@ -115,6 +115,7 @@ background-color: magenta;
 	font-size: 0.6cm;
 	font-weight: bold;
 	text-align: center;
+	overflow: hidden;
 
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
@@ -131,6 +132,24 @@ background-color: magenta;
 }
 
 .moviePektis1 {
+	bottom: 0px;
+}
+
+.movieKapikia {
+	position: absolute;
+	right: 0.2cm;
+	height: 0.8cm;
+}
+
+.movieKapikia3 {
+	top: 0px;
+}
+
+.movieKapikia2 {
+	top: 0px;
+}
+
+.movieKapikia1 {
 	bottom: 0px;
 }
 

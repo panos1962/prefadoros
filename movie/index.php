@@ -134,11 +134,9 @@ function trapezi($trapezi, $dianomi) {
 			onclick="Movie.alagiThesis(<?php print map_thesi(3); ?>);">
 			<div id="pektisMain3" class="moviePektisMain moviePektisMain3">
 				<div class="moviePektis moviePektis3">
-					<?php
-					print $trapezi->pektis3;
-					print_kapikia(3, $trapezi->kapikia3);
-					?>
+					<?php print $trapezi->pektis3; ?>
 				</div>
+				<?php print_kapikia(3, $trapezi->kapikia3); ?>
 				<div id="filaArea3" class="movieFilaArea movieFilaArea3"></div>
 				<?php check_dealer(3, $dianomi); ?>
 			</div>
@@ -149,11 +147,9 @@ function trapezi($trapezi, $dianomi) {
 			onclick="Movie.alagiThesis(<?php print map_thesi(2); ?>);">
 			<div id="pektisMain2" class="moviePektisMain moviePektisMain2">
 				<div class="moviePektis moviePektis2">
-					<?php
-					print $trapezi->pektis2;
-					print_kapikia(2, $trapezi->kapikia2);
-					?>
+					<?php print $trapezi->pektis2; ?>
 				</div>
+				<?php print_kapikia(2, $trapezi->kapikia2); ?>
 				<div id="filaArea2" class="movieFilaArea movieFilaArea2"></div>
 				<?php check_dealer(2, $dianomi); ?>
 			</div>
@@ -167,11 +163,9 @@ function trapezi($trapezi, $dianomi) {
 			<div id="filaArea1" class="movieFilaArea movieFilaArea1"></div>
 			<div id="pektisMain1" class="moviePektisMain moviePektisMain1">
 				<div class="moviePektis moviePektis1">
-					<?php
-					print $trapezi->pektis1;
-					print_kapikia(1, $trapezi->kapikia1);
-					?>
+					<?php print $trapezi->pektis1; ?>
 				</div>
+				<?php print_kapikia(1, $trapezi->kapikia1); ?>
 				<?php check_dealer(1, $dianomi); ?>
 			</div>
 		</div>
@@ -539,28 +533,23 @@ function controls() {
 }
 
 function print_kapikia($thesi, $x) {
+	$class = "movieKapikia movieKapikia" . $thesi;
 	if ($x < 0) {
-		$class = "kapikiaMion";
-		$prosimo = "";
+		$class .= " kapikiaMion";
 		$kapikia = $x;
-		$left = "0.2cm";
 	}
 	elseif ($x > 0) {
-		$class = "kapikiaSin";
-		$prosimo = "+";
-		$kapikia = $x;
-		$left = "0.2cm";
+		$class .= " kapikiaSin";
+		$kapikia = "+" . $x;
 	}
 	else {
-		$class = "";
-		$prosimo = "";
 		$kapikia = "";
-		$left = "0px";
 	}
-	?><span id="kapikia<?php print $thesi; ?>" class="<?php
-		print $class; ?>" style="padding-left: <?php
-		print $left; ?>"><?php print $prosimo . $kapikia;
-		?></span><?php
+	?>
+	<div id="kapikia<?php print $thesi; ?>" class="<?php print $class; ?>">
+		<?php print $kapikia; ?>
+	</div>
+	<?php
 }
 
 function map_dianomi($data) {

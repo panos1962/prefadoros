@@ -681,7 +681,7 @@ Movie.resetBaza = function() {
 
 Movie.debugKinisi = function(i, idos, thesi, data) {
 	Movie.debug(i + '. ' + idos + ': Θέση: ' + thesi +
-		'<div class="movieDebugData">' + data + '</span>');
+		'<div class="movieDebugData">' + data + '</div>');
 };
 
 Movie.processDianomi = function(i, thesi, data) {
@@ -798,20 +798,19 @@ Movie.processPliromi = function(i, thesi, data) {
 Movie.displayKapikia = function(thesi) {
 	var x = getelid('kapikia' + thesi);
 	if (notSet(x)) { return; }
+
 	var kapikia = Movie.kapikia[thesi] + Movie.Partida.pliromi[thesi];
+	var cl = 'movieKapikia movieKapikia' + thesi;
 	if (kapikia < 0) {
-		x.setAttribute('class', 'kapikiaMion');
-		x.style.paddingLeft = '0.2cm';
+		x.setAttribute('class', cl + ' kapikiaMion');
 		x.innerHTML = kapikia;
 	}
 	else if (kapikia > 0) {
-		x.setAttribute('class', 'kapikiaSin');
-		x.style.paddingLeft = '0.2cm';
+		x.setAttribute('class', cl + ' kapikiaSin');
 		x.innerHTML = '+' + kapikia;
 	}
 	else {
-		x.setAttribute('class', '');
-		x.style.paddingLeft = '0px';
+		x.setAttribute('class', cl);
 		x.innerHTML = '';
 	}
 };
