@@ -566,9 +566,9 @@ class Page {
 		<?php
 		if ($globals->is_pektis()) {
 			?>
-			[<a target="_blank" href="<?php print $globals->server;
+			[&nbsp;<a target="_blank" href="<?php print $globals->server;
 				?>astra/index.php?pedi=yes" class="data"
-				title="Αρχείο παρτίδων">Αρχείο</a>]
+				title="Αρχείο παρτίδων">Αρχείο</a>&nbsp;]
 			[&nbsp;<a id="permesLink" class="data" target="_blank" href="<?php
 				print $globals->server; ?>permes/index.php?pedi=yes"
 				title="Προσωπικά μηνύματα">PM</a>&nbsp;]
