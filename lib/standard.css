@@ -18,6 +18,7 @@ a img {
 }
 
 .diafimisiArea {
+	position: relative;
 	text-align: center;
 	padding-top: 0.2cm;
 	padding-bottom: 0.2cm;
@@ -26,6 +27,7 @@ a img {
 }
 
 .motdArea {
+	position: relative;
 	margin-top: 0.2cm;
 	margin-bottom: 0.2cm;
 	opacity: 1.0;
@@ -175,10 +177,10 @@ a img {
 }
 
 .apokripsi {
-	text-align: right;
+	position: absolute;
+	top: 0.2cm;
+	right: 0.2cm;
 	visibility: hidden;
-	margin-bottom: -0.7cm;
-	margin-right: 0.1cm;
 }
 
 .apokripsiIcon {
