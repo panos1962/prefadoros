@@ -436,8 +436,8 @@ class Page {
 			onmouseover="getelid('apokripsidiafimisi').style.visibility='visible';"
 			onmouseout="getelid('apokripsidiafimisi').style.visibility='hidden';">
 			<?php
-			self::apokripsi('diafimisi');
 			print $diafimisi;
+			self::apokripsi('diafimisi');
 			?>
 		</div>
 		<?php
