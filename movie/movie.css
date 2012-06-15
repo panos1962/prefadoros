@@ -1,0 +1,567 @@
+.movieMain {
+	position: relative;
+	width: 24.4cm;
+	height: 17.0cm;
+}
+
+.movieEpikefalida {
+	position: absolute;
+	top: 0px
+	left: 0px;
+	width: 18.0cm;
+	height: 1.0cm;
+	font-size: 0.6cm;
+	padding: 0.1cm 0.2cm 0px 0.2cm;
+
+	background-color: #8CAA88;
+	border-style: solid;
+	border-color: #4D944D;
+	border-width: 2px;
+}
+
+.movieEpikefalidaLeft {
+	text-align: left;
+}
+
+.movieEpikefalidaRight {
+	text-align: right;
+}
+
+.movieTrapezi {
+	position: absolute;
+	top: 1.4cm;
+	left: 0px;
+	width: 18.4cm;
+	height: 14.0cm;
+	background-image: url(../images/partida.jpg);
+	background-repeat: repeat;
+	border-style: solid;
+	border-color: #4D944D;
+	border-width: 2px;
+}
+
+.movieIdieterotites {
+	position: absolute;
+	top: -0.6cm;
+	right: 0.2cm;
+}
+
+.movieIdieterotitesIcon {
+	width: 0.8cm;
+	margin-left: 0.2cm;
+}
+
+.moviePektisArea {
+	position: absolute;
+	width: 8.6cm;
+	height: 4.76cm;
+	background-color: #8CAA88;
+	cursor: crosshair;
+/*
+background-color: magenta;
+*/
+}
+
+.moviePektisMain {
+	position: absolute;
+	width: 8.4cm;
+	height: 3.8cm;
+
+	border-style: solid;
+	border-width: 0.12cm;
+	border-color: #4D944D;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	-webkit-box-shadow: 2px 2px 6px #2E2E2E;
+	-moz-box-shadow: 2px 2px 6px #2E2E2E;
+	box-shadow: 2px 2px 6px #2E2E2E;
+}
+
+.moviePektisMain3 {
+	left: 0px;
+}
+
+.moviePektisMain2 {
+	right: 0px;
+}
+
+.moviePektisMain1 {
+	bottom: 0px;
+}
+
+.moviePektisArea3 {
+	top: 0.2cm;
+	left: 0.2cm;
+}
+
+.moviePektisArea2 {
+	top: 0.2cm;
+	right: 0.2cm;
+}
+
+.moviePektisArea1 {
+	bottom: 0.2cm;
+	left: 4.9cm;
+}
+
+.moviePektis {
+	position: absolute;
+	width: 8.4cm;
+	height: 0.8cm;
+
+	font-size: 0.6cm;
+	font-weight: bold;
+	text-align: center;
+	overflow: hidden;
+
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	background-color: #8CAA88;
+}
+
+.moviePektis3 {
+	top: 0px;
+}
+
+.moviePektis2 {
+	top: 0px;
+}
+
+.moviePektis1 {
+	bottom: 0px;
+}
+
+.movieKapikia {
+	position: absolute;
+	right: 0.2cm;
+	height: 0.8cm;
+}
+
+.movieKapikia3 {
+	top: 0px;
+}
+
+.movieKapikia2 {
+	top: 0px;
+}
+
+.movieKapikia1 {
+	bottom: 0px;
+}
+
+.movieControls {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 18.0cm;
+	height: 1.0cm;
+	font-size: 0.6cm;
+	padding: 0.2cm 0.2cm 0px 0.2cm;
+	text-align: center;
+
+	background-color: #8CAA88;
+	border-style: solid;
+	border-color: #4D944D;
+	border-width: 2px;
+
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	-khtml-user-select: none;
+	-ms-user-select: none;
+}
+
+.movieControlsLeft {
+	position: absolute;
+	bottom: 0px;
+	left: 0.4cm;
+}
+
+.movieControlsRight {
+	position: absolute;
+	bottom: 0px;
+	right: 0.4cm;
+}
+
+.movieControlIcon {
+	margin-left: 0.2cm;
+	margin-right: 0.2cm;
+	width: 0.8cm;
+	height: 0.8cm;
+	cursor: pointer;
+}
+
+.movieTimeIcon {
+	border-style: solid;
+	border-width: 0.06cm;
+	border-color: #8CAA88;
+}
+
+.movieDianomes {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 5.8cm;
+	max-height: 17.0cm;
+	overflow-y: auto;
+/*
+background-color: gold;
+*/
+}
+
+.movieDianomesItem {
+	position: relative;
+	font-size: 0.5cm;
+	height: 0.54cm;
+	padding-bottom: 0.2cm;
+	cursor: pointer;
+}
+
+.movieDianomesTzogadoros {
+	position: absolute;
+	left: 0.02cm;
+	letter-spacing: -0.02cm;
+margin-left: 0.06cm;
+}
+
+.movieDianomesTzogadoros2 {
+	color: #0000FF;
+}
+
+.movieDianomesTzogadoros1 {
+	color: #006600;
+}
+
+.movieDianomesTzogadoros0 {
+	color: #7A2900;
+}
+
+.movieDianomesSimetoxi {
+	display: inline-block;
+	padding-right: 0.02cm;
+}
+
+.movieDianomesSimetoxiIcon {
+	width: 0.4cm;
+	height: 0.5cm;
+	margin-bottom: -0.05cm;
+}
+
+.movieDianomesMaziIcon {
+	width: 0.6cm;
+	height: 0.5cm;
+	margin-bottom: -0.05cm;
+}
+
+.movieDianomesAgoraArea {
+	position: absolute;
+	top: 0px;
+	right: 0.02cm;
+	margin-right: 0.08cm;
+}
+
+.movieDianomesAgora {
+	display: inline-block;
+}
+
+.movieDianomesXroma {
+	width: 0.5cm;
+}
+
+.movieDianomesAsoi {
+	width: 0.8cm;
+	height: 0.6cm;
+}
+
+.movieDianomesTelos {
+	background-color: #B7AA7D;
+	color: #FFFF00;
+
+	padding: 0px 0.2cm 0.1cm 0.2cm;
+	text-align: center;
+
+	border-style: solid;
+	border-width: 0.08cm;
+	border-color: #928864;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.movieDealerIcon {
+	position: absolute;
+	width: 1.0cm;
+	top: 0.2cm;
+	left: -0.6cm;
+}
+
+.movieFilaArea {
+	position: absolute;
+	width: 8.3cm;
+	height: 3.0cm;
+	left: 0.06cm;
+/*
+background-color: teal;
+*/
+}
+
+.movieFilaArea3 {
+	top: 0.76cm;
+}
+
+.movieFilaArea2 {
+	top: 0.76cm;
+}
+
+.movieFilaArea1 {
+	bottom: 0.92cm;
+	left: 0.18cm;
+}
+
+.movieFilaXeri {
+	width: 8.3cm;
+	text-align: center;
+}
+
+.movieFilaSira {
+	position: relative;
+	display: inline-block;
+	margin-left: -1.44cm;
+	width: 2.1cm;
+	height: 3.0cm;
+}
+
+.movieFilaSiraSteno {
+	margin-left: -1.34cm;
+}
+
+.movieFilaSiraIcon {
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	width: 2.1cm;
+	height: 2.96cm;
+}
+
+.movieFilaPaso {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+.movieFilaVoithao {
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+}
+
+.movieFiloSteno {
+	width: 1.9cm;
+}
+
+.movieFiloSkia {
+	-webkit-box-shadow: -0.04cm 0px 0.08cm #2E2E2E;
+	-moz-box-shadow: -0.04cm 0px 0.08cm #2E2E2E;
+	box-shadow: -0.04cm 0px 0.08cm #2E2E2E;
+}
+
+.movieFiloDiaxorM {
+	border-style: outset;
+	border-width: 0px 0px 0px 4px;
+	border-color: #FF9696;
+}
+
+.movieFiloDiaxorK {
+	border-style: outset;
+	border-width: 0px 0px 0px 4px;
+	border-color: #66FF33;
+}
+
+.movieGipedo {
+	position: absolute;
+	width: 8.5cm;
+	height: 4.0cm;
+	top: 5.0cm;
+	left: 5.0cm;
+/*
+background-color: teal;
+*/
+}
+
+.movieTzogosIcon {
+	position: absolute;
+	top: 0.5cm;
+	left: 2.2cm;
+	width: 4.0cm;
+}
+
+.movieDebugArea {
+	position: absolute;
+	top: 17.2cm;
+	left: 0px;
+	width: 100%;
+	height: 4.0cm;
+	padding: 0px 0.2cm 0px 0.2cm;
+	overflow-y: auto;
+
+	border-style: solid;
+	border-color: #4D944D;
+	border-width: 2px;
+	background-color: #FFFF99;
+}
+
+.movieDebugData {
+	margin-left: 1.0cm;
+	color: blue;
+}
+
+.movieDianomesSpot {
+	font-weight: bold;
+	background-color: #FFCCFF;
+}
+
+.movieTelosSpot {
+	font-weight: bold;
+	color: #FF6600;
+	background-color: #FFCCFF;
+}
+
+.movieEpomeno {
+	position: absolute;
+	bottom: 0.2cm;
+	left: 14.8cm;
+	font-size: 0.3cm;
+}
+
+.movieDilosi {
+	position: absolute;
+	width: 3.3cm;
+	height: 0.68cm;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	font-family: "Comic Sans MS", cursive;
+	font-size: 0.45cm;
+	font-weight: bold;
+
+	text-align: center;
+}
+
+.movieDilosiLast {
+	background-color: #C2D699;
+}
+
+.movieDilosi3 {
+	bottom: 0px;
+	left: 0px;
+}
+
+.movieDilosi2 {
+	bottom: 0px;
+	right: 0px;
+}
+
+.movieDilosi1 {
+	top: 0px;
+	right: 0px;
+}
+
+.movieSimetoxi3 {
+	width: 5.3cm;
+	bottom: 0px;
+	right: 0px;
+}
+
+.movieSimetoxi2 {
+	width: 5.3cm;
+	bottom: 0px;
+	left: 0px;
+}
+
+.movieSimetoxi1 {
+	width: 5.3cm;
+	top: 0px;
+	left: 0px;
+}
+
+.movieBazaIcon {
+	width: 0.4cm;
+	height: 0.6cm;
+	margin-top: 0.06cm;
+	margin-left: 0.05cm;
+	margin-right: 0.05cm;
+}
+
+.movieBazaFilo {
+	position: absolute;
+	width: 2.1cm;
+	height: 2.96cm;
+}
+
+.movieBazaFilo3 {
+	top: 0.5cm;
+	left: 2.4cm;
+}
+
+.movieBazaFilo2 {
+	top: 0.1cm;
+	right: 2.6cm;
+}
+
+.movieBazaFilo1 {
+	bottom: 0.1cm;
+	left: 3.2cm;
+}
+
+.movieBazaVelos {
+	position: absolute;
+	width: 1.2cm;
+	height: 1.2cm;
+	z-index: 10;
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+}
+
+.movieBazaVelos3 {
+	top: -0.6cm;
+	left: 1.2cm;
+}
+
+.movieBazaVelos2 {
+	top: -0.9cm;
+	right: 1.5cm;
+}
+
+.movieBazaVelos1 {
+	bottom: -1.0cm;
+	left: 2.0cm;
+}
+
+.movieClaimIcon {
+	position: absolute;
+	top: 0.6cm;
+	left: 2.6cm;
+	width: 3.0cm;
+}
+
+.movieMail {
+	position: absolute;
+	bottom: 0.2cm;
+	left: 0.2cm;
+}
+
+.movieMailIcon {
+	width: 1.2cm;
+}
+
+.movieAlagi {
+	position: absolute;
+	top: 0.2cm;
+	left: 0.2cm;
+}
