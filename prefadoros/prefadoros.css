@@ -1901,3 +1901,7 @@ font-weight: bold;
 	padding: 0.1cm;
 	cursor: pointer;
 }
+
+.activeRadioStationExternal {
+	color: #B8DB4D;
+}
