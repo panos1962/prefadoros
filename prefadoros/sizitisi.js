@@ -201,7 +201,28 @@ var Sizitisi = new function() {
 		if (e.stopPropagation) e.stopPropagation();
 		return true;
 	}
-		
+
+	// Ακολουθούν διάφορα κωδικοποιημένα αρχεία ήχου mp3 που
+	// βρίσκονται ανεβασμένα στον funchat server.
+	var mp3Funchat = {
+		'_NC_':			'nutcracker',
+		'_ITM_':		'inthemood',
+		'_BG_':			'clarinetitis',
+		'_SKL_':		'skoulikantera',
+		'_TP_':			'tinPatisame',
+		'_KL_':			'aomatos'
+	};
+
+	// Ακολουθούν διάφορα κωδικοποιημένα youtube βίντεο.
+	var ytbFunchat = {
+		'_AMAN_':	{
+			ytb: '<iframe style="width: 6.6cm; height: 5.1cm;" ' +
+				'src="http://www.youtube.com/embed/c7h1H2iPQIQ?' +
+				'autoplay=1&showinfo=0&controls=0&rel=0&loop=1&' +
+				'playlist=c7h1H2iPQIQ" frameborder="0"></iframe>',
+			sec: 7
+		}
+	};
 
 	this.funchatDecode = function(s, proxiro) {
 		if (notSet(proxiro)) { proxiro = false; }
@@ -211,7 +232,7 @@ var Sizitisi = new function() {
 		var ikona = '';
 		var video = '';
 		if (x[2] != '') {
-			var ikona = '<img src="' + globals.funchatServer + x[2] +
+			ikona = '<img src="' + globals.funchatServer + x[2] +
 				'" class="sizitisiFunchatImage" alt="" ';
 			if (x[3]) { ikona += 'style="width: ' + x[3] + 'cm;" '; }
 			ikona += '/>';
@@ -222,6 +243,20 @@ var Sizitisi = new function() {
 			((currentTimestamp() - (s.w * 1000)) < 5000)) {
 			video = Sizitisi.pexeIxoVideo(x[4]);
 			epexeIxos[k] = true;
+			if (ytbFunchat.hasOwnProperty(x[4]) && (ikona != '')) {
+				video = '<div id="ytbv_' + s.k + '">' + video + '</div>';
+				video += '<div id="ytbi_' + s.k + '" style="display: none;">' +
+					ikona + '</div>';
+				ikona = '';
+				setTimeout(function() {
+					var x = getelid('ytbv_' + s.k);
+					if (notSet(x)) { return; }
+					sviseNode(x);
+					x = getelid('ytbi_' + s.k);
+					if (notSet(x)) { return; }
+					x.style.display = 'block';
+				}, ytbFunchat[x[4]].sec * 1000);
+			}
 		}
 
 		var titlos = x[5];
@@ -256,17 +291,6 @@ var Sizitisi = new function() {
 		return video;
 	};
 
-	// Ακολουθούν διάφορα κωδικοποιημένα αρχεία ήχου mp3 που
-	// βρίσκονται ανεβασμένα στον funchat server.
-	var mp3Funchat = {
-		'_NC_':			'nutcracker',
-		'_ITM_':		'inthemood',
-		'_BG_':			'clarinetitis',
-		'_SKL_':		'skoulikantera',
-		'_TP_':			'tinPatisame',
-		'_KL_':			'aomatos'
-	};
-
 	this.pexeIxoVideo = function(iv) {
 		var sigasi = true;
 		var html = '';
@@ -295,6 +319,9 @@ var Sizitisi = new function() {
 				html += '<embed' + Sizitisi.videoId() + 'autoplay="true" ' +
 					'hidden="true" src="' + globals.funchatServer +
 					mp3Funchat[iv[0]] + '.mp3" type="audio/mp3" />';
+			}
+			else if (ytbFunchat.hasOwnProperty(iv[0])) {
+				html += ytbFunchat[iv[0]].ytb;
 			}
 			else {
 				sigasi = false;
