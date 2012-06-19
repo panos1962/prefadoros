@@ -213,7 +213,12 @@ var Sizitisi = new function() {
 		'_KL_':			'aomatos'
 	};
 
-	// Ακολουθούν διάφορα κωδικοποιημένα youtube βίντεο.
+	// Ακολουθούν διάφορα κωδικοποιημένα βίντεο. Αυτά εμφανίζονται
+	// μέσω ξένων sites (συνήθως YouTube) σε inline frames. Τα στοιχεία
+	// είναι ένας HTML κώδικας με το iframe και χρόνος που δείχνει σε πόσα
+	// δευτερόλεπτα θα αντικατασταθεί το iframe με την αντίστοιχη εικόνα
+	// του funchat. Καλό είναι το width του iframe να είναι ίδιο με το
+	// width της εικόνας.
 	var ytbFunchat = {
 		'_AMAN_':	{
 			ytb: '<iframe style="width: 6.6cm; height: 5.1cm;" ' +
