@@ -69,6 +69,7 @@ var Trapezi = new function() {
 		"klimataria.jpg",
 		"preferans.png",
 		"papadopoulos.jpg",
+		"kivernisi.jpg",
 		"ketiBoukalia.jpg",
 		"arkasa.jpg",
 		"naxos.png",
