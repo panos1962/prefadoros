@@ -220,13 +220,7 @@ var Sizitisi = new function() {
 	// του funchat. Καλό είναι το width του iframe να είναι ίδιο με το
 	// width της εικόνας.
 	var ytbFunchat = {
-		'_AMAN_':	{
-			ytb: '<iframe style="width: 6.6cm; height: 5.1cm;" ' +
-				'src="http://www.youtube.com/embed/c7h1H2iPQIQ?' +
-				'autoplay=1&showinfo=0&controls=0&rel=0&loop=1&' +
-				'playlist=c7h1H2iPQIQ" frameborder="0"></iframe>',
-			sec: 7
-		}
+		'_AMAN_':		{ w: 6.8, h: 5.1, v: 'aman' }
 	};
 
 	this.funchatDecode = function(s, proxiro) {
@@ -247,21 +241,8 @@ var Sizitisi = new function() {
 		if ((!proxiro) && x[4] && (!epexeIxos.hasOwnProperty(k)) && isSet(s.w) &&
 			((currentTimestamp() - (s.w * 1000)) < 5000)) {
 			video = Sizitisi.pexeIxoVideo(x[4]);
+			if (ytbFunchat.hasOwnProperty(x[4])) { ikona = ''; }
 			epexeIxos[k] = true;
-			if (ytbFunchat.hasOwnProperty(x[4]) && (ikona != '')) {
-				video = '<div id="ytbv_' + s.k + '">' + video + '</div>';
-				video += '<div id="ytbi_' + s.k + '" style="display: none;">' +
-					ikona + '</div>';
-				ikona = '';
-				setTimeout(function() {
-					var x = getelid('ytbv_' + s.k);
-					if (notSet(x)) { return; }
-					sviseNode(x);
-					x = getelid('ytbi_' + s.k);
-					if (notSet(x)) { return; }
-					x.style.display = 'block';
-				}, ytbFunchat[x[4]].sec * 1000);
-			}
 		}
 
 		var titlos = x[5];
@@ -326,7 +307,12 @@ var Sizitisi = new function() {
 					mp3Funchat[iv[0]] + '.mp3" type="audio/mp3" />';
 			}
 			else if (ytbFunchat.hasOwnProperty(iv[0])) {
-				html += ytbFunchat[iv[0]].ytb;
+				html += '<iframe style="width: ' + ytbFunchat[iv[0]].w +
+					'cm; height: ' + ytbFunchat[iv[0]].h +
+					'cm; border-style: none;" src="' + globals.server +
+					'misc/video.php?video=' + globals.funchatServer +
+					ytbFunchat[iv[0]].v + '.mp4&width=' + ytbFunchat[iv[0]].w +
+					'&height=' + ytbFunchat[iv[0]].h + '"></iframe>';
 			}
 			else {
 				sigasi = false;
