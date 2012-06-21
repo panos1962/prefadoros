@@ -8,8 +8,45 @@ Page::body();
 Page::epikefalida(Globals::perastike('pedi'));
 ?>
 <div class="faqArea">
-
 <ul>
+
+<li>
+<?php erotisi('Μου γράφουν ότι φαίνομαι απασχολημένος. Τι σημαίνει αυτό;', 'apasxolimenos'); ?>
+<div id="apasxolimenos" style="display: none;">
+	<p class="faqKimeno">
+		Οι παίκτες έχουν τη δυνατότητα να δηλώσουν απασχολημένοι.
+		Αυτό σημαίνει ότι μπορούν να κληθούν σε παιχνίδι μόνο
+		από φίλους.
+		Όταν κάποιος παίκτης είναι απασχολημένος φαίνεται στο
+		χώρο του καφενείου με ελαφρώς αχνότερο χρώμα από
+		το κανονικό.
+		Αν έχετε δηλώσει απασχολημένος κατά λάθος, τότε μπορείτε
+		εύκολα να επανέλθετε στην κατάσταση «διαθέσιμος» κάνοντας
+		κλικ στο σχετικό
+		<span class="nobr">εικονίδιο (<img src="<?php
+		print $globals->server; ?>images/controlPanel/available.png"
+		class="faqIconInline" alt = "" />)</span>
+		στο control panel.
+	</p>
+
+	<p class="faqKimeno">
+		Αν δεν βλέπετε αυτό το εικονίδιο στο control panel
+		τότε αλλάξτε σειρά εργαλείων κάνοντας κλικ στο
+		εικονίδιο αλλαγής σειράς εργαλείων, στην κορυφή
+		του control
+		<span class="nobr">panel (<img src="<?php
+		print $globals->server; ?>images/controlPanel/4Balls.png"
+		class="faqIconInline" alt = "" />).</span>
+		Αν, αντίθετα, θέλετε να δηλώσετε απασχολημένος, τότε
+		κάντε κλικ στο σχετικό
+		<span class="nobr">εικονίδιο (<img src="<?php
+		print $globals->server; ?>images/controlPanel/busy.png"
+		class="faqIconInline" alt = "" />).</span>
+	</p>
+	<?php korifi(); ?>
+</div>
+</li>
+
 <li>
 <?php erotisi('Ενώ έχω παίξει οι υπόλοιποι παίκτες δεν απαντούν. Τι πρέπει να κάνω;', 'pasxalitsa'); ?>
 <div id="pasxalitsa" style="display: none;">
