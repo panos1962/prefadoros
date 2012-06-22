@@ -1839,9 +1839,16 @@ font-weight: bold;
 
 .profinfoButtonArea {
 	position: absolute;
+	width: 100%;
 	bottom: 0.1cm;
 	left: 0.2cm;
 	font-size: 0.4cm;
+}
+
+.profinfoSxesi {
+	position: absolute;
+	top: 0px;
+	right: 0.2cm;
 }
 
 .profinfoHelp {
