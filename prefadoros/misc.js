@@ -611,20 +611,25 @@ var Profinfo = new function() {
 			'parentNode);">Άκυρο</button>';
 
 		html += '<div class="profinfoSxesi">';
-		switch (filos) {
-		case 'ΦΙΛΟΣ':
-			html += Sxesi.aposisxetisiHTML({ l: login, s: 'F' }, 'Profinfo.dixePali');
-			html += Sxesi.apoklismosHTML(login, 'Profinfo.dixePali');
-			break;
-		case 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ':
-			html += Sxesi.aposisxetisiHTML({ l: login, s: 'A' }, 'Profinfo.dixePali');
-			html += Sxesi.addFilosHTML(login, 'Profinfo.dixePali');
-			break;
-		default:
-			html += Sxesi.addFilosHTML(login, 'Profinfo.dixePali');
-			html += Sxesi.apoklismosHTML(login, 'Profinfo.dixePali');
-			break;
-		}
+		// Η εμφάνιση των πλήκτρων συσχέτισης/αποσυσχέτισης γίνεται με try, λόγω
+		// του ότι το προφίλ μπορεί να προβληθεί και από τη φόρμα εγγραφής όπου
+		// δεν υπάρχει το αντικείμενο "Sxesi".
+		try {
+			switch (filos) {
+			case 'ΦΙΛΟΣ':
+				html += Sxesi.aposisxetisiHTML({ l: login, s: 'F' }, 'Profinfo.dixePali');
+				html += Sxesi.apoklismosHTML(login, 'Profinfo.dixePali');
+				break;
+			case 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ':
+				html += Sxesi.aposisxetisiHTML({ l: login, s: 'A' }, 'Profinfo.dixePali');
+				html += Sxesi.addFilosHTML(login, 'Profinfo.dixePali');
+				break;
+			default:
+				html += Sxesi.addFilosHTML(login, 'Profinfo.dixePali');
+				html += Sxesi.apoklismosHTML(login, 'Profinfo.dixePali');
+				break;
+			}
+		} catch(e) {}
 		if (isPektis() && isSet(pektis.superuser) && pektis.superuser) {
 			html += Sxesi.dixeTopoHTML(login);
 		}
