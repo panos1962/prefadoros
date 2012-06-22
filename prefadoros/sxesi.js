@@ -153,26 +153,32 @@ var Sxesi = new function() {
 		x.style.display = display;
 	};
 
-	this.addFilosHTML = function(pektis) {
+	// Η παράμετρος "post" είναι κάποια προαιρετική function η οποία θα κληθεί
+	// μετά την επιτυχή ένταξη του παίκτη στους φίλους, με παράμετρο το όνομα
+	// του παίκτη.
+
+	this.addFilosHTML = function(pektis, post) {
 		var html = '<img alt="" title="Ένταξη στους φίλους" class="sxesiIcon" src="' +
 			globals.server + 'images/addFriend.png" ' +
-			'onclick="Sxesi.addFilos(this, \'' + pektis + '\');" />';
+			'onclick="Sxesi.addFilos(this, \'' + pektis + '\'';
+		if (isSet(post)) { html += ', ' + post; }
+		html += ');" />';
 		return html;
 	};
 
-	this.addFilos = function(img, pektis) {
+	this.addFilos = function(img, pektis, post) {
 		if (isSet(window.Sizitisi)) { Sizitisi.sxolioFocus(); }
 		img.prevSrc = img.src;
 		img.src = globals.server + 'images/working.gif';
 		var req = new Request('sxesi/addFilos');
 		req.xhr.onreadystatechange = function() {
-			addFilosCheck(req, img, pektis);
+			addFilosCheck(req, img, pektis, post);
 		};
 
 		req.send('pektis=' + uri(pektis));
 	};
 
-	function addFilosCheck(req, img, pektis) {
+	function addFilosCheck(req, img, pektis, post) {
 		if (req.xhr.readyState != 4) { return; }
 		var rsp = req.getResponse();
 		if (rsp) {
@@ -185,31 +191,37 @@ var Sxesi = new function() {
 		}
 		else {
 			try { img.src = img.prevSrc; } catch(e) {};
+			if (isSet(post)) { post(pektis); }
 			mainFyi('Ο παίκτης "' + pektis + '" εντάχθηκε στους φίλους');
 		}
 		return false;
 	};
 
-	this.apoklismosHTML = function(pektis) {
+	// Η παράμετρος "post" είναι κάποια προαιρετική function η οποία θα κληθεί
+	// μετά τον επιτυχή αποκλεισμό του παίκτη, με παράμετρο το όνομα του παίκτη.
+
+	this.apoklismosHTML = function(pektis, post) {
 		var html = '<img alt="" title="Αποκλεισμός παίκτη" class="sxesiIcon" src="' +
 			globals.server + 'images/blockPektis.png" ' +
-			'onclick="Sxesi.apoklismos(this, \'' + pektis + '\');" />';
+			'onclick="Sxesi.apoklismos(this, \'' + pektis + '\'';
+		if (isSet(post)) { html += ', ' + post; }
+		html += ');" />';
 		return html;
 	};
 
-	this.apoklismos = function(img, pektis) {
+	this.apoklismos = function(img, pektis, post) {
 		if (isSet(window.Sizitisi)) { Sizitisi.sxolioFocus(); }
 		img.prevSrc = img.src;
 		img.src = globals.server + 'images/working.gif';
 		var req = new Request('sxesi/apoklismos');
 		req.xhr.onreadystatechange = function() {
-			apoklismosCheck(req, img, pektis);
+			apoklismosCheck(req, img, pektis, post);
 		};
 
 		req.send('pektis=' + uri(pektis));
 	};
 
-	function apoklismosCheck(req, img, pektis) {
+	function apoklismosCheck(req, img, pektis, post) {
 		if (req.xhr.readyState != 4) { return; }
 		var rsp = req.getResponse();
 		if (rsp) {
@@ -222,31 +234,37 @@ var Sxesi = new function() {
 		}
 		else {
 			try { img.src = img.prevSrc; } catch(e) {};
+			if (isSet(post)) { post(pektis); }
 			mainFyi('Ο παίκτης "' + pektis + '" έχει αποκλειστεί');
 		}
 		return false;
 	};
 
-	this.aposisxetisiHTML = function(sxesi) {
+	// Η παράμετρος "post" είναι κάποια προαιρετική function η οποία θα κληθεί
+	// μετά την επιτυχή αποσυσχέτιση του παίκτη, με παράμετρο το όνομα του παίκτη.
+
+	this.aposisxetisiHTML = function(sxesi, post) {
 		var html = '<img alt="" title="Αποσυσχέτιση" class="sxesiIcon" src="' +
 			globals.server + 'images/X' + (sxesi.s == 'F' ? 'green' : 'red') + '.png" ' +
-			'onclick="Sxesi.aposisxetisi(this, \'' + sxesi.l + '\');" />';
+			'onclick="Sxesi.aposisxetisi(this, \'' + sxesi.l + '\'';
+		if (isSet(post)) { html += ', ' + post; }
+		html += ');" />';
 		return html;
 	};
 
-	this.aposisxetisi = function(img, pektis) {
+	this.aposisxetisi = function(img, pektis, post) {
 		if (isSet(window.Sizitisi)) { Sizitisi.sxolioFocus(); }
 		img.prevSrc = img.src;
 		img.src = globals.server + 'images/working.gif';
 		var req = new Request('sxesi/aposisxetisi');
 		req.xhr.onreadystatechange = function() {
-			aposisxetisiCheck(req, img, pektis);
+			aposisxetisiCheck(req, img, pektis, post);
 		};
 
 		req.send('pektis=' + uri(pektis));
 	};
 
-	function aposisxetisiCheck(req, img, pektis) {
+	function aposisxetisiCheck(req, img, pektis, post) {
 		if (req.xhr.readyState != 4) { return; }
 		var rsp = req.getResponse();
 		if (rsp) {
@@ -259,6 +277,7 @@ var Sxesi = new function() {
 		}
 		else {
 			try { img.src = img.prevSrc; } catch(e) {};
+			if (isSet(post)) { post(pektis); }
 			mainFyi('Αποσυσχετίστηκε ο παίκτης "' + pektis + '"');
 		}
 		return false;
@@ -286,10 +305,10 @@ var Sxesi = new function() {
 		return html;
 	};
 
-	this.dixeTopoHTML = function(pektis, style) {
+	this.dixeTopoHTML = function(pektis) {
 		var html = '<img alt="" title="Εντοπισμός παίκτη" class="sxesiIcon" src="' +
 			globals.server + 'images/iplocator.png" onclick="Sxesi.dixeTopo(event, this, \'' +
-			pektis + '\');" style="' + style + ';" />';
+			pektis + '\');" />';
 		return html;
 	};
 

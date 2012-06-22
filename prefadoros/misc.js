@@ -358,9 +358,26 @@ var Profinfo = new function() {
 		req.send(params);
 	};
 
+	// Η μέθοδος που ακολουθεί καλείται όταν θέλουμε να ανανεώσουμε
+	// το περιεχόμενο της κάρτας προφίλ του παίκτη, π.χ. όταν εντάσσουμε
+	// τον παίκτη στους φίλους κλπ.
+
+	this.dixePali = function(login) {
+		var x = getelid('profinfo');
+		if (notSet(x)) { return; }
+
+		var req = new Request('profinfo/getInfo');
+		req.xhr.onreadystatechange = function() {
+			Profinfo.getInfoCheck(req, login, x);
+		};
+
+		var params = 'pektis=' + uri(login);
+		req.send(params);
+	};
+
 	this.getInfoCheck = function(req, login, div, img, src) {
 		if (req.xhr.readyState != 4) { return; }
-		img.src = src;
+		if (isSet(img) && isSet(src)) { img.src = src; }
 		var rsp = req.getResponse();
 
 		// Η πληροφορία που μας έχει επιστραφεί πρέπει να έχει την
@@ -472,7 +489,7 @@ var Profinfo = new function() {
 		html += '</div>';
 
 		html += '<div id="profinfoButtonArea" class="profinfoButtonArea">';
-		html += this.editHTML(login, mine);
+		html += this.editHTML(login, mine, filos);
 		html += '</div>';
 
 		return html;
@@ -576,7 +593,7 @@ var Profinfo = new function() {
 		return s.replace(/(\r\n|\n|\r)/gm, '<br />');
 	};
 
-	this.editHTML = function(login, mine) {
+	this.editHTML = function(login, mine, filos) {
 		var html = '';
 		html += '<button type="button" onclick="Profinfo.edit(\'' +
 			login + '\');">' + (mine ? 'Διόρθωση' : 'Σχόλια') + '</button>';
@@ -592,9 +609,27 @@ var Profinfo = new function() {
 		}
 		html += '<button type="button" onclick="Profinfo.klise(this.parentNode.' +
 			'parentNode);">Άκυρο</button>';
-		if (isPektis() && isSet(pektis.superuser) && pektis.superuser) {
-			html += Sxesi.dixeTopoHTML(login, 'margin-left: 0.8cm');
+
+		html += '<div class="profinfoSxesi">';
+		switch (filos) {
+		case 'ΦΙΛΟΣ':
+			html += Sxesi.aposisxetisiHTML({ l: login, s: 'F' }, 'Profinfo.dixePali');
+			html += Sxesi.apoklismosHTML(login, 'Profinfo.dixePali');
+			break;
+		case 'ΑΠΟΚΛΕΙΣΜΕΝΟΣ':
+			html += Sxesi.aposisxetisiHTML({ l: login, s: 'A' }, 'Profinfo.dixePali');
+			html += Sxesi.addFilosHTML(login, 'Profinfo.dixePali');
+			break;
+		default:
+			html += Sxesi.addFilosHTML(login, 'Profinfo.dixePali');
+			html += Sxesi.apoklismosHTML(login, 'Profinfo.dixePali');
+			break;
 		}
+		if (isPektis() && isSet(pektis.superuser) && pektis.superuser) {
+			html += Sxesi.dixeTopoHTML(login);
+		}
+		html += '</div>';
+
 		return html;
 	};
 
