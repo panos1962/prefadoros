@@ -420,7 +420,8 @@ var Pliromi = new function() {
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		var poso = 1 * this.axiaBazasMesa;
+		// Τυπικά πρέπει να πληρωθεί σόλο, αλλά δεν στέκει.
+		poso = (1 * this.axiaBazasMesa) * 2;
 		this.kapikia[protos] -= poso;
 		this.kapikia[defteros] += poso;
 	};
@@ -513,7 +514,8 @@ var Pliromi = new function() {
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		poso = 2 * this.axiaBazasMesa;
+		// Τυπικά πρέπει να πληρωθεί σόλο, αλλά δεν στέκει.
+		poso = (2 * this.axiaBazasMesa) * 2;
 		this.kapikia[protos] -= poso;
 		this.kapikia[defteros] += poso;
 	};
@@ -532,7 +534,8 @@ var Pliromi = new function() {
 		this.kapikia[defteros] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		poso = 2 * this.axiaBazasMesa;
+		// Τυπικά πρέπει να πληρωθεί σόλο, αλλά δεν στέκει.
+		poso = (2 * this.axiaBazasMesa) * 2;
 		this.kapikia[defteros] -= poso;
 		this.kapikia[protos] += poso;
 	};
