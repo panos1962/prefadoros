@@ -513,8 +513,6 @@ var Pliromi = new function() {
 		this.kapikia[protos] -= poso;
 		this.kapikia[pexnidi.tzogadoros] += poso;
 
-		// Εδώ υπάρχει ένσταση για το αν ο συμπαίκτης θα
-		// πληρωθεί σόλο. Διαφωνώ!
 		poso = 2 * this.axiaBazasMesa;
 		this.kapikia[protos] -= poso;
 		this.kapikia[defteros] += poso;
