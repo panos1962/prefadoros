@@ -16,3 +16,4 @@ glob:ENERGOSD/*
 glob:diafimisi/*
 glob:motd/*.jpg
 glob:proxiro/*.*
+glob:misc/lampTip.txt.sv
