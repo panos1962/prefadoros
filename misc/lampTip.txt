@@ -1,0 +1,42 @@
+#
+Αν θέλετε να ακυρώσετε την τελευταία σας κίνηση, κάντε κλικ στο εικονίδιο \
+<img src="images/controlPanel/bugFix.png" class="mottoIkonidio" /> \
+του control
+panel. Μπορείτε να ακυρώσετε περισσότερες από μία κινήσεις και είναι καλό να ακυρώσετε
+κινήσεις μέχρι κάποιο ασφαλές σημείο, π.χ. μέχρι την προηγούμενη μπάζα. Όσο ακυρώνετε
+κινήσεις κανείς από τους παίκτες δεν μπορεί να κάνει οποιαδήποτε κίνηση μέχρι να κάνετε
+κλικ στο εικονίδιο \
+<img src="images/controlPanel/anamoniAkirosis.png" class="mottoIkonidio" />.
+#
+#
+Για να αντικαταστήσετε κάποιον παίκτη που έχει αποχωρήσει
+από κάποιο τραπέζι στο οποίο είστε θεατής, κάντε κλικ στο
+εικονίδιο \
+<img src="images/controlPanel/theatis.png" class="mottoIkonidio" /> \
+του control panel.
+#
+Για να γίνετε από παίκτης θεατής σε κάποιο τραπέζι, κάντε κλικ
+στο εικονίδιο \
+<img src="images/controlPanel/theatis.png" class="mottoIkonidio" /> \
+του control panel.
+#
+Το <em>control panel</em> είναι η κεντρική στήλη εργαλείων του «Πρεφαδόρου».
+Τα βολικότερα εργαλεία σε κάθε φάση του παιχνιδιού είναι αυτά στα οποία
+εμφανίζεται το <img src="images/controlPanel/kafedaki.png" class="mottoIkonidio" />, \
+αλλά μπορείτε να δείτε και άλλες σειρές εργαλείων
+κάνοντας κλικ στο εικονίδιο \
+<img src="images/controlPanel/4Balls.png" class="mottoIkonidio" /> \
+στην κορυφή του control panel.
+#
+Το εικονίδιο <img src="images/controlPanel/default.png" class="mottoIkonidio" /> \
+επαναφέρει τη βασική σειρά εργαλείων στο control panel.
+Η βασική σειρά εργαλείων περιέχει το \
+<img src="images/controlPanel/kafedaki.png" class="mottoIkonidio" /> \
+και παρέχει τα βολικότερα εργαλεία
+σε κάθε φάση του παιχνιδιού.
+#
+Για να εισέλθετε σε κάποιο τραπέζι στο οποίο έχετε προσκληθεί, αρκεί να
+κάνετε κλικ στην πρόσκληση, αποφεύγοντας όμως τα εικονίδια \
+<img src="images/Xgreen.png" class="mottoIkonidio" /> και \
+<img src="images/Xred.png" class="mottoIkonidio" />.
+#
