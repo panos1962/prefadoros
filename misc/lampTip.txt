@@ -1,4 +1,36 @@
 #
+Αν το περίγραμμα ενός τραπεζιού είναι συνεχές, τότε
+το τραπέζι είναι πριβέ, ενώ τα δημόσια τραπέζια έχουν
+διακεκομμένο περίγραμμα.
+#
+Για να παίξετε τις «πολλές» πρέπει να κάνετε κλικ στο
+εικονίδιο \
+<img src="images/controlPanel/ppp.png" class="mottoIkonidio" />, \
+στο control panel πριν την εκκίνηση της παρτίδας.
+#
+Για να μην πριμοδοτούνται οι άσοι πρέπει να κάνετε
+κλικ στο εικονίδιο \
+<img src="images/trapoula/asoi.png" class="mottoIkonidio" /> \
+του control panel, πριν την
+εκκίνηση της παρτίδας.
+#
+Αν παίζετε από κινητό τηλέφωνο, ή από iPad, κάντε κλικ
+στο εικονίδιο \
+<img src="images/controlPanel/mobile.png" class="mottoIkonidio" /> \
+του control panel για να αποφύγετε την
+αυτόματη εμφάνιση πληκτρολογίου.
+#
+Μπορείτε να αλλάξετε το φόντο του «Πρεφαδόρου»
+κάνοντας κλικ στο εικονίδιο \
+<img src="images/controlPanel/paraskinio.png" class="mottoIkonidio" /> \
+του control panel.
+#
+Μπορείτε να αλλάξετε την ένταση των ηχητικών σημάτων
+του «Πρεφαδόρου» κάνοντας κλικ στο εικονίδιο \
+<img src="images/controlPanel/entasi.png" class="mottoIkonidio" /> \
+του
+control panel.
+#
 Μπορείτε να μετατρέψετε το τραπέζι σε «πριβέ» κάνοντας κλικ
 στο εικονίδιο \
 <img src="images/controlPanel/prive.png" class="mottoIkonidio" /> \
@@ -164,10 +196,6 @@ panel. Μπορείτε να ακυρώσετε περισσότερες από 
 φίλων.
 #
 Το εικονίδιο \
-<img src="images/skoupaki.png" class="mottoIkonidio" /> \
-καθαρίζει το πεδίο γραφής στη συζήτηση.
-#
-Το εικονίδιο \
 <img src="images/controlPanel/talk.png" class="mottoIkonidio" /> \
 δεξιά από το πεδίο γραφής μηνυμάτων, δημοσιοποιεί
 το περιεχόμενο του πεδίο γραφής μηνυμάτων στο χώρο συζήτησης.
@@ -268,4 +296,10 @@ href="http://www.prefadoros.net">Πρεφαδόρος</a>] \
 <img src="images/controlPanel/alagiThesis.png" class="mottoIkonidio" /> \
 του control panel,
 αλλάζετε τη θέση σας στο τραπέζι.
+#
+Το εικονίδιο \
+<img src="images/skoupaki.png" class="mottoIkonidio" /> \
+καθαρίζει το πεδίο γραφής στη συζήτηση.
+Μπορείτε να καθαρίσετε το πεδίο γραφής και με το πλήκτρο
+[Esc], επάνω αριστερά στο πληκτρολόγιο.
 #
