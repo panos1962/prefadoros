@@ -210,6 +210,7 @@ var Sizitisi = new function() {
 		'_BG_':			'clarinetitis',
 		'_SKL_':		'skoulikantera',
 		'_TP_':			'tinPatisame',
+		'_GGTK_':		'katastrofi',
 		'_KL_':			'aomatos'
 	};
 

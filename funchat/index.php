@@ -191,10 +191,11 @@ function print_panel() {
 	$item_list[] = new Item("mazi.gif", "Πάμε μαζί;", 3.8);
 	$item_list[] = new Item("maziCats.gif", "Πάμε μαζί, αγαπούλα;");
 	$item_list[] = new Item("tinEstise.gif", "Την έστησε!!!");
-$item_list[] = new Item("ekplixiEmoticon.gif");
-$item_list[] = new Item("tromosEmoticon.gif");
-$item_list[] = new Item("ohMyGod.gif", "", 5.0);
-$item_list[] = new Item("aman.jpg", "", 6.6, "_AMAN_");
+	$item_list[] = new Item("ekplixiEmoticon.gif");
+	$item_list[] = new Item("tromosEmoticon.gif");
+	$item_list[] = new Item("ohMyGod.gif", "", 5.0);
+	$item_list[] = new Item("aman.jpg", "", 6.6, "_AMAN_");
+	$item_list[] = new Item("katastrofi.jpg", "", 6.6, "_GGTK_");
 	$item_list[] = new Item("kota.gif", "Κότα…", 3.2);
 	$item_list[] = new Item("tinEstisa.gif", "Την έστησα…", 4.0);
 	$item_list[] = new Item("koronaGramata.gif", "Το 'παιξα στην τύχη.", 1.0);
