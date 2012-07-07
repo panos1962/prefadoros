@@ -252,6 +252,7 @@ var Trapezi = new function() {
 				if (isPektis() && (p == pektis.login)) { html += ' ego'; }
 				else if (Trapezi.loginMatch(p, peknpat)) { html += ' katazitoumenos'; }
 				else if (Trapezi.isFilos(p)) { html += ' kafenioFilos'; }
+				else if (Trapezi.isFilos(p, 'B')) { html += ' sxesiApoklismenos'; }
 			}
 			html += ' noshadow"';
 			if (p) { html += Trapezi.permesHTML(p, null, t.k); }
@@ -324,19 +325,18 @@ var Trapezi = new function() {
 
 	var filosList = null;
 
-	this.isFilos = function(p) {
+	this.isFilos = function(p, fb) {
 		if (p == '') { return false; }
 		if (notSet(sxesi)) { return false; }
+		if (notSet(fb)) { fb = 'F'; }
 		if (notSet(filosList)) {
 			filosList = {};
 			for (var i = 0; i < sxesi.length; i++) {
-				if (sxesi[i].s == 'F') {
-					filosList[sxesi[i].l] = true;
-				}
+				filosList[sxesi[i].l] = sxesi[i].s;
 			}
 		}
 
-		return filosList.hasOwnProperty(p);
+		return (filosList.hasOwnProperty(p) && (filosList[p] == fb));
 	};
 
 	this.miposBikeTora = function(pektis) {
@@ -436,6 +436,7 @@ var Trapezi = new function() {
 		var html = '<div class="kafenioBox kafenioPektis rebelos';
 		if (theatis) { html += ' theatis'; }
 		if (Trapezi.isFilos(r.l)) { html += ' kafenioFilos'; }
+		else if (Trapezi.isFilos(r.l, 'B')) { html += ' sxesiApoklismenos'; }
 		if (isPektis() && (r.l == pektis.login)) { html += ' ego'; }
 		else if (Trapezi.loginMatch(r.l, peknpat)) { html += ' katazitoumenos'; }
 		if (isSet(r.b)) { html += ' apasxolimenos'; }
