@@ -930,7 +930,7 @@ var ProcessKinisi = new function() {
 			for (var i = 1; i <= 3; i++) {
 				if (pexnidi.simetoxi[i] == 'ΠΑΣΟ') {
 					pexnidi.simetoxi[i] = 'ΒΟΗΘΑΩ';
-					if ((i == 1) && (ik == (kinisi.length - 1))) {
+					if (notTheatis() && (i == 1) && (ik == (kinisi.length - 1))) {
 						playSound('deskbell', 40);
 					}
 				}
