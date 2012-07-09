@@ -930,8 +930,11 @@ var ProcessKinisi = new function() {
 			for (var i = 1; i <= 3; i++) {
 				if (pexnidi.simetoxi[i] == 'ΠΑΣΟ') {
 					pexnidi.simetoxi[i] = 'ΒΟΗΘΑΩ';
-					if (notTheatis() && (i == 1) && (ik == (kinisi.length - 1))) {
+					var idx = 'mazi:' + ik;
+					if ((i == 1) && (ik == (kinisi.length - 1)) &&
+						notTheatis() && (!(idx in Spot.spotList))) {
 						playSound('deskbell', 40);
+						Spot.spotListPush(idx);
 					}
 				}
 			}
