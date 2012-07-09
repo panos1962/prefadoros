@@ -363,7 +363,7 @@ function print_panel() {
 		"Κάτσε να δω τι λέει ο Σαραντάκος γι αυτή την περίπτωση…");
 
 	if ($globals->is_pektis() && is_file($ufile = "user/" .
-		$globals->pektis->login . "/katalogos.php")) {
+		$globals->pektis->login . ".php")) {
 		include $ufile;
 	}
 

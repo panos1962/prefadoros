@@ -1,6 +1,4 @@
 <?php
-$item_list[] = new Item("user/panos/klarino.gif",
-	"Να κεράσουμε λίγο κορμό σοκολάτα;");
 $item_list[] = new Item("osamaBushSmall.gif",
 	"Πάμε μαζί, με τρέλα και κορδέλα;", 4.6);
 $item_list[] = new Item("user/panos/axouAxou.png",
