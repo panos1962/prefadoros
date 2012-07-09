@@ -158,7 +158,7 @@ var Pexnidi = new function() {
 				ProcessKinisi.agora(kinisi[i].thesi, kinisi[i].d);
 				break;
 			case 'ΣΥΜΜΕΤΟΧΗ':
-				ProcessKinisi.simetoxi(kinisi[i].thesi, kinisi[i].d);
+				ProcessKinisi.simetoxi(kinisi[i].thesi, kinisi[i].d, i);
 				break;
 			case 'ΦΥΛΛΟ':
 				ProcessKinisi.filo(kinisi[i].thesi, kinisi[i].d);
@@ -867,7 +867,7 @@ var ProcessKinisi = new function() {
 		}
 	};
 
-	this.simetoxi = function(thesi, data) {
+	this.simetoxi = function(thesi, data, ik) {
 		var errmsg = 'ProcessKinisi::simetoxi: ';
 
 		switch (pexnidi.tzogadoros) {
@@ -930,6 +930,9 @@ var ProcessKinisi = new function() {
 			for (var i = 1; i <= 3; i++) {
 				if (pexnidi.simetoxi[i] == 'ΠΑΣΟ') {
 					pexnidi.simetoxi[i] = 'ΒΟΗΘΑΩ';
+					if ((i == 1) && (ik == (kinisi.length - 1))) {
+						playSound('deskbell', 40);
+					}
 				}
 			}
 			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
