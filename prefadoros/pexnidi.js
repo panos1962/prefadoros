@@ -929,13 +929,7 @@ var ProcessKinisi = new function() {
 		case 'ΜΑΖΙ':
 			for (var i = 1; i <= 3; i++) {
 				if (pexnidi.simetoxi[i] == 'ΠΑΣΟ') {
-					pexnidi.simetoxi[i] = 'ΒΟΗΘΑΩ';
-					var idx = 'mazi:' + ik;
-					if ((i == 1) && (ik == (kinisi.length - 1)) &&
-						notTheatis() && (!(idx in Spot.spotList))) {
-						playSound('deskbell', 40);
-						Spot.spotListPush(idx);
-					}
+					ProcessKinisi.setBoithao(i, ik);
 				}
 			}
 			pexnidi.fasi = 'ΠΑΙΧΝΙΔΙ';
@@ -949,6 +943,22 @@ var ProcessKinisi = new function() {
 		if (pexnidi.fasi == 'ΠΑΙΧΝΙΔΙ') {
 			Pliromi.setPrepiBazes();
 		}
+	};
+
+	this.setBoithao = function(thesi, ik) {
+		pexnidi.simetoxi[thesi] = 'ΒΟΗΘΑΩ';
+
+		// Δίνουμε ηχητικό σήμα σε περίπτωση που ο παίκτης
+		// είναι αυτός που καλείται να παίξει μαζί.
+		if (thesi != 1) { return; }
+		if (ik != (kinisi.length - 1)) { return; }
+		if (isTheatis()) { return; }
+
+		var idx = 'mazi';
+		if (idx in Spot.spotList) { return; }
+
+		playSound('bikebell');
+		Spot.spotListPush(idx);
 	};
 
 	this.filo = function(thesi, data) {
