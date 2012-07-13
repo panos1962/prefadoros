@@ -160,7 +160,7 @@ var Funchat = new function() {
 		f.value += '@' + this.ikona;
 		f.value += '@' + this.zoom;
 		f.value += '@' + this.sound;
-		f.value += '@' + titlos;
+		f.value += '@' + titlos.replace(/@/g, '&#64;');
 		p.Sizitisi.apostoli(f);
 		return this.clear();
 	};
