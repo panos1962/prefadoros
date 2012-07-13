@@ -327,7 +327,7 @@ function print_panel() {
 	$item_list[] = new Item("xtipoKefali.gif");
 	$item_list[] = new Item("sfiriEmoticon.gif", "Θα το σπάσω!!!");
 	$item_list[] = new Item("parathiro.gif", "", "", "tzamia:1500");
-	$item_list[] = new Item("astrapesEmoticon.gif", "@#!%@^&#*!@");
+	$item_list[] = new Item("astrapesEmoticon.gif", "#!%@^&#*!@");
 	$item_list[] = new Item("fuckYou.gif");
 	$item_list[] = new Item("bartAss.gif", "Kiss my ass!");
 	$item_list[] = new Item("denAntexo.png", "Όχι, δεν αντέχω άλλο!", "5.0",
