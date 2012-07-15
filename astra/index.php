@@ -23,7 +23,8 @@ Page::fyi();
 <div class="astraInput">
 	<div class="formaPrompt astraPrompt">Παίκτης</div>
 	<input id="pektis" class="formaField" value="<?php print $globals->pektis->login; ?>"
-		type="text" maxlength="1024" style="width: 4.0cm;"/>
+		type="text" maxlength="1024" style="width: 4.0cm;"
+		onchange="Astra.clearPartida();" />
 </div>
 <div class="astraInput">
 	<div class="formaPrompt astraPrompt">Από</div>

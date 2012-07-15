@@ -773,6 +773,13 @@ var Astra = new function() {
 		}
 	};
 
+	this.clearPartida = function() {
+		var x = getelid('partida');
+		if (notSet(x)) { return; }
+
+		x.value = '';
+	};
+
 	this.pixelsAnaCm= null;
 
 	this.ruler = function() {
@@ -784,7 +791,7 @@ var Astra = new function() {
 
 	this.cm2pixels = function(cm) {
 		return parseInt(Astra.pixelsAnaCm * cm);
-	}
+	};
 };
 
 window.onload = function() {
