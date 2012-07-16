@@ -214,8 +214,9 @@ var Trapezi = new function() {
 		html += '</div>';
 		html += '</div>';
 		var giortes = Partida.giortesHTML('kafenioTrapeziAttrIcon');
-		if ((isSet(t.d) && (t.d == 1)) || (isSet(t.b) && (t.b == 1)) || isPostel() ||
-			(isSet(t.ppp) && (t.ppp == 1)) || (notSet(t.asoi) || (t.asoi == 0)) || giortes) {
+		if ((isSet(t.d) && (t.d == 1)) || (isSet(t.b) && (t.b == 1)) ||
+			(isSet(t.ppp) && (t.ppp == 1)) || (notSet(t.asoi) || (t.asoi == 0)) ||
+			giortes || (isSet(t.postel) && (t.postel != 0))) {
 			html += '<div class="kafenioTrapeziAttrArea">';
 			html += giortes;
 			if (isSet(t.d) && (t.d == 1)) {
@@ -235,8 +236,8 @@ var Trapezi = new function() {
 				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
 					'images/trapoula/asoi.png" title="Δεν μετράνε οι άσοι" />';
 			}
-			if (isPostel()) {
-				html += postelIconHTML('kafenioTrapeziAttrIcon');
+			if (isSet(t.postel) && (t.postel != 0)) {
+				html += postelIconHTML('kafenioTrapeziAttrIcon', null, t.postel);
 			}
 			html += '</div>';
 		}
