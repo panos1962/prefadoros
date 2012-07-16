@@ -12,6 +12,11 @@ CREATE TABLE `trapezi_log` (
 		'YES',
 		'NO'
 	)		NOT NULL COMMENT 'Μετράνε οι άσοι',
+	`postel`	ENUM(
+		'ΚΑΝΟΝΙΚΗ',
+		'ΑΝΙΣΟΡΡΟΠΗ',
+		'ΔΙΚΑΙΗ'
+	)		NOT NULL DEFAULT 'ΚΑΝΟΝΙΚΗ' COMMENT 'Πληρωμή τελευταίας αγοράς',
 	`stisimo`	TIMESTAMP NOT NULL COMMENT 'Πότε δημιουργήθηκε',
 	`telos`		TIMESTAMP NOT NULL COMMENT 'Πότε τελείωσε',
 
