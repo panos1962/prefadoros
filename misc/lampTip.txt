@@ -149,7 +149,7 @@ control panel.
 παικτών αυτών. Οι προσθήκες αυτές είναι ορατές μόνο από εσάς.
 #
 Αν θέλετε να ακυρώσετε την τελευταία σας κίνηση, κάντε κλικ στο εικονίδιο \
-<img src="images/controlPanel/bugFix.png" class="mottoIkonidio" /> \
+<img src="images/controlPanel/akirosiKinisis.png" class="mottoIkonidio" /> \
 του control
 panel. Μπορείτε να ακυρώσετε περισσότερες από μία κινήσεις και είναι καλό να ακυρώσετε
 κινήσεις μέχρι κάποιο ασφαλές σημείο, π.χ. μέχρι την προηγούμενη μπάζα. Όσο ακυρώνετε
