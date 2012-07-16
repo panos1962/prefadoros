@@ -214,7 +214,7 @@ var Trapezi = new function() {
 		html += '</div>';
 		html += '</div>';
 		var giortes = Partida.giortesHTML('kafenioTrapeziAttrIcon');
-		if ((isSet(t.d) && (t.d == 1)) || (isSet(t.b) && (t.b == 1)) ||
+		if ((isSet(t.d) && (t.d == 1)) || (isSet(t.b) && (t.b == 1)) || isPostel() ||
 			(isSet(t.ppp) && (t.ppp == 1)) || (notSet(t.asoi) || (t.asoi == 0)) || giortes) {
 			html += '<div class="kafenioTrapeziAttrArea">';
 			html += giortes;
@@ -234,6 +234,9 @@ var Trapezi = new function() {
 			if (notSet(t.asoi) || (t.asoi == 0)) {
 				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
 					'images/trapoula/asoi.png" title="Δεν μετράνε οι άσοι" />';
+			}
+			if (isPostel()) {
+				html += postelIconHTML('kafenioTrapeziAttrIcon');
 			}
 			html += '</div>';
 		}

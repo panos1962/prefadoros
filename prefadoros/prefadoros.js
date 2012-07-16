@@ -340,6 +340,35 @@ function notAsoiKolos() {
 	return(!isAsoiKolos());
 }
 
+function isPostel() {
+	return(isSet(window.partida) && isSet(partida.postel) && (partida.postel != 0));
+}
+
+function postelIconHTML(css, extra) {
+	var html = '';
+	if (notSet(window.partida)) { return html; }
+	if (notSet(partida.postel)) { return html; }
+	switch (partida.postel) {
+	case 1:
+		var ico = 'anisoropo';
+		var tit = 'Ανισόρροπη πληρωμή τελευταίας αγοράς';
+		break;
+	case 2:
+		ico = 'dikeo';
+		tit = 'Δίκαιη πληρωμή τελευταίας αγοράς';
+		break;
+	default:
+		ico = 'kanoniko';
+		tit = 'Κανονική πληρωμή τελευταίας αγοράς';
+		break;
+	}
+	html = '<img class="' + css + '" alt="" src="' + globals.server +
+		'images/postel/' + ico + '.png" title="' + tit + '"';
+	if (isSet(extra)) { html += ' ' + extra; }
+	html += ' />';
+	return html;
+}
+
 function denPezoun() {
 	var paso = 0;
 	for (var i = 1; i <= 3; i++) {

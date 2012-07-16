@@ -53,7 +53,7 @@ var Partida = new function() {
 			'p2', 'a2', 'o2',
 			'p3', 'a3', 'o3',
 			'd', 's', 'p', 'b',
-			'ppp', 'asoi',
+			'ppp', 'asoi', 'postel',
 			'h', 't'
 		];
 
@@ -80,6 +80,15 @@ var Partida = new function() {
 		partida.kasa = parseInt(partida.s);
 		partida.ppp = (partida.ppp == 1);
 		partida.asoi = (partida.asoi == 1);
+		if (notSet(partida.postel)) { partida.postel = 0; }
+		switch (partida.postel) {
+		case 1:
+		case 2:
+			break;
+		default:
+			partida.postel = 0;
+			break;
+		}
 		partida.prive = (partida.p == 1);
 		partida.klisto = (partida.b == 1);
 		partida.theatis = (partida.t == 1);
@@ -295,7 +304,7 @@ var Partida = new function() {
 		html += '</div>';
 		var giortes = Partida.giortesHTML();
 		if (giortes || isIdioktito() || isKlisto() || isPasoPasoPaso() ||
-			notAsoiKolos() || globals.mobile) {
+			notAsoiKolos() || globals.mobile || isPostel()) {
 			html += '<div class="partidaAttrArea">';
 			if (globals.mobile) {
 				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
@@ -319,6 +328,9 @@ var Partida = new function() {
 				html += '<img class="partidaAttrIcon" alt="" src="' +
 					globals.server + 'images/trapoula/asoi.png" ' +
 					'title="Δεν μετράνε οι άσοι" />';
+			}
+			if (isPostel()) {
+				html += postelIconHTML('partidaAttrIcon');
 			}
 			html += giortes;
 			html += '</div>';

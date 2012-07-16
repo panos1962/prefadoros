@@ -15,6 +15,7 @@ class Trapezi {
 	public $kasa;
 	public $ppp;
 	public $asoi;
+	public $postel;
 	public $prive;
 	public $klisto;
 	public $thesi;
@@ -44,6 +45,7 @@ class Trapezi {
 		unset($this->kasa);
 		unset($this->ppp);
 		unset($this->asoi);
+		unset($this->postel);
 		unset($this->prive);
 		unset($this->klisto);
 		unset($this->thesi);
@@ -137,6 +139,11 @@ class Trapezi {
 		$this->kasa = $row['kasa'];
 		$this->ppp = ($row['pasopasopaso'] == 'YES' ? 1 : 0);
 		$this->asoi = ($row['asoi'] == 'YES' ? 1 : 0);
+		switch ($row['postel']) {
+		case 'ΑΝΙΣΟΡΡΟΠΗ':	$this->postel = 1; break;
+		case 'ΔΙΚΑΙΗ':		$this->postel = 2; break;
+		default:		$this->postel = 0; break;
+		}
 		$this->prive = ($row['idiotikotita'] == 'ΔΗΜΟΣΙΟ' ? 0 : 1);
 		$this->klisto = ($row['prosvasi'] == 'ΑΝΟΙΚΤΟ' ? 0 : 1);
 		$this->ipolipo = (3 * $row['kasa']) - $row['pistosi'];
@@ -184,7 +191,7 @@ class Trapezi {
 
 	public function set_from_file($line) {
 		$cols = explode("\t", $line);
-		if (count($cols) != 18) { return(FALSE); }
+		if (count($cols) != 19) { return(FALSE); }
 
 		$nf = 0;
 		$this->kodikos = $cols[$nf++];
@@ -202,6 +209,7 @@ class Trapezi {
 		$this->kasa = $cols[$nf++];
 		$this->ppp = $cols[$nf++];
 		$this->asoi = $cols[$nf++];
+		$this->postel = $cols[$nf++];
 		$this->prive = $cols[$nf++];
 		$this->klisto = $cols[$nf++];
 		$this->ipolipo = $cols[$nf++];
@@ -287,6 +295,7 @@ class Trapezi {
 			$this->kasa . "\t" .
 			$this->ppp . "\t" .
 			$this->asoi . "\t" .
+			$this->postel . "\t" .
 			$this->prive . "\t" .
 			$this->klisto . "\t" .
 			$this->ipolipo);
@@ -317,6 +326,7 @@ class Trapezi {
 		print ",i:" . $this->ipolipo;
 		if ($this->ppp == 1) { print ",ppp:1"; }
 		if ($this->asoi == 1) { print ",asoi:1"; }
+		if ($this->postel != 0) { print ",postel:" . $this->postel; }
 		if ($this->prive == 1) { print ",r:1"; }
 		if ($this->klisto == 1) { print ",b:1"; }
 		if ($this->efe != '') { print ",e:'" . $this->efe . "'"; }
@@ -394,9 +404,9 @@ class Trapezi {
 			@mysqli_query($globals->db, $query);
 
 			$query = "INSERT INTO `trapezi_log` (`kodikos`, `pektis1`, `pektis2`, " .
-				"`pektis3`, `kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos`) " .
+				"`pektis3`, `kasa`, `pasopasopaso`, `asoi`, `postel`, `stisimo`, `telos`) " .
 				"SELECT `kodikos`, `pektis1`, `pektis2`, `pektis3`, " .
-				"`kasa`, `pasopasopaso`, `asoi`, `stisimo`, `telos` " .
+				"`kasa`, `pasopasopaso`, `asoi`, `postel`, `stisimo`, `telos` " .
 				"FROM `trapezi` WHERE `kodikos` = " . $trapezi;
 			@mysqli_query($globals->db, $query);
 
