@@ -15,6 +15,7 @@ class Partida {
 	public $kasa;
 	public $ppp;
 	public $asoi;
+	public $postel;
 	public $prive;
 	public $klisto;
 	public $ipolipo;
@@ -37,6 +38,7 @@ class Partida {
 		unset($this->kasa);
 		unset($this->ppp);
 		unset($this->asoi);
+		unset($this->postel);
 		unset($this->prive);
 		unset($this->klisto);
 		unset($this->ipolipo);
@@ -46,7 +48,7 @@ class Partida {
 
 	public function set_from_string($data) {
 		$cols = explode("\t", $data);
-		if (count($cols) != 20) {
+		if (count($cols) != 21) {
 			return(FALSE);
 		}
 			
@@ -66,6 +68,7 @@ class Partida {
 		$this->kasa = $cols[$nf++];
 		$this->ppp = $cols[$nf++];
 		$this->asoi = $cols[$nf++];
+		$this->postel = $cols[$nf++];
 		$this->prive = $cols[$nf++];
 		$this->klisto = $cols[$nf++];
 		$this->ipolipo = $cols[$nf++];
@@ -116,6 +119,7 @@ class Partida {
 			print ",s:" . $curr->kasa;
 			if ($curr->ppp == 1) { print ",ppp:1"; }
 			if ($curr->asoi == 1) { print ",asoi:1"; }
+			if ($curr->postel != 0) { print ",postel:" . $curr->postel; }
 			if ($curr->prive == 1) { print ",p:1"; }
 			if ($curr->klisto == 1) { print ",b:1"; }
 			print ",h:" . $curr->thesi;
@@ -154,6 +158,7 @@ class Partida {
 		$p->kasa = $globals->trapezi->kasa;
 		$p->ppp = $globals->trapezi->ppp;
 		$p->asoi = $globals->trapezi->asoi;
+		$p->postel = $globals->trapezi->postel;
 		$p->prive = $globals->trapezi->prive;
 		$p->klisto = $globals->trapezi->klisto;
 		$p->ipolipo = $globals->trapezi->ipolipo;
