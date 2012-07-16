@@ -344,11 +344,15 @@ function isPostel() {
 	return(isSet(window.partida) && isSet(partida.postel) && (partida.postel != 0));
 }
 
-function postelIconHTML(css, extra) {
+function postelIconHTML(css, extra, postel) {
 	var html = '';
-	if (notSet(window.partida)) { return html; }
-	if (notSet(partida.postel)) { return html; }
-	switch (partida.postel) {
+	if (notSet(postel)) {
+		if (notSet(window.partida)) { return html; }
+		if (notSet(partida.postel)) { return html; }
+		postel = partida.postel;
+	}
+
+	switch (postel) {
 	case 1:
 		var ico = 'anisoropo';
 		var tit = 'Ανισόρροπη πληρωμή τελευταίας αγοράς';
