@@ -938,13 +938,16 @@ var Motto = new function() {
 		if (isSet(motto.author)) {
 			html += '<div class="mottoAuthor">' + motto.author + '</div>';
 		}
-		html += '<div class="mottoCopy" title="Κλικ για δυνατότητα αντιγραφής κειμένου" ' +
-			'onmouseover="Motto.copy(this, true);" onmouseout="Motto.copy(this, false);" ' +
-			'onclick="Motto.copyData(event, this);">';
-		html += 'Αντιγραφή';
-		html += '</div>';
-		html += '<textarea id="mottoBuffer" class="mottoBuffer" title="Copy motto">' +
-			motto.buffer + '</textarea>';
+		if (isSet(motto.buffer)) {
+			html += '<div class="mottoCopy" title="Κλικ για δυνατότητα αντιγραφής κειμένου" ' +
+				'onmouseover="Motto.copy(this, true);" ' +
+				'onmouseout="Motto.copy(this, false);" ' +
+				'onclick="Motto.copyData(event, this);">';
+			html += 'Αντιγραφή';
+			html += '</div>';
+			html += '<textarea id="mottoBuffer" class="mottoBuffer" title="Copy motto">' +
+				motto.buffer + '</textarea>';
+		}
 
 		mottoDiv.innerHTML = html;
 		mottoDiv.style.backgroundImage = 'url(' + globals.server + 'images/motto/' +

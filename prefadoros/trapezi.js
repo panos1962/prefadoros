@@ -220,24 +220,19 @@ var Trapezi = new function() {
 			html += '<div class="kafenioTrapeziAttrArea">';
 			html += giortes;
 			if (isSet(t.d) && (t.d == 1)) {
-				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
-					'images/controlPanel/idioktitoKafenio.png" ' +
-					'title="Ιδιόκτητο τραπέζι" />';
+				html += Trattr.idioktitoHTML('kafenioTrapeziAttrIcon');
 			}
 			if (isSet(t.b) && (t.b == 1)) {
-				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
-					'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
+				html += Trattr.klistoHTML('kafenioTrapeziAttrIcon');
 			}
 			if (isSet(t.ppp) && (t.ppp == 1)) {
-				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
-					'images/controlPanel/ppp.png" title="Παίζεται το πάσο, πάσο, πάσο" />';
+				html += Trattr.pasoPasoPasoHTML('kafenioTrapeziAttrIcon');
 			}
 			if (notSet(t.asoi) || (t.asoi == 0)) {
-				html += '<img class="kafenioTrapeziAttrIcon" alt="" src="' + globals.server +
-					'images/trapoula/asoi.png" title="Δεν μετράνε οι άσοι" />';
+				html += Trattr.oxiAsoiHTML('kafenioTrapeziAttrIcon');
 			}
 			if (isSet(t.postel) && (t.postel != 0)) {
-				html += postelIconHTML('kafenioTrapeziAttrIcon', null, t.postel);
+				html += Trattr.postelIconHTML('kafenioTrapeziAttrIcon', null, t.postel);
 			}
 			html += '</div>';
 		}

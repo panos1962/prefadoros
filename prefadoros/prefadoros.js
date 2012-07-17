@@ -344,44 +344,6 @@ function isPostel() {
 	return(isSet(window.partida) && isSet(partida.postel) && (partida.postel != 0));
 }
 
-function postelIconHTML(css, extra, postel) {
-	var html = '';
-	if (notSet(postel)) {
-		if (notSet(window.partida)) { return html; }
-		if (notSet(partida.postel)) { return html; }
-		postel = partida.postel;
-	}
-
-	var inf = null;
-	switch (postel) {
-	case 1:
-		var ico = 'anisoropo';
-		var tit = 'Ανισόρροπη πληρωμή τελευταίας αγοράς';
-		inf = 'Η αξία της τελευταίας αγοράς προσαρμόζεται στο υπόλοιπο της<br />' +
-			'κάσας, εκτός και αν η αγορά μπει μέσα οπότε πληρώνεται κανονικά.';
-		break;
-	case 2:
-		ico = 'dikeo';
-		tit = 'Δίκαιη πληρωμή τελευταίας αγοράς';
-		inf = 'Αν το υπόλοιπο της κάσας δεν επαρκεί για την πληρωμή της<br />' +
-			'τελευταίας αγοράς, ενισχύεται η κάσα ώστε η αγορά να<br />' +
-			'πληρωθεί με την κανονική της αξία.';
-		break;
-	default:
-		ico = 'kanoniko';
-		tit = 'Κανονική πληρωμή τελευταίας αγοράς';
-		break;
-	}
-	html = '<img class="' + css + '" alt="" src="' + globals.server +
-		'images/postel/' + ico + '.png" title="' + tit + '"';
-
-	if (isSet(extra)) { html += ' ' + extra; }
-	else if (isSet(inf)) { html += ' onclick="Motto.dixe({text:\'' + inf + '\'});"' }
-
-	html += ' />';
-	return html;
-}
-
 function denPezoun() {
 	var paso = 0;
 	for (var i = 1; i <= 3; i++) {
@@ -487,3 +449,76 @@ function isEpomenos(thesi) {
 function notEpomenos(thesi) {
 	return (!isEpomenos(thesi));
 }
+
+var Trattr = {};
+
+Trattr.iconHTML = function(css, src, tit, inf) {
+	var html = '';
+	html = '<img class="' + css + '" alt="" src="' + src + '"';
+	if (isSet(tit)) { html += ' title="' + tit + '"'; }
+	if (isSet(inf)) { html += ' onclick="Motto.dixe({text:\'' + inf + '\'});"'; }
+	html += ' />';
+	return html;
+};
+
+Trattr.idioktitoHTML = function(css) {
+	return Trattr.iconHTML(css, globals.server + 'images/controlPanel/idioktitoKafenio.png',
+		'Ιδιόκτητο τραπέζι', 'Μόνο ο παίκτης που δημιούργησε το τραπέζι έχει δικαίωμα<br />' +
+		'ρύθμισης και πρόσκλησης παικτών στο τραπέζι.');
+};
+
+Trattr.klistoHTML = function(css) {
+	return Trattr.iconHTML(css, globals.server + 'images/controlPanel/klisto.png',
+		'Κλειστό τραπέζι', 'Οι θεατές δεν βλέπουν τα φύλλα του παίκτη που<br />' +
+		'παρακολουθούν, παρά μόνο τα φύλλα που παίζονται.');
+};
+
+Trattr.pasoPasoPasoHTML = function(css) {
+	return Trattr.iconHTML(css, globals.server + 'images/controlPanel/ppp.png',
+		'Παίζεται το πάσο, πάσο, πάσο', 'Οι διανομές στις οποίες δεν αγοράζει κανείς<br />' +
+		'παίζονται αχρωμάτιστες χωρίς τα κάτω φύλλα.');
+};
+
+Trattr.oxiAsoiHTML = function(css) {
+	return Trattr.iconHTML(css, globals.server + 'images/trapoula/asoi.png',
+		'Δεν πριμοδοτούνται οι άσοι', 'Δεν δηλώνονται, ούτε πριμοδοτούνται<br />' +
+		'οι τέσσερις άσοι στην αγορά.');
+};
+
+Trattr.postelIconHTML = function(css, extra, postel) {
+	var html = '';
+	if (notSet(postel)) {
+		if (notSet(window.partida)) { return html; }
+		if (notSet(partida.postel)) { return html; }
+		postel = partida.postel;
+	}
+
+	var inf = null;
+	switch (postel) {
+	case 1:
+		var ico = 'anisoropo';
+		var tit = 'Ανισόρροπη πληρωμή τελευταίας αγοράς';
+		inf = 'Η αξία της τελευταίας αγοράς προσαρμόζεται στο υπόλοιπο της<br />' +
+			'κάσας, εκτός και αν η αγορά μπει μέσα οπότε πληρώνεται κανονικά.';
+		break;
+	case 2:
+		ico = 'dikeo';
+		tit = 'Δίκαιη πληρωμή τελευταίας αγοράς';
+		inf = 'Αν το υπόλοιπο της κάσας δεν επαρκεί για την πληρωμή της<br />' +
+			'τελευταίας αγοράς, ενισχύεται η κάσα ώστε η αγορά να<br />' +
+			'πληρωθεί με την κανονική της αξία.';
+		break;
+	default:
+		ico = 'kanoniko';
+		tit = 'Κανονική πληρωμή τελευταίας αγοράς';
+		break;
+	}
+	html = '<img class="' + css + '" alt="" src="' + globals.server +
+		'images/postel/' + ico + '.png" title="' + tit + '"';
+
+	if (isSet(extra)) { html += ' ' + extra; }
+	else if (isSet(inf)) { html += ' onclick="Motto.dixe({text:\'' + inf + '\'});"'; }
+
+	html += ' />';
+	return html;
+};
