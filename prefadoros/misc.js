@@ -932,12 +932,12 @@ var Motto = new function() {
 		if (notSet(mottoDiv)) { return; }
 
 		var html = '';
-		html += '<div>';
-		html += motto.text;
-		html += '</div>';
-		html += '<div class="mottoAuthor">';
-		html += motto.author;
-		html += '</div>';
+		if (isSet(motto.text)) {
+			html += '<div>' + motto.text + '</div>';
+		}
+		if (isSet(motto.author)) {
+			html += '<div class="mottoAuthor">' + motto.author + '</div>';
+		}
 		html += '<div class="mottoCopy" title="Κλικ για δυνατότητα αντιγραφής κειμένου" ' +
 			'onmouseover="Motto.copy(this, true);" onmouseout="Motto.copy(this, false);" ' +
 			'onclick="Motto.copyData(event, this);">';

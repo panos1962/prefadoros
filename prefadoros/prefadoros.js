@@ -352,14 +352,20 @@ function postelIconHTML(css, extra, postel) {
 		postel = partida.postel;
 	}
 
+	var inf = null;
 	switch (postel) {
 	case 1:
 		var ico = 'anisoropo';
 		var tit = 'Ανισόρροπη πληρωμή τελευταίας αγοράς';
+		inf = 'Η αξία της τελευταίας αγοράς προσαρμόζεται στο υπόλοιπο της<br />' +
+			'κάσας, εκτός και αν η αγορά μπει μέσα οπότε πληρώνεται κανονικά.';
 		break;
 	case 2:
 		ico = 'dikeo';
 		tit = 'Δίκαιη πληρωμή τελευταίας αγοράς';
+		inf = 'Αν το υπόλοιπο της κάσας δεν επαρκεί για την πληρωμή της<br />' +
+			'τελευταίας αγοράς, ενισχύεται η κάσα ώστε η αγορά να<br />' +
+			'πληρωθεί με την κανονική της αξία.';
 		break;
 	default:
 		ico = 'kanoniko';
@@ -368,7 +374,10 @@ function postelIconHTML(css, extra, postel) {
 	}
 	html = '<img class="' + css + '" alt="" src="' + globals.server +
 		'images/postel/' + ico + '.png" title="' + tit + '"';
+
 	if (isSet(extra)) { html += ' ' + extra; }
+	else if (isSet(inf)) { html += ' onclick="Motto.dixe({text:\'' + inf + '\'});"' }
+
 	html += ' />';
 	return html;
 }
