@@ -312,26 +312,11 @@ var Partida = new function() {
 					'πληκτρολογίου οθόνης συσκευής κινητού" style="cursor: pointer;" ' +
 					'onclick="controlPanel.mobile();" />';
 			}
-			if (isIdioktito()) {
-				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
-					'images/controlPanel/idioktito.png" title="Ιδιόκτητο τραπέζι" />';
-			}
-			if (isKlisto()) {
-				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
-					'images/controlPanel/klisto.png" title="Κλειστό τραπέζι" />';
-			}
-			if (isPasoPasoPaso()) {
-				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
-					'images/controlPanel/ppp.png" title="Παίζεται το πάσο, πάσο, πάσο" />';
-			}
-			if (notAsoiKolos()) {
-				html += '<img class="partidaAttrIcon" alt="" src="' +
-					globals.server + 'images/trapoula/asoi.png" ' +
-					'title="Δεν μετράνε οι άσοι" />';
-			}
-			if (isPostel()) {
-				html += postelIconHTML('partidaAttrIcon');
-			}
+			if (isIdioktito()) { html += Trattr.idioktitoHTML('partidaAttrIcon'); }
+			if (isKlisto()) { html += Trattr.klistoHTML('partidaAttrIcon'); }
+			if (isPasoPasoPaso()) { html += Trattr.pasoPasoPasoHTML('partidaAttrIcon'); }
+			if (notAsoiKolos()) { html += Trattr.oxiAsoiHTML('partidaAttrIcon'); }
+			if (isPostel()) { html += Trattr.postelIconHTML('partidaAttrIcon'); }
 			html += giortes;
 			html += '</div>';
 		}
