@@ -627,6 +627,20 @@ window.onload = function() {
 <table width="100%">
 	<tr>
 	<td class="helpIconColumn">
+		<img src="<?php print $globals->server; ?>images/controlPanel/misoLepto.gif"
+			class="helpIcon" alt="" />
+	</td>
+	<td class="helpKimeno">
+		Κάνοντας κλικ σε αυτό το εικονίδιο ειδοποιούμε συμπαίκτες
+		και θεατές ότι θα λείψουμε για λίγο.
+		Η ειδοποίηση εμφανίζεται στο χώρο ανταλλαγής μηνυμάτων.
+	</td>
+	</tr>
+</table>
+
+<table width="100%">
+	<tr>
+	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/blockImage.png"
 			class="helpIcon" alt="" />
 	</td>
@@ -652,20 +666,6 @@ window.onload = function() {
 		παλέτα χρωμάτων και φύλλων, από την οποία μπορούμε να
 		επιλέξουμε χρώματα και φύλλα της τράπουλας με σκοπό
 		την ενσωμάτωση των αντίστοιχων εικονιδίων στη συζήτηση.
-	</td>
-	</tr>
-</table>
-
-<table width="100%">
-	<tr>
-	<td class="helpIconColumn">
-		<img src="<?php print $globals->server; ?>images/controlPanel/misoLepto.gif"
-			class="helpIcon" alt="" />
-	</td>
-	<td class="helpKimeno">
-		Κάνοντας κλικ σε αυτό το εικονίδιο ειδοποιούμε συμπαίκτες
-		και θεατές ότι θα λείψουμε για λίγο.
-		Η ειδοποίηση εμφανίζεται στο χώρο ανταλλαγής μηνυμάτων.
 	</td>
 	</tr>
 </table>
