@@ -71,7 +71,7 @@ var Trapezi = new function() {
 		"papadopoulos.jpg",
 		"ketiBoukalia.jpg",
 		"arkasa.jpg",
-		"naxos.png",
+		"naxos.jpg",
 		"stremenos.jpg",
 		"porta.jpg",
 		"trapezaki.jpg",
