@@ -362,7 +362,7 @@ window.onload = function() {
 	Γενικά, στο control panel εμφανίζονται τα παρακάτω εικονίδια:
 </p>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server;
@@ -379,7 +379,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server;
@@ -397,7 +397,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server;
@@ -414,7 +414,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server;
@@ -432,7 +432,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server;
@@ -451,7 +451,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/kasa.png"
@@ -479,7 +479,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/check.png"
@@ -504,7 +504,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/uncheck.png"
@@ -521,7 +521,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/kitapi.png"
@@ -543,7 +543,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/kapikia.png"
@@ -563,7 +563,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/talk.png"
@@ -580,7 +580,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/prefadoros.png"
@@ -594,7 +594,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/busy.png"
@@ -610,7 +610,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/available.png"
@@ -624,7 +624,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/misoLepto.gif"
@@ -638,7 +638,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/blockImage.png"
@@ -655,7 +655,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/trapoula/xromaS.png"
@@ -670,7 +670,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/postel/kanoniko.png"
@@ -705,7 +705,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/exodos.png"
@@ -751,7 +751,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server;
@@ -782,7 +782,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server;
@@ -806,7 +806,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/emoticons/set1/xara.png"
@@ -832,7 +832,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/kafedaki.png"
@@ -846,7 +846,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/paraskinio.png"
@@ -863,7 +863,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/mobile.png"
@@ -887,7 +887,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/controlPanel/entasi.png"
@@ -905,7 +905,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server;
@@ -927,7 +927,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server;
@@ -1007,7 +1007,7 @@ window.onload = function() {
 	Πάνω στις προσκλήσεις θα δείτε τα παρακάτω εικονίδια:
 </div>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/prosEmena.png"
@@ -1023,7 +1023,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/Xred.png"
@@ -1040,7 +1040,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/apoMena.png"
@@ -1102,7 +1102,7 @@ window.onload = function() {
 	τα εξής εικονίδια:
 </p>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/addFriend.png"
@@ -1117,7 +1117,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/blockPektis.png"
@@ -1135,7 +1135,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/Xgreen.png"
@@ -1149,7 +1149,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/Xred.png"
@@ -1164,7 +1164,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/sxetikos.png"
@@ -1179,7 +1179,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/blueBall.png"
@@ -1200,7 +1200,7 @@ window.onload = function() {
 	</tr>
 </table>
 
-<table width="100%">
+<table class="helpPara">
 	<tr>
 	<td class="helpIconColumn">
 		<img src="<?php print $globals->server; ?>images/greenBall.png"
