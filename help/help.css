@@ -87,3 +87,11 @@ li {
 	width: 2.2cm;
 	vertical-align: top;
 }
+
+.helpPara {
+	width: 100%;
+	border-style: solid;
+	border-width: 0px 0px 1px 0px;
+	border-color: #E0E0D1;
+	margin-bottom: 3px;
+}
