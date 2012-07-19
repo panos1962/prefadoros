@@ -438,6 +438,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 		class="faqIconInline" alt = "" /></span>
 		του control panel.
 	</p>
+	<?php korifi(); ?>
 </div>
 </li>
 
