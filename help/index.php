@@ -2263,9 +2263,8 @@ function titlos($topic) {
 	$idx = preg_replace('/[, !]/', '_', $topic);
 	?>
 	<a name="<?php print $idx; ?>"></a>
-	<a href="#" title="Κορυφή της σελίδας" class="helpTitlos">
-		<?php print $topic; ?>
-	</a>
+	<a href="#" title="Κορυφή της σελίδας"><div class="helpTitlos"><?php
+		print $topic; ?></div></a>
 	<?php
 }
 
