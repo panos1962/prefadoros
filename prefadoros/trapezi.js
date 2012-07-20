@@ -84,12 +84,22 @@ var Trapezi = new function() {
 		"tzamaria.jpg"
 	];
 
+	var currentPhotoIndex = -1;
 	var currentPhoto = null;
+	this.galleryMode = 'random';
 
 	this.randomPhoto = function() {
-		var n = parseInt(Math.random() * photoGallery.length);
-		if (n >= photoGallery.length) { n = 0; }
-		currentPhoto = photoGallery[n];
+		switch (this.galleryMode) {
+		case 'random':
+			currentPhotoIndex = parseInt(Math.random() * photoGallery.length);
+			break;
+		default:
+			currentPhotoIndex++;
+			break;
+		}
+
+		if (currentPhotoIndex >= photoGallery.length) { currentPhotoIndex = 0; }
+		currentPhoto = photoGallery[currentPhotoIndex];
 		return currentPhoto;
 	};
 
@@ -129,6 +139,10 @@ var Trapezi = new function() {
 		}
 	};
 
+	this.galleryProipothesi = function() {
+		return((trapezi.length <= 0) && (rebelos.length <= 8));
+	};
+
 	this.updateHTML = function() {
 		var peknpat = getelid('peknpat');
 		peknpat = (isSet(peknpat) && isSet(peknpat.value)) ? peknpat.value : '';
@@ -144,7 +158,7 @@ var Trapezi = new function() {
 			Trapezi.HTML += '</div>';
 		}
 
-		if ((trapezi.length <= 0) && (rebelos.length <= 8)) {
+		if (this.galleryProipothesi() && (this.galleryMode != 'none')) {
 			if (notSet(currentPhoto)) { Trapezi.randomPhoto(); }
 			Trapezi.HTML += '<img class="galleryPhoto" src="' + globals.server +
 				'images/gallery/' + currentPhoto + '" ' +
