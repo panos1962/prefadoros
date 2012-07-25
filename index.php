@@ -83,9 +83,25 @@ $globals->klise_fige();
 function prefadoros() {
 	global $globals;
 
-	$ip = (isset($_SERVER) && is_array($_SERVER) &&
-		array_key_exists("REMOTE_ADDR", $_SERVER)) ?
-		$_SERVER["REMOTE_ADDR"] : "";
+	$ip = "";
+	if (isset($_SERVER) && is_array($_SERVER)) {
+		if (array_key_exists("REMOTE_ADDR", $_SERVER)) {
+			$ip = $_SERVER["REMOTE_ADDR"];
+		}
+		if (array_key_exists("HTTP_X_FORWARDED_FOR", $_SERVER)) {
+			$ip2 = $_SERVER["HTTP_X_FORWARDED_FOR"];
+			$ip2 = explode(",", $ip2);
+			if (count($ip2) > 0) {
+				/*
+				file_put_contents("ip.txt",
+					$globals->pektis->login . ", ip = @" . $ip . "@, " .
+					"ip2 = @" . $ip2[0] . "@\n",
+					FILE_APPEND | LOCK_EX);
+				*/
+				$ip = $ip2[0];
+			}
+		}
+	}
 
 	Prefadoros::klise_sinedria();
 	check_pektis_photo($globals->pektis->login, "");
