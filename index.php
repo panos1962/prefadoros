@@ -83,30 +83,10 @@ $globals->klise_fige();
 function prefadoros() {
 	global $globals;
 
-	$ip = "";
-	if (isset($_SERVER) && is_array($_SERVER)) {
-		if (array_key_exists("REMOTE_ADDR", $_SERVER)) {
-			$ip = $_SERVER["REMOTE_ADDR"];
-		}
-		if (array_key_exists("HTTP_X_FORWARDED_FOR", $_SERVER)) {
-			$ip2 = $_SERVER["HTTP_X_FORWARDED_FOR"];
-			$ip2 = explode(",", $ip2);
-			if (count($ip2) > 0) {
-				/*
-				file_put_contents("ip.txt",
-					$globals->pektis->login . ", ip = @" . $ip . "@, " .
-					"ip2 = @" . $ip2[0] . "@\n",
-					FILE_APPEND | LOCK_EX);
-				*/
-				$ip = $ip2[0];
-			}
-		}
-	}
-
 	Prefadoros::klise_sinedria();
 	check_pektis_photo($globals->pektis->login, "");
 	$query = "INSERT INTO `sinedria` (`pektis`, `ip`) VALUES (" .
-		$globals->pektis->slogin . ", '" . $ip . "')";
+		$globals->pektis->slogin . ", '" . client_ip() . "')";
 	$globals->sql_query($query);
 
 	$trapoula = new Trapoula;
@@ -162,6 +142,25 @@ function prefadoros() {
 	<div id="permesArea" class="permesArea" title="Χώρος εμφάνισης μηνυμάτων"
 		onclick="Permes.stripShow(this, false);"></div>
 	<?php
+}
+
+function client_ip() {
+	$ip = "";
+	if (!isset($_SERVER)) { return($ip); }
+	if (!is_array($_SERVER)) { return($ip); }
+
+	if (array_key_exists("REMOTE_ADDR", $_SERVER)) {
+		$ip = $_SERVER["REMOTE_ADDR"];
+	}
+
+	if (!array_key_exists("HTTP_X_FORWARDED_FOR", $_SERVER)) {
+		return($ip);
+	}
+
+	$ipf = explode(",", $_SERVER["HTTP_X_FORWARDED_FOR"]);
+	if (count($ipf) <= 0) { return($ip); }
+
+	return($ipf[0]);
 }
 
 function emfanisi_theatis() {
