@@ -362,6 +362,7 @@ function print_panel() {
 	$item_list[] = new Item("piramaEmoticon.gif", "Είπα να κάνω ένα πείραμα…", 3.2);
 	$item_list[] = new Item("vivlioEmoticon.gif",
 		"Κάτσε να δω τι λέει ο Σαραντάκος γι αυτή την περίπτωση…");
+	$item_list[] = new Item("notpps1.png", "Τα πράγματα πάνε στραβά;", 3.6, "_NOTPPS_");
 
 	if ($globals->is_pektis() && is_file($ufile = "user/" .
 		$globals->pektis->login . ".php")) {
