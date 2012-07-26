@@ -12,7 +12,7 @@ function alagiIkonas(img) {
 		img.style.width = '5.2cm'
 		var x = document.getElementById('lezanda');
 		if (x) { x.innerHTML = 'Μπορούν να γίνουν χειρότερα!'; }
-	}, 3000);
+	}, 5000);
 }
 //]]>
 </script>
