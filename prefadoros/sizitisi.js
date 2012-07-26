@@ -221,7 +221,8 @@ var Sizitisi = new function() {
 	// του funchat. Καλό είναι το width του iframe να είναι ίδιο με το
 	// width της εικόνας.
 	var ytbFunchat = {
-		'_AMAN_':		{ w: 6.8, h: 5.1, v: 'aman' }
+		'_AMAN_':		{ w: 6.8, h: 5.1, v: 'aman' },
+		'_NOTPPS_':		{ w: 6.8, h: 5.1, p: 'notpps.php' }
 	};
 
 	this.funchatDecode = function(s, proxiro) {
@@ -238,17 +239,22 @@ var Sizitisi = new function() {
 			ikona += '/>';
 		}
 
+		var titlos = x[5];
+		for (var i = 6; i < x.length; i++) { titlos += x[i]; }
+		if (titlos != '') { titlos = '<div>' + akirosiScript(titlos) + '</div>'; }
+
 		var k = 'k' + s.k;
 		if ((!proxiro) && x[4] && (!epexeIxos.hasOwnProperty(k)) && isSet(s.w) &&
 			((currentTimestamp() - (s.w * 1000)) < 5000)) {
 			video = Sizitisi.pexeIxoVideo(x[4]);
-			if (ytbFunchat.hasOwnProperty(x[4])) { ikona = ''; }
+			if (ytbFunchat.hasOwnProperty(x[4])) {
+				ikona = '';
+				if (ytbFunchat[x[4]].hasOwnProperty('p')) {
+					titlos = '';
+				}
+			}
 			epexeIxos[k] = true;
 		}
-
-		var titlos = x[5];
-		for (var i = 6; i < x.length; i++) { titlos += x[i]; }
-		if (titlos != '') { titlos = '<div>' + akirosiScript(titlos) + '</div>'; }
 
 		return ikona + video + titlos;
 	};
@@ -308,12 +314,23 @@ var Sizitisi = new function() {
 					mp3Funchat[iv[0]] + '.mp3" type="audio/mp3" />';
 			}
 			else if (ytbFunchat.hasOwnProperty(iv[0])) {
-				html += '<iframe style="width: ' + ytbFunchat[iv[0]].w +
-					'cm; height: ' + ytbFunchat[iv[0]].h +
-					'cm; border-style: none;" src="' + globals.server +
-					'misc/video.php?video=' + globals.funchatServer +
-					ytbFunchat[iv[0]].v + '.mp4&width=' + ytbFunchat[iv[0]].w +
-					'&height=' + ytbFunchat[iv[0]].h + '"></iframe>';
+				// Αν υπάρχει βίντεο ("v"), τότε θα παιχτεί σε iframe, ενώ αν υπάρχει
+				// ξεχωριστή ιστοσελίδα ("p"), τότε θα φορτωθεί σε iframe.
+				if (ytbFunchat[iv[0]].hasOwnProperty('v')) {
+					html += '<iframe style="width: ' + ytbFunchat[iv[0]].w +
+						'cm; height: ' + ytbFunchat[iv[0]].h +
+						'cm; border-style: none;" src="' + globals.server +
+						'misc/video.php?video=' + globals.funchatServer +
+						ytbFunchat[iv[0]].v + '.mp4&width=' + ytbFunchat[iv[0]].w +
+						'&height=' + ytbFunchat[iv[0]].h + '"></iframe>';
+				}
+				else if (ytbFunchat[iv[0]].hasOwnProperty('p')) {
+					html += '<iframe style="width: ' + ytbFunchat[iv[0]].w +
+						'cm; height: ' + ytbFunchat[iv[0]].h +
+						'cm; border-style: none;" src="' + globals.server +
+						'funchat/selida/' + ytbFunchat[iv[0]].p +
+						'?server=' + globals.funchatServer + '"></iframe>';
+				}
 			}
 			else {
 				sigasi = false;
