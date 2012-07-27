@@ -211,6 +211,7 @@ var Sizitisi = new function() {
 		'_SKL_':		'skoulikantera',
 		'_TP_':			'tinPatisame',
 		'_GGTK_':		'katastrofi',
+		'_KG_':			'kitrinaGantia',
 		'_KL_':			'aomatos'
 	};
 
