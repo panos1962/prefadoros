@@ -329,7 +329,8 @@ var Sizitisi = new function() {
 						'cm; height: ' + ytbFunchat[iv[0]].h +
 						'cm; border-style: none;" src="' + globals.server +
 						'funchat/selida/' + ytbFunchat[iv[0]].p +
-						'?server=' + globals.funchatServer + '"></iframe>';
+						'?server=' + uri(globals.server) + '&funchat=' +
+						uri(globals.funchatServer) + '"></iframe>';
 				}
 			}
 			else {
