@@ -47,49 +47,20 @@ var Trapezi = new function() {
 		if (isSet(ixos) && (Prefadoros.show == 'kafenio')) { playSound(ixos); }
 	};
 
-	var photoGallery = [
-		"kafenio.jpg",
-		"apostolis.jpg",
-		"douneLavin.jpg",
-		"kafe.jpg",
-		"timokatalogos.jpg",
-		"karagiozis.jpg",
-		"ketiVrisi.jpg",
-		"karekles.jpg",
-		"kastelorizo.jpg",
-		"limni.jpg",
-		"metalikes.jpg",
-		"ouzaki.jpg",
-		"papoudes.jpg",
-		"platanos.jpg",
-		"kiparisia.jpg",
-		"ketiAvli.jpg",
-		"toPalio.jpg",
-		"toSteki.jpg",
-		"klimataria.jpg",
-		"preferans.png",
-		"papadopoulos.jpg",
-		"ketiBoukalia.jpg",
-		"arkasa.jpg",
-		"naxos.jpg",
-		"stremenos.jpg",
-		"porta.jpg",
-		"trapezaki.jpg",
-		"xartokouti.jpg",
-		"pipes.jpg",
-		"kathisma.jpg",
-		"orino.jpg",
-		"stinos.jpg",
-		"amorgos.jpg",
-		"koumarianos.jpg",
-		"tzamaria.jpg"
-	];
-
+	var photoGallery = null;
 	var currentPhotoIndex = -1;
 	var currentPhoto = null;
 	this.galleryMode = 'random';
 
 	this.randomPhoto = function() {
+		if (notSet(photoGallery)) {
+			var req = new Request('trapezi/photoGallery', false);
+			req.send();
+			try { eval('photoGallery = [' + req.getResponse() + '];'); }
+			catch(e) { photoGallery = []; }
+			if (photoGallery.length <= 0) { photoGallery = [ 'kafenio.jpg' ]; }
+		}
+
 		switch (this.galleryMode) {
 		case 'random':
 			currentPhotoIndex = parseInt(Math.random() * photoGallery.length);
