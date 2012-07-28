@@ -4,6 +4,7 @@ $funchat = $_REQUEST['funchat'];
 if (!isset($server)) { die(0); }
 if (!isset($funchat)) { die(0); }
 ?>
+<!DOCTYPE HTML>
 <html>
 <head>
 <script type="text/javascript">
