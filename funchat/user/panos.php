@@ -10,14 +10,14 @@ $item_list[] = new Item("user/panos/omorfantraMou.jpg",
 $item_list[] = new Item("user/panos/kritikos.jpg",
 	"Η πρέφα θέλει υπομονή!", 4.0);
 $item_list[] = new Item("user/panos/marinikol.gif", "", 4.0);
-$item_list[] = new Item("user/panos/orePouPame.jpg",
-	"Ωρέ πού πάμε, ρε; Πού πάμε;", 6.0, "http://youtu.be/U6mfw_0bD1w");
+$item_list[] = new Item("", "Ωρέ πού πάμε, ρε; Πού πάμε;", 6.0,
+	"http://youtu.be/U6mfw_0bD1w");
 $item_list[] = new Item("", "Πώ, ρε, τι θα γίνω εγώ με σένα…", 6.6, "_KG_");
 $item_list[] = new Item("", "Βρε δεν ντρέπεσαι, γέρος άνθρωπος βρε;", 6.0,
 	"http://youtu.be/Daggdx-enM4");
 $item_list[] = new Item("spiderman.gif", "", "3.0", "_NC_");
 $item_list[] = new Item("soldierDance.gif", "", "", "_BG_");
 $item_list[] = new Item("soloDance.gif", "", "", "_ITM_");
-$item_list[] = new Item("treno.gif", "", "3.0", "treno");
-$item_list[] = new Item("argoporia.gif", "", "2.0", "clocktickslow");
+$item_list[] = new Item("", "Αργούμε;", "3.0", "treno");
+$item_list[] = new Item("", "Τι περιμένουμε;", "2.0", "clocktickslow");
 ?>
