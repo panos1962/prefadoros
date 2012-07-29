@@ -129,8 +129,20 @@ class Item {
 			}
 			?>
 			<div>
+			<?php
+			if ($this->image != '') {
+				?>
 				<img src="<?php print FUNCHAT_SERVER . $this->image;
-					?>" class="funchatImage" alt="<?php print $this->title; ?>" />
+					?>" class="funchatImage" alt="<?php
+					print $this->title; ?>" />
+				<?php
+			}
+			else {
+				?>
+				&nbsp;
+				<?php
+			}
+			?>
 			</div>
 			<div class="funchatTitle">
 				<?php print $this->title; ?>

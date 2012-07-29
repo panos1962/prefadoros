@@ -240,9 +240,14 @@ var Sizitisi = new function() {
 			ikona += '/>';
 		}
 
-		var titlos = x[5];
-		for (var i = 6; i < x.length; i++) { titlos += x[i]; }
-		if (titlos != '') { titlos = '<div>' + akirosiScript(titlos) + '</div>'; }
+		var soltit = x[5];
+		for (var i = 6; i < x.length; i++) { soltit += x[i]; }
+		var titlos = '';
+		if (soltit != '') {
+			if (ikona != '') { titlos += '<div>'; }
+			titlos += akirosiScript(soltit)
+			if (ikona != '') { titlos += '</div>'; }
+		}
 
 		var k = 'k' + s.k;
 		if ((!proxiro) && x[4] && (!epexeIxos.hasOwnProperty(k)) && isSet(s.w) &&
