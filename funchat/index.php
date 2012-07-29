@@ -139,7 +139,9 @@ class Item {
 			}
 			else {
 				?>
-				&nbsp;
+				<div class="funchatXorisIkona">
+					Χωρίς<br />εικόνα
+				</div>
 				<?php
 			}
 			?>
@@ -335,7 +337,7 @@ function print_panel() {
 	$item_list[] = new Item("vegosPelates.jpg", "Πελάτες μου!", "3.5",
 		"http://youtu.be/LpX2T8IenD8");
 	$item_list[] = new Item("moxthiroEmoticon.gif");
-	$item_list[] = new Item("skoulikantera.jpg", "Α, πανάθεμά σε, σκουληκαντέρα!", "5.6", "_SKL_");
+	$item_list[] = new Item("", "Α, πανάθεμά σε, σκουληκαντέρα!", "5.6", "_SKL_");
 	$item_list[] = new Item("tinPatisame.jpg", "Την πατήσαμε…", "6.0", "_TP_");
 	$item_list[] = new Item("xtipoKefali.gif");
 	$item_list[] = new Item("sfiriEmoticon.gif", "Θα το σπάσω!!!");
@@ -343,10 +345,8 @@ function print_panel() {
 	$item_list[] = new Item("astrapesEmoticon.gif", "#!%@^&#*!@");
 	$item_list[] = new Item("fuckYou.gif");
 	$item_list[] = new Item("bartAss.gif", "Kiss my ass!");
-	$item_list[] = new Item("denAntexo.png", "Όχι, δεν αντέχω άλλο!", "5.0",
+	$item_list[] = new Item("", "Όχι, δεν αντέχω άλλο!", "5.0",
 		"http://youtu.be/aEOcb4DD6xw");
-	$item_list[] = new Item("aiStoDiaolo.jpg", "Άι στο διάολο…", "6.0",
-		"http://youtu.be/3cFXA3OaI4U");
 	$item_list[] = new Item("miGamiso.jpg", "", 2.0);
 	$item_list[] = new Item("kokiniKarta.jpg", "", 3.0, "sfirixtra");
 	$item_list[] = new Item("binelikia.gif", "Δεν αντέχω τα μπινελίκια!");

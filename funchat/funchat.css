@@ -54,3 +54,12 @@ body {
 	background-color: #FFFFCC;
 	z-index: 1;
 }
+
+.funchatXorisIkona {
+	font-family: sans-serif;
+	font-weight: bold;
+	font-style: italic;
+	text-align: center;
+	color: #CC0000;
+	font-size: 0.30cm;
+}
