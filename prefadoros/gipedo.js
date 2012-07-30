@@ -436,7 +436,6 @@ var Gipedo = new function() {
 	this.anadromi = 'baza';
 
 	this.switchAnadromi = function(div) {
-		if (isTheatis()) { return; }
 		if (notTzogadoros()) { return; }
 
 		switch (this.anadromi) {
