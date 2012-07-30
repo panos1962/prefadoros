@@ -10159,3 +10159,7 @@ All work and no play makes Jack a dull boy.
 στη βλακεία.
 :ΑΡΤΟΥΡ ΣΟΠΕΝΑΟΥΕΡ
 #
+Premature optimization is the root of all evil.
+
+:DONALD KNUTH
+#
