@@ -427,32 +427,88 @@ var Gipedo = new function() {
 		return html;
 	};
 
-	this.telefteaBazaHTML = function() {
-		var html = '';
-		if (pexnidi.prevBazaFilo.length > 0) {
-			for (var i = 1; i <= 3; i++) {
-				html += '<div>';
-				for (var j = 0; j < pexnidi.prevBazaFilo.length; j++) {
-					if (pexnidi.prevBazaPektis[j] == i) {
-						html += '<img class="bazaFilo telefteaBazaFilo' + i +
-							'" src="' + globals.server + 'images/trapoula/' +
-							pexnidi.prevBazaFilo[j] + '.png" alt="" ' +
-							'style="z-index: 1' + j + ';" />';
-						break;
-					}
-				}
-				html += '</div>';
+	// Το property "anadromi" δείχνει το τι θα εμφανιστεί στη θέση που
+	// προβάλλεται η τελευταία μπάζα. Πράγματι, σ' αυτή τη θέση μπορεί
+	// να προβληθούν τα φύλλα της τελευταίας μπάζας, αλλά και τα φύλλα
+	// του τζόγου εφόσον οι παίκτες δήλωσαν πάσο. Επίσης, ειδικά για
+	// τον τζογαδόρο, μπορεί να προβληθούν τα σκάρτα.
+
+	this.anadromi = 'baza';
+
+	this.switchAnadromi = function(div) {
+		if (isTheatis()) { return; }
+		if (notTzogadoros()) { return; }
+
+		switch (this.anadromi) {
+		case 'baza':
+			if (pexnidi.prevTzogosFilo.length == 2) {
+				div.innerHTML = this.anadromiTzogosHTML();
 			}
+			this.anadromi = 'tzogos';
+			break;
+		default:
+			if (pexnidi.prevBazaFilo.length > 0) {
+				div.innerHTML = this.anadromiBazaHTML();
+			}
+			this.anadromi = 'baza';
+			break;
+		}
+	};
+
+	// Η function που ακολουθεί επιστρέφει το HTML της τελευταίας
+	// μπάζας, ή του τζόγου, ή των σκάρτων (για τον τζογαδόρο).
+	// Αν περάσουμε παράμετρο, τότε δηλώνουμε ρητά ότι επιθυμούμε
+	// τα φύλλα της τελευταίας μπάζας (εφόσον υπάρχει)και όχι
+	// τζόγο, ή σκάρτα.
+
+	this.telefteaBazaHTML = function(baza) {
+		if (isSet(baza)) { Gipedo.anadromi = 'baza'; }
+		if (pexnidi.prevBazaFilo.length > 0) {
+			html = this.anadromiBazaHTML();
 		}
 		else if (pexnidi.prevTzogosFilo.length == 2) {
-			for (i = 0; i < 2; i++) {
-				html += '<div class="prevTzogos' + (i + 1) + '">';
-				html += '<img class="dixeTzogoIcon dixeTzogoIcon' + (i + 1) + '" src="' +
-					globals.server + 'images/trapoula/' +
-					pexnidi.prevTzogosFilo[i] + '.png" alt="" ' +
-					'style="z-index: 1' + i + '; width: 2.1cm;" />';
-				html += '</div>';
+			html = this.anadromiTzogosHTML();
+		}
+		else {
+			html = '';
+		}
+		return html;
+	};
+
+	// Η function που ακολουθεί επιστρέφει το HTML της τελευταίας μπάζας.
+
+	this.anadromiBazaHTML = function() {
+		var html = '';
+		for (var i = 1; i <= 3; i++) {
+			html += '<div>';
+			for (var j = 0; j < pexnidi.prevBazaFilo.length; j++) {
+				if (pexnidi.prevBazaPektis[j] == i) {
+					html += '<img class="bazaFilo telefteaBazaFilo' + i +
+						'" src="' + globals.server + 'images/trapoula/' +
+						pexnidi.prevBazaFilo[j] + '.png" alt="" ' +
+						'style="z-index: 1' + j + ';" />';
+					break;
+				}
 			}
+			html += '</div>';
+		}
+		return html;
+	};
+
+	// Η function που ακολουθεί επιστρέφει το HTML των φύλλων του
+	// τζόγου, ή των φύλλων που αλλάχτηκαν από τον τζογαδόρο.
+
+	this.anadromiTzogosHTML = function() {
+		var html = '';
+		if (pexnidi.prevTzogosFilo.length < 2) { return html; }
+
+		for (var i = 0; i < 2; i++) {
+			html += '<div class="prevTzogos' + (i + 1) + '">';
+			html += '<img class="dixeTzogoIcon dixeTzogoIcon' + (i + 1) + '" src="' +
+				globals.server + 'images/trapoula/' +
+				pexnidi.prevTzogosFilo[i] + '.png" alt="" ' +
+				'style="z-index: 1' + i + '; width: 2.1cm;" />';
+			html += '</div>';
 		}
 		return html;
 	};

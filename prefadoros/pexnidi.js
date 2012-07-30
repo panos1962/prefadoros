@@ -85,11 +85,12 @@ var Pexnidi = new function() {
 		if (pexnidi.bazaFilo.length > 0) {
 			pexnidi.prevBazaFilo = pexnidi.bazaFilo;
 			pexnidi.prevBazaPektis = pexnidi.bazaPektis;
-			pexnidi.prevTzogosFilo = [];
+			if (isTheatis() || notTzogadoros()) { pexnidi.prevTzogosFilo = []; }
 		}
 
 		pexnidi.bazaFilo = [];
 		pexnidi.bazaPektis = [];
+		Gipedo.anadromi = 'baza';
 	};
 
 	// Η function "processDedomena" καλείται κάθε φορά που έχουμε
@@ -554,9 +555,17 @@ var Pexnidi = new function() {
 		Sizitisi.sxolioFocus();
 		var fila = pexnidi.fila[1];
 		var neaFila = '';
+		var itzogos = 0;
+		pexnidi.prevTzogosFilo = [];
 		for (var i = 0; i < 12; i++) {
-			if ((i in Dodekada.klidomeno) && (Dodekada.klidomeno[i])) { continue; }
-			neaFila += fila[i];
+			if ((i in Dodekada.klidomeno) && (Dodekada.klidomeno[i])) {
+				if (notTheatis() && isTzogadoros()) {
+					pexnidi.prevTzogosFilo[itzogos++] = fila[i];
+				}
+			}
+			else {
+				neaFila += fila[i];
+			}
 		}
 
 		Pexnidi.agoraData.xroma = dxb.substr(1, 1);
