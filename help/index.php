@@ -1352,7 +1352,7 @@ window.onload = function() {
 	<span class="nobr">θέασης (<img src="<?php print $globals->server;
 		?>images/controlPanel/theatis.png"
 		class="helpIconInline" alt = "" />),</span>
-	οπότε καθίσταστε θεατής.
+	οπότε καθίστασθε θεατής.
 </p>
 
 <p class="helpKimeno">
