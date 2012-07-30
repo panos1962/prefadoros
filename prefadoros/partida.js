@@ -1037,7 +1037,8 @@ var Partida = new function() {
 		}
 
 		html += '</div>';
-		html += '<div id="telefteaBaza" class="telefteaBaza" title="Προηγούμενη μπάζα/τζόγος"';
+		html += '<div id="telefteaBaza" class="telefteaBaza" title="Προηγούμενη μπάζα/τζόγος" ';
+		html += 'onclick="Gipedo.switchAnadromi(this);"';
 		if (controlPanel.xanaBazaOn) {
 			html += ' style="z-index: 10;">';
 			html += Gipedo.telefteaBazaHTML();
