@@ -181,7 +181,9 @@ class Globals {
 		$result = @mysqli_query($this->db, $query);
 		if ($result) { return($result); }
 
-		print $msg . ': ' . $query . ': ' . @mysqli_error($this->db);
+		if ($msg !== FALSE) { 
+			print $msg . ': ' . $query . ': ' . @mysqli_error($this->db);
+		}
 		die(1);
 	}
 

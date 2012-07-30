@@ -208,7 +208,10 @@ class Pektis {
 		if ($query != "") {
 			$query = "UPDATE `pektis` " . $query .
 				" WHERE `login` = BINARY " . $this->slogin;
-			$globals->sql_query($query);
+			// Κάποιες φορές αποτυγχάνει, καθώς το τραπέζι έχει ήδη
+			// κλείσει, γι' αυτό καλούμε το επόμενο query σιωπηλά, όσον
+			// αφορά στα λάθη.
+			$globals->sql_query($query, FALSE);
 		}
 	}
 }
