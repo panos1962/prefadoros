@@ -85,7 +85,7 @@ var Pexnidi = new function() {
 		if (pexnidi.bazaFilo.length > 0) {
 			pexnidi.prevBazaFilo = pexnidi.bazaFilo;
 			pexnidi.prevBazaPektis = pexnidi.bazaPektis;
-			if (isTheatis() || notTzogadoros()) { pexnidi.prevTzogosFilo = []; }
+			if (notTzogadoros()) { pexnidi.prevTzogosFilo = []; }
 		}
 
 		pexnidi.bazaFilo = [];
@@ -559,7 +559,7 @@ var Pexnidi = new function() {
 		pexnidi.prevTzogosFilo = [];
 		for (var i = 0; i < 12; i++) {
 			if ((i in Dodekada.klidomeno) && (Dodekada.klidomeno[i])) {
-				if (notTheatis() && isTzogadoros()) {
+				if (isTzogadoros()) {
 					pexnidi.prevTzogosFilo[itzogos++] = fila[i];
 				}
 			}
