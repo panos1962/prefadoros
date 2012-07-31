@@ -645,6 +645,10 @@ function erotisi($topic, $id) {
 
 function korifi() {
 	global $spotId;
+	global $spot;
+	if (isset($spot)) {
+		return;
+	}
 	?>
 	<div class="faqKorifi">
 		<div class="faqKorifiLeft">
