@@ -1,6 +1,9 @@
 <?php
 require_once '../lib/standard.php';
 set_globals(TRUE);
+global $spot;
+$spot = (is_array($_REQUEST) && array_key_exists("spot", $_REQUEST)) ?
+	$spot = $_REQUEST["spot"] : NULL;
 Page::head();
 Page::stylesheet('faq/faq');
 Page::javascript('faq/faq');
@@ -486,6 +489,45 @@ Page::epikefalida(Globals::perastike('pedi'));
 </li>
 
 <li>
+<?php erotisi('Στη συζήτηση εμφανίζονται τελίτσες. Τι σημαίνει αυτό;', 'pornopagida'); ?>
+<div id="pornopagida" style="display: none;">
+	<p class="faqKimeno">
+		Προφανώς εν αγνοία σας, ενεργοποιήσατε κάποια στιγμή την
+		<span class="nobr">«πορνοπαγίδα» (<img src="<?php
+		print $globals->server; ?>images/controlPanel/blockImage.png"
+		class="faqIconInline" alt = "" />)</span>
+		η οποία δεν κάνει τίποτε άλλο από το να μπλοκάρει οποιαδήποτε
+		εικόνα στη συζήτηση και να τη μετατρέπει σε τελίτσες.
+		Στις εικόνες που μπλοκάρονται συμπεριλαμβάνονται και τα
+		emoticons, οπότε όλα τα smilies που «κοσμούν» τα
+		σχόλια συμπαικτών και θεατών εμφανίζονται ως τελίτσες.
+	</p>
+	<p class="faqKimeno">
+		Για να απενεργοποιήσετε την «πορνοπαγίδα» και να επιτρέψετε
+		εκ νέου εικόνες στο χώρο συζήτησης, κάντε κλικ στο
+		<span class="nobr">εικονίδιο <img src="<?php
+		print $globals->server; ?>images/controlPanel/freeImage.png"
+		class="faqIconInline" alt = "" /></span> του control panel.
+		Για να δείτε τις εικόνες που είχαν μπλοκαριστεί όσο
+		η πορνοπαγίδα ήταν σε ισχύ, πατήστε την
+		<span class="nobr">πασχαλίτσα (<img src="<?php
+		print $globals->server; ?>images/controlPanel/bugFix.png"
+		class="faqIconInline" alt = "" />)</span>.
+		Αν δεν βλέπετε το
+		<span class="nobr">εικονίδιο <img src="<?php
+		print $globals->server; ?>images/controlPanel/freeImage.png"
+		class="faqIconInline" alt = "" /></span> στο control panel,
+		κάντε κλικ στο εικονίδιο εναλλαγής
+		<span class="nobr">εργαλείων (<img src="<?php
+		print $globals->server; ?>images/controlPanel/4Balls.png"
+		class="faqIconInline" alt = "" />)</span>
+		στην κορυφή του control panel.
+	</p>
+	<?php korifi(); ?>
+</div>
+</li>
+
+<li>
 <?php erotisi('Πώς μπορώ να στείλω προσωπικό μήνυμα;', 'pbnspm'); ?>
 <div id="pbnspm" style="display: none;">
 	<p class="faqKimeno">
@@ -585,12 +627,27 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 <?php
 Page::close();
+if (isset($spot)) {
+	?>
+	<script type="text/javascript">
+	//<![CDATA[
+	faq.spot = '<?php print $spot; ?>';
+	//]]>
+	</script>
+	<?php
+}
+
 $globals->klise_fige();
 
 function erotisi($topic, $id) {
+	global $spot;
 	$idx = preg_replace('/[, ]/', '_', $topic);
 	?>
-	<a href="#" class="faqErotisi"
+	<a href="#" class="faqErotisi<?php
+		if (isset($spot) && ($spot == $id)) {
+			print " faqSpot";
+		}
+		?>"
 		onmouseover="this.style.fontWeight='bold';"
 		onmouseout="this.style.fontWeight='normal';"
 		onclick="return faq.anixeKlise('<?php print $id; ?>');">
