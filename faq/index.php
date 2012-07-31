@@ -13,7 +13,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 <div class="faqArea">
 <ul>
 
-<li>
 <?php erotisi('Μου γράφουν ότι φαίνομαι απασχολημένος. Τι σημαίνει αυτό;', 'apasxolimenos'); ?>
 <div id="apasxolimenos" style="display: none;">
 	<p class="faqKimeno">
@@ -50,7 +49,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Ενώ έχω παίξει οι υπόλοιποι παίκτες δεν απαντούν. Τι πρέπει να κάνω;', 'pasxalitsa'); ?>
 <div id="pasxalitsa" style="display: none;">
 	<p class="faqKimeno">
@@ -93,7 +91,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Ποιος μοίρασε; Ποιος μιλάει; Ποιος παίζει πρώτος;', 'pmpmpp'); ?>
 <div id="pmpmpp" style="display: none;">
 	<p class="faqKimeno">
@@ -130,7 +127,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Πώς ξεκινάει η παρτίδα;', 'pxip'); ?>
 <div id="pxip" style="display: none;">
 	<p class="faqKimeno">
@@ -198,7 +194,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Πώς αλλάζω τα φύλλα του τζόγου;', 'patftt'); ?>
 <div id="patftt" style="display: none;">
 	<p class="faqKimeno">
@@ -217,7 +212,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Πού φαίνεται η κάσα του κάθε παίκτη;', 'pfiktkp'); ?>
 <div id="pfiktkp" style="display: none;">
 	<p class="faqKimeno">
@@ -242,7 +236,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Στο «κιτάπι» εμφανίζονται αρνητικές κάσες. Πώς γίνεται αυτό;', 'kitapiMion'); ?>
 <div id="kitapiMion" style="display: none;">
 	<p class="faqKimeno">
@@ -268,7 +261,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Πότε τελειώνει το παιχνίδι;', 'pttp'); ?>
 <div id="pttp" style="display: none;">
 	<p class="faqKimeno">
@@ -290,7 +282,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Πώς μπορώ να παίξω σε κάποιο τραπέζι;', 'pbnpskt'); ?>
 <div id="pbnpskt" style="display: none;">
 	<p class="faqKimeno">
@@ -366,7 +357,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Πώς μπορώ να να βγω ή να μπω σε κάποιο τραπέζι;', 'exodos'); ?>
 <div id="exodos" style="display: none;">
 	<p class="faqKimeno">
@@ -398,7 +388,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Πώς μπορώ να έχω άποψη όλων των τραπεζιών ή ενός συγκεκριμένου τραπεζιού;', 'kafenio'); ?>
 <div id="kafenio" style="display: none;">
 	<p class="faqKimeno">
@@ -420,7 +409,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Γιατί το τραπέζι έχει καφετί χρώμα;', 'kafeti'); ?>
 <div id="kafeti" style="display: none;">
 	<p class="faqKimeno">
@@ -445,7 +433,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Δεν βρίσκω κάποιο εργαλείο στο control panel!', 'dvtcp'); ?>
 <div id="dvtcp" style="display: none;">
 	<p class="faqKimeno">
@@ -467,7 +454,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Προσπαθώ να διαβάσω τη συζήτηση αλλά «σκρολάρει».', 'tndskdb'); ?>
 <div id="tndskdb" style="display: none;">
 	<p class="faqKimeno">
@@ -488,7 +474,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Στη συζήτηση εμφανίζονται τελίτσες. Τι σημαίνει αυτό;', 'pornopagida'); ?>
 <div id="pornopagida" style="display: none;">
 	<p class="faqKimeno">
@@ -527,7 +512,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Πώς μπορώ να στείλω προσωπικό μήνυμα;', 'pbnspm'); ?>
 <div id="pbnspm" style="display: none;">
 	<p class="faqKimeno">
@@ -594,7 +578,6 @@ Page::epikefalida(Globals::perastike('pedi'));
 </div>
 </li>
 
-<li>
 <?php erotisi('Στο κινητό μου εμφανίζεται συνεχώς πληκτρολόγιο οθόνης. Τι πρέπει να κάνω;', 'mobile'); ?>
 <div id="mobile" style="display: none;">
 	<p class="faqKimeno">
@@ -641,13 +624,15 @@ $globals->klise_fige();
 
 function erotisi($topic, $id) {
 	global $spot;
+	$aorato = "";
+	if (isset($spot) && ($spot != $id)) {
+		$aorato = ' style="display: none;"';
+	}
+			
 	$idx = preg_replace('/[, ]/', '_', $topic);
 	?>
-	<a href="#" class="faqErotisi<?php
-		if (isset($spot) && ($spot == $id)) {
-			print " faqSpot";
-		}
-		?>"
+	<li<?php print $aorato; ?>>
+	<a href="#" class="faqErotisi"<?php print $aorato; ?>
 		onmouseover="this.style.fontWeight='bold';"
 		onmouseout="this.style.fontWeight='normal';"
 		onclick="return faq.anixeKlise('<?php print $id; ?>');">
