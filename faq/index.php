@@ -488,7 +488,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 		σχόλια συμπαικτών και θεατών εμφανίζονται ως τελίτσες.
 	</p>
 	<p class="faqKimeno">
-		Για να απενεργοποιήσετε την «πορνοπαγίδα» και να επιτρέψετε
+		Για να απενεργοποιήσετε την πορνοπαγίδα και να επιτρέψετε
 		εκ νέου εικόνες στο χώρο συζήτησης, κάντε κλικ στο
 		<span class="nobr">εικονίδιο <img src="<?php
 		print $globals->server; ?>images/controlPanel/freeImage.png"
