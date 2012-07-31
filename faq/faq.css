@@ -38,6 +38,18 @@ li {
 }
 
 .faqKorifi {
+	position: relative;
 	margin-top: 0.5cm;
-	text-align: right;
+	height: 1ex;
+	margin-bottom: 1.0cm;
+}
+
+.faqKorifiLeft {
+	position: absolute;
+	left: 0px;
+}
+
+.faqKorifiRight {
+	position: absolute;
+	right: 0px;
 }
