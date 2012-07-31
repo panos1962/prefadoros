@@ -624,6 +624,8 @@ $globals->klise_fige();
 
 function erotisi($topic, $id) {
 	global $spot;
+	global $spotId;
+	$spotId = $id;
 	$aorato = "";
 	if (isset($spot) && ($spot != $id)) {
 		$aorato = ' style="display: none;"';
@@ -642,10 +644,17 @@ function erotisi($topic, $id) {
 }
 
 function korifi() {
+	global $spotId;
 	?>
 	<div class="faqKorifi">
-		[&nbsp;<a href="#" onclick="return faq.klise(this);">Κλείσιμο</a>&nbsp;]
-		[&nbsp;<a href="#">Αρχή σελίδας</a>&nbsp;]
+		<div class="faqKorifiLeft">
+			[&nbsp;<a href="#" onclick="return faq.spotThat('<?php
+				print $spotId; ?>');">Spot that!</a>&nbsp;]
+		</div>
+		<div class="faqKorifiRight">
+			[&nbsp;<a href="#" onclick="return faq.klise(this);">Κλείσιμο</a>&nbsp;]
+			[&nbsp;<a href="#">Αρχή σελίδας</a>&nbsp;]
+		</div>
 	</div>
 	<?php
 }

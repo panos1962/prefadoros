@@ -16,7 +16,7 @@ faq.anixeKlise = function(id) {
 		}
 	}
 	return false;
-}
+};
 
 faq.klise = function(div) {
 	div = div.parentNode;
@@ -34,4 +34,8 @@ faq.klise = function(div) {
 	}
 
 	return false;
-}
+};
+
+faq.spotThat = function(id) {
+	window.location = globals.server + 'faq/index.php?pedi=yes&spot=' + uri(id);
+};
