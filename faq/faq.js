@@ -19,14 +19,9 @@ faq.anixeKlise = function(id) {
 };
 
 faq.klise = function(div) {
-	div = div.parentNode;
-	if (notSet(div)) {
-		return false;
-	}
-
-	div = div.parentNode;
-	if (notSet(div)) {
-		return false;
+	for (var i = 0; i < 3; i++) {
+		div = div.parentNode;
+		if (notSet(div)) { return false; }
 	}
 
 	if (isSet(div)) {
