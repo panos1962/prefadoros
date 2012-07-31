@@ -1,8 +1,10 @@
+var faq = {};
+
 window.onload = function() {
 	init();
+	if (isSet(faq.spot)) { faq.anixeKlise(faq.spot); }
 };
 
-var faq = {};
 faq.anixeKlise = function(id) {
 	var x = getelid(id);
 	if (isSet(x)) {
