@@ -10163,3 +10163,7 @@ Premature optimization is the root of all evil.
 
 :DONALD KNUTH
 #
+Θεέ μου δώσ' μου υπομονή γιατί αν μου δώσεις δύναμη
+θα τα γαμήσω όλα!
+:maniatis13@prefadoros.gr
+#
