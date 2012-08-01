@@ -328,7 +328,7 @@ function print_panel() {
 	$item_list[] = new Item("tragoudiEmoticon.gif", "Θα μας τραγουδήσεις κάτι;");
 	$item_list[] = new Item("koutsoTripa.gif", "Πρόσεχε τις λούμπες!");
 	$item_list[] = new Item("minBisMesa.gif", "Ένα, δύο, τρία και… Ουπς!", "", "blioup:1500:20");
-	$item_list[] = new Item("migaki.gif", "Μια μύγα!");
+	$item_list[] = new Item("migaki.gif", "Θα φάει η μύγα σίδερο και το κουνούπι ατσάλι!");
 	$item_list[] = new Item("notaraTaTheli.jpg", "Τα θέλει κι εσένα ο οργανισμός σου!", "4.0",
 		"http://youtu.be/Y9fNnTZeZU4");
 	$item_list[] = new Item("notaraSodoma.jpg", "Εδώ μέσα γίνονται Σόδομα και Γόμορα!", "6.0",
