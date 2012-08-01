@@ -32,7 +32,7 @@ class Trapoula {
 		}
 	}
 
-	public function enalagi() {
+	private function enalagi() {
 		$n = mt_rand(10, 30);
 		for ($i = 0; $i < $n; $i++) {
 			$k = mt_rand(0, 31);
