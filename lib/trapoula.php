@@ -15,6 +15,13 @@ class Trapoula {
 	}
 
 	public function anakatema() {
+		$this->anataxi();
+		$this->enalagi();
+		$this->anataxi();
+		$this->enalagi();
+	}
+
+	private function anataxi() {
 		for ($i = 0; $i < 32; $i++) {
 			$k = mt_rand(0, 31);
 			if ($k != $i) {
@@ -23,7 +30,11 @@ class Trapoula {
 				$this->fila[$i] = $t;
 			}
 		}
-		for ($i = 0; $i < 50; $i++) {
+	}
+
+	public function enalagi() {
+		$n = mt_rand(10, 30);
+		for ($i = 0; $i < $n; $i++) {
 			$k = mt_rand(0, 31);
 			$l = mt_rand(0, 31);
 			if ($l != $k) {
