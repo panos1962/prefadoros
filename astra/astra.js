@@ -780,6 +780,24 @@ var Astra = new function() {
 		x.value = '';
 	};
 
+	this.changePartida = function(fld) {
+		if (notSet(fld)) { return; }
+		if (notSet(fld.value)) { return; }
+
+		var v = fld.value.trim();
+		if (v == '') { return; }
+
+		var f = getelid('kritiria');
+		if (notSet(f)) { return; }
+
+		f.reset();
+		var p = getelid('pektis');
+		if (notSet(p)) { return; }
+
+		p.value = '';
+		fld.value = v;
+	};
+
 	this.pixelsAnaCm= null;
 
 	this.ruler = function() {
