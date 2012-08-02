@@ -19,7 +19,7 @@ Page::fyi();
 ?>
 <div id="astraArea" class="mainArea astraArea">
 <div id="ruler" style="width: 10.0cm; height: 1px;"></div>
-<form onsubmit="Omada.clear(); return Astra.getData(true);" class="astraInputArea">
+<form id="kritiria" onsubmit="Omada.clear(); return Astra.getData(true);" class="astraInputArea">
 <div class="astraInput">
 	<div class="formaPrompt astraPrompt">Παίκτης</div>
 	<input id="pektis" class="formaField" value="<?php print $globals->pektis->login; ?>"
@@ -42,7 +42,8 @@ Page::fyi();
 		if ($globals->is_trapezi()) {
 			print $globals->trapezi->kodikos;
 		}
-		?>" type="text" maxlength="128" style="width: 2.0cm;" />
+		?>" type="text" maxlength="128" style="width: 2.0cm;"
+		onchange="Astra.changePartida(this);" />
 </div>
 <div class="astraInput">
 	<img id="searchIcon" class="astraSearchIcon" src="<?php
