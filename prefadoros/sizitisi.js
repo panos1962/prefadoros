@@ -212,6 +212,8 @@ var Sizitisi = new function() {
 		'_TP_':			'tinPatisame',
 		'_GGTK_':		'katastrofi',
 		'_KG_':			'kitrinaGantia',
+		'_TF_':			'tsibousiFemale',
+		'_TM_':			'tsibousiMale',
 		'_KL_':			'aomatos'
 	};
 

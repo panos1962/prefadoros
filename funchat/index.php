@@ -376,8 +376,8 @@ function print_panel() {
 		"Κάτσε να δω τι λέει ο Σαραντάκος γι αυτή την περίπτωση…");
 	$item_list[] = new Item("notpps1.png", "Τα πράγματα πάνε στραβά;", 3.6, "_NOTPPS_");
 
-	if ($globals->is_pektis() && is_file($ufile = "user/" .
-		$globals->pektis->login . ".php")) {
+	if ($globals->is_pektis() &&
+		is_file($ufile = "user/" . $globals->pektis->login . ".php")) {
 		include $ufile;
 	}
 
