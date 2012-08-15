@@ -5,7 +5,8 @@ $item_list[] = new Item("user/panos/staExigoOrea.jpg", "Βρε, στα εξηγ�
 	"http://youtu.be/H9VKYRfvp3s");
 $item_list[] = new Item("user/panos/omorfantraMou.jpg", "Ομορφάντρα μουυυ!", 4.0,
 	"http://youtu.be/1vKYJ2nm1W0");
-$item_list[] = new Item("user/panos/kritikos.jpg", "Η πρέφα θέλει υπομονή!", 4.0);
+$item_list[] = new Item("pipaKaroto.gif", "", 3.3, "_TM_");
+$item_list[] = new Item("tonIpiame.gif", "", 3.2, "_TF_");
 $item_list[] = new Item("user/panos/marinikol.gif", "", 4.0);
 $item_list[] = new Item("user/panos/orePouPame.jpg", "Ωρέ πού πάμε, ρε; Πού πάμε;", 6.0,
 	"http://youtu.be/U6mfw_0bD1w");
