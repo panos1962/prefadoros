@@ -185,23 +185,28 @@ do {
 	// δεδομένα που δείχνουν ότι τα δεδομένα παρέμειναν ίδια.
 	// Ο client θα δρομολογήσει νέο κύκλο ελέγχου/αποστολής
 	// στοιχείων.
-	$elapsed = time() - $ekinisi;
-	if ($elapsed > XRONOS_DEDOMENA_MAX) {
-		print_epikefalida();
-		print ",s:1}";
-		monitor_write("exit (timeout)");
-		$globals->klise_fige();
-	}
 
 	$kiklos++;
-	if ($kiklos < 5) {
+	if (($kiklos * XRONOS_DEDOMENA_TIC) < 3000000) {
 		usleep(XRONOS_DEDOMENA_TIC);
+		continue;
 	}
-	elseif ($elapsed < 5) {
+
+	$elapsed = time() - $ekinisi;
+	if ($elapsed < 5) {
+		usleep(XRONOS_DEDOMENA_TIC1);
+	}
+	elseif ($elapsed < 7) {
 		usleep(XRONOS_DEDOMENA_TIC2);
 	}
 	elseif ($elapsed < 10) {
 		usleep(XRONOS_DEDOMENA_TIC3);
+	}
+	elseif ($elapsed > XRONOS_DEDOMENA_MAX) {
+		print_epikefalida();
+		print ",s:1}";
+		monitor_write("exit (timeout)");
+		$globals->klise_fige();
 	}
 	else {
 		usleep(XRONOS_DEDOMENA_TIC4);
