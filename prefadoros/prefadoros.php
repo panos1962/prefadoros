@@ -4,7 +4,7 @@
 // είμαστε σε νέο μικροκύκλο ελέγχου.
 define('XRONOS_KIKLOS_MIN', 3.2);
 
-define('ENERGOSD_DIR', "../ENERGOSD");
+define('ENERGOSD_DIR', "../ENERGOSD/data");
 define('ENERGOSD_LOG', "../ENERGOSD/log");
 define('ENERGOSD_LOGFREQ', 100);
 
@@ -391,12 +391,27 @@ class Prefadoros {
 	private static function external_energos_data($ts) {
 		global $globals;
 
-		$id = ($ts % 10) - 1;
-		if ($id < 0) {
-			$id += 10;
+		$datafile = 0;
+		$flist = @scandir(ENERGOSD_DIR);
+		if ($flist === FALSE) {
+			return(FALSE);
 		}
 
-		$datafile = ENERGOSD_DIR . "/data" . $id;
+		$fcount = count($flist);
+		for ($i = 0; $i < $fcount; $i++) {
+			// Ελέγχουμε τα files με όνομα που αποτελείται από
+			// αριθμητικά ψηφία, και επιλέγουμε το προτελευταίο.
+			$f = (int)($flist[$i]);
+			if (($f == $flist[$i]) && ($f > $datafile)) {
+				$datafile = $f;
+			}
+		}
+
+		if ($datafile < 2) {
+			return(FALSE);
+		}
+
+		$datafile = ENERGOSD_DIR . "/" . ($datafile - 1);
 		$data = @file_get_contents($datafile);
 		if ($data === FALSE) {
 			return(FALSE);
@@ -411,7 +426,7 @@ class Prefadoros {
 		$line[1] = (int)$line[1];
 		$line[2] = (int)$line[2];
 
-		if (count($line) != ($line[1] + $line[2] + 3)) {
+		if (count($line) != ($line[1] + $line[2] + 4)) {
 			return(FALSE);
 		}
 
@@ -419,7 +434,7 @@ class Prefadoros {
 		// αρκετά πίσω, τότε δεν εμπιστευόμαστε το εν λόγω αρχείο
 		// και επιστρέφουμε false.
 
-		if (($ts - $line[0]) > 3) {
+		if (($ts - $line[0]) > 12) {
 			return(FALSE);
 		}
 
