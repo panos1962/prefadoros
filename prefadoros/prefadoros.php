@@ -449,7 +449,7 @@ class Prefadoros {
 
 		if ((mt_rand(1, ENERGOSD_LOGFREQ) == 1) && @file_exists(ENERGOSD_LOG)) {
 			@file_put_contents(ENERGOSD_LOG, date("D, d M, H:i:s") . ", " .
-				$globals->pektis->login . ", data" . $id .
+				$globals->pektis->login . ", " . $datafile .
 				" (log frequency 1:" . ENERGOSD_LOGFREQ . ")\n", FILE_APPEND);
 		}
 	
