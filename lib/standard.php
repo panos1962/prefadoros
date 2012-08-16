@@ -4,7 +4,7 @@
 define('XRONOS_DEDOMENA_MAX', 40);
 
 // νεκρός χρόνος μεταξύ δύο διαδοχικών ανιχνεύσεων (microseconds)
-define('XRONOS_DEDOMENA_TIC', 500000);
+define('XRONOS_DEDOMENA_TIC', 700000);
 define('XRONOS_DEDOMENA_TIC1', 800000);
 define('XRONOS_DEDOMENA_TIC2', 1000000);
 define('XRONOS_DEDOMENA_TIC3', 1500000);
