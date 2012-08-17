@@ -43,6 +43,9 @@ require_once '../prefadoros/prefadoros.php';
 global $monitor_fh;
 open_monitor_file();
 
+global $debug_buffer;
+$debug_buffer = "";
+
 set_globals();
 $globals->time_dif = Globals::perastike_check('timeDif');
 
@@ -231,6 +234,7 @@ function print_epikefalida() {
 	global $sinedria;
 	global $id;
 	global $procstat;
+	global $debug_buffer;
 
 	// Για να έχουμε ενημερωμένα στοιχεία σχετικά με την κατάσταση
 	// του παίκτη επαναπροσπελαύνουμε τον παίκτη πριν την επιστροφή.
@@ -239,6 +243,7 @@ function print_epikefalida() {
 
 	header('Content-type: application/json; charset=utf-8');
 	print "sinedria:{k:{$sinedria->kodikos},i:{$id}";
+	if ($debug_buffer != "") { print ",debug:'" . $globals->asfales($debug_buffer) . "'"; }
 	if ($globals->pektis->kapikia != 'YES') { print ",p:0"; }
 	if ($globals->pektis->katastasi != 'AVAILABLE') { print ",b:0"; }
 	if ($globals->pektis->blockimage) { print ",x:true"; }
@@ -737,6 +742,12 @@ class Procstat {
 
 		Globals::put_line($fh, $data);
 	}
+}
+
+function debug_accum($s) {
+	global $debug_buffer;
+
+	$debug_buffer .= "@@" . $s . "@@";
 }
 
 ?>
