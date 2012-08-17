@@ -390,12 +390,12 @@ class Prefadoros {
 	private static function external_energos_data($ts) {
 		global $globals;
 
-		$datafile = 0;
 		$flist = @scandir(ENERGOSD_DIR);
 		if ($flist === FALSE) {
 			return(FALSE);
 		}
 
+		$datafile = 0;
 		$fcount = count($flist);
 		for ($i = 0; $i < $fcount; $i++) {
 			// Ελέγχουμε τα files με όνομα που αποτελείται από
@@ -411,13 +411,19 @@ class Prefadoros {
 		}
 
 		$datafile = ENERGOSD_DIR . "/" . $datafile;
-		$data = @file_get_contents($datafile);
-		if ($data === FALSE) {
+		$fh = @fopen($datafile, "r");
+		if ($fh === FALSE) {
 			return(FALSE);
 		}
 
-		$line = explode("\n", $data);
-		if (count($line) < 3) {
+		$line = array();
+		$lcnt = 0;
+		while ($line[] = Globals::get_line($fh)) {
+			$lcnt++;
+		}
+		@fclose($fh);
+
+		if ($lcnt < 3) {
 			return(FALSE);
 		}
 
@@ -425,7 +431,7 @@ class Prefadoros {
 		$line[1] = (int)$line[1];
 		$line[2] = (int)$line[2];
 
-		if (count($line) != ($line[1] + $line[2] + 4)) {
+		if ($lcnt != ($line[1] + $line[2] + 3)) {
 			return(FALSE);
 		}
 
@@ -438,13 +444,13 @@ class Prefadoros {
 		}
 
 		$energos = array();
-		for ($i = 0; $i < $line[1]; $i++) {
-			$energos[$line[$i + 3]] = TRUE;
+		for ($j = 3, $i = 0; $i < $line[1]; $i++, $j++) {
+			$energos[$line[$j]] = TRUE;
 		}
 
 		$apasxolimenos = array();
-		for ($i = 0; $i < $line[2]; $i++) {
-			$apasxolimenos[$line[$i + 3 + $line[1]]] = TRUE;
+		for ($i = 0; $i < $line[2]; $i++, $j++) {
+			$apasxolimenos[$line[$j]] = TRUE;
 		}
 
 		if ((mt_rand(1, ENERGOSD_LOGFREQ) == 1) && @file_exists(ENERGOSD_LOG)) {
