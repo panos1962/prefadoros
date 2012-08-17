@@ -346,18 +346,26 @@ class Prefadoros {
 			while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 				if (($now_ts - $row[1]) <= XRONOS_PEKTIS_IDLE_MAX) {
 					$energos[$row[0]] = TRUE;
-					switch ($row[2]) {
-					case 'BUSY':
+					if ($row[2] == "BUSY") {
 						$apasxolimenos[$row[0]] = TRUE;
-						break;
 					}
 				}
 			}
 			self::apasxolimenos($apasxolimenos);
 		}
 
-		if ($globals->is_pektis()) {
+		// Καμιά φορά παρουσιάζεται το φαινόμενο ο παίκτης που τρέχει το πρόγραμμα
+		// να μην "βλέπει" ως ενεργό τον εαυτό του. Αυτό μπορεί να συμβεί ειδικά
+		// κατά την είδοδο του παίκτη στο σύστημα.
+
+		if ($globals->is_pektis() && (!array_key_exists($globals->pektis->login, $energos))) {
 			$energos[$globals->pektis->login] = TRUE;
+			if (!isset($globals->pektis->katastasi)) {
+				$globals->pektis = new Pektis($globals->pektis->login);
+			}
+			if ($globals->pektis->katastasi == "BUSY") {
+				$apasxolimenos[$globals->pektis->login] = TRUE;
+			}
 		}
 
 		$etrexe_ts = microtime(TRUE);
