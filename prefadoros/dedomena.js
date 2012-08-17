@@ -107,6 +107,9 @@ var Dedomena = new function() {
 			if (notSet(dedomena) || notSet(dedomena.sinedria)) {
 				dedomena = { sinedria: { fatalError: 'Ακαθόριστη συνεδρία!' }};
 			}
+			if (isSet(dedomena.sinedria.debug)) {
+				mainFyi(dedomena.sinedria.debug);
+			}
 			if (isSet(dedomena.sinedria.fatalError)) {
 				reschedule = false;
 				mainFyi(dedomena.sinedria.fatalError, -1);
