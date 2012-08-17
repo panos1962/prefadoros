@@ -351,21 +351,9 @@ class Prefadoros {
 					}
 				}
 			}
+
+			self::check_eaftos($energos, $apasxolimenos);
 			self::apasxolimenos($apasxolimenos);
-		}
-
-		// Καμιά φορά παρουσιάζεται το φαινόμενο ο παίκτης που τρέχει το πρόγραμμα
-		// να μην "βλέπει" ως ενεργό τον εαυτό του. Αυτό μπορεί να συμβεί ειδικά
-		// κατά την είδοδο του παίκτη στο σύστημα.
-
-		if ($globals->is_pektis() && (!array_key_exists($globals->pektis->login, $energos))) {
-			$energos[$globals->pektis->login] = TRUE;
-			if (!isset($globals->pektis->katastasi)) {
-				$globals->pektis = new Pektis($globals->pektis->login);
-			}
-			if ($globals->pektis->katastasi == "BUSY") {
-				$apasxolimenos[$globals->pektis->login] = TRUE;
-			}
 		}
 
 		$etrexe_ts = microtime(TRUE);
@@ -471,8 +459,34 @@ class Prefadoros {
 				" (log frequency 1:" . ENERGOSD_LOGFREQ . ")\n", FILE_APPEND);
 		}
 	
+		self::check_eaftos($energos, $apasxolimenos);
 		self::apasxolimenos($apasxolimenos);
 		return($energos);
+	}
+
+	// Καμιά φορά παρουσιάζεται το φαινόμενο ο παίκτης που τρέχει το πρόγραμμα
+	// να μην "βλέπει" ως ενεργό τον εαυτό του. Αυτό μπορεί να συμβεί ειδικά
+	// κατά την είδοδο του παίκτη στο σύστημα.
+
+	private static function check_eaftos(&$energos, &$apasxolimenos) {
+		global $globals;
+
+		if ($globals->not_pektis()) {
+			return;
+		}
+
+		if (array_key_exists($globals->pektis->login, $energos)) {
+			return;
+		}
+
+		$energos[$globals->pektis->login] = TRUE;
+		if (!isset($globals->pektis->katastasi)) {
+			$globals->pektis = new Pektis($globals->pektis->login);
+		}
+
+		if ($globals->pektis->katastasi == "BUSY") {
+			$apasxolimenos[$globals->pektis->login] = TRUE;
+		}
 	}
 
 	// Προστέθηκε αργότερα. Δέχεται ως παράμετρο ένα login name και επιστρέφει
