@@ -356,6 +356,10 @@ class Prefadoros {
 			self::apasxolimenos($apasxolimenos);
 		}
 
+		if ($globals->is_pektis()) {
+			$energos[$globals->pektis->login] = TRUE;
+		}
+
 		$etrexe_ts = microtime(TRUE);
 		$etrexe_kiklos = $kiklos;
 		return($energos);
