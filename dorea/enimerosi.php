@@ -11,7 +11,7 @@ Page::epikefalida(Globals::perastike('pedi'));
 ?>
 <div class="mainArea">
 <p class="dexia">
-Θεσσαλονίκη, 29 Ιανουαρίου 2012
+Θεσσαλονίκη, 18 Αυγούστου 2012
 </p>
 <p>
 <img src="<?php print $globals->server; ?>dorea/panos.jpg" alt=""
