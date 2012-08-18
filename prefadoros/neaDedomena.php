@@ -171,6 +171,7 @@ do {
 	$globals->pektis->check_dirty();
 	$curr = torina_dedomena($prev);
 	monitor_write("compare");
+	$prev->trapezi_checked = $curr->trapezi_checked;
 	if ($curr != $prev) {
 		if (!$curr->trapezi_checked) {
 			$curr->trapezi = Kafenio::process();
