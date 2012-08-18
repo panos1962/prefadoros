@@ -251,7 +251,7 @@ function print_epikefalida() {
 	Prefadoros::pektis_check();
 
 	header('Content-type: application/json; charset=utf-8');
-	print "sinedria:{k:{$sinedria->kodikos},i:{$id}";
+	print "s:{k:{$sinedria->kodikos},i:{$id}";
 	if ($debug_buffer != "") { print ",debug:'" . $globals->asfales($debug_buffer) . "'"; }
 	if ($globals->pektis->kapikia != 'YES') { print ",p:0"; }
 	if ($globals->pektis->katastasi != 'AVAILABLE') { print ",b:0"; }
