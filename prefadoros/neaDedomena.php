@@ -171,6 +171,8 @@ do {
 	$globals->pektis->check_dirty();
 	$curr = torina_dedomena($prev);
 	monitor_write("compare");
+
+	// Προκειμένου να μην είναι αυτό που δημιουργεί τη διαφορά.
 	$prev->trapezi_checked = $curr->trapezi_checked;
 	if ($curr != $prev) {
 		if (!$curr->trapezi_checked) {
