@@ -172,6 +172,12 @@ do {
 	$curr = torina_dedomena($prev);
 	monitor_write("compare");
 	if ($curr != $prev) {
+		if (!$curr->trapezi_checked) {
+			$curr->trapezi = Kafenio::process();
+			$curr->rebelos = Rebelos::process();
+			$curr->trapezi_checked = TRUE;
+		}
+
 		// Αποφεύγουμε κινήσεις τύπου "ΦΥΛΛΟ" και "ΠΛΗΡΩΜΗ" μετά
 		// από κίνηση τύπου "ΜΠΑΖΑ" μαζί στην ίδια αποστολή.
 		$curr->kinisi = Kinisi::fix_baza_filo($curr->kinisi, $prev->kinisi);
@@ -261,6 +267,7 @@ class Dedomena {
 	public $rebelos;
 	public $sizitisi;
 	public $kafenio;
+	public $trapezi_checked;
 
 	public function __construct() {
 		$this->partida = NULL;
@@ -273,6 +280,7 @@ class Dedomena {
 		$this->rebelos = array();
 		$this->sizitisi = array();
 		$this->kafenio = array();
+		$this->trapezi_checked = FALSE;
 	}
 
 	public function diavase() {
@@ -396,15 +404,18 @@ function torina_dedomena($prev = NULL) {
 	if ($prev == NULL) {
 		$dedomena->trapezi = Kafenio::process();
 		$dedomena->rebelos = Rebelos::process();
+		$dedomena->trapezi_checked = TRUE;
 	}
 	elseif ($sinedria->trapezidirty != 0) {
 		$dedomena->trapezi = Kafenio::process();
 		$dedomena->rebelos = Rebelos::process();
+		$dedomena->trapezi_checked = TRUE;
 		$sinedria->clear_trapezidirty($sinedria->trapezidirty);
 	}
 	else {
 		$dedomena->trapezi = $prev->trapezi;
 		$dedomena->rebelos = $prev->rebelos;
+		$dedomena->trapezi_checked = FALSE;
 	}
 
 	if ($prev == NULL) {
