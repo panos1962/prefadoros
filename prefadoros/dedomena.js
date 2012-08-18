@@ -104,15 +104,15 @@ var Dedomena = new function() {
 		Dumprsp.dump(rsp);
 		try {
 			var dedomena = eval('({' + rsp + '})');
-			if (notSet(dedomena) || notSet(dedomena.sinedria)) {
-				dedomena = { sinedria: { fatalError: 'Ακαθόριστη συνεδρία!' }};
+			if (notSet(dedomena) || notSet(dedomena.s)) {
+				dedomena = { s: { fatalError: 'Ακαθόριστη συνεδρία!' }};
 			}
-			if (isSet(dedomena.sinedria.debug)) {
-				mainFyi(dedomena.sinedria.debug);
+			if (isSet(dedomena.s.debug)) {
+				mainFyi(dedomena.s.debug);
 			}
-			if (isSet(dedomena.sinedria.fatalError)) {
+			if (isSet(dedomena.s.fatalError)) {
 				reschedule = false;
-				mainFyi(dedomena.sinedria.fatalError, -1);
+				mainFyi(dedomena.s.fatalError, -1);
 				playSound('beep');
 				return;
 			}
@@ -135,8 +135,7 @@ var Dedomena = new function() {
 			return;
 		}
 
-		if ((dedomena.sinedria.k < sinedria.kodikos) ||
-			(dedomena.sinedria.i < sinedria.id)) {
+		if ((dedomena.s.k < sinedria.kodikos) || (dedomena.s.i < sinedria.id)) {
 			monitor.ignore();
 			Dumprsp.ignore();
 			return;
@@ -187,17 +186,17 @@ var Dedomena = new function() {
 			polivolo2 = 0;
 		}
 
-		if (isSet(dedomena) && isSet(dedomena.sinedria)) {
-			pektis.kapikia = (!(isSet(dedomena.sinedria.p) && (dedomena.sinedria.p == 0)));
-			pektis.available = (!(isSet(dedomena.sinedria.b) && (dedomena.sinedria.b == 0)));
-			pektis.blockImage = (isSet(dedomena.sinedria.x) && dedomena.sinedria.x);
+		if (isSet(dedomena) && isSet(dedomena.s)) {
+			pektis.kapikia = (!(isSet(dedomena.s.p) && (dedomena.s.p == 0)));
+			pektis.available = (!(isSet(dedomena.s.b) && (dedomena.s.b == 0)));
+			pektis.blockImage = (isSet(dedomena.s.x) && dedomena.s.x);
 		}
 
-		if (isSet(dedomena.sinedria.l)) {
-			sinedria.load = dedomena.sinedria.l;
+		if (isSet(dedomena.s.l)) {
+			sinedria.load = dedomena.s.l;
 		}
 
-		if (isSet(dedomena.sinedria.s)) {
+		if (isSet(dedomena.s.s)) {
 			monitor.idia();
 			Dedomena.schedule();
 			return;
@@ -261,8 +260,8 @@ var Dedomena = new function() {
 };
 
 function isFreska(dedomena) {
-	return(isSet(dedomena) && isSet(dedomena.sinedria) &&
-		isSet(dedomena.sinedria.f) && (dedomena.sinedria.f == 1));
+	return(isSet(dedomena) && isSet(dedomena.s) &&
+		isSet(dedomena.s.f) && (dedomena.s.f == 1));
 }
 
 function notFreska(dedomena) {
