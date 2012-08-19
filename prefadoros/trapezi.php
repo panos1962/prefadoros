@@ -80,7 +80,7 @@ class Kafenio {
 		}
 
 		if (($n = count($del)) > 0) {
-			print ",trapeziDel:{";
+			print ",td:{";
 			$koma = '';
 			foreach ($del as $i => $dummy) {
 				print $koma; $koma = ",";
@@ -90,7 +90,7 @@ class Kafenio {
 		}
 
 		if (($n = count($mod)) > 0) {
-			print ",trapeziMod:{";
+			print ",tm:{";
 			$koma = '';
 			foreach ($mod as $i => $dummy) {
 				print $koma; $koma = ",";
@@ -101,7 +101,7 @@ class Kafenio {
 		}
 
 		if (($n = count($new)) > 0) {
-			print ",trapeziNew:[";
+			print ",tn:[";
 			$koma = '';
 			for ($i = 0; $i < $n; $i++) {
 				print $koma; $koma = ",";
@@ -112,7 +112,7 @@ class Kafenio {
 	}
 
 	private static function print_all_json_data(&$tlist) {
-		print ",trapezi:[";
+		print ",t:[";
 		$koma = '';
 		$n = count($tlist);
 		for ($i = 0; $i < $n; $i++) {

@@ -2,8 +2,8 @@ var Trapezi = new function() {
 	this.HTML = '';
 
 	this.processDedomena = function(dedomena) {
-		if (isSet(dedomena.trapezi)) {
-			trapezi = dedomena.trapezi;
+		if (isSet(dedomena.t)) {
+			trapezi = dedomena.t;
 			return;
 		}
 
@@ -12,10 +12,10 @@ var Trapezi = new function() {
 
 		// Αν έχει επιστραφεί array "trapeziNew", τότε πρόκειται για νέες
 		// εγγραφές τις οποίες θα εμφανίσω πρώτες.
-		if (isSet(dedomena.trapeziNew)) {
+		if (isSet(dedomena.tn)) {
 			ixos = 'pop';
-			for (var i = 0; i < dedomena.trapeziNew.length; i++) {
-				trapezi1.push(dedomena.trapeziNew[i]);
+			for (var i = 0; i < dedomena.tn.length; i++) {
+				trapezi1.push(dedomena.tn[i]);
 			}
 		}
 
@@ -23,16 +23,16 @@ var Trapezi = new function() {
 		// εγγραφές του έχουν τροποποιηθεί ή διαγραφεί. Για τις εγγραφές
 		// που εμφανίζονται να έχουν τροποποιηθεί (array "trapeziMod") περνάω
 		// στο νέο array τα νέα δεδομένα, ενώ τις εγγραφές που εμφανίζονται
-		// να έχουν διαγραφεί τις αγνοώ· τις υπόλοιπες εγγραφές απλώς τις
-		// αντιγράφω στο νέο array.
+		// να έχουν διαγραφεί (array "trapeziDel") τις αγνοώ· τις υπόλοιπες
+		// εγγραφές απλώς τις αντιγράφω στο νέο array.
 		for (var i = 0; i < trapezi.length; i++) {
 			var idx = 't' + trapezi[i].k;
-			if (isSet(dedomena.trapeziDel) && (idx in dedomena.trapeziDel)) {
+			if (isSet(dedomena.td) && (idx in dedomena.td)) {
 				continue;
 			}
 
-			if (isSet(dedomena.trapeziMod) && (idx in dedomena.trapeziMod)) {
-				trapezi1.push(dedomena.trapeziMod[idx]);
+			if (isSet(dedomena.tm) && (idx in dedomena.tm)) {
+				trapezi1.push(dedomena.tm[idx]);
 				continue;
 			}
 
@@ -41,7 +41,7 @@ var Trapezi = new function() {
 
 		trapezi = trapezi1;
 
-		if (notSet(ixos) && isSet(dedomena.trapeziDel)) {
+		if (notSet(ixos) && isSet(dedomena.td)) {
 			ixos = 'blioup';
 		}
 		if (isSet(ixos) && (Prefadoros.show == 'kafenio')) { playSound(ixos); }
