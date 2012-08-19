@@ -243,7 +243,7 @@ class Kinisi {
 		}
 
 		if (($n = count($del)) > 0) {
-			print ",kinisiDel:{";
+			print ",kd:{";
 			$koma = '';
 			foreach ($del as $i => $dummy) {
 				print $koma; $koma = ",";
@@ -253,7 +253,7 @@ class Kinisi {
 		}
 
 		if (($n = count($mod)) > 0) {
-			print ",kinisiMod:{";
+			print ",km:{";
 			$koma = '';
 			foreach ($mod as $i => $dummy) {
 				print $koma; $koma = ",";
@@ -264,7 +264,7 @@ class Kinisi {
 		}
 
 		if (($n = count($new)) > 0) {
-			print ",kinisiNew:[";
+			print ",kn:[";
 			$koma = '';
 			for ($i = 0; $i < $n; $i++) {
 				print $koma; $koma = ",";
@@ -277,7 +277,7 @@ class Kinisi {
 	private static function print_all_json_data(&$klist) {
 		$koma = '';
 		$n = count($klist);
-		print ",kinisi:[";
+		print ",k:[";
 		for ($i = 0; $i < $n; $i++) {
 			print $koma; $koma = ",";
 			$klist[$i]->json_data();

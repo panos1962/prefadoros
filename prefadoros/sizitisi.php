@@ -140,7 +140,7 @@ class Sizitisi {
 		}
 
 		if (($n = count($del)) > 0) {
-			print ",sizitisiDel:[";
+			print ",zd:[";
 			$koma = '';
 			foreach ($del as $i => $dummy) {
 				print $koma; $koma = ",";
@@ -150,7 +150,7 @@ class Sizitisi {
 		}
 
 		if (($n = count($mod)) > 0) {
-			print ",sizitisiMod:[";
+			print ",zm:[";
 			$koma = '';
 			foreach ($mod as $i => $dummy) {
 				print $koma; $koma = ",";
@@ -160,7 +160,7 @@ class Sizitisi {
 		}
 
 		if (($n = count($new)) > 0) {
-			print ",sizitisiNew:[";
+			print ",zn:[";
 			$koma = '';
 			for ($i = 0; $i < $n; $i++) {
 				print $koma; $koma = ",";
@@ -173,7 +173,7 @@ class Sizitisi {
 	private static function sizitisi_all_json_data(&$slist) {
 		$koma = '';
 		$n = count($slist);
-		print ",sizitisi:[";
+		print ",z:[";
 		for ($i = 0; $i < $n; $i++) {
 			print $koma; $koma = ",";
 			$slist[$i]->json_data();
@@ -242,7 +242,7 @@ class Sizitisi {
 		}
 
 		if (($n = count($del)) > 0) {
-			print ",kafenioDel:[";
+			print ",fd:[";
 			$koma = '';
 			foreach ($del as $i => $dummy) {
 				print $koma; $koma = ",";
@@ -252,7 +252,7 @@ class Sizitisi {
 		}
 
 		if (($n = count($mod)) > 0) {
-			print ",kafenioMod:{";
+			print ",fm:{";
 			$koma = '';
 			foreach ($mod as $i => $dummy) {
 				print $koma; $koma = ",";
@@ -263,7 +263,7 @@ class Sizitisi {
 		}
 
 		if (($n = count($new)) > 0) {
-			print ",kafenioNew:[";
+			print ",fn:[";
 			$koma = '';
 			for ($i = 0; $i < $n; $i++) {
 				print $koma; $koma = ",";
@@ -276,7 +276,7 @@ class Sizitisi {
 	private static function kafenio_all_json_data(&$slist) {
 		$koma = '';
 		$n = count($slist);
-		print ",kafenio:[";
+		print ",f:[";
 		for ($i = 0; $i < $n; $i++) {
 			print $koma; $koma = ",";
 			$slist[$i]->json_data();

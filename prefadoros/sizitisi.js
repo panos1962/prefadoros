@@ -17,8 +17,8 @@ var Sizitisi = new function() {
 	var pektisColor = [];
 
 	this.processDedomena = function(dedomena) {
-		if (notSet(dedomena.sizitisi) && notSet(dedomena.sizitisiNew) &&
-			notSet(dedomena.sizitisiMod) && notSet(dedomena.sizitisiDel)) {
+		if (notSet(dedomena.z) && notSet(dedomena.zn) &&
+			notSet(dedomena.zm) && notSet(dedomena.zd)) {
 			return;
 		}
 
@@ -27,7 +27,7 @@ var Sizitisi = new function() {
 			mainFyi('sizitisiTrapezi: node not found');
 			return;
 		}
-		if (isSet(dedomena.sizitisi)) {
+		if (isSet(dedomena.z)) {
 			sizitisi.innerHTML = '<div id="st_end"></div>';
 		}
 		telos = getelid('st_end');
@@ -36,29 +36,29 @@ var Sizitisi = new function() {
 			return;
 		}
 
-		if (isSet(dedomena.sizitisi)) {
-			for (var i = 0; i < dedomena.sizitisi.length; i++) {
-				Sizitisi.sxolioAdd(dedomena.sizitisi[i]);
+		if (isSet(dedomena.z)) {
+			for (var i = 0; i < dedomena.z.length; i++) {
+				Sizitisi.sxolioAdd(dedomena.z[i]);
 			}
 			Sizitisi.scrollBottom();
 			return;
 		}
 
-		if (isSet(dedomena.sizitisiDel)) {
-			for (var i = 0; i < dedomena.sizitisiDel.length; i++) {
-				Sizitisi.sxolioDel(dedomena.sizitisiDel[i]);
+		if (isSet(dedomena.zd)) {
+			for (var i = 0; i < dedomena.zd.length; i++) {
+				Sizitisi.sxolioDel(dedomena.zd[i]);
 			}
 		}
 
-		if (isSet(dedomena.sizitisiMod)) {
-			for (var i = 0; i < dedomena.sizitisiMod.length; i++) {
-				Sizitisi.sxolioMod(dedomena.sizitisiMod[i]);
+		if (isSet(dedomena.zm)) {
+			for (var i = 0; i < dedomena.zm.length; i++) {
+				Sizitisi.sxolioMod(dedomena.zm[i]);
 			}
 		}
 
-		if (isSet(dedomena.sizitisiNew)) {
-			for (var i = 0; i < dedomena.sizitisiNew.length; i++) {
-				Sizitisi.sxolioAdd(dedomena.sizitisiNew[i]);
+		if (isSet(dedomena.zn)) {
+			for (var i = 0; i < dedomena.zn.length; i++) {
+				Sizitisi.sxolioAdd(dedomena.zn[i]);
 			}
 			Sizitisi.scrollBottom();
 		}
@@ -930,8 +930,8 @@ var Kafenio = new function() {
 	var telos = null;
 
 	this.processDedomena = function(dedomena) {
-		if (notSet(dedomena.kafenio) && notSet(dedomena.kafenioNew) &&
-			notSet(dedomena.kafenioMod) && notSet(dedomena.kafenioDel)) {
+		if (notSet(dedomena.f) && notSet(dedomena.fn) &&
+			notSet(dedomena.fm) && notSet(dedomena.fd)) {
 			return;
 		}
 
@@ -946,10 +946,10 @@ var Kafenio = new function() {
 		// στέλνουμε στον server, ώστε να εντοπίζει τις επόμενες
 		// έρευνες σε σχόλια της ΔΣ νεότερα από αυτό, συμπεριλαμβανομένου
 		// και αυτού του σχολίου (βλέπε "prefadoros/dedomena.js").
-		if (isSet(dedomena.kafenio)) {
+		if (isSet(dedomena.f)) {
 			sizitisi.innerHTML = '<div id="sk_end"></div>';
-			Dedomena.kafenioApo = dedomena.kafenio.length > 0 ?
-				dedomena.kafenio[0].k : 1;
+			Dedomena.kafenioApo = dedomena.f.length > 0 ?
+				dedomena.f[0].k : 1;
 		}
 		telos = getelid('sk_end');
 		if (notSet(telos)) {
@@ -957,29 +957,29 @@ var Kafenio = new function() {
 			return;
 		}
 
-		if (isSet(dedomena.kafenio)) {
-			for (var i = 0; i < dedomena.kafenio.length; i++) {
-				Kafenio.sxolioAdd(dedomena.kafenio[i]);
+		if (isSet(dedomena.f)) {
+			for (var i = 0; i < dedomena.f.length; i++) {
+				Kafenio.sxolioAdd(dedomena.f[i]);
 			}
 			Sizitisi.scrollBottom();
 			return;
 		}
 
-		if (isSet(dedomena.kafenioDel)) {
-			for (var i = 0; i < dedomena.kafenioDel.length; i++) {
-				Kafenio.sxolioDel(dedomena.kafenioDel[i]);
+		if (isSet(dedomena.fd)) {
+			for (var i = 0; i < dedomena.fd.length; i++) {
+				Kafenio.sxolioDel(dedomena.fd[i]);
 			}
 		}
 
-		if (isSet(dedomena.kafenioMod)) {
-			for (var i = 0; i < dedomena.kafenioMod.length; i++) {
-				Kafenio.sxolioMod(dedomena.kafenioMod[i]);
+		if (isSet(dedomena.fm)) {
+			for (var i = 0; i < dedomena.fm.length; i++) {
+				Kafenio.sxolioMod(dedomena.fm[i]);
 			}
 		}
 
-		if (isSet(dedomena.kafenioNew)) {
-			for (var i = 0; i < dedomena.kafenioNew.length; i++) {
-				Kafenio.sxolioAdd(dedomena.kafenioNew[i]);
+		if (isSet(dedomena.fn)) {
+			for (var i = 0; i < dedomena.fn.length; i++) {
+				Kafenio.sxolioAdd(dedomena.fn[i]);
 			}
 			Sizitisi.scrollBottom();
 		}

@@ -1,7 +1,7 @@
 var Kinisi = new function() {
 	this.processDedomena = function(dedomena) {
-		if (isSet(dedomena.kinisi)) {
-			kinisi = dedomena.kinisi;
+		if (isSet(dedomena.k)) {
+			kinisi = dedomena.k;
 			return;
 		}
 
@@ -9,21 +9,21 @@ var Kinisi = new function() {
 
 		for (var i = 0; i < kinisi.length; i++) {
 			var idx = 'k' + kinisi[i].k;
-			if (isSet(dedomena.kinisiDel) && (idx in dedomena.kinisiDel)) {
+			if (isSet(dedomena.kd) && (idx in dedomena.kd)) {
 				continue;
 			}
 
-			if (isSet(dedomena.kinisiMod) && (idx in dedomena.kinisiMod)) {
-				kinisi1[kinisi1.length] = dedomena.kinisiMod[idx];
+			if (isSet(dedomena.km) && (idx in dedomena.km)) {
+				kinisi1[kinisi1.length] = dedomena.km[idx];
 				continue;
 			}
 
 			kinisi1.push(kinisi[i]);
 		}
 
-		if (isSet(dedomena.kinisiNew)) {
-			for (var i = 0; i < dedomena.kinisiNew.length; i++) {
-				kinisi1.push(dedomena.kinisiNew[i]);
+		if (isSet(dedomena.kn)) {
+			for (var i = 0; i < dedomena.kn.length; i++) {
+				kinisi1.push(dedomena.kn[i]);
 			}
 		}
 
