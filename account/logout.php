@@ -9,7 +9,7 @@ set_globals();
 
 Prefadoros::set_pektis();
 Prefadoros::set_trapezi();
-if (isset($globals->pektis->login)) {
+if (isset($globals->pektis->login) && ($globals->pektis->login != SYSTEM_ACCOUNT)) {
 	$query = "UPDATE `pektis` SET `poll` = DATE_SUB(NOW(), INTERVAL " .
 		XRONOS_PEKTIS_IDLE_MAX . " SECOND) WHERE `login` = BINARY " .
 		$globals->pektis->slogin;

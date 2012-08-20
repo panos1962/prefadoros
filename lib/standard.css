@@ -276,6 +276,15 @@ a img {
 	box-shadow: 0.05cm 0.05cm 0.08cm #2E2E2E;
 }
 
+.anastrofo {
+	transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+
+}
+
 /*
 .tbldbg {
 	border-style: solid;

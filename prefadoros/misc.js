@@ -234,7 +234,7 @@ var Tools = new function() {
 		var h = 1.0;
 		if (isSet(space)) { h += 0.6; }
 		html += '<div style="position: relative; text-align: center; ' +
-			'width: 100%; height: ' + h + 'cm;">';
+			'width: 80%; height: ' + h + 'cm; margin-left: auto; margin-right: auto;">';
 		html += '<div style="position: absolute; width: 100%; top: 0.2cm;">';
 		html += Tools.epilogiHTML('ΜΙΑ ΠΡΕΦΑ ΠΑΡΑΚΑΛΩ!', 'Partida.neoTrapezi();',
 			'Στήστε ένα τραπέζι για να παίξετε μια νέα παρτίδα');
