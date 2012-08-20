@@ -491,6 +491,10 @@ class Prefadoros {
 			return;
 		}
 
+		if ($globals->pektis->login == SYSTEM_ACCOUNT) {
+			return;
+		}
+
 		$energos[$globals->pektis->login] = TRUE;
 		if (!isset($globals->pektis->katastasi)) {
 			$globals->pektis = new Pektis($globals->pektis->login);
