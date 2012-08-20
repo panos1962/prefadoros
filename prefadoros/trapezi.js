@@ -185,11 +185,9 @@ var Trapezi = new function() {
 			Trapezi.HTML += '</div>';
 		}
 
-for (var aa = 0; aa < 10; aa++) {
 		for (var i = 0; i < trapezi.length; i++) {
 			Trapezi.HTML += Trapezi.trapeziEconomyHTML(trapezi[i], peknpat);
 		}
-}
 	};
 
 	this.formatSet = function(format) {
@@ -529,6 +527,7 @@ for (var aa = 0; aa < 10; aa++) {
 	};
 
 	this.rebelosEconomyHTML = function(r, theatis, peknpat) {
+return '';
 		var html = '<div class="kafenioBoxEconomy kafenioPektis rebelos';
 		if (theatis) { html += ' theatis'; }
 		if (Trapezi.isFilos(r.l)) { html += ' kafenioFilos'; }
