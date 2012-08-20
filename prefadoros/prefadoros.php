@@ -483,6 +483,9 @@ class Prefadoros {
 	private static function check_eaftos(&$energos, &$apasxolimenos) {
 		global $globals;
 
+		unset($energos[SYSTEM_ACCOUNT]);
+		unset($apasxolimenos[SYSTEM_ACCOUNT]);
+
 		if ($globals->not_pektis()) {
 			return;
 		}
