@@ -26,7 +26,7 @@ header('Content-type: text/plain; charset=utf-8');
 global $no_session;
 $no_session = TRUE;
 
-if (file_exists("../PRODUCTION_TEST")) {
+if (file_exists("../PRODUCTION")) {
 	require_once '../PRODUCTION/neaDedomena.php';
 }
 else {
