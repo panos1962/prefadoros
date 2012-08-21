@@ -26,19 +26,24 @@ header('Content-type: text/plain; charset=utf-8');
 global $no_session;
 $no_session = TRUE;
 
-require_once '../lib/standard.php';
-require_once '../pektis/pektis.php';
-require_once '../trapezi/trapezi.php';
-require_once '../prefadoros/partida.php';
-require_once '../prefadoros/dianomi.php';
-require_once '../prefadoros/kinisi.php';
-require_once '../prefadoros/prosklisi.php';
-require_once '../prefadoros/sxesi.php';
-require_once '../prefadoros/permes.php';
-require_once '../prefadoros/trapezi.php';
-require_once '../prefadoros/rebelos.php';
-require_once '../prefadoros/sizitisi.php';
-require_once '../prefadoros/prefadoros.php';
+if (file_exists("../PRODUCTION")) {
+	require_once '../PRODUCTION/neaDedomena.php';
+}
+else {
+	require_once '../lib/standard.php';
+	require_once '../pektis/pektis.php';
+	require_once '../trapezi/trapezi.php';
+	require_once '../prefadoros/partida.php';
+	require_once '../prefadoros/dianomi.php';
+	require_once '../prefadoros/kinisi.php';
+	require_once '../prefadoros/prosklisi.php';
+	require_once '../prefadoros/sxesi.php';
+	require_once '../prefadoros/permes.php';
+	require_once '../prefadoros/trapezi.php';
+	require_once '../prefadoros/rebelos.php';
+	require_once '../prefadoros/sizitisi.php';
+	require_once '../prefadoros/prefadoros.php';
+}
 
 global $monitor_fh;
 open_monitor_file();
