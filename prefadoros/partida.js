@@ -1454,15 +1454,16 @@ var Dekada = new function() {
 			'images/trapoula/' + xa + '.png" alt="" style="z-index: 3;" />';
 		var to_tl = $(x).find('img').offset();
 
-		// Το φύλλο πρέπει να εμφανιστεί πάνω από τα υπόλοιπα, αλλά όχι
-		// αμέσως, πρέπει πρώτα να ξεφύγει από τα υπόλοιπα φύλλα.
-		setTimeout(function() {
-			try { img.style.zIndex = 20; } catch(e) {}
-		}, 150);
+		// Το φύλλο πρέπει να εμφανιστεί πάνω από τα υπόλοιπα φύλλα της μπάζας,
+		// αλλά αυτά ήδη έχουν ανεβάσει το index. Δεν μπορώ να ανεβάσω μόνο το
+		// παιζόμενο, καθώς αυτό το βάζει απευθείας πάνω από τα υπόλοιπα και
+		// δημιουργεί τρεμοπαίξιμο. Επομένως, τα ανεβάζω όλα και σε λίγο που
+		// θα γίνει επαναδημιουργία του HTML θα έρθουν πάλι στα φυσιολογικά τους.
+		$('fila1Area img').css('z-index', 20);
 		$(img).animate({
 			top: '+=' + (to_tl.top - from_tl.top),
 			left: '+=' + (to_tl.left - from_tl.left)
-		}, 200, function() {
+		}, 250, function() {
 			x.style.visibility = 'visible';
 			sviseNode(img);
 			Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
