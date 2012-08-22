@@ -412,14 +412,21 @@ var Gipedo = new function() {
 		for (var i = 1; i <= 3; i++) {
 			html += '<div id="bazaFilo' + i + '">';
 			for (var j = 0; j < pektis.length; j++) {
-				if (pektis[j] == i) {
-					html += '<img class="bazaFilo bazaFilo' + i;
-					if (j > 0) { html += ' bazaFiloSkia'; }
-					html += '" src="' + globals.server + 'images/trapoula/' +
-						filo[j] + '.png" alt="" ' + 'style="z-index: ' +
-						j + ';" />';
-					break;
-				}
+				if (pektis[j] != i) { continue; }
+
+				html += '<img class="bazaFilo bazaFilo' + i;
+				if (j > 0) { html += ' bazaFiloSkia'; }
+				html += '" src="' + globals.server + 'images/trapoula/' +
+					filo[j] + '.png" alt="" ' + 'style="z-index: ' +
+					j + ';';
+
+				// Αν είναι φύλλο το οποίο παίχτηκε τελευταίο φροντίζουμε
+				// να το αποκρύψουμε, καθώς θα ακολουθήσει επανατοποθέτηση
+				// και συνακόλουθο animation προς τη θέση του στην μπάζα.
+				if (pexnidi.lastFilo == i) { html += 'visibility: hidden;'; }
+
+ 				html += '" />';
+				break;
 			}
 			html += '</div>';
 		}

@@ -1442,10 +1442,26 @@ var Dekada = new function() {
 		Sizitisi.sxolioFocus();
 		var x = getelid('bazaFilo1');
 		if (notSet(x)) { fatalError('Dekada.valeFilo: bazaFilo1: not found'); }
+
+		var from_tl = $(img).position();
+		img.style.top = from_tl.top + 'px';
+		from_tl = $(img).offset();
+
+		// Το φύλλο τοποθετείται εξ αρχής στη θέση του στην μπάζα (θέση 1)
+		// και ακολουθεί animation, στη λήξη του οποίου θα επανεμφανιστεί.
+		x.style.visibility = 'hidden';
 		x.innerHTML = '<img class="bazaFilo bazaFilo1 bazaFiloSkia" src="' + globals.server +
 			'images/trapoula/' + xa + '.png" alt="" style="z-index: 3;" />';
-		sviseNode(img);
-		Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
+		var to_tl = $(x).find('img').offset();
+
+		$(img).animate({
+			top: '+=' + (to_tl.top - from_tl.top),
+			left: '+=' + (to_tl.left - from_tl.left)
+		}, 200, function() {
+			x.style.visibility = 'visible';
+			sviseNode(img);
+			Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
+		});
 	};
 };
 

@@ -40,6 +40,7 @@ if ($globals->is_pektis()) {
 		Page::javascript('lib/pss');
 		Page::javascript('lib/emoticons');
 		Page::javascript('lib/soundmanager');
+		Page::javascript('lib/jQuery');
 	}
 	Prefadoros::set_trapezi();
 	Prefadoros::set_params();
