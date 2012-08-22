@@ -1454,6 +1454,7 @@ var Dekada = new function() {
 			'images/trapoula/' + xa + '.png" alt="" style="z-index: 3;" />';
 		var to_tl = $(x).find('img').offset();
 
+		img.style.zIndex = 20;
 		$(img).animate({
 			top: '+=' + (to_tl.top - from_tl.top),
 			left: '+=' + (to_tl.left - from_tl.left)
