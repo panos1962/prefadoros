@@ -16,6 +16,7 @@ $item_list[] = new Item("user/panos/denDrepese.jpg", "Βρε δεν ντρέπε
 $item_list[] = new Item("spiderman.gif", "", "3.0", "_NC_");
 $item_list[] = new Item("soldierDance.gif", "", "", "_BG_");
 $item_list[] = new Item("soloDance.gif", "", "", "_ITM_");
+$item_list[] = new Item("makisDance.gif", "", 6.0);
 $item_list[] = new Item("treno.gif", "", "3.0", "treno");
 $item_list[] = new Item("argoporia.gif", "Τι περιμένουμε;", "2.0", "clocktickslow");
 ?>
