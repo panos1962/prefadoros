@@ -19,12 +19,19 @@ var Dedomena = new function() {
 		Dedomena.kafenioApo = 0;
 	};
 
-	this.schedule = function(freska) {
+	this.schedule = function(freska, dd) {
 		if (!reschedule) { return; }
 		if (notSet(freska)) { freska = false; }
+		if (notSet(dd)) { dd = 0; }
+
 		if (monitor.successiveErrors < 1) { var delay = 200; }
 		else if (monitor.successiveErrors < 3) { delay = 500; }
 		else { delay = 1000; }
+
+		// Όταν έχουμε animation, τότε υπάρχει έτσι κι αλλιώς καθυστέρηση
+		// την οποία φροντίζουμε να περάσουμε στην παρούσα, ώστε να αφαιρεθεί.
+		delay -= dd;
+		if (delay < 10) { delay = 10; }
 
 		if (monitor.successiveErrors > 2) {
 			mainFyi('Παρουσιάστηκαν διαδοχικά σφάλματα επικοινωνίας ' +
@@ -221,12 +228,62 @@ var Dedomena = new function() {
 		Kafenio.processDedomena(dedomena);
 
 		Pexnidi.processDedomena();
+		this.setLastFilo(dedomena);
 		Partida.updateHTML();
 		Trapezi.updateHTML();
 		Prefadoros.display();
+		if (pexnidi.lastFilo != 0) {
+			this.processLastFilo();
+		}
+		else {
+			Pexnidi.processFasi();
+			Dedomena.schedule();
+		}
+	};
 
-		Pexnidi.processFasi();
-		Dedomena.schedule();
+	this.setLastFilo = function(dedomena) {
+		pexnidi.lastFilo = 0;
+		if (pexnidi.akirosi) { return; }
+		if (kinisi.length <= 0) { return; }
+		if (notSet(dedomena.k) && notSet(dedomena.kn)) { return; }
+
+		var p = partida.pam[kinisi[kinisi.length - 1].p];
+		if (p == 1) { return; }
+
+		if (kinisi[kinisi.length - 1].i != 'ΦΥΛΛΟ') { return; }
+
+		pexnidi.lastFilo = p;
+	};
+
+	this.processLastFilo = function() {
+		var x = $('#bazaFilo' + pexnidi.lastFilo).find('img').get(0);
+		if (notSet(x)) {
+			Pexnidi.processFasi();
+			Dedomena.schedule();
+			return;
+		}
+
+		var to_tl = $(x).position();
+		x.style.top = '-2.6cm';
+		switch (pexnidi.lastFilo) {
+		case 2:
+			x.style.left = '5.6cm';
+			break;
+		case 3:
+			x.style.left = '-1.6cm';
+			break;
+		}
+		var from_tl = $(x).position();
+
+		var delay = 200;
+		x.style.visibility = 'visible';
+		$(x).animate({
+			top: '+=' + (to_tl.top - from_tl.top),
+			left: '+=' + (to_tl.left - from_tl.left)
+		}, delay, function() {
+			Pexnidi.processFasi();
+			Dedomena.schedule(false, delay);
+		});
 	};
 
 	this.checkPartidaPektis = function(dedomena) {

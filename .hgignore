@@ -17,3 +17,4 @@ glob:diafimisi/*
 glob:motd/*.jpg
 glob:proxiro/*.*
 glob:misc/lampTip.txt.sv
+glob:lib/jQuery.js
