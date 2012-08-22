@@ -1454,7 +1454,11 @@ var Dekada = new function() {
 			'images/trapoula/' + xa + '.png" alt="" style="z-index: 3;" />';
 		var to_tl = $(x).find('img').offset();
 
-		img.style.zIndex = 20;
+		// Το φύλλο πρέπει να εμφανιστεί πάνω από τα υπόλοιπα, αλλά όχι
+		// αμέσως, πρέπει πρώτα να ξεφύγει από τα υπόλοιπα φύλλα.
+		setTimeout(function() {
+			try { img.style.zIndex = 20; } catch(e) {}
+		}, 150);
 		$(img).animate({
 			top: '+=' + (to_tl.top - from_tl.top),
 			left: '+=' + (to_tl.left - from_tl.left)
