@@ -1459,7 +1459,18 @@ var Dekada = new function() {
 		// παιζόμενο, καθώς αυτό το βάζει απευθείας πάνω από τα υπόλοιπα και
 		// δημιουργεί τρεμοπαίξιμο. Επομένως, τα ανεβάζω όλα και σε λίγο που
 		// θα γίνει επαναδημιουργία του HTML θα έρθουν πάλι στα φυσιολογικά τους.
-		$('fila1Area img').css('z-index', 20);
+		var re = new RegExp(xa + '.png$');
+		var zi = 19;
+		$('.fila1Area img').each(function() {
+			if (this.src.match(re)) {
+				this.style.zIndex = 20;
+				img.style.zIndex = 20;
+				zi = 21;
+			}
+			else {
+				this.style.zIndex = zi;
+			}
+		});
 		$(img).animate({
 			top: '+=' + (to_tl.top - from_tl.top),
 			left: '+=' + (to_tl.left - from_tl.left)
