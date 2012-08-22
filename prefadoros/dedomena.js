@@ -246,13 +246,36 @@ var Dedomena = new function() {
 		if (pexnidi.akirosi) { return; }
 		if (kinisi.length <= 0) { return; }
 		if (notSet(dedomena.k) && notSet(dedomena.kn)) { return; }
-
-		var p = partida.pam[kinisi[kinisi.length - 1].p];
-		if (p == 1) { return; }
-
 		if (kinisi[kinisi.length - 1].i != 'ΦΥΛΛΟ') { return; }
 
-		pexnidi.lastFilo = p;
+		var p = partida.pam[kinisi[kinisi.length - 1].p];
+		if (p != 1) {
+			pexnidi.lastFilo = p;
+			return;
+		}
+
+		// Αν ο χρήστης είναι στο νότο τότε κρατάμε το τελευταίο
+		// φύλλο μόνο για τους θεατές καθώς ο παίκτης έχει το
+		// δικό του animation.
+		if (notTheatis()) { return; }
+
+		pexnidi.lastFilo = 1;
+
+		// Τώρα θα εντοπίσουμε το φύλλο με βάση το source της εικόνας,
+		// εφόσον γνωρίζουμε ποιο φύλλο είναι. Αυτό όμως αποτυγχάνει
+		// στην περίπτωση των κλειστών φύλλων, οπότε βάζουμε κάποια
+		// default τιμή. Σκοπός είναι να κρατήσουμε κάπου τη θέση του
+		// παιζόμενου (από το νότο) φύλλου, ώστε να μπορέσουμε μετά
+		// να ξεκινήσουμε το animation από όσο το δυνατόν ορθότερη θέση.
+		pexnidi.lastFiloLeft = '3.6cm';
+		var filo = kinisi[kinisi.length - 1].d;
+		var re = new RegExp(filo + '.png$');
+		$('.fila1Area img').each(function() {
+			if (this.src.match(re)) {
+				pexnidi.lastFiloLeft = $(this).parent().position().left + 'px';
+				return false;
+			}
+		});
 	};
 
 	this.processLastFilo = function() {
@@ -264,12 +287,17 @@ var Dedomena = new function() {
 		}
 
 		var to_tl = $(x).position();
-		x.style.top = '-2.6cm';
 		switch (pexnidi.lastFilo) {
+		case 1:
+			x.style.top = '5.0cm';
+			x.style.left = pexnidi.lastFiloLeft;
+			break;
 		case 2:
+			x.style.top = '-2.6cm';
 			x.style.left = '5.6cm';
 			break;
 		case 3:
+			x.style.top = '-2.6cm';
 			x.style.left = '-1.6cm';
 			break;
 		}
