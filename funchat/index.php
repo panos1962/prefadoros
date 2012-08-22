@@ -168,7 +168,6 @@ function print_panel() {
 	$item_list[] = new Item("boxingCat.gif", "Πάμε να τον χώσουμε βαθειά!", 5.2);
 	$item_list[] = new Item("crossEye.jpg", "Τι κάνεις, ρε;;;", 4.4);
 	$item_list[] = new Item("assWiggle.gif", "Ε, ρε γλέντια!", 4.0);
-	$item_list[] = new Item("tinExoPsonisi.gif", "Την έχω ψωνίσει τώρα!");
 	$item_list[] = new Item("thaMasKlasisTarxidia.gif", "Θα μας κλάσεις τα @@!");
 	$item_list[] = new Item("ouReKole.gif", "Ου, ρε κώλε!", 5.2);
 	$item_list[] = new Item("exeteXesti.gif", "Έχετε χεστεί, ρε σεις!", 4.2);
@@ -200,6 +199,7 @@ function print_panel() {
 	$item_list[] = new Item("mrBean.gif", "", 4.6);
 	$item_list[] = new Item("mazi.gif", "Πάμε μαζί;", 3.8);
 	$item_list[] = new Item("maziCats.gif", "Πάμε μαζί, αγαπούλα;");
+	$item_list[] = new Item("moxthiroEmoticon.gif");
 	$item_list[] = new Item("tinExoStisi.gif", "Την έστησα.", 1.4);
 	$item_list[] = new Item("tinEstisa.gif", "Την έστησα…", 4.0);
 	$item_list[] = new Item("tinEstise.gif", "Την έστησε!!!");
@@ -333,10 +333,10 @@ function print_panel() {
 	$item_list[] = new Item("chuckNoris.jpg", "Ούτε εγώ δεν τις βγάζω αυτές!");
 	$item_list[] = new Item("vegosPelates.jpg", "Πελάτες μου!", "3.5",
 		"http://youtu.be/LpX2T8IenD8");
-	$item_list[] = new Item("moxthiroEmoticon.gif");
 	$item_list[] = new Item("skoulikantera.jpg", "Α, πανάθεμά σε, σκουληκαντέρα!", "5.6", "_SKL_");
 	$item_list[] = new Item("tinPatisame.jpg", "Την πατήσαμε…", "6.0", "_TP_");
 	$item_list[] = new Item("xtipoKefali.gif");
+	$item_list[] = new Item("tinExoPsonisi.gif", "Την έχω ψωνίσει τώρα!");
 	$item_list[] = new Item("sfiriEmoticon.gif", "Θα το σπάσω!!!");
 	$item_list[] = new Item("parathiro.gif", "", "", "tzamia:1500");
 	$item_list[] = new Item("astrapesEmoticon.gif", "#!%@^&#*!@");
