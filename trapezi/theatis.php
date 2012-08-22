@@ -154,6 +154,10 @@ function check_idio_ip() {
 			continue;
 		}
 
+		if ($row[0] == SYSTEM_ACCOUNT) {
+			continue;
+		}
+
 		if (isset($pektes)) {
 			$prothema2 = "τους παίκτες ";
 			$pektes .= ", <strong>" . $row[0] . "</strong>";
