@@ -228,90 +228,98 @@ var Dedomena = new function() {
 		Kafenio.processDedomena(dedomena);
 
 		Pexnidi.processDedomena();
-		this.setLastFilo(dedomena);
+		this.setLastKinisi(dedomena);
 		Partida.updateHTML();
 		Trapezi.updateHTML();
 		Prefadoros.display();
-		if (pexnidi.lastFilo != 0) {
-			this.processLastFilo();
-		}
-		else {
+		if (!this.processLastKinisi()) {
 			Pexnidi.processFasi();
 			Dedomena.schedule();
 		}
 	};
 
-	this.setLastFilo = function(dedomena) {
-		pexnidi.lastFilo = 0;
+	this.setLastKinisi = function(dedomena) {
+		pexnidi.lastKinisi = { idos: null };
 		if (pexnidi.akirosi) { return; }
 		if (kinisi.length <= 0) { return; }
 		if (notSet(dedomena.k) && notSet(dedomena.kn)) { return; }
-		if (kinisi[kinisi.length - 1].i != 'ΦΥΛΛΟ') { return; }
-
-		var p = partida.pam[kinisi[kinisi.length - 1].p];
-		if (p != 1) {
-			pexnidi.lastFilo = p;
-			return;
-		}
-
-		// Αν ο χρήστης είναι στο νότο τότε κρατάμε το τελευταίο
-		// φύλλο μόνο για τους θεατές καθώς ο παίκτης έχει το
-		// δικό του animation.
-		if (notTheatis()) { return; }
-
-		pexnidi.lastFilo = 1;
-
-		// Τώρα θα εντοπίσουμε το φύλλο με βάση το source της εικόνας,
-		// εφόσον γνωρίζουμε ποιο φύλλο είναι. Αυτό όμως αποτυγχάνει
-		// στην περίπτωση των κλειστών φύλλων, οπότε βάζουμε κάποια
-		// default τιμή. Σκοπός είναι να κρατήσουμε κάπου τη θέση του
-		// παιζόμενου (από το νότο) φύλλου, ώστε να μπορέσουμε μετά
-		// να ξεκινήσουμε το animation από όσο το δυνατόν ορθότερη θέση.
-		pexnidi.lastFiloLeft = '3.6cm';
-		var filo = kinisi[kinisi.length - 1].d;
-		var re = new RegExp(filo + '.png$');
-		$('.fila1Area img').each(function() {
-			if (this.src.match(re)) {
-				pexnidi.lastFiloLeft = $(this).parent().position().left + 'px';
-				return false;
+		switch (kinisi[kinisi.length - 1].i) {
+		case 'ΦΥΛΛΟ':
+			var p = kinisi[kinisi.length - 1].thesi;
+			if (p != 1) {
+				pexnidi.lastKinisi.idos = 'ΦΥΛΛΟ';
+				pexnidi.lastKinisi.pektis = p;
+				return;
 			}
-		});
+
+			// Αν ο χρήστης είναι στο νότο τότε κρατάμε το τελευταίο
+			// φύλλο μόνο για τους θεατές καθώς ο παίκτης έχει το
+			// δικό του animation.
+			if (notTheatis()) { return; }
+
+			// Τώρα θα εντοπίσουμε το φύλλο με βάση το source της εικόνας,
+			// εφόσον γνωρίζουμε ποιο φύλλο είναι. Αυτό όμως αποτυγχάνει
+			// στην περίπτωση των κλειστών φύλλων, οπότε βάζουμε κάποια
+			// default τιμή. Σκοπός είναι να κρατήσουμε κάπου τη θέση του
+			// παιζόμενου (από το νότο) φύλλου, ώστε να μπορέσουμε μετά
+			// να ξεκινήσουμε το animation από όσο το δυνατόν ορθότερη θέση.
+			pexnidi.lastKinisi.idos = 'ΦΥΛΛΟ';
+			pexnidi.lastKinisi.pektis = 1;
+			pexnidi.lastKinisi.top = '5.0cm';
+			pexnidi.lastKinisi.left = '3.6cm';
+			var filo = kinisi[kinisi.length - 1].d;
+			var re = new RegExp(filo + '.png$');
+			$('.fila1Area img').each(function() {
+				if (this.src.match(re)) {
+					var tl = $(this).parent().position();
+					if (isSet(tl)) {
+						pexnidi.lastKinisi.top = tl.top + 'px';
+						pexnidi.lastKinisi.left = tl.left + 'px';
+					}
+					return false;
+				}
+			});
+		}
 	};
 
-	this.processLastFilo = function() {
-		var x = $('#bazaFilo' + pexnidi.lastFilo).find('img').get(0);
-		if (notSet(x)) {
-			Pexnidi.processFasi();
-			Dedomena.schedule();
-			return;
+	this.processLastKinisi = function() {
+		switch (pexnidi.lastKinisi.idos) {
+		case 'ΦΥΛΛΟ':
+			var x = $('#bazaFilo' + pexnidi.lastKinisi.pektis).find('img').get(0);
+			if (notSet(x)) { return false; }
+
+			var to_tl = $(x).position();
+			switch (pexnidi.lastKinisi.pektis) {
+			case 1:
+				x.style.top = pexnidi.lastKinisi.top;
+				x.style.left = pexnidi.lastKinisi.left;
+				break;
+			case 2:
+				x.style.top = '-2.6cm';
+				x.style.left = '5.6cm';
+				break;
+			case 3:
+				x.style.top = '-2.6cm';
+				x.style.left = '-1.6cm';
+				break;
+			default:
+				return false;
+			}
+			var from_tl = $(x).position();
+
+			var delay = 200;
+			x.style.visibility = 'visible';
+			$(x).animate({
+				top: '+=' + (to_tl.top - from_tl.top),
+				left: '+=' + (to_tl.left - from_tl.left)
+			}, delay, function() {
+				Pexnidi.processFasi();
+				Dedomena.schedule(false, delay);
+			});
+			return true;
 		}
 
-		var to_tl = $(x).position();
-		switch (pexnidi.lastFilo) {
-		case 1:
-			x.style.top = '5.0cm';
-			x.style.left = pexnidi.lastFiloLeft;
-			break;
-		case 2:
-			x.style.top = '-2.6cm';
-			x.style.left = '5.6cm';
-			break;
-		case 3:
-			x.style.top = '-2.6cm';
-			x.style.left = '-1.6cm';
-			break;
-		}
-		var from_tl = $(x).position();
-
-		var delay = 200;
-		x.style.visibility = 'visible';
-		$(x).animate({
-			top: '+=' + (to_tl.top - from_tl.top),
-			left: '+=' + (to_tl.left - from_tl.left)
-		}, delay, function() {
-			Pexnidi.processFasi();
-			Dedomena.schedule(false, delay);
-		});
+		return false;
 	};
 
 	this.checkPartidaPektis = function(dedomena) {
