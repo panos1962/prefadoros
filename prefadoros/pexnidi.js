@@ -975,7 +975,8 @@ var ProcessKinisi = new function() {
 		pexnidi.bazaPektis.push(thesi);
 
 		var fila = Pexnidi.deseFila(pexnidi.fila[thesi]);
-		fila = fila.replace(data, '');
+		if ((thesi == 1) && (fila.substr(1, 1) == 'V')) { fila = fila.substr(2); }
+		else { fila = fila.replace(data, ''); }
 		pexnidi.fila[thesi] = Pexnidi.spaseFila(fila);
 		Pexnidi.setEpomenos(thesi);
 		if (pexnidi.simetoxi[pexnidi.epomenos] == 'ΠΑΣΟ') {

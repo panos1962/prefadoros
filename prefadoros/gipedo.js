@@ -423,7 +423,10 @@ var Gipedo = new function() {
 				// Αν είναι φύλλο το οποίο παίχτηκε τελευταίο φροντίζουμε
 				// να το αποκρύψουμε, καθώς θα ακολουθήσει επανατοποθέτηση
 				// και συνακόλουθο animation προς τη θέση του στην μπάζα.
-				if (pexnidi.lastFilo == i) { html += 'visibility: hidden;'; }
+				if ((pexnidi.lastKinisi.idos === 'ΦΥΛΛΟ') &&
+					(pexnidi.lastKinisi.pektis === i)) {
+					html += 'visibility: hidden;';
+				}
 
  				html += '" />';
 				break;
