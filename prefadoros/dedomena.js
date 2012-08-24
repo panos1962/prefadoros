@@ -243,6 +243,7 @@ var Dedomena = new function() {
 		if (pexnidi.akirosi) { return; }
 		if (kinisi.length <= 0) { return; }
 		if (notSet(dedomena.k) && notSet(dedomena.kn)) { return; }
+
 		switch (kinisi[kinisi.length - 1].i) {
 		case 'ΦΥΛΛΟ':
 			var p = kinisi[kinisi.length - 1].thesi;
@@ -265,19 +266,15 @@ var Dedomena = new function() {
 			// να ξεκινήσουμε το animation από όσο το δυνατόν ορθότερη θέση.
 			pexnidi.lastKinisi.idos = 'ΦΥΛΛΟ';
 			pexnidi.lastKinisi.pektis = 1;
-			pexnidi.lastKinisi.top = '5.0cm';
-			pexnidi.lastKinisi.left = '3.6cm';
+			pexnidi.lastKinisi.top = null;
 			var filo = kinisi[kinisi.length - 1].d;
 			var re = new RegExp(filo + '.png$');
 			$('.fila1Area img').each(function() {
 				if (this.src.match(re)) {
-					var gp = $('#gipedo').css('border-style', 'solid').offset();
-					var fa = $(this).parent().parent().css('border-style', 'solid').offset();
-					var tl = $(this).parent().css('border-style', 'solid').position();
-//alert('gp = ' + gp.left + ', fa = ' + fa.left + ', tl = ' + tl.left);
+					var tl = $(this).parent().offset();
 					if (isSet(tl)) {
-						pexnidi.lastKinisi.top = (tl.top + fa.top - gp.top) + 'px';
-						pexnidi.lastKinisi.left = (tl.left + fa.left - gp.left) + 'px';
+						pexnidi.lastKinisi.top = tl.top;
+						pexnidi.lastKinisi.left = tl.left;
 					}
 					return false;
 				}
@@ -296,6 +293,15 @@ var Dedomena = new function() {
 			case 1:
 				x.style.top = pexnidi.lastKinisi.top;
 				x.style.left = pexnidi.lastKinisi.left;
+				if (isSet(pexnidi.lastKinisi.top)) {
+					var gp = $('#gipedo').offset();
+					x.style.top = (pexnidi.lastKinisi.top - gp.top) + 'px';
+					x.style.left = (pexnidi.lastKinisi.left - gp.left) + 'px';
+				}
+				else {
+					pexnidi.lastKinisi.top = '5.0cm';
+					pexnidi.lastKinisi.left = '3.6cm';
+				}
 				break;
 			case 2:
 				x.style.top = '-2.6cm';
@@ -312,11 +318,11 @@ var Dedomena = new function() {
 
 			var delay = 200;
 			x.style.visibility = 'visible';
-//alert('asdas');
-			$(x).animate({
+			var attr = {
 				top: '+=' + (to_tl.top - from_tl.top),
 				left: '+=' + (to_tl.left - from_tl.left)
-			}, delay, function() {
+			};
+			$(x).animate(attr, delay, function() {
 				Pexnidi.processFasi();
 				Dedomena.schedule(false, delay);
 			});
