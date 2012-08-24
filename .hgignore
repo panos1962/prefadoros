@@ -18,3 +18,5 @@ glob:motd/*.jpg
 glob:proxiro/*.*
 glob:misc/lampTip.txt.sv
 glob:lib/jQuery.js
+syntax: glob
+desktop.ini
