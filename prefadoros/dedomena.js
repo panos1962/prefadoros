@@ -271,10 +271,13 @@ var Dedomena = new function() {
 			var re = new RegExp(filo + '.png$');
 			$('.fila1Area img').each(function() {
 				if (this.src.match(re)) {
-					var tl = $(this).parent().position();
+					var gp = $('#gipedo').css('border-style', 'solid').offset();
+					var fa = $(this).parent().parent().css('border-style', 'solid').offset();
+					var tl = $(this).parent().css('border-style', 'solid').position();
+//alert('gp = ' + gp.left + ', fa = ' + fa.left + ', tl = ' + tl.left);
 					if (isSet(tl)) {
-						pexnidi.lastKinisi.top = tl.top + 'px';
-						pexnidi.lastKinisi.left = tl.left + 'px';
+						pexnidi.lastKinisi.top = (tl.top + fa.top - gp.top) + 'px';
+						pexnidi.lastKinisi.left = (tl.left + fa.left - gp.left) + 'px';
 					}
 					return false;
 				}
@@ -309,6 +312,7 @@ var Dedomena = new function() {
 
 			var delay = 200;
 			x.style.visibility = 'visible';
+//alert('asdas');
 			$(x).animate({
 				top: '+=' + (to_tl.top - from_tl.top),
 				left: '+=' + (to_tl.left - from_tl.left)
