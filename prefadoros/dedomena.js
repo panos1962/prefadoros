@@ -304,11 +304,11 @@ var Dedomena = new function() {
 				}
 				break;
 			case 2:
-				x.style.top = '-2.6cm';
+				x.style.top = '-1.0cm';
 				x.style.left = '5.6cm';
 				break;
 			case 3:
-				x.style.top = '-2.6cm';
+				x.style.top = '-1.0cm';
 				x.style.left = '-1.6cm';
 				break;
 			default:

@@ -1445,6 +1445,7 @@ var Dekada = new function() {
 
 		var from_tl = $(img).position();
 		img.style.top = from_tl.top + 'px';
+		img.style.left = from_tl.left + 'px';
 		from_tl = $(img).offset();
 
 		// Το φύλλο τοποθετείται εξ αρχής στη θέση του στην μπάζα (θέση 1)
@@ -1471,9 +1472,11 @@ var Dekada = new function() {
 				this.style.zIndex = zi;
 			}
 		});
+		$(img).css('height', '2.93cm');
 		$(img).animate({
 			top: '+=' + (to_tl.top - from_tl.top),
-			left: '+=' + (to_tl.left - from_tl.left)
+			left: '+=' + (to_tl.left - from_tl.left),
+			height: '2.80cm'
 		}, 250, function() {
 			x.style.visibility = 'visible';
 			sviseNode(img);
