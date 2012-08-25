@@ -680,10 +680,8 @@ var ProcessFasi = new function() {
 	};
 
 	this.baza = function() {
-/*
 this.bazaPost(Pexnidi.delay['baza']);
 return;
-*/
 		if (Pexnidi.bazaSeKinisi >= kinisi.length) {
 			this.bazaPost(Pexnidi.delay['baza']);
 			return;
@@ -716,7 +714,7 @@ return;
 				width: '0px',
 				top: (tl.top - gp.top) + 'px',
 				left: (tl.left - gp.left) + 'px'
-			}, 100, function() {
+			}, 200, function() {
 				if (n++ == 0) {
 					ProcessFasi.bazaPost(10);
 				}
