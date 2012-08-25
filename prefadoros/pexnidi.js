@@ -677,13 +677,43 @@ var ProcessFasi = new function() {
 	};
 
 	this.baza = function() {
+		var tl = null;
+		$('.velos3,.velos2,.velos1').each(function() {
+			if (this.src.match(/pare\.png/)) {
+				tl = $(this).offset();
+			}
+		});
+
+		var gp = $('#gipedo').offset();
+
+		if (notSet(tl) || notSet(gp)) {
+			this.bazaPost(Pexnidi.delay['baza']);
+			return;
+		}
+
+		var n = 0;
+		setTimeout(function() {
+			$('.velos1,.velos2,.velos3').fadeOut(Pexnidi.delay['baza']);
+			$('.bazaFilo').animate({
+				width: '0px',
+				top: (tl.top - gp.top) + 'px',
+				left: (tl.left - gp.left) + 'px'
+			}, 200, function() {
+				if (n++ == 0) {
+					ProcessFasi.bazaPost(10);
+				}
+			});
+		}, Pexnidi.delay['baza']);
+	};
+
+	this.bazaPost = function(delay) {
 		if (pexnidi.epomenos != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
 		setTimeout(function() {
 			mainFyi('Μπάζα');
 			Pexnidi.addKinisi('ΜΠΑΖΑ', '', pexnidi.epomenos);
-		}, Pexnidi.delay['baza']);
+		}, delay);
 	};
 
 	this.pliromi = function() {

@@ -279,6 +279,7 @@ var Dedomena = new function() {
 					return false;
 				}
 			});
+			break;
 		}
 	};
 
