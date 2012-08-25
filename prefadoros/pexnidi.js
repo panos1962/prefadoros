@@ -14,6 +14,9 @@ var Pexnidi = new function() {
 		'tzogos':		1500
 	};
 
+	this.filoSeKinisi = 0;
+	this.bazaSeKinisi = 0;
+
 	// Η ιδιότητα "anamoniKinisis" δείχνει αν περιμένουμε κάποια
 	// συγκεκριμένη κίνηση από τον server και μάλιστα δείχνει τον
 	// κωδικό της κίνησης αυτής. Πρόκειται για την τελευταία κίνηση
@@ -677,7 +680,7 @@ var ProcessFasi = new function() {
 	};
 
 	this.baza = function() {
-		if (isSet(this.bazaSeKinisi)) {
+		if (Pexnidi.bazaSeKinisi >= kinisi.length) {
 			this.bazaPost(Pexnidi.delay['baza']);
 			return;
 		}
@@ -702,7 +705,7 @@ var ProcessFasi = new function() {
 		}
 
 		var n = 0;
-		this.bazaSeKinisi = true;
+		Pexnidi.bazaSeKinisi = kinisi.length;
 		setTimeout(function() {
 			$('.velos1,.velos2,.velos3').fadeOut(Pexnidi.delay['baza']);
 			$('.bazaFilo').animate({
@@ -712,9 +715,6 @@ var ProcessFasi = new function() {
 			}, 200, function() {
 				if (n++ == 0) {
 					ProcessFasi.bazaPost(10);
-					setTimeout(function() {
-						ProcessFasi.bazaSeKinisi = null;
-					}, 200);
 				}
 			});
 		}, Pexnidi.delay['baza']);
@@ -1091,6 +1091,8 @@ var ProcessKinisi = new function() {
 
 	this.akirosi = function(thesi) {
 		pexnidi.akirosi = thesi in partida.pektis ? thesi : 0;
+		Pexnidi.filoSeKinisi = 0;
+		Pexnidi.bazaSeKinisi = 0;
 	};
 
 	this.claim = function(thesi, data) {
@@ -1181,6 +1183,8 @@ var ProcessKinisi = new function() {
 		controlPanel.refreshKitapi();
 		pexnidi.fasi = 'ΔΙΑΝΟΜΗ';
 		Pexnidi.setEpomenos(pexnidi.dealer);
+		Pexnidi.filoSeKinisi = 0;
+		Pexnidi.bazaSeKinisi = 0;
 	};
 };
 

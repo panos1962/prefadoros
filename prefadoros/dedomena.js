@@ -286,6 +286,7 @@ var Dedomena = new function() {
 	this.processLastKinisi = function() {
 		switch (pexnidi.lastKinisi.idos) {
 		case 'ΦΥΛΛΟ':
+			if (Pexnidi.filoSeKinisi >= kinisi.length) { return false; }
 			var x = $('#bazaFilo' + pexnidi.lastKinisi.pektis).find('img').get(0);
 			if (notSet(x)) { return false; }
 
@@ -317,6 +318,7 @@ var Dedomena = new function() {
 			}
 			var from_tl = $(x).position();
 
+			Pexnidi.filoSeKinisi = kinisi.length;
 			var delay = 200;
 			x.style.visibility = 'visible';
 			var attr = {
