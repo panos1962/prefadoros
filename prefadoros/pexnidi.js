@@ -677,6 +677,11 @@ var ProcessFasi = new function() {
 	};
 
 	this.baza = function() {
+		if (isSet(this.bazaSeKinisi)) {
+			this.bazaPost(Pexnidi.delay['baza']);
+			return;
+		}
+
 		var tl = null;
 		$('.velos3,.velos2,.velos1').each(function() {
 			if (this.src.match(/pare\.png/)) {
@@ -684,14 +689,20 @@ var ProcessFasi = new function() {
 			}
 		});
 
+		if (notSet(tl)) {
+			this.bazaPost(Pexnidi.delay['baza']);
+			return;
+		}
+
 		var gp = $('#gipedo').offset();
 
-		if (notSet(tl) || notSet(gp)) {
+		if (notSet(gp)) {
 			this.bazaPost(Pexnidi.delay['baza']);
 			return;
 		}
 
 		var n = 0;
+		this.bazaSeKinisi = true;
 		setTimeout(function() {
 			$('.velos1,.velos2,.velos3').fadeOut(Pexnidi.delay['baza']);
 			$('.bazaFilo').animate({
@@ -701,6 +712,9 @@ var ProcessFasi = new function() {
 			}, 200, function() {
 				if (n++ == 0) {
 					ProcessFasi.bazaPost(10);
+					setTimeout(function() {
+						ProcessFasi.bazaSeKinisi = null;
+					}, 200);
 				}
 			});
 		}, Pexnidi.delay['baza']);
