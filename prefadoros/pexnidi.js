@@ -680,6 +680,8 @@ var ProcessFasi = new function() {
 	};
 
 	this.baza = function() {
+this.bazaPost(Pexnidi.delay['baza']);
+return;
 		if (Pexnidi.bazaSeKinisi >= kinisi.length) {
 			this.bazaPost(Pexnidi.delay['baza']);
 			return;
