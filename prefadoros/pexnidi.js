@@ -10,7 +10,7 @@ var Pexnidi = new function() {
 	};
 
 	this.delay = {
-		'baza':			600,
+		'baza':			300,
 		'tzogos':		1500
 	};
 
@@ -168,7 +168,13 @@ var Pexnidi = new function() {
 				ProcessKinisi.filo(kinisi[i].thesi, kinisi[i].d);
 				break;
 			case 'ΜΠΑΖΑ':
-				ProcessKinisi.baza(kinisi[i].thesi, kinisi[i].k);
+				// Αν η τελευταία μας κίνηση είναι μπάζα, τότε δεν τη
+				// διαχειριζόμαστε τώρα, αλλά θα τη διαχειριστούμε
+				// αργότερα, μετά την αποστολή της μπάζας προς τον
+				// παίκτη που την κερδίζει.
+				if (i < (kinisi.length - 1)) {
+					ProcessKinisi.baza(kinisi[i].thesi, kinisi[i].k);
+				}
 				break;
 			case 'ΑΚΥΡΩΣΗ':
 				ProcessKinisi.akirosi(kinisi[i].thesi);
@@ -679,57 +685,12 @@ var ProcessFasi = new function() {
 		Pexnidi.addKinisi('ΤΖΟΓΟΣ', '', pexnidi.tzogadoros);
 	};
 
-	this.baza = function() {
-this.bazaPost(Pexnidi.delay['baza']);
-return;
-		if (Pexnidi.bazaSeKinisi >= kinisi.length) {
-			this.bazaPost(Pexnidi.delay['baza']);
-			return;
-		}
-
-		var tl = null;
-		$('.velos3,.velos2,.velos1').each(function() {
-			if (this.src.match(/pare\.png/)) {
-				tl = $(this).offset();
-			}
-		});
-
-		if (notSet(tl)) {
-			this.bazaPost(Pexnidi.delay['baza']);
-			return;
-		}
-
-		var gp = $('#gipedo').offset();
-
-		if (notSet(gp)) {
-			this.bazaPost(Pexnidi.delay['baza']);
-			return;
-		}
-
-		var n = 0;
-		Pexnidi.bazaSeKinisi = kinisi.length;
-		setTimeout(function() {
-			$('.velos1,.velos2,.velos3').fadeOut(Pexnidi.delay['baza']);
-			$('.bazaFilo').animate({
-				width: '0px',
-				top: (tl.top - gp.top) + 'px',
-				left: (tl.left - gp.left) + 'px'
-			}, 200, function() {
-				if (n++ == 0) {
-					ProcessFasi.bazaPost(10);
-				}
-			});
-		}, Pexnidi.delay['baza']);
-	};
-
-	this.bazaPost = function(delay) {
+	this.baza = function(delay) {
 		if (pexnidi.epomenos != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
-		setTimeout(function() {
-			mainFyi('Μπάζα');
-			Pexnidi.addKinisi('ΜΠΑΖΑ', '', pexnidi.epomenos);
-		}, delay);
+		mainFyi('Μπάζα');
+		Pexnidi.addKinisi('ΜΠΑΖΑ', '', pexnidi.epomenos);
 	};
 
 	this.pliromi = function() {
