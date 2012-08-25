@@ -239,7 +239,7 @@ var Dedomena = new function() {
 	};
 
 	this.setLastKinisi = function(dedomena) {
-		pexnidi.lastKinisi = { idos: null };
+		this.lastKinisi = { idos: null };
 		if (pexnidi.akirosi) { return; }
 		if (kinisi.length <= 0) { return; }
 		if (notSet(dedomena.k) && notSet(dedomena.kn)) { return; }
@@ -248,8 +248,8 @@ var Dedomena = new function() {
 		case 'ΦΥΛΛΟ':
 			var p = kinisi[kinisi.length - 1].thesi;
 			if (p != 1) {
-				pexnidi.lastKinisi.idos = 'ΦΥΛΛΟ';
-				pexnidi.lastKinisi.pektis = p;
+				this.lastKinisi.idos = 'ΦΥΛΛΟ';
+				this.lastKinisi.pektis = p;
 				return;
 			}
 
@@ -264,45 +264,49 @@ var Dedomena = new function() {
 			// default τιμή. Σκοπός είναι να κρατήσουμε κάπου τη θέση του
 			// παιζόμενου (από το νότο) φύλλου, ώστε να μπορέσουμε μετά
 			// να ξεκινήσουμε το animation από όσο το δυνατόν ορθότερη θέση.
-			pexnidi.lastKinisi.idos = 'ΦΥΛΛΟ';
-			pexnidi.lastKinisi.pektis = 1;
-			pexnidi.lastKinisi.top = null;
+			this.lastKinisi.idos = 'ΦΥΛΛΟ';
+			this.lastKinisi.pektis = 1;
+			this.lastKinisi.top = null;
 			var filo = kinisi[kinisi.length - 1].d;
 			var re = new RegExp(filo + '.png$');
 			$('.fila1Area img').each(function() {
 				if (this.src.match(re)) {
 					var tl = $(this).parent().offset();
 					if (isSet(tl)) {
-						pexnidi.lastKinisi.top = tl.top;
-						pexnidi.lastKinisi.left = tl.left;
+						Dedomena.lastKinisi.top = tl.top;
+						Dedomena.lastKinisi.left = tl.left;
 					}
 					return false;
 				}
 			});
 			break;
+		case 'ΜΠΑΖΑ':
+			this.lastKinisi.idos = 'ΜΠΑΖΑ';
+			this.lastKinisi.pektis = kinisi[kinisi.length - 1].thesi;
+			break;
 		}
 	};
 
 	this.processLastKinisi = function() {
-		switch (pexnidi.lastKinisi.idos) {
+		switch (this.lastKinisi.idos) {
 		case 'ΦΥΛΛΟ':
 			if (Pexnidi.filoSeKinisi >= kinisi.length) { return false; }
-			var x = $('#bazaFilo' + pexnidi.lastKinisi.pektis).find('img').get(0);
+			var x = $('#bazaFilo' + this.lastKinisi.pektis).find('img').get(0);
 			if (notSet(x)) { return false; }
 
 			var to_tl = $(x).position();
-			switch (pexnidi.lastKinisi.pektis) {
+			switch (this.lastKinisi.pektis) {
 			case 1:
-				x.style.top = pexnidi.lastKinisi.top;
-				x.style.left = pexnidi.lastKinisi.left;
-				if (isSet(pexnidi.lastKinisi.top)) {
+				x.style.top = this.lastKinisi.top;
+				x.style.left = this.lastKinisi.left;
+				if (isSet(this.lastKinisi.top)) {
 					var gp = $('#gipedo').offset();
-					x.style.top = (pexnidi.lastKinisi.top - gp.top) + 'px';
-					x.style.left = (pexnidi.lastKinisi.left - gp.left) + 'px';
+					x.style.top = (this.lastKinisi.top - gp.top) + 'px';
+					x.style.left = (this.lastKinisi.left - gp.left) + 'px';
 				}
 				else {
-					pexnidi.lastKinisi.top = '5.0cm';
-					pexnidi.lastKinisi.left = '3.6cm';
+					this.lastKinisi.top = '5.0cm';
+					this.lastKinisi.left = '3.6cm';
 				}
 				break;
 			case 2:
@@ -330,9 +334,56 @@ var Dedomena = new function() {
 				Dedomena.schedule(false, delay);
 			});
 			return true;
+		case 'ΜΠΑΖΑ':
+			if (Pexnidi.bazaSeKinisi >= kinisi.length) {
+				this.kliseBaza();
+				return false;
+			}
+
+			var tl = $('.velos' + this.lastKinisi.pektis).offset();
+			if (notSet(tl)) {
+				this.kliseBaza();
+				return false;
+			}
+
+			var gp = $('#gipedo').offset();
+			if (notSet(gp)) {
+				this.kliseBaza();
+				return false;
+			}
+
+			var n = 0;
+			Pexnidi.bazaSeKinisi = kinisi.length;
+			setTimeout(function() {
+				$('.velos1,.velos2,.velos3').fadeOut(Pexnidi.delay['baza']);
+				$('.bazaFilo').animate({
+					width: '0px',
+					top: (tl.top - gp.top) + 'px',
+					left: (tl.left - gp.left) + 'px'
+				}, 200, function() {
+					if (n++ == 0) {
+						Dedomena.kliseBaza();
+						Pexnidi.processFasi();
+						Dedomena.schedule(false, 10);
+					}
+				});
+			}, Pexnidi.delay['baza']);
+			return true;
 		}
 
 		return false;
+	};
+
+	// Αν η τελευταία κίνηση ήταν μπάζα, τότε δεν τη διαχειριστήκαμε
+	// στην "processDedomena" με σκοπό να τη διαχειριστούμε αμέσως
+	// μετά την αποστολή της τελευταίας μπάζας προς τον παίκτη που
+	// την κέρδισε. Αυτό ακριβώς κάνει η function που ακολουθεί.
+
+	this.kliseBaza = function() {
+		ProcessKinisi.baza(kinisi[kinisi.length - 1].thesi, kinisi[kinisi.length - 1].k);
+		Partida.updateHTML();
+		Trapezi.updateHTML();
+		Prefadoros.display();
 	};
 
 	this.checkPartidaPektis = function(dedomena) {

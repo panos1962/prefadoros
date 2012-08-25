@@ -197,7 +197,12 @@ var Prefadoros = new function() {
 		return false;
 	};
 
+	this.optikiTrapezi = -1;
+
 	this.setOptiki = function(trapezi) {
+		if (this.optikiTrapezi == trapezi) { return; }
+		this.optikiTrapezi = trapezi;
+
 		var req = new Request('prefadoros/setOptiki');
 		req.xhr.onreadystatechange = function() {
 			Prefadoros.setOptikiCheck(req);
