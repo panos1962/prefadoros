@@ -10,7 +10,7 @@ var Pexnidi = new function() {
 	};
 
 	this.delay = {
-		'baza':			300,
+		'baza':			200,
 		'tzogos':		1500
 	};
 
@@ -326,6 +326,14 @@ var Pexnidi = new function() {
 			(kinisi[kinisi.length - 1].i == 'ΜΠΑΖΑ')) {
 			playSound('felos');
 			mainFyi('Απόπειρα διπλομπάζας');
+			return;
+		}
+
+		if ((kinisi.length > 0) && (idos == 'ΦΥΛΛΟ') &&
+			(kinisi[kinisi.length - 1].i == 'ΦΥΛΛΟ') &&
+			(kinisi[kinisi.length - 1].thesi == 1)) {
+			playSound('felos');
+			mainFyi('Απόπειρα διπλοπαιξιάς');
 			return;
 		}
 
