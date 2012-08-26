@@ -352,16 +352,19 @@ var Dedomena = new function() {
 				return false;
 			}
 
-			var n = 0;
 			Pexnidi.bazaSeKinisi = kinisi.length;
 			setTimeout(function() {
+				var cnt = 0;
 				$('.velos1,.velos2,.velos3').fadeOut(Pexnidi.delay['baza']);
-				$('.bazaFilo').animate({
+				$('.bazaFilo').each(function() {
+					cnt++;
+				}).animate({
 					width: '10px',
 					top: (tl.top - gp.top) + 'px',
 					left: (tl.left - gp.left) + 'px'
 				}, 200, function() {
-					if (n++ == 0) {
+					cnt--;
+					if (cnt <= 0) {
 						Dedomena.kliseBaza();
 						Pexnidi.processFasi();
 						Dedomena.schedule(false, 10);
