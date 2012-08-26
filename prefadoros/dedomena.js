@@ -357,7 +357,7 @@ var Dedomena = new function() {
 			setTimeout(function() {
 				$('.velos1,.velos2,.velos3').fadeOut(Pexnidi.delay['baza']);
 				$('.bazaFilo').animate({
-					width: '0px',
+					width: '10px',
 					top: (tl.top - gp.top) + 'px',
 					left: (tl.left - gp.left) + 'px'
 				}, 200, function() {
