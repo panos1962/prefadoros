@@ -290,9 +290,16 @@ var Dedomena = new function() {
 	this.processLastKinisi = function() {
 		switch (this.lastKinisi.idos) {
 		case 'ΦΥΛΛΟ':
-			if (Pexnidi.filoSeKinisi >= kinisi.length) { return false; }
+			if (Pexnidi.filoSeKinisi >= kinisi.length) {
+				this.dixeBaza();
+				return false;
+			}
+
 			var x = $('#bazaFilo' + this.lastKinisi.pektis).find('img').get(0);
-			if (notSet(x)) { return false; }
+			if (notSet(x)) {
+				this.dixeBaza();
+				return false;
+			}
 
 			var to_tl = $(x).position();
 			switch (this.lastKinisi.pektis) {
@@ -318,6 +325,7 @@ var Dedomena = new function() {
 				x.style.left = '-1.6cm';
 				break;
 			default:
+				this.dixeBaza();
 				return false;
 			}
 			var from_tl = $(x).position();
@@ -359,7 +367,7 @@ var Dedomena = new function() {
 				$('.bazaFilo').each(function() {
 					cnt++;
 				}).animate({
-					width: '10px',
+					width: '0px',
 					top: (tl.top - gp.top) + 'px',
 					left: (tl.left - gp.left) + 'px'
 				}, 200, function() {
@@ -375,6 +383,14 @@ var Dedomena = new function() {
 		}
 
 		return false;
+	};
+
+	// Αν η τελευταία κίνηση ήταν φύλλο, τότε υπάρχει περίπτωση
+	// να πρέπει να επαναφέρουμε το visibility ων φύλλων της
+	// μπάζας.
+
+	this.dixeBaza = function() {
+		$('.bazaFilo').css('visibility', 'visible');
 	};
 
 	// Αν η τελευταία κίνηση ήταν μπάζα, τότε δεν τη διαχειριστήκαμε

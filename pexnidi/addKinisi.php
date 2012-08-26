@@ -49,6 +49,9 @@ switch ($idos) {
 case 'ΜΠΑΖΑ':
 	check_baza($dianomi);
 	break;
+case 'ΦΥΛΛΟ':
+	check_filo($dianomi, $thesi);
+	break;
 case 'ΔΙΑΝΟΜΗ':
 	check_dianomi($dianomi);
 	break;
@@ -226,7 +229,7 @@ function check_baza($dianomi) {
 	// Η προηγούμενη (τελευταία) κίνηση πρέπει να είναι
 	// τύπου "ΦΥΛΛΟ". Ψάχνουμε, λοιπόν, το είδος της
 	// τελευταίας κίνησης της διανομής.
-	$last = '';
+	$prev = '';
 	$query = "SELECT `idos` FROM `kinisi` WHERE `dianomi` = " .
 		$dianomi . " ORDER BY `kodikos` DESC LIMIT 1";
 	$result = $globals->sql_query($query);
@@ -236,6 +239,29 @@ function check_baza($dianomi) {
 	if ($prev != 'ΦΥΛΛΟ') {
 		Prefadoros::xeklidose_trapezi(FALSE);
 		$globals->klise_fige('Απόπειρα μπάζας μετά από "'. $prev . '"');
+	}
+}
+
+function check_filo($dianomi, $thesi) {
+	global $globals;
+
+	// Δεν μπορεί ο ίδιος παίκτης να στείλει δύο φύλλα.
+	$prev = NULL;
+	$query = "SELECT `pektis`, `idos` FROM `kinisi` WHERE `dianomi` = " .
+		$dianomi . " ORDER BY `kodikos` DESC LIMIT 1";
+	$result = $globals->sql_query($query);
+	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		$prev = $row;
+	}
+
+	if ($prev === NULL) {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		$globals->klise_fige('Απρόσμενη κίνηση φύλλου');
+	}
+
+	if (($prev[0] == $thesi) && ($prev[1] == 'ΦΥΛΛΟ')) {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		$globals->klise_fige('Απόπειρα διπλοπαιξιάς');
 	}
 }
 
