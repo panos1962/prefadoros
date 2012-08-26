@@ -7,7 +7,7 @@ require_once 'prefadoros/prefadoros.php';
 require_once 'account/photo.php';
 set_globals();
 $globals->klista = KLISTA_SELIDA;
-if (file_exists($globals->klista)) {
+if ((!Globals::perastike("atsilk")) && file_exists($globals->klista)) {
 	unset($globals->pektis);
 }
 else {
