@@ -317,12 +317,12 @@ var Dedomena = new function() {
 				}
 				break;
 			case 2:
-				x.style.top = '-1.0cm';
-				x.style.left = '5.6cm';
+				x.style.top = '-0.6cm';
+				x.style.left = '4.6cm';
 				break;
 			case 3:
-				x.style.top = '-1.0cm';
-				x.style.left = '-1.6cm';
+				x.style.top = '-0.2cm';
+				x.style.left = '-1.0cm';
 				break;
 			default:
 				this.dixeBaza();

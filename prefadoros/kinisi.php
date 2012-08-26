@@ -319,6 +319,37 @@ class Kinisi {
 			$kinisi[] = $k;
 		}
 
+		// Κάνουμε έναν έλεγχο για τυχόν διπλά φύλλα από τον ίδιο παίκτη
+		// στην ίδια μπάζα. Αν βρεθεί κάτι τέτοιο, διαγράφουμε τις κινήσηεις
+		// από εκεί και μετά.
+
+		$baza = FALSE;
+		$cnt = count($kinisi);
+		for ($i = 0; $i < $cnt; $i++) {
+			if ($kinisi[$i]->idos == "ΜΠΑΖΑ") {
+				$baza = TRUE;
+				$pezon = array();
+				continue;
+			}
+
+			if (!$baza) {
+				continue;
+			}
+
+			if ($kinisi[$i]->idos != "ΦΥΛΛΟ") {
+				continue;
+			}
+
+			if (array_key_exists($kinisi[$i]->pektis, $pezon)) {
+				$query = "DELETE FROM `kinisi` WHERE (`dianomi` = " .
+					$dianomi . ") AND (`kodikos` >= " . $kinisi[$i]->kodikos;
+				$globals->sql($query);
+				return($array_slice($kinisi, 0, $i - 1));
+			}
+
+			$pezon[$kinisi[$i]->pektis] = TRUE;
+		}
+
 		return $kinisi;
 	}
 
