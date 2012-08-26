@@ -378,7 +378,7 @@ var Dedomena = new function() {
 						Dedomena.schedule(false, 10);
 					}
 				});
-			}, 100);
+			}, Pexnidi.delay['baza']);
 			return true;
 		}
 
