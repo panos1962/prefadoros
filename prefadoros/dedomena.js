@@ -378,7 +378,7 @@ var Dedomena = new function() {
 						Dedomena.schedule(false, 10);
 					}
 				});
-			}, 10);
+			}, 100);
 			return true;
 		}
 
