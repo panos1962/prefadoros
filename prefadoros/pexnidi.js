@@ -171,8 +171,9 @@ var Pexnidi = new function() {
 				// Αν η τελευταία μας κίνηση είναι μπάζα, τότε δεν τη
 				// διαχειριζόμαστε τώρα, αλλά θα τη διαχειριστούμε
 				// αργότερα, μετά την αποστολή της μπάζας προς τον
-				// παίκτη που την κερδίζει.
-				if (i < (kinisi.length - 1)) {
+				// παίκτη που την κερδίζει. Αν αυτό έχει ήδη γίνει,
+				// τότε διαχειριζόμαστε κανονικά την κίνηση.
+				if (i < (kinisi.length - 1) || (Pexnidi.bazaSeKinisi == kinisi.length)) {
 					ProcessKinisi.baza(kinisi[i].thesi, kinisi[i].k);
 				}
 				break;
@@ -685,7 +686,7 @@ var ProcessFasi = new function() {
 		Pexnidi.addKinisi('ΤΖΟΓΟΣ', '', pexnidi.tzogadoros);
 	};
 
-	this.baza = function(delay) {
+	this.baza = function() {
 		if (pexnidi.epomenos != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
