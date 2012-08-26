@@ -342,8 +342,9 @@ class Kinisi {
 
 			if (array_key_exists($kinisi[$i]->pektis, $pezon)) {
 				$query = "DELETE FROM `kinisi` WHERE (`dianomi` = " .
-					$dianomi . ") AND (`kodikos` >= " . $kinisi[$i]->kodikos;
-				$globals->sql($query);
+					$dianomi . ") AND (`kodikos` >= " .
+					$kinisi[$i]->kodikos . ")";
+				@mysqli_query($globals->db, $query);
 				return($array_slice($kinisi, 0, $i - 1));
 			}
 
