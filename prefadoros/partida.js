@@ -1443,9 +1443,6 @@ var Dekada = new function() {
 		var x = getelid('bazaFilo1');
 		if (notSet(x)) { fatalError('Dekada.valeFilo: bazaFilo1: not found'); }
 
-		// ΕΔΩ ΕΙΝΑΙ ΠΡΩΘΥΣΤΕΡΟ, ΑΛΛΑ ΛΕΙΤΟΥΡΓΕΙ
-		Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
-
 		var from_tl = $(img).position();
 		img.style.top = from_tl.top + 'px';
 		img.style.left = from_tl.left + 'px';
@@ -1483,10 +1480,7 @@ var Dekada = new function() {
 		}, 250, function() {
 			x.style.visibility = 'visible';
 			sviseNode(img);
-			/*
-			ΕΔΩ ΕΙΝΑΙ Η ΛΟΓΙΚΗ ΘΕΣΗ
 			Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
-			*/
 		});
 	};
 };
