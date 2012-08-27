@@ -64,6 +64,9 @@ case 'ΤΖΟΓΟΣ':
 case 'ΣΥΜΜΕΤΟΧΗ':
 	check_simetoxi($dianomi);
 	break;
+case 'CLAIM':
+	check_claim($dianomi, $thesi);
+	break;
 case 'ΠΛΗΡΩΜΗ':
 	kane_pliromi($dianomi, $data);
 	break;
@@ -236,6 +239,40 @@ function check_baza($dianomi) {
 	if ($prev != 'ΦΥΛΛΟ') {
 		Prefadoros::xeklidose_trapezi(FALSE);
 		$globals->klise_fige('Απόπειρα μπάζας μετά από "'. $prev . '"');
+	}
+}
+
+function check_claim($dianomi, $thesi) {
+	global $globals;
+
+	$claim = array(0, 0, 0, 0);
+	$query = "SELECT `pektis` FROM `kinisi` WHERE (`dianomi` = " .
+		$dianomi . ") AND (`idos` = 'CLAIM') ORDER BY `kodikos`";
+	$result = $globals->sql_query($query);
+	while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+		switch ($row[0]) {
+		case 1:
+		case 2:
+		case 3:
+			break;
+		default:
+			Prefadoros::xeklidose_trapezi(FALSE);
+			$globals->klise_fige('Λανθασμένη προηγούμενη κίνηση "CLAIM". ' .
+				'Ακυρώστε κινήσεις…');
+		}
+
+		$pektis = (int)$row[0];
+		$claim[$pektis]++;
+		if ($claim[$pektis] > 1) {
+			Prefadoros::xeklidose_trapezi(FALSE);
+			$globals->klise_fige('Ανιχνεύτηκε προηγούμενη διπλοκίνηση "CLAIM". ' .
+				'Ακυρώστε κινήσεις…');
+		}
+	}
+
+	if ($claim[$thesi] > 0) {
+		Prefadoros::xeklidose_trapezi(FALSE);
+		$globals->klise_fige('Απόπειρα διπλοδήλωσης "CLAIM"');
 	}
 }
 
