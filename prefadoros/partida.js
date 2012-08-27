@@ -1477,7 +1477,7 @@ var Dekada = new function() {
 			top: '+=' + (to_tl.top - from_tl.top),
 			left: '+=' + (to_tl.left - from_tl.left),
 			height: '2.80cm'
-		}, 250, function() {
+		}, Pexnidi.delay['filo'], function() {
 			x.style.visibility = 'visible';
 			sviseNode(img);
 			Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
