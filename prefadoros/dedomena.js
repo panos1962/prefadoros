@@ -331,15 +331,14 @@ var Dedomena = new function() {
 			var from_tl = $(x).position();
 
 			Pexnidi.filoSeKinisi = kinisi.length;
-			var delay = 200;
 			x.style.visibility = 'visible';
 			var attr = {
 				top: '+=' + (to_tl.top - from_tl.top),
 				left: '+=' + (to_tl.left - from_tl.left)
 			};
-			$(x).animate(attr, delay, function() {
+			$(x).animate(attr, Pexnidi.delay['filo'], function() {
 				Pexnidi.processFasi();
-				Dedomena.schedule(false, delay);
+				Dedomena.schedule(false, 10);
 			});
 			return true;
 		case 'ΜΠΑΖΑ':
@@ -360,6 +359,9 @@ var Dedomena = new function() {
 				return false;
 			}
 
+			// Μετά από μια μκρή καθυστέρηση ("azab"), κινούμε
+			// την μπάζα προς το μέρος του παίκτη που την κερδίζει.
+
 			Pexnidi.bazaSeKinisi = kinisi.length;
 			setTimeout(function() {
 				var cnt = 0;
@@ -370,7 +372,7 @@ var Dedomena = new function() {
 					width: '0px',
 					top: (tl.top - gp.top) + 'px',
 					left: (tl.left - gp.left) + 'px'
-				}, 200, function() {
+				}, Pexnidi.delay['baza'], function() {
 					cnt--;
 					if (cnt <= 0) {
 						Dedomena.kliseBaza();
@@ -378,7 +380,7 @@ var Dedomena = new function() {
 						Dedomena.schedule(false, 10);
 					}
 				});
-			}, Pexnidi.delay['baza']);
+			}, Pexnidi.delay['azab']);
 			return true;
 		}
 
