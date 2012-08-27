@@ -345,7 +345,7 @@ class Kinisi {
 					$dianomi . ") AND (`kodikos` >= " .
 					$kinisi[$i]->kodikos . ")";
 				@mysqli_query($globals->db, $query);
-				return($array_slice($kinisi, 0, $i - 1));
+				return(array_slice($kinisi, 0, $i - 1));
 			}
 
 			$pezon[$kinisi[$i]->pektis] = TRUE;
