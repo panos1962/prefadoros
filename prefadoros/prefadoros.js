@@ -345,7 +345,7 @@ function isPostel() {
 }
 
 function isLearner() {
-	return(isSet(window.partida) && isSet(partida.learner) && (partida.learner != 0));
+	return(isSet(window.partida) && isSet(partida.learner) && partida.learner);
 }
 
 function notLearner() {
