@@ -17,6 +17,10 @@ CREATE TABLE `trapezi_log` (
 		'ΑΝΙΣΟΡΡΟΠΗ',
 		'ΔΙΚΑΙΗ'
 	)		NOT NULL DEFAULT 'ΚΑΝΟΝΙΚΗ' COMMENT 'Πληρωμή τελευταίας αγοράς',
+	`learner`	ENUM(
+		'NO',
+		'YES'
+	)		NOT NULL DEFAULT 'NO' COMMENT 'Εκπαιδευτική παρτίδα',
 	`stisimo`	TIMESTAMP NOT NULL COMMENT 'Πότε δημιουργήθηκε',
 	`telos`		TIMESTAMP NOT NULL COMMENT 'Πότε τελείωσε',
 

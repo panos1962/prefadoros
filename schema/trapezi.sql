@@ -76,6 +76,10 @@ CREATE TABLE `trapezi` (
 		'ΑΝΟΙΚΤΟ',
 		'ΚΛΕΙΣΤΟ'
 	)		NOT NULL DEFAULT 'ΑΝΟΙΚΤΟ' COMMENT 'Θέαση παιγνιοχάρτων',
+	`learner`	ENUM(
+		'NO',
+		'YES'
+	)		NOT NULL DEFAULT 'NO' COMMENT 'Εκπαιδευτική παρτίδα',
 	`stisimo`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Πότε δημιουργήθηκε',
 	`poll`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Last poll time',
 	`telos`		TIMESTAMP NULL DEFAULT NULL COMMENT 'Πότε τελείωσε',
