@@ -193,13 +193,7 @@ function kane_pliromi($dianomi, $data) {
 		$globals->klise_fige($data . ': λανθασμένα data πληρωμής');
 	}
 
-	$query = "UPDATE `dianomi` SET " .
-		"`kasa1` = " . $posa[1] . ", `metrita1` = " . $posa[2] . ", " .
-		"`kasa2` = " . $posa[3] . ", `metrita2` = " . $posa[4] . ", " .
-		"`kasa3` = " . $posa[5] . ", `metrita3` = " . $posa[6] . " " .
-		"WHERE `kodikos` = " . $dianomi;
-	$globals->sql_query($query);
-
+	Dianomi::pliromi($dianomi, $posa[1], $posa[2], $posa[3], $posa[4], $posa[5], $posa[6]);
 	$query = "SELECT `kasa1`, `metrita1`, `kasa2`, `metrita2`, `kasa3`, `metrita3` " .
 		"FROM `dianomi` WHERE `kodikos` = " . $dianomi;
 	$result = $globals->sql_query($query);
@@ -217,10 +211,7 @@ function kane_pliromi($dianomi, $data) {
 	// Καλού κακού ενημερώνω την πίστωση του τραπεζιού, δηλαδή
 	// το σύνολο των καπικιών που έχουν αναληφθεί από τις μέχρι
 	// τώρα διανομές (μαζί με την τελευταία που μόλις εισήγαγα).
-	$query = "UPDATE `trapezi` SET `pistosi` = (SELECT SUM(`kasa1` + `kasa2` + `kasa3`) / 10 " .
-		"FROM `dianomi` WHERE `trapezi` = " . $globals->trapezi->kodikos .
-		") WHERE `kodikos` = " . $globals->trapezi->kodikos;
-	$result = $globals->sql_query($query);
+	$globals->trapezi->update_pistosi();
 }
 
 function check_baza($dianomi) {

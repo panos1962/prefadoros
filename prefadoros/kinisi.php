@@ -357,12 +357,18 @@ class Kinisi {
 		$baza_pire = 0;		// ποιος παίκτης πήρε την τελευταία μπάζα
 		$evale_filo = array();	// array δεικτοδοτημένο με τους παίκτες
 		$filo = array();	// array δεικτοδοτημένο με τα φύλλα
+		$claim = 0;		// κινήσεις τύπου "CLAIM"
 
 		for ($i = 1; $i < $cnt; $i++) {
 			// Αν ανιχνεύσουμε δεύτερη κίνηση τύπου "ΔΙΑΝΟΜΗ",
 			// τότε είναι λάθος.
 			if ($kinisi[$i]->idos == "ΔΙΑΝΟΜΗ") {
 				return(self::apokopi($dianomi, $kinisi, $lastok));
+			}
+
+			if ($kinisi[$i]->idos == "CLAIM") {
+				$claim++;
+				continue;
 			}
 
 			if ($kinisi[$i]->idos == "ΜΠΑΖΑ") {
@@ -385,6 +391,40 @@ class Kinisi {
 				$evale_filo = array();
 				$lastok = $i;
 				continue;
+			}
+
+			// Αν συναντήσουμε κίνηση τύπου "ΠΛΗΡΩΜΗ" σημαίνει ότι
+			// η διανομή έχει παιχτεί και γίνεται πληρωμή.
+			if ($kinisi[$i]->idos == "ΠΛΗΡΩΜΗ") {
+				// Αν έχω ήδη συναντήσει τουλάχιστον δύο κινήσεις
+				// τύπου "CLAIM" θεωρώ σωστή την πληρωμή.
+				if ($claim > 1) {
+					return(self::apokopi($dianomi, $kinisi, $i));
+				}
+
+				// Δεν μπορεί να υπάρχει μόνο μια κίνηση τύπου "CLAIM"
+				// και να έχουμε προχωρήσει στην πληρωμή.
+				if ($claim == 1) {
+					self::apopliromi($dianomi);
+					return(self::apokopi($dianomi, $kinisi, $lastok));
+				}
+
+				// Δεν είχαμε claim, οπότε εάν δεν έχω μπάζες σημαίνει
+				// ότι δεν είχαμε συμμετοχές, επομένως η πληρωμή θεωρείται
+				// σωστή.
+				if ($baza_count < 1) {
+					return(self::apokopi($dianomi, $kinisi, $i));
+				}
+
+				// Αν έχω έστω και μια μπάζα, θα πρέπει οι μπάζες να
+				// είναι δέκα ώστε να μπορεί να γίνει πληρωμή.
+				if ($baza_count != 10) {
+					self::apopliromi($dianomi);
+					return(self::apokopi($dianomi, $kinisi, $lastok));
+				}
+
+				// Όλα εντάξει, πληρωμή δεκτή.
+				return(self::apokopi($dianomi, $kinisi, $i));
 			}
 
 			// Από εδώ και μετά ελέγχονται πλέον μόνο οι κινήσεις
@@ -441,6 +481,23 @@ class Kinisi {
 			") AND (`kodikos` > " . $kinisi[$ok]->kodikos . ")";
 		@mysqli_query($globals->db, $query);
 		return(array_slice($kinisi, 0, $ok + 1));
+	}
+
+	// Η μέθοδος "apopliromi" χρησιμοποιείται σε περίπτωση διαγραφής
+	// λανθασμένης κίνησης τύπου "ΠΛΗΡΩΜΗ". Πράγματι, σε αυτή την
+	// περίπτωση έχουν γίνει και οι σχετικές ενημερώσεις της ίδιας
+	// της διανομής και του υπολοίπου του τραπεζιού, οπότε θα πρέπει
+	// αυτές οι αλλαγές να ανιρεθούν.
+
+	private static function apopliromi($dianomi) {
+		global $globals;
+
+		// Η μέθοδος "pliromi" εφόσον καλείται χωρίς άλλες παραμέτρους
+		// μηδενίζει όλα τα ποσά της διανομής.
+		Dianomi::pliromi($dianomi);
+
+		// Επιχειρούμε και ενημέρωση του υπολοίπου του τραπεζιού.
+		$globals->trapezi->update_pistosi();
 	}
 
 	public static function insert($dianomi, $pektis, $idos, $data) {
