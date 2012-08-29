@@ -325,96 +325,115 @@ class Kinisi {
 			return($kinisi);
 		}
 
+		// Ο έλεγχος γίνεται μόνο από τον παίκτη στην πρώτη θέση.
+		if ($globals->trapezi->thesi != 1) {
+			return($kinisi);
+		}
+
+		// Αν η πρώτη κίνηση της διανομής δεν είναι τύπου "ΔΙΑΝΟΜΗ"
+		// τότε διαγράφεται η παρούσα διανομή.
+		$cnt = count($kinisi);
+		if (($cnt > 0) && ($kinisi[0]->idos != "ΔΙΑΝΟΜΗ")) {
+			return(self::apokopi($dianomi, $kinisi));
+		}
+
+		// Θέτουμε τον δείκτη τελευταίας ορθής κίνησης στην πρώτη
+		// κίνηση που μόλις διαπιστώσαμε ότι είναι τύπου "ΔΙΑΝΟΜΗ".
+		$lastok = 0;
+
 		// Κάνουμε έναν έλεγχο για τυχόν διπλά φύλλα από τον ίδιο παίκτη
 		// στην ίδια μπάζα και άλλες πιθανές λανθασμένες κινήσεις. Αν βρεθεί
 		// λανθασμένη κίνηση, διαγράφουμε τις κινήσεις από εκεί και μετά
 		// και επιστρέφουμε το μέχρι εκεί array των κινήσεων της διανομής.
 
 		$baza_count = 0;	// πόσες μπάζες έγιναν μέχρι στιγμής
-		$baza_last = NULL;	// δείκτης της τελευταίας μπάζας στο array
 		$baza_pire = 0;		// ποιος παίκτης πήρε την τελευταία μπάζα
 		$evale_filo = array();	// array δεικτοδοτημένο με τους παίκτες
 		$filo = array();	// array δεικτοδοτημένο με τα φύλλα
-		$filo_pektis = 0;	// ο παίκτης που έβαλε το τελευταίο φύλλο
 
-		$cnt = count($kinisi);
-		for ($i = 0; $i < $cnt; $i++) {
+		for ($i = 1; $i < $cnt; $i++) {
+			// Αν ανιχνεύσουμε δεύτερη κίνηση τύπου "ΔΙΑΝΟΜΗ",
+			// τότε είναι λάθος.
+			if ($kinisi[$i]->idos == "ΔΙΑΝΟΜΗ") {
+				return(self::apokopi($dianomi, $kinisi, $lastok));
+			}
+
 			if ($kinisi[$i]->idos == "ΜΠΑΖΑ") {
 				$baza_count++;
 
 				// Περισσότερες από δέκα μπάζες είναι λάθος.
 				if ($baza_count > 10) {
-					return(self::apokopi($dianomi, $kinisi, $baza_last));
+					return(self::apokopi($dianomi, $kinisi, $lastok));
 				}
 
 				// Λιγότερα από 2 φύλλα στην μπάζα είναι λάθος.
 				if (count($evale_filo) < 2) {
-					return(self::apokopi($dianomi, $kinisi, $baza_last));
+					return(self::apokopi($dianomi, $kinisi, $lastok));
 				}
 
 				// Κρατάμε τα στοιχεία αυτής της μπάζας και καθαρίζουμε
 				// το array των παικτών που έβαλαν φύλλο στην μπάζα.
-				$baza_last = $i;
+				// Επίσης, θεωρούμε πια ότι μέχρι και εδώ είμαστε καλά.
 				$baza_pire = $kinisi[$i]->pektis;
 				$evale_filo = array();
+				$lastok = $i;
 				continue;
 			}
 
-			// Βασικά, ελέγχονται οι κινήσεις τύπου "ΜΠΑΖΑ" και "ΦΥΛΛΟ".
+			// Από εδώ και μετά ελέγχονται πλέον μόνο οι κινήσεις
+			// τύπου "ΦΥΛΛΟ".
 			if ($kinisi[$i]->idos != "ΦΥΛΛΟ") {
 				continue;
 			}
 
 			// Ελέγχουμε για τυχόν δεύτερο παίξιμο του ίδιου φύλλου.
 			if (array_key_exists($kinisi[$i]->data, $filo)) {
-				return(self::apokopi($dianomi, $kinisi, $i));
+				return(self::apokopi($dianomi, $kinisi, $i - 1));
 			}
 
 			// Ελέγχουμε μήπως παίζει ο ίδιος παίκτης δεύτερη φορά.
-			if ($kinisi[$i]->pektis == $filo_pektis) {
-				return(self::apokopi($dianomi, $kinisi, $i));
+			if (array_key_exists($kinisi[$i]->pektis, $evale_filo)) {
+				return(self::apokopi($dianomi, $kinisi, $i - 1));
+			}
+
+			// Ελέγχουμε αν ο παίκτης που βάζει το φύλλο είναι
+			// ο σωστός παίκτης.
+			if (($baza_pire > 0) && (count($evale_filo) <= 0) &&
+				($kinisi[$i]->pektis != $baza_pire)) {
+				return(self::apokopi($dianomi, $kinisi, $i - 1));
 			}
 
 			// Κρατάμε το φύλλο που παίχτηκε και τον παίκτη
 			// που έπαιξε τελευταίος.
 			$filo[$kinisi[$i]->data] = TRUE;
-			$filo_pektis = $kinisi[$i]->pektis;
-
-			// Αν δεν έχω μπάζα ακόμη, δεν έχω να κάνω περαιτέρω
-			// ελέγχους.
-			if ($baza <= 0) {
-				continue;
-			}
-
-			// Αν έχει παιχτεί ήδη κάποια μπάζα και ο παίκτης που
-			// βάζει το φύλλο είναι ο πρώτος στην επόμενη μπάζα
-			// και δεν είναι αυτός που πήρε την προηγούμενη μπάζα,
-			// είναι λάθος.
-			if (($baza_count > 0) && (count($evale_filo) <= 0) &&
-				($kinisi[$i]->pektis != $baza_pire)) {
-				return(self::apokopi($dianomi, $kinisi, $i));
-			}
-
-			// Αν ο ίδιος παίκτης παίζει δεύτερη φορά στην
-			// υπό έλεγχο μπάζα, είναι λάθος.
-			if (array_key_exists($kinisi[$i]->pektis, $evale_filo)) {
-				return(self::apokopi($dianomi, $kinisi, $i));
-			}
-
 			$evale_filo[$kinisi[$i]->pektis] = TRUE;
 		}
 
 		return($kinisi);
 	}
 
-	private static function apokopi($dianomi, $kinisi, $i) {
+	// Η μέθοδος "apokopi" χρησιμοποιείται σε περίπτωση ανίχνευσης
+	// λανθασμένης κίνησης, οπότε διαγράφονται οι κινήσεις μετά την
+	// τελευταία ορθή και επιστρέφεται το ορθό μέρος του array κινήσεων.
+
+	private static function apokopi($dianomi, $kinisi, $ok = -1) {
 		global $globals;
 
-// ΕΛΕΓΧΟΣ ΓΙΑ ΤΟ $i
+		// Σε περίπτωση που δεν καμία υπάρχει ορθή κίνηση στην παρούσα
+		// διανομή, διαγράφεται εξ ολοκλήρου η διανομή και επιστρέφεται
+		// κενό array κινήσεων, οπότε θα γίνει νέα διανομή.
+
+		if ($ok < 0) {
+			$query = "DELETE FROM `dianomi` WHERE `kodikos` = " . $dianomi;
+			@mysqli_query($globals->db, $query);
+			$kinisi = array();
+			return($kinisi);
+		}
+
 		$query = "DELETE FROM `kinisi` WHERE (`dianomi` = " . $dianomi .
-			") AND (`kodikos` >= " . $kinisi[$i]->kodikos . ")";
+			") AND (`kodikos` > " . $kinisi[$ok]->kodikos . ")";
 		@mysqli_query($globals->db, $query);
-		return(array_slice($kinisi, 0, $i - 1));
+		return(array_slice($kinisi, 0, $ok + 1));
 	}
 
 	public static function insert($dianomi, $pektis, $idos, $data) {
