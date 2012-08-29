@@ -230,5 +230,16 @@ class Dianomi {
 
 		return $dianomi;
 	}
+
+	public static function pliromi($dianomi, $k1 = 0, $m1 = 0, $k2 = 0, $m2 = 0, $k3 = 0, $m3 = 0) {
+		global $globals;
+
+		$query = "UPDATE `dianomi` SET " .
+			"`kasa1` = " . $k1 . ", `metrita1` = " . $m1 . ", " .
+			"`kasa2` = " . $k2 . ", `metrita2` = " . $m2 . ", " .
+			"`kasa3` = " . $k3 . ", `metrita3` = " . $m3 . " " .
+			"WHERE `kodikos` = " . $dianomi;
+		$globals->sql_query($query);
+	}
 }
 ?>

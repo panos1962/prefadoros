@@ -447,5 +447,16 @@ class Trapezi {
 		$query = "DELETE FROM `trapezi` WHERE `kodikos` = " . $trapezi;
 		@mysqli_query($globals->db, $query);
 	}
+
+	public function update_pistosi() {
+		global $globals;
+
+		$query = "UPDATE `trapezi` SET `pistosi` = " .
+			"(SELECT SUM(`kasa1` + `kasa2` + `kasa3`) / 10 " .
+			"FROM `dianomi` WHERE `trapezi` = " . $this->kodikos .
+			") WHERE `kodikos` = " . $this->kodikos;
+		$globals->sql_query($query);
+	}
+
 }
 ?>
