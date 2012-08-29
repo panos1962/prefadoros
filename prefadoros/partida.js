@@ -53,7 +53,7 @@ var Partida = new function() {
 			'p2', 'a2', 'o2',
 			'p3', 'a3', 'o3',
 			'd', 's', 'p', 'b',
-			'ppp', 'asoi', 'postel',
+			'ppp', 'asoi', 'postel', 'learner',
 			'h', 't'
 		];
 
@@ -89,6 +89,7 @@ var Partida = new function() {
 			partida.postel = 0;
 			break;
 		}
+		partida.learner = (partida.learner == 1);
 		partida.prive = (partida.p == 1);
 		partida.klisto = (partida.b == 1);
 		partida.theatis = (partida.t == 1);
@@ -304,7 +305,7 @@ var Partida = new function() {
 		html += '</div>';
 		var giortes = Partida.giortesHTML();
 		if (giortes || isIdioktito() || isKlisto() || isPasoPasoPaso() ||
-			notAsoiKolos() || globals.mobile || isPostel()) {
+			notAsoiKolos() || globals.mobile || isPostel() || isLearner()) {
 			html += '<div class="partidaAttrArea">';
 			if (globals.mobile) {
 				html += '<img class="partidaAttrIcon" alt="" src="' + globals.server +
@@ -317,6 +318,7 @@ var Partida = new function() {
 			if (isPasoPasoPaso()) { html += Trattr.pasoPasoPasoHTML('partidaAttrIcon'); }
 			if (notAsoiKolos()) { html += Trattr.oxiAsoiHTML('partidaAttrIcon'); }
 			if (isPostel()) { html += Trattr.postelIconHTML('partidaAttrIcon'); }
+			if (isLearner()) { html += Trattr.learnerIconHTML('partidaAttrIcon'); }
 			html += giortes;
 			html += '</div>';
 		}

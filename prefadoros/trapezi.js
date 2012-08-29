@@ -202,7 +202,8 @@ var Trapezi = new function() {
 		var giortes = Partida.giortesHTML('kafenioTrapeziAttrIcon');
 		if ((isSet(t.d) && (t.d == 1)) || (isSet(t.b) && (t.b == 1)) ||
 			(isSet(t.ppp) && (t.ppp == 1)) || (notSet(t.asoi) || (t.asoi == 0)) ||
-			giortes || (isSet(t.postel) && (t.postel != 0))) {
+			giortes || (isSet(t.postel) && (t.postel != 0)) ||
+			(isSet(t.learner) && (t.learner != 0))) {
 			html += '<div class="kafenioTrapeziAttrArea">';
 			html += giortes;
 			if (isSet(t.d) && (t.d == 1)) {
@@ -219,6 +220,9 @@ var Trapezi = new function() {
 			}
 			if (isSet(t.postel) && (t.postel != 0)) {
 				html += Trattr.postelIconHTML('kafenioTrapeziAttrIcon', null, t.postel);
+			}
+			if (isSet(t.learner) || (t.learner == 1)) {
+				html += Trattr.learnerIconHTML('kafenioTrapeziAttrIcon');
 			}
 			html += '</div>';
 		}

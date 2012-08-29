@@ -344,6 +344,14 @@ function isPostel() {
 	return(isSet(window.partida) && isSet(partida.postel) && (partida.postel != 0));
 }
 
+function isLearner() {
+	return(isSet(window.partida) && isSet(partida.learner) && (partida.learner != 0));
+}
+
+function notLearner() {
+	return(!isLearner());
+}
+
 function denPezoun() {
 	var paso = 0;
 	for (var i = 1; i <= 3; i++) {
@@ -521,4 +529,9 @@ Trattr.postelIconHTML = function(css, extra, postel) {
 
 	html += ' />';
 	return html;
+};
+
+Trattr.learnerIconHTML = function(css) {
+	return Trattr.iconHTML(css, globals.server + 'images/controlPanel/learner.png',
+		'Εκπαιδευτική', 'Εκπαιδευτική παρτίδα (δεν προσμετράται στη βαθμολογία)');
 };
