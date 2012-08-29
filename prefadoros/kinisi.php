@@ -319,39 +319,102 @@ class Kinisi {
 			$kinisi[] = $k;
 		}
 
-		// Κάνουμε έναν έλεγχο για τυχόν διπλά φύλλα από τον ίδιο παίκτη
-		// στην ίδια μπάζα. Αν βρεθεί κάτι τέτοιο, διαγράφουμε τις κινήσηεις
-		// από εκεί και μετά.
+		// Έλεγχος και τυχόν διορθώσεις γίνονται από τους παίκτες,
+		// δεν υπάρχει λόγος να γίνονται και από τους θεατές.
+		if ($globals->trapezi->is_theatis()) {
+			return($kinisi);
+		}
 
-		$baza = FALSE;
+		// Κάνουμε έναν έλεγχο για τυχόν διπλά φύλλα από τον ίδιο παίκτη
+		// στην ίδια μπάζα και άλλες πιθανές λανθασμένες κινήσεις. Αν βρεθεί
+		// λανθασμένη κίνηση, διαγράφουμε τις κινήσεις από εκεί και μετά
+		// και επιστρέφουμε το μέχρι εκεί array των κινήσεων της διανομής.
+
+		$baza_count = 0;	// πόσες μπάζες έγιναν μέχρι στιγμής
+		$baza_last = NULL;	// δείκτης της τελευταίας μπάζας στο array
+		$baza_pire = 0;		// ποιος παίκτης πήρε την τελευταία μπάζα
+		$evale_filo = array();	// array δεικτοδοτημένο με τους παίκτες
+		$filo = array();	// array δεικτοδοτημένο με τα φύλλα
+		$filo_pektis = 0;	// ο παίκτης που έβαλε το τελευταίο φύλλο
+
 		$cnt = count($kinisi);
 		for ($i = 0; $i < $cnt; $i++) {
 			if ($kinisi[$i]->idos == "ΜΠΑΖΑ") {
-				$baza = TRUE;
-				$pezon = array();
+				$baza_count++;
+
+				// Περισσότερες από δέκα μπάζες είναι λάθος.
+				if ($baza_count > 10) {
+					return(self::apokopi($dianomi, $kinisi, $baza_last));
+				}
+
+				// Λιγότερα από 2 φύλλα στην μπάζα είναι λάθος.
+				if (count($evale_filo) < 2) {
+					return(self::apokopi($dianomi, $kinisi, $baza_last));
+				}
+
+				// Κρατάμε τα στοιχεία αυτής της μπάζας και καθαρίζουμε
+				// το array των παικτών που έβαλαν φύλλο στην μπάζα.
+				$baza_last = $i;
+				$baza_pire = $kinisi[$i]->pektis;
+				$evale_filo = array();
 				continue;
 			}
 
-			if (!$baza) {
-				continue;
-			}
-
+			// Βασικά, ελέγχονται οι κινήσεις τύπου "ΜΠΑΖΑ" και "ΦΥΛΛΟ".
 			if ($kinisi[$i]->idos != "ΦΥΛΛΟ") {
 				continue;
 			}
 
-			if (array_key_exists($kinisi[$i]->pektis, $pezon)) {
-				$query = "DELETE FROM `kinisi` WHERE (`dianomi` = " .
-					$dianomi . ") AND (`kodikos` >= " .
-					$kinisi[$i]->kodikos . ")";
-				@mysqli_query($globals->db, $query);
-				return(array_slice($kinisi, 0, $i - 1));
+			// Ελέγχουμε για τυχόν δεύτερο παίξιμο του ίδιου φύλλου.
+			if (array_key_exists($kinisi[$i]->data, $filo)) {
+				return(self::apokopi($dianomi, $kinisi, $i));
 			}
 
-			$pezon[$kinisi[$i]->pektis] = TRUE;
+			// Ελέγχουμε μήπως παίζει ο ίδιος παίκτης δεύτερη φορά.
+			if ($kinisi[$i]->pektis == $filo_pektis) {
+				return(self::apokopi($dianomi, $kinisi, $i));
+			}
+
+			// Κρατάμε το φύλλο που παίχτηκε και τον παίκτη
+			// που έπαιξε τελευταίος.
+			$filo[$kinisi[$i]->data] = TRUE;
+			$filo_pektis = $kinisi[$i]->pektis;
+
+			// Αν δεν έχω μπάζα ακόμη, δεν έχω να κάνω περαιτέρω
+			// ελέγχους.
+			if ($baza <= 0) {
+				continue;
+			}
+
+			// Αν έχει παιχτεί ήδη κάποια μπάζα και ο παίκτης που
+			// βάζει το φύλλο είναι ο πρώτος στην επόμενη μπάζα
+			// και δεν είναι αυτός που πήρε την προηγούμενη μπάζα,
+			// είναι λάθος.
+			if (($baza_count > 0) && (count($evale_filo) <= 0) &&
+				($kinisi[$i]->pektis != $baza_pire)) {
+				return(self::apokopi($dianomi, $kinisi, $i));
+			}
+
+			// Αν ο ίδιος παίκτης παίζει δεύτερη φορά στην
+			// υπό έλεγχο μπάζα, είναι λάθος.
+			if (array_key_exists($kinisi[$i]->pektis, $evale_filo)) {
+				return(self::apokopi($dianomi, $kinisi, $i));
+			}
+
+			$evale_filo[$kinisi[$i]->pektis] = TRUE;
 		}
 
-		return $kinisi;
+		return($kinisi);
+	}
+
+	private static function apokopi($dianomi, $kinisi, $i) {
+		global $globals;
+
+// ΕΛΕΓΧΟΣ ΓΙΑ ΤΟ $i
+		$query = "DELETE FROM `kinisi` WHERE (`dianomi` = " . $dianomi .
+			") AND (`kodikos` >= " . $kinisi[$i]->kodikos . ")";
+		@mysqli_query($globals->db, $query);
+		return(array_slice($kinisi, 0, $i - 1));
 	}
 
 	public static function insert($dianomi, $pektis, $idos, $data) {
