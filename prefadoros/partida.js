@@ -1474,7 +1474,7 @@ var Dekada = new function() {
 				this.style.zIndex = zi;
 			}
 		});
-		$(img).css('height', '2.93cm');
+		$(img).removeClass('filoDiaxorK filoDiaxorM').css('height', '2.93cm');
 		$(img).animate({
 			top: '+=' + (to_tl.top - from_tl.top),
 			left: '+=' + (to_tl.left - from_tl.left),
