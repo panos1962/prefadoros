@@ -221,7 +221,7 @@ var Trapezi = new function() {
 			if (isSet(t.postel) && (t.postel != 0)) {
 				html += Trattr.postelIconHTML('kafenioTrapeziAttrIcon', null, t.postel);
 			}
-			if (isSet(t.learner) || (t.learner == 1)) {
+			if (isSet(t.learner) && (t.learner == 1)) {
 				html += Trattr.learnerIconHTML('kafenioTrapeziAttrIcon');
 			}
 			html += '</div>';
