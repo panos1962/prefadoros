@@ -101,7 +101,7 @@ var Trapezi = new function() {
 		}
 
 		if (this.galleryProipothesi() && (this.galleryMode != 'none')) {
-			Trapezi.HTML += Trapezi.galleryPhotoHTML('0.6cm');
+			Trapezi.HTML += Trapezi.galleryPhotoHTML(true);
 		}
 
 		for (var i = 0; i < trapezi.length; i++) {
@@ -119,11 +119,14 @@ var Trapezi = new function() {
 		Trapezi.HTML += '</div>';
 	};
 
-	this.galleryPhotoHTML = function(left) {
+	this.galleryPhotoHTML = function(proti) {
 		Trapezi.randomPhoto();
 		var html = '<img class="galleryPhoto" src="' + globals.server +
 			'images/gallery/' + currentPhoto + '" alt="" ';
-		if (isSet(left)) { html += 'style="left: ' + left + ';" '; }
+		if (isSet(proti)) {
+			html += 'style="display: none; left: 0.6cm;" ';
+			html += 'onload="$(this).fadeIn(2000);" ';
+		}
 		html += 'title="Αλλαγή εικόνας" onclick="Trapezi.alaxePhoto(this);" />';
 		return html;
 	};
