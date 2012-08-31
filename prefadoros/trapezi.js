@@ -75,40 +75,10 @@ var Trapezi = new function() {
 		return currentPhoto;
 	};
 
-	var prevPhoto = '';
-	var photoOpacity = 0;
-
-	this.loadPhoto = function(img) {
-		if (prevPhoto == currentPhoto) {
-			try { img.style.opacity = 1.0; } catch(e) {};
-			try { img.filters.alpha.opacity = 100; } catch(e) { };
-		}
-		else {
-			Trapezi.miosiPhotoOpacity(img);
-		}
-	};
-
 	this.alaxePhoto = function(img) {
-		try {
-			img.src = globals.server + 'images/gallery/' + Trapezi.randomPhoto();
-		} catch(e) {};
-	};
-
-	this.miosiPhotoOpacity = function(img) {
-		photoOpacity += 5;
-		var err = 0;
-		try { img.style.opacity = photoOpacity / 100; } catch(e) { err++; };
-		try { img.filters.alpha.opacity = photoOpacity; } catch(e) { err++; };
-		if (err >= 2) { return; }
-		if (photoOpacity >= 100) {
-			prevPhoto = currentPhoto;
-			photoOpacity = 0;
-		}
-		else {
-			setTimeout(function() {
-				Trapezi.miosiPhotoOpacity(img);
-			}, 10);
-		}
+		$(img).before(Trapezi.galleryPhotoHTML());
+		$(img).prev().delay(300).animate({left: '0.6cm'}, 400);
+		$(img).fadeOut(600, function() { sviseNode(this); });
 	};
 
 	this.galleryProipothesi = function() {
@@ -131,12 +101,7 @@ var Trapezi = new function() {
 		}
 
 		if (this.galleryProipothesi() && (this.galleryMode != 'none')) {
-			if (notSet(currentPhoto)) { Trapezi.randomPhoto(); }
-			Trapezi.HTML += '<img class="galleryPhoto" src="' + globals.server +
-				'images/gallery/' + currentPhoto + '" ' +
-				'style="opacity: 0.0; filter: alpha(opacity=0);" ' +
-				'title="Αλλαγή εικόνας" onclick="Trapezi.alaxePhoto(this);" ' +
-				'onload="Trapezi.loadPhoto(this);" alt="" />';
+			Trapezi.HTML += Trapezi.galleryPhotoHTML('0.6cm');
 		}
 
 		for (var i = 0; i < trapezi.length; i++) {
@@ -152,6 +117,15 @@ var Trapezi = new function() {
 			if (protos === '') { Trapezi.HTML += '</div>'; }
 		}
 		Trapezi.HTML += '</div>';
+	};
+
+	this.galleryPhotoHTML = function(left) {
+		Trapezi.randomPhoto();
+		var html = '<img class="galleryPhoto" src="' + globals.server +
+			'images/gallery/' + currentPhoto + '" alt="" ';
+		if (isSet(left)) { html += 'style="left: ' + left + ';" '; }
+		html += 'title="Αλλαγή εικόνας" onclick="Trapezi.alaxePhoto(this);" />';
+		return html;
 	};
 
 	this.loginMatch = function(login, peknpat) {
