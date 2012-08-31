@@ -74,6 +74,8 @@ Page::epikefalida(Globals::perastike('pedi'));
 	του διαδικτυακού καφενείου, για το στήσιμο
 	και το χειρισμό της οποίας χρησιμοποιήθηκε η
 	<a target="_blank" href="http://www.mysql.com/">MySQL</a>.
+	Όσον αφορά στο user interface, έγινε περιορισμένη χρήση του
+	<a target="_blank" href="http://jquery.com/">jQuery</a>.
 </p>
 <p class="adiaKimeno">
 	Οι εξαιρετικές εικόνες των παιγνιοχάρτων είναι από το site
