@@ -411,8 +411,10 @@ var Pexnidi = new function() {
 		case 'ΣΟΛΟ':
 			ProcessFasi.pliromi();
 			break;
-		case 'ΣΤΗΣΙΜΟ':
 		case 'ΔΗΛΩΣΗ':
+			ProcessFasi.dilosi();
+			break;
+		case 'ΣΤΗΣΙΜΟ':
 		case 'ΑΛΛΑΓΗ':
 		case 'ΣΥΜΜΕΤΟΧΗ':
 		case 'ΠΑΙΧΝΙΔΙ':
@@ -705,6 +707,7 @@ var ProcessFasi = new function() {
 	};
 
 	this.pliromi = function() {
+		controlPanel.refreshKitapi();
 		if (pexnidi.akirosi != 0) { return; }
 		pexnidi.ixeIpolipo = (pexnidi.ipolipo > 0);
 		if (pexnidi.dealer != 1) { return; }
@@ -718,6 +721,10 @@ var ProcessFasi = new function() {
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
 		Pexnidi.dianomi();
+	};
+
+	this.dilosi = function() {
+		controlPanel.refreshKitapi();
 	};
 };
 
