@@ -713,6 +713,7 @@ var ProcessFasi = new function() {
 	};
 
 	this.dianomi = function() {
+		controlPanel.refreshKitapi();
 		if (pexnidi.dealer != 1) { return; }
 		if (isTheatis()) { return; }
 		if (pexnidi.akirosi != 0) { return; }
@@ -1154,7 +1155,6 @@ var ProcessKinisi = new function() {
 
 	this.pliromi = function(kinisi) {
 		Pliromi.checkMesa(kinisi);
-		controlPanel.refreshKitapi();
 		pexnidi.fasi = 'ΔΙΑΝΟΜΗ';
 		Pexnidi.setEpomenos(pexnidi.dealer);
 		Pexnidi.filoSeKinisi = 0;
