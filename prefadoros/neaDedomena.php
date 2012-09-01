@@ -173,7 +173,14 @@ do {
 
 	unset($globals->trapezi);
 	Prefadoros::set_trapezi();
-	$globals->pektis->check_dirty();
+
+	// Ακολουθεί έλεγχος για προσκλήσεις, αλλαγές στη διαθεσιμότητα
+	// των παικτών και προσωπικά μηνύματα. Αυτά είναι δευτερεύοντα
+	// οπότε τα κάνουμε την πρώτη φορά και μετά κάθε 5 κύκλους.
+	if (($kiklos <= 0) || (($kiklos % 5) == 0)) {
+		$globals->pektis->check_dirty();
+	}
+
 	$curr = torina_dedomena($prev);
 	monitor_write("compare");
 
