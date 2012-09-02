@@ -17,24 +17,44 @@ Globals::perastike_check('password');
 // είτε με κεφαλαία γράμματα, αλλά το πρόγραμμα θα κρατήσει στο
 // session το όνομα όπως αυτό έχει δοθεί κατά την εγγραφή.
 
-$query = "SELECT `login`, `paraskinio` FROM `pektis` WHERE `login` = '" .
-	$globals->asfales($_REQUEST['login']) . "' AND `password` = BINARY '" .
+$slogin = "BINARY '" . $globals->asfales($_REQUEST['login']) . "'";
+$query = "SELECT `login`, `paraskinio`, `superuser` FROM `pektis` WHERE `login` = " .
+	$slogin . " AND `password` = BINARY '" .
 	$globals->asfales(sha1($_REQUEST['password'])) . "'";
 $result = $globals->sql_query($query);
 $row = @mysqli_fetch_array($result, MYSQLI_NUM);
 if (!$row) {
 	$globals->klise_fige("Access denied");
 }
+@mysqli_free_result($result);
 
-if (count(Prefadoros::energos_pektis()) > MAX_USERS) {
-	$globals->klise_fige("Έχει δημιουργηθεί αδιαχώρητο στον «Πρεφαδόρο», δοκιμάστε πάλι αργότερα…");
-}
-	
+check_adiaxorito($slogin, $row[2]);
 check_pektis_photo($_REQUEST['login']);
 Prefadoros::set_trapezi_dirty();
-@mysqli_free_result($result);
 
 $_SESSION['ps_login'] = $row[0];
 $_SESSION['ps_paraskinio'] = $row[1];
 $globals->klise_fige();
+
+function check_adiaxorito($slogin, $super_user) {
+	global $globals;
+
+	if (count(Prefadoros::energos_pektis()) < MAX_USERS) {
+		return;
+	}
+
+	if ($super_user == "YES") {
+		return;
+	}
+
+	$query = "SELECT `pektis` FROM `pliromi` WHERE `pektis` = " . $slogin;
+	$result = $globals->sql_query($query);
+	$cnt = @mysqli_num_rows($result);
+	@mysqli_free_result($result);
+	if ($cnt > 0) {
+		return;
+	}
+
+	$globals->klise_fige("Έχει δημιουργηθεί αδιαχώρητο στον «Πρεφαδόρο», δοκιμάστε πάλι αργότερα…");
+}
 ?>
