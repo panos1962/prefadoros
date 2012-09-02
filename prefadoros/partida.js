@@ -1481,6 +1481,7 @@ var Dekada = new function() {
 		λωρίδα των ομοιόχρωμων.
 		$(img).removeClass('filoDiaxorK filoDiaxorM').css('height', '2.93cm');
 		*/
+		img.setAttribute('class', 'filaSiraIcon filoSkia');
 		img.style.height = '2.93cm';
 
 		$(img).animate({
