@@ -1474,7 +1474,15 @@ var Dekada = new function() {
 				this.style.zIndex = zi;
 			}
 		});
+
+		/*
+		Μάλλον προκαλεί "κλωτσιά" στο τραπέζι. Το απενεργοποιώ 03/09/2012
+		να δω πώς πάει κι ας τσουλάει το φύλλο μαζί με τη διαχωριστική
+		λωρίδα των ομοιόχρωμων.
 		$(img).removeClass('filoDiaxorK filoDiaxorM').css('height', '2.93cm');
+		*/
+		img.style.height = '2.93cm';
+
 		$(img).animate({
 			top: '+=' + (to_tl.top - from_tl.top),
 			left: '+=' + (to_tl.left - from_tl.left),
