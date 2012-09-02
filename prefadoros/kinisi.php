@@ -380,7 +380,7 @@ class Kinisi {
 					return(self::apokopi($dianomi, $kinisi, $lastok));
 				}
 
-				// Λιγότερα από 2 φύλλα στην μπάζα είναι λάθος.
+				// Λιγότερα από 2 ή 3 φύλλα στην μπάζα είναι λάθος.
 				if (count($evale_filo) < $pektes) {
 					return(self::apokopi($dianomi, $kinisi, $lastok));
 				}
