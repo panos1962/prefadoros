@@ -3,7 +3,7 @@ require_once '../lib/standard.php';
 require_once '../prefadoros/prefadoros.php';
 require_once 'photo.php';
 
-define('MAX_USERS', 60);
+define('MAX_USERS', 70);
 
 unset($_SESSION['ps_login']);
 unset($_SESSION['ps_paraskinio']);
