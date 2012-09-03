@@ -385,7 +385,15 @@ function check_adiaxorito() {
 	// κάποιο λογικό νούμερο, τότε δεν τίθεται θέμα
 	// ελέγχου αδιαχώρητου.
 	$pektes = count(Prefadoros::energos_pektis());
-	if ($pektes < MAX_USERS) { return; }
+	switch ($globals->pektis->login) {
+	case "andreas":
+		$max_users = 3;
+		break;
+	default:
+		$max_users = MAX_USERS;
+		break;
+	}
+	if ($pektes < $max_users) { return; }
 
 	// Αν καλύπτεται ο μέχρι τώρα χρόνος παραμονής, είμαστε εντάξει.
 	if ($globals->pektis->plirothike_xronos($pliromi, $xronos, $kostos)) { return; }
