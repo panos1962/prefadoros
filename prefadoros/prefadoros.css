@@ -615,6 +615,7 @@ background-color: magenta;
 
 .emoticonsIcon {
 	width: 0.80cm;
+	max-width: 0.80cm;
 	margin-bottom: 0.35cm;
 	cursor: pointer;
 	display: block;
