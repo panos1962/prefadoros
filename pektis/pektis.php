@@ -232,7 +232,7 @@ class Pektis {
 	// Η παρακάτω μέθοδος αθροίζει τους χρόνους (σε δευτερόλεπτα) από
 	// όλες τις συνδρίες του παίκτη.
 
-	static function total_xronos() {
+	public function total_xronos() {
 		global $globals;
 
 		$xronos = 0;
@@ -251,14 +251,11 @@ class Pektis {
 	// το σύνολο της συνεισφοράς, ο συνολικός χρόνος (σε δευτερόλπτα)
 	// και το αντίστοιχο κόστος (σε cents).
 
-	static function plirothike_xronos(&$pliromi = 0, &$xronos = NULL, &$kostos = NULL) {
-		// Αν ο παίκτης δεν έχει συνεισφέρει ποτέ, θεωρείται υπέρβαση.
+	public function plirothike_xronos(&$pliromi = 0, &$xronos = NULL, &$kostos = NULL) {
 		$pliromi = $this->total_pliromi();
-		if ($pliromi <= 0) { return(FALSE); }
-
 		$xronos = $this->total_xronos();
 		$kostos = round(($xronos / 3600.0) * AXIA_ORAS);
-		return($pliromi >= $kostos);
+		return($pliromi > $kostos);
 	}
 }
 ?>
