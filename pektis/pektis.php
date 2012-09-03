@@ -213,5 +213,52 @@ class Pektis {
 			$globals->sql_query($query, FALSE);
 		}
 	}
+
+	// Η παρακάτω μέθοδος αθροίζει όλα τα ποσά που έχει συνεισφέρει ο παίκτης.
+
+	public function total_pliromi() {
+		global $globals;
+
+		$poso = 0;
+		$query = "SELECT SUM(`poso`) FROM `pliromi` WHERE `pektis` = BINARY " . $this->slogin;
+		$result = @mysqli_query($globals->db, $query);
+		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+			$poso += (int)$row[0];
+		}
+
+		return($poso);
+	}
+
+	// Η παρακάτω μέθοδος αθροίζει τους χρόνους (σε δευτερόλεπτα) από
+	// όλες τις συνδρίες του παίκτη.
+
+	static function total_xronos() {
+		global $globals;
+
+		$xronos = 0;
+		$query = "SELECT SUM(UNIX_TIMESTAMP(`telos`) - UNIX_TIMESTAMP(`dimiourgia`)) " .
+			"FROM `sinedria_log` WHERE `pektis` = BINARY " . $this->slogin;
+		$result = @mysqli_query($globals->db, $query);
+		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+			$xronos += (int)$row[0];
+		}
+
+		return($xronos);
+	}
+
+	// Η μέθοδος που ακολουθεί ελέγχει αν ο παίκτης έχει συνεισφέρει
+	// ποσά ανάλογα με το χρόνο παραμονής του στο site. Επιστρέφεται
+	// το σύνολο της συνεισφοράς, ο συνολικός χρόνος (σε δευτερόλπτα)
+	// και το αντίστοιχο κόστος (σε cents).
+
+	static function plirothike_xronos(&$pliromi = 0, &$xronos = NULL, &$kostos = NULL) {
+		// Αν ο παίκτης δεν έχει συνεισφέρει ποτέ, θεωρείται υπέρβαση.
+		$pliromi = $this->total_pliromi();
+		if ($pliromi <= 0) { return(FALSE); }
+
+		$xronos = $this->total_xronos();
+		$kostos = round(($xronos / 3600.0) * AXIA_ORAS);
+		return($pliromi >= $kostos);
+	}
 }
 ?>
