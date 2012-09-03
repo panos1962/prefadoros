@@ -17,6 +17,7 @@ else {
 
 Page::head();
 if ($globals->is_pektis()) {
+	check_adiaxorito();
 	Page::stylesheet('prefadoros/prefadoros');
 	if (file_exists("PRODUCTION")) {
 		if (file_exists("PRODUCTION/compressed.js")) {
@@ -372,6 +373,194 @@ function welcome() {
 		Καλή διασκέδαση και καλές σολαρίες!
 	</p>
 	<?php
+}
+
+function check_adiaxorito() {
+	global $globals;
+
+	// Οι super users δεν υπόκεινται σε περιορισμούς.
+	if ($globals->pektis->superuser) { return; }
+
+	// Αν οι ενεργοί παίκτες είναι λιγότεροι από
+	// κάποιο λογικό νούμερο, τότε δεν τίθεται θέμα
+	// ελέγχου αδιαχώρητου.
+	$pektes = count(Prefadoros::energos_pektis());
+	if ($pektes < MAX_USERS) { return; }
+
+	// Αν καλύπτεται ο μέχρι τώρα χρόνος παραμονής, είμαστε εντάξει.
+	if ($globals->pektis->plirothike_xronos($pliromi, $xronos, $kostos)) { return; }
+
+	$ores = isset($xronos) ? round($xronos / 3600, 2) : NULL;
+	?>
+	<style type="text/css">
+	p {
+		margin-top: 0.2cm;
+		margin-bottom: 0.2cm;
+	}
+	.pinakas {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 0.4cm;
+		margin-bottom: 0.4cm;
+		border-style: solid;
+		border-width: 1px;
+		border-color: #FCBF30;
+
+		-webkit-box-shadow: 2px 2px 10px #2E2E2E;
+		-moz-box-shadow: 2px 2px 10px #2E2E2E;
+		box-shadow: 2px 2px 10px #2E2E2E;
+	}
+	.aristera {
+		text-align: right;
+		padding-right: 10px;
+		padding-left: 10px;
+		min-width: 7.2cm;
+		font-style: italic;
+		background-color: #F5FFFA;
+	}
+	.dexia {
+		text-align: left;
+		padding-right: 10px;
+		padding-left: 10px;
+		width: 100%;
+		font-weight: bold;
+		font-style: normal;
+		background-color: #F5FFFA;
+	}
+	.donateImage {
+		height: 0.5cm;
+		margin-bottom: -0.1cm;
+	}
+	.papi {
+		position: absolute;
+		top: 1.0cm;
+		left: 1.0cm;
+		width: 3.0cm;
+	}
+	</style>
+	<?php
+	Page::javascript('lib/jQuery');
+	Page::body();
+	Page::toolbar();
+	?>
+	<div class="mainArea">
+	<div class="simantiko" style="position: relative; top: 0.4cm; right: 0px;
+		padding: 0.2cm 0.5cm 0.2cm 0.5cm; line-height: 1.3;
+		width: 90%; margin-right: auto; margin-left: auto;">
+	<div style="text-align: center; margin-bottom: 0.2cm;">
+		<div class="simantikoHeader">ΑΔΙΑΧΩΡΗΤΟ</div>
+	</div>
+	<p>
+	Αυτή τη στιγμή στον «Πρεφαδόρο» βρίσκονται <span class="entono">
+	<?php print $pektes; ?></span> online παίκτες, επομένως ο φόρτος είναι
+	μεγάλος και εξυπηρετούνται κατά προτεραιότητα παίκτες που έχουν συνεισφέρει
+	ποσό ανάλογο με το συνολικό χρόνο παραμονής τους στο καφενείο είτε
+	ως παίκτες, είτε ως θεατές.
+	Το κόστος παραμονής στο καφενείο υπολογίζεται με σχεδόν συμβολική
+	χρέωση, ήτοι <span class="entono"><?php print AXIA_ORAS; ?></span>
+	cents/ώρα. Σύμφωνα με τα παραπάνω προκύπτουν τα εξής για το λογαριασμό σας:
+	</p>
+	<div class="pinakas">
+	<table>
+	<tr>
+		<td class="aristera">
+			Login
+		</td>
+		<td class="dexia">
+			<?php print $globals->pektis->login; ?>
+		</td>
+	</tr>
+	<tr>
+		<td class="aristera">
+			Ονοματεπώνυμο
+		</td>
+		<td class="dexia">
+			<?php print $globals->pektis->onoma; ?>
+		</td>
+	</tr>
+	<?php
+	if (isset($ores)) {
+		?>
+		<tr>
+			<td class="aristera">
+				Συνολικός χρόνος παραμονής σας στο καφενείο
+			</td>
+			<td class="dexia">
+				<?php print $ores; ?> ώρες
+			</td>
+		</tr>
+		<tr>
+			<td class="aristera">
+				Κόστος
+			</td>
+			<td class="dexia">
+				<span style="font-weight: normal"><?php
+					print $ores; ?> ώρες &times; <?php
+					print AXIA_ORAS; ?> cents = <span class="entono"><?php
+					print round($kostos / 100, 2); ?>&euro;</span>
+
+			</td>
+		</tr>
+		<?php
+	}
+	?>
+	<tr>
+	<?php
+	if ($pliromi <= 0) {
+		?>
+		<td class="aristera">
+			Συνολικό ποσό εισφοράς
+		</td>
+		<td class="dexia">
+			Δεν έχετε συνεισφέρει κάποιο ποσό
+		</td>
+		<?php
+	}
+	else {
+		?>
+		<td class="aristera">
+			Έχετε συνεισφέρει μέχρι στιγμής
+		</td>
+		<td class="dexia">
+			<?php print round($pliromi / 100, 2); ?>&euro;
+		</td>
+		<?php
+	}
+	?>
+	</tr>
+	<tr>
+		<td class="aristera">
+			Απαιτούμενο ποσό εισφοράς
+		</td>
+		<td class="dexia">
+			<?php print round(($kostos - $pliromi) / 100, 2); ?>&euro;
+		</td>
+	</tr>
+	</table>
+	</div>
+	<p>
+	Ακόμη και αν συνεισφέρετε τώρα το ποσό που θα σας επιτρέψει να
+	εισέρχεστε στον «Πρεφαδόρο» σε ώρες αιχμής, δεν θα εξυπηρετηθείτε
+	άμεσα παρά μόνον όταν θα ειδοποιηθώ για την εισφορά σας και την
+	καταχωρήσω στη βάση δεδομένων. Συνήθως παρακολουθώ την κίνηση στον
+	ιστότοπο, αλλά μπορεί να περάσουν και 10 ώρες χωρίς να ελέγξω τα
+	μηνύματά μου, καθώς δεν βρίσκομαι συνεχώς μπροστά στην οθόνη του Η/Υ.
+	Εντούτοις, αν θελήσετε να καταθέσετε τη σχετική δωρεά, αυτό μπορεί
+	να γίνει μόνο με κάρτα πληρωμής (πιστωτική, ή άλλη) μέσω PayPal,
+	κάνοντας κλικ στο εικονίδιο <img class="donateImage" alt=""
+		src="images/external/donate.gif" />
+	που βρίσκεται στο κάτω αριστερά μέρος της σελίδας. Αν επιθυμείτε
+	πληρέστερη ενημέρωση για τα έξοδα του ιστοτόπου και τις πληρωμές
+	διαβάστε περισσότερα στη <a href="dorea/enimerosi.php">σχετική</a> σελίδα.
+	</p>
+	</div>
+	<img class="papi" src="images/provlima.png" alt=""
+		onload="$(this).delay(2000).animate({width: 0, height: 0, top: '2.0cm'});" />
+	</div>
+	<?php
+	Page::close();
+	$globals->klise_fige(0);
 }
 
 function Google_AdSense() {

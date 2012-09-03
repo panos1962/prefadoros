@@ -31,22 +31,4 @@ Prefadoros::set_trapezi_dirty();
 $_SESSION['ps_login'] = $row[0];
 $_SESSION['ps_paraskinio'] = $row[1];
 $globals->klise_fige();
-
-function check_adiaxorito($login, $super_user) {
-	global $globals;
-
-	// Οι super users δεν υπόκεινται σε περιορισμούς.
-	if ($super_user == "YES") { return; }
-
-	// Αν οι ενεργοί παίκτες είναι λιγότεροι από
-	// κάποιο λογικό νούμερο, τότε δεν τίθεται θέμα
-	// ελέγχου αδιαχώρητου.
-	$pektes = count(Prefadoros::energos_pektis());
-	if ($pektes < MAX_USERS) { return; }
-
-	if (Pektis::plirothike_xronos($login, $pliromi, $xronos, $kostos)) { return; }
-
-	$globals->klise_fige("ADIAXORITO@" . $pektes . "@" . MAX_USERS . "@" .
-		$pliromi . "@" . $xronos . "@" . $kostos);
-}
 ?>
