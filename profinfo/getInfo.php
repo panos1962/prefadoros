@@ -60,18 +60,12 @@ function bathmologia($pektis, &$dianomes, &$moros, &$rank) {
 
 	$fname = "../stats/rank.txt";
 	$fp = @fopen($fname, "r");
-	if (!$fp) {
-		return;
-	}
+	if (!$fp) { return; }
 
 	while ($buf = Globals::get_line($fp)) {
 		$x = explode("\t", $buf);
-		if (count($x) < 4) {
-			continue;
-		}
-		if ($x[0] != $pektis) {
-			continue;
-		}
+		if (count($x) < 4) { continue; }
+		if ($x[0] != $pektis) { continue; }
 
 		$dianomes = $x[2];
 		$moros = $x[4];
