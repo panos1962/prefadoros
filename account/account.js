@@ -50,24 +50,12 @@ account.onload = function() {
 			'&password=' + uri(form.password.value);
 		req.send(params);
 		var rsp = req.getResponse();
-		if (rsp == '') { return true; }
-
-		var x = rsp.split('@');
-		if (x[0] == 'ADIAXORITO') {
-			rsp = 'Αδιαχώρητο: παίκτες: ' + x[1] + ', όριο: ' + x[2];
-			if (x[3] > 0) {
-				rsp += ', διανομές: ' + x[3] +
-					', κόστος: ' +  Math.round(x[4]) / 100;
-			}
-
-			if (x[5] > 0) { rsp += ', πληρώσατε: ' + Math.round(x[5] / 100); }
-			else { rsp += ', δεν έχετε συνεισφέρει στα έξοδα μέχρι στιγμής'; }
+		if (rsp) {
 			errorFyi(rsp);
 			return false;
 		}
 
-		errorFyi(rsp);
-		return false;
+		return true;
 	};
 
 	this.checkLoginValue = function(fld) {
