@@ -35,6 +35,13 @@ define('SYSTEM_ACCOUNT', 'www.prefadoros.gr');
 define('DEFAULT_PARASKINIO', 'standard.gif');
 define('KLISTA_SELIDA', 'lock/klista.php');
 
+// Μέγιστος αριθμός online παικτών μετά τον
+// οποίο γίνεται έλεγχος πληρωμής.
+define('MAX_USERS', 70);
+
+// Κόστος χρόνου παραμονής στο site σε λεπτά/ώρα.
+define('AXIA_ORAS', 5);
+
 if (isset($no_session)) {
 	$_SESSION = array();
 	if (isset($_REQUEST) && is_array($_REQUEST) &&
