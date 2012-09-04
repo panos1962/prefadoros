@@ -1475,21 +1475,17 @@ var Dekada = new function() {
 			}
 		});
 
-		/*
-		Μάλλον προκαλεί "κλωτσιά" στο τραπέζι. Το απενεργοποιώ 03/09/2012
-		να δω πώς πάει κι ας τσουλάει το φύλλο μαζί με τη διαχωριστική
-		λωρίδα των ομοιόχρωμων.
-		$(img).removeClass('filoDiaxorK filoDiaxorM').css('height', '2.93cm');
-		*/
-		img.style.height = '2.93cm';
-
-		$(img).animate({
+		$(img).removeClass('filoDiaxorK filoDiaxorM').css('height', '2.93cm').
+		animate({
 			top: '+=' + (to_tl.top - from_tl.top),
 			left: '+=' + (to_tl.left - from_tl.left),
 			height: '2.80cm'
 		}, Pexnidi.delay['filo'], function() {
 			x.style.visibility = 'visible';
-			sviseNode(img);
+			// Κανονικά πρέπει να διαγραφεί ο κόμβος, αλλά μάλλον
+			// προκαλεί κάτι σαν κλωτσιά στο τραπέζι, οπότε απλώς
+			// αλλάζω το display.
+			img.style.display = 'none';
 			Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
 		});
 	};
