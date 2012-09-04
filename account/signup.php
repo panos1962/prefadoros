@@ -97,6 +97,17 @@ Egrafi.oroiSimetoxis = function () {
 			<?php
 		}
 		?>
+		<?php if ($globals->is_pektis()) {
+			?>
+			<img class="profinfoIcon" src="<?php print $globals->server;
+				?>images/pliromi.png" title="Χρήση, εισφορές κλπ" alt=""
+				onmouseover="account.pliromiOmo(this, true);"
+				onmouseout="account.pliromiOmo(this, false);"
+				onclick="account.pliromiDixe();"
+				style="display: inline; top: -0.6cm; right: 0.6cm;" />
+			<?php
+		}
+		?>
 		</div>
 	</td>
 </tr>

@@ -300,6 +300,119 @@ account.onload = function() {
 		if (notSet(x)) { return false; }
 		x.style.visibility = 'visible';
 	};
+
+	this.pliromiOmo = function(ico, dixe) {
+		if (dixe) {
+			try { ico.style.opacity = 1.0; } catch(e) {};
+			try { ico.filters.alpha.opacity = 100; } catch(e) { };
+		}
+		else {
+			try { ico.style.opacity = 0.6; } catch(e) {};
+			try { ico.filters.alpha.opacity = 60; } catch(e) { };
+		}
+	};
+
+	this.pliromiDixe = function() {
+		var x = getelid('profinfo');
+		if (notSet(x)) { return; }
+
+		if (x.style.display == 'inline') {
+			x.style.display = 'none';
+			return;
+		}
+
+		var req = new Request('account/pliromi');
+		req.xhr.onreadystatechange = function() {
+			account.pliromiCheck(req, x);
+		};
+
+		req.send();
+	};
+
+	this.pliromiCheck = function(req, div) {
+		if (req.xhr.readyState != 4) { return; }
+		try { div.style.display = 'inline'; } catch(e) { return; }
+
+		rsp = req.getResponse();
+		try {
+			eval('var pinfo = {' + rsp + '};');
+		}
+		catch(e) {
+			errorFyi(rsp);
+			return;
+		}
+
+		var html = '';
+		html += '<div style="text-align: center; margin-top: 0.2cm;">' +
+			'<span class="simantikoHeader">ΧΡΕΩΣΕΙΣ/ΠΛΗΡΩΜΕΣ</span>' +
+			'</div>';
+		html += '<img class="profinfoClose" src="../images/Xgrey.png" title="Κλείσιμο" ' +
+			'alt="" onclick="Profinfo.klise(this.parentNode);" />';
+		html += '<div style="width: 95%; margin-left: auto; margin-right: auto;' +
+			'margin-top: 0.2cm; text-align: justify;">' +
+			'Σε ώρες αιχμής, όταν υπάρχουν πάνω από <span class="entono">' +
+			pinfo.max + '</span> παίκτες online, δίνεται προτεραιότητα σε ' +
+			'παίκτες που έχουν συνεισφέρει στα έξοδα του server ανάλογα με ' +
+			'το συνολικό χρόνο παραμονής τους στο καφενείο είτε ως παίκτες, ' +
+			'είτε ως θεατές. Ο χρέωση γίνεται με την σχεδόν συμβολική αξία ' +
+			' των <span class="entono">' + pinfo.axia + '</span> cents ανά ' +
+			'ώρα. Σύμφωνα με τα παραπάνω, η τρέχουσα κατάσταση του λογαριασμού ' +
+			'σας έχει ως εξής:' +
+			'</div>';
+		html += '<div class="pliromiPinakas" style="width: 90%; margin-top: 0.8cm;">';
+		html += '<table>';
+		html += '<tr>' +
+			'<td class="pliromiAristera pliromiAristeraSteno">' +
+			'Χρόνος στο καφενείο' +
+			'</td>' +
+			'<td class="pliromiDexia">' +
+			pinfo.ores + '<span class="atono"> ώρες</span>' +
+			'</td>' +
+			'</tr>';
+		html += '<tr>' +
+			'<td class="pliromiAristera pliromiAristeraSteno">' +
+			'Κόστος παραμονής' +
+			'</td>' +
+			'<td class="pliromiDexia" style="font-weight: normal;">' +
+			'<span class="entono">' + pinfo.ores + '</span> ώρες &times; ' +
+			'<span class="entono">' + pinfo.axia + '</span> cents = ' +
+			'<span class="entono">' + pinfo.kostos + '</span>&euro;';
+			'</td>' +
+			'</tr>';
+		html += '<tr>' +
+			'<td class="pliromiAristera pliromiAristeraSteno">' +
+			'Συνεισφέρατε' +
+			'</td>' +
+			'<td class="pliromiDexia">';
+			html += isSet(pinfo.pliromi) ?
+				pinfo.pliromi + '<span class="atono">&euro;</span>' :
+				'<span class="error atono">δεν βρέθηκαν πληρωμές</span>';
+		html += '</td>' +
+			'</tr>';
+		if (isSet(pinfo.su)) {
+			html += '<tr>' +
+				'<td class="pliromiAristera pliromiAristeraSteno">' +
+				'Ειδικό καθεστώς' +
+				'</td>' +
+				'<td class="pliromiDexia">' +
+				'ΕΛΕΥΘΕΡΑΣ' +
+				'</td>' +
+				'</tr>';
+		}
+		else {
+			html += '<tr>' +
+				'<td class="pliromiAristera pliromiAristeraSteno">' +
+				'Υπόλοιπο' +
+				'</td>' +
+				'<td class="pliromiDexia">' +
+				pinfo.ipolipo + '<span class="atono">&euro;</span>' +
+				'</td>' +
+				'</tr>';
+		}
+		html += '</table>';
+		html += '</div>';
+		div.innerHTML = html;
+	};
 };
 
 window.onload = function() {

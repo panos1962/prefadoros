@@ -242,6 +242,10 @@ a img {
 	font-weight: bold;
 }
 
+.atono {
+	font-weight: normal;
+}
+
 .plagio {
 	font-style: italic;
 }
