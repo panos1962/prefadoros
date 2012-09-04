@@ -17,8 +17,8 @@ else {
 
 Page::head();
 if ($globals->is_pektis()) {
-	check_adiaxorito();
 	Page::stylesheet('prefadoros/prefadoros');
+	check_adiaxorito();
 	if (file_exists("PRODUCTION")) {
 		if (file_exists("PRODUCTION/compressed.js")) {
 			Page::javascript('PRODUCTION/compressed');
@@ -387,7 +387,7 @@ function check_adiaxorito() {
 	$pektes = count(Prefadoros::energos_pektis());
 	switch ($globals->pektis->login) {
 	case "andreas":
-		$max_users = 3;
+		$max_users = 0;
 		break;
 	default:
 		$max_users = MAX_USERS;
@@ -398,43 +398,12 @@ function check_adiaxorito() {
 	// Αν καλύπτεται ο μέχρι τώρα χρόνος παραμονής, είμαστε εντάξει.
 	if ($globals->pektis->plirothike_xronos($pliromi, $xronos, $kostos)) { return; }
 
-	$ores = isset($xronos) ? round($xronos / 3600, 2) : NULL;
+	$ores = isset($xronos) ? sprintf("%.2f", $xronos / 3600) : NULL;
 	?>
 	<style type="text/css">
 	p {
 		margin-top: 0.2cm;
 		margin-bottom: 0.2cm;
-	}
-	.pinakas {
-		width: 80%;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: 0.4cm;
-		margin-bottom: 0.4cm;
-		border-style: solid;
-		border-width: 1px;
-		border-color: #FCBF30;
-
-		-webkit-box-shadow: 2px 2px 10px #2E2E2E;
-		-moz-box-shadow: 2px 2px 10px #2E2E2E;
-		box-shadow: 2px 2px 10px #2E2E2E;
-	}
-	.aristera {
-		text-align: right;
-		padding-right: 10px;
-		padding-left: 10px;
-		min-width: 7.2cm;
-		font-style: italic;
-		background-color: #F5FFFA;
-	}
-	.dexia {
-		text-align: left;
-		padding-right: 10px;
-		padding-left: 10px;
-		width: 100%;
-		font-weight: bold;
-		font-style: normal;
-		background-color: #F5FFFA;
 	}
 	.donateImage {
 		height: 0.5cm;
@@ -469,21 +438,21 @@ function check_adiaxorito() {
 	χρέωση, ήτοι <span class="entono"><?php print AXIA_ORAS; ?></span>
 	cents/ώρα. Σύμφωνα με τα παραπάνω προκύπτουν τα εξής για το λογαριασμό σας:
 	</p>
-	<div class="pinakas">
+	<div class="pliromiPinakas">
 	<table>
 	<tr>
-		<td class="aristera">
+		<td class="pliromiAristera">
 			Login
 		</td>
-		<td class="dexia">
+		<td class="pliromiDexia">
 			<?php print $globals->pektis->login; ?>
 		</td>
 	</tr>
 	<tr>
-		<td class="aristera">
+		<td class="pliromiAristera">
 			Ονοματεπώνυμο
 		</td>
-		<td class="dexia">
+		<td class="pliromiDexia">
 			<?php print $globals->pektis->onoma; ?>
 		</td>
 	</tr>
@@ -491,22 +460,22 @@ function check_adiaxorito() {
 	if (isset($ores)) {
 		?>
 		<tr>
-			<td class="aristera">
+			<td class="pliromiAristera">
 				Συνολικός χρόνος παραμονής σας στο καφενείο
 			</td>
-			<td class="dexia">
+			<td class="pliromiDexia">
 				<?php print $ores; ?> ώρες
 			</td>
 		</tr>
 		<tr>
-			<td class="aristera">
+			<td class="pliromiAristera">
 				Κόστος
 			</td>
-			<td class="dexia">
+			<td class="pliromiDexia">
 				<span style="font-weight: normal"><?php
 					print $ores; ?> ώρες &times; <?php
 					print AXIA_ORAS; ?> cents = <span class="entono"><?php
-					print round($kostos / 100, 2); ?>&euro;</span>
+					printf("%.2f", $kostos / 100); ?>&euro;</span>
 
 			</td>
 		</tr>
@@ -517,32 +486,32 @@ function check_adiaxorito() {
 	<?php
 	if ($pliromi <= 0) {
 		?>
-		<td class="aristera">
+		<td class="pliromiAristera">
 			Συνολικό ποσό εισφοράς
 		</td>
-		<td class="dexia">
+		<td class="pliromiDexia">
 			Δεν έχετε συνεισφέρει κάποιο ποσό
 		</td>
 		<?php
 	}
 	else {
 		?>
-		<td class="aristera">
+		<td class="pliromiAristera">
 			Έχετε συνεισφέρει μέχρι στιγμής
 		</td>
-		<td class="dexia">
-			<?php print round($pliromi / 100, 2); ?>&euro;
+		<td class="pliromiDexia">
+			<?php printf("%.2f", $pliromi / 100); ?>&euro;
 		</td>
 		<?php
 	}
 	?>
 	</tr>
 	<tr>
-		<td class="aristera">
+		<td class="pliromiAristera">
 			Απαιτούμενο ποσό εισφοράς
 		</td>
-		<td class="dexia">
-			<?php print round(($kostos - $pliromi) / 100, 2); ?>&euro;
+		<td class="pliromiDexia">
+			<?php printf("%.2f", ($kostos - $pliromi) / 100); ?>&euro;
 		</td>
 	</tr>
 	</table>
