@@ -8,7 +8,6 @@ Prefadoros::pektis_check();
 
 $ores = $globals->pektis->total_xronos() / 3600;
 $pliromi = $globals->pektis->total_pliromi();
-$pliromi = 1000;
 $kostos = $ores * AXIA_ORAS;
 printf("max:" . MAX_USERS .",ores:'%.2f',axia:" . AXIA_ORAS . ",kostos:'%.2f'", $ores, $kostos / 100);
 if ($pliromi > 0) {
