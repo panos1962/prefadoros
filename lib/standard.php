@@ -798,8 +798,8 @@ class Page {
 				onclick="karfitsoma('<?php print $id; ?>', this);" />
 			<img class="apokripsiIcon" title="Απόκρυψη" src="<?php
 				print $globals->server; ?>images/Xgrey.png" alt=""
-				onclick="sviseNode(getelid('<?php print $id; ?>')<?php
-				if ($stay) { print ", 10, true"; }?>);" />
+				onclick="sviseNode(getelid('<?php print $id; ?>'), 300<?php
+				if ($stay) { print ", true"; }?>);" />
 		</div>
 		<?php
 	}
