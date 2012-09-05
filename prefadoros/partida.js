@@ -1478,7 +1478,8 @@ var Dekada = new function() {
 		img.setAttribute('class', 'filaSiraIcon');
 		img.style.height = '2.93cm';
 		//$(img).removeClass('filoDiaxorK filoDiaxorM').css('height', '2.93cm').
-		animate({
+
+		$(img).animate({
 			top: '+=' + (to_tl.top - from_tl.top),
 			left: '+=' + (to_tl.left - from_tl.left),
 			height: '2.80cm'
