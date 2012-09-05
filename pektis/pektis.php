@@ -231,14 +231,16 @@ class Pektis {
 	}
 
 	// Η παρακάτω μέθοδος αθροίζει τους χρόνους (σε δευτερόλεπτα) από
-	// όλες τις συνδρίες του παίκτη.
+	// όλες τις συνεδρίες του παίκτη. Η εφαρμογή έγινε στις 5 Σεπτεμβρίου
+	// 2012, ότε και ο κωδικός συνεδρίας ήταν στο 310220.
 
 	public function total_xronos() {
 		global $globals;
 
 		$xronos = 0;
 		$query = "SELECT SUM(UNIX_TIMESTAMP(`telos`) - UNIX_TIMESTAMP(`dimiourgia`)) " .
-			"FROM `sinedria_log` WHERE `pektis` = BINARY " . $this->slogin;
+			"FROM `sinedria_log` WHERE (`pektis` = BINARY " . $this->slogin .
+			") AND (`kodikos` > 310220)";
 		$result = @mysqli_query($globals->db, $query);
 		while ($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 			$xronos += (int)$row[0];
