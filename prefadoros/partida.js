@@ -1475,7 +1475,9 @@ var Dekada = new function() {
 			}
 		});
 
-		$(img).removeClass('filoDiaxorK filoDiaxorM').css('height', '2.93cm').
+		img.setAttribute('class', 'filaSiraIcon');
+		img.style.height = '2.93cm';
+		//$(img).removeClass('filoDiaxorK filoDiaxorM').css('height', '2.93cm').
 		animate({
 			top: '+=' + (to_tl.top - from_tl.top),
 			left: '+=' + (to_tl.left - from_tl.left),
