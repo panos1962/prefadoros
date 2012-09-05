@@ -92,8 +92,8 @@ function prefadoros() {
 
 	Prefadoros::klise_sinedria();
 	check_pektis_photo($globals->pektis->login, "");
-	$query = "INSERT INTO `sinedria` (`pektis`, `ip`) VALUES (" .
-		$globals->pektis->slogin . ", '" . client_ip() . "')";
+	$query = "INSERT INTO `sinedria` (`pektis`, `ip`, `poll`) VALUES (" .
+		$globals->pektis->slogin . ", '" . client_ip() . "', NOW())";
 	$globals->sql_query($query);
 
 	$trapoula = new Trapoula;

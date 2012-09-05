@@ -8,6 +8,7 @@ CREATE TABLE `sinedria` (
 	`ip`		CHARACTER(32) NOT NULL DEFAULT '' COMMENT 'IP address',
 	`dimiourgia`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Πότε δημιουργήθηκε',
 	`enimerosi`	NUMERIC(10) NOT NULL DEFAULT 0 COMMENT 'Αύξων αριθμός ενημέρωσης',
+	`poll`		TIMESTAMP NOT NULL COMMENT 'Τελευταίο poll time',
 	`peknpat`	VARCHAR(128) NOT NULL DEFAULT '' COMMENT 'Pattern αναζήτησης παικτών',
 	`peksxet`	ENUM(
 		'ΟΛΟΙ',
