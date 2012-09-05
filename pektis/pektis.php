@@ -117,6 +117,7 @@ class Pektis {
 		}
 
 		$query = "UPDATE `sinedria` SET `enimerosi` = " . $id . ", " .
+			"`poll` = NOW(), " .
 			"`trapezi` = " . $sinedria->trapezi . ", " .
 			"`sizitisidirty` = " . $sinedria->sizitisidirty . ", " .
 			"`trapezidirty` = " . $sinedria->trapezidirty .

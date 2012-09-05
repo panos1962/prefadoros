@@ -655,7 +655,7 @@ class Prefadoros {
 
 		$query = "INSERT INTO `sinedria_log` (`kodikos`, `pektis`, `ip`, " .
 			"`dimiourgia`, `enimerosi`, `telos`) SELECT `kodikos`, `pektis`, `ip`, " .
-			"`dimiourgia`, `enimerosi`, NOW() FROM `sinedria` " .
+			"`dimiourgia`, `enimerosi`, `poll` FROM `sinedria` " .
 			"WHERE `pektis` = BINARY " . $globals->pektis->slogin;
 		@mysqli_query($globals->db, $query);
 
@@ -676,7 +676,7 @@ class Prefadoros {
 			"(UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(`poll`)) > 300";
 		$query = "INSERT INTO `sinedria_log` (`kodikos`, `pektis`, `ip`, " .
 			"`dimiourgia`, `enimerosi`, `telos`) SELECT `kodikos`, `pektis`, `ip`, " .
-			"`dimiourgia`, `enimerosi`, NOW() FROM `sinedria` WHERE `pektis` IN (" .
+			"`dimiourgia`, `enimerosi`, `poll` FROM `sinedria` WHERE `pektis` IN (" .
 			$anenergos . ")";
 		@mysqli_query($globals->db, $query);
 
