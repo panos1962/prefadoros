@@ -16,7 +16,7 @@ Globals::perastike_check('password');
 // session το όνομα όπως αυτό έχει δοθεί κατά την εγγραφή.
 
 $query = "SELECT `login`, `paraskinio` FROM `pektis` " .
-	"WHERE (`login` = BINARY '" . $globals->asfales($_REQUEST['login']) .
+	"WHERE (`login` = '" . $globals->asfales($_REQUEST['login']) .
 	"') AND (`password` = BINARY '" . $globals->asfales(sha1($_REQUEST['password'])) . "')";
 $result = $globals->sql_query($query);
 $row = @mysqli_fetch_array($result, MYSQLI_NUM);
