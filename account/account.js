@@ -411,6 +411,12 @@ account.onload = function() {
 		}
 		html += '</table>';
 		html += '</div>';
+		html += '<div style="width: 95%; margin-left: auto; margin-right: auto;' +
+			'margin-top: 0.8cm; text-align: justify; font-style: italic; ' +
+			'color: #003366;">' +
+			'Η καταμέτρηση χρόνου παραμονής στο καφενείο ξεκίνησε από ' +
+			'την Τετάρτη, 5&nbsp;Σεπτεμβρίου 2012.' +
+			'</div>';
 		div.innerHTML = html;
 	};
 };
