@@ -648,6 +648,11 @@ var Sizitisi = new function() {
 		if (isSet(scrollBottomTimer)) { return; }
 		var x = getelid('sizitisiArea');
 		if (notSet(x)) { return; }
+if (notSet(x.scrollHeight)) { return; }
+if (notSet(x.scrollTop) || (x.scrollTop != x.scrollHeight)) {
+	x.scrollTop = x.scrollHeight;
+}
+return;
 		scrollBottomTimer = setTimeout(function() {
 			try { x.scrollTop = x.scrollHeight; } catch(e) {};
 			scrollBottomTimer = null;
