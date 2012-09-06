@@ -1445,10 +1445,8 @@ var Dekada = new function() {
 		var x = getelid('bazaFilo1');
 		if (notSet(x)) { fatalError('Dekada.valeFilo: bazaFilo1: not found'); }
 
-		var from_tl = $(img).position();
-		img.style.top = from_tl.top + 'px';
-		img.style.left = from_tl.left + 'px';
-		from_tl = $(img).offset();
+		var from_tl = $(img).offset();
+		var arxi_tl = $(img).position();
 
 		// Το φύλλο τοποθετείται εξ αρχής στη θέση του στην μπάζα (θέση 1)
 		// και ακολουθεί animation, στη λήξη του οποίου θα επανεμφανιστεί.
@@ -1477,6 +1475,9 @@ var Dekada = new function() {
 
 		img.setAttribute('class', 'filaSiraIcon');
 		img.style.height = '2.93cm';
+		img.style.top = arxi_tl.top + 'px';
+		img.style.left = arxi_tl.left + 'px';
+
 		//$(img).removeClass('filoDiaxorK filoDiaxorM').css('height', '2.93cm').
 
 		$(img).animate({
