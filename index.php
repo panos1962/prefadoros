@@ -19,13 +19,11 @@ Page::head();
 if ($globals->is_pektis()) {
 	Page::stylesheet('prefadoros/prefadoros');
 	check_adiaxorito();
-	if (file_exists("PRODUCTION")) {
-		if (file_exists("PRODUCTION/compressed.js")) {
-			Page::javascript('PRODUCTION/compressed');
-		}
-		else {
-			Page::javascript('PRODUCTION/concatenated');
-		}
+	if (@file_exists("PRODUCTION/compressed.js")) {
+		Page::javascript('PRODUCTION/compressed');
+	}
+	elseif (@file_exists("PRODUCTION/concatenated.js")) {
+		Page::javascript('PRODUCTION/concatenated');
 	}
 	else {
 		Page::javascript('prefadoros/dedomena');
