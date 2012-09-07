@@ -1473,12 +1473,10 @@ var Dekada = new function() {
 			}
 		});
 
-		img.setAttribute('class', 'filaSiraIcon');
+		img.setAttribute('class', 'filaSiraIcon filoSkia');
 		img.style.height = '2.93cm';
 		img.style.top = arxi_tl.top + 'px';
 		img.style.left = arxi_tl.left + 'px';
-
-		//$(img).removeClass('filoDiaxorK filoDiaxorM').css('height', '2.93cm').
 
 		$(img).animate({
 			top: '+=' + (to_tl.top - from_tl.top),
@@ -1486,9 +1484,6 @@ var Dekada = new function() {
 			height: '2.80cm'
 		}, Pexnidi.delay['filo'], function() {
 			x.style.visibility = 'visible';
-			// Κανονικά πρέπει να διαγραφεί ο κόμβος, αλλά μάλλον
-			// προκαλεί κάτι σαν κλωτσιά στο τραπέζι, οπότε απλώς
-			// αλλάζω το display.
 			img.style.display = 'none';
 			Pexnidi.addKinisi('ΦΥΛΛΟ', xa);
 		});

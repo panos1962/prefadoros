@@ -646,15 +646,12 @@ var Sizitisi = new function() {
 	this.scrollBottom = function() {
 		if (this.scrollBottomDisabled) { return; }
 		if (isSet(scrollBottomTimer)) { return; }
-		var x = getelid('sizitisiArea');
-		if (notSet(x)) { return; }
-if (notSet(x.scrollHeight)) { return; }
-if (notSet(x.scrollTop) || (x.scrollTop != x.scrollHeight)) {
-	x.scrollTop = x.scrollHeight;
-}
-return;
 		scrollBottomTimer = setTimeout(function() {
-			try { x.scrollTop = x.scrollHeight; } catch(e) {};
+			var x = getelid('sizitisiArea');
+			if (isSet(x) && isSet(x.scrollHeight) &&
+				(notSet(x.scrollTop) || (x.scrollTop != x.scrollHeight))) {
+				try { x.scrollTop = x.scrollHeight; } catch(e) {};
+			}
 			scrollBottomTimer = null;
 		}, 300);
 	};
