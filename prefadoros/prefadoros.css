@@ -55,6 +55,14 @@ body {
 	-webkit-box-shadow: 2px 2px 6px #2E2E2E;
 	-moz-box-shadow: 2px 2px 6px #2E2E2E;
 	box-shadow: 2px 2px 6px #2E2E2E;
+
+	/*
+	Το "overflow" μπήκε για να αποφύγω την "κλωτσιά" κατά
+	τη στιγμή που παίζω το φύλλο. Πράγματι, για λόγους που
+	δεν μπόρεσα να εντοπίσω, κάποιες φορές προκαλεί στιγμιαίο
+	scroll bar στο div της παρτίδας.
+	*/
+	overflow: hidden;
 }
 
 .partidaTheatis {
