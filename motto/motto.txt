@@ -10215,3 +10215,6 @@ Premature optimization is the root of all evil.
 
 :pagkosmios@prefadoros.gr
 #
+Γνωρίζετε ότι υπάρχει πιπεκολικό οξύ; Αν δεν το πιστεύετε
+ρίξτε μια ματιά στη Wikipedia.
+#
