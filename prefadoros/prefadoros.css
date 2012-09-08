@@ -20,8 +20,10 @@ body {
 	max-height: 13.0cm;
 	min-height: 13.0cm;
 	padding-bottom: 0.1cm;
+/*
 	overflow-y: auto;
 	overflow-x: hidden;
+*/
 }
 
 .prefadorosSteno {
