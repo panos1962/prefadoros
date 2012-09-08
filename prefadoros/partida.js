@@ -1470,17 +1470,17 @@ var Dekada = new function() {
 			}
 			else {
 				this.style.zIndex = zi;
+				this.style.bottom = 0;
 			}
 		});
 
 		img.setAttribute('class', 'filaSiraIcon filoSkia');
-		img.style.height = '2.93cm';
-		img.style.top = arxi_tl.top + 'px';
-		img.style.left = arxi_tl.left + 'px';
+		img.style.top = arxi_tl.top;
+		img.style.left = arxi_tl.left;
 
 		$(img).animate({
-			top: '+=' + (to_tl.top - from_tl.top),
-			left: '+=' + (to_tl.left - from_tl.left),
+			top: arxi_tl.top + to_tl.top - from_tl.top,
+			left: arxi_tl.left + to_tl.left - from_tl.left,
 			height: '2.80cm'
 		}, Pexnidi.delay['filo'], function() {
 			x.style.visibility = 'visible';
