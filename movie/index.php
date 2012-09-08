@@ -11,7 +11,6 @@ if (count($dianomes) <= 0) {
 	die("Δεν υπάρχουν διανομές");
 }
 
-
 $enarxi = Globals::perastike('enarxi');
 if ($enarxi) {
 	$dianomi = NULL;
