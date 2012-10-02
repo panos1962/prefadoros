@@ -10218,3 +10218,22 @@ Premature optimization is the root of all evil.
 Γνωρίζετε ότι υπάρχει πιπεκολικό οξύ; Αν δεν το πιστεύετε
 ρίξτε μια ματιά στη Wikipedia (pipecolic acid).
 #
+GREEKLISH
+---------
+-ti kaneis re?
+-bafo
+-Ti, mpafo?
+-ohi re malaka, vafo
+#
+Live for nothing or die for something.
+
+:JOHN RAMBO
+#
+Βράδυ, αργά, ο Χότζας ροκανίζει μια κλειδαριά με σκοπό να
+διαρρήξει ένα μαγαζί. Τον πιάνει στα πράσα ένας πολισμάνος:
+
+-Ρε, τι κάνεις εκεί;
+-Ε, χμμμ, εμ, …Παίζω βιολί!
+-Δεν ακούω μουσική.
+-Τη μουσική θα την ακούσεις αύριο.
+#
