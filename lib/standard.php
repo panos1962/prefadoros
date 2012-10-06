@@ -734,20 +734,8 @@ class Page {
 			?>copyright/index.php?pedi=yes" class="data">Copyright</a>&nbsp;]
 		[&nbsp;<a target="_blank" href="<?php print $globals->server;
 			?>adia/index.php?pedi=yes" class="data nobr">Όροι&nbsp;χρήσης</a>&nbsp;]
-		<?php
-		if ($globals->is_administrator()) {
-			$class = 'data administrator';
-			$page = 'index';
-		}
-		else {
-			$class = 'data';
-			$page = 'login';
-		}
-		?>
-		[&nbsp;<a id="administratorLabel" target="_blank" href="<?php
-			print $globals->server; ?>administrator/<?php
-			print $page; ?>.php" class="<?php
-			print $class; ?>">Administrator</a>&nbsp;]
+		[&nbsp;<a id="administratorLabel" target="_blank" href="#"
+			class="data nobr" onclick="return false;">Administrator</a>&nbsp;]
 		<br />
 		[&nbsp;<a target="_blank" href="http://www.prefablog.wordpress.com"
 			class="data">Ιστολόγιο</a>&nbsp;]
