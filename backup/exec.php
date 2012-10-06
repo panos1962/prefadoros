@@ -1,4 +1,5 @@
 <?php
+die(0);
 global $no_session;
 $no_session = TRUE;
 

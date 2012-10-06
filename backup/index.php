@@ -1,4 +1,5 @@
 <?php
+die(0);
 require_once '../lib/standard.php';
 set_globals(TRUE);
 Page::head();
