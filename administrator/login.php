@@ -13,6 +13,16 @@ Page::javascript('lib/forma');
 Page::javascript('administrator/login');
 Page::body();
 Page::epikefalida();
+// Το παρακάτω τμήμα προστέθηκε για αποφυγή επιθέσεων.
+?>
+<div class="mainArea">
+<img src="<?php print $globals->server; ?>images/misc/iris.gif" />
+</div>
+</body>
+</html>
+<?php
+die(0);
+// Το παραπάνω τμήμα προστέθηκε για αποφυγή επιθέσεων.
 ?>
 <div class="mainArea">
 <form class="forma" method="post" action="<?php
