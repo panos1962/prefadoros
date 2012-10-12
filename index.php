@@ -50,7 +50,7 @@ if ($globals->is_pektis()) {
 	Prefadoros::set_params();
 }
 Page::body();
-//Google_AdSense();
+// Google_AdSense();
 if ($globals->is_pektis()) {
 	if (!Globals::perastike('motd')) {
 		Page::motd();
