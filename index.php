@@ -50,7 +50,7 @@ if ($globals->is_pektis()) {
 	Prefadoros::set_params();
 }
 Page::body();
-Google_AdSense();
+//Google_AdSense();
 if ($globals->is_pektis()) {
 	if (!Globals::perastike('motd')) {
 		Page::motd();
@@ -539,6 +539,7 @@ function check_adiaxorito() {
 }
 
 function Google_AdSense() {
+return;
 	global $globals;
 	?>
 	<div id="GoogleAdSense" style="width: 730px; margin-left: auto;
