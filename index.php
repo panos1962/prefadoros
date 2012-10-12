@@ -602,7 +602,7 @@ return;
 function Google_AdSearch() {
 	global $globals;
 	?>
-	<div style="width: 11.0cm; float: right;">
+	<div style="float: right;">
 	<form action="http://www.google.gr" id="cse-search-box" target="_blank">
 		<div>
 			<input type="hidden" name="cx"
