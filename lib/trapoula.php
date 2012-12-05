@@ -19,6 +19,7 @@ class Trapoula {
 		$this->enalagi();
 		$this->anataxi();
 		$this->enalagi();
+		$this->anataxi();
 	}
 
 	private function anataxi() {
