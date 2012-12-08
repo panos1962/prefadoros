@@ -29,7 +29,7 @@ define('MAX_POLIVOLO1', 20);
 define('XRONOS_POLIVOLO2', 20000);
 define('MAX_POLIVOLO2', 30);
 
-define('FUNCHAT_SERVER', 'http://www.pineza.info/prefa/funchatImages/');
+define('FUNCHAT_SERVER', 'http://www.perloc.info/prefadoros/funchatStore/');
 define('MY_EMAIL_ADDRESS', 'panos' . '@prefadoros.net');
 define('SYSTEM_ACCOUNT', 'www.prefadoros.gr');
 define('DEFAULT_PARASKINIO', 'standard.gif');
@@ -304,25 +304,6 @@ function set_globals($anonima = FALSE) {
 		$dbuser = 'root';
 		$dbpassword = '';
 		$globals->phpmyadmin = 'http://127.0.0.1/phpmyadmin/index.php?db=prefadoros';
-		break;
-	case '178.21.171.4':
-		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/';
-		$dbname = 'prefadoros';
-		$dbuser = 'prefadoros';
-		$dbpassword = $dpass;
-		$globals->phpmyadmin = 'http://178.21.171.4/phpym/index.php?db=prefadoros';
-		break;
-	case 'tessa.gen6dns.net':
-		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/~panos/';
-		$dbname = 'panos_prefadoros';
-		$dbuser = 'panos_prefadoros';
-		$dbpassword = $dpass;
-		break;
-	case 'www.pineza.info':
-		$globals->server = 'http://www.pineza.info/prefadoros/';
-		$dbname = 'panos62_prefadoros';
-		$dbuser = 'panos62_pineza';
-		$dbpassword = $dpass;
 		break;
 	case 'www.prefadoros.gr':
 		$globals->server = 'http://' . $_SERVER['SERVER_NAME'] . '/';
