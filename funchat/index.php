@@ -217,7 +217,7 @@ function print_panel() {
 	$item_list[] = new Item("thaVgaloMati.gif", "Θα βγει κανένα μάτι;");
 	$item_list[] = new Item("bearFace.gif", "Βγάλαμε κανένα μάτι;");
 	$item_list[] = new Item("gavosEmoticon.gif", "Θα στραβωθώ ρε!");
-	$item_list[] = new Item("matia.gif", "");
+	$item_list[] = new Item("matia.gif", "", 3.0);
 	$item_list[] = new Item("aomatos.jpg", "Αόμματος!", 3.5, "_KL_");
 	$item_list[] = new Item("meTrelanes.gif", "Με τρέλανες τώρα!");
 	$item_list[] = new Item("efkoloItan.gif", "Όχι να το παινευτώ, αλλά είμαι μάστορας.", 2.0);
