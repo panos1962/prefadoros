@@ -899,9 +899,12 @@ var Sizitisi = new function() {
 		if (isPektis() && pektis.system) {
 			s.disabled = true;
 		}
+		/*
 		else if ((Prefadoros.show == 'kafenio') ||
 			(isPartida() && (notTheatis() || isProsklisi())) ||
 			(isPektis() && (pektis.login == 'panos'))) {
+		*/
+		else if ((Prefadoros.show == 'kafenio') || isPartida()) {
 			s.disabled = false;
 			if (notSet(fs)) { Sizitisi.sxolioFocus() };
 			html += '<img id="sxolioApostoli" src="' + globals.server +
