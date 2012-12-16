@@ -207,6 +207,7 @@ var Sizitisi = new function() {
 	var mp3Funchat = {
 		'_NC_':			'nutcracker',
 		'_ITM_':		'inthemood',
+		'_LAGOS_':		'lagos',
 		'_BG_':			'clarinetitis',
 		'_SKL_':		'skoulikantera',
 		'_TP_':			'tinPatisame',
