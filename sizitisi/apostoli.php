@@ -58,6 +58,7 @@ function check_trapezi() {
 		$globals->klise_fige();
 	}
 
+return;
 	if ($globals->trapezi->is_theatis() && (!$globals->trapezi->is_prosklisi()) &&
 		($globals->pektis->login != 'panos')) {
 		$globals->klise_fige('Δεν έχετε προσκληθεί στη συζήτηση αυτού του τραπεζιού');
