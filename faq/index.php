@@ -589,6 +589,8 @@ Page::epikefalida(Globals::perastike('pedi'));
 		όμως, των κινητών τηλεφώνων, ή γενικά συσκευών που εμφανίζουν
 		ψευδοπληκτρολόγιο οθόνης κατά την εστίαση σε πεδία γραφής
 		μηνυμάτων, αυτό το γεγονός καθίσταται ενοχλητικό.
+	</p>
+	<p class="faqKimeno">
 		Κάνοντας κλικ στο εικονίδιο κινητού
 		<span class="nobr">τηλεφώνου (<img src="<?php
 		print $globals->server; ?>images/controlPanel/mobile.png"
