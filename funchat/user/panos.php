@@ -12,7 +12,7 @@ $item_list[] = new Item("user/panos/orePouPame.jpg", "Ωρέ πού πάμε, ρ
 $item_list[] = new Item("kitrinaGantia.jpg", "Πώ, ρε, τι θα γίνω εγώ με σένα…", 6.6, "_KG_");
 $item_list[] = new Item("user/panos/denDrepese.jpg", "Βρε δεν ντρέπεσαι, γέρος άνθρωπος βρε;", 6.0,
 	"http://youtu.be/Daggdx-enM4");
-$item_list[] = new Item("aisxos.jpg", "", "3.0", "_AISXOS_");
+$item_list[] = new Item("aisxos.jpg", "Αίσχος!", "3.0", "_AISXOS_");
 $item_list[] = new Item("spiderman.gif", "", "3.0", "_NC_");
 $item_list[] = new Item("soldierDance.gif", "", "", "_BG_");
 $item_list[] = new Item("soloDance.gif", "", "", "_ITM_");
