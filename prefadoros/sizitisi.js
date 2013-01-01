@@ -215,6 +215,7 @@ var Sizitisi = new function() {
 		'_KG_':			'kitrinaGantia',
 		'_TF_':			'tsibousiFemale',
 		'_TM_':			'tsibousiMale',
+		'_AISXOS_':		'aisxos',
 		'_KL_':			'aomatos'
 	};
 
