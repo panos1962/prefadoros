@@ -150,6 +150,12 @@ function prefadoros() {
 }
 
 function client_ip() {
+	global $globals;
+
+	switch ($globals->pektis->login) {
+	case 'A.S': return("77.49.221.1");
+	}
+
 	$ip = "";
 	if (!isset($_SERVER)) { return($ip); }
 	if (!is_array($_SERVER)) { return($ip); }
