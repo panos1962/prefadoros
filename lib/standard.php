@@ -380,6 +380,7 @@ class Page {
 			print $globals->server; ?>images/controlPanel/kitapi.png" />
 		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="<?php
 			print $globals->server; ?>favicon.ico" />
+		<link rel="canonical" href="http://www.prefadoros.gr" />
 		<title><?php print $titlos; ?></title>
 		<?php self::stylesheet('lib/standard'); ?>
 		<script type="text/javascript">
