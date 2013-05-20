@@ -212,6 +212,7 @@ var Sizitisi = new function() {
 		'_SKL_':		'skoulikantera',
 		'_TP_':			'tinPatisame',
 		'_GGTK_':		'katastrofi',
+		'_DXPZ_':		'denXanapezo',
 		'_KG_':			'kitrinaGantia',
 		'_TF_':			'tsibousiFemale',
 		'_TM_':			'tsibousiMale',
