@@ -284,6 +284,7 @@ function print_panel() {
 	$item_list[] = new Item("klamaEmoticon.gif");
 	$item_list[] = new Item("klapsEmoticon.gif", "Κλαψ…");
 	$item_list[] = new Item("tsopaTsopa.gif", "Τσώπα, τσώπα…");
+	$item_list[] = new Item("apelpisia.jpg");
 	$item_list[] = new Item("tiNaEkana.gif", "Τι να έκανα, ρε συ;", 2.0);
 	$item_list[] = new Item("matakiaEnoxa.gif", "", 1.4);
 	$item_list[] = new Item("kokinizo.gif");

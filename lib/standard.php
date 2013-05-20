@@ -301,8 +301,8 @@ function set_globals($anonima = FALSE) {
 	case '127.0.0.1':
 		$globals->server = 'http://127.0.0.1/prefadoros/';
 		$dbname = 'prefadoros';
-		$dbuser = 'root';
-		$dbpassword = '';
+		$dbuser = 'prefadoros';
+		$dbpassword = $dpass;
 		$globals->phpmyadmin = 'http://127.0.0.1/phpmyadmin/index.php?db=prefadoros';
 		break;
 	case 'www.prefadoros.gr':
