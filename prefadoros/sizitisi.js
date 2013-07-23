@@ -205,7 +205,7 @@ var Sizitisi = new function() {
 	// Ακολουθούν διάφορα κωδικοποιημένα αρχεία ήχου mp3 που
 	// βρίσκονται ανεβασμένα στον funchat server.
 	var mp3Funchat = {
-		'_NC_':			'nutcracker',
+		'_NC_':			'jeannie',
 		'_ITM_':		'inthemood',
 		'_LAGOS_':		'lagos',
 		'_BG_':			'clarinetitis',
