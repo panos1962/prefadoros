@@ -244,6 +244,7 @@ function print_panel() {
 	$item_list[] = new Item("aporiaPokemon.gif");
 	$item_list[] = new Item("giatiEpexes.gif", "Γιατί έπαιξες, ρε συ;");
 	$item_list[] = new Item("boukalopatos.jpg", "", 6.2);
+	$item_list[] = new Item("suspicious.png", "Χμ…", 2.0);
 	$item_list[] = new Item("pleaseEmoticon.gif", "Παίξε μια φορά σωστά…", 2.4);
 	$item_list[] = new Item("oxiReSi.gif", "Όχι ρε Πούτιν μου…");
 	$item_list[] = new Item("alithoros.jpg", "Τώρα τα είδα όλα!", 3.2);
