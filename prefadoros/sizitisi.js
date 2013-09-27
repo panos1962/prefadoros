@@ -305,12 +305,12 @@ var Sizitisi = new function() {
 			html += iv.replace(/^https?:\/\/youtu\.be\//, '');
 			html += html.match(/\?start=[0-9]+/) ? '&' : '?';
 			html += 'autoplay=1&rel=0&controls=0&showinfo=0" ';
-			html += 'frameborder="0" style="display: none;"></iframe>';
+			html += 'frameborder="0" style="width: 1px; height: 1px;"></iframe>';
 		}
 		else if (iv.match(/^https?:\/\/splicd\.com\//)) {
 			html += '<iframe width="300" height="203"';
 			html += Sizitisi.videoId() + 'src="' + iv;
-			html += '" frameborder="0" style="display: none;"></iframe>';
+			html += '" frameborder="0" style="width: 1px; height: 1px;"></iframe>';
 		}
 		else {
 			iv = iv.split(':');
