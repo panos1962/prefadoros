@@ -218,7 +218,8 @@ var Sizitisi = new function() {
 		'_TM_':			'tsibousiMale',
 		'_AISXOS_':		'aisxos',
 		'_KL_':			'aomatos',
-		'_PPTT_':		'popothatrelatho'
+		'_PPTT_':		'popothatrelatho',
+		'_PANOS_':		'panos'
 	};
 
 	// Ακολουθούν διάφορα κωδικοποιημένα βίντεο. Αυτά εμφανίζονται
