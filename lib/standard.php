@@ -700,6 +700,12 @@ class Page {
 		?>
 		<div style="margin-bottom: 0.1cm;"></div>
 		<div id="twitter" style="display: inline-block;"></div>
+		<a href="//www.pinterest.com/pin/create/button/?url=<?php
+		print "http%3A%2F%2Fwww.prefadoros.gr&media=http%3A%2F%2Fwww.prefadoros.gr" .
+			"%2Fimages%2FcontrolPanel%2Fkitapi.png&description=%CE%A0%CE%B1%CE" .
+			"%AF%CE%BE%CF%84%CE%B5%20%CF%80%CF%81%CE%AD%CF%86%CE%B1%20online!"; ?>"
+		data-pin-do="buttonPin" data-pin-config="none"><img
+			src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" /></a>
 		<?php
 		if ($globals->is_pektis()) {
 			// Στο σημείο αυτό θα εμφανιστεί το πλήκτρο Google+
@@ -754,6 +760,7 @@ class Page {
 			self::ribbon();
 		}
 		?>
+		<script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script>
 		</body>
 		</html>
 		<?php
