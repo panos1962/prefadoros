@@ -29,7 +29,7 @@ define('MAX_POLIVOLO1', 20);
 define('XRONOS_POLIVOLO2', 20000);
 define('MAX_POLIVOLO2', 30);
 
-define('FUNCHAT_SERVER', 'http://www.perloc.info/prefadoros/funchatStore/');
+define('FUNCHAT_SERVER', 'http://www.opasopa.net/prefadorosFC/');
 define('MY_EMAIL_ADDRESS', 'panos' . '@prefadoros.net');
 define('SYSTEM_ACCOUNT', 'www.prefadoros.gr');
 define('DEFAULT_PARASKINIO', 'standard.gif');
