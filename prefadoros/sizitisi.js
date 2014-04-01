@@ -779,9 +779,7 @@ var Sizitisi = new function() {
 			if (notSet(fld)) { return; }
 		}
 
-		var tmima = fld.value.split('\t');
-		var sxolio = tmima[0].trim();
-
+		var sxolio = fld.value.replace(/[\t\v\f\r\n]/g, '').trim();
 		if (sxolio == '') { return; }
 
 		if (notSet(pk)) { pk = Prefadoros.show; }
