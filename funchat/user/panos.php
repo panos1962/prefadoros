@@ -1,6 +1,7 @@
 <?php
 $item_list[] = new Item("osamaBushSmall.gif", "Πάμε μαζί, με τρέλα και κορδέλα;", 4.6);
 $item_list[] = new Item("user/panos/axouAxou.png", "", 6.0);
+$item_list[] = new Item("koloAsos.gif", "Ένα μπαστούνι ρε παιδιά!", 8.0);
 $item_list[] = new Item("user/panos/staExigoOrea.jpg", "Βρε, στα εξηγώ ωραία;", 4.0,
 	"http://youtu.be/H9VKYRfvp3s");
 $item_list[] = new Item("user/panos/omorfantraMou.jpg", "Ομορφάντρα μουυυ!", 4.0,
