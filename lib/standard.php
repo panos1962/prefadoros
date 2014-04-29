@@ -421,14 +421,16 @@ class Page {
 	public static function diafimisi() {
 		global $globals;
 
-		$diafimisi = @file_get_contents("diafimisi.html");
+		if (file_exists("diafimisi.php")) $diafimisi = TRUE;
+		else $diafimisi = @file_get_contents("diafimisi.html");
 		if (!$diafimisi) { return; }
 		?>
 		<div id="diafimisi" class="diafimisiArea"
 			onmouseover="getelid('apokripsidiafimisi').style.visibility='visible';"
 			onmouseout="getelid('apokripsidiafimisi').style.visibility='hidden';">
 			<?php
-			print $diafimisi;
+			if ($diafimisi === TRUE) require "diafimisi.php";
+			else print $diafimisi;
 			self::apokripsi('diafimisi');
 			?>
 		</div>
