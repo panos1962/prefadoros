@@ -1154,7 +1154,6 @@ var Partida = new function() {
 
 	this.neoTrapezi = function() {
 		if (isPartida()) { return; }
-/*
 var html = '';
 html += '<div style="width: 880px; text-align: justify; font-size: 16px;">';
 html += '<p>';
@@ -1193,6 +1192,7 @@ html += '<button onclick="location=\'http://www.opasopa.net/prefatria/\';" style
 	'Νέος «Πρεφαδόρος»</button>';
 Tools.dialogos(html, '3.2cm', '1.2cm', 'dialogosExo');
 return;
+/*
 */
 
 		var ico = getelid('controlPanelIcon');

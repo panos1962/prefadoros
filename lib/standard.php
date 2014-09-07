@@ -350,7 +350,7 @@ class Page {
 		global $globals;
 		?>
 		<script type="text/javascript" src="<?php
-			print $globals->server . $script; ?>.js"></script>
+			print $globals->server . $script; ?>.js?x=1"></script>
 		<?php
 	}
 
