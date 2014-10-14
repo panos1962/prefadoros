@@ -739,7 +739,7 @@ class Page {
 			<?php
 		}
 		?>
-		[&nbsp;<a target="_blank" href="http://www.opasopa.net/prefatria"
+		[&nbsp;<a target="_blank" href="http://www.prefadoros.com"
 			class="data"><span style="color: blue; background-color: yellow;
 			font-weight: bold; font-style: normal; font-family: sans-serif;
 			padding: 2px;">ΝΕΟ!</span>&nbsp;(beta)</a>&nbsp;]
