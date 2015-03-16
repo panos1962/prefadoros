@@ -1,0 +1,1 @@
+A web version of the "prefa" game as played in Greece ([πρέφα](http://el.wikipedia.org/wiki/%CE%A0%CF%81%CE%AD%CF%86%CE%B1)). The game is a variant of the Russian game [preferans](http://en.wikipedia.org/wiki/Preferans), which in turn is a sophisticated variant of the Austrian game [Préférence](http://en.wikipedia.org/wiki/Pr%C3%A9f%C3%A9rence).
